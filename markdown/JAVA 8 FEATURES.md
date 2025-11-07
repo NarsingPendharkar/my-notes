@@ -174,6 +174,7 @@ reduce()
 | --- | --- |
 | **map()** | **flatMap()** |
 | It does only mapping. | It performs mapping as well as flattening |
+| It does only . | It  mapping as well as flattening |
 | It is one-to-one mapping. | It is one-to-many mapping. |
 | Produces a stream of value. | Produces a stream of stream value. |
 | Use this method when map is producing single value for each input value. | Use this method when map is producing multiple values for each input value. |
