@@ -126,8 +126,11 @@ title: Class Loader and JVM Concepts
 
 > **Example:**
 ```java
-Optional<String> name = Optional.ofNullable(null);
-System.out.println(name.orElse("Default Value"));
+public class Home{
+public static void main(String args[]){
+System.out.println("hello");
+}
+}
 ```
 
 
