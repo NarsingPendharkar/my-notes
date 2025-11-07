@@ -99,7 +99,7 @@ title: Class Loader and JVM Concepts
   getting any errors. But, the main method will not be treated as the
   entry point to the application or the program.
 
-## What is the Wrapper class in Java**
+## What is the Wrapper class in Java ?
 
 - Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types.
 
