@@ -170,7 +170,7 @@ reduce()
 
 1. **map() & Parallel faltMap() difference ?**
 
-|  |  |
+|  |  |  |
 | --- | --- | --- |
 | **map()** | **flatMap()** | **te=wi**
 | It does only mapping. | It performs mapping as well as flattening |
