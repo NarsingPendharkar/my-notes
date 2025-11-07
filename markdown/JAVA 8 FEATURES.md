@@ -170,9 +170,9 @@ reduce()
 
 1. **map() & Parallel faltMap() difference ?**
 
-|  |  |  |
-| --- | --- | --- |
-| **map()** | **flatMap()** | **te=wi**
+|  |  |
+| --- | --- |
+| **map()** | **flatMap()** |
 | It does only mapping. | It performs mapping as well as flattening |
 | It is one-to-one mapping. | It is one-to-many mapping. |
 | Produces a stream of value. | Produces a stream of stream value. |
