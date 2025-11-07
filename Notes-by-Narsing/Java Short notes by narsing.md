@@ -50,7 +50,9 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 ## 🖼️ Diagram
 
-![JVM Architecture](./media/image15.png)
+
+![](./media/media/image15.emf){width="3.201388888888889in"
+height="1.5902777777777777in"}
 
 > *(If you had an `.emf` file, convert it to `.png` for better GitHub compatibility.)*
 
