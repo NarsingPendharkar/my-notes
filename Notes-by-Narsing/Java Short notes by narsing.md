@@ -50,49 +50,48 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 
 
-## What is Class Loader ?
+---
+title: Class Loader and JVM Concepts
+---
 
-- It is a part of JRE which loads the classes and interfaces dynamically
-  into JVM
+# ⚙️ Class Loader, JVM, JRE, and JDK
 
-## Difference between JVM, JRE, and JDK.
+## 📦 What is a Class Loader?
 
-- JDK : Java Development kit is software kit which is required develop
-  ,compile and run the java applications in the machine
+- It is a part of **JRE** which **loads classes and interfaces dynamically** into the **JVM** at runtime.  
+- It helps in loading bytecode when required, ensuring memory efficiency.
 
-- JRE : Java Runtime Environment is the software package that provide
-  the required classes and libraries to run the java application
+---
 
-- JVM : Java Virtual Machine is responsible for converting byte code
-  into machine language
+## 🔁 Difference Between JVM, JRE, and JDK
 
-![](./media/media/image16.jpeg){width="5.596665573053368in"
-height="1.46in"}
+| Component | Description |
+|------------|--------------|
+| **JDK (Java Development Kit)** | A complete software development kit used to **develop, compile, and run** Java applications. It includes JRE + development tools (compiler, debugger, etc.). |
+| **JRE (Java Runtime Environment)** | Provides the **libraries, class files, and JVM** necessary to **run** Java applications. |
+| **JVM (Java Virtual Machine)** | Converts **bytecode** into **machine code** and executes it. It is platform dependent but provides platform independence to Java code. |
 
-**What are the differences between Java and C++?**
+---
 
-  ----------------------------------------------------------------------
-  Basis          C++                           Java
-  -------------- ----------------------------- -------------------------
-  Platform       C++ is Platform Dependent     Java is Platform
-                                               Independent
+![JVM, JRE, JDK Diagram](./media/media/image16.jpeg)
 
-  Application    C++ is mainly used for System Java is Mainly used for
-                 Programming                   Application Programming
+---
 
-  Hardware       C++ is nearer to hardware     Java is not so
-                                               interactive with hardware
+## 🆚 Differences Between Java and C++
 
-  Global Scope   C++ supports global and       Java doesn't support
-                 namespace scope.              global scope.
+| **Basis** | **C++** | **Java** |
+|------------|----------|-----------|
+| **Platform** | Platform Dependent | Platform Independent |
+| **Application Type** | Mainly used for **System Programming** | Mainly used for **Application Programming** |
+| **Hardware Interaction** | Closer to hardware | Less interactive with hardware |
+| **Global Scope** | Supports **global and namespace scope** | Does **not support** global scope |
+| **Feature Support** | Supports **goto, pointers, call by reference** (not in Java) | Supports **threads, documentation comments** (not in C++) |
 
-  Not Supporting Functionality supported in    Functionality supported
-                 Java but not in C++ are:      in C++ but not in Java
-                 thread support documentation  are:goto Pointers Call by
-                 comment                       reference
-  ----------------------------------------------------------------------
+---
 
-## 
+> 🧠 **Summary:**  
+> - Java simplifies development by managing memory and platform differences internally.  
+> - C++ offers more hardware control but requires manual memory management.
 
 ## What will happen if we declare don't declare the main as static?
 
