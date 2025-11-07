@@ -1,5 +1,5 @@
 **Hibernate**
-##narsing
+## narsing
 ## What is Hibernate? Why is it used?
 
 **Answer:** Hibernate is a object relational mapping framework which maps the java classes to the database tables and java data types to SQL data types automatically and generates the queries automatically.
