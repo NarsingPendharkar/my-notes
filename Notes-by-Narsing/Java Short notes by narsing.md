@@ -1,6 +1,4 @@
----
-title: Basics of Class and Object
----
+
 
 # 🧠 Basics of Class and Object
 
