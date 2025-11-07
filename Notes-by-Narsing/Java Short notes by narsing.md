@@ -125,21 +125,12 @@ title: Class Loader and JVM Concepts
   attributes (fields/variables) and behaviours (methods).
 
 > **Example:**
+```java
+Optional<String> name = Optional.ofNullable(null);
+System.out.println(name.orElse("Default Value"));
+```
 
-**class** **Car** {
 
-**String** brand;
-
-**int** speed;
-
-**void** **display** () {
-
-**System**.***out***.**println**(brand + \" is running at \" + speed +
-\" km/h\");
-
-}
-
-}
 
 ![](./media/media/image17.png){width="7.268055555555556in"
 height="4.107638888888889in"}
