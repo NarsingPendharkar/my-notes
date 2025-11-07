@@ -168,13 +168,30 @@ reduce()
 | The performance is faster / high. | The performance is slower / low. |
 | Order is maintained | Order is not maintained |
 
-1. **map() & Parallel faltMap() difference ?**
+# 🧩 Difference Between `map()` and `flatMap()` in Java Stream API
 
-|  |  |
-| --- | --- |
-| **map()** | **flatMap()** |
-| It does only mapping. | It performs mapping as well as flattening |
-| It is one-to-one mapping. | It is one-to-many mapping. |
-| Produces a stream of value. | Produces a stream of stream value. |
-| Use this method when map is producing single value for each input value. | Use this method when map is producing multiple values for each input value. |
-| Using map() we are adding 2 lists, so the output will be list containing lists.  [1, 2], [3, 4] -> [ [1, 2], [3, 4] ] | Using flatMap() we are adding 2 lists, so the output will be list containing elements.  [1, 2], [3, 4] -> [ 1, 2, 3, 4 ] |
+| Feature | `map()` | `flatMap()` |
+|:--------|:--------|:-------------|
+| **Operation** | Performs only **mapping** | Performs **mapping + flattening** |
+| **Mapping Type** | One-to-One mapping | One-to-Many mapping |
+| **Output Type** | Produces a stream of **values** | Produces a stream of **flattened values** |
+| **Use Case** | When each input maps to **a single output** | When each input maps to **multiple outputs** |
+| **Example (List Combination)** | `[ [1, 2], [3, 4] ] ➜ [ [1, 2], [3, 4] ]` | `[ [1, 2], [3, 4] ] ➜ [1, 2, 3, 4]` |
+| **When to Use** | Use when mapping a value to another single value | Use when mapping a value to a stream or collection and need to **flatten** it |
+
+---
+
+### 🔍 Example
+
+```java
+List<List<Integer>> numbers = List.of(List.of(1, 2), List.of(3, 4));
+
+// Using map() ➜ Stream<List<Integer>>
+List<List<Integer>> mapped = numbers.stream()
+    .map(list -> list)
+    .toList(); // [[1, 2], [3, 4]]
+
+// Using flatMap() ➜ Stream<Integer>
+List<Integer> flatMapped = numbers.stream()
+    .flatMap(List::stream)
+    .toList(); // [1, 2, 3, 4]
