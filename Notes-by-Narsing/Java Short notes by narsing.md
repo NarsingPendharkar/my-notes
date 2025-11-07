@@ -2,52 +2,58 @@
 title: Basics of Class and Object
 ---
 
-## Is Java Platform Independent if then how?
+# 🧠 Basics of Class and Object
 
-- Yes , Because when we execute java code complier convert that code
-  into bite code and bite code is platform independent but to read this,
-  we need JVM in machine.
+## 💻 Is Java Platform Independent? If yes, how?
 
-## What are the top Java Features?
+Yes!  
+When we execute Java code, the **compiler** converts it into **bytecode**.  
+This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
 
-- Simple: Java is simple and easy to learn
+> 🔹 **Key Point:** Bytecode runs on JVM, not directly on the OS — that’s what makes Java platform independent.
 
-- Platform Independent : Means we can run same program in any machine
+---
 
-- Object Oriented : Java support oops features like class , object ,
-  Inheritance , Polymorphism
+## 🌟 Top Java Features
 
-- Secured
+| Feature | Description |
+|----------|--------------|
+| **Simple** | Easy to learn and use |
+| **Platform Independent** | Same code can run on any machine having JVM |
+| **Object-Oriented** | Supports OOPs concepts like Class, Object, Inheritance, Polymorphism |
+| **Secure** | Provides runtime security and bytecode verification |
+| **Robust** | Strong memory management and exception handling |
+| **Garbage Collection** | Automatic memory cleanup |
+| **Multithreading** | Allows concurrent execution of multiple threads |
+| **High Performance** | Uses JIT (Just-In-Time) compiler for optimized execution |
 
-- Robust
+---
 
-- Garbage collection
+## ⚙️ What is JVM?
 
-- Multithreading
+- **JVM** stands for **Java Virtual Machine**.  
+- It is responsible for converting **bytecode** into **machine code**.  
+- When a Java program is compiled, the **compiler** creates a `.class` file containing bytecode.  
+- The **JVM** interprets this bytecode and executes it on the underlying machine.
 
-- High Performance
+> 🧩 JVM = Bridge between Java bytecode and your computer hardware.
 
-## What is JVM?
+---
 
-- JVM stands for java virtual machine
+## 🚀 What is JIT?
 
-- It is used to convert java program into machine language
+- **JIT** stands for **Just-In-Time Compiler**.  
+- It is a part of **JVM** that improves performance by compiling bytecode into **native machine code** at runtime.  
+- This reduces interpretation overhead and makes Java programs run faster.
 
-- When we compile program compiler convert that into byte code or .class
-  file and JVM convert that file into machine language and perform the
-  task.
+---
 
-## What is JIT ?
+## 🖼️ Diagram
 
-- JIT stands for Just In Time
+![JVM Architecture](./media/image15.png)
 
-- JIT is part of JVM and It is responsible for converting byte code into
-  machine language
+> *(If you had an `.emf` file, convert it to `.png` for better GitHub compatibility.)*
 
-- 
-
-![](./media/media/image15.emf){width="3.201388888888889in"
-height="1.5902777777777777in"}
 
 ## What is Class Loader ?
 
