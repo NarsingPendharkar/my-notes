@@ -1,97 +1,95 @@
+
+
+# 🧠 Basics of Class and Object
+
+## 💻 Is Java Platform Independent? If yes, how?
+
+Yes!  
+When we execute Java code, the **compiler** converts it into **bytecode**.  
+This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
+
+> 🔹 **Key Point:** Bytecode runs on JVM, not directly on the OS — that’s what makes Java platform independent.
+
 ---
-title: Basics of Class and Object
+
+## 🌟 Top Java Features
+
+| Feature | Description |
+|----------|--------------|
+| **Simple** | Easy to learn and use |
+| **Platform Independent** | Same code can run on any machine having JVM |
+| **Object-Oriented** | Supports OOPs concepts like Class, Object, Inheritance, Polymorphism |
+| **Secure** | Provides runtime security and bytecode verification |
+| **Robust** | Strong memory management and exception handling |
+| **Garbage Collection** | Automatic memory cleanup |
+| **Multithreading** | Allows concurrent execution of multiple threads |
+| **High Performance** | Uses JIT (Just-In-Time) compiler for optimized execution |
+
 ---
 
-## Is Java Platform Independent if then how?
+## ⚙️ What is JVM?
 
-- Yes , Because when we execute java code complier convert that code
-  into bite code and bite code is platform independent but to read this,
-  we need JVM in machine.
+- **JVM** stands for **Java Virtual Machine**.  
+- It is responsible for converting **bytecode** into **machine code**.  
+- When a Java program is compiled, the **compiler** creates a `.class` file containing bytecode.  
+- The **JVM** interprets this bytecode and executes it on the underlying machine.
 
-## What are the top Java Features?
+> 🧩 JVM = Bridge between Java bytecode and your computer hardware.
 
-- Simple: Java is simple and easy to learn
+---
 
-- Platform Independent : Means we can run same program in any machine
+## 🚀 What is JIT?
 
-- Object Oriented : Java support oops features like class , object ,
-  Inheritance , Polymorphism
+- **JIT** stands for **Just-In-Time Compiler**.  
+- It is a part of **JVM** that improves performance by compiling bytecode into **native machine code** at runtime.  
+- This reduces interpretation overhead and makes Java programs run faster.
 
-- Secured
+---
 
-- Robust
 
-- Garbage collection
 
-- Multithreading
+---
+title: Class Loader and JVM Concepts
+---
 
-- High Performance
+# ⚙️ Class Loader, JVM, JRE, and JDK
 
-## What is JVM?
+## 📦 What is a Class Loader?
 
-- JVM stands for java virtual machine
+- It is a part of **JRE** which **loads classes and interfaces dynamically** into the **JVM** at runtime.  
+- It helps in loading bytecode when required, ensuring memory efficiency.
 
-- It is used to convert java program into machine language
+---
 
-- When we compile program compiler convert that into byte code or .class
-  file and JVM convert that file into machine language and perform the
-  task.
+## 🔁 Difference Between JVM, JRE, and JDK
 
-## What is JIT ?
+| Component | Description |
+|------------|--------------|
+| **JDK (Java Development Kit)** | A complete software development kit used to **develop, compile, and run** Java applications. It includes JRE + development tools (compiler, debugger, etc.). |
+| **JRE (Java Runtime Environment)** | Provides the **libraries, class files, and JVM** necessary to **run** Java applications. |
+| **JVM (Java Virtual Machine)** | Converts **bytecode** into **machine code** and executes it. It is platform dependent but provides platform independence to Java code. |
 
-- JIT stands for Just In Time
+---
 
-- JIT is part of JVM and It is responsible for converting byte code into
-  machine language
+![JVM, JRE, JDK Diagram](./media/media/image16.jpeg)
 
-- 
+---
 
-![](./media/media/image15.emf){width="3.201388888888889in"
-height="1.5902777777777777in"}
+## 🆚 Differences Between Java and C++
 
-## What is Class Loader ?
+| **Basis** | **C++** | **Java** |
+|------------|----------|-----------|
+| **Platform** | Platform Dependent | Platform Independent |
+| **Application Type** | Mainly used for **System Programming** | Mainly used for **Application Programming** |
+| **Hardware Interaction** | Closer to hardware | Less interactive with hardware |
+| **Global Scope** | Supports **global and namespace scope** | Does **not support** global scope |
+| **Feature Support** | Supports **goto, pointers, call by reference** (not in Java) | Supports **threads, documentation comments** (not in C++) |
 
-- It is a part of JRE which loads the classes and interfaces dynamically
-  into JVM
+---
 
-## Difference between JVM, JRE, and JDK.
-
-- JDK : Java Development kit is software kit which is required develop
-  ,compile and run the java applications in the machine
-
-- JRE : Java Runtime Environment is the software package that provide
-  the required classes and libraries to run the java application
-
-- JVM : Java Virtual Machine is responsible for converting byte code
-  into machine language
-
-![](./media/media/image16.jpeg){width="5.596665573053368in"
-height="1.46in"}
-
-**What are the differences between Java and C++?**
-
-  ----------------------------------------------------------------------
-  Basis          C++                           Java
-  -------------- ----------------------------- -------------------------
-  Platform       C++ is Platform Dependent     Java is Platform
-                                               Independent
-
-  Application    C++ is mainly used for System Java is Mainly used for
-                 Programming                   Application Programming
-
-  Hardware       C++ is nearer to hardware     Java is not so
-                                               interactive with hardware
-
-  Global Scope   C++ supports global and       Java doesn't support
-                 namespace scope.              global scope.
-
-  Not Supporting Functionality supported in    Functionality supported
-                 Java but not in C++ are:      in C++ but not in Java
-                 thread support documentation  are:goto Pointers Call by
-                 comment                       reference
-  ----------------------------------------------------------------------
-
-## 
+> 🧠 **Summary:**  
+> - Java simplifies development by managing memory and platform differences internally.  
+> - C++ offers more hardware control but requires manual memory management.
 
 ## What will happen if we declare don't declare the main as static?
 
@@ -99,13 +97,13 @@ height="1.46in"}
   getting any errors. But, the main method will not be treated as the
   entry point to the application or the program.
 
-**What is the Wrapper class in Java**
+## What is the Wrapper class in Java ?
 
-## Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types.
+- Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types.
 
-## The primitive data types are the ones from which further data types could be created. For example, integers can further lead to the construction of long, byte, short, etc. On the other hand, the string cannot, hence it is not primitive.
+- The primitive data types are the ones from which further data types could be created. For example, integers can further lead to the construction of long, byte, short, etc. On the other hand, the string cannot, hence it is not primitive.
 
-## Getting back to the wrapper class, Java contains 8 wrapper classes. They are Boolean, Byte, Short, Integer, Character, Long, Float, and Double. Further, custom wrapper classes can also be created in Java which is similar to the concept of Structure in the C programming language. We create our own wrapper class with the required data types.
+- Getting back to the wrapper class, Java contains 8 wrapper classes. They are Boolean, Byte, Short, Integer, Character, Long, Float, and Double. Further, custom wrapper classes can also be created in Java which is similar to the concept of Structure in the C programming language. We create our own wrapper class with the required data types.
 
 ## Why do we need wrapper classes?
 
@@ -127,21 +125,15 @@ height="1.46in"}
   attributes (fields/variables) and behaviours (methods).
 
 > **Example:**
-
-**class** **Car** {
-
-**String** brand;
-
-**int** speed;
-
-**void** **display** () {
-
-**System**.***out***.**println**(brand + \" is running at \" + speed +
-\" km/h\");
-
+```java
+public class Home{
+public static void main(String args[]){
+System.out.println("hello");
 }
-
 }
+```
+
+
 
 ![](./media/media/image17.png){width="7.268055555555556in"
 height="4.107638888888889in"}
