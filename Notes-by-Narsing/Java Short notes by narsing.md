@@ -2,7 +2,7 @@
 
 # 🧠 Basics of Class and Object
 
-## 💻 Is Java Platform Independent? If yes, how?
+### 💻 Is Java Platform Independent? If yes, how?
 
 Yes!  
 When we execute Java code, the **compiler** converts it into **bytecode**.  
@@ -12,22 +12,22 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 ---
 
-## 🌟 Top Java Features
+### 🌟 Top Java Features
 
-| Feature | Description |
-|----------|--------------|
-| **Simple** | Easy to learn and use |
-| **Platform Independent** | Same code can run on any machine having JVM |
-| **Object-Oriented** | Supports OOPs concepts like Class, Object, Inheritance, Polymorphism |
-| **Secure** | Provides runtime security and bytecode verification |
-| **Robust** | Strong memory management and exception handling |
-| **Garbage Collection** | Automatic memory cleanup |
-| **Multithreading** | Allows concurrent execution of multiple threads |
-| **High Performance** | Uses JIT (Just-In-Time) compiler for optimized execution |
+| Feature                  | Description                                                  |
+| :----------------------- | :----------------------------------------------------------- |
+| **Simple**               | Easy to learn and use                                        |
+| **Platform Independent** | Same code can run on any machine having JVM                  |
+| **Object-Oriented**      | Supports OOPs concepts like Class, Object, Inheritance, Polymorphism |
+| **Secure**               | Provides runtime security and bytecode verification          |
+| **Robust**               | Strong memory management and exception handling              |
+| **Garbage Collection**   | Automatic memory cleanup                                     |
+| **Multithreading**       | Allows concurrent execution of multiple threads              |
+| **High Performance**     | Uses JIT (Just-In-Time) compiler for optimized execution     |
 
 ---
 
-## ⚙️ What is JVM?
+### ⚙️ What is JVM?
 
 - **JVM** stands for **Java Virtual Machine**.  
 - It is responsible for converting **bytecode** into **machine code**.  
@@ -38,7 +38,7 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 ---
 
-## 🚀 What is JIT?
+### 🚀 What is JIT?
 
 - **JIT** stands for **Just-In-Time Compiler**.  
 - It is a part of **JVM** that improves performance by compiling bytecode into **native machine code** at runtime.  
@@ -47,12 +47,6 @@ This bytecode is **platform independent**, meaning it can run on any system that
 ---
 
 
-
----
-title: Class Loader and JVM Concepts
----
-
-# ⚙️ Class Loader, JVM, JRE, and JDK
 
 ## 📦 What is a Class Loader?
 
@@ -91,13 +85,13 @@ title: Class Loader and JVM Concepts
 > - Java simplifies development by managing memory and platform differences internally.  
 > - C++ offers more hardware control but requires manual memory management.
 
-## What will happen if we declare don't declare the main as static?
+### What will happen if we declare don't declare the main as static?
 
 - We can declare the main method without using static and without
   getting any errors. But, the main method will not be treated as the
   entry point to the application or the program.
 
-## What is the Wrapper class in Java ?
+### What is the Wrapper class in Java ?
 
 - Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types.
 
@@ -105,21 +99,14 @@ title: Class Loader and JVM Concepts
 
 - Getting back to the wrapper class, Java contains 8 wrapper classes. They are Boolean, Byte, Short, Integer, Character, Long, Float, and Double. Further, custom wrapper classes can also be created in Java which is similar to the concept of Structure in the C programming language. We create our own wrapper class with the required data types.
 
-## Why do we need wrapper classes?
+### Why do we need wrapper classes?
 
-## 
+- The wrapper class is an object class that encapsulates the primitive data types, and we need them for the following reasons:
+- Wrapper classes are final and immutable
+- Provides methods like valueOf(), parseInt(), etc.
+- It provides the feature of autoboxing and unboxing.
 
-## The wrapper class is an object class that encapsulates the primitive data types, and we need them for the following reasons:
-
-## Wrapper classes are final and immutable
-
-## Provides methods like valueOf(), parseInt(), etc.
-
-## It provides the feature of autoboxing and unboxing.
-
-## 
-
-## What is a class?
+### What is a class?
 
 - A class is a blueprint/template for creating objects. It defines
   attributes (fields/variables) and behaviours (methods).
@@ -127,9 +114,9 @@ title: Class Loader and JVM Concepts
 > **Example:**
 ```java
 public class Home{
-public static void main(String args[]){
-System.out.println("hello");
-}
+	public static void main(String args[]){
+		System.out.println("hello");
+	}
 }
 ```
 
@@ -138,115 +125,135 @@ System.out.println("hello");
 ![](./media/media/image17.png){width="7.268055555555556in"
 height="4.107638888888889in"}
 
-## What is an object?
+### What is an object?
 
 - An object is an instance of a class. It has state (values of fields)
-  and behaviour (methods it can perform).
+  and behavior (methods it can perform).
 
 **Example:**
 
-**public** **class** **[Main]{.underline}** {
-
-**public** **static** **void** **main** (**String** \[\] args) {
-
-**[Car]{.underline}** **my Car** = **new** **[Car]{.underline}** (); //
-Creating an object
-
-myCar.brand = \"Tesla\";
-
-myCar.speed = **100**;
-
-myCar.display();
-
+```java
+public class Main {
+    public static void main (String [] args) {
+        my Car = new Car(); //Creating an object
+        myCar.brand = "Tesla";
+        myCar.speed = 100;
+        myCar.display();
+    }
 }
+```
 
-}
 
-## How do you create an object ?
+
+### How do you create an object ?
 
 - [Using **new** keyword]{.underline}
 
-> **Car** myCar = **new** **Car**();
+> ```java
+> Car myCar = new Car();
+> ```
+>
+> 
 
 - Using reflection (Class.forName()):
 
-> Car obj = (Car) Class.forName(\"Car\").newInstance();
+> ```java
+> Car obj = (Car) Class.forName("Car").newInstance();
+> ```
 
 - Using clone method (clone()):
 
+> ```java
 > Car car2 = (Car) car1.clone();
+> ```
 
 - Using deserialization (ObjectInputStream):
 
+> ```java
 > ObjectInputStream in = **new** ObjectInputStream(**new**
 > FileInputStream(\"file.dat\"));Car = (Car) in.readObject();
+> ```
+>
+> 
 
 **What is the difference between a class and an object?**
 
-  --------------------------------------------------
-  Feature      Class             Object
-  ------------ ----------------- -------------------
-  Definition   Blueprint for     Instance of a class
-               objects           
 
-  Memory       No memory         Memory is allocated
-               allocated         
 
-  Example      Car class         Car myCar = new
-                                 Car();
-  --------------------------------------------------
+| Feature    | Class                | Object                |
+| ---------- | -------------------- | --------------------- |
+| Defination | Blueprint for object | Instance of class     |
+| Memory     | No Memory            | Memory is allocated   |
+| Example    | Car class            | Car carObj=new Car(); |
 
-Constructors
+--------------------------------------------------
 
-##  What is a constructor?
+
+# Constructors
+
+###  What is a constructor?
 
 - A constructor is a special method used to initialize objects.
 
 **Example:**
 
-**class** **Car** {
+```java
+class Car {
 
-**String** brand;
+String brand;
 
-**Car**(**String** b) { // Constructor
+Car(String b) { // Constructor
 
 brand = b;
 
 }
 
 }
+```
 
-## What are the types of constructors ?
+
+
+### What are the types of constructors ?
 
 - **Default Constructor (No parameters)**
 
-> class Car **{**
+> ```java
+> class Car {
+> 
+> Car( { System.out.println("Car created!");
+> }
+> 
+> }
+> ```
 >
-> Car**(** **{** System**.**out**.**println**(**\"Car created!\"**);**
-> **}**
->
-> **}**
+> 
 
 - **Parameterized Constructor (Takes parameters)**
 
-> Car**(**String brand**)** **{** **this.**brand **=** brand**;** **}**
+> ```java
+> Car(String brand) { this.brand = brand; }
+> ```
+>
+> 
 
 - **Copy Constructor (Copies values from another object)**
 
-Car**(**Car c**)** **{** **this.**brand **=** c**.**brand**;** **}**
+```java
+Car(Car c) { this.brand = c.brand; }
+```
 
 ![](./media/media/image18.png){width="3.208581583552056in"
 height="2.438779527559055in"}
 
-## What happens if a class doesn't have a constructor?
+### What happens if a class doesn't have a constructor?
 
 - JVM provides a default constructor automatically.
 
-## Can a constructor be private?
+### Can a constructor be private?
 
 - Yes, it is used in the Singleton pattern:
 
-> Example :
+> **Example :**
 >
 > **public** **class** Singleton {
 >
@@ -278,13 +285,15 @@ height="2.438779527559055in"}
 >
 > }
 >
-> **How do you design an immutable class in Java? What rules should you
-> follow?**
->
-> An **immutable class** is a class whose objects cannot be modified
-> once created.
->
-> To design an immutable class in Java, follow these **rules**:
+
+### How do you design an immutable class in Java? What rules should you follow?
+
+
+
+An **immutable class** is a class whose objects cannot be modified
+once created.
+
+To design an immutable class in Java, follow these **rules**:
 
 1.  **Declare the class as final** → So it cannot be subclassed.
 
@@ -302,50 +311,56 @@ height="2.438779527559055in"}
 6.  **Return copies instead of references** in getter methods if fields
     are mutable.
 
-> **Classic Immutable Class**
+##### **Classic Immutable Class**
 
-**public** **final** **class** Immutable {
+```java
+public final class Immutable {
 
-**private** **final** String name;
+    private final String name;
 
-**private** **final** **int** id;
+    private final int id;
 
-**public** Immutable(String name, **int** id) {
+    public Immutable(String name, int id) {
 
-**super**();
+        super();
 
-**this**.name = name;
+        this.name = name;
 
-**this**.id = id;
+        this.id = id;
 
-}
+    }
 
-**public** String getName() {
+    public String getName() {
 
-**return** name;
+        return name;
 
-}
+    }
 
-**public** **int** getId() {
+    public int getId() {
 
-**return** id;
+        return id;
 
-}
-
-}
-
-> ✅ No setters,\
-> ✅ Fields are private final,\
-> ✅ Class is final,\
-> ➡️ Hence, **Immutable**
->
-> **Modern Approach (Using record in Java 16+)**
-
-**public** **record** Immutable (**int** id,String name) {
+    }
 
 }
+```
 
-> 📘 record automatically makes the class:
+
+
+✅ No setters,\
+✅ Fields are private final,\
+✅ Class is final,\
+➡️ Hence, **Immutable**
+
+**Modern Approach (Using record in Java 16+)**
+
+```java
+public record Immutable (int id,String name) {
+
+}
+```
+
+📘 record automatically makes the class:
 
 - final
 
@@ -354,7 +369,7 @@ height="2.438779527559055in"}
 - No setters generated\
   ➡️ **Immutable by default**
 
-> **✅ Key Benefits**
+**✅ Key Benefits**
 
 - Thread-safe by default (no synchronization needed)
 
@@ -366,9 +381,9 @@ height="2.438779527559055in"}
 
 ## What is the difference between a method and a constructor?
 
-  ------------------------------------------------------------------------
+------------------------------------------------------------------------
   Feature       Constructor                        Method
-  ------------- ---------------------------------- -----------------------
+------------- ---------------------------------- -----------------------
   Purpose       Initializes an object              Defines behavior of an
                                                    object
 
@@ -680,9 +695,9 @@ Object-Oriented Concepts
 
 ## What is the difference between an instance variable and a local variable?
 
-  -----------------------------------------------------------
+-----------------------------------------------------------
   Feature      Instance Variable      Local Variable
-  ------------ ---------------------- -----------------------
+------------ ---------------------- -----------------------
   Scope        Exists throughout      Exists within a
                object life            method/block
 
@@ -740,9 +755,9 @@ be GC
 
 ## Q17: What is the difference between shallow copy and deep copy?
 
-  -----------------------------------------------------------
+-----------------------------------------------------------
   Feature      Shallow Copy               Deep Copy
-  ------------ -------------------------- -------------------
+------------ -------------------------- -------------------
   Definition   Copies reference, not      Copies entire
                actual data                object
 
@@ -949,9 +964,9 @@ rather than individual objects.
 
 # Comparison: this vs static
 
-  -----------------------------------------------------------------------
+-----------------------------------------------------------------------
   Feature               this Keyword        static Keyword
-  --------------------- ------------------- -----------------------------
+--------------------- ------------------- -----------------------------
   Meaning               Refers to the       Belongs to the class
                         current object      
 
@@ -1004,9 +1019,9 @@ height="3.25in"}
 
 ## What is the difference between an Object and a Class?
 
-  --------------------------------------------------------
+--------------------------------------------------------
   Feature      Class                   Object
-  ------------ ----------------------- -------------------
+------------ ----------------------- -------------------
   Definition   Blueprint for creating  Instance of a class
                objects                 
 
@@ -1109,9 +1124,9 @@ Output:
 
 ## What are the types of inheritance?
 
-  -----------------------------------------------------------------------
+-----------------------------------------------------------------------
   Type             Description
-  ---------------- ------------------------------------------------------
+---------------- ------------------------------------------------------
   Single           One class inherits another (class B extends A)
 
   Multilevel       A → B → C (A is parent of B, B is parent of C)
@@ -1364,9 +1379,9 @@ obj.makeSound();
 
 ## What is the difference between Abstract Class and Interface?
 
-  -----------------------------------------------------------------------
+-----------------------------------------------------------------------
   Feature          Abstract Class                 Interface
-  ---------------- ------------------------------ -----------------------
+---------------- ------------------------------ -----------------------
   Methods          Can have abstract & concrete   Only abstract methods
                    methods                        (before 8)
 
@@ -1440,9 +1455,9 @@ obj.makeSound();
 
 ## What is the difference between List, Set, and Map?
 
-  ---------------------------------------------------------------------------
+---------------------------------------------------------------------------
   Feature           List           Set                 Map
-  ----------------- -------------- ------------------- ----------------------
+----------------- -------------- ------------------- ----------------------
   Order             Maintains      No order guaranteed Keys are unique,
                     insertion                          values can be
                     order                              duplicate
@@ -1485,9 +1500,9 @@ System.out.println(map); // Output: {1=, 2=[Python]{.underline}}
 
 ## What are the differences between ArrayList and LinkedList
 
-  ------------------------------------------------------------------
+------------------------------------------------------------------
   Feature         ArrayList                     LinkedList
-  --------------- ----------------------------- --------------------
+--------------- ----------------------------- --------------------
   Data Structure  **Dynamic array**             **Doubly Linked
                                                 List**
 
@@ -1507,9 +1522,9 @@ System.out.println(map); // Output: {1=, 2=[Python]{.underline}}
 
 **What is the difference between HashSet, LinkedHashSet, and TreeSet?**
 
-  ---------------------------------------------------------------
+---------------------------------------------------------------
   Feature       HashSet      LinkedHashSet        TreeSet
-  ------------- ------------ -------------------- ---------------
+------------- ------------ -------------------- ---------------
   Order         Unordered    Maintains insertion  Sorted
                              order                (Ascending)
 
@@ -1560,9 +1575,9 @@ System.out.println(treeSet); // Output: \[A, C, D, E, P\](Sorted)
 
 **What is the difference between HashMap, LinkedHashMap, and TreeMap?**
 
-  ---------------------------------------------------------------
+---------------------------------------------------------------
   Feature       HashMap      LinkedHashMap        TreeMap
-  ------------- ------------ -------------------- ---------------
+------------- ------------ -------------------- ---------------
   Order         Unordered    Maintains insertion  Sorted by keys
                              order                
 
@@ -1599,9 +1614,9 @@ order)
 
 **What is the difference between Vector and ArrayList?**
 
-  -------------------------------------------------------
+-------------------------------------------------------
   Feature           ArrayList      Vector
-  ----------------- -------------- ----------------------
+----------------- -------------- ----------------------
   Synchronization   Not            Synchronized
                     synchronized   (Thread-safe)
 
@@ -1614,9 +1629,9 @@ order)
 
 ## What is ConcurrentHashMap and how is it different from HashMap?
 
-  --------------------------------------------------------------
+--------------------------------------------------------------
   Feature       HashMap             ConcurrentHashMap
-  ------------- ------------------- ----------------------------
+------------- ------------------- ----------------------------
   Thread Safety Not thread-safe     Thread-safe (better than
                                     Hashtable)
 
@@ -1631,9 +1646,9 @@ synchronized HashMap issues.**
 
 ## What is the difference between fail-fast and fail-safe iterators?
 
-  --------------------------------------------------------------------------
+--------------------------------------------------------------------------
   Feature    Fail-Fast                             Fail-Safe
-  ---------- ------------------------------------- -------------------------
+---------- ------------------------------------- -------------------------
   Behavior   Throws                                Does not throw exception
              ConcurrentModificationException if    
              modified while iterating              
@@ -1774,9 +1789,9 @@ System.***out***.println(numLine);// remove from first \[5, 7, 3, 10,
 
 ##  When to Use What?
 
-  -------------------------------------------------------
+-------------------------------------------------------
   Use Case                     Best Choice
-  ---------------------------- --------------------------
+---------------------------- --------------------------
   Ordered collection with      List (ArrayList)
   duplicates                   
 
@@ -2319,9 +2334,9 @@ th.start();
 
 **Answer:**
 
-  --------------------------------------------------
+--------------------------------------------------
   Method    Description
-  --------- ----------------------------------------
+--------- ----------------------------------------
   start()   Starts a new thread and calls run()
             internally
 
@@ -2386,9 +2401,9 @@ reference:
 
 ### **Java Thread Methods and Their Uses**
 
-  ---------------------------------------------------------------------------
+---------------------------------------------------------------------------
   **Method**            **Use Case / Purpose**
-  --------------------- -----------------------------------------------------
+--------------------- -----------------------------------------------------
   start()               Starts a new thread and calls the run() method in a
                         separate execution thread.
 
@@ -2548,9 +2563,9 @@ height="0.6962029746281715in"}
 
 **Difference Between Callable and Runnable**
 
-  --------------------------------------------------------------------
+--------------------------------------------------------------------
   Feature          Runnable                   Callable
-  ---------------- -------------------------- ------------------------
+---------------- -------------------------- ------------------------
   Return Type      void                       Future\<V\> (returns a
                                               value)
 
@@ -2610,9 +2625,9 @@ executor.shutdown(); // output : 42
 
 **▶️ Types of ExecutorService**
 
-  -------------------------------------------------------------------
+-------------------------------------------------------------------
   Type                        Description
-  --------------------------- ---------------------------------------
+--------------------------- ---------------------------------------
   newFixedThreadPool(n)       Fixed number of threads in the pool.
 
   newCachedThreadPool()       Dynamically grows as needed, reuses
@@ -2871,9 +2886,9 @@ requests (typically HTTP), and generates a response (usually HTML).
 
 ## Difference between doGet() and doPost()?
 
-  -------------------------------------------------------
+-------------------------------------------------------
   Feature      doGet()               doPost()
-  ------------ --------------------- --------------------
+------------ --------------------- --------------------
   Data in URL? Yes (appended to URL) No (sent in request
                                      body)
 
@@ -2978,9 +2993,9 @@ chain.doFilter(req, res); // Pass request to next filter or
 
 ##  What is a ServletContext and ServletConfig?
 
-  ----------------------------------------------------------------
+----------------------------------------------------------------
   Feature   ServletContext                   ServletConfig
-  --------- -------------------------------- ---------------------
+--------- -------------------------------- ---------------------
   Scope     Application-wide (shared across  Specific to a single
             servlets)                        servlet
 
@@ -2995,9 +3010,9 @@ chain.doFilter(req, res); // Pass request to next filter or
 
 ## What is the difference between JSP and Servlet?
 
-  --------------------------------------------
+--------------------------------------------
   Feature       JSP           Servlet
-  ------------- ------------- ----------------
+------------- ------------- ----------------
   Type          HTML + Java   Pure Java code
 
   Performance   Slightly      Faster
@@ -3384,9 +3399,9 @@ Error:
 
 ## JSP vs JSTL: When to Use What?
 
-  -------------------------------------------------------------------------
+-------------------------------------------------------------------------
   Feature       JSP (Old Way)    JSTL (Best Practice)
-  ------------- ---------------- ------------------------------------------
+------------- ---------------- ------------------------------------------
   Print a       **\<%= name      **\<c:out value=\"\${name}\" /\>**
   Variable      %\>**            
 
@@ -3408,9 +3423,9 @@ Error:
 
 File Handling Classes & Their Uses
 
-  ------------------------------------------------------
+------------------------------------------------------
   Class              Purpose
-  ------------------ -----------------------------------
+------------------ -----------------------------------
   File               Represents file/directory path
 
   FileReader         Reads character data from a file
@@ -3576,9 +3591,9 @@ deleting files using java.io and java.nio packages.
 
 ## Difference between FileReader and FileInputStream?
 
-  --------------------------------------------
+--------------------------------------------
   FileReader           FileInputStream
-  -------------------- -----------------------
+-------------------- -----------------------
   Reads character data Reads **binary data**
 
   Uses buffering       Reads byte-by-byte
@@ -3592,9 +3607,9 @@ deleting files using java.io and java.nio packages.
 
 ## Difference between FileWriter and BufferedWriter?
 
-  -------------------------------------
+-------------------------------------
   FileWriter         BufferedWriter
-  ------------------ ------------------
+------------------ ------------------
   Writes directly to Uses an internal
   file               buffer
 
@@ -3689,10 +3704,10 @@ e.printStackTrace();
 
 ## List of Methods & Their Return Types
 
-  ----------------------------------------------------------------
+----------------------------------------------------------------
   Method                  Return     Purpose
                           Type       
-  ----------------------- ---------- -----------------------------
+----------------------- ---------- -----------------------------
   createNewFile()         boolean    Creates a new file
 
   delete()                boolean    Deletes a file
@@ -3728,9 +3743,9 @@ Desing patterns are the solution for the problems which are occurs every
 time during the development of application. Desing patterns are
 categorised below
 
-  -----------------------------------------------------------------
+-----------------------------------------------------------------
   Type          Purpose                    Examples
-  ------------- -------------------------- ------------------------
+------------- -------------------------- ------------------------
   Creational    Object Creation            Singleton, Factory,
                                            Builder
 
@@ -3912,9 +3927,9 @@ getVehicle(\"sfd\").drive();
 
 ## Basic Syntax
 
-  ---------------------------------
+---------------------------------
   Pattern   Description
-  --------- -----------------------
+--------- -----------------------
   .         Any character
 
   \\d       Digit \[0-9\]
@@ -3949,9 +3964,9 @@ getVehicle(\"sfd\").drive();
 
 ## **1. Basic Matchers**
 
-  ----------------------------------------------------------------
+----------------------------------------------------------------
   Matcher   Description              Example           Matches
-  --------- ------------------------ ----------------- -----------
+--------- ------------------------ ----------------- -----------
   .         Any character except     a.c with abc,     abc, a1c,
             newline                  a1c, a-c          a-c
 
@@ -3968,9 +3983,9 @@ getVehicle(\"sfd\").drive();
 
 ## **2. Quantifiers**
 
-  -----------------------------------------------------------------------
+-----------------------------------------------------------------------
   Quantifier   Meaning                 Example               Matches
-  ------------ ----------------------- --------------------- ------------
+------------ ----------------------- --------------------- ------------
   \*           0 or more characters in go\*gle with gogle,   gogle,
                word                    gooogle               gooogle
 
@@ -3989,9 +4004,9 @@ getVehicle(\"sfd\").drive();
 
 ## **3. Anchors**
 
-  ---------------------------------------------------------
+---------------------------------------------------------
   Anchor   Description       Example              Matches
-  -------- ----------------- -------------------- ---------
+-------- ----------------- -------------------- ---------
   \^       Start of string   \^Java with Java is  Java
                              best                 
 
@@ -4007,9 +4022,9 @@ getVehicle(\"sfd\").drive();
 
 ## **4. Predefined Character Classes**
 
-  ---------------------------------------------------------
+---------------------------------------------------------
   Class   Meaning             Example            Matches
-  ------- ------------------- ------------------ ----------
+------- ------------------- ------------------ ----------
   \\d     Digit \[0-9\]       \\d+ with abc123   123
 
   \\D     Non-digit           \\D+ with abc123   abc
@@ -4029,9 +4044,9 @@ getVehicle(\"sfd\").drive();
 
 ## **5. Groups & Capturing**
 
-  ----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
   Concept           Description      Example                                Match/Group
-  ----------------- ---------------- -------------------------------------- --------------------
+----------------- ---------------- -------------------------------------- --------------------
   ()                Capturing group  (abc)+ with abcabc                     abcabc
 
   (?:)              Non-capturing    (?:abc)+                               Matches without
@@ -4043,9 +4058,9 @@ getVehicle(\"sfd\").drive();
 
 ## **6. Lookahead & Lookbehind**
 
-  ------------------------------------------------------------
+------------------------------------------------------------
   Type         Description      Example             Matches
-  ------------ ---------------- ------------------- ----------
+------------ ---------------- ------------------- ----------
   (?=\...)     Positive         \\d(?=px) with 10px 0, 0
                lookahead        20px                
 
@@ -4061,9 +4076,9 @@ getVehicle(\"sfd\").drive();
 
 ## **7. Escape Characters**
 
-  ----------------------------------------------------
+----------------------------------------------------
   Escape   Meaning         Example           Matches
-  -------- --------------- ----------------- ---------
+-------- --------------- ----------------- ---------
   \\.      Matches literal a\\.b with a.b    a.b
            dot                               
 
@@ -4078,9 +4093,9 @@ getVehicle(\"sfd\").drive();
 
 ## **8. Common Patterns**
 
-  ---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
   Pattern                   Use Case             Example               Matches
-  ------------------------- -------------------- --------------------- ------------
+------------------------- -------------------- --------------------- ------------
   \[6-9\]\\d{9}             Indian mobile number 9876543210            Valid mobile
 
   \[A-Z\]{5}\\d{4}\[A-Z\]   PAN card             ABCDE1234F            Valid PAN
