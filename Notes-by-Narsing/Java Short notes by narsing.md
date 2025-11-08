@@ -1,3 +1,8 @@
+|      |      |      |      |
+| ---- | ---- | ---- | ---- |
+|      |      |      |      |
+|      |      |      |      |
+
 
 
 # 🧠 Basics of Class and Object
@@ -253,63 +258,49 @@ height="2.438779527559055in"}
 
 - Yes, it is used in the Singleton pattern:
 
-> **Example :**
->
-> **public** **class** Singleton {
->
-> **private** **static** Singleton *instance*;
->
-> **private** **Singleton**() {
->
-> }
->
-> **public** **static** Singleton **getInstance**() {
->
-> **if** (*instance* == **null**) {
->
-> *instance* = **new** Singleton();
->
-> }
->
-> **return** *instance*;
->
-> }
->
-> **public** **static** **void** **main**(String\[\] args) {
->
-> Singleton **[sig]{.underline}**=**new** Singleton();
->
-> *getInstance*();
->
-> }
->
-> }
->
+**Example :**
+
+```java
+public class Singleton {
+    private static Singleton instance;
+    private Singleton() {
+    }
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+    public static void main(String[] args) {
+        Singleton sig=new Singleton();
+        getInstance();
+
+    }
+
+}
+```
+
+---
+
+
 
 ### How do you design an immutable class in Java? What rules should you follow?
 
+An **immutable class** is a class whose objects cannot be modified once created.
 
-
-An **immutable class** is a class whose objects cannot be modified
-once created.
-
-To design an immutable class in Java, follow these **rules**:
+To design an immutable class in Java, follow these rules :
 
 1.  **Declare the class as final** → So it cannot be subclassed.
 
-2.  **Make all fields private and final** → So fields cannot be changed
-    after initialization.
-
+2.  **Make all fields private and final** → So fields cannot be changed after initialization.
+    
 3.  **Don't provide setters** → No method should modify fields.
 
-4.  **Initialize all fields in the constructor** → Assign values only
-    once.
-
-5.  **Perform deep copy for mutable objects** → Prevent external
-    modification.
-
-6.  **Return copies instead of references** in getter methods if fields
-    are mutable.
+4.  **Initialize all fields in the constructor** → Assign values only once.
+    
+5.  **Perform deep copy for mutable objects** → Prevent external modification.
+    
+6.  **Return copies instead of references** in getter methods if fields are mutable.
 
 ##### **Classic Immutable Class**
 
@@ -347,9 +338,9 @@ public final class Immutable {
 
 
 
-✅ No setters,\
-✅ Fields are private final,\
-✅ Class is final,\
+✅ No setters,
+✅ Fields are private final,
+✅ Class is final,
 ➡️ Hence, **Immutable**
 
 **Modern Approach (Using record in Java 16+)**
@@ -366,7 +357,7 @@ public record Immutable (int id,String name) {
 
 - Fields are private final
 
-- No setters generated\
+- No setters generated
   ➡️ **Immutable by default**
 
 **✅ Key Benefits**
@@ -377,23 +368,18 @@ public record Immutable (int id,String name) {
 
 - Ideal for DTOs and response objects in microservices
 
-# Methods & Object Behaviour
+# Methods & Object Behavior
 
-## What is the difference between a method and a constructor?
+### What is the difference between a method and a constructor?
 
-------------------------------------------------------------------------
-  Feature       Constructor                        Method
-------------- ---------------------------------- -----------------------
-  Purpose       Initializes an object              Defines behavior of an
-                                                   object
+| **Feature**     | **Constructor**                                | **Method**                        |
+| --------------- | ---------------------------------------------- | --------------------------------- |
+| **Purpose**     | Initializes an object                          | Defines the behavior of an object |
+| **Name**        | Same as class name                             | Any valid method name             |
+| **Return Type** | No return type (not even `void`)               | Can have a return type            |
+| **Call**        | Called automatically when an object is created | Called explicitly                 |
 
-  Name          Same as class name                 Any valid method name
-
-  Return Type   No return type (not even void)     Can have return type
-
-  Call          Called automatically when object   Called explicitly
-  Mechanism     is created                         
-  ------------------------------------------------------------------------
+​               
 
 ## What is this keyword?
 
@@ -401,18 +387,18 @@ public record Immutable (int id,String name) {
 
 - Used to differentiate instance variables from local variables.
 
-> Example : **class** [Car]{.underline} {
->
-> String [brand]{.underline};
->
-> [**Car**(String brand)]{.underline} {
->
-> **this**.brand = brand; // \`this\` differentiates instance and local
-> variable
->
-> }
->
-> }
+Example : 
+
+```java
+class Car {
+    String brand;
+    Car(String brand) {
+        this.brand = brand; // `this` differentiates instance and local variable
+    }
+}
+```
+
+
 
 ##  What is static keyword ?
 
@@ -420,51 +406,55 @@ public record Immutable (int id,String name) {
 
 - **Example:**
 
-> **class** [Car]{.underline} {
->
-> **static** **int** *[totalCars]{.underline}* = 0; // Shared among all
-> objects
->
-> [**Car**()]{.underline} { *totalCars*++; }
->
-> }
+```java
+class Car {
+
+static int totalCars = 0; // Shared among all objects
+
+Car() { totalCars++; }
+
+}
+```
+
+
 
 - Static methods can be called without an object:
 
-[**Car.***totalCars*]{.underline}; // No object needed
+```java
+Car.totalCars;    // No object needed
+```
 
-**What are Access modifiers ?**
+---
 
-Access modifiers in Java control the visibility of classes, methods, and
-variables. 
+
+
+### **What are Access modifiers ?**
+
+Access modifiers in Java control the visibility of classes, methods, and variables. 
 
 There are four types: 
 
 - **Public**: Accessible from any class, anywhere.
 
-- **Protected**: Accessible within the same package and by subclasses in
-  other packages.
-
-- **Default (package-private)**: Accessible only within the same
-  package.
-
+- **Protected**: Accessible within the same package and by subclasses in other packages.
+  
+- **Default (package-private)**: Accessible only within the same package.
+  
 - **Private**: Accessible only within the same class.
 
-String
 
-## What is a String in Java?
+
+# **String**
+
+### What is a String in Java?
 
 - String is the sequence of the characters.
 
 - It is an object of String class.
 
-## What is Java String Pool?
+### What is Java String Pool?
 
-A Java String Pool is a place in heap memory where all the strings
-defined in the program are stored. JVM checks for the presence of the
-object in the String pool, If String is available in the pool, the same
-object reference is shared with the variable, else a new object is
-created.
+A Java String Pool is a place in heap memory where all the strings defined in the program are stored. JVM checks for the presence of the object in the String pool, If String is available in the pool, the same object reference is shared with the variable, else a new object is created.
 
 ## Java Stack vs Heap Memory Allocation
 
@@ -484,58 +474,48 @@ height="2.9434251968503937in"}
 
 ## Why is String immutable?
 
-- Strings are immutable for security, performance, and thread safety
-  reasons. It prevents unwanted changes and helps optimize memory usage.
-
+- Strings are immutable for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
+  
 - Immutable means we cannot make changes once declared.
 
-- Security : all the credentials and confidential data like username,
-  passwords are stored in String if its is mutable then these parameters
-  can be easily changed by attackers.
-
+- Security : all the credentials and confidential data like username, passwords are stored in String if its is mutable then these parameters can be easily changed by attackers.
+  
 - JVM reuses the strings that help to save memory.
 
-- Thread safe -- as String is immutable multiple threads can access it
-  at a time.
+- Thread safe -- as String is immutable multiple threads can access it at a time.
 
 ## StringBuilder vs StringBuffer vs String
 
-- StringBuffer and StringBuilder are the classes of java used to create
-  immutable strings.
+- String Buffer and StringBuilder are the classes of java used to create immutable strings.
+  
+  | Feature      | String | StringBuilder | StringBuffer              |
+  | ------------ | ------ | ------------- | ------------------------- |
+  | Mutable?     | No     | Yes           | Yes                       |
+  | Thread-safe? | Yes    | No            | Yes (Synchronized)        |
+  | Performance  | slow   | Fast          | Slower than StringBuilder |
 
-  -----------------------------------------------------------------------
-  Feature          String           StringBuilder    StringBuffer
-  ---------------- ---------------- ---------------- --------------------
-  Mutable?         No               Yes              Yes
-
-  Thread-safe?     Yes (Immutable)  No               Yes (Synchronized)
-
-  Performance      Slow             Fast             Slower than
-                                                     StringBuilder
-  -----------------------------------------------------------------------
+  
 
 ## What is String interning?
 
-- String.intern() moves a string to the String Pool if it isn\'t already
-  there.
+- String.intern() moves a string to the String Pool if it isn\'t already there.
 
 - **Example:**
 
-> String **s1** = **new** String(\"Java\"); // Creates a new String
-> object in the heap memory
->
-> String **s2** = s1.intern(); // Moves \"Java\" to the String Pool (or
-> returns the reference if already present)
->
-> String **s3** = \"Java\"; // Already exists in the String Pool
->
-> System.***out***.println(s2 == s3); // true (both refer to the same
-> object in the String Pool)
+```java
+String s1 = new String("Java"); // Creates a new String object in the heap memory
+
+String s2 = s1.intern(); // Moves "Java" to the String Pool (orreturns the reference if already present)
+
+String s3 = "Java"; // Already exists in the String Pool
+
+System.out.println(s2 == s3); // true (both refer to the same
+object in the String Pool)
+```
 
 **What is the String Pool in Java?**
 
-- String pool is a special memory in heap memory where Java stores
-  **string literals** to optimize memory usage.
+- String pool is a special memory in heap memory where Java stores **string literals** to optimize memory usage.
 
 **String Methods :**
 
@@ -570,115 +550,112 @@ height="2.9434251968503937in"}
 
 15. **matches()** -- check if string matched the given regex
 
-**public** **class** StringMethods {
+```java
+public class StringMethods {
 
-**public** **static** **void** main(String\[\] args) {
+    public static void main(String[] args) {
 
-String name=\"Narsing\";
+    String name="Narsing";
 
-String fname=\"narsing\";
+    String fname="narsing";
 
-String sentence=\" abc1def2ghi3a \";
+    String sentence=" abc1def2ghi3a ";
 
-String reg=\"\[\\\\d\]\";
+    String reg="\\\\d";
 
-String test=\" \";
+    String test=" ";
 
-System.out.println(\"Length of String :\"+ name.length());
+    System.out.println("Length of String :"+ name.length());
 
-System.out.println(\"Get charector at index : \"+ name.charAt(0));
+    System.out.println("Get charector at index : "+ name.charAt(0));
 
-System.out.println(\"Get part of String from start index
-:\"+name.substring(3));
+    System.out.println("Get part of String from start index:"+name.substring(3));
 
-System.out.println(\"Substring of start and end index
-:\"+name.substring(0, 3));
+    System.out.println("Substring of start and end index:"+name.substring(0, 3));
 
-System.out.println(\"Compare Two Strings :\"+name.equals(fname));
+    System.out.println("Compare Two Strings :"+name.equals(fname));
 
-System.out.println(\"Compare Two Strings with igonring case
-:\"+name.equalsIgnoreCase(fname));
+    System.out.println("Compare Two Strings with igonring case:"+ name.equalsIgnoreCase(fname));
 
-System.out.println(\"Check char present or not in string :
-\"+name.contains(\"Nar\"));
+    System.out.println("Check char present or not in string : "+name.contains("Nar"));
 
-System.out.println(\"Change case of String \"+name.toLowerCase());
+    System.out.println("Change case of String "+name.toLowerCase());
 
-System.out.println(\"Change case of String \"+name.toUpperCase());
+    System.out.println("Change case of String "+name.toUpperCase());
 
-System.out.println(\"Replace string char\"+name.replace(\"N\", \"P\"));
+    System.out.println("Replace string char"+name.replace("N", "P"));
 
-System.out.println(\"Replace All in string :\"+
-sentence.replaceAll(\"1\", \"#\"));
+    System.out.println("Replace All in string :"+sentence.replaceAll("1", "#"));
 
-System.out.println(\"Start with string:\" +name.startsWith(\"N\"));
+    System.out.println("Start with string:" +name.startsWith("N"));
 
-System.out.println(\"Start with string:\" +name.endsWith(\"g\"));
+    System.out.println("Start with string:" +name.endsWith("g"));
 
-System.out.println(\"first Index of String:\"+sentence.indexOf(\"a\"));
+    System.out.println("first Index of String:"+sentence.indexOf("a"));
 
-System.out.println(\"Last Index of
-String:\"+sentence.lastIndexOf(\"a\"));
+    System.out.println("Last Index of String:"+sentence.lastIndexOf("a"));
 
-System.out.println(\"Trim string:\"+sentence.trim());
+    System.out.println("Trim string:"+sentence.trim());
 
-System.out.println(\"Check empty String:\"+test.isEmpty());
+    System.out.println("Check empty String:"+test.isEmpty());
 
-System.out.println(\"Check empty String:\"+test.isBlank());
+    System.out.println("Check empty String:"+test.isBlank());
 
-System.out.println(\"Matches to regex:\"+sentence.matches(reg));
+    System.out.println("Matches to regex:"+sentence.matches(reg));
 
-String arr\[\]=sentence.split(reg);
+    String arr[]=sentence.split(reg);
 
-**for**(String s:arr) {
+    for(String s:arr) {
 
-System.err.println(s);
+    System.err.println(s);
 
-}
+}}}
+```
 
-//Output:
+**Output:**
 
-//Compare Two Strings with [igonring]{.underline} case :true
+> //Compare Two Strings with [igonring]{.underline} case :true
+>
+> //Check char present or not in string : true
+>
+> //Change case of String narsing
+>
+> //Change case of String NARSING
+>
+> //Replace string charParsing
+>
+> //Replace All in string : abc
+>
+> //Start with string:true
+>
+> //Start with string:true
+>
+> //first Index of String:1
+>
+> //Last Index of String:13
+>
+> //Trim string:abc1def2ghi3a
+>
+> //Check empty String:false
+>
+> //Check empty String:true
+>
+> //Matches to [regex]{.underline}:false
+>
+> //abc
+>
+> //def
+>
+> //ghi
+>
+> //a
+>
 
-//Check char present or not in string : true
 
-//Change case of String [narsing]{.underline}
 
-//Change case of String NARSING
 
-//Replace string charParsing
 
-//Replace All in string : [abc]{.underline}#def2ghi3a
-
-//Start with string:true
-
-//Start with string:true
-
-//first Index of String:1
-
-//Last Index of String:13
-
-//Trim string:abc1def2ghi3a
-
-//Check empty String:false
-
-//Check empty String:true
-
-//Matches to [regex]{.underline}:false
-
-//[abc]{.underline}
-
-//[def]{.underline}
-
-//[ghi]{.underline}
-
-//a
-
-}
-
-}
-
-Object-Oriented Concepts
+# Object-Oriented Concepts
 
 ## What is encapsulation in Java
 
@@ -686,28 +663,29 @@ Object-Oriented Concepts
 
 - **Example:**
 
-> **class** [BankAccount]{.underline} {
->
-> **private** **double** balance; // Private field
->
-> **public** **double** [**getBalance**()]{.underline} { **return**
-> balance; } // Controlled access }
+```java
+class BankAccount {
+
+private double balance; // Private field
+
+public double getBalance() { 
+    return balance; 
+} // Controlled access
+}
+```
+
+
 
 ## What is the difference between an instance variable and a local variable?
 
------------------------------------------------------------
-  Feature      Instance Variable      Local Variable
------------- ---------------------- -----------------------
-  Scope        Exists throughout      Exists within a
-               object life            method/block
+| Feature | Instance Variable             | Local Variable               |
+| ------- | ----------------------------- | ---------------------------- |
+| Scope   | Exists throughout object life | Exists within a method/block |
+| Storage | Stored in heap memory         | Stored in stack memory       |
+| Default | Gets default value            | No default value             |
+| Value   | null                          | 0                            |
 
-  Storage      Stored in heap memory  Stored in stack memory
 
-  Default      Gets default value     No default value
-  Value        (null, 0)              
-  -----------------------------------------------------------
-
-Memory & Object Management
 
 ## How are objects stored in memory?
 
@@ -717,9 +695,8 @@ Memory & Object Management
 
 ## What is garbage collection ?
 
-- Garbage collector automatically find and removes unused objects from
-  heap memory to free up the space.
-
+- Garbage collector automatically find and removes unused objects from heap memory to free up the space.
+  
 - **System.gc();** requests garbage collection.
 
 - **Serial GC :** single threaded, good for small application
@@ -734,190 +711,184 @@ Memory & Object Management
 
 - **Set reference to null:**
 
-> [Car]{.underline} **myCar** = **new** [Car]{.underline}();
->
-> myCar = **null**; // Eligible for GC
+```java
+Car myCar = new Car();
+
+myCar = null; // Eligible for GC
+```
+
+
 
 - **Reassign reference:**
 
-> [Car]{.underline} **car1** = **new** [Car]{.underline}();
->
-> [Car]{.underline} **car2** = **new** [Car]{.underline}();
->
-> car1 = car2; // Old \`car1\` object is eligible for GC
+```java
+Car car1 = new Car();
+
+Car car2 = new Car();
+
+car1 = car2; // Old `car1` object is eligible for GC
+```
+
+
 
 - **Use anonymous objects:**
 
-**new** [Car]{.underline}(); // This object has no reference, so it will
-be GC
+```java
+new Car(); // This object has no reference, so it will be GC
+```
 
-# Special Questions
 
-## Q17: What is the difference between shallow copy and deep copy?
 
------------------------------------------------------------
-  Feature      Shallow Copy               Deep Copy
------------- -------------------------- -------------------
-  Definition   Copies reference, not      Copies entire
-               actual data                object
+###  What is the difference between shallow copy and deep copy?
 
-  Example      clone() method (default)   Custom
-                                          implementation
+| **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
+| -------------- | ------------------------------------- | ----------------------------------- |
+| **Definition** | Copies reference, not the actual data | Copies the entire object            |
+| **Example**    | `clone()` method (default behavior)   | Custom implementation (manual copy) |
 
-  Example Code                            
-  -----------------------------------------------------------
+**Example:** 
 
-[Car]{.underline} **car1** = **new** [Car]{.underline}();
+```java
+Car car1 = new Car(); // Shallow Copy – both references point to the same object
+Car car2 = car1; // Deep Copy – creates a new object with copied data
+Car car2 = new Car(car1);
+```
 
-[Car]{.underline} **car2** = car1; // Both point to the same object
-(shallow copy)
-
-[Car]{.underline} **[car2]{.underline}** = **new**
-[Car]{.underline}(car1); // Deep copy
-
-## Q18: What is the difference between == and .equals() in objects?
+### What is the difference between == and .equals() in objects?
 
 - == checks reference equality (same memory address).
-
 - .equals() checks weather both strings have same characters.
 
-- **Example:**
+```java
+String s1 = new String("Narsing");
+String s2 = new String("Narsing");
 
-String **s1** = **new** String(\"Narsing\");
+System.out.println(s1 == s2);       // false → compares memory addresses
+System.out.println(s1.equals(s2));  // true  → compares con
+```
 
-String **s2** = **new** String(\"Narsing\");
+### Can we override a static method?
 
-System.***out***.println(s1 == s2); // false (different memory) check
-the memory address
+- ❌ **No**, static methods belong to the class, not instances.  
+- When a subclass defines a static method with the same signature, it **hides** the parent method — it does **not override** it.
 
-System.***out***.println(s1.equals(s2)); // true (same content) check
-the content of string
+**🧠 Example**
 
-## Can we override a static method ?
-
-- No, static methods belong to the class, not instances.
-
-- **Example:**
-
-> **class** Parent {
->
-> **static** **void** **display**() {
-> System.***out***.println(\"Parent\"); }
->
-> }
->
-> **class** [Child]{.underline} **extends** Parent {
->
-> **static** **void** **display**() { System.out.println(\"Child\"); }
-> // Not overriding, but hiding
->
-> }
-
-This Keyword
-
-The this keyword refers to the current instance of the class. It is used
-to differentiate between instance variables and local variables, call
-constructors, and return the current object.
-
-Usage of this keyword
-
-- **Referring to Instance Variables:**
-
-When local variables and instance variables have the same name, use this
-to distinguish between them**.** **public** **class** Car {
-
-**public** String name=\"Maruti\";
-
-**public** **void** startEngine(String name) {
-
-System.***out***.println(\"Car engine started - \"+ **this**.name); //
-refer instance veriable
-
+```java
+class Parent {
+    static void display() {
+        System.out.println("Parent");
+    }
 }
 
-**public** **static** **void** main(String\[\] args) {
-
-Car car = **new** Car();
-
-car.startEngine(\"Honda\"); // output is "Car engine started - Maruti"
-
+class Child extends Parent {
+    static void display() {
+        System.out.println("Child"); // Not overriding, but hiding
+    }
 }
 
+public class Test {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.display(); // Output: Parent
+    }
 }
+```
 
-- **Calling Other Constructors:**
 
-The this keyword can be used to call another constructor from within the
-same class. The this() constructor call is used to invoke another
-constructor in the same class.
 
-**public** **class** Car {
+---
 
-**private** String [model]{.underline};
+### Usage of this keyword
 
-**private** **int** [year]{.underline};
+The `this` keyword refers to the current instance of the class. It is used to differentiate between instance variables and local variables, call constructors, and return the current object.
 
-**public** Car() {
+---
 
-**this**(\"Unknown\", 0); // Calls the parameterized constructor
+#### 1. Referring to Instance Variables
 
+When local variables and instance variables have the same name, use `this` to distinguish between them.
+
+```java
+public class Car {
+
+    public String name = "Maruti";
+
+    public void startEngine(String name) {
+        System.out.println("Car engine started - " + this.name); // refer instance variable
+    }
+
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.startEngine("Honda"); // output is "Car engine started - Maruti"
+    }
 }
+```
 
-**public** Car(String model, **int** year) {
+#### 2. Calling Other Constructors:
 
-**this**.model = model;
+The this keyword can be used to call another constructor from within the same class. The this() constructor call is used to invoke another constructor in the same class.
 
-**this**.year = year;
+```java
+public class Car {
 
-}}
+    private String model;
 
-- **Returning the Current Object**:
+    private int year;
 
-The this keyword can be used to return the current object from a method,
-often used in method chaining.
+    public Car() {
 
-**public** **class** [Builder]{.underline} {
+        this("Unknown", 0); // Calls the parameterized constructor
 
-**private** String name;
+    }
 
-**public** Builder setName(String name) {
+    public Car(String model, int year) {
 
-**this**.name = name;
+        this.model = model;
 
-**return** **this**; // Returns the current object
+        this.year = year;
 
+    }}
+```
+
+
+
+#### 3. Returning the Current Object:
+
+The this keyword can be used to return the current object from a method, often used in method chaining.
+
+```java
+public class Builder {
+    private String name;
+    public Builder setName(String name) {
+        this.name = name;
+        return this; // Returns the current object
+    }
+    public Builder build() {
+        // Additional build logic
+        return this; // Returns the current object
+    }
 }
+```
 
-**public** Builder build() {
 
-// Additional build logic
 
-**return** **this**; // Returns the current object
-
-}
-
-}
-
-- **Passing the Current Object as a Parameter**:
+#### 4. Passing the Current Object as a Parameter:
 
 The this keyword can be used to pass the current object as a parameter
 to another method or constructor.
 
-**public** **class** [Example]{.underline} {
+```java
+public class Example {
 
-**public** **void** display() {
-
-show(**this**); // Passes the current object to the show() method
-
+    public void display() {
+        show(this); // Passes the current object to the show() method
+    }
+    public void show(Example obj) {
+        System.out.println("Object reference: " + obj);
+    }
 }
-
-**public** **void** show(Example obj) {
-
-System.***out***.println(\"Object reference: \" + obj);
-
-}
-
-}
+```
 
 STATIC KEYWORD
 
