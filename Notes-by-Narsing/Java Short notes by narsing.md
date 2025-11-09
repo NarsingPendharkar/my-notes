@@ -4202,22 +4202,127 @@ that implements the interface.
 
 ## How would you use the Optional class in your Java 8 code, and what are its advantages over null references?
 
-The Optional class in Java 8 is used to represent a value that may or
-may not be present. It provides advantages over null references by
-making it clear that a value is optional, and by providing methods to
+The Optional class in Java 8 is used to represent a value that may or may not be present. It provides advantages over null references by making it clear that a value is optional, and by providing methods to
 handle the case where the value is absent. To use the Optional class,
 you can wrap a value in an Optional object using the of() method, or
 create an empty Optional using the empty() method. You can then use
 methods like isPresent() and get() to check if the value is present and
 retrieve it, respectively.
 
-## Why would you use the Comparable interface in your Java code, and how would you implement it?
+### Why Use the Comparable Interface in Java?
 
-The Comparable interface in Java is used to define a natural ordering
-for a class. It provides a way to compare two objects of the same class
-and determine their relative order. You would use the Comparable
-interface when you want to sort a collection of objects or when you want
-to use them in a data structure that requires a natural ordering, such
-as a TreeMap. To implement the Comparable interface, you need to define
-a compareTo() method that returns a negative, zero, or positive value
-depending on the relative order of the objects being compared.
+The **Comparable** interface is used to define the **natural ordering** of objects in a class.  
+It provides a way to **compare two objects of the same type** to determine their relative order.
+
+You use the **Comparable** interface when:
+- You want to **sort a collection** of custom objects (e.g., using `Collections.sort()` or `Arrays.sort()`).
+- You need to store objects in a **sorted data structure** like `TreeSet` or `TreeMap`.
+
+**Implemention** :
+
+```java
+class Student implements Comparable<Student> {
+    private String name;
+    private int marks;
+
+    public Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        return Integer.compare(this.marks, other.marks); // Sort by marks (ascending)
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + marks;
+    }
+}
+
+public class ComparableExample {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("John", 85),
+            new Student("Alice", 92),
+            new Student("Bob", 78)
+        );
+
+        Collections.sort(students); // Uses compareTo()
+        System.out.println(students);
+    }
+}
+
+```
+
+## Difference Between Comparable and Comparator in Java
+
+Both `Comparable` and `Comparator` are used to **sort custom objects**, but they differ in **how** and **where** the comparison logic is defined.
+
+---
+
+### 🔹 Comparable
+
+| Feature                         | Description                                                  |
+| ------------------------------- | ------------------------------------------------------------ |
+| **Package**                     | `java.lang`                                                  |
+| **Purpose**                     | Defines **natural ordering** of objects.                     |
+| **Method**                      | `int compareTo(T obj)`                                       |
+| **Sorting Logic**               | Defined **inside the class** being compared.                 |
+| **Affects Class Code**          | Yes — must modify the class to change sorting behavior.      |
+| **Used By**                     | `Collections.sort()` and `Arrays.sort()` when no Comparator is provided. |
+| **Number of Sorting Sequences** | Only **one** (natural order).                                |
+
+**Example:**
+
+```java
+class Student implements Comparable<Student> {
+    private String name;
+    private int marks;
+
+    public Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        return Integer.compare(this.marks, other.marks); // Sort by marks
+    }
+}
+```
+
+## Comparator in Java
+
+The **Comparator** interface is used to define **custom sorting logic** for objects, **outside the class** being compared.  
+It allows multiple sorting sequences without modifying the original class.
+
+---
+
+### 🔹 Key Points
+
+- Belongs to the **`java.util`** package.  
+- Used when we want to **sort objects differently** (e.g., by name, marks, age).  
+- Contains a single method:  
+
+```java
+import java.util.*;
+
+public class ComparatorLambdaExample {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("John", 85),
+            new Student("Alice", 92),
+            new Student("Bob", 78)
+        );
+
+        // Sort by Marks (Ascending)
+        students.sort((s1, s2) -> Integer.compare(s1.getMarks(), s2.getMarks()));
+
+        // Sort by Name (Alphabetical)
+        students.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+
+        students.forEach(System.out::println);
+    }
+}
