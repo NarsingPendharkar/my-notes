@@ -1495,7 +1495,7 @@ public class SetExamples {
 }
 ```
 
-## What is the difference between HashMap, LinkedHashMap, and TreeMap?
+### What is the difference between HashMap, LinkedHashMap, and TreeMap?
 
 | Feature         | HashMap             | LinkedHashMap             | TreeMap                  |
 | --------------- | ------------------- | ------------------------- | ------------------------ |
@@ -1615,246 +1615,221 @@ System.out.println(numbers); // Output: [8, 5, 4, 2]
 
 ## List (Ordered, Allows Duplicates)
 
-- Maintains insertion order.
+- Maintains **insertion order**.
+- Can contain **duplicate elements**.
+- Provides **indexed access**.
 
-- Can contain duplicate elements.
+**Example using ArrayList:**
+```java
+List<String> list = new ArrayList<>();
 
-- Provides indexed access.
+list.add("A");
+list.add("B");
+list.add("A"); // Duplicate allowed
 
-<!-- -->
-
-- **Example using ArrayList:**
-
-List\<String\> list = **new** ArrayList\<\>();
-
-list.add(\"A\");
-
-list.add(\"B\");
-
-list.add(\"A\"); // Duplicate allowed
-
-System.***out***.println(list); // Output: \[A, B, A\]
+System.out.println(list); // Output: [A, B, A]
+```
 
 ## Set (Unique Elements, No Duplicates)
 
-- Does NOT allow duplicate elements.
+- Does **NOT** allow duplicate elements.
+- No guaranteed order (**HashSet**), but **TreeSet** sorts elements.
 
-- No guaranteed order (HashSet), but TreeSet sorts elements.
+---
 
 ## Map (Key-Value Pairs, Unique Keys)
 
-- Stores key-value pairs (key -\> value).
+- Stores **key-value pairs** (`key -> value`).
+- **Keys** must be unique, **values** can be duplicate.
 
-- Keys must be unique, values can be duplicate.
+---
 
 ## Queue (FIFO - First In, First Out)
 
 - Elements are processed in the order they arrive.
+- Supports **PriorityQueue** (elements sorted by priority).
+- A **Queue** in Java is a **FIFO (First In, First Out)** data structure,  
+  where elements are **inserted at the end** and **removed from the front**.
 
-- Supports PriorityQueue (elements sorted by priority).
+---
 
-- A **Queue** in Java is a **FIFO (First In, First Out)** data
-  structure, where elements are **inserted at the end** and **removed
-  from the front**.
-
-+-----------------+------------------------------------------+
-| > Queue Type    | > Behavior                               |
-+=================+==========================================+
-| > LinkedList    | > Standard FIFO queue                    |
-+-----------------+------------------------------------------+
-| > PriorityQueue | > Sorted queue (natural order or custom  |
-|                 | > comparator)                            |
-+-----------------+------------------------------------------+
-| > ArrayDeque    | > Double-ended queue (faster than        |
-|                 | > LinkedList)                            |
-+-----------------+------------------------------------------+
+| Queue Type        | Behavior                                          |
+| ----------------- | ------------------------------------------------- |
+| **LinkedList**    | Standard FIFO queue                               |
+| **PriorityQueue** | Sorted queue (natural order or custom comparator) |
+| **ArrayDeque**    | Double-ended queue (faster than LinkedList)       |
 
 **Example using Queue (FIFO using LinkedList):**
 
-Queue\<Integer\> numLine=**new**
-LinkedList\<Integer\>(Arrays.asList(1,5,7,3,10)); //\[1, 5, 7, 3, 10\]
+```java
+Queue<Integer> numLine = new LinkedList<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 5, 7, 3, 10]
+Queue<Integer> numPriority = new PriorityQueue<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 3, 7, 5, 10]
+Queue<Integer> dequeNum = new ArrayDeque<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 5, 7, 3, 10]
 
-Queue\<Integer\> numPriority=**new**
-PriorityQueue\<Integer\>(Arrays.asList(1,5,7,3,10));\[1, 3, 7, 5, 10\]
-
-Queue\<Integer\> dequeNum=**new**
-ArrayDeque\<Integer\>(Arrays.asList(1,5,7,3,10)); //\[1, 5, 7, 3, 10\]
-
-System.***out***.println(numLine); // \[1, 5, 7, 3, 10\]
+System.out.println(numLine); // [1, 5, 7, 3, 10]
 
 numLine.add(8);
-
-System.***out***.println(numLine);// add at the end \[1, 5, 7, 3, 10,
-8\]
+System.out.println(numLine); // Add at the end [1, 5, 7, 3, 10, 8]
 
 numLine.remove();
+System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
+```
 
-System.***out***.println(numLine);// remove from first \[5, 7, 3, 10,
-8\]
+## When to Use What?
 
-##  When to Use What?
+| Use Case                           | Best Choice                           |
+| ---------------------------------- | ------------------------------------- |
+| Ordered collection with duplicates | **List (ArrayList)**                  |
+| Unique elements, no duplicates     | **Set (HashSet, TreeSet)**            |
+| Key-value mappings                 | **Map (HashMap, TreeMap)**            |
+| Processing in FIFO order           | **Queue (LinkedList, PriorityQueue)** |
 
--------------------------------------------------------
-  Use Case                     Best Choice
----------------------------- --------------------------
-  Ordered collection with      List (ArrayList)
-  duplicates                   
+#  8 Key Features & Concepts
 
-  Unique elements, no          Set (HashSet, TreeSet)
-  duplicates                   
+## 1) Lambda Expressions
 
-  Key-value mappings           Map (HashMap, TreeMap)
+- Introduced in **Java 8** for functional programming.
+- Acts as an **anonymous function** — no method name, return type, or access modifiers.
+- Represents a block of code that takes parameters and returns a value.
 
-  Processing in FIFO order     Queue (LinkedList,
-                               PriorityQueue)
-  -------------------------------------------------------
+---
 
-[Java]{.mark} 8 Key Features & Concepts
+### Syntax
 
-## Lambda Expressions
+```java
+(parameter) -> expression
+(parameter) -> { statement(s) }
+```
 
-- Functional programming approach in Java.
+🧠 **Example**
 
-- It's an anonymous function in java which doesn't have any method name,
-  return type and access modifiers.
-
-- It is a block of code which takes only parameter and return value.
-
-<!-- -->
-
-- Syntax: (**parameters**) -\> **expression**
-
-- Syntax : (**parameter**) -\> {**statement**}
-
-**Example:**
-
-**public** **class** LambdaExample {
-
-**public** **static** **void** main(String\[\] args) {
-
-MathOperation addition = (a, b) -\> a + b;
-
-System.***out***.println(addition.operation(5, 10)); // Output: 15
-
+```java
+public class LambdaExample {
+    public static void main(String[] args) {
+        MathOperation addition = (a, b) -> a + b;
+        System.out.println(addition.operation(5, 10)); // Output: 15
+    }
 }
 
+interface MathOperation {
+    int operation(int a, int b);
 }
 
-**interface** MathOperation {
+List<String> names = Arrays.asList("John", "Paul", "George", "Ringo");
+names.forEach(name -> System.out.println(name));
 
-**int** operation(**int** a, **int** b);
+```
 
+## 2) Functional Interfaces
+
+- An interface with only **one abstract method**.
+- Annotated with **@FunctionalInterface** to indicate it's a functional interface.
+- Can have **default** and **static** methods in addition to the single abstract one.
+
+---
+
+### Common Functional Interfaces
+
+| Interface          | Description                      | Method Signature    |
+| ------------------ | -------------------------------- | ------------------- |
+| **Predicate<T>**   | Returns a boolean value          | `boolean test(T t)` |
+| **Function<T, R>** | Converts input `T` to output `R` | `R apply(T t)`      |
+| **Consumer<T>**    | Accepts input, returns nothing   | `void accept(T t)`  |
+| **Supplier<T>**    | Returns a result, no input       | `T get()`           |
+
+---
+
+### Example
+
+```java
+@FunctionalInterface
+interface MathOperation {
+    int operation(int a, int b);
 }
+```
 
-**Example :**
+## 3) Streams API
 
-> List\<String\> names = Arrays.asList(\"John\", \"Paul\", \"George\",
-> \"Ringo\");
->
-> names.forEach(name -\>System.***out***.println(name));
+- Introduced in **Java 8** for **functional-style operations** on collections.
+- Used to **process collections of objects** efficiently and concisely.
+- Supports operations like **filtering**, **mapping**, **sorting**, **reducing**, and **collecting**.
 
-## Functional Interfaces
+---
 
-- An interface with only **one** abstract method.
+### Common Stream Methods
 
-- \@FunctionalInterface annotation used for functional interface.
+| Method        | Description                             |
+| ------------- | --------------------------------------- |
+| **filter()**  | Filters elements based on a condition.  |
+| **map()**     | Transforms each element.                |
+| **forEach()** | Iterates through each element.          |
+| **reduce()**  | Combines elements into a single result. |
+| **collect()** | Converts stream back to a collection.   |
 
-- Common functional interfaces:
+---
 
-  - Predicate\<T\> → Returns boolean
+### Example
 
-  - Function\<T, R\> → Converts T to R
+```java
+List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
 
-  - Consumer\<T\> → Accepts T, returns void
+List<String> filteredNames = names.stream()
+                                  .filter(n -> n.contains("M"))
+                                  .collect(Collectors.toList());
 
-  - Supplier\<T\> → Returns T
+System.out.println(filteredNames); // [Mike]
+```
 
-**Example:**
+##### Stream Operations
 
-\@FunctionalInterface
+---
 
-**interface** MathOperation {
+##### **Intermediate Operations**
+These return a **new stream** and allow chaining of multiple operations.  
+They are **lazy**, meaning they don't execute until a **terminal operation** is invoked.
 
-**int** operation(**int** a, **int** b);
+| Method         | Description                                      |
+| -------------- | ------------------------------------------------ |
+| **filter()**   | Filters elements based on a condition.           |
+| **map()**      | Transforms elements.                             |
+| **sorted()**   | Sorts elements.                                  |
+| **distinct()** | Removes duplicates.                              |
+| **limit()**    | Limits the number of elements.                   |
+| **peek()**     | Performs an action without modifying the stream. |
 
-}
+---
 
-## Streams API
+#### **Terminal Operations**
+These produce a **result** (collection, value, or void) and **trigger** stream processing.
 
-- Used for processing collections with functional programming.
+| Method                                  | Description                             |
+| --------------------------------------- | --------------------------------------- |
+| **collect()**                           | Converts stream into a collection.      |
+| **forEach()**                           | Iterates over elements.                 |
+| **reduce()**                            | Combines elements into a single result. |
+| **count()**                             | Counts the number of elements.          |
+| **anyMatch(), allMatch(), noneMatch()** | Check matching conditions.              |
 
-- Stream API is used to process the collections of objects.
+---
 
-- It is used to perform the functional style operations like filtering ,
-  sorting, reducing and mapping in a concise way.
+#### **Parallel Streams (Faster Processing)**
+- Use **`.parallelStream()`** to process elements in parallel.  
+- Ideal for **large datasets** that benefit from multi-threading.  
+- Avoid overuse — may cause **performance overhead** for small collections.
 
-- **Common Methods**: filter(), map(), collect(), forEach(), reduce()
+---
 
-- **Operations:**
+✅ **Example:**
 
-  - **Filter**: .filter(condition)
+```java
+List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice", "Mark");
 
-  - **Map**: .map(transformation)
+long count = names.parallelStream()
+                  .filter(n -> n.startsWith("M"))
+                  .count();
 
-  - **Reduce**: .reduce(accumulator)
-
-**Example:**
-
-List\<String\> names = Arrays.asList(\"John\", \"Jane\", \"Mike\",
-\"Alice\");
-
-List\<String\>filternaes =
-names.stream().filter(n-\>n.contains(\"M\")).collect(Collectors.toList());
-
-System.***out***.println(filternaes); // \[[Mike]\]
-
-### **Stream Operations :** 
-
-- **Intermediate Operations** : These return a new stream and allow you
-  to chain multiple operations together. They are lazy---meaning they
-  don\'t perform any processing until a terminal operation is invoked.
-
-> **Intermediate Operations (Return a Stream)**
-
-- **filter()** → Filters elements based on a condition.
-
-- **map()** → Transforms elements.
-
-- **sorted()** → Sorts elements.
-
-- **distinct()** → Removes duplicates.
-
-- **limit()** → Limits the number of elements.
-
-- **peek()** → Performs an action without modifying the stream.
-
-<!-- -->
-
-- **Terminal Operations :** These produce a result (a collection, a
-  primitive value, or no value at all) and trigger the processing of all
-  the intermediate operations.
-
-**Terminal Operations** (End a Stream)
-
-- **collect()** → Converts stream into a collection.
-
-- **forEach()** → Iterates over elements.
-
-- **reduce()** → Combines elements into a single result.
-
-- **count()** → Counts elements.
-
-- **anyMatch(), allMatch(), noneMatch()** → Check conditions.
-
-<!-- -->
-
-- **Parallel Streams (Faster Processing)**
-
-<!-- -->
-
-- Use .parallelStream() to process elements in parallel.
-
-- Useful for large datasets but can cause performance overhead.
+System.out.println(count); // Output: 2
+```
 
 ### **Intermediate Operations with Examples**
 
@@ -2086,7 +2061,7 @@ System.***out***.println(\"Vehicle is starting\");
 
 }
 
-# Optional Class:
+### Optional Class:
 
 **Definition:** Optional class is used to handle null values securely.
 
