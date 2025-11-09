@@ -3792,196 +3792,125 @@ getVehicle(\"sfd\").drive();
 
 // output : Bike is running !
 
-## What is a Regular Expression? 
+---
 
-## Answer: it is a special sequence of characters that helps you to match, find or manage text.
 
-## Pattern Class: it is used to define regular expressions and compiles
 
-**Matcher** **:** used to perform match operation on a String.
+## What is a Regular Expression?
+
+> **Answer:** A regular expression (regex) is a special sequence of characters that helps you **match, find, or manage text**.
+
+- **Pattern Class:** Used to define regular expressions and compile them.  
+- **Matcher:** Used to perform match operations on a string.
+
+---
 
 ## Basic Syntax
 
----------------------------------
-  Pattern   Description
---------- -----------------------
-  .         Any character
+| Pattern | Description                   |
+| ------- | ----------------------------- |
+| `.`     | Any character                 |
+| `\d`    | Digit `[0-9]`                 |
+| `\D`    | Non-digit                     |
+| `\w`    | Word character `[a-zA-Z_0-9]` |
+| `\W`    | Non-word character            |
+| `\s`    | Whitespace                    |
+| `\S`    | Non-whitespace                |
+| `^`     | Beginning of a line           |
+| `$`     | End of a line                 |
+| `*`     | 0 or more occurrences         |
+| `+`     | 1 or more occurrences         |
+| `?`     | 0 or 1 occurrence             |
+| `` ` `` | Backtick character            |
+| `[]`    | Character class               |
+| `()`    | Grouping                      |
 
-  \\d       Digit \[0-9\]
+#### 1. Basic Matchers
 
-  \\D       Non-digit
+| Matcher | Description                      | Example                        | Matches             |
+| ------- | -------------------------------- | ------------------------------ | ------------------- |
+| `.`     | Any character except newline     | `a.c` with `abc`, `a1c`, `a-c` | `abc`, `a1c`, `a-c` |
+| `[]`    | Any one character from the set   | `[aeiou]` with `cat`           | `a`                 |
+| `[^]`   | Any character **not** in the set | `[^aeiou]` with `cat`          | `c`, `t`            |
+| `` ` `` | Backtick character               | `` `cat ``                     | `` `cat ``          |
+| `()`    | Grouping                         | `(ab)+` with `ababab`          | `ababab`            |
 
-  \\w       Word character
-            \[a-zA-Z_0-9\]
+#### 2. Quantifiers
 
-  \\W       Non-word character
+| Quantifier | Meaning                      | Example                          | Matches            |
+| ---------- | ---------------------------- | -------------------------------- | ------------------ |
+| `*`        | 0 or more characters in word | `go*gle` with `gogle`, `gooogle` | `gogle`, `gooogle` |
+| `+`        | 1 or more characters in word | `go+gle` with `gogle`, `gooogle` | `gogle`, `gooogle` |
+| `?`        | 0 or 1 occurrence            | `colou?r` with `color`, `colour` | `color`, `colour`  |
+| `{n}`      | Exactly n occurrences        | `a{3}` with `aaabc`              | `aaa`              |
+| `{n,}`     | At least n occurrences       | `a{2,}` with `aaaabc`            | `aaaa`             |
+| `{n,m}`    | Between n and m occurrences  | `a{2,4}` with `aaaaa`            | `aaaa`             |
 
-  \\s       Whitespace
+#### 3. Anchors
 
-  \\S       Non-whitespace
+| Anchor | Description         | Example                        | Matches |
+| ------ | ------------------- | ------------------------------ | ------- |
+| `^`    | Start of string     | `^Java` with `Java is best`    | `Java`  |
+| `$`    | End of string       | `end$` with `This is the end`  | `end`   |
+| `\b`   | Word boundary       | `\bJava\b` with `I love Java.` | `Java`  |
+| `\B`   | Not a word boundary | `\BJava` with `SuperJava`      | `Java`  |
 
-  \^        Beginning of a line
+#### 4. Predefined Character Classes
 
-  \$        End of a line
+| Class | Meaning                     | Example                    | Matches           |
+| ----- | --------------------------- | -------------------------- | ----------------- |
+| `\d`  | Digit [0-9]                 | `\d+` with `abc123`        | `123`             |
+| `\D`  | Non-digit                   | `\D+` with `abc123`        | `abc`             |
+| `\w`  | Word character [a-zA-Z0-9_] | `\w+` with `var_1 = 10`    | `var_1`, `10`     |
+| `\W`  | Non-word character          | `\W+` with `Hello, world!` | `,`, ` `, `!`     |
+| `\s`  | Whitespace                  | `\s+` with `Hello World`   | ` ` (space)       |
+| `\S`  | Non-whitespace              | `\S+` with `Hello, World`  | `Hello,`, `World` |
 
-  \*        0 or more occurrences
+---
 
-  \+        1 or more occurrences
+#### 5. Groups & Capturing
 
-  ?         0 or 1 occurrence
+| Concept        | Description         | Example                          | Match/Group                  |
+| -------------- | ------------------- | -------------------------------- | ---------------------------- |
+| `()`           | Capturing group     | `(abc)+` with `abcabc`           | `abcabc`                     |
+| `(?:)`         | Non-capturing group | `(?:abc)+`                       | Matches without capturing    |
+| `(?<name>...)` | Named group         | `(?<year>\d{4})-(?<month>\d{2})` | Use `.group("year")` in Java |
 
-  \`        \`
+---
 
-  \[\]      Character class
+#### 6. Lookahead & Lookbehind
 
-  ()        Grouping
-  ---------------------------------
+| Type       | Description         | Example                     | Matches  |
+| ---------- | ------------------- | --------------------------- | -------- |
+| `(?=...)`  | Positive lookahead  | `\d(?=px)` with `10px 20px` | `0`, `0` |
+| `(?!...)`  | Negative lookahead  | `\d(?!px)` with `10px 50em` | `5`, `0` |
+| `(?<=...)` | Positive lookbehind | `(?<=\$)\d+` with `$100`    | `100`    |
+| `(?<!...)` | Negative lookbehind | `(?<!x)hi` with `xhi ahi`   | `ahi`    |
 
-## **1. Basic Matchers**
+---
 
-----------------------------------------------------------------
-  Matcher   Description              Example           Matches
---------- ------------------------ ----------------- -----------
-  .         Any character except     a.c with abc,     abc, a1c,
-            newline                  a1c, a-c          a-c
+#### 7. Escape Characters
 
-  \[\]      Any one character from   \[aeiou\] with    a
-            the set                  cat               
+| Escape | Meaning          | Example                | Matches |
+| ------ | ---------------- | ---------------------- | ------- |
+| `\.`   | Literal dot      | `a\.b` with `a.b`      | `a.b`   |
+| `\\`   | Backslash        | `\\n` in `C:\\Users\\` | `\`     |
+| `\*`   | Literal asterisk | `a\*b` with `a*b`      | `a*b`   |
+| `\+`   | Literal plus     | `c\+d` with `c+d`      | `c+d`   |
 
-  \[\^\]    Any character **not** in \[\^aeiou\] with  c, t
-            set                      cat               
+---
 
-  \`        \`                       OR                \`cat
+#### 8. Common Patterns
 
-  ()        Grouping                 (ab)+ with ababab ababab
-  ----------------------------------------------------------------
+| Pattern              | Use Case                | Example               | Matches            |
+| -------------------- | ----------------------- | --------------------- | ------------------ |
+| `[6-9]\d{9}`         | Indian mobile number    | `9876543210`          | Valid mobile       |
+| `[A-Z]{5}\d{4}[A-Z]` | PAN card                | `ABCDE1234F`          | Valid PAN          |
+| `\b\w+ing\b`         | Words ending with "ing" | `playing, going`      | `playing`, `going` |
+| `https?://\S+`       | URL                     | `https://example.com` | URL                |
+| `^[A-Z][a-z]+$`      | Proper noun             | `India`               | `India`            |
 
-## **2. Quantifiers**
-
------------------------------------------------------------------------
-  Quantifier   Meaning                 Example               Matches
------------- ----------------------- --------------------- ------------
-  \*           0 or more characters in go\*gle with gogle,   gogle,
-               word                    gooogle               gooogle
-
-  \+           1 or more characters in go+gle with gogle,    gogle,
-               word                    gooogle               gooogle
-
-  ?            0 or 1                  colou?r with color,   color,
-                                       colour                colour
-
-  {n}          Exactly n               a{3} with aaabc       aaa
-
-  {n,}         At least n              a{2,} with aaaabc     aaaa
-
-  {n,m}        Between n and m         a{2,4} with aaaaa     aaaa
-  -----------------------------------------------------------------------
-
-## **3. Anchors**
-
----------------------------------------------------------
-  Anchor   Description       Example              Matches
--------- ----------------- -------------------- ---------
-  \^       Start of string   \^Java with Java is  Java
-                             best                 
-
-  \$       End of string     end\$ with This is   end
-                             the end              
-
-  \\b      Word boundary     \\bJava\\b with I    Java
-                             love Java.           
-
-  \\B      Not a word        \\BJava with         Java
-           boundary          SuperJava            
-  ---------------------------------------------------------
-
-## **4. Predefined Character Classes**
-
----------------------------------------------------------
-  Class   Meaning             Example            Matches
-------- ------------------- ------------------ ----------
-  \\d     Digit \[0-9\]       \\d+ with abc123   123
-
-  \\D     Non-digit           \\D+ with abc123   abc
-
-  \\w     Word char           \\w+ with var_1 =  var_1, 10
-          \[a-zA-Z0-9\_\]     10                 
-
-  \\W     Non-word char       \\W+ with Hello,   ,, , !
-                              world!             
-
-  \\s     Whitespace          \\s+ with Hello    space
-                              World              
-
-  \\S     Non-whitespace      \\S+ with Hello    Hello,
-                              World              World
-  ---------------------------------------------------------
-
-## **5. Groups & Capturing**
-
-----------------------------------------------------------------------------------------------
-  Concept           Description      Example                                Match/Group
------------------ ---------------- -------------------------------------- --------------------
-  ()                Capturing group  (abc)+ with abcabc                     abcabc
-
-  (?:)              Non-capturing    (?:abc)+                               Matches without
-                    group                                                   capturing
-
-  (?\<name\>\...)   Named group      (?\<year\>\\d{4})-(?\<month\>\\d{2})   Use .group(\"year\")
-                                                                            in Java
-  ----------------------------------------------------------------------------------------------
-
-## **6. Lookahead & Lookbehind**
-
-------------------------------------------------------------
-  Type         Description      Example             Matches
------------- ---------------- ------------------- ----------
-  (?=\...)     Positive         \\d(?=px) with 10px 0, 0
-               lookahead        20px                
-
-  (?!\...)     Negative         \\d(?!px) with 10px 5, 0
-               lookahead        50em                
-
-  (?\<=\...)   Positive         (?\<=\\\$)\\d+ with 100
-               lookbehind       \$100               
-
-  (?\<!\...)   Negative         (?\<!x)hi with xhi  hi (from
-               lookbehind       ahi                 ahi)
-  ------------------------------------------------------------
-
-## **7. Escape Characters**
-
-----------------------------------------------------
-  Escape   Meaning         Example           Matches
--------- --------------- ----------------- ---------
-  \\.      Matches literal a\\.b with a.b    a.b
-           dot                               
-
-  \\\\     Backslash       \\\\n in          \\
-                           C:\\\\Users\\\\   
-
-  \\\*     Literal         a\\\*b with a\*b  a\*b
-           asterisk                          
-
-  \\+      Literal plus    c\\+d with c+d    c+d
-  ----------------------------------------------------
-
-## **8. Common Patterns**
-
----------------------------------------------------------------------------------
-  Pattern                   Use Case             Example               Matches
-------------------------- -------------------- --------------------- ------------
-  \[6-9\]\\d{9}             Indian mobile number 9876543210            Valid mobile
-
-  \[A-Z\]{5}\\d{4}\[A-Z\]   PAN card             ABCDE1234F            Valid PAN
-
-  \\b\\w+ing\\b             Words ending with    playing, going        playing,
-                            \"ing\"                                    going
-
-  https?://\\S+             URL                  https://example.com   URL
-
-  \^\[A-Z\]\[a-z\]+\$       Proper noun          India                 India
-  ---------------------------------------------------------------------------------
+# Interview Questions :
 
 ##### In what scenarios would you use Java's synchronized keyword, and why?
 
