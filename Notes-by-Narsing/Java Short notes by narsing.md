@@ -1,8 +1,3 @@
-|      |      |      |      |
-| ---- | ---- | ---- | ---- |
-|      |      |      |      |
-|      |      |      |      |
-
 
 
 # 🧠 Basics of Class and Object
@@ -175,7 +170,7 @@ public class Main {
 - Using deserialization (ObjectInputStream):
 
 > ```java
-> ObjectInputStream in = **new** ObjectInputStream(**new**
+> ObjectInputStream in = new ObjectInputStream(new
 > FileInputStream(\"file.dat\"));Car = (Car) in.readObject();
 > ```
 >
@@ -187,7 +182,7 @@ public class Main {
 
 | Feature    | Class                | Object                |
 | ---------- | -------------------- | --------------------- |
-| Defination | Blueprint for object | Instance of class     |
+| Definition | Blueprint for object | Instance of class     |
 | Memory     | No Memory            | Memory is allocated   |
 | Example    | Car class            | Car carObj=new Car(); |
 
@@ -205,13 +200,13 @@ public class Main {
 ```java
 class Car {
 
-String brand;
+    String brand;
 
-Car(String b) { // Constructor
+    Car(String b) { // Constructor
 
-brand = b;
+        brand = b;
 
-}
+    }
 
 }
 ```
