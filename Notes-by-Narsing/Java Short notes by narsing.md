@@ -152,7 +152,7 @@ public class Main {
 
 ### How do you create an object ?
 
-- [Using **new** keyword]{.underline}
+- [Using **new** keyword] 
 
 > ```java
 > Car myCar = new Car();
@@ -614,7 +614,7 @@ public class StringMethods {
 
 **Output:**
 
-> //Compare Two Strings with [igonring]{.underline} case :true
+> //Compare Two Strings with [igonring]  case :true
 >
 > //Check char present or not in string : true
 >
@@ -640,7 +640,7 @@ public class StringMethods {
 >
 > //Check empty String:true
 >
-> //Matches to [regex]{.underline}:false
+> //Matches to [regex] :false
 >
 > //abc
 >
@@ -915,64 +915,48 @@ rather than individual objects.
 - **Static Blocks:** Static blocks are used for static initialization of
   a class. This block is executed when the class is loaded.
 
-> **public** **class** [Example]{.underline} {
->
-> **static** {
->
-> // Static block
->
-> System.***out***.println(\"Static block executed\");
->
-> }
->
-> **public** **static** **void** main(String\[\] args) {
->
-> System.***out***.println(\"Main method executed\");
->
-> }
->
-> }
+```java
+public class Example {
+    static {
+        System.out.println("Static block executed");
+    }
+    public static void main(String[] args) {
+        System.out.println("Main method executed");
+    }
+}
+```
+
+
 
 # Comparison: this vs static
 
------------------------------------------------------------------------
-  Feature               this Keyword        static Keyword
---------------------- ------------------- -----------------------------
-  Meaning               Refers to the       Belongs to the class
-                        current object      
-
-  Usage                 Inside instance     Variables, methods, blocks,
-                        methods             nested classes
-
-  Object Dependency     Requires an object  Does NOT require an object
-
-  Access to Instance    Yes                 No
-  Members                                   
-
-  Access to Static      Yes                 Yes
-  Members                                   
-  -----------------------------------------------------------------------
+| Feature            | this                         | static                                    |
+| ------------------ | ---------------------------- | ----------------------------------------- |
+| meaning            | refers to the current object | Belong to class                           |
+| usage              | inside instance method       | Variables , methods, blocks ,nested class |
+| Object dependency  | requires an object           | Does not required an object               |
+| Access to Instance | Yes                          | No                                        |
+| Access to Static   | Yes                          | Yes                                       |
 
 **Key Takeaways**
 
 - this is used to reference the current object.
 
-- static is used to define class-level properties that do not depend on
-  object instances.
-
-- Static methods cannot access instance variables because they belong to
-  the class, not an object.
-
+- static is used to define class-level properties that do not depend on object instances.
+  
+- Static methods cannot access instance variables because they belong to the class, not an object.
+  
 - this() can be used to call another constructor in the same class.
 
 - Static blocks execute when the class is loaded.
 
+------
+
 #  OOPs (Object-Oriented Programming) 
 
-Object-Oriented Programming (OOP) principles, which include
-Encapsulation, Inheritance, Polymorphism, and Abstraction.
+Object-Oriented Programming (OOP) principles, which include Encapsulation, Inheritance, Polymorphism, and Abstraction.
 
-## What are the four main principles of OOP?
+### What are the four main principles of OOP?
 
 The four pillars of Object-Oriented Programming (OOP) in are:
 
@@ -998,58 +982,40 @@ height="3.25in"}
 
   Memory       No memory allocated     Memory is allocated
 
-  Example      Car class               Car myCar = new
-                                       Car();
-  --------------------------------------------------------
-
+  Example      Car class               Car myCar = new Car();
 ## What is Encapsulation ?
 
-- Binding or Wrapping data and code into a single unit is called
-  Encapsulation. For example, an **ATM Machine** allows users to perform
-  operations like cash withdrawal and money transfer without knowing the
-  internal workings
-
+- Binding or Wrapping data and code into a single unit is called Encapsulation. For example, an **ATM Machine** allows users to perform operations like cash withdrawal and money transfer without knowing the internal workings
 - Achieved using private variables + public getter/setter methods.
-
 - **Example:**
 
-> **class** BankAccount {
->
-> **private** **double** balance;
->
-> **public** **void** setBalance(**double** balance) {
->
-> **this**.balance = balance; // Setter method
->
-> }
->
-> **public** **double** getBalance() {
->
-> **return** balance; // Getter method
->
-> }
->
-> }
->
-> **public** **class** [Main]{.underline} {
->
-> **public** **static** **void** main(String\[\] args) {
->
-> BankAccount account = **new** BankAccount();
->
-> account.setBalance(1000);
->
-> System.***out***.println(\"Balance: \" + account.getBalance()); //
-> Output: Balance: 1000
->
-> }
->
-> }
+```java
+class BankAccount {
+    private double balance;
+    public void setBalance(double balance) {
+        this.balance = balance; // Setter method
+    }
+    public double getBalance() {
+        return balance; // Getter method
+    }
+}
 
-- ***Benefits: Data security, easy modification, and better
-  maintainability.***
+public class Main {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount();
+        account.setBalance(1000);
+        System.out.println("Balance: " + account.getBalance()); //
+        Output: Balance: 1000
+    }
+}
+```
 
-**What is Inheritance in Java**
+
+
+- **Benefits:** Data security, easy modification, and better
+  maintainability.
+
+### **What is Inheritance in Java**
 
 - Inheritance means creating a child class from parent class where child
   class acquires all the properties of parent class.
@@ -1060,624 +1026,592 @@ height="3.25in"}
 
 Example of Single Inheritance:
 
-**class** Vehicle {
+```java
+class Vehicle {
 
-**void** start() { System.***out***.println(\"Vehicle is
-starting\...\"); }
-
-}
-
-**class** [Car]{.underline} **extends** Vehicle {
-
-**void** honk() { System.out.println(\"Car is honking\...\"); }
+void start() { System.out.println("Vehicle is starting..."); }
 
 }
 
-**public** **class** [Main]{.underline} {
+class Car extends Vehicle {
 
-**public** **static** **void** main(String\[\] args) {
-
-Car myCar = **new** Car();
-
-myCar.[start]{.underline}(); // Inherited method
-
-myCar.[honk]{.underline}();
+void honk() { System.out.println("Car is honking..."); }
 
 }
 
-[}]{.underline}
+public class Main  {
 
-Output:
+public static void main(String[] args) {
 
-[//Vehicle]{.underline} [is]{.underline} starting[\...]{.underline}
+Car myCar = new Car();
 
-[//Car]{.underline} [is]{.underline} honking\...
+myCar.start(); // Inherited method
 
-## What are the types of inheritance?
-
------------------------------------------------------------------------
-  Type             Description
----------------- ------------------------------------------------------
-  Single           One class inherits another (class B extends A)
-
-  Multilevel       A → B → C (A is parent of B, B is parent of C)
-
-  Hierarchical     One parent, multiple child classes (A → B, A → C)
-
-  Multiple(Not     does not support multiple inheritance with classes to
-  Supported)       avoid ambiguity (confusion). Can be achieved using
-                   interfaces.
-  -----------------------------------------------------------------------
-
-## Why does not support multiple inheritance?
-
-- To avoid ambiguity caused by multiple parent classes having methods
-  with the same name.
-
-**Example:**
-
-//Diamond Problem **Example:**
-
-**class** A {
-
-**void** show() {
-
-System.***out***.println(\"Class A\");
+myCar.honk();
 
 }
 
-}
+[}] 
+```
 
-**class** B **extends** A {
+**Output:**
 
-**void** show() {
-
-System.***out***.println(\"Class B\");
-
-}
-
-}
-
-**class** C **extends** A {
-
-**void** show() {
-
-System.***out***.println(\"Class C\");
-
-}
-
-}
-
-//Class D cannot extend both B and C to avoid ambiguity
-
-- **solves this using interfaces:** Java allows multiple inheritance of
-  interfaces.
-
-> **interface** A { **void** show(); }
+> //Vehicle  is starting\...
 >
-> **interface** B { **void** show(); }
->
-> **class** C **implements** A, B {
->
-> **public** **void** show() { System.***out***.println(\"Resolved
-> multiple inheritance issue\"); }
->
-> }
+> //Car is honking\...
+
+### What are the Types of Inheritance?
+
+Java supports different types of inheritance, except **multiple inheritance** (to avoid ambiguity).  
+
+---
+
+| Type                         | Description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| **Single**                   | One class inherits another. `class B extends A`              |
+| **Multilevel**               | `A → B → C` (A is parent of B, B is parent of C)             |
+| **Hierarchical**             | One parent, multiple child classes.`A → B`, `A → C`          |
+| **Multiple (Not Supported)** | Java does **not** support multiple inheritance with classes to avoid ambiguity (confusion). Can be achieved using **interfaces**. |
+
+---
+
+## Why Java Does Not Support Multiple Inheritance?
+
+- To **avoid ambiguity** caused by multiple parent classes having methods with the same name.
+
+---
+
+### 💡 Example: Diamond Problem
+
+```java
+class A {
+    void show() {
+        System.out.println("Class A");
+    }
+}
+
+class B extends A {
+    void show() {
+        System.out.println("Class B");
+    }
+}
+
+class C extends A {
+    void show() {
+        System.out.println("Class C");
+    }
+}
+
+// Class D cannot extend both B and C to avoid ambiguity
+```
 
 ## What is Polymorphism?
 
-- Polymorphism means \"many forms\".
+- **Polymorphism** means "many forms".  
+- It allows the **same method, variable, or object** to perform different operations under different conditions.
 
-- It allows the same method or variable or object to perform different
-  operations in different conditions.
+### 🔹 Types of Polymorphism
+- **Compile-time Polymorphism (Method Overloading)**
+- **Runtime Polymorphism (Method Overriding)**
 
-- Types:
-
-  - Compile-time (Method Overloading)
-
-  - Runtime (Method Overriding)
+---
 
 ## What is Method Overloading?
 
-Same method name but different parameters (Compile-time polymorphism).
+- When multiple methods have the **same name** but **different parameters** (type or number of arguments).  
+- It is an example of **compile-time polymorphism**.
 
-## Example:
+### 🧠 Example
 
-**class** MathOperations {
+```java
+class MathOperations {
 
-**int** add(**int** a, **int** b) {
+    int add(int a, int b) {
+        return a + b;
+    }
 
-**return** a + b;
-
+    double add(double a, double b) { // Overloaded method
+        return a + b;
+    }
 }
 
-**double** add(**double** a, **double** b) { // Overloaded method
+public class Main {
+    public static void main(String[] args) {
+        MathOperations obj = new MathOperations();
 
-**return** a + b;
-
+        System.out.println(obj.add(5, 10));      // Calls int version
+        System.out.println(obj.add(5.5, 10.5));  // Calls double version
+    }
 }
+```
 
-}
 
-**public** **class** [Main]{.underline} {
-
-**public** **static** **void** main(String\[\] args) {
-
-MathOperations obj = **new** MathOperations();
-
-System.out.println(obj.add(5, 10)); // Calls [int]{.underline} version
-
-System.out.println(obj.add(5.5, 10.5)); // Calls double version
-
-}
-
-[}]{.underline}
-
-[Output:]{.underline}
-
-15
-
-16.0
 
 ## What is Method Overriding?
 
-- When same method with same return type, parameters and same name
-  present in super class and child class then method from child class
-  overrides the method of parent class. (Runtime polymorphism).
+When the same method (same name, parameters, and return type) is present in both parent and child classes,  
+and the method in the child class overrides the one in the parent class.
 
-- **Example:**
+It is an example of **runtime polymorphism**.
 
-**class** Parent {
+---
 
-**void** display() { System.***out***.println(\"Parent class\"); }
+### 🧠 Example
 
+```java
+class Parent {
+    void display() {
+        System.out.println("Parent class");
+    }
 }
 
-**class** Child **extends** Parent {
-
-\@Override
-
-**void** display() { System.***out***.println(\"Child class\"); }
-
+class Child extends Parent {
+    @Override
+    void display() {
+        System.out.println("Child class");
+    }
 }
 
-**public** **class** [Main]{.underline} {
-
-**public** **static** **void** main(String\[\] args) {
-
-Parent obj = **new** Child();
-
-obj.display(); // Calls overridden method in Child class
-
+public class Main {
+    public static void main(String[] args) {
+        Parent obj = new Child();
+        obj.display(); // Calls overridden method in Child class
+    }
 }
+```
 
-[}]{.underline}
 
-Output:
-
-[\"Child class\"]{.underline}
 
 ## What is Abstraction?
 
-- Hiding implementation details and showing only essential features.
+Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  
+It helps reduce complexity by focusing on what an object does rather than how it does it.
 
-- Achieved using:
+In Java, abstraction is mainly achieved using:
+- **Abstract classes**
+- **Interfaces**
 
-  - Abstract Class (abstract keyword)
+It allows developers to define a common structure for related objects and enforce a contract that subclasses or implementing classes must follow.
 
-  - Interfaces (interface keyword)
+---
 
-##  What is an Abstract Class?
+## What is an Abstract Class?
 
-- Abstract class created with abstract keyword
+An **abstract class** in Java is declared using the `abstract` keyword.  
+It is a special kind of class that cannot be instantiated directly — meaning you **cannot create an object** of an abstract class.
 
-- We cannot create object of abstract class.
+An abstract class may contain:
+- **Abstract methods:** Methods without implementation (no method body).  
+- **Concrete methods:** Regular methods with a complete implementation.
 
-- It may contain abstract methods (without body) and concrete methods.
+Abstract classes are useful when you want to provide **partial implementation** and let subclasses complete the rest.
 
-- **Example:**
+---
 
-> **abstract** **class** Animal {
->
-> **abstract** **void** makeSound(); // Abstract method
->
-> **void** sleep() { System.***out***.println(\"Sleeping\...\"); } //
-> Concrete method
->
-> }
->
-> **class** Dog **extends** Animal {
->
-> **void** makeSound() { System.***out***.println(\"Bark\"); }
->
-> }
->
-> **public** **class** [Main]{.underline} {
->
-> **public** **static** **void** main(String\[\] args) {
->
-> Animal obj = **new** Dog();
->
-> obj.makeSound();
->
-> obj.sleep();
->
-> }
->
-> }
+### 🧠 Example: Abstract Class
 
-- Output:
+```java
+abstract class Animal {
+    abstract void makeSound(); // Abstract method
 
-Barks
-
-Sleeping\...
-
-## What is an Interface in Java
-
-- An interface is class that contains only abstract methods.
-
-- 100% abstract class.
-
-- **Example:**
-
-**[i]{.underline}nterface** Animal {
-
-**void** makeSound(); // Abstract method (no body)
-
+    void sleep() { // Concrete method
+        System.out.println("Sleeping...");
+    }
 }
 
-**class** Dog **implements** Animal {
-
-**public** **void** makeSound() {
-
-System.***out***.println(\"Bark\");
-
+class Dog extends Animal {
+    void makeSound() {
+        System.out.println("Bark");
+    }
 }
 
+public class Main {
+    public static void main(String[] args) {
+        Animal obj = new Dog();
+        obj.makeSound(); // Calls Dog's implementation
+        obj.sleep();     // Inherited method from Animal
+    }
+}
+```
+
+## What is an Interface in Java?
+
+An **interface** in Java is a special type of class that contains only **abstract methods** (methods without a body).  
+It is used to achieve **100% abstraction** and **multiple inheritance** in Java.
+
+Interfaces define a **contract** that implementing classes must follow.  
+A class that implements an interface must provide implementations for all of its abstract methods.
+
+---
+
+### 🧠 Key Features of an Interface
+
+- All methods in an interface are **public** and **abstract** by default.  
+- All variables are **public**, **static**, and **final** (constants).  
+- A class can **implement multiple interfaces** (supports multiple inheritance).  
+- Interfaces cannot have constructors because they cannot be instantiated.  
+- From **Java 8**, interfaces can have:
+  - **Default methods** (with body)
+  - **Static methods**
+- From **Java 9**, interfaces can also have **private methods**.
+
+---
+
+### 🧩 Example: Interface in Java
+
+```java
+interface Animal {
+    void makeSound(); // Abstract method (no body)
 }
 
-**public** **class** [Main]{.underline} {
+class Dog implements Animal {
+    public void makeSound() {
+        System.out.println("Bark");
+    }
+}
 
-**public** **static** **void** main(String\[\] args) {
+public class Main {
+    public static void main(String[] args) {
+        Animal obj = new Dog();
+        obj.makeSound();
+    }
+}
+```
 
-Animal obj = **new** Dog();
+## What is the Difference Between Abstract Class and Interface?
 
-obj.makeSound();
+Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction** in Java,  
+but they differ in structure, purpose, and how they are implemented.
 
-[}]{.underline}
+---
 
-- Output: Bark
+### 🧩 Comparison Table
 
-## What is the difference between Abstract Class and Interface?
+| **Feature**                   | **Abstract Class**                                           | **Interface**                                                |
+| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Definition**                | Can have both abstract and concrete methods.                 | Contains only abstract methods (until Java 8).               |
+| **Keyword Used**              | `abstract`                                                   | `interface`                                                  |
+| **Object Creation**           | Cannot be instantiated directly.                             | Cannot be instantiated directly.                             |
+| **Methods**                   | Can contain abstract and concrete methods.                   | Contains only abstract methods (before Java 8); from Java 8 onward, can have default and static methods. |
+| **Variables**                 | Can have instance variables.                                 | Only `public static final` variables (constants).            |
+| **Access Modifiers**          | Can have `public`, `protected`, or `private` methods.        | All methods are `public` by default.                         |
+| **Constructors**              | Can have constructors.                                       | Cannot have constructors.                                    |
+| **Multiple Inheritance**      | Not supported (a class can extend only one abstract class).  | Supported (a class can implement multiple interfaces).       |
+| **Implementation Keyword**    | A class extends an abstract class.                           | A class implements an interface.                             |
+| **Usage**                     | Used when classes share common behavior but differ in implementation. | Used to define a common contract for unrelated classes.      |
+| **Java Version Enhancements** | No major changes.                                            | Since Java 8 – default and static methods added; since Java 9 – private methods allowed. |
 
------------------------------------------------------------------------
-  Feature          Abstract Class                 Interface
----------------- ------------------------------ -----------------------
-  Methods          Can have abstract & concrete   Only abstract methods
-                   methods                        (before 8)
+---
 
-  Variables        Can have instance variables    Only final and static
-                                                  variables
+### 🧠 Key Points
 
-  Access Modifiers Can have public, protected,    Only public methods
-                   private methods                
+- **Abstract Classes** are best used when you want to provide a **base class** with partial implementation that subclasses can extend.
+- **Interfaces** are ideal for defining a **contract** or **capability** that multiple unrelated classes can implement.
+- Java supports **multiple interfaces** for a single class, enabling **multiple inheritance** of behavior.
 
-  Multiple         Not supported                  Supported
-  Inheritance                                     
-  -----------------------------------------------------------------------
+---
 
-# Collection Framework
+### 🧠 Real-World Example
 
-## What is the collection framework?
+- **Abstract Class Example:**  
+  A `Vehicle` abstract class can define shared attributes like `speed` and `fuelType`,  
+  and abstract methods like `start()` or `stop()`.  
+  Subclasses (`Car`, `Bike`) implement these methods differently.
 
-- **Collection Framework** is a set of classes and interfaces that
-  provide **predefined data structures** such as **List, Set, Queue, and
-  Map** to store and process objects efficiently. It is part of **.util
-  package**.
+- **Interface Example:**  
+  An interface `Flyable` can be implemented by multiple classes like `Bird`, `Helicopter`, or `Airplane`,  
+  regardless of their hierarchy — representing shared ability to fly.
 
-- **Collection Framework** is a java API which provide the readymade
-  architecture to store and manipulate group of objects.
+---
 
-<!-- -->
+### ✅ Summary
 
-- **Key Interfaces in Collection Framework:**
+- **Abstract Class →** Partial abstraction, shared logic, single inheritance.  
+- **Interface →** Full abstraction, behavior contracts, multiple inheritance.  
+- Together, they form the backbone of **object-oriented design** in Java.
 
-  -------------------------------------------------
-  Interface   Description
-  ----------- -------------------------------------
-  List        Ordered collection (allows
-              duplicates)
+---
 
-  Set         Unordered collection (does not allow
-              duplicates)
 
-  Queue       Follows FIFO (First-In-First-Out)
-              order
 
-  Map         Stores key-value pairs (keys must be
-              unique)
-  -------------------------------------------------
+# 🧱 Collection Framework
 
-## What is the difference between Collection and Collections in Java ?
+### 💡 What is the Collection Framework?
 
-- **Collection** : It is a root interface of all collections in java. It
-  provides some methods for adding , removing and checking size of
-  collection.
+The **Collection Framework** in Java is a **unified architecture** that provides **ready-made data structures** and **algorithms** to store, retrieve, and manipulate groups of objects efficiently.
 
-- **Collections**: it is a utility class that provides static methods to
+It is part of the **`java.util` package** and helps developers avoid writing custom data structures like arrays, linked lists, or hash tables from scratch.
+
+---
+
+### 🧠 Definition
+
+> The **Collection Framework** is a set of **classes and interfaces** that implement commonly reusable collection data structures such as **List**, **Set**, **Queue**, and **Map**.
+
+---
+
+### ⚙️ Key Features
+
+- Provides **predefined data structures** for storing objects.
+- Supports **searching, sorting, insertion, deletion, and iteration**.
+- Ensures **type safety** using **Generics**.
+- Improves **performance** and **code reusability**.
+- Introduces **interfaces** and **concrete classes** for flexible use.
+
+---
+
+### 🧩 Key Interfaces in the Collection Framework
+
+| **Interface** | **Description**                                              |
+| ------------- | ------------------------------------------------------------ |
+| **List**      | Ordered collection that allows duplicate elements. Example: `ArrayList`, `LinkedList`. |
+| **Set**       | Unordered collection that does **not allow duplicates**. Example: `HashSet`, `LinkedHashSet`, `TreeSet`. |
+| **Queue**     | Follows **FIFO (First-In-First-Out)** order. Example: `PriorityQueue`, `LinkedList`. |
+| **Map**       | Stores elements in **key–value pairs** where keys are unique. Example: `HashMap`, `LinkedHashMap`, `TreeMap`. |
+
+---
+
+### 🧰 Package Location
+
+> All collection classes and interfaces are part of **`java.util`** package.
+
+---
+
+### 🧾 Example
+
+```java
+import java.util.*;
+
+public class CollectionExample {
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>();
+        names.add("Java");
+        names.add("Spring");
+        names.add("Hibernate");
+
+        System.out.println("List Elements: " + names);
+    }
+}
+```
+
+### What is the difference between Collection and Collections in Java?
+
+- **Collection**: It is the root interface of all collections in Java.  
+  It provides methods for adding, removing, and checking the size of a collection.
+
+- **Collections**: It is a utility class that provides static methods to  
   manipulate and process collections.
 
-  ---------------------------------------------------------------------------
-  Feature      Collection (Interface)     Collections (Class)
-  ------------ -------------------------- -----------------------------------
-  Definition   **Root interface** of the  **Utility class** with static
-               Collection framework       methods
+---
 
-  Usage        Represents data structures Provides methods like sort(),
-               like List, Set, Queue      reverse(), shuffle()
+| Feature        | Collection (Interface)                           | Collections (Class)                                          |
+| -------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| **Definition** | Root interface of the Collection framework       | Utility class with static methods                            |
+| **Usage**      | Represents data structures like List, Set, Queue | Provides methods like `sort()`, `reverse()`, `shuffle()`     |
+| **Example**    | `List<String> list = new ArrayList<>();`         | `Collections.sort(list);`                                    |
+| **Methods**    | `add()`, `remove()`, `size()`, `contains()`      | `sort()`, `reverse()`, `shuffle()`, `min()`, `max()`, `synchronizedList()` |
 
-  Example      List\<String\> list = new  Collections.sort(list);
-               ArrayList\<\>();           
+### What is the difference between List, Set, and Map?
 
-  Methods      add(), remove(), size(),   sort(), reverse(), shuffle(),
-               contains()                 min(), max(), synchronizedList(),
-                                          etc.
-  ---------------------------------------------------------------------------
+---
 
-## What is the difference between List, Set, and Map?
+| Feature             | List                      | Set                                                  | Map                                      |
+| ------------------- | ------------------------- | ---------------------------------------------------- | ---------------------------------------- |
+| **Order**           | Maintains insertion order | No order guaranteed (except some like LinkedHashSet) | Keys are unique, values can be duplicate |
+| **Duplicates**      | Allows duplicates         | Does not allow duplicates                            | Keys are unique, values can repeat       |
+| **Implementations** | ArrayList, LinkedList     | HashSet, LinkedHashSet, TreeSet                      | HashMap, LinkedHashMap, TreeMap          |
 
----------------------------------------------------------------------------
-  Feature           List           Set                 Map
------------------ -------------- ------------------- ----------------------
-  Order             Maintains      No order guaranteed Keys are unique,
-                    insertion                          values can be
-                    order                              duplicate
-
-  Duplicates        Allows         Does not allow      Keys are unique,
-                    duplicates     duplicates          values can repeat
-
-  Implementations   ArrayList,     HashSet,            HashMap,
-                    LinkedList     LinkedHashSet,      LinkedHashMap, TreeMap
-                                   TreeSet             
-  ---------------------------------------------------------------------------
+---
 
 ✅ **Example of List, Set, and Map:**
 
-**public** **class** [CollectionExample]{.underline} {
+```java
+import java.util.*;
 
-**public** **static** **void** main(String\[\] args) {
+public class CollectionExample {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>(Arrays.asList("A", "B", "A"));
+        Set<String> set = new HashSet<>(Arrays.asList("A", "B", "A"));
+        Map<Integer, String> map = new HashMap<>();
 
-List\<String\> list = **new** ArrayList\<\>(Arrays.asList(\"A\", \"B\",
-\"A\"));
+        map.put(1, "Java");
+        map.put(2, "Python");
 
-Set\<String\> set = **new** HashSet\<\>(Arrays.asList(\"A\", \"B\",
-\"A\"));
-
-Map\<Integer, String\> map = **new** HashMap\<\>();
-
-map.put(1, \"\");
-
-map.put(2, \"Python\");
-
-System.out.println(list); // Output: \[A, B, A\]
-
-System.out.println(set); // Output: \[A, B\]
-
-System.out.println(map); // Output: {1=, 2=[Python]{.underline}}
-
+        System.out.println(list); // Output: [A, B, A]
+        System.out.println(set);  // Output: [A, B]
+        System.out.println(map);  // Output: {1=Java, 2=Python}
+    }
 }
+```
 
-}
+### What are the differences between ArrayList and LinkedList
 
-## What are the differences between ArrayList and LinkedList
+| Feature            | ArrayList                                   | LinkedList                    |
+| ------------------ | ------------------------------------------- | ----------------------------- |
+| **Data Structure** | Dynamic Array                               | Doubly Linked List            |
+| **Access Speed**   | Fast (O(1))                                 | Slow (O(n))                   |
+| **Insert/Delete**  | Slow (O(n))                                 | Fast (O(1))                   |
+| **Memory Usage**   | Less (stores elements in contiguous memory) | More (extra memory for links) |
 
-------------------------------------------------------------------
-  Feature         ArrayList                     LinkedList
---------------- ----------------------------- --------------------
-  Data Structure  **Dynamic array**             **Doubly Linked
-                                                List**
-
-  Access Speed    Fast (O(1))                   Slow (O(n))
-
-  Insert/Delete   Slow (O(n))                   Fast (O(1))
-
-  Memory Usage    Less (Stores elements in      More (Extra memory
-                  contiguous memory)            for links)
-  ------------------------------------------------------------------
+---
 
 ✅ **When to Use?**
 
-- Use **ArrayList** when **frequent access** is needed.
-
+- Use **ArrayList** when **frequent access** is needed.  
 - Use **LinkedList** when **frequent insertions/deletions** are needed.
 
-**What is the difference between HashSet, LinkedHashSet, and TreeSet?**
+---
 
----------------------------------------------------------------
-  Feature       HashSet      LinkedHashSet        TreeSet
-------------- ------------ -------------------- ---------------
-  Order         Unordered    Maintains insertion  Sorted
-                             order                (Ascending)
+### What is the difference between HashSet, LinkedHashSet, and TreeSet?
 
-  Performance   Fastest      Slightly slower      Slowest (O(log
-                (O(1))                            n))
+| Feature         | HashSet         | LinkedHashSet             | TreeSet                  |
+| --------------- | --------------- | ------------------------- | ------------------------ |
+| **Order**       | Unordered       | Maintains insertion order | Sorted (Ascending order) |
+| **Performance** | Fastest (O(1))  | Slightly slower           | Slowest (O(log n))       |
+| **Null Values** | Allows one null | Allows one null           | Does not allow null      |
 
-  Null Values   Allows one   Allows one null      Does not allow
-                null                              null
-  ---------------------------------------------------------------
+---
 
-**Example:**
+### 🧠 Example
 
-**public** **class** SetExamples {
+```java
+import java.util.*;
 
-**public** **static** **void** main(String\[\] args) {
+public class SetExamples {
+    public static void main(String[] args) {
 
-// hash set store unordered and unique
+        // HashSet: stores unordered and unique elements
+        Set<String> hashSet = new HashSet<>(Arrays.asList("P", "A", "C", "D", "E", "E"));
+        System.out.println(hashSet); // Output: [P, A, C, D, E] (No order)
 
-Set\<String\> setString =**new**
-HashSet\<\>(Arrays.asList(\"P\",\"A\",\"C\",\"D\",\"E\",\"E\"));
+        // LinkedHashSet: maintains insertion order and unique elements
+        Set<String> linkedHashSet = new LinkedHashSet<>(Arrays.asList("P", "A", "C", "D", "E", "E"));
+        System.out.println(linkedHashSet); // Output: [P, A, C, D, E] (Insertion order)
 
-System.***out***.println(setString);
-
-// linkedHashSet store insertion order and unique
-
-Set\<String\> linkedSet=**new**
-LinkedHashSet\<\>(Arrays.asList(\"P\",\"A\",\"C\",\"D\",\"E\",\"E\"));
-
-System.***out***.println(linkedSet);
-
-// [treeset]{.underline} sort elements and unique
-
-Set\<String\>treeSet=**new**
-TreeSet\<String\>(Arrays.asList(\"P\",\"A\",\"C\",\"D\",\"E\",\"E\"));
-
-System.***out***.println(treeSet);
-
+        // TreeSet: stores sorted and unique elements
+        Set<String> treeSet = new TreeSet<>(Arrays.asList("P", "A", "C", "D", "E", "E"));
+        System.out.println(treeSet); // Output: [A, C, D, E, P] (Sorted)
+    }
 }
+```
 
+## What is the difference between HashMap, LinkedHashMap, and TreeMap?
+
+| Feature         | HashMap             | LinkedHashMap             | TreeMap                  |
+| --------------- | ------------------- | ------------------------- | ------------------------ |
+| **Order**       | Unordered           | Maintains insertion order | Sorted by keys           |
+| **Performance** | Fastest (O(1))      | Slightly slower           | Slowest (O(log n))       |
+| **Null Keys**   | Allows one null key | Allows one null key       | Does not allow null keys |
+
+---
+
+### 🧠 Example
+
+```java
+import java.util.*;
+
+public class MapExample {
+    public static void main(String[] args) {
+
+        // HashMap - Unordered
+        Map<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(2, "B");
+        hashMap.put(1, "A");
+        hashMap.put(3, "C");
+
+        // LinkedHashMap - Maintains insertion order
+        Map<Integer, String> linkedHashMap = new LinkedHashMap<>(hashMap);
+
+        // TreeMap - Sorted by keys
+        Map<Integer, String> treeMap = new TreeMap<>(hashMap);
+
+        System.out.println(hashMap);         // Output: {1=A, 2=B, 3=C} (Unordered)
+        System.out.println(linkedHashMap);   // Output: {2=B, 1=A, 3=C} (Insertion order)
+        System.out.println(treeMap);         // Output: {1=A, 2=B, 3=C} (Sorted order)
+    }
 }
+```
 
-System.out.println(hashSet); // Output: \[P, A, C, D, E\](No order)
+### What is the difference between Vector and ArrayList?
 
-System.out.println(linkedHashSet); // Output: \[P, A, C, D, E\]
-(Insertion order)
+| Feature             | ArrayList                      | Vector                     |
+| ------------------- | ------------------------------ | -------------------------- |
+| **Synchronization** | Not synchronized               | Synchronized (Thread-safe) |
+| **Performance**     | Faster                         | Slower                     |
+| **Legacy?**         | Modern (introduced in JDK 1.2) | Legacy (Before JDK 1.2)    |
 
-System.out.println(treeSet); // Output: \[A, C, D, E, P\](Sorted)
+---
 
-**What is the difference between HashMap, LinkedHashMap, and TreeMap?**
+✅ **Key Point:**  
+Use **ArrayList** unless **thread safety** is specifically required.
 
----------------------------------------------------------------
-  Feature       HashMap      LinkedHashMap        TreeMap
-------------- ------------ -------------------- ---------------
-  Order         Unordered    Maintains insertion  Sorted by keys
-                             order                
+---
 
-  Performance   Fastest      Slightly slower      Slowest (O(log
-                (O(1))                            n))
+### What is ConcurrentHashMap and how is it different from HashMap?
 
-  Null Keys     Allows one   Allows one null      Does not allow
-                null                              null
-  ---------------------------------------------------------------
+| Feature           | HashMap                | ConcurrentHashMap                   |
+| ----------------- | ---------------------- | ----------------------------------- |
+| **Thread Safety** | Not thread-safe        | Thread-safe (better than Hashtable) |
+| **Performance**   | Fast (Single-threaded) | Fast (Multi-threaded)               |
+| **Allows null?**  | Yes (keys & values)    | No null keys or values              |
 
-✅ **Example:**
+---
 
-Map\<Integer, String\> hashMap = **new** HashMap\<\>();
+✅ **Use `ConcurrentHashMap`** for **multi-threaded applications** to avoid synchronization issues that occur with `HashMap`.
 
-hashMap.put(2, \"B\");
+---
 
-hashMap.put(1, \"A\");
+### What is the difference between Fail-Fast and Fail-Safe Iterators?
 
-hashMap.put(3, \"C\");
+| Feature      | Fail-Fast                                                    | Fail-Safe                                                   |
+| ------------ | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| **Behavior** | Throws `ConcurrentModificationException` if modified while iterating | Does **not** throw exception when modified during iteration |
+| **Example**  | `ArrayList`, `HashMap`                                       | `ConcurrentHashMap`, `CopyOnWriteArrayList`                 |
 
-Map\<Integer, String\> linkedHashMap = **new**
-LinkedHashMap\<\>(hashMap);
+---
 
-Map\<Integer, String\> treeMap = **new** TreeMap\<\>(hashMap);
+✅ **Fail-Fast** iterators work directly on the collection and fail immediately on structural modification.  
+✅ **Fail-Safe** iterators operate on a **clone** of the collection, allowing modification without exceptions.
 
-System.***out***.println(hashMap); // Output: {1=A, 2=B, 3=C}
-(Unordered)
+---
 
-System.***out***.println(linkedHashMap); // Output: {2=B, 1=A, 3=C}
-(Insertion order)
-
-System.***out***.println(treeMap); // Output: {1=A, 2=B, 3=C} (Sorted
-order)
-
-**What is the difference between Vector and ArrayList?**
-
--------------------------------------------------------
-  Feature           ArrayList      Vector
------------------ -------------- ----------------------
-  Synchronization   Not            Synchronized
-                    synchronized   (Thread-safe)
-
-  Performance       Faster         Slower
-
-  Legacy?           Modern         Legacy (Before 1.2)
-  -------------------------------------------------------
-
-- **Use ArrayList unless thread safety is needed.**
-
-## What is ConcurrentHashMap and how is it different from HashMap?
-
---------------------------------------------------------------
-  Feature       HashMap             ConcurrentHashMap
-------------- ------------------- ----------------------------
-  Thread Safety Not thread-safe     Thread-safe (better than
-                                    Hashtable)
-
-  Performance   Fast                Fast (Multi-threaded)
-                (Single-threaded)   
-
-  Allows null?  Yes (key & value)   No null keys
-  --------------------------------------------------------------
-
-✅ **Use ConcurrentHashMap for multi-threaded applications to avoid
-synchronized HashMap issues.**
-
-## What is the difference between fail-fast and fail-safe iterators?
-
---------------------------------------------------------------------------
-  Feature    Fail-Fast                             Fail-Safe
----------- ------------------------------------- -------------------------
-  Behavior   Throws                                Does not throw exception
-             ConcurrentModificationException if    
-             modified while iterating              
-
-  Example    ArrayList, HashMap                    ConcurrentHashMap,
-                                                   CopyOnWriteArrayList
-  --------------------------------------------------------------------------
-
-## How do you sort a List in Java?
+### How do you sort a List in Java?
 
 - **Using Collections.sort()**
 
-List\<Integer\> numbers = Arrays.asList(4, 2, 8, 5);
+```java
+List<Integer> numbers = Arrays.asList(4, 2, 8, 5);
 
 Collections.sort(numbers);
 
-System.***out***.println(numbers); // Output: \[2, 4, 5, 8\]
+System.out.println(numbers); // Output: [2, 4, 5, 8]
+```
+
+
 
 - **Using Comparator for custom sorting**
 
-List\<Integer\> numbers = Arrays.asList(4, 2, 8, 5);
+```java
+List<Integer> numbers = Arrays.asList(4, 2, 8, 5);
 
-Collections.sort(numbers,(a,b) -\> a-b);
+Collections.sort(numbers, (a, b) -> a - b);
 
-System.***out***.println(numbers); // Output: \[2, 4, 5, 8\]
+System.out.println(numbers); // Output: [2, 4, 5, 8]
 
-Collections.sort([numbers]{.underline}, (a, b) -\> b - a); // Sort in
-descending order
+Collections.sort(numbers, (a, b) -> b - a); // Sort in descending order
 
-System.***out***.println([numbers]{.underline}); // Output: \[8, 5, 4,
-2\]
+System.out.println(numbers); // Output: [8, 5, 4, 2]
+```
 
-## Difference Between List, Set, Map, and Queue in Java ?
+### Difference Between List, Set, Map, and Queue in Java
 
-+----------------+------------+----------------+----------------+----------------------+
-| Feature        | List       | Set            | Map            | Queue                |
-+================+============+================+================+======================+
-| Definition     | Ordered    | Unordered      | Key-value pair | Follows FIFO         |
-|                | collection | collection(No  | collection     | (First-In-First-Out) |
-|                | of         | duplicates)    |                | principle            |
-|                | elements   |                |                |                      |
-+----------------+------------+----------------+----------------+----------------------+
-| Duplicates     | ✅ Yes     | ❌ No          | ✅ Keys: No,   | ✅ Yes               |
-| Allowed?       |            |                | Values: Yes    |                      |
-+----------------+------------+----------------+----------------+----------------------+
-| Order          | ✅ Yes     | ❌ No (except  | ❌ No (except  | ✅ Depends           |
-| Maintained?    | (insertion | LinkedHashSet) | LinkedHashMap) | (PriorityQueue sorts |
-|                | order)     |                |                | elements)            |
-+----------------+------------+----------------+----------------+----------------------+
-| Key Methods    | add(),     | add(),         | put(), get(),  | offer() :insert      |
-|                | get(),     | remove(),      | remove(),      |                      |
-|                | remove(),  | contains()     | keySet()       | poll(), peek():      |
-|                | set()      |                |                | return head of queue |
-+----------------+------------+----------------+----------------+----------------------+
-| Implementation | ArrayList, | HashSet,       | HashMap,       | PriorityQueue,       |
-| Classes        | LinkedList | TreeSet,       | TreeMap,       | ArrayDeque,          |
-|                |            | LinkedHashSet  | LinkedHashMap  | LinkedList           |
-+----------------+------------+----------------+----------------+----------------------+
+| Feature                    | List                           | Set                                  | Map                              | Queue                                          |
+| -------------------------- | ------------------------------ | ------------------------------------ | -------------------------------- | ---------------------------------------------- |
+| **Definition**             | Ordered collection of elements | Unordered collection (No duplicates) | Key-value pair collection        | Follows FIFO (First-In-First-Out) principle    |
+| **Duplicates Allowed?**    | ✅ Yes                          | ❌ No                                 | ✅ Keys: No, Values: Yes          | ✅ Yes                                          |
+| **Order Maintained?**      | ✅ Yes (insertion order)        | ❌ No (except LinkedHashSet)          | ❌ No (except LinkedHashMap)      | ✅ Depends (PriorityQueue sorts elements)       |
+| **Key Methods**            | add(), get(), remove(), set()  | add(), remove(), contains()          | put(), get(), remove(), keySet() | offer() – insert, poll(), peek() – return head |
+| **Implementation Classes** | ArrayList, LinkedList          | HashSet, TreeSet, LinkedHashSet      | HashMap, TreeMap, LinkedHashMap  | PriorityQueue, ArrayDeque, LinkedList          |
 
 ## List (Ordered, Allows Duplicates)
 
@@ -1872,7 +1806,7 @@ List\<String\> names = Arrays.asList(\"John\", \"Jane\", \"Mike\",
 List\<String\>filternaes =
 names.stream().filter(n-\>n.contains(\"M\")).collect(Collectors.toList());
 
-System.***out***.println(filternaes); // \[[Mike]{.underline}\]
+System.***out***.println(filternaes); // \[[Mike]\]
 
 ### **Stream Operations :** 
 
@@ -1937,7 +1871,7 @@ List\<String\> names = Arrays.asList(\"John\", \"Jane\", \"Mike\",
 List\<String\>filternaes =
 names.stream().filter(n-\>n.contains(\"M\")).collect(Collectors.toList());
 
-System.***out***.println(filternaes); // \[[Mike]{.underline}\]
+System.***out***.println(filternaes); // \[[Mike]\]
 
 - **map(Function\<T, R\> mapper)**
 
@@ -2000,14 +1934,14 @@ System.out.println(limitedNames); // Output: \[Alice, Bob\]
 > **Definition:** Skips the first *n* elements and returns a stream of
 > the remaining elements. **Example:**
 
-List\<String\> [words]{.underline} = Arrays.asList(\"java\", \"stream\",
+List\<String\> [words] = Arrays.asList(\"java\", \"stream\",
 \"api\");
 
 List\<String\>
 skipedList=words.stream().skip(1).collect(Collectors.toList());
 
 System.***out***.println(skipedList); // output : \[stream,
-[api]{.underline}\]
+[api]\]
 
 - **flatMap(Function\<T, Stream\<R\>\> mapper)**
 
@@ -2782,11 +2716,11 @@ System.out.println(s.getName()));
 
 FileInputStream fileInput = **new** FileInputStream(f);
 
-ObjectInputStream [objectInput]{.underline} = **new**
+ObjectInputStream [objectInput] = **new**
 ObjectInputStream(fileInput);
 
 List\<Student\> savedStudent = [(List\<Student\>)
-objectInput.readObject()]{.underline};
+objectInput.readObject()];
 
 // System.out.println(savedStudent);
 
@@ -2804,7 +2738,7 @@ System.out.println(\"File created \" + f.getAbsolutePath());
 
 FileOutputStream fout = **new** FileOutputStream(f);
 
-ObjectOutputStream [objectoutput]{.underline} = **new**
+ObjectOutputStream [objectoutput] = **new**
 ObjectOutputStream(fout);
 
 List\<Student\> stds = Arrays.asList(**new** Student(\"Narsing\",
@@ -2946,17 +2880,17 @@ session.setAttribute(\"username\", \"narsing\");
 Filters **intercept requests/responses** for processing (e.g., logging,
 authentication).
 
-**public** **class** MyFilter **implements** [Filter]{.underline} {
+**public** **class** MyFilter **implements** [Filter] {
 
-**public** **void** doFilter([ServletRequest]{.underline} req,
-[ServletResponse]{.underline} res, [FilterChain]{.underline} chain)
+**public** **void** doFilter([ServletRequest] req,
+[ServletResponse] res, [FilterChain] chain)
 
 **throws** IOException, ServletException {
 
 System.***out***.println(\"Filter executed before servlet\");
 
 chain.doFilter(req, res); // Pass request to next filter or
-[servlet]{.underline}
+[servlet]
 
 }
 
@@ -3027,7 +2961,7 @@ Directives provide global information about the JSP.
 
 **Example :**
 
-[\<%]{.underline}@ page language=\"java\" contentType=\"text/html;
+[\<%]@ page language=\"java\" contentType=\"text/html;
 charset=UTF-8\" %\>
 
 \<%@ taglib uri=\"http://java.sun.com/jsp/jstl/core\" prefix=\"c\" %\>
@@ -3036,10 +2970,10 @@ charset=UTF-8\" %\>
 
 Use **synchronization**:
 
-**synchronized**([session]{.underline}) {
+**synchronized**([session]) {
 
-[session]{.underline}.setAttribute(\"balance\",
-[newBalance]{.underline});
+[session].setAttribute(\"balance\",
+[newBalance]);
 
 }
 
@@ -3053,8 +2987,8 @@ Use Apache Commons FileUpload:
 
 > DiskFileItemFactory **factory** = **new** DiskFileItemFactory();
 
-[ServletFileUpload]{.underline} **upload** = **new**
-[ServletFileUpload]{.underline}(factory);
+[ServletFileUpload] **upload** = **new**
+[ServletFileUpload](factory);
 
 List\<FileItem\> **items** = upload.parseRequest(request);
 
@@ -3066,7 +3000,7 @@ List\<FileItem\> **items** = upload.parseRequest(request);
 
 **✅ Example:**
 
-[\<%]{.underline}@ page language=\"java\" contentType=\"text/html;
+[\<%]@ page language=\"java\" contentType=\"text/html;
 charset=UTF-8\" %\>
 
 \<%@ taglib uri=\"http://java.sun.com/jsp/jstl/core\" prefix=\"c\" %\>
@@ -3144,17 +3078,17 @@ Conditional Statements (c:if)
 
 \<c:if test=\"\${10 \> 5}\"\>
 
-\<p\>10 is greater t[han 5\</p\>]{.underline}
+\<p\>10 is greater t[han 5\</p\>]
 
-[\</]{.underline}c:if\>
+[\</]c:if\>
 
 Equivalent to:
 
-[jsp]{.underline}
+[jsp]
 
-\<% **if** (10 \> 5) [{ %\>]{.underline}
+\<% **if** (10 \> 5) [{ %\>]
 
-[\<p]{.underline}\>10 is greater than 5\</p\>
+[\<p]\>10 is greater than 5\</p\>
 
 \<% }
 
@@ -3182,12 +3116,12 @@ Switch-Case Alternative (c:choose, c:when, c:otherwise)
 
 Iterating Over a List
 
-\<c:set var=\"items\" value=\"\${[\[\']{.underline}Item 1\', \'Item 2\',
+\<c:set var=\"items\" value=\"\${[\[\']Item 1\', \'Item 2\',
 \'Item 3\'\]}\" /\>
 
 \<ul\>
 
-\<[c:forEach]{.underline} var=\"item\" items=\"\${items}\"\>
+\<[c:forEach] var=\"item\" items=\"\${items}\"\>
 
 \<li\>\${item}\</li\>
 
@@ -3219,7 +3153,7 @@ Catching Exceptions
 
 **Including External Files**
 
-\<[c:import]{.underline} url=\"header.jsp\" /\>
+\<[c:import] url=\"header.jsp\" /\>
 
 **Similar to:**
 
@@ -3256,7 +3190,7 @@ request.getRequestDispatcher(\"hello.jsp\").forward(request, response);
 
 **JSP Page (hello.jsp)**
 
-[\<%]{.underline}@ page **language**=**\"java\"**
+[\<%]@ page **language**=**\"java\"**
 **contentType**=**\"text/html; charset=UTF-8\"**
 
 **pageEncoding**=**\"UTF-8\"**%\>
@@ -3270,7 +3204,7 @@ request.getRequestDispatcher(\"hello.jsp\").forward(request, response);
 
 \<head\>
 
-\<title\>Hello JSP [&]{.underline} JSTL\</title\>
+\<title\>Hello JSP [&] JSTL\</title\>
 
 \<link rel=**\"stylesheet\"** type=**\"text/css\"**
 
@@ -3286,7 +3220,7 @@ href=**\"**\<c:url value=**\'/css/style.css\'** /\>**\"**\>
 
 \<ul\>
 
-**\<**[c:forEach]{.underline} **var**=**\"item\"**
+**\<**[c:forEach] **var**=**\"item\"**
 **items**=**\"**\${items}**\"\>**
 
 \<li\>\${item}\</li\>
@@ -3315,22 +3249,22 @@ Hello,
 
 **\<**c:out **value**=**\"Narsing\"\>\</**c:out**\>**
 
-*\<!\-- // c:if tag is used for conditional [satements]{.underline}*
+*\<!\-- // c:if tag is used for conditional [satements]*
 
 *// c:choose tag is used for switch cases \--\>*
 
 **\<**c:if **test**=**\"**\${ 10\>3 }**\"\>**
 
-\<p\>10 is greater than [3\</p\>]{.underline}
+\<p\>10 is greater than [3\</p\>]
 
-[**\</**c:]{.underline}if**\>**
+[**\</**c:]if**\>**
 
-**\<**c:set **var**=**\"m[arks\"]{.underline}**
-[**value**=**\"**]{.underline}**95\"** **/\>**
+**\<**c:set **var**=**\"m[arks\"]**
+[**value**=**\"**]**95\"** **/\>**
 
 **\<**c:choose**\>**
 
-[**\<**c:when **te**]{.underline}**st**=**\"**\${marks\>90}**\"\>**A
+[**\<**c:when **te**]**st**=**\"**\${marks\>90}**\"\>**A
 Grade**\</**c:when**\>**
 
 **\<**c:when **test**=**\"**\${marks\>80}**\"\>**B
@@ -3346,7 +3280,7 @@ Grade**\</**c:when**\>**
 Grade**\</**c:when**\>**
 
 **\<**c:otherwise**\>**Not
-satisfactor[y**\</**c:otherwis]{.underline}e**\>**
+satisfactor[y**\</**c:otherwis]e**\>**
 
 **\</**c:choose**\>**
 
@@ -3467,7 +3401,7 @@ System.out.println(\"data written !\");
 
 **Read from a File Using FileReader**
 
-FileReader [frd]{.underline}=**new** FileReader(file);
+FileReader [frd]=**new** FileReader(file);
 
 **int** i;
 
@@ -3497,7 +3431,7 @@ reader.close();
 
 **public** **void** readFile() **throws** IOException {
 
-Scanner [fi]{.underline} = **new** Scanner(file);
+Scanner [fi] = **new** Scanner(file);
 
 **while** (fi.hasNext()) {
 
@@ -3815,7 +3749,7 @@ System.out.println(obj1.equals(obj2));
 
 }
 
-**public** **class** [Bike]{.underline} **implements** Vehical {
+**public** **class** [Bike] **implements** Vehical {
 
 \@Override
 
@@ -3827,7 +3761,7 @@ System.out.println(\"Bike is running !\");
 
 }
 
-**public** **class** [Car]{.underline} **implements** Vehical{
+**public** **class** [Car] **implements** Vehical{
 
 \@Override
 
@@ -3839,7 +3773,7 @@ System.out.println(\"Car is running !\");
 
 }
 
-**public** **class** [MainFactory]{.underline} {
+**public** **class** [MainFactory] {
 
 **public** **static** **void** main(String\[\] args) {
 
