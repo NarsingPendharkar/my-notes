@@ -1828,48 +1828,47 @@ System.out.println(count); // Output: 2
 
 ### **Intermediate Operations with Examples**
 
-- **filter(Predicate\<T\> predicate)**
+- **filter(Predicate<T> predicate)**
 
-> **Definition:** Filters out elements that do not match a given
-> predicate.
->
-> **Example:**
+> **Definition:** Filters out elements that do not match a given predicate.
 
-List\<String\> names = Arrays.asList(\"John\", \"Jane\", \"Mike\",
-\"Alice\");
+ **Example:**
 
-List\<String\>filternaes =
-names.stream().filter(n-\>n.contains(\"M\")).collect(Collectors.toList());
+```java
+List<String> names = Arrays.asList("John", "Jane", "Mike","Alice");
+List<String>filternaes =names.stream().filter(n->n.contains("M")).collect(Collectors.toList());
+System.out.println(filternaes); // Mike
+```
 
-System.***out***.println(filternaes); // \[[Mike]\]
+- **map(Function<T, R> mapper)**
 
-- **map(Function\<T, R\> mapper)**
+> **Definition:** Transforms each element in the stream, returning a new stream of the transformed elements.
 
-> **Definition:** Transforms each element in the stream, returning a new
-> stream of the transformed elements.
->
-> **Example:**
+ **Example:**
 
-List\<String\> words = Arrays.asList(\"java\", \"stream\", \"api\");
+```java
+List<String> words = Arrays.asList( "java ",  "stream ",  "api ");
 
-List\<Integer\> lengths = words.stream().map(w-\>
-w.length()).collect(Collectors.toList());
+List <Integer > lengths = words.stream().map(w- >w.length()).collect(Collectors.toList());
 
-System.***out***.println(lengths); // Output: \[4, 6, 3\]
+System.out.println(lengths); // Output:  [4, 6, 3 ]
+```
 
-- **sorted() and sorted(Comparator\<? super T\> comparator)**
+- **sorted() and sorted(Comparator <? super T > comparator)**
 
 > **Definition:** Returns a stream with the elements sorted in natural
 > order or via a provided comparator.
 >
 > **Example:**
 
-List\<Integer\> numbers = Arrays.asList(5, 3, 1, 4, 2);
+```java
+List <Integer > numbers = Arrays.asList(5, 3, 1, 4, 2);
 
-List\<Integer\> sortedNumbers =
+List <Integer > sortedNumbers =
 numbers.stream().sorted.collect(Collectors.toList());
 
-System.***out***.println(sortedNumbers); // Output: \[1, 2, 3, 4, 5\]
+System.out.println(sortedNumbers); // Output:  [1, 2, 3, 4, 5 ]
+```
 
 - **distinct()**
 
@@ -1877,164 +1876,157 @@ System.***out***.println(sortedNumbers); // Output: \[1, 2, 3, 4, 5\]
 >
 > **Example:**
 
-List\<Integer\> numbers = Arrays.asList(5, 4,5,3, 1, 4, 2);
+```java
+List <Integer > numbers = Arrays.asList(5, 4,5,3, 1, 4, 2);
 
-List\<Integer\> distinctList = numbers.stream().distinct().toList();
+List <Integer > distinctList = numbers.stream().distinct().toList();
 
-System.***out***.println(distinctList); // Output: \[1, 2, 3, 4, 5\]
+System.out.println(distinctList); // Output:  [1, 2, 3, 4, 5 ]
+```
 
 - **limit(long maxSize)**
 
 > **Definition:** Returns a stream containing no more than the given
 > number of elements. **Example:**
 
-List\<String\> names = Arrays.asList(\"Alice\", \"Bob\", \"Charlie\",
-\"David\");
-
-List\<String\> limitedNames = names.stream()
-
-.limit(2)
-
-.collect(Collectors.toList());
-
-System.out.println(limitedNames); // Output: \[Alice, Bob\]
+```java
+List <String > names = Arrays.asList( "Alice ",  "Bob ",  "Charlie ", "David ");
+List <String > limitedNames = names.stream().limit(2).collect(Collectors.toList());
+System.out.println(limitedNames); // Output:  [Alice, Bob ]
+```
 
 - **skip(long n)**
 
 > **Definition:** Skips the first *n* elements and returns a stream of
 > the remaining elements. **Example:**
 
-List\<String\> [words] = Arrays.asList(\"java\", \"stream\",
-\"api\");
+```java
+List <String > [words] = Arrays.asList( "java ",  "stream ","api ");
 
-List\<String\>
-skipedList=words.stream().skip(1).collect(Collectors.toList());
+List <String >skipedList=words.stream().skip(1).collect(Collectors.toList());
 
-System.***out***.println(skipedList); // output : \[stream,
-[api]\]
+System.out.println(skipedList); // output :  [stream,api ]
+```
 
-- **flatMap(Function\<T, Stream\<R\>\> mapper)**
+- **flatMap(Function <T, Stream <R > > mapper)**
 
 > **Definition:** Transforms each element into a stream and then
 > flattens these streams into a single stream.
 >
 > **Example:**
 
-List\<List\<Integer\>\> listOfLists = Arrays.asList(
-
-Arrays.asList(1, 2),
-
-Arrays.asList(3, 4),
-
-Arrays.asList(5, 6)
-
-);
-
-List\<Integer\> flattenedList = listOfLists.stream()
-
-.flatMap(List::stream)
-
-.collect(Collectors.toList());
-
-System.***out***.println(flattenedList); // Output: \[1, 2, 3, 4, 5, 6\]
+```java
+List <List <Integer > > listOfLists = Arrays.asList(Arrays.asList(1, 2),Arrays.asList(3, 4),Arrays.asList(5, 6));
+List <Integer > flattenedList = listOfLists.stream().flatMap(List::stream).collect(Collectors.toList());
+System.out.println(flattenedList); // Output:  [1, 2, 3, 4, 5, 6 ]
+```
 
 ### **Terminal Operations with Examples**
 
-- **forEach(Consumer\<T\> action)**
+- **forEach(Consumer <T > action)**
 
-**Definition:** Performs an action for each element of the stream.
+>**Definition:** Performs an action for each element of the stream.
 
 **Example:**
 
-***names***.stream().forEach(n-\>
-System.***out***.print(n.toUpperCase()+\" \")); // output : JOHN JANE
-MIKE ALICE
+```java
+names.stream().forEach(n- >System.out.print(n.toUpperCase()+ "  ")); // output : JOHN JANE MIKE ALICE
+```
 
-- **collect(Collector\<T, A, R\> collector)**
+- **collect(Collector <T, A, R > collector)**
 
-**Definition:** Collects the stream\'s elements into a collection or
+>**Definition:** Collects the stream 's elements into a collection or
 another type of result.
 
 **Example:**
 
-List\<String\> namelist=
-***names***.stream().filter(n-\>n.contains(\"J\")).collect(Collectors.toList());
+```java
+List <String > namelist=names.stream().filter(n- >n.contains( "J ")).collect(Collectors.toList());
+System.out.println(namelist); //output :  [John, Jane ]
+```
 
-System.***out***.println(namelist); //output : \[John, Jane\]
+- **reduce(BinaryOperator <T > accumulator)**
 
-- **reduce(BinaryOperator\<T\> accumulator)**
-
-**Definition:** Reduces the stream to a single value by repeatedly
+>**Definition:** Reduces the stream to a single value by repeatedly
 applying an accumulator function.
 
 **Example:**
 
-List\<Integer\> num = Arrays.asList(2,4,5,6,7);
+```java
+List <Integer > num = Arrays.asList(2,4,5,6,7);
 
-Integer total=num.stream().reduce((a,b)-\>a+b).orElse(0);
+Integer total=num.stream().reduce((a,b)- >a+b).orElse(0);
 
-System.***out***.println( total);
+System.out.println( total);
+```
 
 - **count()**
 
-**Definition:** Returns the number of elements in the stream.
+>**Definition:** Returns the number of elements in the stream.
 
 **Example:**
 
-List\<Integer\> numbers = Arrays.asList(1, 2, 3, 4, 5);
+```java
+List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-**long** count = numbers.stream().count();
+long count = numbers.stream().count();
 
-System.***out***.println(count); // Output: 5
+System.out.println(count); // Output: 5
+```
 
 - **findFirst() and findAny()**
 
-**Definition:** Returns an Optional describing the first or any element
+>**Definition:** Returns an Optional describing the first or any element
 of the stream, respectively.
 
 **Example:**
 
-List\<Integer\> numbers = Arrays.asList(1, 2, 3, 4, 5);
+```java
+List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-**long** first = numbers.stream().findFirst().orElse(0);
+long first = numbers.stream().findFirst().orElse(0);
 
-**long** any = numbers.stream().findAny().orElse(0);
+long any = numbers.stream().findAny().orElse(0);
 
-System.***out***.println(first); // Output: 1
+System.out.println(first); // Output: 1
 
-System.***out***.println(any); // Output: 1
+System.out.println(any); // Output: 1
+```
 
-- **min(Comparator\<? super T\> comparator) and max(Comparator\<? super
-  T\> comparator)**
+- **min(Comparator <? super T > comparator) and max(Comparator <? super
+  T > comparator)**
 
-**Definition:** Returns an Optional containing the minimum or maximum
+>**Definition:** Returns an Optional containing the minimum or maximum
 element according to the specified comparator.
 
 **Example:**
 
-List\<Integer\> numbers = Arrays.asList(1, 2, 3, 4, 5);
+```java
+List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-**long** min = numbers.stream().min((a,b)-\>a.compareTo(b)).orElse(0);
+long min = numbers.stream().min((a,b)- >a.compareTo(b)).orElse(0);
 
-**long** max = numbers.stream().max((a,b)-\>a.compareTo(b)).orElse(0);
+long max = numbers.stream().max((a,b)- >a.compareTo(b)).orElse(0);
 
-System.***out***.println(min); // Output: 1
+System.out.println(min); // Output: 1
 
-System.***out***.println(max); // Output: 5
+System.out.println(max); // Output: 5
+```
 
-- **allMatch(Predicate\<? super T\> predicate), anyMatch(Predicate\<?
-  super T\> predicate), noneMatch(Predicate\<? super T\> predicate)**
+- **allMatch(Predicate <? super T > predicate), anyMatch(Predicate <?
+  super T > predicate), noneMatch(Predicate <? super T > predicate)**
 
-**Definition**: Evaluate whether the stream elements satisfy the given
+>**Definition**: Evaluate whether the stream elements satisfy the given
 predicate.
 
 **Example:**
 
-List\<Integer\> num2 = Arrays.asList(2, 4, 6, 8);
+```java
+List <Integer > num2 = Arrays.asList(2, 4, 6, 8);
+boolean allEven = num2.stream().allMatch(n - > n % 2 == 0);
+System.out.println(allEven); // Output: true
+```
 
-**boolean** allEven = num2.stream().allMatch(n -\> n % 2 == 0);
-
-System.***out***.println(allEven); // Output: true
 
 ##  Default & Static Methods in Interfaces
 
