@@ -2899,53 +2899,55 @@ chain.doFilter(req, res); // Pass request to next filter or
 
 **\**
 
-JSP (Java Server Pages)
+# JSP (Java Server Pages)
 
 **Definition** : JSP is a technology used to create dynamic web content.
 It allows embedding Java code in HTML pages using special JSP tags.
 
-## Life Cycle Methods
+### Life Cycle Methods Life Cycle Methods
 
-- **jspInit():** Called when the JSP is first loaded.
+- ** jspInit()**: Called when the JSP is first loaded.
 
-- **\_jspService():** Called for each request to the JSP.
+- ** jspService()**: Called for each request to the JSP.
 
-- **jspDestroy():** Called when the JSP is being removed from service.
+- **jspDestroy()**: Called when the JSP is being removed from service.
 
 ## What is JSP Expression Language (EL)?
 
 EL simplifies accessing attributes from request/session.
 
-**\${sessionScope.username}** // Equivalent to
-session.getAttribute(\"username\")
+```java
+    ${sessionScope.username} // Equivalent to
+    session.getAttribute("username");
+```
 
 ## What are JSP Directives?
 
 Directives provide global information about the JSP.
 
-- **\<%@ page %\>** → Defines page settings.
+- **<%@ page %\>** → Defines page settings.
 
-- **\<%@ include %\>** → Includes a file at compile-time.
+- **<%@ include %\>** → Includes a file at compile-time.
 
-- **\<%@ taglib %\>** → Declares JSTL usage.
+- **<%@ taglib %\>** → Declares JSTL usage.
 
 **Example :**
+```xml
 
-[\<%]@ page language=\"java\" contentType=\"text/html;
-charset=UTF-8\" %\>
+<%@ page language="java" contentType="text/html charset=UTF-8" %>
 
-\<%@ taglib uri=\"http://java.sun.com/jsp/jstl/core\" prefix=\"c\" %\>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+```
 
 ##  How do you prevent multiple users from modifying the same session data?
 
 Use **synchronization**:
 
-**synchronized**([session]) {
-
-[session].setAttribute(\"balance\",
-[newBalance]);
-
+```java
+synchronized(session) {
+session.setAttribute("balance",newBalance);
 }
+```
 
 **How do you invalidate a session in a Servlet?**
 
@@ -2970,10 +2972,11 @@ List\<FileItem\> **items** = upload.parseRequest(request);
 
 **✅ Example:**
 
-[\<%]@ page language=\"java\" contentType=\"text/html;
-charset=UTF-8\" %\>
+```xml
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 
-\<%@ taglib uri=\"http://java.sun.com/jsp/jstl/core\" prefix=\"c\" %\>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core\" prefix="c" %>
+```
 
 - **page -- Defines page properties (language, encoding).**
 
