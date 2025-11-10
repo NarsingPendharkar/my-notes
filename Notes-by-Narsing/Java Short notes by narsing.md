@@ -63,7 +63,7 @@ This bytecode is **platform independent**, meaning it can run on any system that
 | **JRE (Java Runtime Environment)** | Provides the **libraries, class files, and JVM** necessary to **run** Java applications. |
 | **JVM (Java Virtual Machine)** | Converts **bytecode** into **machine code** and executes it. It is platform dependent but provides platform independence to Java code. |
 
----
+
 
 
 
