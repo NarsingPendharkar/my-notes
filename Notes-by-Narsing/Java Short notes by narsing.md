@@ -3420,8 +3420,8 @@ System.out.println(\"File deleted successfully!\" + file.list());
 }
 
 **File Properties**
-
-**if** (file.exists()) {
+```java
+if (file.exists()) {
 
 System.out.println(\"Name: \" + file.getName());
 
@@ -3433,31 +3433,32 @@ System.out.println(\"Readable: \" + file.canRead());
 
 System.out.println(\"Size: \" + file.length() + \" bytes\");
 
-}
+}```
 
 ### **Working with Binary Files:**
 
 **Read Binary Data using FileInputStream**
+```java
+FileInputStream fis = new FileInputStream(\"image.jpg\");
 
-**FileInputStream fis = new FileInputStream(\"image.jpg\");**
+int i;
 
-**int i;**
+while ((i = fis.read()) != -1) {
 
-**while ((i = fis.read()) != -1) {**
+System.out.print(i + \" \");
 
-**System.out.print(i + \" \");**
+}
 
-**}**
+fis.close();
 
-**fis.close();**
+Write Binary Data using FileOutputStream
 
-**Write Binary Data using FileOutputStream**
+FileOutputStream fos = new FileOutputStream(\"output.txt\");
 
-**FileOutputStream fos = new FileOutputStream(\"output.txt\");**
+fos.write(\"Binary File Writing\".getBytes());
 
-**fos.write(\"Binary File Writing\".getBytes());**
-
-**fos.close();**
+fos.close();
+```
 
 ## What is File Handling in Java?
 
@@ -3498,7 +3499,7 @@ deleting files using java.io and java.nio packages.
 
 **A:** RandomAccessFile allows reading and writing at a specific
 position within a file.
-
+```java
 **RandomAccessFile file = new RandomAccessFile(\"test.txt\", \"rw\");**
 
 **file.seek(10); // Move cursor to byte 10**
@@ -3506,21 +3507,21 @@ position within a file.
 **file.writeBytes(\"New Data\");**
 
 **file.close();**
-
+```
 ## 
 
 ## How to Append Data to a File?
-
+```java
 FileWriter writer = new FileWriter(\"test.txt\", true);
 
 writer.write(\"Appended text\");
 
 writer.close();
-
+```
 ## 
 
 ## How to List All Files in a Directory?
-
+```java
 File folder = new File(\"C:/Users/Documents\");
 
 String\[\] files = folder.list();
@@ -3530,11 +3531,11 @@ for (String file : files) {
 System.out.println(file);
 
 }
-
+```
 ## 
 
 ## How to Read a Large File Efficiently?
-
+```java
 BufferedReader reader = new BufferedReader(new
 FileReader(\"largefile.txt\"));
 
@@ -3547,6 +3548,7 @@ System.out.println(line);
 }
 
 reader.close();
+```
 
 ## 
 
@@ -3555,6 +3557,7 @@ reader.close();
 **A:** It may cause **memory leaks** and file **locking issues**. Always
 use **try-with-resources**:
 
+```java
 try (FileReader reader = new FileReader(\"test.txt\")) {
 
 // Read file
@@ -3564,6 +3567,7 @@ try (FileReader reader = new FileReader(\"test.txt\")) {
 e.printStackTrace();
 
 }
+```
 
 ##  Best Practices for File Handling
 
