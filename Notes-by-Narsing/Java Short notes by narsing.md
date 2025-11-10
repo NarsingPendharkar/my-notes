@@ -3657,7 +3657,8 @@ categorised below
 
 Example :
 
-**public** **class** Singleton {
+``` java
+public class Singleton {
 
 // private constructor to avoid object instantiation from external
 resource
@@ -3666,27 +3667,27 @@ resource
 
 // create public static method that return object if object is null
 
-**private** **static** Singleton obj;
+private static Singleton obj;
 
-**private** Singleton() {
+private Singleton() {
 
 System.out.println(\"Created Object !\");
 
 };
 
-**public** **static** Singleton getSingleObject() {
+public static Singleton getSingleObject() {
 
-**if**(obj==**null**) {
+if(obj==null) {
 
-obj=**new** Singleton();
-
-}
-
-**return** obj;
+obj=new Singleton();
 
 }
 
-**public** **static** **void** main(String\[\] args) {
+return obj;
+
+}
+
+public static void main(String\[\] args) {
 
 Singleton obj1=Singleton.getSingleObject();
 
@@ -3697,6 +3698,7 @@ System.out.println(obj1.equals(obj2));
 }
 
 }
+```
 
 ### **Factory Design Pattern:**
 
@@ -3713,17 +3715,18 @@ System.out.println(obj1.equals(obj2));
 - The Factory design pattern offers valuable advantages in encapsulating
   object creation.
 
-**interface** Vehical {
+```java
+interface Vehical {
 
-**public** **void** drive() ;
+public void drive() ;
 
 }
 
-**public** **class** [Bike] **implements** Vehical {
+public class [Bike] implements Vehical {
 
 \@Override
 
-**public** **void** drive() {
+public void drive() {
 
 System.out.println(\"Bike is running !\");
 
@@ -3731,11 +3734,11 @@ System.out.println(\"Bike is running !\");
 
 }
 
-**public** **class** [Car] **implements** Vehical{
+public class [Car] implements Vehical{
 
 \@Override
 
-**public** **void** drive() {
+public void drive() {
 
 System.out.println(\"Car is running !\");
 
@@ -3743,55 +3746,53 @@ System.out.println(\"Car is running !\");
 
 }
 
-**public** **class** [MainFactory] {
+public class [MainFactory] {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String\[\] args) {
 
 getVehicle(\"car\").drive();
 
 }
 
-**public** **static** Vehical getVehicle(String type) {
+public static Vehical getVehicle(String type) {
 
-**return** type.equalsIgnoreCase(\"car\") ? **new** Car() : **new**
+return type.equalsIgnoreCase(\"car\") ? new Car() : new
 Bike();
 
 }
 
 }
 
-**public** **class** MainFactory {
+public class MainFactory {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String\[\] args) {
 
 getVehicle(\"sfd\").drive();
 
 }
 
-**public** **static** Vehical getVehicle(String type) {
+public static Vehical getVehicle(String type) {
 
-**if**(type.equalsIgnoreCase(\"car\")) {
+if(type.equalsIgnoreCase(\"car\")) {
 
-**return** **new** Car();
+return new Car();
 
-}**else** **if**(type.equalsIgnoreCase(\"truck\")) {
+}else if(type.equalsIgnoreCase(\"truck\")) {
 
-**return** **new** Truck();
-
-}
-
-**else**{
-
-**return** **new** Bike();
+return new Truck();
 
 }
 
-}
+else{
+
+return new Bike();
 
 }
 
-// output : Bike is running !
+}
 
+}
+```
 ---
 
 
