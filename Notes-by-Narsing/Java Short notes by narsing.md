@@ -65,7 +65,7 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 ---
 
-![JVM, JRE, JDK Diagram](./media/media/image16.jpeg)
+
 
 ---
 
