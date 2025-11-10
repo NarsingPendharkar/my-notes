@@ -2257,61 +2257,27 @@ Here's a **table of Java thread methods and their uses** for quick reference:
 ### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
-  **Method**            **Use Case / Purpose**
---------------------- -----------------------------------------------------
-  start()               Starts a new thread and calls the run() method in a
-                        separate execution thread.
-
-  run()                 Contains the code to be executed when the thread is
-                        started.
-
-  sleep(milliseconds)   Pauses execution of the current thread for a
-                        specified time (in milliseconds).
-
-  join()                Makes the calling thread wait until the specified
-                        thread finishes execution.
-
-  getName()             Retrieves the name of the thread.
-
-  setName(String name)  Sets the name of the thread. Useful for debugging and
-                        logging.
-
-  getId()               Returns the unique ID of the thread.
-
-  getPriority()         Gets the priority of the thread (default: 5, range: 1
-                        to 10).
-
-  setPriority(int       Sets the thread's priority (higher value means higher
-  priority)             priority).
-
-  isAlive()             Checks whether a thread is currently running.
-
-  isDaemon()            Checks if the thread is a daemon thread (background
-                        service thread).
-
-  setDaemon(boolean)    Marks a thread as a daemon thread. Daemon threads run
-                        in the background and terminate when all user threads
-                        exit.
-
-  interrupt()           Interrupts a sleeping or waiting thread, causing it
-                        to throw an InterruptedException.
-
-  isInterrupted()       Checks if the thread has been interrupted.
-
-  yield()               Temporarily pauses the execution of the current
-                        thread to allow other threads to execute.
-
-  wait()                Causes the current thread to wait until another
-                        thread calls notify() or notifyAll(). Used in
-                        synchronization.
-
-  notify()              Wakes up a single thread that is waiting on an
-                        object\'s monitor.
-
-  notifyAll()           Wakes up all threads waiting on an object\'s monitor.
-
-  stop() (Deprecated)   Forcefully stops a thread (unsafe and not recommended
-                        for use).
+  **Method**     |       **Use Case / Purpose**|
+-------------------| --------------------------------|
+`  start()  `           `|  Starts a new thread and calls the run() method in a separate execution thread.|
+  `run()                `|    Contains the code to be executed when the thread is started.|
+  `sleep(milliseconds)  `| Pauses execution of the current thread for aspecified time (in milliseconds).
+  `join()               `|    Makes the calling thread wait until the specified thread finishes execution.
+  `getName()            `|    Retrieves the name of the thread.
+  `setName(String name) `| Sets the name of the thread. Useful for debugging and logging.
+  `getId()              `|     Returns the unique ID of the thread.
+  `getPriority()        `|    Gets the priority of the thread (default: 5, range: 1   to 10).
+  `setPriority(int priority)`     |   Sets the thread's priority (higher value means higher priority).
+  `isAlive()            `|     Checks whether a thread is currently running.
+  `isDaemon()           `|    Checks if the thread is a daemon thread (background service thread).
+  `setDaemon(boolean)   `|  Marks a thread as a daemon thread. Daemon threads run  in the background and terminate when all user threads exit.
+  `interrupt()          `|   Interrupts a sleeping or waiting thread, causing it to throw an InterruptedException.
+  `isInterrupted()      `|   Checks if the thread has been interrupted.
+  `yield()              `|    Temporarily pauses the execution of the current  thread to allow other threads to execute.
+  `wait()               `|   Causes the current thread to wait until another thread calls notify() or notifyAll(). Used in synchronization.
+  `notify()             `|   Wakes up a single thread that is waiting on an   object's monitor.
+  `notifyAll()          `|       Wakes up all threads waiting on an object's monitor.
+  `stop() (Deprecated)  `| Forcefully stops a thread (unsafe and not recommended for use).
   ---------------------------------------------------------------------------
 
 **What is Deadlock and How to Avoid It?**
@@ -2319,46 +2285,33 @@ Here's a **table of Java thread methods and their uses** for quick reference:
 **Answer:**
 
 Deadlock occurs when **two or more threads wait indefinitely** for each
-other\'s locked resources.
+other's locked resources.
 
 **✅ Example: Deadlock Situation**
 
-**public** **class** Resource {
-
-**synchronized** **void** method1(Resource r2) {
-
-System.***out***.println(Thread.currentThread().getName() + \" locked
-method1\");
-
-**try** { Thread.sleep(100); } **catch** (InterruptedException e) {}
-
+```java
+public class Resource {
+synchronized void method1(Resource r2) {
+System.out.println(Thread.currentThread().getName() + " locked method1");
+try { Thread.sleep(100); } **catch** (InterruptedException e) {}
 r2.method2();
-
 }
-
-**synchronized** **void** method2() {
-
-System.***out***.println(Thread.currentThread().getName() + \" locked
-method2\");
-
+synchronized void method2() {
+System.out.println(Thread.currentThread().getName() + " locked method2");
 }
-
 }
+```
 
-**public** **class** DeadlockExample {
+```java
+public class DeadlockExample {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
-Resource r1 = **new** Resource();
+Resource r1 = new Resource();
 
-Resource r2 = **new** Resource();
+Resource r2 = new Resource();
 
-Thread t1 = **new** Thread(() -\> r1.method1(r2), \"Thread-1\");
-
-![A cartoon of a bear pointing at a poster AI-generated content may be
-incorrect.](./media/media/image21.png){width="0.6962029746281715in"
-height="0.6962029746281715in"} Thread t2 = **new** Thread(() -\>
-r2.method1(r1), \"Thread-2\");
+Thread t1 = new Thread(() -> r1.method1(r2), "Thread-1");
 
 t1.start();
 
@@ -2366,7 +2319,8 @@ t2.start();
 
 }
 
-}
+
+```}
 
 // output : Thread-2 locked method1
 
@@ -2385,18 +2339,18 @@ them.
 
 **Example: Using ExecutorService**
 
-**public** **class** ThreadPoolExample {
+```java
+public class ThreadPoolExample {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
 ExecutorService executor = Executors.newFixedThreadPool(3);
 
-**for** (**int** i = 1; i \<= 5; i++) {
+for (int i = 1; i <= 5; i++) {
 
-**final** **int** taskNumber = i;
+final int taskNumber = i;
 
-executor.execute(() -\> System.***out***.println(\"Executing task: \" +
-taskNumber));
+executor.execute(() -> System.out.println("Executing task: " +taskNumber));
 
 }
 
@@ -2406,50 +2360,45 @@ executor.shutdown();
 
 }
 
-![A cartoon of a bear pointing at a poster AI-generated content may be
-incorrect.](./media/media/image21.png){width="0.6962029746281715in"
-height="0.6962029746281715in"}
+```
 
-**Key Points:**
+> **Key Points:**
 
-- **Reduces thread creation overhead.**
+>- Reduces thread creation overhead.
 
-- **Manages concurrency efficiently.**
+>- Manages concurrency efficiently.
 
 **Difference Between Callable and Runnable**
 
 --------------------------------------------------------------------
-  Feature          Runnable                   Callable
----------------- -------------------------- ------------------------
-  Return Type      void                       Future\<V\> (returns a
-                                              value)
-
-  Exception        Cannot throw checked       Can throw checked
-  Handling         exceptions                 exceptions
-
-  Lambda Support   Yes                        Yes
+  Feature       |   Runnable            |       Callable
+---------------|- -------------------|------- ------------------------
+  Return Type  |    void                       Future<V> (returns a value)
+  Exception Handling   |    Cannot throw checked   exceptions  |   Can throw checked exceptions
+  Lambda Support |   Yes           |             Yes
   --------------------------------------------------------------------
 
 **Example:**
 
-**public** **class** CallableExample {
+```java
+public class CallableExample {
 
-**public** **static** **void** main(String\[\] args) **throws**
+public static void main(String[] args) throws
 Exception {
 
 ExecutorService executor = Executors.newFixedThreadPool(2);
 
-Callable\<Integer\> task = () -\> {
+Callable<Integer> task = () -> {
 
 Thread.sleep(1000);
 
-**return** 42;
+return 42;
 
 };
 
-Future\<Integer\> result = executor.submit(task);
+Future<Integer> result = executor.submit(task);
 
-System.***out***.println(\"Result: \" + result.get()); // Waits for
+System.out.println("Result: " + result.get()); // Waits for
 result
 
 executor.shutdown(); // output : 42
@@ -2457,6 +2406,7 @@ executor.shutdown(); // output : 42
 }
 
 }
+```
 
 **Annotaion**: **Future.get() blocks until the result is available.**
 
@@ -2481,130 +2431,109 @@ executor.shutdown(); // output : 42
 **▶️ Types of ExecutorService**
 
 -------------------------------------------------------------------
-  Type                        Description
---------------------------- ---------------------------------------
-  newFixedThreadPool(n)       Fixed number of threads in the pool.
-
-  newCachedThreadPool()       Dynamically grows as needed, reuses
-                              idle threads.
-
-  newSingleThreadExecutor()   Exactly 1 thread in the pool.
-
-  newScheduledThreadPool(n)   Allows scheduling tasks to run
-                              periodically.
+  Type                      |  Description
+---------------------------| ---------------------------------------
+  newFixedThreadPool(n)    |   Fixed number of threads in the pool.
+  newCachedThreadPool()   |    Dynamically grows as needed, reuses  idle threads.
+  newSingleThreadExecutor() |  Exactly 1 thread in the pool.
+  newScheduledThreadPool(n)  | Allows scheduling tasks to run periodically.
   -------------------------------------------------------------------
 
 **▶️ Example: Fixed Thread Pool (2 Threads)**
 
-// Create thread pool with 2 threads at a time two thread will run
+>// Create thread pool with 2 threads at a time two thread will run
 
+```java
 ExecutorService executor = Executors.newFixedThreadPool(2);
 
-**for** (**int** i = 1; i \<= 5; i++) {
+for (int i = 1; i <= 5; i++) {
 
-**int** taskId = i;
+int taskId = i;
 
-executor.submit(() -\> {
+executor.submit(() -> {
 
-System.***out***.println(\"Task \" + taskId + \" is running in thread:
-\" + Thread.currentThread().getName());
-
-**try** {
-
+System.out.println("Task " + taskId + " is running in thread:" + Thread.currentThread().getName());
+try {
 Thread.sleep(2000); // Simulate work
-
-} **catch** (InterruptedException e) {
-
+} catch (InterruptedException e) {
 e.printStackTrace();
-
 }
-
-System.***out***.println(\"Task \" + taskId + \" completed.\");
-
+System.out.println("Task " + taskId + " completed.");
 });
-
 }
-
 executor.shutdown();
+```
 
 **3️⃣ Example Behavior**
 
-ExecutorService service = Executors.newFixedThreadPool(1); // Using 2
-threads
+```java
+ExecutorService service = Executors.newFixedThreadPool(1); // Using 2 threads
 
 // Submit Runnable Task 1
 
-service.submit(() -\> {
+service.submit(() -> {
 
-System.***out***.println(\"Thread one is running!\");
+System.out.println("Thread one is running!");
 
-**try** {
+try {
 
 Thread.sleep(2000); // Shortened for demonstration
 
-} **catch** (InterruptedException e) {
+} catch (InterruptedException e) {
 
 e.printStackTrace();
 
 }
 
-System.***out***.println(\"Thread one completed!\");
+System.out.println("Thread one completed!");
 
 });
 
+
 // Submit Runnable Task 2
 
-service.submit(() -\> {
+service.submit(() -> {
 
-System.***out***.println(\"Thread two is running!\");
+System.out.println("Thread two is running!");
 
 });
 
 // Shutdown executor service
 
 service.shutdown();
-
+```
 - Only **1 thread** is available.
 
 - Task 1 executes first, Task 2 waits until Task 1 finishes, then runs.
 
 **▶️ Why Use ExecutorService?**
 
-✅ Simplifies thread management.\
-✅ Improves performance via thread reuse.\
-✅ Handles task queuing automatically.\
-✅ Supports Callable → Future to get results.\
+✅ Simplifies thread management.
+✅ Improves performance via thread reuse.
+✅ Handles task queuing automatically.
+✅ Supports Callable → Future to get results.
 ✅ Allows controlled shutdown.
 
 ## What is volatile Keyword?
 
-The volatile keyword ensures that a **variable's value is always read
-from main memory**, avoiding **caching issues**.
+The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**.
 
 **Example: Using volatile**
 
-**class** VolatileExample {
+```java
+class VolatileExample {
 
-**private** **static** **volatile** **boolean** *running* = **true**;
+private static volatile boolean running = true;
 
-**public** **static** **void** main(String\[\] args) **throws**
-InterruptedException {
-
-Thread t1 = **new** Thread(() -\> {
-
-**while** (*running*) {} // Busy wait
-
-System.***out***.println(\"Thread Stopped\");
-
-});
-
+public static void main(String[] args) throws InterruptedException {
+Thread t1 = new Thread(() -> {
+while (running) {} // Busy wait
+System.out.println("Thread Stopped"); });
 t1.start();
-
 Thread.sleep(1000);
-
-*running* = **false**; // Stops the thread
-
+running = false; // Stops the thread
 }
+```
 
 **Serialization**
 
@@ -2628,9 +2557,9 @@ Points to remember:
 3.  Static data members and transient data members are not saved via
     Serialization process.
 
-4.  If you mark a field **transient**, it won\'t be serialized.
+4.  If you mark a field **transient**, it won't be serialized.
 
-**[private transient int age;]{.mark} // age won\'t be saved**
+`private transient int age; // age won't be saved`
 
 ![serialize-deserialize-java](./media/media/image22.png){width="4.756472003499563in"
 height="3.153846237970254in"}
@@ -2647,60 +2576,63 @@ Methods for Serializing and Deserializing an Object:
 
 - **Ob.readObject() :** method used to read object stream from file.
 
-**public** **class** SerializeDemo {
+```java
+public class SerializeDemo {
 
-**public** **static** **void** main(String\[\] args) **throws**
+public static void main(String[] args) throws
 ClassNotFoundException, IOException {
 
-File file = **new** File(\"Student.txt\");
+File file = new File("Student.txt");
 
 serializeObeject(file);
 
-deserializeObject(file).stream().forEach(s -\>
+deserializeObject(file).stream().forEach(s ->
 System.out.println(s.getName()));
 
 }
+```
 
-**public** **static** List\<Student\> deserializeObject(File f)
-**throws** IOException, ClassNotFoundException {
+```java
+public static List<Student> deserializeObject(File f)
+throws IOException, ClassNotFoundException {
 
-FileInputStream fileInput = **new** FileInputStream(f);
+FileInputStream fileInput = new FileInputStream(f);
 
-ObjectInputStream [objectInput] = **new**
+ObjectInputStream [objectInput] = new
 ObjectInputStream(fileInput);
 
-List\<Student\> savedStudent = [(List\<Student\>)
+List<Student> savedStudent = [(List<Student>)
 objectInput.readObject()];
 
 // System.out.println(savedStudent);
 
-**return** savedStudent;
+return savedStudent;
 
 }
 
-**public** **static** **void** serializeObeject(File f) {
+public static void serializeObeject(File f) {
 
-**try** {
+try {
 
-**if** (f.exists()) {
+if (f.exists()) {
 
-System.out.println(\"File created \" + f.getAbsolutePath());
+System.out.println("File created " + f.getAbsolutePath());
 
-FileOutputStream fout = **new** FileOutputStream(f);
+FileOutputStream fout = new FileOutputStream(f);
 
-ObjectOutputStream [objectoutput] = **new**
+ObjectOutputStream [objectoutput] = new
 ObjectOutputStream(fout);
 
-List\<Student\> stds = Arrays.asList(**new** Student(\"Narsing\",
-\"Kolnoor\", LocalDate.of(1997, 05, 14), 28),
+List<Student> stds = Arrays.asList(new Student("Ram",
+"Delhi", LocalDate.of(1077, 15, 34), 18),
 
-**new** Student(\"Nikita\", \"Pune\", LocalDate.of(1997, 07, 14), 25),
+new Student("Rupa", "Pune", LocalDate.of(1992, 07, 14), 25),
 
-**new** Student(\"NIrav\", \"Nanded\", LocalDate.of(2024, 5, 9), 1));
+new Student("Menar", "Jaipur", LocalDate.of(2034, 5, 9), 1));
 
 objectoutput.writeObject(stds);
 
-System.out.println(\"Student object Serialized !\");
+System.out.println("Student object Serialized !");
 
 }
 
@@ -2713,17 +2645,17 @@ e.printStackTrace();
 }
 
 }
+```
 
-- 
 
-Servlet & JSP
+# Servlet & JSP
 
-## What is a Servlet?
+### What is a Servlet?
 
 A **Servlet** is a Java class that runs on a server, processes client
 requests (typically HTTP), and generates a response (usually HTML).
 
-## What are the types of Servlets?
+###What are the types of Servlets?
 
 - **GenericServlet** (Protocol-independent) only required methods can be
   implemented.
@@ -2731,7 +2663,7 @@ requests (typically HTTP), and generates a response (usually HTML).
 - **HttpServlet** (Specifically for HTTP requests) only required methods
   can be implemented.
 
-## What are the key methods in a Servlet?
+###What are the key methods in a Servlet?
 
 - **init():** Initializes the servlet (called once).
 
@@ -2739,6 +2671,7 @@ requests (typically HTTP), and generates a response (usually HTML).
 
 - **destroy():** Called before the servlet is removed from memory.
 
+  
 ## Difference between doGet() and doPost()?
 
 -------------------------------------------------------
