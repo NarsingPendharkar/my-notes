@@ -2030,23 +2030,20 @@ System.out.println(allEven); // Output: true
 
 ##  Default & Static Methods in Interfaces
 
-- Java 8 allows **default** method implementations in interfaces.
+- Java 8 allows default method implementations in interfaces.
 
 - static methods can be added as well.
 
 - Default allows interfaces to have method with implementation
 
-**Example:**
+Example:
 
-**interface** Vehicle {
-
-**default** **void** start() {
-
-System.***out***.println(\"Vehicle is starting\");
-
-}
-
-}
+```java
+interface Vehicle {
+default void start() {
+System.out.println("Vehicle is starting");
+}}
+```
 
 ### Optional Class:
 
@@ -2054,9 +2051,10 @@ System.***out***.println(\"Vehicle is starting\");
 
 **Example:**
 
-Optional\<String\> optional = Optional.ofNullable(\"Hello\");
-
-optional.ifPresent(System.***out***::println);
+```java
+Optional<String> optional = Optional.ofNullable("Hello");
+optional.ifPresent(System.out::println);
+```
 
 **Common Methods:** *of(), ofNullable(), isPresent(), ifPresent(),
 get(), orElse()*
@@ -2071,78 +2069,75 @@ get(), orElse()*
 
 - Easy to handle time zone
 
-- Problems before java 8 : mutable , leading unexpected behaviour in
-  multithreaded app and time zone handling complex.
+- Problems before java 8 : mutable , leading unexpected behaviour in multithreaded app and time zone handling complex.
 
 **Example:**
 
+```java
 LocalDate date = LocalDate.now();
 
 LocalTime time = LocalTime.now();
 
 LocalDateTime dateTime = LocalDateTime.now();
 
-System.***out***.println(date); // 2025-03-04
+System.out.println(date); // 2025-03-04
 
-System.***out***.println(time); //19:49:18.331792800
+System.out.println(time); //19:49:18.331792800
 
-System.***out***.println(dateTime); //2025-03-04T19:49:18.331792800
+System.out.println(dateTime); //2025-03-04T19:49:18.331792800
+```
 
-Multithreading
+# Multithreading
 
 **What is Threads ?**
 
-- Thread in java is a path or direction followed for its execution.
-  Every program has one main thread.
+- Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
 - Thread allows us to perform multiple tasks at a time
 
-- When multiple threads are executed at a time this process is called
-  Multithreading
+- When multiple threads are executed at a time this process is called Multithreading
 
 - Multithreading enables you to perform multiple tasks at a time
 
 **What is Multithreading in Java?**
 
-- Multithreading is the ability to execute multiple **threads**
-  (lightweight subprocesses) **concurrently** in Java to improve
-  performance.
+- Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
 - Thread is a separate path of execution of program
 
-- When various multiple threads are executed at a time this process is
-  called multi-threadeding.
+- When various multiple threads are executed at a time this process is called multi-threadeding.
 
 > **Benefits:**
 
-- Better resource utilization
+>- Better resource utilization
 
-- Improved application responsiveness
+>- Improved application responsiveness
 
-- Simplified modelling of asynchronous or parallel tasks
+>- Simplified modelling of asynchronous or parallel tasks
 
 **Example: Basic Thread Creation**
 
-**public** **class** Threading **extends** Thread{
+```java
+public class Threading extends Thread{
 
-**public** **void** run() {
+public void run() {
 
-System.***out***.println(\"run method used to run thread :
-\"+Thread.currentThread().getName());
+System.out.println("run method used to run thread :"+Thread.currentThread().getName());
 
 }
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
-Threading thd=**new** Threading();
+Threading thd=new Threading();
 
-thd.setName(\"thread number 1\");
+thd.setName("thread number 1");
 
 thd.start();
 
 }
 
 }
+```
 
 ## Thread Life Cycle and States
 
@@ -2150,13 +2145,9 @@ A thread goes through several states:
 
 1.  **New:** New thread is created but not yet started.
 
-2.  **Runnable:** Thread is ready to run; waiting in the runnable queue.
-    (Note: "Runnable" can mean ready and running because the OS
-    scheduler decides when to run it.)
+2.  **Runnable:** Thread is ready to run; waiting in the runnable queue.(Note: "Runnable" can mean ready and running because the OS scheduler decides when to run it.)
 
-3.  **Blocked/Waiting/Timed Waiting:** Thread is not eligible to run
-    until a specific condition is met (e.g., waiting for I/O,
-    synchronization, or sleep).
+3.  **Blocked/Waiting/Timed Waiting:** Thread is not eligible to run until a specific condition is met (e.g., waiting for I/O,     synchronization, or sleep).
 
 4.  **Terminated:** Thread execution completed or stopped.
 
@@ -2170,26 +2161,27 @@ A thread goes through several states:
 
 **Example:**
 
-**public** **class** Threading **implements** Runnable{
+```java
+public class Threading implements Runnable{
 
-**public** **void** run() {
+public void run() {
 
-System.***out***.println(\"run method used to run thread :
-\"+Thread.currentThread().getName());
+System.out.println("run method used to run thread :"+Thread.currentThread().getName());
 
 }
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
-Threading thd=**new** Threading();
+Threading thd=new Threading();
 
-Thread th=**new** Thread(thd);
+Thread th=new Thread(thd);
 
 th.start();
 
 }
 
 }
+```
 
 ## Why Prefer Runnable Over Thread?
 
@@ -2202,37 +2194,34 @@ th.start();
 **Answer:**
 
 --------------------------------------------------
-  Method    Description
---------- ----------------------------------------
-  start()   Starts a new thread and calls run()
-            internally
-
-  run()     Executes in the current thread like a
-            normal method
+  Method |   Description|
+---------| ----------------------------------------|
+ ** start()** |Starts a new thread and calls run() internally
+ ** run()** |   Executes in the current thread like a normal method
   --------------------------------------------------
 
 ## What is Thread Synchronization?
 
-Thread synchronization ensures that **only one thread** accesses a
-critical section (shared resource) at a time.
+Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time.
 
 **Example:**
 
 **Using synchronized Keyword**
 
-**public** **class** ThreadSynchronisation **implements** Runnable{
+```java
+public class ThreadSynchronisation implements Runnable{
 
-**synchronized** **void** print() {
+synchronized void print() {
 
-**for**(**int** i=1;i\<=10;i++) {
+for(int i=1;i<=10;i++) {
 
-System.***out***.println(i);
+System.out.println(i);
 
-**try** {
+try {
 
 Thread.sleep(500);
 
-} **catch** (InterruptedException e) {
+} catch (InterruptedException e) {
 
 e.printStackTrace();
 
@@ -2241,31 +2230,30 @@ e.printStackTrace();
 }
 
 }
+```
 
-**public** **static** **void** main(String\[\] args) {
+```java
+public static void main(String[] args) {
 
-ThreadSynchronisation ts=**new** ThreadSynchronisation();
+ThreadSynchronisation ts=new ThreadSynchronisation();
 
-Thread tr=**new** Thread(()-\>ts.print());
+Thread tr=new Thread(()->ts.print());
 
-Thread tr1=**new** Thread(()-\>ts.print());
+Thread tr1=new Thread(()->ts.print());
 
 tr.start();
 
 tr1.start();
 
 }}
+```
 
 **Key Points:**
-
-- synchronized **locks the method** so only **one thread** can execute
-  it at a time.
+ - synchronized **locks the method** so only **one thread** can execute   it at a time.
 
 - Prevents **race conditions** and **inconsistent results**.
 
-Here\'s a **table of Java thread methods and their uses** for quick
-reference:
-
+Here's a **table of Java thread methods and their uses** for quick reference:
 ### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
