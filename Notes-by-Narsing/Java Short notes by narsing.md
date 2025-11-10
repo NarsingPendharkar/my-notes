@@ -2304,27 +2304,18 @@ System.out.println(Thread.currentThread().getName() + " locked method2");
 
 ```java
 public class DeadlockExample {
-
 public static void main(String[] args) {
-
 Resource r1 = new Resource();
-
 Resource r2 = new Resource();
-
 Thread t1 = new Thread(() -> r1.method1(r2), "Thread-1");
-
 t1.start();
-
 t2.start();
-
 }
+}```
 
+> // output : Thread-2 locked method1
 
-```}
-
-// output : Thread-2 locked method1
-
-// output : Thread-1 locked method1
+>// output : Thread-1 locked method1
 
 **Avoid Deadlock:**
 
@@ -2367,6 +2358,7 @@ executor.shutdown();
 >- Reduces thread creation overhead.
 
 >- Manages concurrency efficiently.
+
 
 **Difference Between Callable and Runnable**
 
