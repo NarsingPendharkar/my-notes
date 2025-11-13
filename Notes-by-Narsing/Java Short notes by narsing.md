@@ -4,8 +4,7 @@
 
 ### 💻 Is Java Platform Independent? If yes, how?
 
-Yes!  
-When we execute Java code, the **compiler** converts it into **bytecode**.  
+Yes! When we execute Java code, the **compiler** converts it into **bytecode**.  
 This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
 
 > 🔹 **Key Point:** Bytecode runs on JVM, not directly on the OS — that’s what makes Java platform independent.
@@ -63,9 +62,9 @@ This bytecode is **platform independent**, meaning it can run on any system that
 | **JRE (Java Runtime Environment)** | Provides the **libraries, class files, and JVM** necessary to **run** Java applications. |
 | **JVM (Java Virtual Machine)** | Converts **bytecode** into **machine code** and executes it. It is platform dependent but provides platform independence to Java code. |
 
----
 
-![JVM, JRE, JDK Diagram](./media/media/image16.jpeg)
+
+
 
 ---
 
@@ -1828,48 +1827,47 @@ System.out.println(count); // Output: 2
 
 ### **Intermediate Operations with Examples**
 
-- **filter(Predicate\<T\> predicate)**
+- **filter(Predicate<T> predicate)**
 
-> **Definition:** Filters out elements that do not match a given
-> predicate.
->
-> **Example:**
+> **Definition:** Filters out elements that do not match a given predicate.
 
-List\<String\> names = Arrays.asList(\"John\", \"Jane\", \"Mike\",
-\"Alice\");
+ **Example:**
 
-List\<String\>filternaes =
-names.stream().filter(n-\>n.contains(\"M\")).collect(Collectors.toList());
+```java
+List<String> names = Arrays.asList("John", "Jane", "Mike","Alice");
+List<String>filternaes =names.stream().filter(n->n.contains("M")).collect(Collectors.toList());
+System.out.println(filternaes); // Mike
+```
 
-System.***out***.println(filternaes); // \[[Mike]\]
+- **map(Function<T, R> mapper)**
 
-- **map(Function\<T, R\> mapper)**
+> **Definition:** Transforms each element in the stream, returning a new stream of the transformed elements.
 
-> **Definition:** Transforms each element in the stream, returning a new
-> stream of the transformed elements.
->
-> **Example:**
+ **Example:**
 
-List\<String\> words = Arrays.asList(\"java\", \"stream\", \"api\");
+```java
+List<String> words = Arrays.asList( "java ",  "stream ",  "api ");
 
-List\<Integer\> lengths = words.stream().map(w-\>
-w.length()).collect(Collectors.toList());
+List <Integer > lengths = words.stream().map(w- >w.length()).collect(Collectors.toList());
 
-System.***out***.println(lengths); // Output: \[4, 6, 3\]
+System.out.println(lengths); // Output:  [4, 6, 3 ]
+```
 
-- **sorted() and sorted(Comparator\<? super T\> comparator)**
+- **sorted() and sorted(Comparator <? super T > comparator)**
 
 > **Definition:** Returns a stream with the elements sorted in natural
 > order or via a provided comparator.
 >
 > **Example:**
 
-List\<Integer\> numbers = Arrays.asList(5, 3, 1, 4, 2);
+```java
+List <Integer > numbers = Arrays.asList(5, 3, 1, 4, 2);
 
-List\<Integer\> sortedNumbers =
+List <Integer > sortedNumbers =
 numbers.stream().sorted.collect(Collectors.toList());
 
-System.***out***.println(sortedNumbers); // Output: \[1, 2, 3, 4, 5\]
+System.out.println(sortedNumbers); // Output:  [1, 2, 3, 4, 5 ]
+```
 
 - **distinct()**
 
@@ -1877,184 +1875,174 @@ System.***out***.println(sortedNumbers); // Output: \[1, 2, 3, 4, 5\]
 >
 > **Example:**
 
-List\<Integer\> numbers = Arrays.asList(5, 4,5,3, 1, 4, 2);
+```java
+List <Integer > numbers = Arrays.asList(5, 4,5,3, 1, 4, 2);
 
-List\<Integer\> distinctList = numbers.stream().distinct().toList();
+List <Integer > distinctList = numbers.stream().distinct().toList();
 
-System.***out***.println(distinctList); // Output: \[1, 2, 3, 4, 5\]
+System.out.println(distinctList); // Output:  [1, 2, 3, 4, 5 ]
+```
 
 - **limit(long maxSize)**
 
 > **Definition:** Returns a stream containing no more than the given
 > number of elements. **Example:**
 
-List\<String\> names = Arrays.asList(\"Alice\", \"Bob\", \"Charlie\",
-\"David\");
-
-List\<String\> limitedNames = names.stream()
-
-.limit(2)
-
-.collect(Collectors.toList());
-
-System.out.println(limitedNames); // Output: \[Alice, Bob\]
+```java
+List <String > names = Arrays.asList( "Alice ",  "Bob ",  "Charlie ", "David ");
+List <String > limitedNames = names.stream().limit(2).collect(Collectors.toList());
+System.out.println(limitedNames); // Output:  [Alice, Bob ]
+```
 
 - **skip(long n)**
 
 > **Definition:** Skips the first *n* elements and returns a stream of
 > the remaining elements. **Example:**
 
-List\<String\> [words] = Arrays.asList(\"java\", \"stream\",
-\"api\");
+```java
+List <String > [words] = Arrays.asList( "java ",  "stream ","api ");
 
-List\<String\>
-skipedList=words.stream().skip(1).collect(Collectors.toList());
+List <String >skipedList=words.stream().skip(1).collect(Collectors.toList());
 
-System.***out***.println(skipedList); // output : \[stream,
-[api]\]
+System.out.println(skipedList); // output :  [stream,api ]
+```
 
-- **flatMap(Function\<T, Stream\<R\>\> mapper)**
+- **flatMap(Function <T, Stream <R > > mapper)**
 
 > **Definition:** Transforms each element into a stream and then
 > flattens these streams into a single stream.
 >
 > **Example:**
 
-List\<List\<Integer\>\> listOfLists = Arrays.asList(
-
-Arrays.asList(1, 2),
-
-Arrays.asList(3, 4),
-
-Arrays.asList(5, 6)
-
-);
-
-List\<Integer\> flattenedList = listOfLists.stream()
-
-.flatMap(List::stream)
-
-.collect(Collectors.toList());
-
-System.***out***.println(flattenedList); // Output: \[1, 2, 3, 4, 5, 6\]
+```java
+List <List <Integer > > listOfLists = Arrays.asList(Arrays.asList(1, 2),Arrays.asList(3, 4),Arrays.asList(5, 6));
+List <Integer > flattenedList = listOfLists.stream().flatMap(List::stream).collect(Collectors.toList());
+System.out.println(flattenedList); // Output:  [1, 2, 3, 4, 5, 6 ]
+```
 
 ### **Terminal Operations with Examples**
 
-- **forEach(Consumer\<T\> action)**
+- **forEach(Consumer <T > action)**
 
-**Definition:** Performs an action for each element of the stream.
+>**Definition:** Performs an action for each element of the stream.
 
 **Example:**
 
-***names***.stream().forEach(n-\>
-System.***out***.print(n.toUpperCase()+\" \")); // output : JOHN JANE
-MIKE ALICE
+```java
+names.stream().forEach(n- >System.out.print(n.toUpperCase()+ "  ")); // output : JOHN JANE MIKE ALICE
+```
 
-- **collect(Collector\<T, A, R\> collector)**
+- **collect(Collector <T, A, R > collector)**
 
-**Definition:** Collects the stream\'s elements into a collection or
+>**Definition:** Collects the stream 's elements into a collection or
 another type of result.
 
 **Example:**
 
-List\<String\> namelist=
-***names***.stream().filter(n-\>n.contains(\"J\")).collect(Collectors.toList());
+```java
+List <String > namelist=names.stream().filter(n- >n.contains( "J ")).collect(Collectors.toList());
+System.out.println(namelist); //output :  [John, Jane ]
+```
 
-System.***out***.println(namelist); //output : \[John, Jane\]
+- **reduce(BinaryOperator <T > accumulator)**
 
-- **reduce(BinaryOperator\<T\> accumulator)**
-
-**Definition:** Reduces the stream to a single value by repeatedly
+>**Definition:** Reduces the stream to a single value by repeatedly
 applying an accumulator function.
 
 **Example:**
 
-List\<Integer\> num = Arrays.asList(2,4,5,6,7);
+```java
+List <Integer > num = Arrays.asList(2,4,5,6,7);
 
-Integer total=num.stream().reduce((a,b)-\>a+b).orElse(0);
+Integer total=num.stream().reduce((a,b)- >a+b).orElse(0);
 
-System.***out***.println( total);
+System.out.println( total);
+```
 
 - **count()**
 
-**Definition:** Returns the number of elements in the stream.
+>**Definition:** Returns the number of elements in the stream.
 
 **Example:**
 
-List\<Integer\> numbers = Arrays.asList(1, 2, 3, 4, 5);
+```java
+List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-**long** count = numbers.stream().count();
+long count = numbers.stream().count();
 
-System.***out***.println(count); // Output: 5
+System.out.println(count); // Output: 5
+```
 
 - **findFirst() and findAny()**
 
-**Definition:** Returns an Optional describing the first or any element
+>**Definition:** Returns an Optional describing the first or any element
 of the stream, respectively.
 
 **Example:**
 
-List\<Integer\> numbers = Arrays.asList(1, 2, 3, 4, 5);
+```java
+List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-**long** first = numbers.stream().findFirst().orElse(0);
+long first = numbers.stream().findFirst().orElse(0);
 
-**long** any = numbers.stream().findAny().orElse(0);
+long any = numbers.stream().findAny().orElse(0);
 
-System.***out***.println(first); // Output: 1
+System.out.println(first); // Output: 1
 
-System.***out***.println(any); // Output: 1
+System.out.println(any); // Output: 1
+```
 
-- **min(Comparator\<? super T\> comparator) and max(Comparator\<? super
-  T\> comparator)**
+- **min(Comparator <? super T > comparator) and max(Comparator <? super
+  T > comparator)**
 
-**Definition:** Returns an Optional containing the minimum or maximum
+>**Definition:** Returns an Optional containing the minimum or maximum
 element according to the specified comparator.
 
 **Example:**
 
-List\<Integer\> numbers = Arrays.asList(1, 2, 3, 4, 5);
+```java
+List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-**long** min = numbers.stream().min((a,b)-\>a.compareTo(b)).orElse(0);
+long min = numbers.stream().min((a,b)- >a.compareTo(b)).orElse(0);
 
-**long** max = numbers.stream().max((a,b)-\>a.compareTo(b)).orElse(0);
+long max = numbers.stream().max((a,b)- >a.compareTo(b)).orElse(0);
 
-System.***out***.println(min); // Output: 1
+System.out.println(min); // Output: 1
 
-System.***out***.println(max); // Output: 5
+System.out.println(max); // Output: 5
+```
 
-- **allMatch(Predicate\<? super T\> predicate), anyMatch(Predicate\<?
-  super T\> predicate), noneMatch(Predicate\<? super T\> predicate)**
+- **allMatch(Predicate <? super T > predicate), anyMatch(Predicate <?
+  super T > predicate), noneMatch(Predicate <? super T > predicate)**
 
-**Definition**: Evaluate whether the stream elements satisfy the given
+>**Definition**: Evaluate whether the stream elements satisfy the given
 predicate.
 
 **Example:**
 
-List\<Integer\> num2 = Arrays.asList(2, 4, 6, 8);
+```java
+List <Integer > num2 = Arrays.asList(2, 4, 6, 8);
+boolean allEven = num2.stream().allMatch(n - > n % 2 == 0);
+System.out.println(allEven); // Output: true
+```
 
-**boolean** allEven = num2.stream().allMatch(n -\> n % 2 == 0);
-
-System.***out***.println(allEven); // Output: true
 
 ##  Default & Static Methods in Interfaces
 
-- Java 8 allows **default** method implementations in interfaces.
+- Java 8 allows default method implementations in interfaces.
 
 - static methods can be added as well.
 
 - Default allows interfaces to have method with implementation
 
-**Example:**
+Example:
 
-**interface** Vehicle {
-
-**default** **void** start() {
-
-System.***out***.println(\"Vehicle is starting\");
-
-}
-
-}
+```java
+interface Vehicle {
+default void start() {
+System.out.println("Vehicle is starting");
+}}
+```
 
 ### Optional Class:
 
@@ -2062,9 +2050,10 @@ System.***out***.println(\"Vehicle is starting\");
 
 **Example:**
 
-Optional\<String\> optional = Optional.ofNullable(\"Hello\");
-
-optional.ifPresent(System.***out***::println);
+```java
+Optional<String> optional = Optional.ofNullable("Hello");
+optional.ifPresent(System.out::println);
+```
 
 **Common Methods:** *of(), ofNullable(), isPresent(), ifPresent(),
 get(), orElse()*
@@ -2079,78 +2068,75 @@ get(), orElse()*
 
 - Easy to handle time zone
 
-- Problems before java 8 : mutable , leading unexpected behaviour in
-  multithreaded app and time zone handling complex.
+- Problems before java 8 : mutable , leading unexpected behaviour in multithreaded app and time zone handling complex.
 
 **Example:**
 
+```java
 LocalDate date = LocalDate.now();
 
 LocalTime time = LocalTime.now();
 
 LocalDateTime dateTime = LocalDateTime.now();
 
-System.***out***.println(date); // 2025-03-04
+System.out.println(date); // 2025-03-04
 
-System.***out***.println(time); //19:49:18.331792800
+System.out.println(time); //19:49:18.331792800
 
-System.***out***.println(dateTime); //2025-03-04T19:49:18.331792800
+System.out.println(dateTime); //2025-03-04T19:49:18.331792800
+```
 
-Multithreading
+# Multithreading
 
 **What is Threads ?**
 
-- Thread in java is a path or direction followed for its execution.
-  Every program has one main thread.
+- Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
 - Thread allows us to perform multiple tasks at a time
 
-- When multiple threads are executed at a time this process is called
-  Multithreading
+- When multiple threads are executed at a time this process is called Multithreading
 
 - Multithreading enables you to perform multiple tasks at a time
 
 **What is Multithreading in Java?**
 
-- Multithreading is the ability to execute multiple **threads**
-  (lightweight subprocesses) **concurrently** in Java to improve
-  performance.
+- Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
 - Thread is a separate path of execution of program
 
-- When various multiple threads are executed at a time this process is
-  called multi-threadeding.
+- When various multiple threads are executed at a time this process is called multi-threadeding.
 
 > **Benefits:**
 
-- Better resource utilization
+>- Better resource utilization
 
-- Improved application responsiveness
+>- Improved application responsiveness
 
-- Simplified modelling of asynchronous or parallel tasks
+>- Simplified modelling of asynchronous or parallel tasks
 
 **Example: Basic Thread Creation**
 
-**public** **class** Threading **extends** Thread{
+```java
+public class Threading extends Thread{
 
-**public** **void** run() {
+public void run() {
 
-System.***out***.println(\"run method used to run thread :
-\"+Thread.currentThread().getName());
+System.out.println("run method used to run thread :"+Thread.currentThread().getName());
 
 }
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
-Threading thd=**new** Threading();
+Threading thd=new Threading();
 
-thd.setName(\"thread number 1\");
+thd.setName("thread number 1");
 
 thd.start();
 
 }
 
 }
+```
 
 ## Thread Life Cycle and States
 
@@ -2158,13 +2144,9 @@ A thread goes through several states:
 
 1.  **New:** New thread is created but not yet started.
 
-2.  **Runnable:** Thread is ready to run; waiting in the runnable queue.
-    (Note: "Runnable" can mean ready and running because the OS
-    scheduler decides when to run it.)
+2.  **Runnable:** Thread is ready to run; waiting in the runnable queue.(Note: "Runnable" can mean ready and running because the OS scheduler decides when to run it.)
 
-3.  **Blocked/Waiting/Timed Waiting:** Thread is not eligible to run
-    until a specific condition is met (e.g., waiting for I/O,
-    synchronization, or sleep).
+3.  **Blocked/Waiting/Timed Waiting:** Thread is not eligible to run until a specific condition is met (e.g., waiting for I/O,     synchronization, or sleep).
 
 4.  **Terminated:** Thread execution completed or stopped.
 
@@ -2178,26 +2160,27 @@ A thread goes through several states:
 
 **Example:**
 
-**public** **class** Threading **implements** Runnable{
+```java
+public class Threading implements Runnable{
 
-**public** **void** run() {
+public void run() {
 
-System.***out***.println(\"run method used to run thread :
-\"+Thread.currentThread().getName());
+System.out.println("run method used to run thread :"+Thread.currentThread().getName());
 
 }
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
-Threading thd=**new** Threading();
+Threading thd=new Threading();
 
-Thread th=**new** Thread(thd);
+Thread th=new Thread(thd);
 
 th.start();
 
 }
 
 }
+```
 
 ## Why Prefer Runnable Over Thread?
 
@@ -2210,37 +2193,34 @@ th.start();
 **Answer:**
 
 --------------------------------------------------
-  Method    Description
---------- ----------------------------------------
-  start()   Starts a new thread and calls run()
-            internally
-
-  run()     Executes in the current thread like a
-            normal method
+  Method |   Description|
+---------| ----------------------------------------|
+ ** start()** |Starts a new thread and calls run() internally
+ ** run()** |   Executes in the current thread like a normal method
   --------------------------------------------------
 
 ## What is Thread Synchronization?
 
-Thread synchronization ensures that **only one thread** accesses a
-critical section (shared resource) at a time.
+Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time.
 
 **Example:**
 
 **Using synchronized Keyword**
 
-**public** **class** ThreadSynchronisation **implements** Runnable{
+```java
+public class ThreadSynchronisation implements Runnable{
 
-**synchronized** **void** print() {
+synchronized void print() {
 
-**for**(**int** i=1;i\<=10;i++) {
+for(int i=1;i<=10;i++) {
 
-System.***out***.println(i);
+System.out.println(i);
 
-**try** {
+try {
 
 Thread.sleep(500);
 
-} **catch** (InterruptedException e) {
+} catch (InterruptedException e) {
 
 e.printStackTrace();
 
@@ -2249,89 +2229,54 @@ e.printStackTrace();
 }
 
 }
+```
 
-**public** **static** **void** main(String\[\] args) {
+```java
+public static void main(String[] args) {
 
-ThreadSynchronisation ts=**new** ThreadSynchronisation();
+ThreadSynchronisation ts=new ThreadSynchronisation();
 
-Thread tr=**new** Thread(()-\>ts.print());
+Thread tr=new Thread(()->ts.print());
 
-Thread tr1=**new** Thread(()-\>ts.print());
+Thread tr1=new Thread(()->ts.print());
 
 tr.start();
 
 tr1.start();
 
 }}
+```
 
 **Key Points:**
-
-- synchronized **locks the method** so only **one thread** can execute
-  it at a time.
+ - synchronized **locks the method** so only **one thread** can execute   it at a time.
 
 - Prevents **race conditions** and **inconsistent results**.
 
-Here\'s a **table of Java thread methods and their uses** for quick
-reference:
-
+Here's a **table of Java thread methods and their uses** for quick reference:
 ### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
-  **Method**            **Use Case / Purpose**
---------------------- -----------------------------------------------------
-  start()               Starts a new thread and calls the run() method in a
-                        separate execution thread.
-
-  run()                 Contains the code to be executed when the thread is
-                        started.
-
-  sleep(milliseconds)   Pauses execution of the current thread for a
-                        specified time (in milliseconds).
-
-  join()                Makes the calling thread wait until the specified
-                        thread finishes execution.
-
-  getName()             Retrieves the name of the thread.
-
-  setName(String name)  Sets the name of the thread. Useful for debugging and
-                        logging.
-
-  getId()               Returns the unique ID of the thread.
-
-  getPriority()         Gets the priority of the thread (default: 5, range: 1
-                        to 10).
-
-  setPriority(int       Sets the thread's priority (higher value means higher
-  priority)             priority).
-
-  isAlive()             Checks whether a thread is currently running.
-
-  isDaemon()            Checks if the thread is a daemon thread (background
-                        service thread).
-
-  setDaemon(boolean)    Marks a thread as a daemon thread. Daemon threads run
-                        in the background and terminate when all user threads
-                        exit.
-
-  interrupt()           Interrupts a sleeping or waiting thread, causing it
-                        to throw an InterruptedException.
-
-  isInterrupted()       Checks if the thread has been interrupted.
-
-  yield()               Temporarily pauses the execution of the current
-                        thread to allow other threads to execute.
-
-  wait()                Causes the current thread to wait until another
-                        thread calls notify() or notifyAll(). Used in
-                        synchronization.
-
-  notify()              Wakes up a single thread that is waiting on an
-                        object\'s monitor.
-
-  notifyAll()           Wakes up all threads waiting on an object\'s monitor.
-
-  stop() (Deprecated)   Forcefully stops a thread (unsafe and not recommended
-                        for use).
+  **Method**     |       **Use Case / Purpose**|
+-------------------| --------------------------------|
+`  start()  `           `|  Starts a new thread and calls the run() method in a separate execution thread.|
+  `run()                `|    Contains the code to be executed when the thread is started.|
+  `sleep(milliseconds)  `| Pauses execution of the current thread for aspecified time (in milliseconds).
+  `join()               `|    Makes the calling thread wait until the specified thread finishes execution.
+  `getName()            `|    Retrieves the name of the thread.
+  `setName(String name) `| Sets the name of the thread. Useful for debugging and logging.
+  `getId()              `|     Returns the unique ID of the thread.
+  `getPriority()        `|    Gets the priority of the thread (default: 5, range: 1   to 10).
+  `setPriority(int priority)`     |   Sets the thread's priority (higher value means higher priority).
+  `isAlive()            `|     Checks whether a thread is currently running.
+  `isDaemon()           `|    Checks if the thread is a daemon thread (background service thread).
+  `setDaemon(boolean)   `|  Marks a thread as a daemon thread. Daemon threads run  in the background and terminate when all user threads exit.
+  `interrupt()          `|   Interrupts a sleeping or waiting thread, causing it to throw an InterruptedException.
+  `isInterrupted()      `|   Checks if the thread has been interrupted.
+  `yield()              `|    Temporarily pauses the execution of the current  thread to allow other threads to execute.
+  `wait()               `|   Causes the current thread to wait until another thread calls notify() or notifyAll(). Used in synchronization.
+  `notify()             `|   Wakes up a single thread that is waiting on an   object's monitor.
+  `notifyAll()          `|       Wakes up all threads waiting on an object's monitor.
+  `stop() (Deprecated)  `| Forcefully stops a thread (unsafe and not recommended for use).
   ---------------------------------------------------------------------------
 
 **What is Deadlock and How to Avoid It?**
@@ -2339,57 +2284,35 @@ reference:
 **Answer:**
 
 Deadlock occurs when **two or more threads wait indefinitely** for each
-other\'s locked resources.
+other's locked resources.
 
 **✅ Example: Deadlock Situation**
 
-**public** **class** Resource {
-
-**synchronized** **void** method1(Resource r2) {
-
-System.***out***.println(Thread.currentThread().getName() + \" locked
-method1\");
-
-**try** { Thread.sleep(100); } **catch** (InterruptedException e) {}
-
+```java
+public class Resource {
+synchronized void method1(Resource r2) {
+System.out.println(Thread.currentThread().getName() + " locked method1");
+try { Thread.sleep(100); } **catch** (InterruptedException e) {}
 r2.method2();
-
+}
+synchronized void method2() {
+System.out.println(Thread.currentThread().getName() + " locked method2");
+}
 }
 
-**synchronized** **void** method2() {
-
-System.***out***.println(Thread.currentThread().getName() + \" locked
-method2\");
-
-}
-
-}
-
-**public** **class** DeadlockExample {
-
-**public** **static** **void** main(String\[\] args) {
-
-Resource r1 = **new** Resource();
-
-Resource r2 = **new** Resource();
-
-Thread t1 = **new** Thread(() -\> r1.method1(r2), \"Thread-1\");
-
-![A cartoon of a bear pointing at a poster AI-generated content may be
-incorrect.](./media/media/image21.png){width="0.6962029746281715in"
-height="0.6962029746281715in"} Thread t2 = **new** Thread(() -\>
-r2.method1(r1), \"Thread-2\");
-
+public class DeadlockExample {
+public static void main(String[] args) {
+Resource r1 = new Resource();
+Resource r2 = new Resource();
+Thread t1 = new Thread(() -> r1.method1(r2), "Thread-1");
 t1.start();
-
 t2.start();
-
+}
 }
 
-}
+```
 
-// output : Thread-2 locked method1
-
+> // output : Thread-2 locked method1
 // output : Thread-1 locked method1
 
 **Avoid Deadlock:**
@@ -2405,18 +2328,18 @@ them.
 
 **Example: Using ExecutorService**
 
-**public** **class** ThreadPoolExample {
+```java
+public class ThreadPoolExample {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
 ExecutorService executor = Executors.newFixedThreadPool(3);
 
-**for** (**int** i = 1; i \<= 5; i++) {
+for (int i = 1; i <= 5; i++) {
 
-**final** **int** taskNumber = i;
+final int taskNumber = i;
 
-executor.execute(() -\> System.***out***.println(\"Executing task: \" +
-taskNumber));
+executor.execute(() -> System.out.println("Executing task: " +taskNumber));
 
 }
 
@@ -2426,50 +2349,47 @@ executor.shutdown();
 
 }
 
-![A cartoon of a bear pointing at a poster AI-generated content may be
-incorrect.](./media/media/image21.png){width="0.6962029746281715in"
-height="0.6962029746281715in"}
+```
 
-**Key Points:**
+> **Key Points:**
 
-- **Reduces thread creation overhead.**
+>- Reduces thread creation overhead.
 
-- **Manages concurrency efficiently.**
+>- Manages concurrency efficiently.
+
+
 
 **Difference Between Callable and Runnable**
 
 --------------------------------------------------------------------
-  Feature          Runnable                   Callable
----------------- -------------------------- ------------------------
-  Return Type      void                       Future\<V\> (returns a
-                                              value)
-
-  Exception        Cannot throw checked       Can throw checked
-  Handling         exceptions                 exceptions
-
-  Lambda Support   Yes                        Yes
+  Feature       |   Runnable            |       Callable
+---------------|- -------------------|------- ------------------------
+  Return Type  |    void                       Future<V> (returns a value)
+  Exception Handling   |    Cannot throw checked   exceptions  |   Can throw checked exceptions
+  Lambda Support |   Yes           |             Yes
   --------------------------------------------------------------------
 
 **Example:**
 
-**public** **class** CallableExample {
+```java
+public class CallableExample {
 
-**public** **static** **void** main(String\[\] args) **throws**
+public static void main(String[] args) throws
 Exception {
 
 ExecutorService executor = Executors.newFixedThreadPool(2);
 
-Callable\<Integer\> task = () -\> {
+Callable<Integer> task = () -> {
 
 Thread.sleep(1000);
 
-**return** 42;
+return 42;
 
 };
 
-Future\<Integer\> result = executor.submit(task);
+Future<Integer> result = executor.submit(task);
 
-System.***out***.println(\"Result: \" + result.get()); // Waits for
+System.out.println("Result: " + result.get()); // Waits for
 result
 
 executor.shutdown(); // output : 42
@@ -2477,6 +2397,7 @@ executor.shutdown(); // output : 42
 }
 
 }
+```
 
 **Annotaion**: **Future.get() blocks until the result is available.**
 
@@ -2501,130 +2422,109 @@ executor.shutdown(); // output : 42
 **▶️ Types of ExecutorService**
 
 -------------------------------------------------------------------
-  Type                        Description
---------------------------- ---------------------------------------
-  newFixedThreadPool(n)       Fixed number of threads in the pool.
-
-  newCachedThreadPool()       Dynamically grows as needed, reuses
-                              idle threads.
-
-  newSingleThreadExecutor()   Exactly 1 thread in the pool.
-
-  newScheduledThreadPool(n)   Allows scheduling tasks to run
-                              periodically.
+  Type                      |  Description
+---------------------------| ---------------------------------------
+  newFixedThreadPool(n)    |   Fixed number of threads in the pool.
+  newCachedThreadPool()   |    Dynamically grows as needed, reuses  idle threads.
+  newSingleThreadExecutor() |  Exactly 1 thread in the pool.
+  newScheduledThreadPool(n)  | Allows scheduling tasks to run periodically.
   -------------------------------------------------------------------
 
 **▶️ Example: Fixed Thread Pool (2 Threads)**
 
-// Create thread pool with 2 threads at a time two thread will run
+>// Create thread pool with 2 threads at a time two thread will run
 
+```java
 ExecutorService executor = Executors.newFixedThreadPool(2);
 
-**for** (**int** i = 1; i \<= 5; i++) {
+for (int i = 1; i <= 5; i++) {
 
-**int** taskId = i;
+int taskId = i;
 
-executor.submit(() -\> {
+executor.submit(() -> {
 
-System.***out***.println(\"Task \" + taskId + \" is running in thread:
-\" + Thread.currentThread().getName());
-
-**try** {
-
+System.out.println("Task " + taskId + " is running in thread:" + Thread.currentThread().getName());
+try {
 Thread.sleep(2000); // Simulate work
-
-} **catch** (InterruptedException e) {
-
+} catch (InterruptedException e) {
 e.printStackTrace();
-
 }
-
-System.***out***.println(\"Task \" + taskId + \" completed.\");
-
+System.out.println("Task " + taskId + " completed.");
 });
-
 }
-
 executor.shutdown();
+```
 
 **3️⃣ Example Behavior**
 
-ExecutorService service = Executors.newFixedThreadPool(1); // Using 2
-threads
+```java
+ExecutorService service = Executors.newFixedThreadPool(1); // Using 2 threads
 
 // Submit Runnable Task 1
 
-service.submit(() -\> {
+service.submit(() -> {
 
-System.***out***.println(\"Thread one is running!\");
+System.out.println("Thread one is running!");
 
-**try** {
+try {
 
 Thread.sleep(2000); // Shortened for demonstration
 
-} **catch** (InterruptedException e) {
+} catch (InterruptedException e) {
 
 e.printStackTrace();
 
 }
 
-System.***out***.println(\"Thread one completed!\");
+System.out.println("Thread one completed!");
 
 });
 
+
 // Submit Runnable Task 2
 
-service.submit(() -\> {
+service.submit(() -> {
 
-System.***out***.println(\"Thread two is running!\");
+System.out.println("Thread two is running!");
 
 });
 
 // Shutdown executor service
 
 service.shutdown();
-
+```
 - Only **1 thread** is available.
 
 - Task 1 executes first, Task 2 waits until Task 1 finishes, then runs.
 
 **▶️ Why Use ExecutorService?**
 
-✅ Simplifies thread management.\
-✅ Improves performance via thread reuse.\
-✅ Handles task queuing automatically.\
-✅ Supports Callable → Future to get results.\
+✅ Simplifies thread management.
+✅ Improves performance via thread reuse.
+✅ Handles task queuing automatically.
+✅ Supports Callable → Future to get results.
 ✅ Allows controlled shutdown.
 
 ## What is volatile Keyword?
 
-The volatile keyword ensures that a **variable's value is always read
-from main memory**, avoiding **caching issues**.
+The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**.
 
 **Example: Using volatile**
 
-**class** VolatileExample {
+```java
+class VolatileExample {
 
-**private** **static** **volatile** **boolean** *running* = **true**;
+private static volatile boolean running = true;
 
-**public** **static** **void** main(String\[\] args) **throws**
-InterruptedException {
-
-Thread t1 = **new** Thread(() -\> {
-
-**while** (*running*) {} // Busy wait
-
-System.***out***.println(\"Thread Stopped\");
-
-});
-
+public static void main(String[] args) throws InterruptedException {
+Thread t1 = new Thread(() -> {
+while (running) {} // Busy wait
+System.out.println("Thread Stopped"); });
 t1.start();
-
 Thread.sleep(1000);
-
-*running* = **false**; // Stops the thread
-
+running = false; // Stops the thread
 }
+```
 
 **Serialization**
 
@@ -2648,9 +2548,9 @@ Points to remember:
 3.  Static data members and transient data members are not saved via
     Serialization process.
 
-4.  If you mark a field **transient**, it won\'t be serialized.
+4.  If you mark a field **transient**, it won't be serialized.
 
-**[private transient int age;]{.mark} // age won\'t be saved**
+`private transient int age; // age won't be saved`
 
 ![serialize-deserialize-java](./media/media/image22.png){width="4.756472003499563in"
 height="3.153846237970254in"}
@@ -2667,60 +2567,63 @@ Methods for Serializing and Deserializing an Object:
 
 - **Ob.readObject() :** method used to read object stream from file.
 
-**public** **class** SerializeDemo {
+```java
+public class SerializeDemo {
 
-**public** **static** **void** main(String\[\] args) **throws**
+public static void main(String[] args) throws
 ClassNotFoundException, IOException {
 
-File file = **new** File(\"Student.txt\");
+File file = new File("Student.txt");
 
 serializeObeject(file);
 
-deserializeObject(file).stream().forEach(s -\>
+deserializeObject(file).stream().forEach(s ->
 System.out.println(s.getName()));
 
 }
+```
 
-**public** **static** List\<Student\> deserializeObject(File f)
-**throws** IOException, ClassNotFoundException {
+```java
+public static List<Student> deserializeObject(File f)
+throws IOException, ClassNotFoundException {
 
-FileInputStream fileInput = **new** FileInputStream(f);
+FileInputStream fileInput = new FileInputStream(f);
 
-ObjectInputStream [objectInput] = **new**
+ObjectInputStream [objectInput] = new
 ObjectInputStream(fileInput);
 
-List\<Student\> savedStudent = [(List\<Student\>)
+List<Student> savedStudent = [(List<Student>)
 objectInput.readObject()];
 
 // System.out.println(savedStudent);
 
-**return** savedStudent;
+return savedStudent;
 
 }
 
-**public** **static** **void** serializeObeject(File f) {
+public static void serializeObeject(File f) {
 
-**try** {
+try {
 
-**if** (f.exists()) {
+if (f.exists()) {
 
-System.out.println(\"File created \" + f.getAbsolutePath());
+System.out.println("File created " + f.getAbsolutePath());
 
-FileOutputStream fout = **new** FileOutputStream(f);
+FileOutputStream fout = new FileOutputStream(f);
 
-ObjectOutputStream [objectoutput] = **new**
+ObjectOutputStream [objectoutput] = new
 ObjectOutputStream(fout);
 
-List\<Student\> stds = Arrays.asList(**new** Student(\"Narsing\",
-\"Kolnoor\", LocalDate.of(1997, 05, 14), 28),
+List<Student> stds = Arrays.asList(new Student("Ram",
+"Delhi", LocalDate.of(1077, 15, 34), 18),
 
-**new** Student(\"Nikita\", \"Pune\", LocalDate.of(1997, 07, 14), 25),
+new Student("Rupa", "Pune", LocalDate.of(1992, 07, 14), 25),
 
-**new** Student(\"NIrav\", \"Nanded\", LocalDate.of(2024, 5, 9), 1));
+new Student("Menar", "Jaipur", LocalDate.of(2034, 5, 9), 1));
 
 objectoutput.writeObject(stds);
 
-System.out.println(\"Student object Serialized !\");
+System.out.println("Student object Serialized !");
 
 }
 
@@ -2733,17 +2636,17 @@ e.printStackTrace();
 }
 
 }
+```
 
-- 
 
-Servlet & JSP
+# Servlet & JSP
 
-## What is a Servlet?
+### What is a Servlet?
 
 A **Servlet** is a Java class that runs on a server, processes client
 requests (typically HTTP), and generates a response (usually HTML).
 
-## What are the types of Servlets?
+###What are the types of Servlets?
 
 - **GenericServlet** (Protocol-independent) only required methods can be
   implemented.
@@ -2751,7 +2654,7 @@ requests (typically HTTP), and generates a response (usually HTML).
 - **HttpServlet** (Specifically for HTTP requests) only required methods
   can be implemented.
 
-## What are the key methods in a Servlet?
+###What are the key methods in a Servlet?
 
 - **init():** Initializes the servlet (called once).
 
@@ -2759,6 +2662,7 @@ requests (typically HTTP), and generates a response (usually HTML).
 
 - **destroy():** Called before the servlet is removed from memory.
 
+  
 ## Difference between doGet() and doPost()?
 
 -------------------------------------------------------
@@ -2899,53 +2803,55 @@ chain.doFilter(req, res); // Pass request to next filter or
 
 **\**
 
-JSP (Java Server Pages)
+# JSP (Java Server Pages)
 
 **Definition** : JSP is a technology used to create dynamic web content.
 It allows embedding Java code in HTML pages using special JSP tags.
 
-## Life Cycle Methods
+### Life Cycle Methods Life Cycle Methods
 
-- **jspInit():** Called when the JSP is first loaded.
+- ** jspInit()**: Called when the JSP is first loaded.
 
-- **\_jspService():** Called for each request to the JSP.
+- ** jspService()**: Called for each request to the JSP.
 
-- **jspDestroy():** Called when the JSP is being removed from service.
+- **jspDestroy()**: Called when the JSP is being removed from service.
 
 ## What is JSP Expression Language (EL)?
 
 EL simplifies accessing attributes from request/session.
 
-**\${sessionScope.username}** // Equivalent to
-session.getAttribute(\"username\")
+```java
+    ${sessionScope.username} // Equivalent to
+    session.getAttribute("username");
+```
 
 ## What are JSP Directives?
 
 Directives provide global information about the JSP.
 
-- **\<%@ page %\>** → Defines page settings.
+- **<%@ page %\>** → Defines page settings.
 
-- **\<%@ include %\>** → Includes a file at compile-time.
+- **<%@ include %\>** → Includes a file at compile-time.
 
-- **\<%@ taglib %\>** → Declares JSTL usage.
+- **<%@ taglib %\>** → Declares JSTL usage.
 
 **Example :**
+```xml
 
-[\<%]@ page language=\"java\" contentType=\"text/html;
-charset=UTF-8\" %\>
+<%@ page language="java" contentType="text/html charset=UTF-8" %>
 
-\<%@ taglib uri=\"http://java.sun.com/jsp/jstl/core\" prefix=\"c\" %\>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+```
 
 ##  How do you prevent multiple users from modifying the same session data?
 
 Use **synchronization**:
 
-**synchronized**([session]) {
-
-[session].setAttribute(\"balance\",
-[newBalance]);
-
+```java
+synchronized(session) {
+session.setAttribute("balance",newBalance);
 }
+```
 
 **How do you invalidate a session in a Servlet?**
 
@@ -2970,10 +2876,11 @@ List\<FileItem\> **items** = upload.parseRequest(request);
 
 **✅ Example:**
 
-[\<%]@ page language=\"java\" contentType=\"text/html;
-charset=UTF-8\" %\>
+```xml
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 
-\<%@ taglib uri=\"http://java.sun.com/jsp/jstl/core\" prefix=\"c\" %\>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core\" prefix="c" %>
+```
 
 - **page -- Defines page properties (language, encoding).**
 
@@ -3420,8 +3327,8 @@ System.out.println(\"File deleted successfully!\" + file.list());
 }
 
 **File Properties**
-
-**if** (file.exists()) {
+```java
+if (file.exists()) {
 
 System.out.println(\"Name: \" + file.getName());
 
@@ -3433,31 +3340,32 @@ System.out.println(\"Readable: \" + file.canRead());
 
 System.out.println(\"Size: \" + file.length() + \" bytes\");
 
-}
+}```
 
 ### **Working with Binary Files:**
 
 **Read Binary Data using FileInputStream**
+```java
+FileInputStream fis = new FileInputStream(\"image.jpg\");
 
-**FileInputStream fis = new FileInputStream(\"image.jpg\");**
+int i;
 
-**int i;**
+while ((i = fis.read()) != -1) {
 
-**while ((i = fis.read()) != -1) {**
+System.out.print(i + \" \");
 
-**System.out.print(i + \" \");**
+}
 
-**}**
+fis.close();
 
-**fis.close();**
+Write Binary Data using FileOutputStream
 
-**Write Binary Data using FileOutputStream**
+FileOutputStream fos = new FileOutputStream(\"output.txt\");
 
-**FileOutputStream fos = new FileOutputStream(\"output.txt\");**
+fos.write(\"Binary File Writing\".getBytes());
 
-**fos.write(\"Binary File Writing\".getBytes());**
-
-**fos.close();**
+fos.close();
+```
 
 ## What is File Handling in Java?
 
@@ -3498,7 +3406,7 @@ deleting files using java.io and java.nio packages.
 
 **A:** RandomAccessFile allows reading and writing at a specific
 position within a file.
-
+```java
 **RandomAccessFile file = new RandomAccessFile(\"test.txt\", \"rw\");**
 
 **file.seek(10); // Move cursor to byte 10**
@@ -3506,21 +3414,21 @@ position within a file.
 **file.writeBytes(\"New Data\");**
 
 **file.close();**
-
+```
 ## 
 
 ## How to Append Data to a File?
-
+```java
 FileWriter writer = new FileWriter(\"test.txt\", true);
 
 writer.write(\"Appended text\");
 
 writer.close();
-
+```
 ## 
 
 ## How to List All Files in a Directory?
-
+```java
 File folder = new File(\"C:/Users/Documents\");
 
 String\[\] files = folder.list();
@@ -3530,11 +3438,11 @@ for (String file : files) {
 System.out.println(file);
 
 }
-
+```
 ## 
 
 ## How to Read a Large File Efficiently?
-
+```java
 BufferedReader reader = new BufferedReader(new
 FileReader(\"largefile.txt\"));
 
@@ -3547,6 +3455,7 @@ System.out.println(line);
 }
 
 reader.close();
+```
 
 ## 
 
@@ -3555,6 +3464,7 @@ reader.close();
 **A:** It may cause **memory leaks** and file **locking issues**. Always
 use **try-with-resources**:
 
+```java
 try (FileReader reader = new FileReader(\"test.txt\")) {
 
 // Read file
@@ -3564,6 +3474,7 @@ try (FileReader reader = new FileReader(\"test.txt\")) {
 e.printStackTrace();
 
 }
+```
 
 ##  Best Practices for File Handling
 
@@ -3657,7 +3568,8 @@ categorised below
 
 Example :
 
-**public** **class** Singleton {
+``` java
+public class Singleton {
 
 // private constructor to avoid object instantiation from external
 resource
@@ -3666,27 +3578,27 @@ resource
 
 // create public static method that return object if object is null
 
-**private** **static** Singleton obj;
+private static Singleton obj;
 
-**private** Singleton() {
+private Singleton() {
 
 System.out.println(\"Created Object !\");
 
 };
 
-**public** **static** Singleton getSingleObject() {
+public static Singleton getSingleObject() {
 
-**if**(obj==**null**) {
+if(obj==null) {
 
-obj=**new** Singleton();
-
-}
-
-**return** obj;
+obj=new Singleton();
 
 }
 
-**public** **static** **void** main(String\[\] args) {
+return obj;
+
+}
+
+public static void main(String\[\] args) {
 
 Singleton obj1=Singleton.getSingleObject();
 
@@ -3697,6 +3609,7 @@ System.out.println(obj1.equals(obj2));
 }
 
 }
+```
 
 ### **Factory Design Pattern:**
 
@@ -3713,17 +3626,18 @@ System.out.println(obj1.equals(obj2));
 - The Factory design pattern offers valuable advantages in encapsulating
   object creation.
 
-**interface** Vehical {
+```java
+interface Vehical {
 
-**public** **void** drive() ;
+public void drive() ;
 
 }
 
-**public** **class** [Bike] **implements** Vehical {
+public class [Bike] implements Vehical {
 
 \@Override
 
-**public** **void** drive() {
+public void drive() {
 
 System.out.println(\"Bike is running !\");
 
@@ -3731,11 +3645,11 @@ System.out.println(\"Bike is running !\");
 
 }
 
-**public** **class** [Car] **implements** Vehical{
+public class [Car] implements Vehical{
 
 \@Override
 
-**public** **void** drive() {
+public void drive() {
 
 System.out.println(\"Car is running !\");
 
@@ -3743,55 +3657,53 @@ System.out.println(\"Car is running !\");
 
 }
 
-**public** **class** [MainFactory] {
+public class [MainFactory] {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String\[\] args) {
 
 getVehicle(\"car\").drive();
 
 }
 
-**public** **static** Vehical getVehicle(String type) {
+public static Vehical getVehicle(String type) {
 
-**return** type.equalsIgnoreCase(\"car\") ? **new** Car() : **new**
+return type.equalsIgnoreCase(\"car\") ? new Car() : new
 Bike();
 
 }
 
 }
 
-**public** **class** MainFactory {
+public class MainFactory {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String\[\] args) {
 
 getVehicle(\"sfd\").drive();
 
 }
 
-**public** **static** Vehical getVehicle(String type) {
+public static Vehical getVehicle(String type) {
 
-**if**(type.equalsIgnoreCase(\"car\")) {
+if(type.equalsIgnoreCase(\"car\")) {
 
-**return** **new** Car();
+return new Car();
 
-}**else** **if**(type.equalsIgnoreCase(\"truck\")) {
+}else if(type.equalsIgnoreCase(\"truck\")) {
 
-**return** **new** Truck();
-
-}
-
-**else**{
-
-**return** **new** Bike();
+return new Truck();
 
 }
 
-}
+else{
+
+return new Bike();
 
 }
 
-// output : Bike is running !
+}
 
+}
+```
 ---
 
 
