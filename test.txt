@@ -1,1 +1,263 @@
 
+Perfect 💪 — now let’s modify your Spring Boot Batch + JPA + H2 + Scheduler setup so that each run processes only one employee record at a time (every 10 seconds).
+
+This is a very real-world pattern — often used for polling small batches or queue-like processing.
+
+
+---
+
+🎯 Goal
+
+➡ Each 10-second job run should process just one employee record (like a queue).
+➡ Once processed, it should mark that record as completed to avoid repetition.
+
+
+---
+
+✅ Step-by-step Implementation
+
+1. Add a processed flag to Employee entity
+
+package com.example.springbatchjpah2.model;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "employee")
+public class Employee {
+    @Id
+    private int id;
+    private String name;
+    private String dept;
+    private boolean processed = false;  // ✅ new field
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDept() { return dept; }
+    public void setDept(String dept) { this.dept = dept; }
+
+    public boolean isProcessed() { return processed; }
+    public void setProcessed(boolean processed) { this.processed = processed; }
+
+    @Override
+    public String toString() {
+        return "Employee [id=" + id + ", name=" + name + ", dept=" + dept + ", processed=" + processed + "]";
+    }
+}
+
+
+---
+
+2. Update the Repository
+
+Add a custom query to fetch only unprocessed employees, limiting to 1 result.
+
+package com.example.springbatchjpah2.repository;
+
+import com.example.springbatchjpah2.model.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.Optional;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+    @Query(value = "SELECT * FROM employee WHERE processed = false LIMIT 1", nativeQuery = true)
+    Optional<Employee> findNextUnprocessed();
+}
+
+
+---
+
+3. Update the BatchConfig (reader + writer)
+
+We’ll use a custom ItemReader (since we want one record each run).
+
+package com.example.springbatchjpah2.config;
+
+import com.example.springbatchjpah2.model.Employee;
+import com.example.springbatchjpah2.repository.EmployeeRepository;
+import org.springframework.batch.core.*;
+import org.springframework.batch.core.configuration.annotation.*;
+import org.springframework.batch.item.*;
+import org.springframework.batch.item.support.builder.*;
+import org.springframework.context.annotation.*;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import java.util.Optional;
+
+@Configuration
+@EnableBatchProcessing
+public class BatchConfig {
+
+    @Bean
+    public ItemReader<Employee> reader(EmployeeRepository repository) {
+        return new ItemReader<>() {
+            @Override
+            public Employee read() {
+                Optional<Employee> next = repository.findNextUnprocessed();
+                return next.orElse(null); // null = no more items to read
+            }
+        };
+    }
+
+    @Bean
+    public ItemProcessor<Employee, Employee> processor() {
+        return emp -> {
+            emp.setName(emp.getName().toUpperCase());
+            emp.setProcessed(true);  // ✅ mark as processed
+            return emp;
+        };
+    }
+
+    @Bean
+    public ItemWriter<Employee> writer(EmployeeRepository repository) {
+        return employees -> {
+            employees.forEach(e -> {
+                repository.save(e);  // ✅ update processed flag
+                System.out.println("Processed: " + e);
+            });
+        };
+    }
+
+    @Bean
+    public Step step(JobRepository jobRepository,
+                     PlatformTransactionManager transactionManager,
+                     ItemReader<Employee> reader,
+                     ItemProcessor<Employee, Employee> processor,
+                     ItemWriter<Employee> writer) {
+
+        return new StepBuilder("step1", jobRepository)
+                .<Employee, Employee>chunk(1, transactionManager) // one record
+                .reader(reader)
+                .processor(processor)
+                .writer(writer)
+                .build();
+    }
+
+    @Bean
+    public Job job(JobRepository jobRepository, Step step1) {
+        return new JobBuilder("employeeJob", jobRepository)
+                .start(step1)
+                .build();
+    }
+}
+
+
+---
+
+4. Scheduler (same as before)
+
+In your main application class:
+
+package com.example.springbatchjpah2;
+
+import org.springframework.batch.core.*;
+import org.springframework.batch.core.launch.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.*;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+@SpringBootApplication
+@EnableScheduling
+public class SpringBatchJpaH2Application {
+
+    @Autowired
+    private JobLauncher jobLauncher;
+    @Autowired
+    private Job job;
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBatchJpaH2Application.class, args);
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void performJob() throws Exception {
+        Map<String, JobParameter<?>> params = new HashMap<>();
+        params.put("time", new JobParameter<>(new Date().getTime(), Long.class));
+
+        JobParameters jobParameters = new JobParameters(params);
+        System.out.println("\nRunning job at: " + new Date());
+        jobLauncher.run(job, jobParameters);
+    }
+}
+
+
+---
+
+5. Sample Data Loader
+
+package com.example.springbatchjpah2;
+
+import com.example.springbatchjpah2.model.Employee;
+import com.example.springbatchjpah2.repository.EmployeeRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataLoader implements CommandLineRunner {
+    private final EmployeeRepository repository;
+
+    public DataLoader(EmployeeRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public void run(String... args) {
+        repository.save(new Employee(){{
+            setId(1); setName("Narsing"); setDept("IT");
+        }});
+        repository.save(new Employee(){{
+            setId(2); setName("Ravi"); setDept("HR");
+        }});
+        repository.save(new Employee(){{
+            setId(3); setName("Kiran"); setDept("Finance");
+        }});
+    }
+}
+
+
+---
+
+✅ Output Example
+
+Each run processes only one record:
+
+Running job at: Thu Nov 13 14:30:00 IST 2025
+Processed: Employee [id=1, name=NARSING, dept=IT, processed=true]
+
+Running job at: Thu Nov 13 14:30:10 IST 2025
+Processed: Employee [id=2, name=RAVI, dept=HR, processed=true]
+
+Running job at: Thu Nov 13 14:30:20 IST 2025
+Processed: Employee [id=3, name=KIRAN, dept=FINANCE, processed=true]
+
+Running job at: Thu Nov 13 14:30:30 IST 2025
+(no output — all employees processed ✅)
+
+
+---
+
+💡 Key Learning
+
+Concept	Purpose
+
+ItemReader custom logic	To control which records to process
+processed flag	Prevent reprocessing
+chunk(1, …)	One record per commit
+@Scheduled	Poll every few seconds like a job queue
+
+
+
+---
+
+Would you like me to make it reset automatically (mark all records unprocessed) after all are done — so it keeps cycling?
