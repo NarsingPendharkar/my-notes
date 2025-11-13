@@ -2,15 +2,13 @@
 
 > **What is Monolithic Architecture?**
 
-If we develop all the functionalities in single application, then it is
-called Monolithic Application.
+If we develop all the functionalities in single application, then it is called Monolithic Application.
 
 ![A diagram of a diagram of a diagram AI-generated content may be
 incorrect.](./media/media/image3.jpeg){width="4.611989282589676in"
 height="2.5375in"}
 
-To overcome problems of Monolith Architecture, we will use Micro
-services Architecture.
+To overcome problems of Monolith Architecture, we will use Microservices Architecture.
 
 > ![A diagram of a user interface AI-generated content may be
 > incorrect.](./media/media/image4.jpeg){width="4.972439851268591in"
@@ -18,13 +16,10 @@ services Architecture.
 
 **What are Microservices?**
 
-- **Definition:\**
-  Microservices is an architectural style where an application is
-  divided into small, independent services that communicate via APIs
-  (usually REST). Each service focuses on a specific business capability
-  and can be developed, deployed, and scaled independently.
-
-- **Simplified Definition:\**
+- **Definition:**
+  Microservices is an architectural style where an application is divided into small, independent services that communicate via APIs (usually REST). Each service focuses on a specific business capability and can be developed, deployed, and scaled independently.
+  
+- **Simplified Definition:**
   "Microservices are small services that work together."
 
 - **Key Characteristics:**
@@ -37,69 +32,51 @@ services Architecture.
 
   - Designed for autonomy and resilience
 
-- **Analogy:\**
-  Each microservice is like a specialized shop in a mall --- the mall
-  (system) still functions even if one shop closes.
+- Analogy:
+  Each microservice is like a specialized shop in a mall the mall (system) still functions even if one shop closes.
 
 **Key Points:**
 
-- **Microservices is not:**
+**Microservices is not:**
 
-  - **❌ A technology**
+- ❌ A technology
+- ❌ A programming language
+- ❌ A framework
+- ❌ An API
 
-  - **❌ A programming language**
+**It is an architectural design pattern**
 
-  - **❌ A framework**
+- Used to build distributed and independent services.
 
-  - **❌ An API**
+- Each service performs a specific business function.
 
-- **It is an architectural design pattern**
-
-  - Used to build distributed and independent services.
-
-  - Each service performs a specific business function.
-
-  - Services communicate through APIs (usually REST or messaging).
+- Services communicate through APIs (usually REST or messaging).
 
 ## **Challenges with Microservices**
 
-- Bounded Context
+> Bounded Context
+>
+> Repeated configurations
+>
+> Visibility
 
-- Repeated configurations
+- **Bounded context** means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
+  
+- In Several micro services we **need to write same configurations** like data source, smtp, kafka, redis etc.
+  
+- In micro service architecture we might not get chance to work with all apis in the application.
 
-- Visibility
+------
 
-<!-- -->
+## **Monolith vs Microservices**
 
-- **Bounded context** means identifying how many micro services we need
-  to develop for one application and deciding which functionality we
-  need to add in which micro service.
-
-- In Several micro services we **need to write same configurations**
-  like data source, smtp, kafka, redis etc.
-
-- In micro service architecture we might not get chance to work with all
-  apis in the application.
-
-**Monolith vs Microservices**
-
-  ---------------------------------------------------------------------
-  Aspect        Monolithic Architecture    Microservices Architecture
-  ------------- -------------------------- ----------------------------
-  Structure     Single deployable unit     Multiple independent
-                                           services
-
-  Development   Easier to start with       Complex setup, more
-                                           coordination
-
-  Scaling       Scales the entire app      Scales specific services
-
-  Deployment    One deployment for all     Independent deployment per
-                features                   service
-
-  Change Impact One bug can crash the      Isolated faults per service
-                entire app                 
-  ---------------------------------------------------------------------
+| Aspect            | Monolithic Architecture          | Microservices Architecture                   |
+| ----------------- | -------------------------------- | -------------------------------------------- |
+| **Structure**     | Single deployable unit           | Multiple independent services                |
+| **Development**   | Easier to start with             | Complex setup, more coordination             |
+| **Scaling**       | Scales the entire application    | Scales specific services independently       |
+| **Deployment**    | One deployment for all features  | Independent deployment per service           |
+| **Change Impact** | One bug can impact the whole app | Failures are isolated to individual services |
 
 **When to Use Microservices**
 
@@ -135,20 +112,20 @@ services Architecture.
 
 - Requires robust DevOps and monitoring setup
 
-## **What are the key benefits of microservices?**
+### **What are the key benefits of microservices?**
 
-- Scalability: Independent services can scale separately.
+- **Scalability:** Independent services can scale separately.
 
-- Resilience: Failure in one service doesn't bring down the entire
+- **Resilience:** Failure in one service doesn't bring down the entire
   system.
 
-- Faster Development: Teams can work on separate services.
+- **Faster Development:** Teams can work on separate services.
 
-- Technology Agnostic: Each service can use different tech stacks.
+- **Technology Agnostic:** Each service can use different tech stacks.
 
-- Deployment Independence: Services can be deployed separately.
+- **Deployment Independence:** Services can be deployed separately.
 
-## **What are the challenges of microservices?**
+### **What are the challenges of microservices?**
 
 - Service Discovery & Communication (Eureka, Consul)
 
@@ -160,109 +137,52 @@ services Architecture.
 
 - Latency (Inter-service network calls add delays)
 
-> **. Microservices Architecture & Key Components**
->
-> **Core Components**
+### **Microservices Architecture & Key Components**
 
-+-----------------+-----------------------------------+--------------------+
-| > Component     | > Description                     | > Example / Tools  |
-+=================+===================================+====================+
-| > API Gateway   | > Acts as a single-entry point    | > 🧩 *Spring Cloud |
-|                 | > for all client requests.        | > Gateway*, Zuul   |
-|                 | > Handles routing,                |                    |
-|                 | > authentication, load balancing, |                    |
-|                 | > and rate limiting.              |                    |
-+-----------------+-----------------------------------+--------------------+
-| > Service       | > Helps microservices find each   | > 🧭 *Eureka*,     |
-| > Discovery     | > other dynamically without       | > Consul           |
-|                 | > hardcoding URLs. Registers and  |                    |
-|                 | > discovers service instances.    |                    |
-+-----------------+-----------------------------------+--------------------+
-| > Config Server | > Provides centralized            | > ⚙️ *Spring Cloud |
-|                 | > configuration management for    | > Config*          |
-|                 | > all services. Ensures           |                    |
-|                 | > consistency across              |                    |
-|                 | > environments.                   |                    |
-+-----------------+-----------------------------------+--------------------+
-| > Load Balancer | > Distributes requests across     | > 🔁 *Spring Cloud |
-|                 | > service instances for high      | > LoadBalancer*    |
-|                 | > availability and performance.   | > (modern), Ribbon |
-|                 |                                   | > (deprecated)     |
-+-----------------+-----------------------------------+--------------------+
-| > Messaging     | > Enables asynchronous            | > ✉️ *Kafka*,      |
-| > System        | > communication between services  | > RabbitMQ         |
-|                 | > to improve resilience and       |                    |
-|                 | > decoupling.                     |                    |
-+-----------------+-----------------------------------+--------------------+
-| > Database per  | > Each microservice owns its      | > 💾 MySQL,        |
-| > Service       | > database schema and data,       | > MongoDB,         |
-|                 | > enabling data isolation and     | > PostgreSQL       |
-|                 | > independent scaling.            |                    |
-+-----------------+-----------------------------------+--------------------+
-| > Observability | > Helps monitor and troubleshoot  | > 🔍 *ELK Stack*,  |
-|                 | > distributed systems using       | > *Prometheus*,    |
-|                 | > logging, metrics, and tracing.  | > *Grafana*,       |
-|                 |                                   | > *Jaeger*         |
-+-----------------+-----------------------------------+--------------------+
+#### **Core Components**
 
-> **Communication Patterns**
+| Component                | Description                                                  | Example / Tools                                         |
+| ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------- |
+| **API Gateway**          | Acts as a single-entry point for all client requests. Handles routing, authentication, load balancing, and rate limiting. | Spring Cloud Gateway, Zuul                              |
+| **Service Discovery**    | Helps microservices find each other dynamically without hardcoding URLs. Registers and discovers service instances. | Eureka, Consul                                          |
+| **Config Server**        | Provides centralized configuration for all services. Ensures consistency across environments. | Spring Cloud Config                                     |
+| **Load Balancer**        | Distributes requests across service instances for high availability and performance. | Spring Cloud LoadBalancer (modern), Ribbon (deprecated) |
+| **Messaging System**     | Enables asynchronous communication between services to improve resilience and decoupling. | Kafka, RabbitMQ                                         |
+| **Database per Service** | Each service owns its database schema and data, allowing isolation and independent scaling. | MySQL, MongoDB, PostgreSQL                              |
+| **Observability**        | Monitoring and troubleshooting distributed systems using logs, metrics, and tracing. | ELK Stack, Prometheus, Grafana, Jaeger                  |
 
-+-----------------+------------------------------+--------------------+
-| > Type          | > Description                | > Examples / Tools |
-+=================+==============================+====================+
-| > Synchronous   | > Services communicate       | > REST (Spring MVC |
-| > Communication | > directly and immediately.  | > / WebFlux), gRPC |
-+-----------------+------------------------------+--------------------+
-| > Asynchronous  | > Services exchange messages | > Kafka, RabbitMQ, |
-| > Communication | > or events, improving       | > Event-driven     |
-|                 | > resilience and             | > architecture     |
-|                 | > scalability.               |                    |
-+-----------------+------------------------------+--------------------+
+---
 
-> **Common Design Patterns in Microservices**
+### **Communication Patterns**
 
-+------------------+------------------------------------+-------------------+
-| > Pattern        | > Purpose                          | > Example Tool /  |
-|                  |                                    | > Concept         |
-+==================+====================================+===================+
-| > Circuit        | > Prevents repeated calls to a     | > *Resilience4j*, |
-| > Breaker        | > failing service to avoid         | > *Hystrix*       |
-|                  | > cascading failures.              |                   |
-+------------------+------------------------------------+-------------------+
-| > Saga Pattern   | > Manages distributed transactions | > *Order Service  |
-|                  | > across multiple services. Can be | > ↔ Payment       |
-|                  | > Choreography (event-based) or    | > Service* flow   |
-|                  | > Orchestration (central           |                   |
-|                  | > coordinator).                    |                   |
-+------------------+------------------------------------+-------------------+
-| > CQRS (Command  | > Separates read and write         | > *Event          |
-| > Query          | > operations for better            | > Sourcing +      |
-| > Responsibility | > scalability and performance.     | > Query Services* |
-| > Segregation)   |                                    |                   |
-+------------------+------------------------------------+-------------------+
-| > Bulkhead       | > Isolates failures by             | > *Separate       |
-| > Pattern        | > partitioning services/resources  | > thread pools    |
-|                  | > into independent pools.          | > per service*    |
-+------------------+------------------------------------+-------------------+
+| Type             | Description                                                  | Example / Tools                            |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------ |
+| **Synchronous**  | Services communicate directly in real time.                  | REST (Spring MVC/WebFlux), gRPC            |
+| **Asynchronous** | Services exchange messages or events, improving resilience and scalability. | Kafka, RabbitMQ, Event-driven architecture |
 
-> **Microservices Development Approaches**
+---
 
-+-----------------+-----------------------------------------------------+
-| > Approach      | > Description                                       |
-+=================+=====================================================+
-| > Monolithic    | > Single deployable unit; simple to start but hard  |
-| > Architecture  | > to scale as app grows.                            |
-+-----------------+-----------------------------------------------------+
-| > Microservices | > Application is divided into multiple independent  |
-| > Architecture  | > services that can be developed, deployed, and     |
-|                 | > scaled separately.                                |
-+-----------------+-----------------------------------------------------+
+### **Common Design Patterns in Microservices**
 
-# **[Microservices Architecture]{.underline}**
+| Pattern                                             | Purpose                                                      | Example Tool / Concept               |
+| --------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
+| **Circuit Breaker**                                 | Prevents repeated calls to a failing service to avoid cascading failures. | Resilience4j, Hystrix                |
+| **Saga Pattern**                                    | Manages distributed transactions. Can be Choreography (event-based) or Orchestration (central coordinator). | Order Service ↔ Payment Service flow |
+| **CQRS** (Command Query Responsibility Segregation) | Separates read and write operations for better scalability and performance. | Event Sourcing + Query Services      |
+| **Bulkhead Pattern**                                | Isolates failures by partitioning resources into independent pools. | Separate thread pools per service    |
 
-There is no fixed architecture for micro services development. We can
-customize micro services architecture according to our project
-requirement.
+---
+
+### **Microservices Development Approaches**
+
+| Approach                       | Description                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| **Monolithic Architecture**    | Single deployable unit; simple to start but difficult to scale as the project grows. |
+| **Microservices Architecture** | Application is split into independent services that can be developed, deployed, and scaled separately. |
+
+# **Microservices Architecture{.underline}**
+
+There is no fixed architecture for micro services development. We can customize micro services architecture according to our project requirement.
 
 > ![A diagram of a service AI-generated content may be
 > incorrect.](./media/media/image5.jpeg){width="4.7230391513560805in"
@@ -275,56 +195,47 @@ requirement.
 It's the **mechanism to automatically detect network locations (IP &
 Port)** of services.
 
-🧠 *Example:*\
-When Course-Service wants to call Student-Service, it **asks the
-Discovery Server** for the address instead of hardcoding it.
+🧠 *Example:*
+When Course-Service wants to call Student-Service, it**asks the Discovery Server** for the address instead of hardcoding it.
 
 **🔹 Service Registry**
 
-It's the **database (or directory)** where all microservices **register
-their IP and port** when they start.\
-👉 Discovery Service uses this registry to help other services find each
-other.
+It's the **database (or directory)** where all microservices **register their IP and port** when they start.
+👉 Discovery Service uses this registry to help other services find each other.
 
 🧠 *Think of it as a phonebook for microservices.*
 
 **🔹 How It Works**
 
-1.  Each microservice starts → **registers itself** with the Discovery
-    Server.
-
+1.  Each microservice starts → **registers itself** with the Discovery Server.
+    
 2.  Discovery Server keeps all active service details (name, IP, port).
 
-3.  When one service wants another → it **queries the Discovery
-    Server**.
-
+3.  When one service wants another → it **queries the Discovery Server**.
+    
 4.  If multiple instances exist → **Load Balancer** chooses one.
 
 **Why We Need Service Discovery**
 
-- In Microservices, each service (Address, Student, Course, etc.) runs
-  on **different IPs and ports**.
-
+- In Microservices, each service (Address, Student, Course, etc.) runs on **different IPs and ports**.
+  
 - Managing and finding these addresses manually is difficult.
 
-- **Solution → Service Discovery & Service Registry** (provided by
-  Spring Cloud).
+- **Solution → Service Discovery & Service Registry** (provided by Spring Cloud).
 
-**🔹 Types of Service Discovery**
+#### **Service Discovery Types**
 
-  -----------------------------------------------------------------------
-  Type            Description                        Example
-  --------------- ---------------------------------- --------------------
-  Client-Side     Client queries the registry and    Netflix **Eureka**,
-  Discovery       selects an instance                Zookeeper, Consul
+| Type                      | Description                                                  | Example                           |
+| ------------------------- | ------------------------------------------------------------ | --------------------------------- |
+| **Client-Side Discovery** | Client queries the registry and selects an instance.         | Netflix Eureka, Zookeeper, Consul |
+| **Server-Side Discovery** | Client sends request to a load balancer, which selects the service instance. | NGINX, AWS ELB                    |
 
-  Server-Side     Client sends request to **Load     **NGINX**, AWS
   Discovery       Balancer**, which queries registry **ELB**
   -----------------------------------------------------------------------
 
 **🔹 Real-Life example**
 
-📞 **Service Registry =** Phonebook\
+📞 **Service Registry =** Phonebook
 📲 **Service Discovery =** Calling someone using that phonebook
 
 **🔹 In Spring Boot**
@@ -339,10 +250,7 @@ other.
 
 **🔹 Definition**
 
-API Gateway is a **single-entry point** for all client requests in a
-**microservices architecture**.\
-It routes, filters, secures, and manages all incoming requests to the
-appropriate microservice.
+API Gateway is a **single-entry point** for all client requests in a **microservices architecture**.It routes, filters, secures, and manages all incoming requests to the appropriate microservice.
 
 **🔹 Purpose**
 
@@ -369,6 +277,7 @@ appropriate microservice.
 
 **🔹 Example (Spring Cloud Gateway)**
 
+```yaml
 spring:
 
 cloud:
@@ -377,17 +286,17 @@ gateway:
 
 routes:
 
-\- id: student_service
+- id: student_service
 
 uri: http://localhost:8081
 
 predicates:
 
-\- Path=/students/\*\*
+- Path=/students/**
+```
 
-📘 **Explanation:**\
-Any request to /students/\*\* will be routed to the **Student Service**
-running on port 8081.
+📘 **Explanation:**
+Any request to **/students/\*\*** will be routed to the **Student Service**   running on port 8081.
 
 **🔹 Real-Life Example**
 
@@ -739,9 +648,9 @@ bodyToFlux(UserDTO.**class**)
 
 **When to Use What?**
 
-  ----------------------------------------------------
+----------------------------------------------------
   **Use Case**           **Recommendation**
-  ---------------------- -----------------------------
+---------------------- -----------------------------
   **✅ Simple sync       RestTemplate / Feign
   calls**                
 
@@ -789,9 +698,9 @@ kafkaTemplate.send(\"student-topic\", studentData);
 
 **🧠 Summary**
 
-  ----------------------------------------------------------------------------
+----------------------------------------------------------------------------
   Type           Tool                   Communication   Use Case
-  -------------- ---------------------- --------------- ----------------------
+-------------- ---------------------- --------------- ----------------------
   Synchronous    RestTemplate,          Direct          Real-time
                  FeignClient, WebClient                 requests/responses
 
@@ -878,9 +787,9 @@ a single request across different services.
 
 **➤ Key Concepts:**
 
-  ------------------------------------------------------------------
+------------------------------------------------------------------
   Term          Description
-  ------------- ----------------------------------------------------
+------------- ----------------------------------------------------
   Trace ID      Unique ID for the entire request (same across all
                 services involved).
 
@@ -956,9 +865,9 @@ probability: 1.0 \# trace 100% of requests
 
 **💡 Short Summary**
 
-  ----------------------------------------------------------------
+----------------------------------------------------------------
   Feature          Description
-  ---------------- -----------------------------------------------
+---------------- -----------------------------------------------
   Sleuth           Adds trace and span IDs to logs automatically.
 
   Distributed      Technique to track a request through multiple
@@ -1341,9 +1250,9 @@ eureka.client.fetch-registry=false
 
 #### Step-by-Step Microservices Creation:
 
-  --------------------------------------------------------------
+--------------------------------------------------------------
   Step     Description
-  -------- -----------------------------------------------------
+-------- -----------------------------------------------------
   **1️⃣**   **Create Eureka Server** → \@EnableEurekaServer, add
            dependencies, server.port=8761
 
