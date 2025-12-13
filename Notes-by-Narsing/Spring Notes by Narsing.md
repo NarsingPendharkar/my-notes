@@ -1,93 +1,65 @@
----
-title: "**Spring Core**"
----
+# Spring Core
 
-## **What are the key features of the Spring Framework?**
+###   **What are the key features of the Spring Framework?**
+>  **Definition,** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
+ 
+* **Lightweight,** doesn't force developer to implement any interface.
+* **Loose coupling,** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
+* **Ready-made Templates,** it provides readymade templates of hibernate like jdbctemplate, jpa where no need to write lots of code for connections, exception handling and committing the transections all are done automatically.
+* **Fast development**
+* **Powerful abstraction**
 
-- **Definition:** Spring framework is a light weight, loosely coupled,
-  integrated, open-source framework for development of enterprise
-  application in java.
+### **What is IOC container?** 
 
-- **Lightweight:** doesn't force developer to implement any interface.
-
-- **Loose coupling:** we can develop loosely coupled applications using
-  DI . loosely coupled means classes and methods are completely
-  independent to each other . means we can make code changes easily.
-
-- **Ready-made Templates:** it provides readymade templates of hibernate
-  like jdbctemplate, jpa where no need to write lots of code for
-  connections, exception handling and committing the transections all
-  are done automatically.
-
-- **Fast development**
-
-- **Powerful abstraction**
-
-## **What is IOC container?**
-
-- Inversion of Control (IOC) is the design principle where the control
-  of object creation, configuration and management is transferred from
-  programmer to spring framework.
-
-- IOC container is a core part of spring framework which is used to
-  manage the application beans
-
-- It is responsible for Dependency Injection and managing the life cycle
-  of beans.
-
-- Task of IOC container: Instantiating, Assembling, Configuration of
-  beans.
+* Inversion of Control (IOC) is the design principle where the control of object creation, configuration and management is transferred from programmer to spring framework.
+* IOC container is a core part of spring framework which is used to manage the application beans
+* It is responsible for Dependency Injection and managing the life cycle of beans.
+* Task of IOC container, Instantiating, Assembling, Configuration of beans.
 
 ## **Types of IOC container?**
 
-- Bean Factory: is a basic container. [Its depreciated now.]{.underline}
+*** Bean Factory**, is a basic container. Its depreciated now.
 
-> Resource **resource**=**new** ClassPathResource(\"bean.xml\");
->
-> BeanFactory **beanFactory**=**new**
-> [XmlBeanFactory]{.underline}(resource);
+```java
+    Resource resource=new ClassPathResource("bean.xml");
+    BeanFactory beanFactory=new XmlBeanFactory(resource);
+```
 
-- Application Context: advance container which provide more
-  functionalities than bean Factory. ApplicationContext
-  **[context]{.underline}**=**new**
-  ClassPathXmlApplicationContext(\"bean.xml\");
+* **Application Context,** advance container which provide more functionalities than bean Factory. 
+```java
+ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
+```
 
-- Note : bean file should be in resource folder
+> Note , bean file should be in resource folder
 
 ## **Explain Dependency Injection (DI) in Spring.**
 
-Dependency Injection is a design pattern where the dependencies of a
-class are injected by the Spring container rather than being
-instantiated manually.
+Dependency Injection is a design pattern where the dependencies of a class are injected by the Spring container rather than being instantiated manually.
 
-**Example:**
+**Example,**
 
-**Without DI :**
+**Without DI ,**
 
-// without DI Here is [dependacy]{.underline} between employee and
-address because employee forced
+// without DI Here is dependacy between employee and address because employee forced
 
 //to use same add object
 
-**public** **class** Employee {
-
+```java
+public  class  Employee {
 Address address;
-
-**Employee**(){
-
-Address **[add]{.underline}**=**new** Address(); // creating instance
-
+Employee(){
+Address  add = new  Address(); // creating instance
 }
-
 }
+```
 
-**With DI :**
+**With DI ,**
 
-// there is no [dependancy]{.underline} between [employe]{.underline}
-and address [bacause]{.underline}
+// there is no dependancy between employe and address bacause
 
 //employee is not forced to use same address
 
+```java
 **public** **class** Employee {
 
 Address address;
@@ -99,573 +71,486 @@ Address address;
 }
 
 }
+```
 
-**Ways of DI:**
+**Ways of DI,**
 
-1.  **DI by using Constructor:** we can inject value by constructor
-    \<constructor-args\> sub element of bean.
+1. **DI by using Constructor,** we can inject value by constructor <constructor-args> sub element of bean.
+2. **DI by using Setter Method ,** we can use setter method for DI by using <property> sub element of bean.
 
-2.  **DI by using Setter Method :** we can use setter method for DI by
-    using \<property\> sub element of bean.
+Example ,
 
-Example :
+```xml
+<!-- setter based injection -->
 
-*\<!\-- setter based injection \--\>*
+<bean id="studentbean" class="com.springtutorial.Student">
 
-\<bean id=\"studentbean\" class=\"com.springtutorial.Student\"\>
+<property name="name" value="Nirav"></property>
 
-\<property name=\"name\" value=\"Nirav\"\>\</property\>
+</bean>
 
-\</bean\>
 
-*\<!\-- constructor based injection \--\>*
+<!-- constructor based injection -->
 
-\<bean id=\"stdbean\" class=\"com.springtutorial.Student\"\>
+<bean id="stdbean" class="com.springtutorial.Student">
 
-\<constructor-arg name=\"name\" value=\"Nikita\"\>\</constructor-arg\>
+<constructor-arg name="name" value="Nikita"></constructor-arg>
 
-\</bean\>
+</bean>
+```
 
-**public** **class** Student {
+```java
+public   class  Student {
 
-**private** String name;
+ private  String name;
 
-**public** String **getName**() {
+ public  String  getName () {
 
-**return** name;
+ return  name;
 
 }
 
 // setter based DI
 
-**public** **void** **setName**(String name) {
+ public   void   setName (String name) {
 
-**this**.name = name;
+ this .name = name;
 
 }
 
 // constrctor based DI
 
-**public** **Student**(String name) {
+ public   Student (String name) {
 
-**this**.name = name;
-
-}
-
-**public** **Student**() {
-
-**super**();
+ this .name = name;
 
 }
 
-**public** **void** **display**() {
+ public   Student () {
 
-System.***out***.println(\"Hello mr . \" + name);
+ super ();
+
+}
+
+ public   void   display () {
+
+System. out .println("Hello mr . "  name);
 
 }
 
 }
+```
 
 ## **Spring Bean and Configuration**
 
-### **Bean Life Cycle** 
+### **Bean Life Cycle**
 
-1.  Bean is instantiated
-
-2.  Dependency is injected
-
-3.  Bean Initializations
-
-4.  Bean used
-
-5.  Bean destroyed
+1. Bean is instantiated
+2. Dependency is injected
+3. Bean Initializations
+4. Bean used
+5. Bean destroyed
 
 ## Spring - Bean Scopes
 
-+--------+---------------------------------------------------------+
-| Sr.No. | Scope & Description                                     |
-+:======:+=========================================================+
-| 1      | **singleton**                                           |
-|        |                                                         |
-|        | A single instance per Spring IoC container (default).   |
-|        | \@Scope("singleton")                                    |
-+--------+---------------------------------------------------------+
-| 2      | **prototype**                                           |
-|        |                                                         |
-|        | new instance created each time when bean is requested.  |
-+--------+---------------------------------------------------------+
-| 3      | **request**                                             |
-|        |                                                         |
-|        | new instance created each new HTTP request.             |
-+--------+---------------------------------------------------------+
-| 4      | **session**                                             |
-|        |                                                         |
-|        | New bean created for each new HTTP Session.             |
-+--------+---------------------------------------------------------+
-| 5      | **global-session**                                      |
-|        |                                                         |
-|        | This scopes a bean definition to a global HTTP session. |
-+--------+---------------------------------------------------------+
+|  |  |
+| --- | --- |
+| Sr.No. | Scope & Description |
+| 1 | **singleton**  A single instance per Spring IoC container (default). @Scope(“singleton”) |
+| 2 | **prototype**  new instance created each time when bean is requested. |
+| 3 | **request**  new instance created each new HTTP request. |
+| 4 | **session**  New bean created for each new HTTP Session. |
+| 5 | **global-session**  This scopes a bean definition to a global HTTP session. |
 
 ## **What are different ways to configure a Spring Bean?**
 
-1.  **XML Configuration (beans.xml)**
+1. **XML Configuration (beans.xml)**
 
-**Example :**
+**Example ,**
 
-XML configuration was a common way to define beans. You specify the
-beans and their dependencies in an XML file, typically named
-\`applicationContext.xml\`.
+XML configuration was a common way to define beans. You specify the beans and their dependencies in an XML file, typically named `applicationContext.xml`.
 
-> \<?xml version = \"1.0\" encoding = \"UTF-8\"?\>
->
-> \<beans xmlns = \"http://www.springframework.org/schema/beans\"
->
-> xmlns:xsi = \"http://www.w3.org/2001/XMLSchema-instance\"
->
-> xsi:schemaLocation = \"http://www.springframework.org/schema/beans
->
-> http://www.springframework.org/schema/beans/spring-beans-3.0.xsd\"\>
->
-> \<!\-- DI [inection]{.underline} using constructor \--\>
->
-> \<[bean]{.underline} id=\"constructorbased\"
-> class=\"com.DependencyInjectionTutorial.Person\"\>
->
-> \<constructor-arg name=\"name\"
-> value=\"narsing\"\>\</constructor-arg\>
->
-> \<constructor-arg name=\"age\" value=\"45\"\>\</constructor-arg\>
->
-> \<constructor-arg name=\"surname\"
-> value=\"pendharkar\"\>\</constructor-arg\>
->
-> \</bean\>
->
-> \<!\-- DI injection using setter method \--\>
->
-> \<bean id=\"setterbased\"
-> class=\"com.DependencyInjectionTutorial.Person\"\>
->
-> \<property name=\"age\" value=\"28\"\>\</property\>
->
-> \<property name=\"name\" value=\"narsing\"\>\</property\>
->
-> \<property name=\"surname\" value=\"pendharkar\"\>\</property\>
->
-> \</bean\>
->
-> \</beans\>
+```xml
+<?xml version = "1.0" encoding = "UTF-8"?>
 
-2.  **Java-Based Configuration (@Configuration)**
+<beans xmlns = "http,//www.springframework.org/schema/beans"
 
-- Java-based configuration allows you to configure beans using Java
-  classes. You can use the **\`@Configuration**\` and **\`@Bean**\`
-  annotations.
+xmlns,xsi = "http,//www.w3.org/2001/XMLSchema-instance"
 
-- Annotating a class with the **\@Configuration** indicates that the
-  class can be used by the Spring IoC container as a source of bean
-  definitions.
+xsi,schemaLocation = "http,//www.springframework.org/schema/beans
 
-- The **\@Bean** annotation tells Spring that a method annotated with
-  **\@Bean** will return an object that should be registered as a bean
-  in the Spring application context.
+http,//www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-**Example :**
+<!-- DI inection using constructor -->
 
-\@Configuration
+<bean id="constructorbased" class="com.DependencyInjectionTutorial.Person">
 
-\@ComponentScan(\"com.DependencyInjectionTutorial\")
+<constructor-arg name="name" value="narsing"></constructor-arg>
 
-**public** **class** PersonJavaBasedConfig {
+<constructor-arg name="age" value="45"></constructor-arg>
 
-\@Bean(\"constructorBasedPerson\")
+<constructor-arg name="surname" value="pendharkar"></constructor-arg>
 
-**public** Person constructorBasedPerson() {
+</bean>
 
-Person person1 = **new** Person(\"JavaBased\", 1, \"Configuration Using
-constructor\");
+<!-- DI injection using setter method -->
 
-**return** person1;
+<bean id="setterbased" class="com.DependencyInjectionTutorial.Person">
+
+<property name="age" value="28"></property>
+
+<property name="name" value="narsing"></property>
+
+<property name="surname" value="pendharkar"></property>
+
+</bean>
+
+</beans>
+```
+
+1. **Java-Based Configuration (@Configuration)**
+
+* Java-based configuration allows you to configure beans using Java classes. You can use the **@Configuration** and **@Bean** annotations.
+* Annotating a class with the **@Configuration** indicates that the class can be used by the Spring IoC container as a source of bean definitions.
+* The **@Bean** annotation tells Spring that a method annotated with **@Bean** will return an object that should be registered as a bean in the Spring application context.
+
+**Example ,**
+
+```java
+@Configuration
+
+@ComponentScan("com.DependencyInjectionTutorial")
+
+public class PersonJavaBasedConfig {
+
+@Bean("constructorBasedPerson")
+
+public Person constructorBasedPerson() {
+
+Person person1 = new Person("JavaBased", 1, "Configuration Using constructor");
+
+return person1;
 
 }
 
-\@Bean(\"setterBasedPerson\")
+@Bean("setterBasedPerson")
 
-**public** Person setterBasedPerson() {
+public Person setterBasedPerson() {
 
-Person person2 = **new** Person();
+Person person2 = new Person();
 
 person2.setAge(1);
 
-person2.setName(\"JavaBased\");
+person2.setName("JavaBased");
 
-person2.setSurname(\"Configuration Using Setter Mathod\");
+person2.setSurname("Configuration Using Setter Mathod");
 
-**return** person2;
-
-}
+return person2;
 
 }
 
-3.  **Annotation-Based Configuration** (@Component, \@Service,
-    \@Repository)
+}
+```
+1. **Annotation-Based Configuration** (@Component, @Service, @Repository)
 
-- Once \<[context:annotation-config]{.underline}/\> is configured, you
-  can start annotating your code to indicate that Spring should
-  automatically wire values into properties, methods, and constructors
+* Once <context,annotation-config/> is configured, you can start annotating your code to indicate that Spring should automatically wire values into properties, methods, and constructors
 
-**Example :**
+**Example ,**
 
-\@Component(\"personbean\")
+```java
+@Component("personbean")
 
-**public** **class** PersonAnnotationBasedConfig {
+public class PersonAnnotationBasedConfig {
 
-**private** String name;
+private String name;
 
-**private** **int** age;
+private int age;
 
-**private** String surname;
+private String surname;
 
 PersonAnnotationBasedConfig() {
 
-**this**.age = 2;
+this.age = 2;
 
-**this**.name = \"Annotation based\";
+this.name = "Annotation based";
 
-**this**.surname = \"Configuration\";
-
-}
-
-**public** PersonAnnotationBasedConfig(String name, **int** age, String
-surname) {
-
-**super**();
-
-**this**.name = name;
-
-**this**.age = age;
-
-**this**.surname = surname;
+this.surname = "Configuration";
 
 }
 
-\@Override
+public PersonAnnotationBasedConfig(String name, int age, String surname) {
 
-**public** String toString() {
+super();
 
-**return** \"Person \[name=\" + name + \", age=\" + age + \",
-surname=\" + surname + \"\]\";
+this.name = name;
+
+this.age = age;
+
+this.surname = surname;
+
+}
+
+@Override
+
+public String toString() {
+
+return "Person [name="  name  ", age="  age  ", surname="  surname  "]";
 
 }
 
 }
+
+```
 
 ### **Steps to Create a Spring Core Application**
 
-1.  Create a Maven Application
+1. Create a Maven Application
 
-- Use the Quickstart archetype to generate a basic Maven project.
+* Use the Quickstart archetype to generate a basic Maven project.
 
-2.  Add Dependencies
+1. Add Dependencies
 
-- Add **Spring Core** and **Spring Context dependencies** in pom.xml.
+* Add **Spring Core** and **Spring Context dependencies** in pom.xml.
 
-3.  Create an Entity Class (POJO)
+1. Create an Entity Class (POJO)
 
-- Define a simple class with private fields, getters/setters, and
-  constructors.
+* Define a simple class with private fields, getters/setters, and constructors.
 
-4.  Configure Beans (Based on Configuration Type)
+1. Configure Beans (Based on Configuration Type)
 
-- **XML-Based**: Create beans.xml inside the resources folder and define
-  beans.
+* **XML-Based**, Create beans.xml inside the resources folder and define beans.
+* **Java-Based,** Create a @Configuration class and define beans using @Bean.
+* **Annotation-Based,** Use @Component on a class to let Spring manage it.
 
-- **Java-Based:** Create a \@Configuration class and define beans using
-  \@Bean.
+1. Initialize Application Context in Main Class
 
-- **Annotation-Based:** Use \@Component on a class to let Spring manage
-  it.
+* Use **ClassPathXmlApplicationContext** for XML-based configuration.
+* Use **AnnotationConfigApplicationContext** for Java-based and annotation-based configuration.
 
-5.  Initialize Application Context in Main Class
+1. Retrieve and Use Beans
 
-- Use **ClassPathXmlApplicationContext** for XML-based configuration.
+* Call **getBean()** from **ApplicationContext** to retrieve and use the beans in the application.
 
-- Use **AnnotationConfigApplicationContext** for Java-based and
-  annotation-based configuration.
+1. Run the Application
 
-6.  Retrieve and Use Beans
+* Execute the main class to verify that Spring loads and manages beans correctly.
 
-- Call **getBean()** from **ApplicationContext** to retrieve and use the
-  beans in the application.
-
-7.  Run the Application
-
-- Execute the main class to verify that Spring loads and manages beans
-  correctly.
-
-Example:
-
-**public** **class** MainApplicationToRun
+Example,
+```java
+public class MainApplicationToRun
 
 {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
 // 1️ Create IOC container using XML-based configuration
 
-ApplicationContext [context]{.underline} = **new**
-ClassPathXmlApplicationContext(\"beans.xml\");
+ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
-// Retrieve beans from XML configuration (setter-based and
-constructor-based)
+// Retrieve beans from XML configuration (setter-based and constructor-based)
 
-Person p = (Person) context.getBean(\"setterbased\");
+Person p = (Person) context.getBean("setterbased");
 
-System.***err***.println(\"XML Configuration (Setter-based Bean): \" +
-p);
+System.err.println("XML Configuration (Setter-based Bean), "  p);
 
-Person p2 = (Person) context.getBean(\"constructorbased\");
+Person p2 = (Person) context.getBean("constructorbased");
 
-System.***err***.println(\"XML Configuration (Constructor-based Bean):
-\" + p2);
+System.err.println("XML Configuration (Constructor-based Bean), "  p2);
 
 // 2️ Annotation-based configuration
 
-ApplicationContext [annotationContext]{.underline} = **new**
-AnnotationConfigApplicationContext(PersonAnnotationBasedConfig.**class**);
 
-// Retrieve bean from \@Component-based configuration
+ApplicationContext annotationContext = new AnnotationConfigApplicationContext(PersonAnnotationBasedConfig.class);
 
-PersonAnnotationBasedConfig annotatedBean =
-(PersonAnnotationBasedConfig) annotationContext.getBean(\"personbean\");
+// Retrieve bean from @Component-based configuration
 
-System.***out***.println(\"Annotation-based Configuration: \" +
-annotatedBean);
+PersonAnnotationBasedConfig annotatedBean = (PersonAnnotationBasedConfig) annotationContext.getBean("personbean");
+
+System.out.println("Annotation-based Configuration, "  annotatedBean);
+
 
 // 3️⃣ Java-based configuration
 
-ApplicationContext [javaContext]{.underline} = **new**
-AnnotationConfigApplicationContext(PersonJavaBasedConfig.**class**);
+
+ApplicationContext javaContext = new AnnotationConfigApplicationContext(PersonJavaBasedConfig.class);
 
 // Retrieve beans from Java-based configuration
 
-Person javaPerson1 = (Person)
-javaContext.getBean(\"constructorBasedPerson\");
+Person javaPerson1 = (Person) javaContext.getBean("constructorBasedPerson");
 
-System.***out***.println(\"Java-based Configuration (Constructor-based
-Bean): \" + javaPerson1);
+System.out.println("Java-based Configuration (Constructor-based Bean), "  javaPerson1);
 
-Person javaPerson2 = (Person)
-javaContext.getBean(\"setterBasedPerson\");
+Person javaPerson2 = (Person) javaContext.getBean("setterBasedPerson");
 
-System.***out***.println(\"Java-based Configuration (Setter-based Bean):
-\" + javaPerson2);
+System.out.println("Java-based Configuration (Setter-based Bean), "  javaPerson2);
 
 }
 
 }
+```
 
-##  **What is the difference between \@Component, \@Service, and \@Repository?**
+###  **What is the difference between @Component, @Service, and @Repository?**
 
-  -------------------------------------------------------------
-  Annotation     Purpose
-  -------------- ----------------------------------------------
-  \@Component    Generic bean for any class
+|  |  |
+| --- | --- |
+| **Annotation** | **Purpose** |
+| @Component | Generic bean for any class |
+| @Service | Specifically for business logic/service layer |
+| @Repository | Used in the DAO layer and integrates exception translation |
 
-  \@Service      Specifically for business logic/service layer
+###  **What is the difference between @Bean and @Component?**
 
-  \@Repository   Used in the DAO layer and integrates exception
-                 translation
-  -------------------------------------------------------------
+|  |  |  |
+| --- | --- | --- |
+| **Feature** | @**Bean** | @**Component** |
+| Usage | Method-Level | Class-Level |
+| Configuration Required | Yes (@Configuration) | No |
+| Auto-Scanning | No | Yes |
 
-## **What is the difference between \@Bean and \@Component?**
+**Example,**
+```java
+@Configuration
 
-  ----------------------------------------------------
-        Feature             \@Bean        \@Component
-  ------------------- ------------------ -------------
-         Usage           Method-Level     Class-Level
+class AppConfig {
 
-     Configuration           Yes              No
-       Required        (@Configuration)  
+@Bean
 
-     Auto-Scanning            No              Yes
-  ----------------------------------------------------
+public Engine engine() {
 
-**Example:**\
-*@*[Configuration]{.underline}
-
-**class** AppConfig {
-
-*@*[Bean]{.underline}
-
-**public** [Engine]{.underline} **engine**() {
-
-**return** **new** [Engine]{.underline}();
+return new Engine();
 
 }
-
 }
 
-**Spring MVC**
+```
+# **Spring MVC**
 
 **What is Spring MVC and its features.**
 
-- Spring MVC is the sub framework of spring which is used for the
-  development of web applications.
-
-- Spring MVC follows the MVC pattern which separates the application in
-  three parts i.e Model , View and Controller
-
-- **Easy Development:** MVC pattern makes easy development
-
-- **Rapid Development**: it helps for faster development.
-
-- Powerful configuration.
-
-- It uses all features of spring core.
-
-- It is flexible, easy to test and much features.
+* Spring MVC is the sub framework of spring which is used for the development of web applications.
+* Spring MVC follows the MVC pattern which separates the application in three parts i.e Model , View and Controller
+* **Easy Development,** MVC pattern makes easy development
+* **Rapid Development**, it helps for faster development.
+* Powerful configuration.
+* It uses all features of spring core.
+* It is flexible, easy to test and much features.
 
 **Explain the flow of a Spring MVC application.**
 
-1.  **Client Request** → client Sent request to the Dispatcher Servlet
+1. **Client Request** → client Sent request to the Dispatcher Servlet
+2. **DispatcherServlet** → receive request from client and request to the appropriate Controller
+3. **Controller** → Processes request and returns Model(data) and View (name of view)
+4. **ViewResolver** → Selects the appropriate view (JSP, Thymeleaf, etc.)
+5. **View (JSP/Thymeleaf)** → Data and view merged as sent as response
 
-2.  **DispatcherServlet** → receive request from client and request to
-    the appropriate Controller
-
-3.  **Controller** → Processes request and returns Model(data) and View
-    (name of view)
-
-4.  **ViewResolver** → Selects the appropriate view (JSP, Thymeleaf,
-    etc.)
-
-5.  **View (JSP/Thymeleaf)** → Data and view merged as sent as response
-
-![Spring
-DispatcherServlet](./media/media/image4.png){width="6.430555555555555in"
-height="2.329238845144357in"}
+![Spring DispatcherServlet](data,image/png;base64...)
 
 **Explain Dispatcher Servlet in Spring MVC.**
 
-- Dispatcher servlet serve as Front Controller who manage all the
-  request and sent it to respective controller.
+* Dispatcher servlet serve as Front Controller who manage all the request and sent it to respective controller.
+* Dispatcher Servlet is a class which receive all incoming request from client and maps it to appropriate controller, model, and view.
+* Configuration of Dispatcher servlet done in `web.xml` file as below
 
-- Dispatcher Servlet is a class which receive all incoming request from
-  client and maps it to appropriate controller, model, and view.
+```xml
+<servlet>
 
-- Configuration of Dispatcher servlet done in *[web.xml]{.underline}*
-  file as below
+<servlet-name>HelloWeb</servlet-name>
 
-\<servlet\>
-
-\<servlet-name\>HelloWeb\</servlet-name\>
-
-\<servlet-class\>
+<servlet-class>
 
 org.springframework.web.servlet.DispatcherServlet
 
-\</servlet-class\>
+</servlet-class>
 
-\<load-on-startup\>1\</load-on-startup\>
+<load-on-startup>1</load-on-startup>
 
-\</servlet\>
+</servlet>
 
-\<servlet-mapping\>
+<servlet-mapping>
 
-\<servlet-name\>HelloWeb\</servlet-name\>
+<servlet-name>HelloWeb</servlet-name>
 
-\<url-pattern\>\*/\</url-pattern\>
+<url-pattern>\*/</url-pattern>
 
-\</servlet-mapping\>
+</servlet-mapping>
+```
 
-![](./media/media/image5.png){width="7.268055555555556in"
-height="3.351884295713036in"}
+![](data,image/png;base64...)
 
-**\
-Explain InternalViewResolver in Spring MVC.**
+**Explain InternalViewResolver in Spring MVC.**
 
-- It is a class which is used to resolve the internal view in Spring
-  MVC.
+* It is a class which is used to resolve the internal view in Spring MVC.
+* We can define the properties like prefix and suffix where prefix contains location of view and suffix contains extension of view page.
+* Example ,
 
-- We can define the properties like prefix and suffix where prefix
-  contains location of view and suffix contains extension of view page.
+*<!-- used to map vies according to controller -->*
 
-- Example :
+<bean name="viewResolver"
 
-*\<!\-- used to map vies according to controller \--\>*
+class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
-\<bean name=\"viewResolver\"
+<property name="prefix" value="/WEB-INF/views/" />
 
-class=\"org.springframework.web.servlet.view.InternalResourceViewResolver\"\>
+<property name="suffix" value=".jsp" />
 
-\<property name=\"prefix\" value=\"/WEB-INF/views/\" /\>
+</bean>
 
-\<property name=\"suffix\" value=\".jsp\" /\>
+Explain Model,ModelMap and ModelAndView in Spring MVC.
 
-\</bean\>
+1. Model , it is used to pass information from controller to view using model object.
 
-**Explain Model,ModelMap and ModelAndView in Spring MVC.**
+```java
+Model model = new Model();
 
-1.  **Model** : it is used to pass information from controller to view
-    using model object.
+model.addAttribute("msg", “hello “));
+```
 
-> Model **[model]{.underline}** = **new** [Model]{.underline}();
->
-> model.addAttribute(\"msg\", "hello "));
+1. ModelMap , it is similar to model only difference is that it provides map functionalities.
+   Methods , addAttribute(), get(),put()
+2. ModelAndView, If you want to return model and view in same object then we can use ModelAndView class object.
 
-2.  **ModelMap** : it is similar to model only difference is that it
-    provides map functionalities.\
-    Methods : addAttribute(), get(),put()
+```java
+public ModelAndView showWelcomePage() {
 
-3.  **ModelAndView**: If you want to return model and view in same
-    object then we can use ModelAndView class object.
+ModelAndView mav = new ModelAndView();
 
-**public** ModelAndView **showWelcomePage**() {
+mav.setViewName("welcome");
 
-ModelAndView **mav** = **new** ModelAndView();
+mav.addObject("message", "Hello, Spring MVC!");
 
-mav.setViewName(\"welcome\");
-
-mav.addObject(\"message\", \"Hello, Spring MVC!\");
-
-**return** mav;
+return mav;
 
 }
+```
 
-**What are \@RequestMapping and its variants?**
+What are @RequestMapping and its variants?
 
-- \@RequestMapping(\"/path\") → General mapping
+* @RequestMapping("/path") → General mapping
+* @GetMapping("/path") → Maps HTTP GET request
+* @PostMapping("/path") → Maps HTTP POST request
+* @PutMapping("/path") → Maps HTTP PUT request
+* @DeleteMapping("/path") → Maps HTTP DELETE request
 
-- \@GetMapping(\"/path\") → Maps HTTP GET request
-
-- \@PostMapping(\"/path\") → Maps HTTP POST request
-
-- \@PutMapping(\"/path\") → Maps HTTP PUT request
-
-- \@DeleteMapping(\"/path\") → Maps HTTP DELETE request
-
-**What is \@ModelAttribute in Spring MVC?**
+What is @ModelAttribute in Spring MVC?
 
 It binds form data to a model object.
 
-**Example:**
+Example,
 
-\@PostMapping(\"saveTask\")
+```java
+@PostMapping("saveTask")
 
-**public** String saveTask(@ModelAttribute Tasks tasks, BindingResult
-bindingResult,
+public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
-\@RequestParam(\"assignee\") **int** userid, Model model) **throws**
-SQLException {
+@RequestParam("assignee") int userid, Model model) throws SQLException {
 
-**if** (bindingResult.hasErrors()) {
+if (bindingResult.hasErrors()) {
 
-model.addAttribute(\"message\", \"Plese enter proper detials\");
+model.addAttribute("message", "Plese enter proper detials");
 
-**return** \"redirect:/createtask\";
+return "redirect,/createtask";
 
-} **else** {
+} else {
 
 User assigenedUser = userService.userbyid(userid);
 
@@ -673,1262 +558,1163 @@ tasks.setAssignedUser(assigenedUser);
 
 taskserviceImpl.saveTask(tasks);
 
-System.***out***.println(\"saved\");
+System.*out*.println("saved");
 
-model.addAttribute(\"message\", \"Task added !\");
+model.addAttribute("message", "Task added !");
 
-**return** \"redirect:/tasks-list\";
-
-}
-
-}
-
-**Core Spring Annotations-**
-
-These annotations are primarily used for **dependency injection (DI) and
-component scanning** in Spring.
-
-**\@Component :** Marks a Java class as a Spring-managed bean\
-**Example:**\
-\@Component
-
-**public** **class** MyComponent {
-
-**public** **void** **sayHello**() {
-
-System.***out***.println(\"Hello from MyComponent\");
+return "redirect,/tasks-list";
 
 }
 
 }
+```
 
-**\@Service**
+Core Spring Annotations-
 
-- **Definition:** Specialized version of \@Component, used to mark a
-  **service layer** class which contains business.
+These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
 
-**Example:**\
-*\@Service*
+@Component , Marks a Java class as a Spring-managed bean
+Example,
 
-**public** **class** UserService {
 
-**public** String **getUser**() {
+```java
+ @Component
+public class MyComponent {
 
-**return** \"Nirav\";
+public void sayHello() {
 
-}
-
-**\@Repository**
-
-- **Definition:** Used to indicate that a class is responsible for
-  **data access logic** (DAO layer) and interaction with database.
-
-**Example:**\
-*@*Repository
-
-**public** **class** UserRepository {
-
-**public** **void** saveUser() {
-
-System.out.println(\"User saved!\");
+System.*out*.println("Hello from MyComponent");
 
 }
 
 }
+```
 
-**\@Autowired**
+@Service
 
-- **Definition:** Automatically injects dependencies where required.
+* Definition, Specialized version of @Component, used to mark a service layer class which contains business.
 
-**Example:**\
-*\@Autowired*
+Example,
+```java
+*@Service*
 
-**private** TaskRepository taskRepository;
+public class UserService {
 
-**\@Qualifier**
+public String getUser() {
 
-- **Definition:** Used along with \@Autowired to resolve ambiguity when
-  multiple beans of the same type exist.
+return "Nirav";
 
-**Example:**\
-*@*[Component]{.underline}
+}
+```
 
-(\"bean1\")
+@Repository
 
-**public** **class** MyBean1 {}
+* Definition, Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
 
-*@*[Component]{.underline}(\"bean2\")
+Example,
+```java
+@Repository
 
-**public** **class** MyBean2 {}
+public class UserRepository {
 
-*\@Service*
+public void saveUser() {
 
-**public** **class** MyService {
+System.out.println("User saved!");
 
-*\@Autowired*
+}
+}
+```
 
-*@*[Qualifier]{.underline}(\"bean1\")
+@Autowired
 
-**private** MyBean1 myBean;
+* Definition, Automatically injects dependencies where required.
+
+Example,
+ *@Autowired*
+
+private TaskRepository taskRepository;
+
+@Qualifier
+
+* Definition, Used along with @Autowired to resolve ambiguity when multiple beans of the same type exist.
+
+Example,
+```java
+@Component("bean1")
+
+public class MyBean1 {}
+
+@Component("bean2")
+
+public class MyBean2 {}
+
+@Service
+public class MyService {
+
+@Autowired
+
+@Qualifier("bean1")
+
+private MyBean1 myBean;
 
 }
 
-**\@Value**
+```
+@Value
+* Definition, Injects values from properties files into Spring beans or assign default value to methods.
 
-- **Definition:** Injects values from **properties files** into Spring
-  beans or assign default value to methods.
+Example,
+```java
+@Value("${app.name}")
 
-**Example:**\
-*@*[Value]{.underline}(\"\${app.name}\")
+private String appName;
+```
 
-**private** String appName;
+@Scope
 
-**\@Scope**
+* Definition, Defines the scope of a Spring bean (singleton, prototype, request, etc.).
 
-- **Definition:** Defines the **scope** of a Spring bean (singleton,
-  prototype, request, etc.).
+Example,
+```java
+@Component
+@Scope("prototype")
+public class PrototypeBean {}
+```
 
-**Example:**\
-*@*[Component]{.underline}
+### Spring MVC Annotations
 
-*@*[Scope]{.underline}(\"prototype\")
+@Controller
 
-**public** **class** PrototypeBean {}
+* Definition, Marks a class as a Spring MVC controller to handle HTTP requests.
 
-**Spring MVC Annotations**
+Example,
+*@Controller*
 
-**\@Controller**
+public class TaskController {}
 
-- **Definition:** Marks a class as a **Spring MVC controller** to handle
-  HTTP requests.
+@RestController
 
-**Example:**\
-*\@Controller*
+* Definition, A combination of @Controller and @ResponseBody, used for RESTful APIs.
 
-**public** **class** TaskController {}
+Example,
 
-**\@RestController**
+```java
+@RestController
 
-- **Definition:** A combination of **\@Controller** and
-  **\@ResponseBody**, used for **RESTful APIs**.
+public class ApiController {
 
-**Example:\**
+*@GetMapping*("/data")
 
-*@*[RestController]{.underline}
+public String getData() {
 
-**public** **class** ApiController {
-
-*\@GetMapping*(\"/data\")
-
-**public** String **getData**() {
-
-**return** \"Hello API!\";
-
-}
-
-}
-
-**\@RequestMapping**
-
-- **Definition:** Maps **HTTP requests** to controller methods.
-
-**Example:**\
-*\@Controller*
-
-*@*[RequestMapping]{.underline}(\"/user\")
-
-**public** **class** UserController {
-
-*\@GetMapping*(\"/profile\")
-
-**public** String **showProfile**() {
-
-**return** \"profile\";
+return "Hello API!";
 
 }
 
 }
+```
 
-**\@GetMapping, \@PostMapping, \@PutMapping, \@DeleteMapping**
+@RequestMapping
 
-- **Definition:** Shortcut annotations for specific **HTTP methods**.
+* Definition, Maps HTTP requests to controller methods.
 
-**Example:**\
-*\@GetMapping*(\"dashboard\" )
+Example,
+```java
+@Controller
 
-**public** String **dashboardPage**(Model model) {
+@RequestMapping("/user")
 
-**return** \"Dashboard\";
+public class UserController {
+
+@GetMapping("/profile")
+
+public String showProfile() {
+
+return "profile";
 
 }
 
-**\@PathVariable**
+}
+```
 
-- **Definition:** Extracts values from the **URL path**.
+@GetMapping, @PostMapping, @PutMapping, @DeleteMapping
 
-- **URL** : *localhost:8080/deleteTask/2*
+* Definition, Shortcut annotations for specific HTTP methods.
 
-**Example:**\
-*\@GetMapping*(\"deleteTask/{id}\")
+Example,
+```java
+@GetMapping("dashboard" )
 
-**public** String **deleteTask**(*\@PathVariable*(\"id\") **int**
-taskId, Model model) **throws** SQLException {
+public String dashboardPage(Model model) {
+
+return "Dashboard";
+
+}
+```
+
+@PathVariable
+
+* Definition, Extracts values from the URL path.
+* URL , *localhost,8080/deleteTask/2*
+
+Example,
+```java
+@GetMapping("deleteTask/{id}")
+
+public String deleteTask(*@PathVariable*("id") int taskId, Model model) throws SQLException {
 
 taskserviceImpl.deleteTask(taskId);
 
-model.addAttribute(\"message\", \"Task deleted!\");
+model.addAttribute("message", "Task deleted!");
 
-**return** \"redirect:/tasks-list\";
+return "redirect,/tasks-list";
+
+}
+```
+
+@RequestParam
+
+* Definition, Extracts query parameters from the URL*.*
+* *URL* *, localhost,8080/search?keyword=”google*”
+
+Example,
+*@GetMapping*("/search")
+
+public String search(*@RequestParam* String keyword) {
+
+return "Searching for, "  keyword;
 
 }
 
-**\@RequestParam**
+@ModelAttribute
 
-- **Definition:** Extracts query parameters from the URL*.*
+* Definition, Binds from data into java object.
 
-- ***URL** : localhost:8080/search?keyword="google*"
+Example,
+*@PostMapping*("/register")
 
-**Example:**\
-*\@GetMapping*(\"/search\")
+public String registerUser(*@ModelAttribute* User user) {
 
-**public** String **search**(*\@RequestParam* String keyword) {
+userService.save(user);
 
-**return** \"Searching for: \" + keyword;
-
-}
-
-**\@ModelAttribute**
-
-- **Definition:** Binds from data into java object.
-
-**Example:**\
-*\@PostMapping*(\"/register\")
-
-**public** String **registerUser**(*\@ModelAttribute* User user) {
-
-userService.[save]{.underline}(user);
-
-**return** \"success\";
+return "success";
 
 }
 
-**\@ExceptionHandler ,@ControllerAdvice**
+@ExceptionHandler ,@ControllerAdvice
 
-- **Definition:** This annotation used to handle the specific exceptions
-  and sending custom message and controller advice annotation is used to
-  handle exceptions globally
+* Definition, This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
 
-**Example:**\
-*@**ControllerAdvice*
+Example,
+```java
+@ControllerAdvice
 
-**public** **class** GlobalExceptionHandler {
+public class GlobalExceptionHandler {
 
 // Exception handler method to catch InvalidUserException
 
-*\@ExceptionHandler*(InvalidUserException.**class**)
+@ExceptionHandler(InvalidUserException.class)
 
-**public** String **handleInvalidUserException**(InvalidUserException
-ex, Model model) {
+public String handleInvalidUserException(InvalidUserException ex, Model model) {
 
-model.addAttribute(\"message\", ex.getMessage());
+model.addAttribute("message", ex.getMessage());
 
-**return** \"Login\";
+return "Login";
+
+}
+```
+
+Spring Boot Annotations
+
+@SpringBootApplication
+
+* Definition, Marks the main Spring Boot application class.
+
+Example,
+```java
+@SpringBootApplication
+
+public class DemoAppMssqlApplication {
+
+public static void main(String[] args) {
+
+SpringApplication.*run*(DemoAppMssqlApplication.class, args);
 
 }
 
-**Spring Boot Annotations**
+```
+@JsonIgoner & @JsonIgnoreProperties
 
-**\@SpringBootApplication**
+* Definition, used to filter out the fields data form response. These fields are not sent in response.
 
-- **Definition:** Marks the main **Spring Boot application class**.
+Example,
+```java
+@Entity
 
-**Example:**\
-*\@SpringBootApplication*
+@JsonIgnoreProperties({"password", "username"})
 
-**public** **class** **DemoAppMssqlApplication** {
+public class User {
 
-**public** **static** **void** **main**(**String**\[\] args) {
+@Id
 
-**SpringApplication**.*run*(**DemoAppMssqlApplication**.**class**,
-args);
+@GeneratedValue(strategy = GenerationType.*SEQUENCE*,generator = "userseq")
 
-}
+@SequenceGenerator(name="userseq",sequenceName = "userseq", initialValue = 1000, allocationSize = 1)
 
-**\@JsonIgoner & \@JsonIgnoreProperties**
+private Long id;
 
-- **Definition:** used to filter out the fields data form response.
-  These fields are not sent in response.
+@Column(unique = true, nullable = false)
 
-**Example:**\
-\@Entity
+private String username;
 
-\@JsonIgnoreProperties({\"password\", \"username\"})
+@Column(nullable = false)
 
-**public** **class** User {
+@JsonIgnore
 
-\@Id
+private String password;
+```
 
-\@GeneratedValue(strategy = GenerationType.***SEQUENCE***,generator =
-\"userseq\")
+@Configuration
 
-\@SequenceGenerator(name=\"userseq\",sequenceName = \"userseq\",
-initialValue = 1000, allocationSize = 1)
+* Definition, Marks a class as a Spring configuration class and it is a source of beans.
 
-**private** Long id;
+Example,
+ ```java
+@Configuration
 
-\@Column(unique = **true**, nullable = **false**)
+public class AppConfig {
 
-**private** String username;
+@Bean
 
-\@Column(nullable = **false**)
+public MyService myService() {
 
-\@JsonIgnore
-
-**private** String password;
-
-**\@Configuration**
-
-- **Definition:** Marks a class as a **Spring configuration class** and
-  it is a source of beans.
-
-**Example:**\
-*@*[Configuration]{.underline}
-
-**public** **class** AppConfig {
-
-*@*[Bean]{.underline}
-
-**public** [MyService]{.underline} **myService**() {
-
-**return** **new** [MyService]{.underline}();
+return new MyService();
 
 }
 
 }
+```
 
-**\@EnableScheduling**
+@EnableScheduling
 
-- **Definition:** Enables **scheduling tasks**. When \@EnableScheduling
-  Annotation added in Configuration class then spring looks for
-  \@Scheduled annotated method and runs that method automatically in
-  fixed period of time.
+* Definition, Enables scheduling tasks. When @EnableScheduling Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
 
-**Example:**\
-*@*[EnableScheduling]{.underline}
+Example,
+```java
+ @EnableScheduling
 
-**public** **class** SchedulerConfig {}
+public class SchedulerConfig {}
 
-*@*[Scheduled]{.underline}(fixedRate = 5000)
+@Scheduled(fixedRate = 5000)
 
-**public** **void** **scheduleTask**() {
+public void scheduleTask() {
 
-System.***out***.println(\"Running every 5 seconds\");
+System.out.println("Running every 5 seconds");
+
+}
+```
+
+Spring Data JPA Annotations
+
+Used for database interaction.
+
+```java
+@Entity
+
+* Definition, Marks a class as a JPA entity (database table representation).
+
+Example,
+@Entity
+
+public class Tasks {
+
+@Id
+
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+private Long task\_id;
+
+@NotNull
+
+private String title;
+
+@NotNull
+
+private String description;
+
+@Temporal(TemporalType.DATE)
+
+private Date deadline;
+
+@Enumerated(EnumType.STRING)
+
+private Priority priority;
+
+@Enumerated(EnumType.STRING)
+
+private TaskStatus status;
+
+@ManyToOne
+
+@JoinColumn(name = "user\_id")
+
+private User assignedUser;
+```
+
+@Transactional
+
+* Definition, it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
+* @EnableTransactionManagements , To use above annotation we need to add this annotation to your main application class.
+* Example,
+
+```java
+@SpringBootApplication
+
+@EnableTransactionManagement
+
+public class DemoAppMssqlApplication {
+
+public static void main(String[] args) {
+
+SpringApplication.run(DemoAppMssqlApplication.class, args);
+
+}
+```
+
+```java
+@Transactional
+
+public void updateUser(User user) {
+
+userRepository.save(user);
+
+}
+```
+
+Spring Security Annotations
+
+Used for authentication and authorization.
+
+@EnableWebSecurity
+
+* Definition, Enables Spring Security in the application.
+
+Example,
+ @EnableWebSecurity
+
+public class SecurityConfig extends WebSecurityConfigurerAdapter {}
+
+@PreAuthorize
+
+* Definition, Restricts access to a method based on roles.
+
+Example:
+
+`@PreAuthorize("hasRole('ADMIN')")`
+
+public void adminOnly() {}
+
+What is the difference between Spring MVC and Spring Boot?
+
+|  |  |  |
+| --- | --- | --- |
+| Feature | Spring MVC | Spring Boot |
+| Configuration | Manual | Auto-configured |
+| Embedded Server | No | Yes (Tomcat, Jetty) |
+| Dependencies | More setup needed | Minimal setup |
+
+What is @SpringBootApplication?
+
+It is a combination of,
+
+* @Configuration
+* @EnableAutoConfiguration
+* @ComponentScan
+
+# Spring Data JPA & Transactions
+
+What is Spring Data JPA?
+
+Spring Data JPA simplifies database operations by providing a repository abstraction layer.
+
+Example,
+
+*@Repository*
+
+public interface EmpRepository extends JpaRepository<Employee, Long>{
 
 }
 
-**Spring Data JPA Annotations**
+Spring Security Questions
 
-Used for **database interaction**.
+How do you secure a Spring Boot application?
 
-**\@Entity**
+* Use Spring Security (spring-boot-starter-security)
+* Configure authentication (UserDetailsService)
+* Implement JWT (JSON Web Token)
 
-- **Definition:** Marks a class as a **JPA entity (database table
-  representation)**.
+Example,
 
-**Example:**\
-*\@Entity*
+@Configuration
 
-**public** **class** Tasks {
+@EnableWebSecurity
 
-*\@Id*
+public class SecurityConfig {
 
-*\@GeneratedValue*(strategy = GenerationType.***IDENTITY***)
+@Bean
 
-**private** Long task_id;
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-*\@NotNull*
-
-**private** String title;
-
-*\@NotNull*
-
-**private** String description;
-
-*\@Temporal*(TemporalType.***DATE***)
-
-**private** Date deadline;
-
-*\@Enumerated*(EnumType.***STRING***)
-
-**private** Priority priority;
-
-*\@Enumerated*(EnumType.***STRING***)
-
-**private** TaskStatus status;
-
-*\@ManyToOne*
-
-*\@JoinColumn*(name = \"user_id\")
-
-**private** User assignedUser;
-
-**\@Transactional**
-
-- **Definition:** it is used with methods or classes that are
-  communicating with database and performing some operation. If some
-  reason method is failed or error occurred to complete the operation
-  then this annotation automatically rollback the transactions.
-
-- **\@EnableTransactionManagements :** To use above annotation we need
-  to add this annotation to your main application class.
-
-- **Example:**
-
-> *\@SpringBootApplication*
->
-> *\@EnableTransactionManagement*
->
-> **public** **class** **DemoAppMssqlApplication** {
->
-> **public** **static** **void** **main**(**String**\[\] args) {
->
-> **SpringApplication**.*run*(**DemoAppMssqlApplication**.**class**,
-> args);
->
-> }
-
-*\@Transactional*
-
-**public** **void** **updateUser**(**[User]{.underline}** user) {
-
-[userRepository]{.underline}.save(user);
-
-}
-
-**Spring Security Annotations**
-
-Used for **authentication** and **authorization**.
-
-**\@EnableWebSecurity**
-
-- **Definition:** Enables **Spring Security** in the application.
-
-**Example:**\
-*@*EnableWebSecurity
-
-**public** **class** **SecurityConfig** **extends**
-**[WebSecurityConfigurerAdapter]{.underline}** {}
-
-**\@PreAuthorize**
-
-- **Definition:** Restricts access to a method based on **roles**.
-
-**Example:**\
-*@*[PreAuthorize]{.underline}(\"hasRole(\'ADMIN\')\")
-
-**public** **void** **adminOnly**() {}
-
-**What is the difference between Spring MVC and Spring Boot?**
-
-  -------------------------------------------------
-  Feature         Spring MVC      Spring Boot
-  --------------- --------------- -----------------
-  Configuration   Manual          Auto-configured
-
-  Embedded Server No              Yes (Tomcat,
-                                  Jetty)
-
-  Dependencies    More setup      Minimal setup
-                  needed          
-  -------------------------------------------------
-
-**What is \@SpringBootApplication?**
-
-It is a combination of:
-
-- \@Configuration
-
-- \@EnableAutoConfiguration
-
-- \@ComponentScan
-
-# **Spring Data JPA & Transactions**
-
-**What is Spring Data JPA?**
-
-Spring Data JPA simplifies database operations by providing a repository
-abstraction layer.
-
-**Example:**
-
-*\@Repository*
-
-**public** **interface** **EmpRepository** **extends**
-**JpaRepository**\<Employee, Long\>{
-
-}
-
-**Spring Security Questions**
-
-**How do you secure a Spring Boot application?**
-
-- Use **Spring Security** (spring-boot-starter-security)
-
-- Configure authentication (UserDetailsService)
-
-- Implement JWT (JSON Web Token)
-
-**Example:**
-
-**\@Configuration**
-
-**\@EnableWebSecurity**
-
-**public** **class** **SecurityConfig** {
-
-**\@Bean**
-
-**public** SecurityFilterChain **securityFilterChain**(HttpSecurity
-http) **throws** Exception {
-
-http.authorizeHttpRequests(auth -\> auth.anyRequest().authenticated())
+http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 
 .formLogin();
 
-**return** http.build();
+return http.build();
 
 }
 
 }
 
-# **Microservices & Cloud Questions**
+# Microservices & Cloud Questions
 
-**What is Spring Cloud?**
+What is Spring Cloud?
 
-Spring Cloud is used for developing **distributed** microservices-based
-applications. It provides features like:
+Spring Cloud is used for developing distributed microservices-based applications. It provides features like,
 
-- Service Discovery (Eureka)
+* Service Discovery (Eureka)
+* API Gateway (Zuul / Spring Cloud Gateway)
+* Load Balancing (Ribbon)
+* Circuit Breaker (Resilience4J)
 
-- API Gateway (Zuul / Spring Cloud Gateway)
+What is @FeignClient in Spring Cloud?
 
-- Load Balancing (Ribbon)
+Feign is a REST client that simplifies HTTP calls in microservices. Example,
 
-- Circuit Breaker (Resilience4J)
+@FeignClient(name = "user-service")
 
-**What is \@FeignClient in Spring Cloud?**
+public interface UserClient {
 
-Feign is a REST client that simplifies HTTP calls in microservices.
-**Example:**
+@GetMapping("/users/{id}")
 
-**@**[FeignClient]{.underline}(name = \"user-service\")
-
-**public** **interface** **[UserClient]{.underline}** {
-
-**@**[GetMapping]{.underline}(\"/users/{id}\")
-
-**[User]{.underline}** **getUserById**(**@**[PathVariable]{.underline}
-**Long** **id**);
+User getUserById(@PathVariable Long id);
 
 }
 
-**What is Spring AOP?**
+What is Spring AOP?
 
-Aspect-Oriented Programming (AOP) is used to separate cross-cutting
-concerns (logging, security, transactions).
+Aspect-Oriented Programming (AOP) is used to separate cross-cutting concerns (logging, security, transactions).
 
-**Example:**
+Example,
 
-\@Aspect
+@Aspect
 
-\@Component
+@Component
 
-**public** **class** **LoggingAspect** {
+public class LoggingAspect {
 
-\@Before(\"execution(\* com.example.service.\*.\*(..))\")
+@Before("execution(\* com.example.service.\*.\*(..))")
 
-**public** void logBefore(JoinPoint joinPoint) {
+public void logBefore(JoinPoint joinPoint) {
 
-System.out.println(\"Method Called: \" +
-joinPoint.getSignature().getName());
+System.out.println("Method Called, "  joinPoint.getSignature().getName());
 
 }
 
 }
 
-**What is the difference between \@RestController and \@Controller?**
+What is the difference between @RestController and @Controller?
 
-- **\@Controller** → Returns views (JSP, Thymeleaf)
+* @Controller → Returns views (JSP, Thymeleaf)
+* @RestController → Returns JSON/XML responses
 
-- **\@RestController** → Returns JSON/XML responses
+Example,
 
-**Example:**
+@RestController
 
-\@RestController
+@RequestMapping("/api")
 
-\@RequestMapping(\"/api\")
+public class ApiController {
 
-**public** **class** **ApiController** {
+@GetMapping("/hello")
 
-\@GetMapping(\"/hello\")
+public String sayHello() {
 
-**public** String sayHello() {
-
-**return** \"Hello, World!\";
-
-}
+return "Hello, World!";
 
 }
 
-**What is the difference JDBC, JDBC template, JPA, Spring Data JPA?**
+}
 
-  -----------------------------------------------------------------------
-  JDBC              JDBC Template     JPA               Spring Data JPA
-  ----------------- ----------------- ----------------- -----------------
-  Write java code   Small java code   Just provide      Use JPARepository
-                                      Mapping           Interface it will
-                                                        take care of
-                                                        everything.
+What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
 
-  Write Sql Queries Write SQL Queries No need to write  No need to write
-                                      Query             Query
-  -----------------------------------------------------------------------
+|  |  |  |  |
+| --- | --- | --- | --- |
+| JDBC | JDBC Template | JPA | Spring Data JPA |
+| Write java code | Small java code | Just provide Mapping | Use JPARepository Interface it will take care of everything. |
+| Write Sql Queries | Write SQL Queries | No need to write Query | No need to write Query |
 
-**What is Spring Security?**
+What is Spring Security?
 
-**Answer:**
+Answer,
 
-- Spring Security is a powerful authentication and authorization
-  framework for Java applications, primarily used in Spring-based
-  projects.
+* Spring Security is a powerful authentication and authorization framework for Java applications, primarily used in Spring-based projects.
+* It provides built-in security features like,
 
-- It provides built-in security features like:
+1. Authentication (Who are you?)
+2. Authorization (What can you do?)
+3. Protection against security threats like CSRF, XSS, session fixation, clickjacking, etc.
+4. Integration with OAuth2, JWT, LDAP, and custom authentication mechanisms
 
-1.  **Authentication** (Who are you?)
+Example,
+If a user tries to access /admin, Spring Security will check whether they have the ADMIN role before granting access.
 
-2.  **Authorization** (What can you do?)
+Spring Security architecture
 
-3.  **Protection against security threats** like CSRF, XSS, session
-    fixation, clickjacking, etc.
+![Spring Security Architecture](data,image/png;base64...)
 
-4.  **Integration with OAuth2, JWT, LDAP, and custom authentication
-    mechanisms**
+Security filter chain ,
 
-**Example:**\
-If a user tries to access /admin, Spring Security will check whether
-they have the ADMIN role before granting access.
+* This is used to filter the requests and it also authenticate and authorise the user
+* Filter run the first in processing order
+* We can add custom filters in applications
 
-**Spring Security architecture**
+Authentication ,
 
-![Spring Security
-Architecture](./media/media/image6.png){width="7.268055555555556in"
-height="3.542361111111111in"}
+* When user submit login form
+* AuthenticationManager receive the request
+* It used DaoAuthenticationProvider object to fetch user details by using userservicedetails
+* And also, user password encoder to compare password
+* If authentication is successful, it returns authentication manager object
 
-**Security filter chain :**
+Authorisation ,
 
-- This is used to filter the requests and it also authenticate and
-  authorise the user
+* Once authentication is successful , system will check the roles of user and according to that resource access is granted
+* If not, then system give exception.
 
-- Filter run the first in processing order
+Why use Spring Security?
 
-- We can add custom filters in applications
+*  Provides authentication and authorization
+   Prevents common security threats (CSRF, XSS, SQL Injection, etc.)
+   Supports integration with OAuth2, JWT, LDAP, etc.
+   Highly customizable
 
-**Authentication :**
+Adding Spring Security to a Spring Boot Project
 
-- When user submit login form
+1. Dependencies (Maven) for spring boot,
 
-- AuthenticationManager receive the request
+<dependency>
 
-- It used DaoAuthenticationProvider object to fetch user details by
-  using userservicedetails
+<groupId>org.springframework.boot</groupId>
 
-- And also, user password encoder to compare password
+<artifactId>spring-boot-starter-security</artifactId>
 
-- If authentication is successful, it returns authentication manager
-  object
+</dependency>
 
-**Authorisation :**
+1. For Spring MVC
 
-- Once authentication is successful , system will check the roles of
-  user and according to that resource access is granted
+<!--spring-webmvc -->
 
-- If not, then system give exception.
+<dependency>
 
-**Why use Spring Security?**
+<groupId>org.springframework</groupId>
 
-- Provides authentication and authorization
+<artifactId>spring-webmvc</artifactId>
 
-- Prevents common security threats (CSRF, XSS, SQL Injection, etc.)
+<version>7.0.0-M2</version>
 
-- Supports integration with OAuth2, JWT, LDAP, etc.
+</dependency>
 
-- Highly customizable
+<!--spring-context -->
 
-**Adding Spring Security to a Spring Boot Project**
+<dependency>
 
-1.  Dependencies (Maven) for spring boot:
+<groupId>org.springframework</groupId>
 
-\<dependency\>
+<artifactId>spring-context</artifactId>
 
-\<groupId\>org.springframework.boot\</groupId\>
+<version>7.0.0-M2</version>
 
-\<artifactId\>spring-boot-starter-security\</artifactId\>
+</dependency>
 
-\</dependency\>
+<!-- spring-security-web -->
 
-2.  For Spring MVC
+<dependency>
 
-\<!\--spring-webmvc \--\>
+<groupId>org.springframework.security</groupId>
 
-\<dependency\>
+<artifactId>spring-security-web</artifactId>
 
-\<groupId\>org.springframework\</groupId\>
+<version>6.4.3</version>
 
-\<artifactId\>spring-webmvc\</artifactId\>
+</dependency>
 
-\<version\>7.0.0-M2\</version\>
+<!-- spring-security-core -->
 
-\</dependency\>
+<dependency>
 
-\<!\--spring-context \--\>
+<groupId>org.springframework.security</groupId>
 
-\<dependency\>
+<artifactId>spring-security-core</artifactId>
 
-\<groupId\>org.springframework\</groupId\>
+<version>6.4.3</version>
 
-\<artifactId\>spring-context\</artifactId\>
+</dependency>
 
-\<version\>7.0.0-M2\</version\>
+<!-- spring-security-config -->
 
-\</dependency\>
+<dependency>
 
-\<!\-- spring-security-web \--\>
+<groupId>org.springframework.security</groupId>
 
-\<dependency\>
+<artifactId>spring-security-config</artifactId>
 
-\<groupId\>org.springframework.security\</groupId\>
+<version>6.4.3</version>
 
-\<artifactId\>spring-security-web\</artifactId\>
+</dependency>
 
-\<version\>6.4.3\</version\>
+* By default, Spring Security provides a login form with a generated username (user) and password (logged in the console).
 
-\</dependency\>
-
-\<!\-- spring-security-core \--\>
-
-\<dependency\>
-
-\<groupId\>org.springframework.security\</groupId\>
-
-\<artifactId\>spring-security-core\</artifactId\>
-
-\<version\>6.4.3\</version\>
-
-\</dependency\>
-
-\<!\-- spring-security-config \--\>
-
-\<dependency\>
-
-\<groupId\>org.springframework.security\</groupId\>
-
-\<artifactId\>spring-security-config\</artifactId\>
-
-\<version\>6.4.3\</version\>
-
-\</dependency\>
-
-- **By default**, Spring Security provides a login form with a generated
-  username (user) and password (logged in the console).
-
-**Configuring Spring Security (Basic Authentication)**
+Configuring Spring Security (Basic Authentication)
 
 Custom Security Configuration (IN Memory Authentication)
 
-\@Configuration
+@Configuration
 
-\@EnableWebSecurity
+@EnableWebSecurity
 
-**public** **class** SecurityConfig {
+public class SecurityConfig {
 
-\@Bean
+@Bean
 
-**public** BCryptPasswordEncoder passwordEncoder() {
+public BCryptPasswordEncoder passwordEncoder() {
 
-**return** **new** BCryptPasswordEncoder();
+return new BCryptPasswordEncoder();
 
 }
 
 // In-memory authentication setup
 
-\@Bean
+@Bean
 
-**public** UserDetailsService userservice() {
+public UserDetailsService userservice() {
 
-UserDetails user1 = User.withUsername(\"user\")
+UserDetails user1 = User.withUsername("user")
 
-.password(passwordEncoder().encode(\"u123\"))
+.password(passwordEncoder().encode("u123"))
 
-.authorities(\"USER\")
-
-.build();
-
-UserDetails admin = User.withUsername(\"admin\")
-
-.password(passwordEncoder().encode(\"a123\"))
-
-.authorities(\"ADMIN\")
+.authorities("USER")
 
 .build();
 
-**return** **new** InMemoryUserDetailsManager(user1, admin);
+UserDetails admin = User.withUsername("admin")
+
+.password(passwordEncoder().encode("a123"))
+
+.authorities("ADMIN")
+
+.build();
+
+return new InMemoryUserDetailsManager(user1, admin);
 
 }
 
-\@Bean
+@Bean
 
-**public** SecurityFilterChain filter(HttpSecurity http) **throws**
-Exception {
+public SecurityFilterChain filter(HttpSecurity http) throws Exception {
 
-http.csrf(csrf -\> csrf.disable())
+http.csrf(csrf -> csrf.disable())
 
-.authorizeHttpRequests(auth -\> auth
+.authorizeHttpRequests(auth -> auth
 
-.requestMatchers(\"/admin/\*\*\").hasAuthority(\"ADMIN\")
+.requestMatchers("/admin/\*\*").hasAuthority("ADMIN")
 
-.requestMatchers(\"/user/\*\*\").hasAuthority(\"USER\")
+.requestMatchers("/user/\*\*").hasAuthority("USER")
 
 .anyRequest().authenticated()
 
 )
 
-.formLogin(form -\> form
+.formLogin(form -> form
 
-.defaultSuccessUrl(\"/home\", **true**)
-
-.permitAll()
-
-)
-
-.logout(logout -\> logout
+.defaultSuccessUrl("/home", true)
 
 .permitAll()
 
 )
 
-.exceptionHandling(exception -\> exception
+.logout(logout -> logout
 
-.accessDeniedHandler((request, response, accessDeniedException) -\> {
+.permitAll()
+
+)
+
+.exceptionHandling(exception -> exception
+
+.accessDeniedHandler((request, response, accessDeniedException) -> {
 
 response.setStatus(403); // Forbidden
 
-response.getWriter().write(\"You are not authorized to access this
-resource!\");
+response.getWriter().write("You are not authorized to access this resource!");
 
 })
 
 );
 
-**return** http.build();
+return http.build();
 
 }
 
-\@Bean
+@Bean
 
-**public** AuthenticationManager authManager(UserDetailsService
-userDetailsService) {
+public AuthenticationManager authManager(UserDetailsService userDetailsService) {
 
-DaoAuthenticationProvider provider = **new**
-DaoAuthenticationProvider();
+DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
 provider.setUserDetailsService(userDetailsService);
 
 provider.setPasswordEncoder(passwordEncoder());
 
-**return** **new** ProviderManager(provider);
+return new ProviderManager(provider);
 
 }
 
 }
 
-**User Authentication (Database)**
+User Authentication (Database)
 
-Replace **in-memory authentication** with **database authentication**
-using **UserDetailsService**.
+Replace in-memory authentication with database authentication using UserDetailsService.
 
-**Step 1: Create** User **Entity**
+Step 1, Create User Entity
 
-\@Entity
+@Entity
 
-\@Table(name = \"users\")
+@Table(name = "users")
 
-**public** **class** Users {
+public class Users {
 
-\@Id
+@Id
 
-\@GeneratedValue(strategy = GenerationType.IDENTITY)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-**private** Long id;
+private Long id;
 
-**private** String username;
+private String username;
 
-**private** String password;
+private String password;
 
-**private** String role;
+private String role;
 
-**Step 2: Create** UserRepository
+Step 2, Create UserRepository
 
-\@Repository
+@Repository
 
-**public** **interface** Userrepository **extends**
-JpaRepository\<Users, Integer\> {
+public interface Userrepository extends JpaRepository<Users, Integer> {
 
-Optional\<Users\> findByUsername(String username);
+Optional<Users> findByUsername(String username);
 
 }
 
-**Step 3: Implement** UserDetailsService
+Step 3, Implement UserDetailsService
 
-\@Service
+@Service
 
-**public** **class** Usersservice **implements** UserDetailsService {
+public class Usersservice implements UserDetailsService {
 
-\@Autowired
+@Autowired
 
-**private** Userrepository userrepository;
+private Userrepository userrepository;
 
-\@Override
+@Override
 
-**public** UserDetails loadUserByUsername(String username) **throws**
-UsernameNotFoundException {
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-Users
-foundUser=userrepository.findByUsername(username).orElseThrow(()-\>**new**
-UsernameNotFoundException(\"User not found\"));
+Users foundUser=userrepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
 
-**return** **new** User(foundUser.getUsername(),
+return new User(foundUser.getUsername(),
 
 foundUser.getPassword(),
 
-Collections.singletonList(**new**
-SimpleGrantedAuthority(foundUser.getRole())));
+Collections.singletonList(new SimpleGrantedAuthority(foundUser.getRole())));
 
 }
 
-Step 4: Update Security Configuration
+Step 4, Update Security Configuration
 
-\@Autowired
+@Autowired
 
-**private** Usersservice usersservice;
+private Usersservice usersservice;
 
-\@Bean
+@Bean
 
-**[public]{.underline}** BCryptPasswordEncoder passwordEncoder() {
+public BCryptPasswordEncoder passwordEncoder() {
 
-**return** **new** BCryptPasswordEncoder();
+return new BCryptPasswordEncoder();
 
 }
 
-\@Bean
+@Bean
 
-**[public]{.underline}** AuthenticationManager authManager() {
-DaoAuthenticationProvider
+public AuthenticationManager authManager() { DaoAuthenticationProvider
 
-authenticationProvider=**new** DaoAuthenticationProvider();
+authenticationProvider=new DaoAuthenticationProvider();
 
 authenticationProvider.setUserDetailsService(usersservice);
 
-authenticationProvider.setPasswordEncoder(passwordEncoder()); **return**
-**new**
+authenticationProvider.setPasswordEncoder(passwordEncoder()); return new
 
 ProviderManager(authenticationProvider);
 
 }
 
-**Note :** if we don't define AuthenticationManager bean in our
-application and we implemented UserServiceDetails and service bean is
-injected in config class then spring automatically create
-authenticationmanager bean .
+Note , if we don’t define AuthenticationManager bean in our application and we implemented UserServiceDetails and service bean is injected in config class then spring automatically create authenticationmanager bean .
 
-# **JWT Authentication & Authorization in Spring Security**
+# JWT Authentication & Authorization in Spring Security
 
 ## What is JWT?
 
-JWT (JSON Web Token) is a compact, URL-safe token used for
-authentication and authorization. It consists of three parts:
+JWT (JSON Web Token) is a compact, URL-safe token used for authentication and authorization. It consists of three parts,
 
-🔹 **Header** -- Contains token type (JWT) and signing algorithm (e.g.,
-HS256).
+🔹 Header – Contains token type (JWT) and signing algorithm (e.g., HS256).
 
-🔹 **Payload** -- Contains claims (user details, roles, expiration).
+🔹 Payload – Contains claims (user details, roles, expiration).
 
-🔹 **Signature** -- Ensures integrity and authenticity of the token.
+🔹 Signature – Ensures integrity and authenticity of the token.
 
 ## How JWT Works in Spring Security
 
-1.  **User logs in** → Sends username & password to the authentication
-    endpoint.
+1. User logs in → Sends username & password to the authentication endpoint.
+2. Spring Security validates credentials using AuthenticationManager.
+3. JWT is generated and returned to the client.
+4. Client stores JWT (localStorage/sessionStorage) and includes it in the Authorization header for further requests.
+5. Spring Security filters validate the JWT on every request.
 
-2.  **Spring Security validates credentials** using
-    AuthenticationManager.
+### Flow to Implement JWT Authentication in Spring Boot
 
-3.  **JWT is generated** and returned to the client.
+Here is a step-by-step guide to creating your JWT Authentication project based on the code you've provided.
 
-4.  **Client stores JWT** (localStorage/sessionStorage) and includes it
-    in the Authorization header for further requests.
+## Step 1, Set Up the Spring Boot Project
 
-5.  **Spring Security filters validate the JWT** on every request.
+* Create a Spring Boot project using Spring Initializr or manually with spring-boot-starter-security, spring-boot-starter-web, spring-boot-starter-data-jpa, and jjwt.
 
-###  Flow to Implement JWT Authentication in Spring Boot
+## Step 2, Configure Application Properties
 
-Here is a step-by-step guide to creating your JWT Authentication project
-based on the code you\'ve provided.
+* Define JWT properties and database configuration in application.properties or
 
-## **Step 1: Set Up the Spring Boot Project**
+narsing.app.Secret= ======================Narsing=token===========================
 
-- Create a **Spring Boot** project using Spring Initializr or manually
-  with spring-boot-starter-security, spring-boot-starter-web,
-  spring-boot-starter-data-jpa, and jjwt.
+narsing.app.ExpirationMs=360000
 
-## **Step 2: Configure Application Properties**
+## Step 3, Create the Person Entity
 
-- Define JWT properties and database configuration in
-  [application.properties]{.underline} or
+* This entity will represent the user in the database.
 
-[narsing.app.Secret]{.underline}=
-======================Narsing=token===========================
+@Entity
 
-[narsing.app.ExpirationMs]{.underline}=360000
+@Table(name = "users")
 
-## Step 3: Create the Person Entity
+public class Person {
 
-- This entity will represent the user in the database.
+@Id
 
-\@Entity
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-\@Table(name = \"users\")
+private Long id;
 
-**public** **class** Person {
+private String username;
 
-\@Id
+private String password;
 
-\@GeneratedValue(strategy = GenerationType.IDENTITY)
+private String role;
 
-**private** Long id;
+## Step 4, Create the PersonRepository
 
-**private** String username;
+* This repository will interact with the database.
 
-**private** String password;
+@Repository
 
-**private** String role;
+public interface PersonRepository extends JpaRepository<Person, Long> {
 
-## Step 4: Create the PersonRepository
-
-- This repository will interact with the database.
-
-\@Repository
-
-**public** **interface** PersonRepository **extends**
-JpaRepository\<Person, Long\> {
-
-Optional\<Person\> findByUsername(String username);
+Optional<Person> findByUsername(String username);
 
 }
 
-## Step 5: Implement PersonService for User Authentication
+## Step 5, Implement PersonService for User Authentication
 
-- This service will load user details from the database and encode
-  passwords.
+* This service will load user details from the database and encode passwords.
 
-\@Service
+@Service
 
-**public** **class** PersonService **implements** UserDetailsService{
+public class PersonService implements UserDetailsService{
 
-\@Autowired
+@Autowired
 
-**private** PersonRepository userRepository;
+private PersonRepository userRepository;
 
-\@Autowired
+@Autowired
 
-**private** PasswordEncoder passwordEncoder;
+private PasswordEncoder passwordEncoder;
 
-\@Override
+@Override
 
-**public** UserDetails loadUserByUsername(String username) **throws**
-UsernameNotFoundException {
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-Person databasePerson =
-userRepository.findByUsername(username).orElseThrow(()-\>**new**
-UsernameNotFoundException(\"User not found\"));
+Person databasePerson = userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
 
-SimpleGrantedAuthority userRole = **new**
-SimpleGrantedAuthority(\"ROLE\_\" + databasePerson.getRole());
+SimpleGrantedAuthority userRole = new SimpleGrantedAuthority("ROLE\_"  databasePerson.getRole());
 
-User user = **new** User(databasePerson.getUsername(),
-databasePerson.getPassword(),
+User user = new User(databasePerson.getUsername(), databasePerson.getPassword(),
 
 Collections.singletonList(userRole));
 
-**return** user;
+return user;
 
 }
 
-## Step 6: Implement MethodsOfJwt for Token Generation & Validation
+## Step 6, Implement MethodsOfJwt for Token Generation & Validation
 
-- This utility class generates, parses, and validates JWT tokens.
+* This utility class generates, parses, and validates JWT tokens.
 
-\@Component
+@Component
 
-**public** **class** MethodsOfJwt {
+public class MethodsOfJwt {
 
-**private** **static** Logger logger =
-LoggerFactory.getLogger(MethodsOfJwt.**class**);
+private static Logger logger = LoggerFactory.getLogger(MethodsOfJwt.class);
 
-\@Value(\"\${narsing.app.Secret}\")
+@Value("${narsing.app.Secret}")
 
-**private** String sercretKey;
+private String sercretKey;
 
-\@Value(\"\${narsing.app.ExpirationMs}\")
+@Value("${narsing.app.ExpirationMs}")
 
-**private** **int** expiryTime;
+private int expiryTime;
 
-**public** String generateTokenFromUsername(UserDetails userDetails)
-**throws** InvalidKeyException {
+public String generateTokenFromUsername(UserDetails userDetails) throws InvalidKeyException {
 
 String username = userDetails.getUsername();
 
-**return** Jwts.builder().subject(username).issuedAt(**new** Date())
+return Jwts.builder().subject(username).issuedAt(new Date())
 
-.expiration(**new** Date((**new** Date()).getTime() +
-expiryTime)).signWith(key()).compact();
+.expiration(new Date((new Date()).getTime()  expiryTime)).signWith(key()).compact();
 
 }
 
-**public** String getUsernamefromToken(String token) {
+public String getUsernamefromToken(String token) {
 
-String username = Jwts.parser().verifyWith((SecretKey)
-key()).build().parseSignedClaims(token).getPayload()
+String username = Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(token).getPayload()
 
 .getSubject();
 
-**return** username;
+return username;
 
 }
 
-**public** **boolean** validateToken(String authToken) {
+public boolean validateToken(String authToken) {
 
-**try** {
+try {
 
-System.out.println(\"Validate\");
+System.out.println("Validate");
 
-Jwts.parser().verifyWith((SecretKey)
-key()).build().parseSignedClaims(authToken);
+Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(authToken);
 
-**return** **true**;
+return true;
 
-} **catch** (MalformedJwtException e) {
+} catch (MalformedJwtException e) {
 
-logger.error(\"Invalid JWT token: {}\", e.getMessage());
+logger.error("Invalid JWT token, {}", e.getMessage());
 
-} **catch** (ExpiredJwtException e) {
+} catch (ExpiredJwtException e) {
 
-logger.error(\"JWT token is expired: {}\", e.getMessage());
+logger.error("JWT token is expired, {}", e.getMessage());
 
-} **catch** (UnsupportedJwtException e) {
+} catch (UnsupportedJwtException e) {
 
-logger.error(\"JWT token is unsupported: {}\", e.getMessage());
+logger.error("JWT token is unsupported, {}", e.getMessage());
 
-} **catch** (IllegalArgumentException e) {
+} catch (IllegalArgumentException e) {
 
-logger.error(\"JWT claims string is empty: {}\", e.getMessage());
-
-}
-
-**return** **false**;
+logger.error("JWT claims string is empty, {}", e.getMessage());
 
 }
 
-**private** Key key() {
-
-**return** Keys.hmacShaKeyFor(Decoders.BASE64.decode(sercretKey));
+return false;
 
 }
 
-**public** String getJwtFromHeader(HttpServletRequest request) {
+private Key key() {
 
-String bearerToken = request.getHeader(\"Authorization\");
-
-logger.debug(\"Authorization Header: {}\", bearerToken);
-
-**if** (bearerToken != **null** && bearerToken.startsWith(\"Bearer \"))
-{
-
-**return** bearerToken.substring(7); // Remove Bearer prefix
+return Keys.hmacShaKeyFor(Decoders.BASE64.decode(sercretKey));
 
 }
 
-**return** **null**;
+public String getJwtFromHeader(HttpServletRequest request) {
+
+String bearerToken = request.getHeader("Authorization");
+
+logger.debug("Authorization Header, {}", bearerToken);
+
+if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+
+return bearerToken.substring(7); // Remove Bearer prefix
+
+}
+
+return null;
 
 }
 
 }
 
-## Step 7: Implement TokenFilter for Request Filtering
+## Step 7, Implement TokenFilter for Request Filtering
 
-- This filter extracts the JWT token and sets authentication.
+* This filter extracts the JWT token and sets authentication.
 
-\@Component
+@Component
 
-**public** **class** TokenFilter **extends** OncePerRequestFilter {
+public class TokenFilter extends OncePerRequestFilter {
 
-**private** **static** **final** Logger logger =
-LoggerFactory.getLogger(TokenFilter.**class**);
+private static final Logger logger = LoggerFactory.getLogger(TokenFilter.class);
 
-\@Autowired
+@Autowired
 
-**private** PersonService personService;
+private PersonService personService;
 
-\@Autowired
+@Autowired
 
-**private** MethodsOfJwt jwtmethod;
+private MethodsOfJwt jwtmethod;
 
-\@Override
+@Override
 
-**protected** **void** doFilterInternal(HttpServletRequest request,
-HttpServletResponse response, FilterChain filterChain)
+protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 
-**throws** ServletException, IOException {
+throws ServletException, IOException {
 
-logger.debug(\"AuthTokenFilter called for URI: {}\",
-request.getRequestURI());
+logger.debug("AuthTokenFilter called for URI, {}", request.getRequestURI());
 
-**try** {
+try {
 
 String jwt = parseJwt(request);
 
-**if** (jwt != **null** && jwtmethod.validateToken(jwt)) {
+if (jwt != null && jwtmethod.validateToken(jwt)) {
 
 String username = jwtmethod.getUsernamefromToken(jwt);
 
 UserDetails userDetails = personService.loadUserByUsername(username);
 
-UsernamePasswordAuthenticationToken authentication = **new**
-UsernamePasswordAuthenticationToken(
+UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 
-userDetails, **null**, userDetails.getAuthorities());
+userDetails, null, userDetails.getAuthorities());
 
-logger.debug(\"Roles from JWT: {}\", userDetails.getAuthorities());
+logger.debug("Roles from JWT, {}", userDetails.getAuthorities());
 
-authentication.setDetails(**new**
-WebAuthenticationDetailsSource().buildDetails(request));
+authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 SecurityContextHolder.getContext().setAuthentication(authentication);
 
 }
 
-} **catch** (Exception e) {
+} catch (Exception e) {
 
-logger.error(\"Cannot set user authentication: {}\", e);
+logger.error("Cannot set user authentication, {}", e);
 
 }
 
@@ -1936,182 +1722,171 @@ filterChain.doFilter(request, response);
 
 }
 
-**private** String parseJwt(HttpServletRequest request) {
+private String parseJwt(HttpServletRequest request) {
 
 String jwt = jwtmethod.getJwtFromHeader(request);
 
-logger.debug(\"AuthTokenFilter.java: {}\", jwt);
+logger.debug("AuthTokenFilter.java, {}", jwt);
 
-**return** jwt;
-
-}
-
-}
-
-## Step 8: Configure Spring Security
-
-- Define security rules and set JWT authentication.
-
-\@Configuration
-
-\@EnableWebSecurity
-
-\@EnableMethodSecurity
-
-**public** **class** AuthSecurityConfig {
-
-\@Bean
-
-**[public]{.underline}** EntryPoint entryPoint() {
-
-**return** **new** EntryPoint();
-
-}
-
-\@Bean
-
-**[public]{.underline}** TokenFilter getTokenFilter() {
-
-**return** **new** TokenFilter();
-
-}
-
-\@Bean
-
-**[public]{.underline}** BCryptPasswordEncoder passwordEncoder() {
-
-**return** **new** BCryptPasswordEncoder();
-
-}
-
-\@Bean
-
-SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-**throws** Exception {
-
-http.authorizeHttpRequests(authorizeRequests -\>
-authorizeRequests.requestMatchers(\"/\", \"/login\").permitAll()
-
-.requestMatchers(\"/authuser\").permitAll().requestMatchers(\"/admin\").hasRole(\"ADMIN\")
-
-.requestMatchers(\"/user\").hasAnyRole(\"ADMIN\",
-\"USER\").anyRequest().authenticated());
-
-http.sessionManagement(session -\>
-session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-http.exceptionHandling(exception -\>
-exception.authenticationEntryPoint(entryPoint()));
-
-http.headers(headers -\> headers.frameOptions(frameOptions -\>
-frameOptions.sameOrigin()));
-
-http.csrf(csrf -\> csrf.disable());
-
-http.addFilterBefore(getTokenFilter(),
-UsernamePasswordAuthenticationFilter.**class**);
-
-**return** http.build();
-
-}
-
-\@Bean
-
-**[public]{.underline}** AuthenticationManager
-getAuthenticationManager(AuthenticationConfiguration configuration)
-**throws** Exception {
-
-**return** configuration.getAuthenticationManager();
+return jwt;
 
 }
 
 }
 
-## Step 9: Create Authentication Controller
+## Step 8, Configure Spring Security
 
-- This handles user login and JWT generation.
+* Define security rules and set JWT authentication.
 
-\@Controller
+@Configuration
 
-**public** **class** Homecontrol {
+@EnableWebSecurity
 
-\@Autowired
+@EnableMethodSecurity
 
-**private** AuthenticationManager authenticationManager;
+public class AuthSecurityConfig {
 
-\@Autowired
+@Bean
 
-**private** MethodsOfJwt methodsOfJwt;
+public EntryPoint entryPoint() {
 
-\@GetMapping(\"/hello\")
-
-\@ResponseBody
-
-**public** String sayHello() {
-
-**return** \"Hello\";
+return new EntryPoint();
 
 }
 
-\@GetMapping(value = { \"/\", \"/login\" })
+@Bean
 
-**public** String loginHello() {
+public TokenFilter getTokenFilter() {
 
-**return** \"login\";
-
-}
-
-\@PreAuthorize(\"hasRole(\'USER\')\")
-
-\@GetMapping(\"/user\")
-
-\@ResponseBody
-
-**public** String userEndpoint() {
-
-**return** \"Hello, User!\";
+return new TokenFilter();
 
 }
 
-\@PreAuthorize(\"hasRole(\'ADMIN\')\")
+@Bean
 
-\@GetMapping(\"/admin\")
+public BCryptPasswordEncoder passwordEncoder() {
 
-\@ResponseBody
+return new BCryptPasswordEncoder();
 
-**public** String adminEndpoint() {
+}
 
-**return** \"Hello, Admin!\";
+@Bean
+
+SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
+http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("/", "/login").permitAll()
+
+.requestMatchers("/authuser").permitAll().requestMatchers("/admin").hasRole("ADMIN")
+
+.requestMatchers("/user").hasAnyRole("ADMIN", "USER").anyRequest().authenticated());
+
+http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+http.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPoint()));
+
+http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+
+http.csrf(csrf -> csrf.disable());
+
+http.addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+return http.build();
+
+}
+
+@Bean
+
+public AuthenticationManager getAuthenticationManager(AuthenticationConfiguration configuration) throws Exception {
+
+return configuration.getAuthenticationManager();
+
+}
+
+}
+
+## Step 9, Create Authentication Controller
+
+* This handles user login and JWT generation.
+
+@Controller
+
+public class Homecontrol {
+
+@Autowired
+
+private AuthenticationManager authenticationManager;
+
+@Autowired
+
+private MethodsOfJwt methodsOfJwt;
+
+@GetMapping("/hello")
+
+@ResponseBody
+
+public String sayHello() {
+
+return "Hello";
+
+}
+
+@GetMapping(value = { "/", "/login" })
+
+public String loginHello() {
+
+return "login";
+
+}
+
+@PreAuthorize("hasRole('USER')")
+
+@GetMapping("/user")
+
+@ResponseBody
+
+public String userEndpoint() {
+
+return "Hello, User!";
+
+}
+
+@PreAuthorize("hasRole('ADMIN')")
+
+@GetMapping("/admin")
+
+@ResponseBody
+
+public String adminEndpoint() {
+
+return "Hello, Admin!";
 
 }
 
 // validate user
 
-\@PostMapping(\"/authuser\")
+@PostMapping("/authuser")
 
-**public** ModelAndView validateUser(@ModelAttribute Person person) {
+public ModelAndView validateUser(@ModelAttribute Person person) {
 
 Authentication auth;
 
-**try** {
+try {
 
 String username = person.getUsername();
 
 String password = person.getPassword();
 
-auth = authenticationManager.authenticate(**new**
-UsernamePasswordAuthenticationToken(username, password));
+auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-} **catch** (Exception e) {
+} catch (Exception e) {
 
-ModelAndView errorView = **new** ModelAndView(\"errorPage\"); // Return
-errorPage.jsp
+ModelAndView errorView = new ModelAndView("errorPage"); // Return errorPage.jsp
 
-errorView.addObject(\"message\", \"Bad credentials\");
+errorView.addObject("message", "Bad credentials");
 
-errorView.addObject(\"status\", **false**);
+errorView.addObject("status", false);
 
-**return** errorView;
+return errorView;
 
 }
 
@@ -2121,59 +1896,53 @@ UserDetails userDetails = (UserDetails) auth.getPrincipal();
 
 String jwtToken = methodsOfJwt.generateTokenFromUsername(userDetails);
 
-List\<String\> roles = userDetails.getAuthorities().stream().map(item
--\> item.getAuthority())
+List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 
 .collect(Collectors.toList());
 
-ModelAndView mv = **new** ModelAndView(\"responsePage\"); // Return
-responsePage.jsp
+ModelAndView mv = new ModelAndView("responsePage"); // Return responsePage.jsp
 
-mv.addObject(\"username\", userDetails.getUsername());
+mv.addObject("username", userDetails.getUsername());
 
-mv.addObject(\"roles\", roles);
+mv.addObject("roles", roles);
 
-mv.addObject(\"token\", jwtToken);
+mv.addObject("token", jwtToken);
 
-**return** mv;
-
-}
+return mv;
 
 }
 
-## Step 10: Create EntryPoint Class to handle unauthorised 
+}
 
-**public** **class** EntryPoint **implements** AuthenticationEntryPoint
-{
+## Step 10, Create EntryPoint Class to handle unauthorised
 
-**private** **static** **final** Logger logger =
-LoggerFactory.getLogger(EntryPoint.**class**);
+public class EntryPoint implements AuthenticationEntryPoint {
 
-\@Override
+private static final Logger logger = LoggerFactory.getLogger(EntryPoint.class);
 
-**public** **void** commence(HttpServletRequest request,
-HttpServletResponse response,
+@Override
 
-AuthenticationException authException) **throws** IOException,
-ServletException {
+public void commence(HttpServletRequest request, HttpServletResponse response,
 
-logger.error(\"Unauthorized error: {}\", authException.getMessage());
+AuthenticationException authException) throws IOException, ServletException {
 
-response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+logger.error("Unauthorized error, {}", authException.getMessage());
 
-response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+response.setContentType(MediaType.APPLICATION\_JSON\_VALUE);
 
-**final** Map\<String, Object\> body = **new** HashMap\<\>();
+response.setStatus(HttpServletResponse.SC\_UNAUTHORIZED);
 
-body.put(\"status\", HttpServletResponse.SC_UNAUTHORIZED);
+final Map<String, Object> body = new HashMap<>();
 
-body.put(\"error\", \"Unauthorized\");
+body.put("status", HttpServletResponse.SC\_UNAUTHORIZED);
 
-body.put(\"message\", authException.getMessage());
+body.put("error", "Unauthorized");
 
-body.put(\"path\", request.getServletPath());
+body.put("message", authException.getMessage());
 
-**final** ObjectMapper mapper = **new** ObjectMapper();
+body.put("path", request.getServletPath());
+
+final ObjectMapper mapper = new ObjectMapper();
 
 mapper.writeValue(response.getOutputStream(), body);
 
@@ -2183,198 +1952,164 @@ mapper.writeValue(response.getOutputStream(), body);
 
 Now, your JWT authentication project is fully implemented!
 
-JWT (JSON Web Token) is used for **stateless authentication**.
+JWT (JSON Web Token) is used for stateless authentication.
 
-**Common Spring Security Annotations**
+Common Spring Security Annotations
 
-  -----------------------------------------------------------------
-  Annotation                                    Purpose
-  --------------------------------------------- -------------------
-  \@EnableWebSecurity                           Enables Spring
-                                                Security
+|  |  |
+| --- | --- |
+| Annotation | Purpose |
+| @EnableWebSecurity | Enables Spring Security |
+| @PreAuthorize("hasRole('ROLE\_ADMIN')") | Method-level security |
+| @Secured("ROLE\_USER") | Restrict method access |
+| @RolesAllowed({"ROLE\_USER", "ROLE\_ADMIN"}) | Allows multiple roles |
 
-  \@PreAuthorize(\"hasRole(\'ROLE_ADMIN\')\")   Method-level
-                                                security
+Example, Securing Methods
 
-  \@Secured(\"ROLE_USER\")                      Restrict method
-                                                access
+@Service
 
-  \@RolesAllowed({\"ROLE_USER\",                Allows multiple
-  \"ROLE_ADMIN\"})                              roles
-  -----------------------------------------------------------------
+public class UserService {
 
-Example: Securing Methods
+@PreAuthorize("hasRole('ADMIN')")
 
-\@Service
+public String adminOnlyMethod() {
 
-**public** **class** [UserService]{.underline} {
-
-@[PreAuthorize]{.underline}(\"hasRole(\'ADMIN\')\")
-
-**public** String adminOnlyMethod() {
-
-**return** \"Admin Access\";
+return "Admin Access";
 
 }
 
-@[Secured]{.underline}({\"ROLE_USER\"})
+@Secured({"ROLE\_USER"})
 
-**public** String userAccessMethod() {
+public String userAccessMethod() {
 
-**return** \"User Access\";
+return "User Access";
 
 }
 
 }
 
-**How does authentication and authorization work in Spring Security?**
+How does authentication and authorization work in Spring Security?
 
-**Answer:**\
-Spring Security uses **filters and interceptors** to handle
-authentication and authorization.
+Answer,
+Spring Security uses filters and interceptors to handle authentication and authorization.
 
 *Authentication Flow (Who are you?)*
 
-1.  A user sends login credentials (username & password).
-
-2.  AuthenticationManager checks credentials using UserDetailsService
-    and PasswordEncoder.
-
-3.  If valid, Spring Security stores the user details in the
-    SecurityContextHolder.
+1. A user sends login credentials (username & password).
+2. AuthenticationManager checks credentials using UserDetailsService and PasswordEncoder.
+3. If valid, Spring Security stores the user details in the SecurityContextHolder.
 
 *Authorization Flow (What can you do?)*
 
-1.  After authentication, the system checks **roles and permissions**.
+1. After authentication, the system checks roles and permissions.
+2. If the user has access rights, the request proceeds.
+3. If not, Spring Security denies access (403 Forbidden error).
 
-2.  If the user has access rights, the request proceeds.
+Example, Restricting Access
 
-3.  If not, Spring Security **denies access (403 Forbidden error).**
+@Bean
 
-**Example: Restricting Access**
-
-\@Bean
-
-**public** SecurityFilterChain securityFilterChain(HttpSecurity http)
-**throws** Exception {
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 http
 
-.csrf(csrf -\> csrf.disable())
+.csrf(csrf -> csrf.disable())
 
-.authorizeHttpRequests(auth -\> auth
+.authorizeHttpRequests(auth -> auth
 
-.requestMatchers(\"/admin/\*\*\").hasAuthority(\"ROLE_ADMIN\")
+.requestMatchers("/admin/\*\*").hasAuthority("ROLE\_ADMIN")
 
-.requestMatchers(\"/user/\*\*\").hasAuthority(\"ROLE_USER\")
+.requestMatchers("/user/\*\*").hasAuthority("ROLE\_USER")
 
-.requestMatchers(\"/doctor/\*\*\").hasAuthority(\"ROLE_DOCTOR\")
+.requestMatchers("/doctor/\*\*").hasAuthority("ROLE\_DOCTOR")
 
-.requestMatchers(\"/\", \"/login\", \"/register\").permitAll()
+.requestMatchers("/", "/login", "/register").permitAll()
 
 .anyRequest().authenticated()
 
 )
 
-.formLogin(login -\> login
+.formLogin(login -> login
 
-.loginPage(\"/medcare/login\")
+.loginPage("/medcare/login")
 
-.loginProcessingUrl(\"/login\")
+.loginProcessingUrl("/login")
 
-.defaultSuccessUrl(\"/dashboard\", **true**)
-
-.permitAll()
-
-)
-
-.logout(logout -\> logout
-
-.logoutUrl(\"/medcare/logout\")
-
-.logoutSuccessUrl(\"/medcare/login\")
+.defaultSuccessUrl("/dashboard", true)
 
 .permitAll()
 
 )
 
-.exceptionHandling(exception -\> exception
+.logout(logout -> logout
 
-.authenticationEntryPoint((request, response, authException) -\> {
+.logoutUrl("/medcare/logout")
 
-response.sendRedirect(\"/medcare/login\"); // Redirect to login page
-instead of /error
+.logoutSuccessUrl("/medcare/login")
+
+.permitAll()
+
+)
+
+.exceptionHandling(exception -> exception
+
+.authenticationEntryPoint((request, response, authException) -> {
+
+response.sendRedirect("/medcare/login"); // Redirect to login page instead of /error
 
 })
 
 );
 
-**return** http.build();
+return http.build();
 
 }
 
-**What is the difference between \@PreAuthorize, \@Secured, and
-\@RolesAllowed?**
+What is the difference between @PreAuthorize, @Secured, and @RolesAllowed?
 
-**Answer:**\
-These annotations are used for **method-level security** in Spring
-Security.
+Answer,
+These annotations are used for method-level security in Spring Security.
 
-  ----------------------------------------------------------------------------------
-  Annotation       Description              Example
-  ---------------- ------------------------ ----------------------------------------
-  \@PreAuthorize   Checks before the method \@PreAuthorize(\"hasRole(\'ADMIN\')\")
-                   executes                 
+|  |  |  |
+| --- | --- | --- |
+| Annotation | Description | Example |
+| @PreAuthorize | Checks before the method executes | @PreAuthorize("hasRole('ADMIN')") |
+| @Secured | Restricts access to a method based on roles | @Secured("ROLE\_USER") |
+| @RolesAllowed | Similar to @Secured, but uses Java EE standard | @RolesAllowed({"ROLE\_USER", "ROLE\_ADMIN"}) |
 
-  \@Secured        Restricts access to a    \@Secured(\"ROLE_USER\")
-                   method based on roles    
+* Example, Using @PreAuthorize
 
-  \@RolesAllowed   Similar to \@Secured,    \@RolesAllowed({\"ROLE_USER\",
-                   but uses Java EE         \"ROLE_ADMIN\"})
-                   standard                 
-  ----------------------------------------------------------------------------------
+@Service
 
-- **Example: Using \@PreAuthorize**
+public class UserService {
 
-@[Service]{.underline}
+@PreAuthorize("hasRole('ADMIN')")
 
-**public** **class** UserService {
+public String getAdminData() {
 
-@[PreAuthorize]{.underline}(\"hasRole(\'ADMIN\')\")
-
-**public** String getAdminData() {
-
-**return** \"Admin Data\";
+return "Admin Data";
 
 }
 
-\@PreAuthorize is preferred over \@Secured because it supports SpEL
-(Spring Expression Language) for complex conditions.
+@PreAuthorize is preferred over @Secured because it supports SpEL (Spring Expression Language) for complex conditions.
 
-**What is JWT? How does it work?**
+What is JWT? How does it work?
 
-**Answer:**\
-JWT (JSON Web Token) is a **stateless authentication mechanism** used to
-secure APIs. It consists of **three parts**:
+Answer,
+JWT (JSON Web Token) is a stateless authentication mechanism used to secure APIs. It consists of three parts,
 
-1.  **Header** -- Algorithm & Token Type (HS256)
-
-2.  **Payload** -- User data (username, roles)
-
-3.  **Signature** -- Ensures integrity using a secret key
+1. Header – Algorithm & Token Type (HS256)
+2. Payload – User data (username, roles)
+3. Signature – Ensures integrity using a secret key
 
 *JWT Authentication Flow*
 
-1.  The user logs in with credentials.
+1. The user logs in with credentials.
+2. The server generates a JWT token.
+3. The token is sent in the Authorization header (Bearer <token>).
+4. On subsequent requests, the server verifies the token instead of checking session data.
 
-2.  The server generates a JWT token.
-
-3.  The token is sent in the Authorization header (Bearer \<token\>).
-
-4.  On subsequent requests, the server verifies the token instead of
-    checking session data.
-
-**Example: Generating JWT Token**
+Example, Generating JWT Token
 
 public String generateToken(String username) {
 
@@ -2384,8 +2119,7 @@ return Jwts.builder()
 
 .setIssuedAt(new Date())
 
-.setExpiration(new Date(System.currentTimeMillis() + 1000 \* 60 \* 60))
-// 1 hour validity
+.setExpiration(new Date(System.currentTimeMillis()  1000 \* 60 \* 60)) // 1 hour validity
 
 .signWith(SignatureAlgorithm.HS256, secretKey)
 
@@ -2393,243 +2127,211 @@ return Jwts.builder()
 
 }
 
-🔹 **JWT is preferred for REST APIs** because it eliminates session
-management.
+🔹 JWT is preferred for REST APIs because it eliminates session management.
 
-**How to disable CSRF in Spring Security?**
+How to disable CSRF in Spring Security?
 
-**Answer:**\
-CSRF (Cross-Site Request Forgery) protection is enabled by default in
-Spring Security.\
-However, **for REST APIs**, CSRF can be disabled as they don't use
-cookies for authentication.
+Answer,
+CSRF (Cross-Site Request Forgery) protection is enabled by default in Spring Security.
+However, for REST APIs, CSRF can be disabled as they don’t use cookies for authentication.
 
-**Example: Disabling CSRF in Spring Security**
+Example, Disabling CSRF in Spring Security
 
-\@Bean
+@Bean
 
-**[public]{.underline}** SecurityFilterChain
-securityFilterChain(HttpSecurity http) **throws** Exception {
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 http
 
-.csrf(csrf -\> csrf.disable())
+.csrf(csrf -> csrf.disable())
 
-.authorizeHttpRequests(auth -\> auth
+.authorizeHttpRequests(auth -> auth
 
-.requestMatchers(\"/admin/\*\*\").hasAuthority(\"ROLE_ADMIN\")
+.requestMatchers("/admin/\*\*").hasAuthority("ROLE\_ADMIN")
 
-.requestMatchers(\"/user/\*\*\").hasAuthority(\"ROLE_USER\")
+.requestMatchers("/user/\*\*").hasAuthority("ROLE\_USER")
 
-.requestMatchers(\"/\", \"/home\", \"/login\",
-\"/register\").permitAll()
+.requestMatchers("/", "/home", "/login", "/register").permitAll()
 
 .anyRequest().authenticated()
 
 )
 
-.formLogin(login -\> login
+.formLogin(login -> login
 
-.loginPage(\"/login\") // Redirects to this page when login is required
+.loginPage("/login") // Redirects to this page when login is required
 
-.defaultSuccessUrl(\"/dashboard\", **true**)
-
-.permitAll()
-
-)
-
-.logout(logout -\> logout
-
-.logoutUrl(\"/logout\")
-
-.logoutSuccessUrl(\"/login\")
+.defaultSuccessUrl("/dashboard", true)
 
 .permitAll()
 
 )
 
-.exceptionHandling(exception -\> exception
+.logout(logout -> logout
 
-.authenticationEntryPoint((request, response, authException) -\> {
+.logoutUrl("/logout")
 
-response.sendRedirect(\"/login\"); // Redirect to login page instead of
-/error
+.logoutSuccessUrl("/login")
+
+.permitAll()
+
+)
+
+.exceptionHandling(exception -> exception
+
+.authenticationEntryPoint((request, response, authException) -> {
+
+response.sendRedirect("/login"); // Redirect to login page instead of /error
 
 })
 
 );
 
-**return** http.build();
+return http.build();
 
 }
 
-  -----------------------------------------------------------------------
-  Scenario                                 CSRF Enabled   CSRF Disabled
-                                           ✅             ❌
-  ---------------------------------------- -------------- ---------------
-  Session-based apps (e.g., banking, admin ✅ Yes         ❌ No
-  panels)                                                 
+|  |  |  |
+| --- | --- | --- |
+| **Scenario** | **CSRF Enabled **✅ | **CSRF Disabled** ❌ |
+| Session-based apps (e.g., banking, admin panels) | ✅ Yes | ❌ No |
+| REST APIs / Microservices | ❌ No | ✅ Yes |
+| JWT authentication | ❌ No | ✅ Yes |
+| Mobile Apps | ❌ No | ✅ Yes |
 
-  REST APIs / Microservices                ❌ No          ✅ Yes
+Rule of Thumb, Enable CSRF for form-based login apps and disable it for APIs, JWT, and stateless services.
 
-  JWT authentication                       ❌ No          ✅ Yes
+Spring Security Flow for the Given Configuration
 
-  Mobile Apps                              ❌ No          ✅ Yes
-  -----------------------------------------------------------------------
+1. User Requests a Page
 
-Rule of Thumb: Enable CSRF for form-based login apps and disable it for
-APIs, JWT, and stateless services.
+* If it's a public page (**/home, /login, /register**), it loads normally.
+* If it's a secured page (**/admin/\*\***,** /user/\*\***), authentication is checked.
 
-**Spring Security Flow for the Given Configuration**
+1. Authentication Flow (Login)
 
-1.  **User Requests a Page**
+* User submits credentials at /login.
+* AuthenticationManager uses DaoAuthenticationProvider.
+* DaoAuthenticationProvider calls UserService (which implements UserDetailsService) to fetch user details.
+* Password is verified using BCryptPasswordEncoder.
+* If valid, user details are stored in SecurityContextHolder.
+* On success → Redirects to /dashboard, else → Redirects back to /login?error.
 
-- If it\'s a **public page** (/home, /login, /register), it loads
-  normally.
+1. Authorization Flow
 
-- If it\'s a **secured page** (/admin/\*\*, /user/\*\*), authentication
-  is checked.
+* If a user accesses /admin/\*\*, Spring Security checks for "ROLE\_ADMIN".
+* If a user accesses /user/\*\*, it checks for "ROLE\_USER".
+* If unauthorized, redirects to /login.
 
-2.  **Authentication Flow (Login)**
+1. Logout Flow
 
-- User submits credentials at /login.
+* User clicks logout (/logout).
+* Spring Security clears the session and redirects to /login.
 
-- AuthenticationManager uses DaoAuthenticationProvider.
+1. Exception Handling
 
-- DaoAuthenticationProvider calls UserService (which implements
-  UserDetailsService) to fetch user details.
+* If an unauthenticated user tries accessing a restricted page, they are redirected to /login.
 
-- Password is verified using BCryptPasswordEncoder.
+File Handling in Java Spring Framework
 
-- If valid, user details are stored in SecurityContextHolder.
+Introduction
 
-- On success → Redirects to /dashboard, else → Redirects back to
-  /login?error.
+* File handling in Spring allows us to upload, store, retrieve, and download files using Spring Boot, MultipartFile, and FileSystem or Database.
+* Spring provides the MultipartFile interface to handle file uploads.
 
-3.  **Authorization Flow**
+File Handling Approaches in Spring
 
-- If a user accesses /admin/\*\*, Spring Security checks for
-  \"ROLE_ADMIN\".
+There are two common ways to handle files in a Spring application,
 
-- If a user accesses /user/\*\*, it checks for \"ROLE_USER\".
-
-- If unauthorized, redirects to /login.
-
-4.  **Logout Flow**
-
-- User clicks **logout** (/logout).
-
-- Spring Security clears the session and redirects to /login.
-
-5.  **Exception Handling**
-
-- If an unauthenticated user tries accessing a restricted page, they are
-  redirected to /login.
-
-**File Handling in Java Spring Framework**
-
-**Introduction**
-
-- File handling in Spring allows us to upload, store, retrieve, and
-  download files using **Spring Boot, MultipartFile, and FileSystem or
-  Database**.
-
-- Spring provides the MultipartFile interface to handle file uploads.
-
-**File Handling Approaches in Spring**
-
-There are two common ways to handle files in a Spring application:
-
-1.  **Store files on the local file system** and store metadata (path,
-    name, type) in a database.specially when we are working with large
-    size files use this.
-
-2.  **Store files directly in a database** as binary data (BLOB).
+1. Store files on the local file system and store metadata (path, name, type) in a database.specially when we are working with large size files use this.
+2. Store files directly in a database as binary data (BLOB).
 
 ## File Upload in Spring Boot
 
 Spring Boot provides a simple way to upload files using MultipartFile.
 
-**✅ Step 1: Enable Multipart Support**
+✅ Step 1, Enable Multipart Support
 
-Add this configuration in application.properties:
+Add this configuration in application.properties,
 
-spring.servlet.multipart.enabled=true
+    spring.servlet.multipart.enabled=true
+    
+    spring.servlet.multipart.max-file-size=5MB
+    
+    spring.servlet.multipart.max-request-size=10MB
+    
+    spring.servlet.multipart.file-size-threshold=5KB
 
-spring.servlet.multipart.max-file-size=5MB
+✅ Step 2, Create Entity Class
 
-spring.servlet.multipart.max-request-size=10MB
+If storing only the file path,
 
-spring.servlet.multipart.file-size-threshold=5KB
+```java
+@Entity
 
-**✅ Step 2: Create Entity Class**
+@Table(name="filedetails")
 
-If storing only the file **path**:
+@Data
 
-\@Entity
+@NoArgsConstructor
 
-\@Table(name=\"filedetails\")
+@AllArgsConstructor
 
-\@Data
+public class Filedetails {
 
-\@NoArgsConstructor
+@Id
 
-\@AllArgsConstructor
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-**public** **class** Filedetails {
+private long id;
 
-\@Id
+private String filename;
 
-\@GeneratedValue(strategy = GenerationType.IDENTITY)
+private String filepath;
 
-**private** **long** id;
+private String filetype;
 
-**private** String filename;
+private Long fileSize;
+```
 
-**private** String filepath;
+If storing the file as binary data,
 
-**private** String filetype;
+```java
+@Entity
 
-**private** Long fileSize;
+@Data
 
-If storing the **file as binary data**:
+@AllArgsConstructor
 
-\@Entity
+@NoArgsConstructor
 
-\@Data
+@Table(name = "filedata")
 
-\@AllArgsConstructor
+public class Filedata {
 
-\@NoArgsConstructor
+@Id
 
-\@Table(name = \"filedata\")
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-**public** **class** Filedata {
+private long id;
 
-\@Id
+private String fileName;
 
-\@GeneratedValue(strategy = GenerationType.IDENTITY)
+private String type;
 
-**private** **long** id;
+@Lob
 
-**private** String fileName;
+@Column(columnDefinition = "VARBINARY(MAX)")
 
-**private** String type;
+private byte[] fileData;
 
-\@Lob
+✅ Step 3, File Upload Service
 
-\@Column(columnDefinition = \"VARBINARY(MAX)\")
+If storing the file as binary data,
 
-**private** **byte**\[\] fileData;
+public String uploadFile(MultipartFile file) throws IOException {
 
-**✅ Step 3: File Upload Service**
-
-If storing the **file as binary data**:
-
-**public** String uploadFile(MultipartFile file) **throws** IOException
-{
-
-Filedata filedata = **new** Filedata();
+Filedata filedata = new Filedata();
 
 filedata.setFileName(file.getOriginalFilename());
 
@@ -2639,28 +2341,27 @@ filedata.setFileData(file.getBytes());
 
 fileRepository.save(filedata);
 
-**return** filedata.getFileName();
+return filedata.getFileName();
 
 }
 
-**public** Filedata getFileByName(String fileName) {
+public Filedata getFileByName(String fileName) {
 
-**return** fileRepository.findByFileName(fileName).orElse(**null**);
+return fileRepository.findByFileName(fileName).orElse(null);
 
 }
 
-If storing only the file **path**:
+If storing only the file path,
 
-**private** FileRepository fileRepository;
+private FileRepository fileRepository;
 
-**private** **static** **final** String UPLOAD_DIR =
-\"D:\\\\Test\\\\uploads\";
+private static final String UPLOAD\_DIR = "D,\\Test uploads";
 
-**static** {
+static {
 
-**if** (!**new** File(UPLOAD_DIR).exists()) {
+if (!new File(UPLOAD\_DIR).exists()) {
 
-**new** File(UPLOAD_DIR).mkdir();
+new File(UPLOAD\_DIR).mkdir();
 
 }
 
@@ -2668,27 +2369,25 @@ If storing only the file **path**:
 
 // Upload File and Store Path in Database
 
-**public** String uploadFile(MultipartFile multipartFile) {
+public String uploadFile(MultipartFile multipartFile) {
 
-**try** {
+try {
 
-**if** (multipartFile.isEmpty()) {
+if (multipartFile.isEmpty()) {
 
-**return** \"File is empty. Please select a valid file.\";
+return "File is empty. Please select a valid file.";
 
 }
 
-String filePath = Paths.get(UPLOAD_DIR,
-multipartFile.getOriginalFilename()).toString();
+String filePath = Paths.get(UPLOAD\_DIR, multipartFile.getOriginalFilename()).toString();
 
 // automatically detect path
 
-Files.copy(multipartFile.getInputStream(), Paths.get(filePath),
-StandardCopyOption.REPLACE_EXISTING);
+Files.copy(multipartFile.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE\_EXISTING);
 
 // Save file details in the database
 
-Filedetails details = **new** Filedetails();
+Filedetails details = new Filedetails();
 
 details.setFilename(multipartFile.getOriginalFilename());
 
@@ -2702,171 +2401,165 @@ details.setFileSize((multipartFile.getSize()) % 1024);
 
 fileRepository.save(details);
 
-**return** \"File uploaded successfully: \" + filePath;
+return "File uploaded successfully, "  filePath;
 
-} **catch** (IOException e) {
+} catch (IOException e) {
 
-**return** \"Error storing file: \" + e.getMessage();
-
-}
+return "Error storing file, "  e.getMessage();
 
 }
+
+}
+```
 
 // Retrieve File Path from Database
 
-**public** **byte**\[\] downloadFile(String filename) {
+```java
+public byte[] downloadFile(String filename) {
 
-Optional\<Filedetails\> foundFile =
-fileRepository.findByFilename(filename);
+Optional<Filedetails> foundFile = fileRepository.findByFilename(filename);
 
-**if** (foundFile.isPresent()) {
+if (foundFile.isPresent()) {
 
 String filePath = foundFile.get().getFilepath();
 
-**try** {
+try {
 
-**return** Files.readAllBytes(Paths.get(filePath));
+return Files.readAllBytes(Paths.get(filePath));
 
-} **catch** (Exception e) {
+} catch (Exception e) {
 
-**throw** **new** RuntimeException(\"Error reading file: \" +
-e.getMessage());
-
-}
-
-} **else** {
-
-**throw** **new** RuntimeException(\"File not found!\");
+throw new RuntimeException("Error reading file, "  e.getMessage());
 
 }
 
-}
+} else {
 
-**✅ Step 4: File Upload download Controller**
-
-If storing the **file as binary data**:
-
-\@PostMapping(\"/upload\")
-
-**public** ResponseEntity\<String\>
-uploadFile([\@RequestParam(\"file\")]{.underline} MultipartFile file) {
-
-**try** {
-
-**return** ResponseEntity.ok(fileService.uploadFile(file));
-
-} **catch** (Exception e) {
-
-**return**
-ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(\"error
-occured \");
+throw new RuntimeException("File not found!");
 
 }
 
 }
+```
 
-\@GetMapping(\"/download/{fileName}\")
+✅ Step 4, File Upload download Controller
 
-**public** ResponseEntity\<**byte**\[\]\> downloadFile(@PathVariable
-String fileName) {
+If storing the file as binary data,
+
+```java
+@PostMapping("/upload")
+
+public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+
+try {
+
+return ResponseEntity.ok(fileService.uploadFile(file));
+
+} catch (Exception e) {
+
+return ResponseEntity.status(HttpStatus.INTERNAL\_SERVER\_ERROR).body("error occured ");
+
+}
+
+}
+
+@GetMapping("/download/{fileName}")
+
+public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 
 Filedata fileData = fileService.getFileByName(fileName);
 
-**if** (fileData == **null**) {
+if (fileData == null) {
 
-**return** ResponseEntity.status(HttpStatus.NOT_FOUND).body(**null**);
+return ResponseEntity.status(HttpStatus.NOT\_FOUND).body(null);
 
 }
 
-HttpHeaders headers = **new** HttpHeaders();
+HttpHeaders headers = new HttpHeaders();
 
-headers.setContentType(MediaType.parseMediaType(fileData.getType())); //
-Set correct content type
+headers.setContentType(MediaType.parseMediaType(fileData.getType())); // Set correct content type
 
 headers.setContentDisposition(ContentDisposition.attachment()
 
-.filename(fileData.getFileName(), StandardCharsets.UTF_8)
+.filename(fileData.getFileName(), StandardCharsets.UTF\_8)
 
 .build());
 
-**return** **new** ResponseEntity\<\>(fileData.getFileData(), headers,
-HttpStatus.OK);
+return new ResponseEntity<>(fileData.getFileData(), headers, HttpStatus.OK);
 
 }
 
-If storing only the file **path**:
+```
+If storing only the file path,
 
-// Upload File [Endpoint]{.underline}
+// Upload File Endpoint
 
-\@PostMapping(\"/upload\")
+```java
+@PostMapping("/upload")
 
-**public** String uploadFile([\@RequestParam(\"file\")]{.underline}
-MultipartFile file, RedirectAttributes redirectAttributes) {
+public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 
-**try** {
+try {
 
 String msg = fileService.uploadFile(file);
 
-redirectAttributes.addFlashAttribute(\"msg\", msg); // Add flash
-attribute for success message
+redirectAttributes.addFlashAttribute("msg", msg); // Add flash attribute for success message
 
-**return** \"redirect:/home\"; // Redirect to index page
+return "redirect,/home"; // Redirect to index page
 
-} **catch** (Exception e) {
+} catch (Exception e) {
 
-redirectAttributes.addFlashAttribute(\"msg\", \"Error: \" +
-e.getMessage());
+redirectAttributes.addFlashAttribute("msg", "Error, "  e.getMessage());
 
-**return** \"redirect:/home\"; // Redirect back to index even in case of
-error
+return "redirect,/home"; // Redirect back to index even in case of error
 
 }
 
 }
+```
 
-// Download File [Endpoint]{.underline}
+// Download File Endpoint
 
-\@GetMapping(\"/download/{fileName}\")
+```java
+@GetMapping("/download/{fileName}")
 
-**public** ResponseEntity\<**byte**\[\]\> downloadFile(@PathVariable
-String fileName) {
+public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 
-**try** {
+try {
 
-**byte**\[\] fileData = fileService.downloadFile(fileName);
+byte[] fileData = fileService.downloadFile(fileName);
 
-HttpHeaders headers = **new** HttpHeaders();
+HttpHeaders headers = new HttpHeaders();
 
-headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+headers.setContentType(MediaType.APPLICATION\_OCTET\_STREAM);
 
 headers.setContentDisposition(ContentDisposition.attachment().filename(fileName).build());
 
-**return** **new** ResponseEntity\<\>(fileData, headers, HttpStatus.OK);
+return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
 
-} **catch** (RuntimeException e) {
+} catch (RuntimeException e) {
 
-**return** ResponseEntity.status(HttpStatus.NOT_FOUND).body(**null**);
-
-}
+return ResponseEntity.status(HttpStatus.NOT\_FOUND).body(null);
 
 }
 
+}
+
+```
 How It Works?
 
-1.  Retrieves the file path from the database.
+1. Retrieves the file path from the database.
+2. Reads the file from the system.
+3. Returns the file as a Resource with a Content-Disposition header.
 
-2.  Reads the file from the system.
+File View in Browser
 
-3.  Returns the file as a Resource with a Content-Disposition header.
+To allow files (like images, PDFs) to open in a browser instead of downloading,
 
-**File View in Browser**
+```java
+@GetMapping("/view/{id}")
 
-To allow files (like images, PDFs) to open in a browser instead of
-downloading:
-
-\@GetMapping(\"/view/{id}\")
-
-public ResponseEntity\<Resource\> viewFile(@PathVariable Long id) {
+public ResponseEntity<Resource> viewFile(@PathVariable Long id) {
 
 FileDetails fileDetails = fileService.getFileById(id);
 
@@ -2892,74 +2585,75 @@ return ResponseEntity.ok()
 
 } else {
 
-return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+return ResponseEntity.status(HttpStatus.INTERNAL\_SERVER\_ERROR).build();
 
 }
 
 } catch (Exception e) {
 
-return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+return ResponseEntity.status(HttpStatus.INTERNAL\_SERVER\_ERROR).build();
 
 }
 
 }
+```
 
-📌 **This method will open PDFs, images, and other supported file types
-directly in the browser.**
+📌 This method will open PDFs, images, and other supported file types directly in the browser.
 
-**Delete File from System and Database**
+Delete File from System and Database
 
-\@GetMapping(\"/delete/{id}\")
+```java
+@GetMapping("/delete/{id}")
 
-**public** String deleteFile(@PathVariable **long** id,
-RedirectAttributes redirectAttributes) {
+public String deleteFile(@PathVariable long id, RedirectAttributes redirectAttributes) {
 
-**if** (fileService.deleteFile(id)) {
+if (fileService.deleteFile(id)) {
 
-redirectAttributes.addFlashAttribute(\"msg\", \"File deleted with ID:
-\" + id);
+redirectAttributes.addFlashAttribute("msg", "File deleted with ID, "  id);
 
-} **else** {
+} else {
 
-redirectAttributes.addFlashAttribute(\"msg\", \"Failed to delete file
-with ID: \" + id);
+redirectAttributes.addFlashAttribute("msg", "Failed to delete file with ID, "  id);
 
 }
 
-**return** \"redirect:/home\";
+return "redirect,/home";
 
 }
+```
 
 Delete Logic in Service
 
-// delete file from database and [direcotry]{.underline}
+```java
+// delete file from database and direcotry
 
-**public** **boolean** deleteFile(Long id) {
+public boolean deleteFile(Long id) {
 
-Filedetails filetodelete=fileRepository.findById(id).orElse(**null**);
+Filedetails filetodelete=fileRepository.findById(id).orElse(null);
 
-**if**(filetodelete==**null**) {
+if(filetodelete==null) {
 
-**return** **false**;
+return false;
 
 }
 
 Path path=Paths.get(filetodelete.getFilepath());
 
-**try** {
+try {
 
 Files.deleteIfExists(path);
 
 fileRepository.delete(filetodelete);
 
-**return** **true**;
+return true;
 
-} **catch** (Exception e) {
+} catch (Exception e) {
 
-**return** **false**;
-
-}
+return false;
 
 }
 
-# JPA Configuration in Spring MVC project 
+}
+```
+
+# JPA Configuration in Spring MVC project
