@@ -1,6 +1,6 @@
 ---
 
-# Hibernate]("https://www.google.com/")
+#Hibernate
 ---
 
 ###  What is Hibernate? Why is it used?
