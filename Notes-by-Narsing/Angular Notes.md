@@ -1,192 +1,169 @@
-**Basic Concepts**
+# Angular Notes
 
-**What is Angular, and how is it different from AngularJS?**
+## What is Angular, and how is it different from AngularJS?
 
-- Angular is open-source typescript based front end framework for
-  building dynamic single page application.
+- Angular is an open-source **TypeScript-based frontend framework** for building dynamic **Single Page Applications (SPA)**.
+- AngularJS (v1.x) is based on **JavaScript** and uses **two-way data binding** by default.
+- Angular is developed by **Google** and is mainly used for building modern web applications.
+- Angular offers improved performance with **Ahead-of-Time (AOT) compilation**, **component-based architecture**, and **dependency injection**.
+- Angular is a **TypeScript-based full-stack web framework** for building web and mobile applications.
 
-- AngularJS (v1.x) is based on JavaScript and uses a two-way binding
-  architecture
+---
 
-- It is developed by google and mainly used for development of single
-  page application.
+## Difference between Angular and AngularJS
 
-- Angular offers improved performance with A head-of-Time (AOT)
-  compilation, component-based architecture, and dependency injection.
+| Angular                       | AngularJS                      |
+| ----------------------------- | ------------------------------ |
+| Based on TypeScript           | Based on JavaScript            |
+| Supports modern browsers      | Limited mobile browser support |
+| Supports Dependency Injection | Limited DI support             |
+| Has Angular CLI               | No CLI                         |
+| Component-based architecture  | MVC architecture               |
 
-- Angular is a TypeScript based full-stack web framework for building
-  web and mobile applications.
+---
 
-**Difference between Angular and AngularJS**
+## How to Install Angular?
 
-  ---------------------------------------------------------------------
-  Angular                           AngularJS
-  --------------------------------- -----------------------------------
-  Angular is based on TypeScript    AngularJS is based on JavaScript
-  language.                         language.
+1. Install **Node.js & npm**
+   ```bash
+   node --version
+   npm --version
 
-  All the popular mobile browsers   Mobile browsers do not support
-  support Angular.                  AngularJS.
+1. Install **TypeScript**
 
-  It has the feature of dependency  It does not support dependency
-  injection.                        injection.
+   ```bash
+   npm install -g typescript
+   ```
 
-  Angular has CLI tool.             CLI tool is not available in
-                                    AngularJS.
+2. Install **Angular CLI**
 
-  It has component-based structure. It has MVC (Model View Controller)
-                                    based architecture.
-  ---------------------------------------------------------------------
+   ```bash
+   npm install -g @angular/cli
+   ```
 
-**How to install Angular?**
+3. Verify installation
 
-- Installation of Node.js and npm (**node --version) (npm-v)**
+   ```bash
+   ng version
+   ```
 
-- Installation of typescript (**npm install -g typescript)**
+------
 
-- Installation of angular Command line interface (**npm install -g
-  \@angular/cli)**
+## Steps to Create Angular Application
 
-- Check Angular Version : **ng \--version**
+1. Install Angular CLI
 
-**Steps to create Angular Application**
+2. Create application
 
-1.  Install angular CLI
+   ```
+   ng new my-app-name
+   ```
 
-2.  Create first app using **ng new my-app-name**
+3. Navigate to project directory
 
-3.  Locate to project directory
+   ```
+   cd my-app-name
+   ```
 
-4.  Run project by using **ng serve**
+4. Run application
 
-### Angular CLI Workspace for practice to save disk
+   ```
+   ng serve
+   ```
 
-#### Step-by-step:
+## Angular CLI Workspace (Single node_modules)
 
-ng new angular-learning-workspace \--create-application false
-
+```
+ng new angular-learning-workspace --create-application false
 cd angular-learning-workspace
-
 ng generate application project-one
-
 ng generate application project-two
+```
 
-📁 Your structure will look like:
+📁 **Folder Structure**
 
+```
 angular-learning-workspace/
-
-├── node_modules/ \<\-- Shared
-
+├── node_modules/
 ├── projects/
-
-│ ├── project-one/
-
-│ └── project-two/
-
+│   ├── project-one/
+│   └── project-two/
 ├── angular.json
+├── package.json
+```
 
-🟢 Only one node_modules, one package.json.
+✔ Saves disk space
+ ✔ Shared dependencies
 
 **Project Structure of Angular Application**
 
 ![](./media/media/image13.png){width="2.1945570866141733in"
 height="5.048870297462817in"}
 
-- **[src:]{.mark}** This directory contains all the source code for your
-  Angular application, including components, services, modules,
-  templates, styles, and assets.
+- **src: **  
+  This directory contains all the source code for your Angular application, including components, services, modules, templates, styles, and assets.
+  
+- **app: **  
+  It is a sub-folder of `src` directory. It contains component files.
 
-- **[app:]{.mark}** It is a sub-folder of src directory. It contains
-  component files.
+- **angular.json: **  
+  This is the workspace configuration file, defining the configuration options for the entire Angular workspace.
 
-- **[angular.json:]{.mark}** This is the workspace configuration file
-  which means it defines the configuration options for the entire
-  Angular workspace.
+- **node_modules: **  
+  This directory contains all the npm packages installed as dependencies for the project.
 
-- **[node_modules:]{.mark}** This directory contains all the npm
-  packages installed as dependencies for the project.
+- **package.json: **  
+  This file contains metadata about the project and lists the npm dependencies required for the project.
 
-- **[package.json:]{.mark}** This file contains metadata about the
-  project and lists the npm dependencies required for the project.
+- **tsconfig.json: **  
+  TypeScript configuration file that specifies the compiler options for TypeScript files.
 
-- **[tsconfig.json:]{.mark}** It is the TypeScript configuration file
-  that specifies the compiler options for TypeScript files.
+- **public: **  
+  This directory is used to store asset files like images.
 
-- [**public**:]{.mark} This file is used to store asset files like
-  images.
+- **styles.css: **  
+  This file is used to apply global CSS styles.
 
-- **[styles.css :]{.mark}** To apply CSS globally.
+---
 
-**What is the purpose of Angular CLI? Can you name some CLI commands?**
+## What is the purpose of Angular CLI? Can you name some CLI commands?
 
-- Command Line Interface (CLI) is a powerful command line tool provided
-  by the angular to develop, build, Run and Create the components.
-
+- Angular CLI (Command Line Interface) is a powerful tool provided by Angular to develop, build, run, and create components efficiently.
 - CLI automates app creation, testing, and deployment.
 
-**Common commands:**
+### Common Commands:
 
-+------------------------------------+---------------------------------+
-| Command                            | Description                     |
-+====================================+=================================+
-| ng new my-app                      | Create a new Angular project    |
-+------------------------------------+---------------------------------+
-| ng serve                           | Run dev server (usually on      |
-|                                    | http://localhost:4200)          |
-+------------------------------------+---------------------------------+
-| ng build                           | Compile and build the project   |
-+------------------------------------+---------------------------------+
-| ng generate component my-comp      | Generate a new component        |
-|                                    |                                 |
-| OR ng g c my-comp                  |                                 |
-+------------------------------------+---------------------------------+
-| ng generate service my-service OR  | Generate a new service          |
-| ng g s my-service                  |                                 |
-+------------------------------------+---------------------------------+
-| ng generate module my-module       | Create a new module             |
-+------------------------------------+---------------------------------+
-| ng generate directive my-directive | Create a new directive          |
-+------------------------------------+---------------------------------+
-| ng generate pipe my-pipe           | Create a new pipe               |
-+------------------------------------+---------------------------------+
-| ng test                            | Run unit tests with Karma       |
-+------------------------------------+---------------------------------+
-| ng lint                            | Lint the code for style and     |
-|                                    | errors                          |
-+------------------------------------+---------------------------------+
-| ng build \--prod                   | Build app for production        |
-|                                    | (minified + optimized)          |
-+------------------------------------+---------------------------------+
+| Command                              | Description                                       |
+| ------------------------------------ | ------------------------------------------------- |
+| `ng new my-app`                      | Create a new Angular project                      |
+| `ng serve`                           | Run dev server (usually on http://localhost:4200) |
+| `ng build`                           | Compile and build the project                     |
+| `ng generate component my-comp`      | Generate a new component                          |
+| `ng g c my-comp`                     | Short form to generate a new component            |
+| `ng generate service my-service`     | Generate a new service                            |
+| `ng g s my-service`                  | Short form to generate a new service              |
+| `ng generate module my-module`       | Create a new module                               |
+| `ng generate directive my-directive` | Create a new directive                            |
+| `ng generate pipe my-pipe`           | Create a new pipe                                 |
+| `ng test`                            | Run unit tests with Karma                         |
+| `ng lint`                            | Lint the code for style and errors                |
+| `ng build --prod`                    | Build app for production (minified + optimized)   |
 
-**What is TypeScript, and why is it used in Angular?**
+- ## What is TypeScript, and why is it used in Angular?
 
-- **TypeScript** is a **superset of JavaScript** developed by Microsoft
-  that adds **static typing**, **interfaces**, **classes**, and **modern
-  ES features** to JavaScript.
+  - **TypeScript** is a **superset of JavaScript** developed by Microsoft that adds **static typing**, **interfaces**, **classes**, and **modern ES features** to JavaScript.
+  - Angular is a **complex and large-scale framework**, so TypeScript brings **structure, scalability, and safety**.
+  - It provides better tooling, maintainability, and early error detection for Angular applications.
+  - In simple terms: **TypeScript = JavaScript + Types + OOP Features + Better Tooling**
 
-- Angular is a **complex and large-scale framework**, so TypeScript
-  brings **structure, scalability, and safety**.
+  ### Key Features:
 
-- TypeScript is a superset of JavaScript that adds static typing.
-  Angular uses TypeScript for better tooling, maintainability, and early
-  error detection.
-
-- In simple terms: **[TypeScript = JavaScript + Types + OOP Features +
-  Better Tooling]{.mark}**
-
-### **Key Features:**
-
-- Static type checking (string, number, boolean, etc.)
-
-- ES6+ features (arrow functions, classes, async/await, etc.)
-
-- Interfaces and type aliases
-
-- Strong IDE support (auto-complete, refactoring)
-
-- Compile-time error detection
-
-- Modular architecture (via import/export)
+  - **Static type checking**: string, number, boolean, etc.
+  - **ES6+ features**: arrow functions, classes, async/await, etc.
+  - **Interfaces and type aliases** for structured coding
+  - **Strong IDE support**: auto-complete, refactoring, and navigation
+  - **Compile-time error detection** to catch issues early
+  - **Modular architecture** via import/export statements
 
 **What are the building blocks of Angular?**
 
@@ -254,9 +231,9 @@ export class NavComponent {
 
 **Every Angular Component consists of 3 things:**
 
-  ------------------------------------------------------------
+------------------------------------------------------------
   Part           File Extension    Purpose
-  -------------- ----------------- ---------------------------
+-------------- ----------------- ---------------------------
   Class (logic)  .component.ts     Business logic, variables,
                                    methods
 
@@ -338,23 +315,16 @@ template.
 - A child component is a component used inside parent component. Any
   component used inside app-component is its child component.
 
-**Types of Component Communication:**
+## Types of Component Communication
 
-  -------------------------------------------------------------------------
-  Communication     Technique                             Direction
-  Type                                                    
-  ----------------- ------------------------------------- -----------------
-  **Parent ➡️       \@Input()                             From parent to
-  Child**                                                 child
+| Communication         | Technique                                 | Direction / Type                             |
+| --------------------- | ----------------------------------------- | -------------------------------------------- |
+| **Parent ➡️ Child**    | `@Input()`                                | From parent to child                         |
+| **Child ➡️ Parent**    | `@Output()` + `EventEmitter`              | From child to parent                         |
+| **Sibling ↔️ Sibling** | Shared service + `Subject`                | Cross-component communication                |
+| **Any ↔️ Any**         | Router params, Local Storage, or Services | Flexible communication across any components |
 
-  **Child ➡️        \@Output() + Event Emitter            From child to
-  Parent**                                                parent
-
-  **Sibling ↔️      Shared service + Subject              Cross-component
-  Sibling**                                               
-
-  **Any ↔️ Any**    Using Router params, Local Storage,   
-                    or Services                           
+             
   -------------------------------------------------------------------------
 
 **\@Input :**
@@ -455,7 +425,7 @@ count :number=0;
 angular](./media/media/image14.png){width="5.833333333333333in"
 height="3.2109525371828522in"}
 
-**[One Way Data Binding]{.mark}**
+**[One Way Data Binding] **
 
 - In one way data binding data flows only in one direction i.e.
   component to view or view to component
@@ -557,7 +527,7 @@ Attribute binding can be written as shown below −
   \<input *type*=\"text\" *name*=\"username\"
 *\[attr.placeholder\]*=\"Placeholder\" /\>
 
-**[Two-way Data Binding]{.mark}**
+**[Two-way Data Binding] **
 
 **Two-Way Binding: **\[(ngModel)\]=\"property\" (two-way).
 
@@ -817,9 +787,9 @@ height="1.5104166666666667in"}
 
 1.  **Built In Pipes**
 
-  ----------------------------------------------
+----------------------------------------------
   Pipe               Usage
-  ------------------ ---------------------------
+------------------ ---------------------------
   date               Formats a date
 
   uppercase /        Changes text case
@@ -986,22 +956,15 @@ below.
   **FormsModule** in main component.
 
   -----------------------------------------------------------
-  Concept              Description
-  -------------------- --------------------------------------
-  FormsModule          Must be imported to use
-                       Template-Driven Forms.
-
-  ngForm               Angular automatically creates a Form
-                       object.
-
-  ngModel              Used to bind input fields to
-                       variables.
-
-  required, minlength, Built-in validations in HTML.
-  etc.                 
-
-  (ngSubmit)           Handles form submission event.
-  -----------------------------------------------------------
+  ## Angular Forms Concepts
+  
+  | Concept                       | Description                                      |
+  | ----------------------------- | ------------------------------------------------ |
+  | **FormsModule**               | Must be imported to use Template-Driven Forms    |
+  | **ngForm**                    | Angular automatically creates a Form object      |
+  | **ngModel**                   | Used to bind input fields to component variables |
+  | **required, minlength, etc.** | Built-in validations in HTML                     |
+  | **(ngSubmit)**                | Handles form submission event                    |
 
 Steps to create Template Driven From:
 
@@ -1190,58 +1153,35 @@ FormControl(\'\',\[Validators.required,Validators.maxLength(5)\]),
   perform cross-field validation, then you need to use the Reactive
   forms approach.
 
-## Difference between Template Driven Forms and Reactive Froms 
+## Difference between Template-Driven Forms and Reactive Forms
 
-  ------------------------------------------------------------------------
-  Concept      Template-Driven Forms     Reactive Forms
-  ------------ ------------------------- ---------------------------------
-  Form         HTML + ngModel            TS code (FormGroup, FormControl)
-  building                               
+| Concept           | Template-Driven Forms                | Reactive Forms                               |
+| ----------------- | ------------------------------------ | -------------------------------------------- |
+| **Form building** | HTML + `ngModel`                     | TypeScript code (`FormGroup`, `FormControl`) |
+| **Validation**    | HTML attributes + Angular directives | Full programmatic control in TS              |
+| **Data Flow**     | Two-way binding                      | Observable streams                           |
+| **When to use?**  | Simple forms (login, feedback)       | Complex forms (multi-step, dynamic forms)    |
 
-  Validation   HTML attributes + Angular Full programmatic control
-               directives                
+### Angular Form Classes
 
-  Data Flow    Two-way binding           Observable streams
+| Concept              | Meaning                                 | Example                                     |
+| -------------------- | --------------------------------------- | ------------------------------------------- |
+| **FormControl**      | Represents a single form field          | Name, Email                                 |
+| **FormGroup**        | Group of multiple FormControls          | Registration form (name + email + password) |
+| **FormArray**        | Dynamic array of controls               | Add multiple addresses or phone numbers     |
+| **Validators**       | Functions to check validity             | Required, MinLength, Pattern                |
+| **Custom Validator** | Your own logic for validation           | Passwords should match                      |
+| **FormBuilder**      | Shortcut service to create forms faster | `fb.group({...})`                           |
 
-  When to use? Simple forms (login,      Complex forms (multi-step forms,
-               feedback)                 dynamic forms)
-  ------------------------------------------------------------------------
-
-### **Angular Form Classes** 
-
-  ------------------------------------------------------------------------
-  Concept        Meaning                    Example
-  -------------- -------------------------- ------------------------------
-  FormControl    Represents a single form   Name, Email
-                 field                      
-
-  FormGroup      Group of multiple          Registration form (name +
-                 FormControls               email + password)
-
-  FormArray      Dynamic array of controls  Add multiple addresses/phone
-                                            numbers
-
-  Validators     Functions to check         Required, MinLength, Pattern
-                 validity                   
-
-  Custom         Your own logic for         Passwords should match
-  Validator      validation                 
-
-  FormBuilder    Shortcut service to create fb.group({\...})
-                 forms faster               
-  ------------------------------------------------------------------------
-
-Routing
+# **Routing**
 
 ## **What is routing in angular ?** 
 
 **Answer:**
 
-- It is the mechanism which is used to navigate between one view to
-  another view.
-
-- A Route is like a map that shows the way to a specific view or
-  template.
+- It is the mechanism which is used to navigate between one view to another view.
+  
+- A Route is like a map that shows the way to a specific view or template.
 
 ##  **Key concepts of Routes:**
 
@@ -1282,29 +1222,29 @@ height="4.874305555555556in"}
 1.  **Static Routes :** Static routes are the simple routes that map
     specific URL path to a component.
 
-**[{path: \'path-name\', component: component-name}]{.mark}**
+**[{path: \'path-name\', component: component-name}] **
 
 2.  **Dynamic Routes :** Dynamic routes allow you to display different
     component based on the parameter provided in URL. These routes are
     use parameters in the URL to dynamically load different entities of
     a components based on current parameter passed in URL.
 
-**[{path: \'path-name/:parameter\', component: component-name}]{.mark}**
+**[{path: \'path-name/:parameter\', component: component-name}] **
 
 3.  **Wildcard Routes:** These routes matches the invalid URL and then
     redirect to specific URL.
 
-**[{path: \'\*\*\', component: component-name}]{.mark}**
+**[{path: \'\*\*\', component: component-name}] **
 
 4.  **Nested routes:** Nested routes are the nested inside other routes.
     Sometimes we want to load child component when parent component is
     loaded then we use nested routes to load child components.
 
-**[{ path: \'parent-path\', loadChildren: \[]{.mark}**
+**[{ path: \'parent-path\', loadChildren: \[] **
 
-**[{path: \'child-path1\', component: component-name},]{.mark}**
+**[{path: \'child-path1\', component: component-name},] **
 
-**[{path: \'child-path2\', component: component-name} \] }]{.mark}**
+**[{path: \'child-path2\', component: component-name} \] }] **
 
 Example :
 
@@ -1389,7 +1329,7 @@ return(){
 ## **Creating Angular Service**
 
 1.  Create service by using cmd : **[ng generate service
-    \<service-name\>]{.mark}**
+    \<service-name\>] **
 
 2.  To create Manually we need to create one export class and we need to
     decorate that class with \@Injectable decorator which in angular
@@ -1801,9 +1741,9 @@ export const appConfig: ApplicationConfig = {
 ![](./media/media/image21.png){width="4.53125in"
 height="5.052083333333333in"}
 
-  -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
   Hook                      Trigger                   Purpose
-  ------------------------- ------------------------- ---------------------------
+------------------------- ------------------------- ---------------------------
   ngOnChanges()             On input-bound property   React to changes in
                             change                    \@Input() properties
 
@@ -1882,28 +1822,21 @@ they're not allowed to.
 **Example:** A regular user can view profile; an admin can view user
 list.
 
-  -----------------------------------------------------------------------------
-  Guard              Purpose                       Use
-  ------------------ ----------------------------- ----------------------------
-  CanActivate        Prevents navigation to a      Used to check if user is
-                     route                         logged in or user has
-                                                   permissions
+-----------------------------------------------------------------------------
+## Angular Route Guards
 
-  CanActivateChild   Prevents navigation to child  
-                     routes                        
+| Guard                | Purpose                              | Use                                                    |
+| -------------------- | ------------------------------------ | ------------------------------------------------------ |
+| **CanActivate**      | Prevents navigation to a route       | Check if user is logged in or has required permissions |
+| **CanActivateChild** | Prevents navigation to child routes  | Control access to child routes                         |
+| **CanDeactivate**    | Prevents navigation from a route     | Confirm with user before leaving unsaved changes       |
+| **Resolve**          | Pre-fetches data before navigating   | Pre-fetch data from API before route activation        |
+| **CanLoad**          | Prevents the lazy loading of modules | Restrict access to lazy-loaded modules                 |
 
-  CanDeactivate      Prevents navigation from a    Confirm from user before
-                     route (e.g., unsaved form     leaving unsaved changes
-                     changes)                      
-
-  Resolve            Pre-fetches data before       PreFetch data from API
-                     navigating to a route         
-
-  CanLoad            Prevents the lazy loading of  
-                     modules                       
+                     
   -----------------------------------------------------------------------------
 
-Components and Templates
+# Components and Templates
 
 1.  **What is the difference between template-driven forms and reactive
     forms?**
@@ -2227,9 +2160,9 @@ application into cohesive blocks of functionality.
 
 **What are the different types of modules in Angular?**
 
-  ------------------------------------------------------------------------------
+------------------------------------------------------------------------------
   Module Type         Purpose
-  ------------------- ----------------------------------------------------------
+------------------- ----------------------------------------------------------
   **AppModule**       Root module that bootstraps the application.
 
   **FeatureModule**   Organizes related features (e.g., UserModule,
