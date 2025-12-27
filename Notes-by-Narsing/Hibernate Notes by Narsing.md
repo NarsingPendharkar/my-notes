@@ -1,6 +1,6 @@
 ---
 
-# Hibernate
+# Hibernate]("https://www.google.com/")
 ---
 
 ###  What is Hibernate? Why is it used?
@@ -794,24 +794,10 @@ Annotation                |    Description   |  Example Usage
 @Id                        |    Marks a field as  the primary key  |  @Id private Long id;
 @GeneratedValue(strategy =  GenerationType.IDENTITY)    |     Specifies how the primary key is  generated| @GeneratedValue(strategy=GenerationType.IDENTITY)
 @Column(name ="column_name") | Maps a field to a specific database column |  @Column(name = "student_name") private String name;
-
-
-@Transient                     Excludes a field  @Transient private int age;
-from persistence
-(not stored in
-the database)
-
-@Basic(fetch = FetchType.LAZY) Marks a field for @Basic(fetch = FetchType.LAZY)
-lazy loading      private String description;
-
-@Temporal(TemporalType.DATE)   Specifies how     @Temporal(TemporalType.DATE)
-Date/Time fields  private Date dob;
-should be stored
-
-@Lob                           Maps a field to a @Lob private byte] image;
-large object
-(BLOB or CLOB)
----------------------------------------------------------------------------------
+@Transient                   |  Excludes a field from persistence (not stored in the database) |  @Transient private int age; 
+@Basic(fetch = FetchType.LAZY) |Marks a field for lazy loading       |@Basic(fetch = FetchType.LAZY) private String description;
+@Temporal(TemporalType.DATE)  | Specifies how Date/Time fields should be stored |    @Temporal(TemporalType.DATE)   private Date dob;
+@Lob                           |Maps a field to  a large object (BLOB or CLOB)| @Lob private byte] image;
 
 ### Primary Key and ID Generation
 
@@ -820,7 +806,6 @@ Annotation                  |Description          |Example Usage
 -----------------------------| ----------------------| ---------------------------
 @GeneratedValue(strategy =   |Uses auto-increment    |@GeneratedValue(strategy =
 GenerationType.IDENTITY)      (database-generated)   GenerationType.IDENTITY)
-
 @GeneratedValue(strategy =   |Uses a database        |@GeneratedValue(strategy =
 GenerationType.SEQUENCE)      sequence for ID        GenerationType.SEQUENCE,
 generation             generator = "seq")
@@ -838,17 +823,11 @@ generation
 ### One-to-One Mapping
 
 -----------------------------------------------------------------------
-Annotation          Description                Example Usage
---------------------- ---------------------------- --------------------
-@OneToOne            Defines a one-to-one         @OneToOne private
-relationship                 Profile profile;
-
-@JoinColumn(name =   Specifies the foreign key    @JoinColumn(name =
-"profile_id")       column                       "profile_id")
-
-@MapsId              Uses the primary key of the  @MapsId private
-parent entity as the foreign Long id;
-key
+Annotation        |  Description                         |   Example Usage
+------------------|--- ---------------------------- -----|---------------
+@OneToOne         |   Defines a one-to-one relationship  |      @OneToOne private Profile profile;
+@JoinColumn(name ="profile_id")|   Specifies the foreign key column   | @JoinColumn(name ="profile_id")
+@MapsId           |   Uses the primary key of the parent entity as the foreignkey  | @MapsId private Long id; 
 -----------------------------------------------------------------------
 
 ### One-to-Many and Many-to-One Mapping
@@ -989,45 +968,29 @@ database column   private Status status;
 as a string
 
 @Lob                           Maps a large      @Lob private byte] image;
-object (BLOB or
-CLOB)
+object (BLOB orCLOB)
+
 ---------------------------------------------------------------------------------
 
-## Difference between get( ) & load( )?
+##### Difference between get( ) & load( )
 
 ----------------------------------------------------
 get ( )             |     load ( )
 ------------------------| ---------------------------
 Eager Loading        |    Lazy Loading
-If value is absent in  |  If value is absent in
-database then it returns database then hibernate
-null.                    exception
-(ObjectNotFoundException)
-occurs.
-
-It always hit database.  It may or may not be hit to
-database.
+If value is absent in database then it returns null. |  If value is absent in database then hibernate exception (ObjectNotFoundException)occurs.
+It always hit database. | It may or may not be hit to database.
 ----------------------------------------------------
 
-Difference between save( ) & persist(  )?
+##### Difference between save( ) & persist(  )
 
 ---------------------------------------------------
-Save ( )                  Persist ( )
-------------------------- -------------------------
-Its return type is        Its return type is void.
-Serializable object.
-
-It can save object within It can only save object
-transaction boundaries    within the transaction
-and outside boundaries.   boundaries.
-
-It is only supported by   It is supported by
-Hibernate.                Hibernate and also by JPA
-(Java Persistence API).
-
-It will create a new row  It will throw persistence
-in the table for detached exception for detached
-object.                   object.
+Save ( )             |     Persist ( )
+-------------------------|-------------------------
+Its return type is Serializable object. | Its return type is void.
+It can save object within transaction boundaries and outside boundaries. | It can only save object within the transaction boundaries.
+It is only supported by  Hibernate.(Java Persistence API). | It is supported by Hibernate and also by JPA
+It will create a new row in the table for detached object. | It will throw persistence exception for detached object.
 ---------------------------------------------------
 
 ## What is cache? What is 1st level cache?
@@ -1082,23 +1045,23 @@ For mapped by it will create 3 tables.
 
 ## What is Dirty Checking?
 
-Answer :  If we get record & we set again then it is updated without
-calling update method, its because of dirty checking. This can be
-avoided by using @Immutable annotation.
+Answer :  If we get record & we set again then it is updated without calling update method, its because of dirty checking. This can be avoided by using `@Immutable` annotation.
 
 ## What is process for Automatic ID generation from any random number?
 
+```java
 @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq",
 initialValue = 500, allocationSize=1)
 
 @GeneratedValue(generator = "mySeqGen")
+```
 
 ## How to show SQL queries at run time?
 
 Answer :  While specifying hibernate properties, add Show_SQL
 property as a true,
 
-e.g. <property name="show_sql">true</property>
+`e.g. <property name="show_sql">true</property>`
 
 ## What does hbm2ddl does?
 
@@ -1106,8 +1069,7 @@ Answer :  It validates number of column.
 
 ## How to disable 1st level cache?
 
-Answer :  We can't disable cache but we can clear all cache using
-clear( ) method of session, then it works as disabled.
+Answer :  We can't disable cache but we can clear all cache using clear( ) method of session, then it works as disabled.
 
 ## How to enable 2nd level cache?
 
@@ -1115,14 +1077,14 @@ clear( ) method of session, then it works as disabled.
 
 - Add Annotation below to Entity class.
 
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+`@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)`
 
-- Include two extra lines in settings in 'HibernateUtil.class'
+- Include two extra lines in settings in '`HibernateUtil.class`'
 
+```java
 settings.put(Environment.USE_SECOND_LEVEL_CACHE, "true");
-
-settings.put(Environment.CACHE_REGION_FACTORY,
-"org.hibernate.cache.ehcache.EhCach-eRegionFactory");
+settings.put(Environment.CACHE_REGION_FACTORY,"org.hibernate.cache.ehcache.EhCach-eRegionFactory");
+```
 
 ## How you have used Hibernate (XML, Annotations, Java Based)?
 
@@ -1136,13 +1098,10 @@ settings.put(Environment.CACHE_REGION_FACTORY,
 
 - You need to pass a string containing the SQL query to the createSQLQuery() method.
 
-- List<Object]> results =
+- `List<Object]> results =
 session.createNativeQuery("SELECT id, name, age FROM
-Employee").list();
+Employee").list();`
 
->  Spring Data JPA !Database with solid
-> fill](./media/media/image4.svg){width="0.37569444444444444in"
-> height="0.28888888888888886in"}
 
 ## What is Spring Data JPA?
 
@@ -1307,19 +1266,12 @@ btn-secondary btn-sm">Next</a>
 
 ## What is Lazy and Eager loading?
 
-+-----------+--------------------------------------------------+
-| Type      | Description                                      |
-+===========+==================================================+
-|  Lazy    | Loads data  only when needed  (default for     |
-| Loading  | @OneToMany, @ManyToOne).                       |
-|           |                                                  |
-|           | @OneToMany(fetch = FetchType.LAZY)              |
-+-----------+--------------------------------------------------+
-|  Eager   | Loads data  immediately  along with parent     |
-| Loading  | entity.                                          |
-|           |                                                  |
-|           | @OneToMany(fetch = FetchType.EAGER)             |
-+-----------+--------------------------------------------------+
+-------------------------------------------------------------
+| Type      | Description                                     
+-----------|--------------------------------------------------
+|  Lazy Loading   | Loads data  only when needed  (default for @OneToMany, @ManyToOne)  Ex : @OneToMany(fetch = FetchType.LAZY)             
+|  Eager Loading   | Loads data  immediately  along with parent entity.  ex : @OneToMany(fetch = FetchType.EAGER)  
+
 
 ### What is the purpose of @Modifying in Spring Data JPA?
 
