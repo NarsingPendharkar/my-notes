@@ -799,6 +799,9 @@ Annotation                |    Description   |  Example Usage
 @Temporal(TemporalType.DATE)  | Specifies how Date/Time fields should be stored |    @Temporal(TemporalType.DATE)   private Date dob;
 @Lob                           |Maps a field to  a large object (BLOB or CLOB)| @Lob private byte] image;
 
+
+---------------------------------------------------------------------------------
+
 ### Primary Key and ID Generation
 
 --------------------------------------------------------------------------------
