@@ -801,22 +801,37 @@ Annotation                |    Description   |  Example Usage
 
 ### Primary Key and ID Generation
 
---------------------------------------------------------------------------------
-Annotation                  |Description          |Example Usage
------------------------------| ----------------------| ---------------------------
-@GeneratedValue(strategy =   |Uses auto-increment    |@GeneratedValue(strategy =
-GenerationType.IDENTITY)      (database-generated)   GenerationType.IDENTITY)
-@GeneratedValue(strategy =   |Uses a database        |@GeneratedValue(strategy =
-GenerationType.SEQUENCE)      sequence for ID        GenerationType.SEQUENCE,
-generation             generator = "seq")
+---
 
-@SequenceGenerator(name =   | Defines a sequence    | @SequenceGenerator(name =
-"seq", sequenceName =       generator              "seq", sequenceName =
-"my_sequence",                                     "student_seq")
-allocationSize = 1)
+| Annotation                                            | Description                                                  | Example Usage                                                |
+| ----------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `@GeneratedValue(strategy = GenerationType.IDENTITY)` | Uses auto-increment (database-generated value). Common in MySQL. | `@GeneratedValue(strategy = GenerationType.IDENTITY)`        |
+| `@GeneratedValue(strategy = GenerationType.SEQUENCE)` | Uses a database sequence to generate IDs. Preferred in PostgreSQL/Oracle. | `@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")` |
+| `@SequenceGenerator`                                  | Defines a sequence generator used with `SEQUENCE` strategy.  | `@SequenceGenerator(name = "seq", sequenceName = "student_seq", allocationSize = 1)` |
+| `@GeneratedValue(strategy = GenerationType.TABLE)`    | Uses a table to simulate sequence behavior (least preferred). | `@GeneratedValue(strategy = GenerationType.TABLE)`           |
 
-@GeneratedValue(strategy =  | Uses a table-based    | @GeneratedValue(strategy =
-GenerationType.TABLE)         strategy for ID        GenerationType.TABLE)
+---
+
+### Example: SEQUENCE Strategy (PostgreSQL / Oracle)
+
+```java
+@Entity
+public class Student {
+
+    @Id
+    @SequenceGenerator(
+        name = "seq",
+        sequenceName = "student_seq",
+        allocationSize = 1
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "seq"
+    )
+    private Long id;
+}
+```
+
 generation
 --------------------------------------------------------------------------------
 
@@ -832,143 +847,207 @@ Annotation        |  Description                         |   Example Usage
 
 ### One-to-Many and Many-to-One Mapping
 
------------------------------------------------------------------------------
-Annotation                 Description     Example Usage
----------------------------- ----------------- ------------------------------
-@OneToMany(mappedBy =       One-to-many       @OneToMany(mappedBy =
-"department")              bidirectional     "department") private
-mapping           List<Employee> employees;
+---
 
-@ManyToOne                  Many-to-one       @ManyToOne @JoinColumn(name
-relationship      = "department_id")
-(child to parent)
+| Annotation                            | Description                                                  | Example Usage                                                |
+| ------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `@OneToMany(mappedBy = "department")` | Defines **one-to-many** bidirectional mapping (parent side). | `@OneToMany(mappedBy = "department") private List<Employee> employees;` |
+| `@ManyToOne`                          | Defines **many-to-one** relationship (child → parent).       | `@ManyToOne`                                                 |
+| `@JoinColumn(name = "department_id")` | Specifies the foreign key column in child table.             | `@JoinColumn(name = "department_id")`                        |
+| `@Cascade(CascadeType.ALL)`           | Defines cascading operations (save, delete, update).         | `@Cascade(CascadeType.ALL)`                                  |
 
-@JoinColumn(name =          Defines the       @JoinColumn(name =
-"foreign_key_column")      foreign key       "dept_id")
-column
+---
 
-@Cascade(CascadeType.ALL)   Defines cascading @Cascade(CascadeType.ALL)
-operations
------------------------------------------------------------------------------
+### Example: Bidirectional One-to-Many Mapping
+
+#### Parent Entity (Department)
+
+```java
+@Entity
+public class Department {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Employee> employees;
+}
+```
+
+
 
 ### Many-to-Many Mapping
 
-----------------------------------------------------------------------------
-Annotation                         Description     Example Usage
------------------------------------- ----------------- ---------------------
-@ManyToMany                         Defines a         @ManyToMany private
-many-to-many      List<Course>
-relationship      courses;
+---
 
-@JoinTable(name =                   Defines a join    @JoinTable(name =
-"student_course", joinColumns =    table for         "student_course")
-@JoinColumn(name = "student_id"), many-to-many
-inverseJoinColumns =                 relationships
-@JoinColumn(name = "course_id"))
-----------------------------------------------------------------------------
+| Annotation    | Description                                               | Example Usage                                                |
+| ------------- | --------------------------------------------------------- | ------------------------------------------------------------ |
+| `@ManyToMany` | Defines a many-to-many relationship between two entities. | `@ManyToMany private List<Course> courses;`                  |
+| `@JoinTable`  | Defines the join table used to map the relationship.      | `@JoinTable(name = "student_course")`                        |
+| `@JoinColumn` | Specifies foreign key columns in the join table.          | `@JoinColumn(name = "student_id")`, `@JoinColumn(name = "course_id")` |
+
+---
+
+### Example: Many-to-Many Mapping
+
+#### Student Entity (Owning Side)
+
+```java
+@Entity
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @ManyToMany
+    @JoinTable(
+        name = "student_course",
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> courses;
+}
+```
 
 ### Cascade and Fetch Strategies
 
--------------------------------------------------------------------------------------
-Annotation                     Description       Example Usage
--------------------------------- ------------------- --------------------------------
-@Cascade(CascadeType.ALL)       Propagates all      @Cascade(CascadeType.ALL)
-operations (SAVE,
-DELETE, etc.)
+---
 
-@Cascade(CascadeType.MERGE)     Propagates merge    @Cascade(CascadeType.MERGE)
-operation
+| Annotation                      | Description                                                  | Example Usage                   |
+| ------------------------------- | ------------------------------------------------------------ | ------------------------------- |
+| `@Cascade(CascadeType.ALL)`     | Propagates **all operations** (PERSIST, MERGE, REMOVE, REFRESH, DETACH) from parent to child. | `@Cascade(CascadeType.ALL)`     |
+| `@Cascade(CascadeType.MERGE)`   | Propagates **merge/update** operation only.                  | `@Cascade(CascadeType.MERGE)`   |
+| `@Cascade(CascadeType.REMOVE)`  | Propagates **delete** operation to child entities.           | `@Cascade(CascadeType.REMOVE)`  |
+| `@Cascade(CascadeType.REFRESH)` | Refreshes child entity state from DB when parent is refreshed. | `@Cascade(CascadeType.REFRESH)` |
+| `@Fetch(FetchMode.JOIN)`        | Fetches related entities using **SQL JOIN**.                 | `@Fetch(FetchMode.JOIN)`        |
+| `@Fetch(FetchMode.SELECT)`      | Fetches related entities using **separate SQL queries**.     | `@Fetch(FetchMode.SELECT)`      |
 
-@Cascade(CascadeType.REMOVE)    Propagates remove   @Cascade(CascadeType.REMOVE)
-operation
+---
 
-@Cascade(CascadeType.REFRESH)   Refreshes entity    @Cascade(CascadeType.REFRESH)
-when the
-transaction is
-committed
+### Example: Cascade and Fetch Usage
 
-@Fetch(FetchMode.JOIN)          Fetches related     @Fetch(FetchMode.JOIN)
-entities using
-joins
+```java
+@Entity
+public class Department {
 
-@Fetch(FetchMode.SELECT)        Fetches related     @Fetch(FetchMode.SELECT)
-entities with
-separate queries
--------------------------------------------------------------------------------------
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(mappedBy = "department")
+    @Cascade(CascadeType.ALL)
+    @Fetch(FetchMode.SELECT)
+    private List<Employee> employees;
+}
+```
 
 ### Named Queries (JPQL and Native SQL)
 
-------------------------------------------------------------------------------
-Annotation                   Description     Example Usage
------------------------------- ----------------- -----------------------------
-@Query("SELECT s FROM        Defines a JPQL    @Query("SELECT s FROM
-Student s WHERE s.name = ?1") query             Student s WHERE s.name =
-?1")
+---
 
-@Query(value = "SELECT *    Defines a native  @Query(value = "SELECT *
-FROM students WHERE email =    SQL query         FROM students WHERE email =
-?1", nativeQuery = true)                        ?1", nativeQuery = true)
+| Annotation                                                   | Description                                             | Example Usage                                                |
+| ------------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------------ |
+| `@Query("SELECT s FROM Student s WHERE s.name = ?1")`        | Defines a **JPQL** query using entity names and fields. | `@Query("SELECT s FROM Student s WHERE s.name = ?1")`        |
+| `@Query(value = "SELECT * FROM students WHERE email = ?1", nativeQuery = true)` | Defines a **native SQL** query.                         | `@Query(value = "SELECT * FROM students WHERE email = ?1", nativeQuery = true)` |
+| `@NamedQuery`                                                | Defines a **named JPQL** query at entity level.         | `@NamedQuery(name = "Student.findByName", query = "SELECT s FROM Student s WHERE s.name = :name")` |
 
-@NamedQuery(name =            Defines a named   @NamedQuery(name =
-"Student.findByName", query  JPQL query        "Student.findByName", query
-= "SELECT s FROM Student s                      = "SELECT s FROM Student s
-WHERE s.name = :name")                          WHERE s.name = :name")
-------------------------------------------------------------------------------
+---
+
+### Example: Repository Usage
+
+```java
+public interface StudentRepository extends JpaRepository<Student, Long> {
+
+    @Query("SELECT s FROM Student s WHERE s.name = ?1")
+    List<Student> findByName(String name);
+
+    @Query(value = "SELECT * FROM students WHERE email = ?1", nativeQuery = true)
+    Student findByEmail(String email);
+}
+```
 
 ### Transactional and Locking Annotations
 
------------------------------------------------------------------------------
-Annotation      Description            Example Usage
------------------ ------------------------ ----------------------------------
-@Transactional   Marks a method as        @Transactional public void
-transactional            saveStudent(Student s) {}
+---
 
-@Modifying       Used with @Query for    @Modifying @Query("UPDATE
-update/delete operations Student s SET s.name = ?1 WHERE
-s.id = ?2")
+| Annotation       | Description                                                  | Example Usage                                                |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `@Transactional` | Marks a method or class as **transactional** (commit/rollback handled by Spring). | `@Transactional public void saveStudent(Student s) {}`       |
+| `@Modifying`     | Used with `@Query` for **UPDATE / DELETE** operations.       | `@Modifying @Query("UPDATE Student s SET s.name = ?1 WHERE s.id = ?2")` |
+| `@Version`       | Enables **optimistic locking** to prevent concurrent updates. | `@Version private int version;`                              |
 
-@Version         Enables optimistic       @Version private int version;
-locking (prevents
-concurrent updates)
------------------------------------------------------------------------------
+---
+
+### Example: Update Query with Transaction
+
+```java
+@Transactional
+@Modifying
+@Query("UPDATE Student s SET s.name = ?1 WHERE s.id = ?2")
+int updateStudentName(String name, Long id);
+```
 
 ### Logging and Debugging
 
--------------------------------------------------------------------------------------------------------------------------
-Annotation                                      Description     Example Usage
-------------------------------------------------- ----------------- -----------------------------------------------------
-@EnableJpaRepositories                           Enables JPA       @EnableJpaRepositories("com.example.repository")
-repositories
+---
 
-spring.jpa.show-sql=true                          Logs generated    In application.properties
-SQL queries
+| Annotation / Property                             | Description                                  | Example Usage                                      |
+| ------------------------------------------------- | -------------------------------------------- | -------------------------------------------------- |
+| `@EnableJpaRepositories`                          | Enables JPA repository scanning.             | `@EnableJpaRepositories("com.example.repository")` |
+| `spring.jpa.show-sql=true`                        | Logs generated SQL queries.                  | `application.properties`                           |
+| `spring.jpa.properties.hibernate.format_sql=true` | Formats SQL queries in logs for readability. | `application.properties`                           |
 
-spring.jpa.properties.hibernate.format_sql=true   Formats SQL       In application.properties
-queries in logs
--------------------------------------------------------------------------------------------------------------------------
+---
+
+### Example: application.properties
+
+```properties
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+```
 
 ### Special Field Annotations
 
----------------------------------------------------------------------------------
-Annotation                    Description     Example Usage
-------------------------------- ----------------- -------------------------------
-@CreationTimestamp             Automatically     @CreationTimestamp private
-sets the          LocalDateTime createdAt;
-timestamp when a
-record is created
+---
 
-@UpdateTimestamp               Automatically     @UpdateTimestamp private
-updates the       LocalDateTime updatedAt;
-timestamp when a
-record is
-modified
+| Annotation                     | Description                                                | Example Usage                                         |
+| ------------------------------ | ---------------------------------------------------------- | ----------------------------------------------------- |
+| `@CreationTimestamp`           | Automatically sets timestamp when a record is created.     | `@CreationTimestamp private LocalDateTime createdAt;` |
+| `@UpdateTimestamp`             | Automatically updates timestamp when a record is modified. | `@UpdateTimestamp private LocalDateTime updatedAt;`   |
+| `@Enumerated(EnumType.STRING)` | Stores enum value as a **string** in the database.         | `@Enumerated(EnumType.STRING) private Status status;` |
+| `@Lob`                         | Maps large objects (BLOB / CLOB).                          | `@Lob private byte[] image;`                          |
 
-@Enumerated(EnumType.STRING)   Maps an enum to a @Enumerated(EnumType.STRING)
-database column   private Status status;
-as a string
+---
 
-@Lob                           Maps a large      @Lob private byte] image;
-object (BLOB orCLOB)
+### Example: Entity Using Special Annotations
+
+```java
+@Entity
+public class Document {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Lob
+    private byte[] fileData;
+}
+```
 
 ---------------------------------------------------------------------------------
 
@@ -993,59 +1072,127 @@ It is only supported by  Hibernate.(Java Persistence API). | It is supported by 
 It will create a new row in the table for detached object. | It will throw persistence exception for detached object.
 ---------------------------------------------------
 
-## What is cache? What is 1st level cache?
+## What is Cache?
 
-- First level cache is associated with session and its by default
-enabled.
+Cache is a **temporary memory** that stores frequently accessed data to
+reduce database hits and improve application performance.
 
-- When we fire query first time we will get data from database and then
-data is stored in session object.
+---
 
-- Then next time when you fire same query to get same data then it will
-not hit query on database it gets data from session object.
+## What is First Level Cache (L1 Cache)?
 
-## What is 2nd level cache?
+- First-level cache is **associated with Hibernate Session**
+- It is **enabled by default**
+- When a query is executed for the first time:
+  - Data is fetched from the database
+  - Stored in the Session cache
+- On subsequent requests for the same entity:
+  - Hibernate returns data from Session cache
+  - **No database hit**
 
-- It is enabled with session factory and its need to be enabled.
+✔ Scope: **Single Session**
 
-- It is available globally for all session.
+---
 
-- It stores data from first level cache then to second level cached also
-then if we try to get same record then first it see withing 1 level
-cache if data present or not.
+## What is Second Level Cache (L2 Cache)?
 
-- If data is not present in 1 level cache it will check in 2 level cache
+- Second-level cache is associated with **SessionFactory**
+- It must be **explicitly enabled**
+- It is **shared across all sessions**
+- Flow:
+  1. Hibernate checks **L1 cache**
+  2. If not found → checks **L2 cache**
+  3. If not found → hits **database**
+  4. Result stored in both caches
 
-- If these also data not found then it goes to fire query from database.
+✔ Scope: **Application-wide**
 
-## How to remove particular object from cache?
+---
 
-Answer :  Session has Evict( ) method used for removing particular
-cache.
+## How to Remove a Particular Object from Cache?
 
-## How to clean cache?
+```java
+session.evict(entity);
+```
 
-Answer :  Session has  Clear( )  method to clear all cache.
+## How to Clean Cache?
 
-## Which version of Hibernate, Spring, Spring boot you have used?
+**Answer:**
+Hibernate `Session` provides the `clear()` method to remove **all entities**
+from the first-level (Session) cache.
 
-Answer :  Hibernate-4, Spring-4, Springboot-2.
+```java
+session.clear();
+```
 
-## In One-to-Many & Many-to-One, how many tables are created by-default and if mapped by is used?
+## Which Version of Hibernate, Spring, and Spring Boot Have You Used?
 
-Answer :  By-default it will create 3 tables.
+**Answer:**
 
-For mapped by it will create 2 tables.
+- Hibernate: **4.x**
+- Spring Framework: **4.x**
+- Spring Boot: **2.x**
 
-## In Many-to-Many, how many tables are created by-default and if mapped by is used?
+## In One-to-Many & Many-to-One Mapping,
 
-Answer :  By-default it will create 4 tables.
+## How Many Tables Are Created by Default and When `mappedBy` Is Used?
 
-For mapped by it will create 3 tables.
+**Answer:**
 
-## What is Dirty Checking?
+### Without `mappedBy`
 
-Answer :  If we get record & we set again then it is updated without calling update method, its because of dirty checking. This can be avoided by using `@Immutable` annotation.
+- **3 tables** are created:
+  - Parent table
+  - Child table
+  - Join table
+
+### With `mappedBy`
+
+- **2 tables** are created:
+  - Parent table
+  - Child table (contains foreign key)
+
+✔ `mappedBy` removes the unnecessary join table.
+
+------
+
+## In Many-to-Many Mapping,
+
+## How Many Tables Are Created by Default and When `mappedBy` Is Used?
+
+**Answer:**
+
+### Without `mappedBy`
+
+- **3 tables** are created:
+  - First entity table
+  - Second entity table
+  - Join table
+
+### With `mappedBy`
+
+- **Still 3 tables** are created
+
+⚠️ `mappedBy` changes **ownership**, not the number of tables.
+
+------
+
+## What Is Dirty Checking?
+
+**Answer:**
+ Dirty checking is a Hibernate mechanism where changes made to a **persistent
+ entity** are automatically detected and synchronized with the database at
+ transaction commit—**without calling the `update()` method**.
+
+```
+student.setName("New Name"); // automatically updated
+```
+
+- This behavior can be avoided using:
+
+```
+@Immutable
+```
 
 ## What is process for Automatic ID generation from any random number?
 
@@ -1174,30 +1321,74 @@ nativeQuery= true )
 public  Integer getOverduetasks( String date);
 ```
 
-## How do you enable pagination in Spring Data JPA?.
+## How Do You Enable Pagination in Spring Data JPA?
 
-Answer:
+**Answer:**
 
-- Pagination is used to print small amount of data instead of all data
-at a time from the database
+Pagination is used to fetch a **limited number of records per request**
+instead of loading all data at once from the database.
 
-- This will help us to improve the performance
+### Benefits
+- Improves **performance**
+- Reduces **memory usage**
+- Suitable for **large datasets**
 
-- For that we will use Pageable interface object sent as a parameter in
-findAll method.
+---
 
--  Page : this is used to hold the current page data, total number of
-elements and weather there are more pages .
+### Key Interfaces and Classes
 
-`Page<Tasks> alltasks(Pageable pageable);`
+#### Pageable
+- Used to pass pagination information to repository methods
+- Includes page number, page size, and sorting details
 
--  PageRequest : The request object can be used to specify which page
-to fetch and how many records should be included in that page. It
-takes page Size and page number as parameter
+```java
+Page<Tasks> findAll(Pageable pageable);-
+```
 
-`PageRequest.of(page, size))`
+#### Page
 
--
+- Represents a **single page** of data
+- Provides:
+  - Current page content
+  - Total number of elements
+  - Total pages
+  - Whether next/previous pages exist
+
+```
+Page<Tasks> page = taskRepository.findAll(pageable);
+```
+
+------
+
+#### PageRequest
+
+- Implementation of `Pageable`
+- Used to specify **page number** and **page size**
+
+```
+Pageable pageable = PageRequest.of(page, size);
+```
+
+> Page index starts from **0**
+
+### Pagination in Repository
+
+```java
+public interface TaskRepository extends JpaRepository<Tasks, Long> {
+    Page<Tasks> findAll(Pageable pageable);
+}
+```
+
+------
+
+### Example: Pagination in Service
+
+```java
+Pageable pageable = PageRequest.of(0, 10);
+Page<Tasks> tasksPage = taskRepository.findAll(pageable);
+```
+
+
 
 **Example:**
 
