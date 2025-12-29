@@ -2657,3 +2657,253 @@ return false;
 ```
 
 # JPA Configuration in Spring MVC project
+
+
+# Two Database Configuration in Spring Boot – Notes
+
+**1. Why Multiple Databases in Spring Boot?**
+In real-world applications (banking, audit, reporting): One database for core business data Another database for audit / logs / reports Sometimes read & write databases are separated Spring Boot supports multiple DataSources, but we must configure them manually.
+
+------------
+
+
+**2. Application Properties Configuration**
+
+Define connection details for each database Each database is identified using a custom prefix
+
+Key Point :
+👉 When using multiple databases, do NOT use spring.datasource
+👉 Use custom prefixes like datasource.primary, datasource.secondary
+
+Example (`application.properties`)
+
+
+```yaml
+spring.application.name=twodb
+server.port=8181
+
+datasource.primary.jdbc-url=jdbc:h2:mem:dbone
+datasource.primary.username=one
+datasource.primary.password=one
+datasource.primary.driverClassName=org.h2.Driver
+
+datasource.secondary.jdbc-url=jdbc:h2:mem:dbtwo
+datasource.secondary.username=two
+datasource.secondary.password=two
+datasource.secondary.driverClassName=org.h2.Driver
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+
+
+
+Note : jdbc-url is mandatory when DataSourceBuilder is used @ConfigurationProperties binds these values automatically
+
+------------
+
+
+**3. DataSource Configuration**
+
+What is DataSource?
+Represents database connection pool Holds URL, username, password, driver Why @ConfigurationProperties? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
+
+```java
+@Primary
+@Bean
+@ConfigurationProperties(prefix = "datasource.primary")
+public DataSource primaryDataSource() {
+    return DataSourceBuilder.create().build();
+}
+```
+
+Important Annotations Annotation
+
+- @Bean Creates Spring-managed bean 
+- @ConfigurationProperties Loads DB properties 
+- @Primary Default DataSource if no qualifier is used
+
+------------
+
+
+**4. EntityManagerFactory Configuration**
+
+What is EntityManagerFactory?
+Responsible for:
+Managing entities
+Creating EntityManager
+Handling persistence context
+Why Separate EntityManagerFactory?
+Each database:
+- Has different entities
+- Has different persistence unit
+- Configuration
+
+```java
+@Primary
+@Bean
+public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
+        EntityManagerFactoryBuilder builder) {
+
+    return builder
+            .dataSource(primaryDataSource())
+            .packages("com.example.twodb.primary.entity")
+            .persistenceUnit("primaryPU")
+            .build();
+}
+```
+
+
+packages() → tells where entity classes are persistenceUnit() → logical name for DB One DB = One EntityManagerFactory
+
+------------
+
+
+**5. TransactionManager Configuration**
+
+Why TransactionManager?
+Handles:
+- Commit
+- Rollback
+- Transaction boundaries
+
+Each database must have:  Its own TransactionManager
+
+```java
+@Primary
+@Bean
+public PlatformTransactionManager primaryTransactionManager(
+        @Qualifier("primaryEntityManagerFactory") EntityManagerFactory emf) {
+
+    return new JpaTransactionManager(emf);
+}
+```
+
+Why @Qualifier?
+Multiple EntityManagerFactory beans exist Spring needs to know which one to inject
+
+------------
+
+
+**6. @EnableJpaRepositories Configuration Why Required?**
+When multiple databases exist: Spring cannot auto-detect repositories We must explicitly define: Repository package EntityManagerFactory TransactionManager Configuration
+
+
+```java
+@EnableJpaRepositories(
+    basePackages = "com.example.twodb.primary.repo",
+    entityManagerFactoryRef = "primaryEntityManagerFactory",
+    transactionManagerRef = "primaryTransactionManager"
+)
+```
+
+
+Interview Question
+What happens if this is not configured? 👉 Spring throws No qualifying bean or wrong DB mapping errors
+
+------------
+
+
+**7. Complete Primary DB Configuration Class**
+
+
+```java
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+    basePackages = "com.example.twodb.primary.repo",
+    entityManagerFactoryRef = "primaryEntityManagerFactory",
+    transactionManagerRef = "primaryTransactionManager"
+)
+public class UserDbConfig {
+
+    @Primary
+    @Bean
+    @ConfigurationProperties(prefix = "datasource.primary")
+    public DataSource primaryDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Primary
+    @Bean
+    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
+            EntityManagerFactoryBuilder builder) {
+
+        return builder
+                .dataSource(primaryDataSource())
+                .packages("com.example.twodb.primary.entity")
+                .persistenceUnit("primaryPU")
+                .build();
+    }
+
+    @Primary
+    @Bean
+    public PlatformTransactionManager primaryTransactionManager(
+            @Qualifier("primaryEntityManagerFactory") EntityManagerFactory emf) {
+
+        return new JpaTransactionManager(emf);
+    }
+}
+```
+
+
+------------
+
+
+**8. Secondary Database Configuration**
+Key Differences No @Primary Different: Property prefix Entity package Repository package Persistence unit
+
+
+```java
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+    basePackages = "com.example.twodb.secondary.repo",
+    entityManagerFactoryRef = "secondaryEntityManagerFactory",
+    transactionManagerRef = "secondaryTransactionManager"
+)
+public class AddressDbConfig {
+
+    @Bean
+    @ConfigurationProperties(prefix = "datasource.secondary")
+    public DataSource secondaryDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean secondaryEntityManagerFactory(
+            EntityManagerFactoryBuilder builder) {
+
+        return builder
+                .dataSource(secondaryDataSource())
+                .packages("com.example.twodb.secondary.entity")
+                .persistenceUnit("secondaryPU")
+                .build();
+    }
+
+    @Bean
+    public PlatformTransactionManager secondaryTransactionManager(
+            @Qualifier("secondaryEntityManagerFactory") EntityManagerFactory emf) {
+
+        return new JpaTransactionManager(emf);
+    }
+}
+```
+
+------------
+
+
+**9. Package Structure (Best Practice)**
+
+com.example.twodb
+ ├── primary
+ │   ├── entity
+ │   ├── repo
+ │   └── config
+ ├── secondary
+ │   ├── entity
+ │   ├── repo
+ │   └── config
+
