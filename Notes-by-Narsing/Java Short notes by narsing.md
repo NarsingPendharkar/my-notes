@@ -3824,56 +3824,56 @@ return new Bike();
 
 # Interview Questions :
 
-###In what scenarios would you use Java's synchronized keyword, and why?
+### In what scenarios would you use Java's synchronized keyword, and why?
 
 In Java, the "synchronized" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
 
-###Why would you use the volatile keyword in your Java application, and what does it do?
+### Why would you use the volatile keyword in your Java application, and what does it do?
 
 The "volatile" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
 
-###Why would you use synchronization in your Java application, and what are the different ways of achieving synchronization?
+### Why would you use synchronization in your Java application, and what are the different ways of achieving synchronization?
 
 Synchronization in Java is used to ensure that multiple threads do not access the same critical section of code simultaneously. There are two ways to achieve synchronization in Java: using synchronized methods and using synchronized blocks.
 
-###When would you use the wait and notify methods in your Java application, and how would you implement them?
+### When would you use the wait and notify methods in your Java application, and how would you implement them?
 
 The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
 
-###What is a deadlock in Java, and how would you avoid it in your multi-threaded application?
+### What is a deadlock in Java, and how would you avoid it in your multi-threaded application?
 
 In Java, a deadlock occurs when two or more threads are blocked and waiting for each other to release the locks they hold. To avoid deadlock, you should ensure that your code does not acquire multiple locks simultaneously or hold locks for too long.
 
-###What is the Singleton design pattern, and why would you use it in your Java application?
+### What is the Singleton design pattern, and why would you use it in your Java application?
 
 The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance. It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
 
-###When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
+### When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
 
 The Factory design pattern is used to create objects without exposing the object creation logic to the client. It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
 
-###What is the Builder design pattern, and how does it differ from the Factory pattern?
+### What is the Builder design pattern, and how does it differ from the Factory pattern?
  The Builder design pattern is used to create complex objects step by step. It differs from the Factory pattern in that it allows for greater control over the creation process and provides a way to create objects with different configurations.
 
-###How does the Observer design pattern work, and when would you use it in your Java code?
+### How does the Observer design pattern work, and when would you use it in your Java code?
 
 The Observer design pattern is used to define a one-to-many relationship between objects so that when one object changes state, all its dependents are notified and updated automatically.
 
- ###When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
+ ### When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
  The Template Method design pattern is used to define the skeleton of an algorithm in a superclass, with specific steps left to be implemented by subclasses. It differs from the Strategy pattern in that the steps of the algorithm are fixed and cannot be changed by subclasses.
 
-###What is a Hash Table, and how does it work in Java?
+### What is a Hash Table, and how does it work in Java?
 
 A Hash Table is a data structure that maps keys to values. It uses a hash function to compute an index into an array of buckets or slots, where each slot contains a linked list of key-value pairs.
 
-###What is a Linked List, and when would you use it over an Array in Java?
+### What is a Linked List, and when would you use it over an Array in Java?
 
 A Linked List is a data structure that consists of a sequence of nodes, where each node contains a value and a reference to the next node in the sequence. It is used when you need to insert or delete elements frequently, as these operations are more efficient than with an array.
 
-###What is a Tree data structure, and how does it differ from other data structures like Lists and Maps in Java?
+### What is a Tree data structure, and how does it differ from other data structures like Lists and Maps in Java?
  A Tree data structure is a hierarchical data structure that consists of nodes connected by edges. It differs from Lists and Maps in that it can represent relationships between elements, and it allows for efficient searching and insertion operations.
 
-###When would you use a Queue data structure in Java, and what are its advantages over other data structures?
+### When would you use a Queue data structure in Java, and what are its advantages over other data structures?
 
 A Queue data structure is used to store elements in a FIFO (First In, First Out) order. It is useful when you need to process elements in the order in which they were added, such as in a message queue.
 
@@ -3881,38 +3881,38 @@ A Queue data structure is used to store elements in a FIFO (First In, First Out)
 
 A Stack data structure is used to store elements in a LIFO (Last In, First Out) order. It is useful when you need to keep track of the order in which elements were added, such as in a history list.
 
-###What is the difference between Checked and Unchecked Exceptions in Java, and when would you use each one?
+### What is the difference between Checked and Unchecked Exceptions in Java, and when would you use each one?
 
 In Java, exceptions are used to handle error conditions that occur during program execution. Checked exceptions are exceptions that must be declared in a method's throws clause, and are checked at compile-time. This means that the code will not compile unless the exception is handled or declared to be thrown. Checked exceptions are typically used for error conditions that the application can reasonably be expected to recover from, such as file I/O errors or network connection errors. On the other hand, unchecked exceptions are exceptions that are not checked at compile-time, and do not need to be declared in a method's throws clause. Unchecked exceptions are typically used for errors that are caused by programming mistakes, such as null pointer exceptions or array index out-of-bounds exceptions.
 
-###How do you handle Exceptions in Java using the try-catch-finally block, and what are some best practices for using it?
+### How do you handle Exceptions in Java using the try-catch-finally block, and what are some best practices for using it?
  In Java, exceptions are handled using the try-catch-finally block. The try block contains the code that may throw an exception, and the catch block contains the code that handles the exception. The finally block contains code that is executed regardless of whether or not an exception is thrown. The finally block is typically used to clean up any resources that were opened in the try block. When using the try-catch-finally block, it's important to catch specific exceptions rather than catching a generic Exception. This helps to ensure that the code is handling only the specific exceptions that it is designed to handle, rather than catching and handling all exceptions indiscriminately. It's also important to avoid catching exceptions that cannot be handled properly, as this can lead to unpredictable behavior.
 
-###What is the purpose of the throws keyword in Java, and how can it be used to propagate Exceptions?
+### What is the purpose of the throws keyword in Java, and how can it be used to propagate Exceptions?
 
 In Java, the throws keyword is used to declare that a method may throw a specific exception. This allows the method to pass the responsibility of handling the exception up the call stack to the method that called it. When a method declares that it throws an exception, any method that calls it must either handle the exception or declare that it too throws the exception. By using the throws keyword to propagate exceptions up the call stack, you can ensure that exceptions are handled by the appropriate code, rather than being caught and handled in the wrong place.
 
-###How do you create Custom Exceptions in Java, and when would you use them in your code?
+### How do you create Custom Exceptions in Java, and when would you use them in your code?
 
 In Java, you can create custom exceptions by extending the Exception class or one of its subclasses. When creating a custom exception, you should provide a descriptive name and an appropriate constructor that takes a message describing the exception. You can also add additional fields and methods as needed to provide more context about the exception. Custom exceptions are typically used when there is a specific error condition that occurs frequently in your application and that cannot be adequately described by the built-in exception classes. By creating a custom exception, you can provide more detailed information about the error condition and make it easier for developers to understand and handle the exception.
 
-###How does Java handle garbage collection, and what are some strategies for optimizing garbage collection performance?
+### How does Java handle garbage collection, and what are some strategies for optimizing garbage collection performance?
 
 In Java, garbage collection is the process of automatically freeing memory that is no longer being used by an application. Java uses a mark-and-sweep algorithm for garbage collection, which works by marking all objects that are still being used and then sweeping away any objects that are not marked. To optimize garbage collection performance, you can use strategies such as minimizing object creation, minimizing object retention, and tuning the garbage collector settings. Minimizing object creation involves reusing objects rather than creating new ones, while minimizing object retention involves releasing objects as soon as they are no longer needed
 
-###Why would you use lambda expressions in your Java 8 application, and how do they work?
+### Why would you use lambda expressions in your Java 8 application, and how do they work?
  Lambda expressions are used in Java 8 to provide a concise way of writing anonymous functions. They work by allowing you to define a function inline, without having to write a separate class that implements an interface. This can make your code more readable and easier to maintain, especially when you need to pass functions as arguments or use them in streams.
 
-###When would you use the Stream API in your Java 8 code, and what are its benefits over traditional iteration?
+### When would you use the Stream API in your Java 8 code, and what are its benefits over traditional iteration?
 
 The Stream API in Java 8 is used to perform operations on a sequence of elements, such as filtering, mapping, and reducing. It provides benefits over traditional iteration by allowing you to write more concise and expressive code, and by enabling parallel processing of the data. Streams also support lazy evaluation, which means that operations are only performed when needed, leading to better performance and memory
 usage.
 
-###What are the default methods in Java 8, and why were they introduced to the language?
+### What are the default methods in Java 8, and why were they introduced to the language?
 
 Default methods in Java 8 are methods that have an implementation in an interface. They were introduced to the language to provide a way to add new methods to existing interfaces without breaking the existing code that implements those interfaces. Default methods can also provide a default implementation for a method, which can be overridden by a class that implements the interface.
 
-###How would you use the Optional class in your Java 8 code, and what are its advantages over null references?
+### How would you use the Optional class in your Java 8 code, and what are its advantages over null references?
 
 The Optional class in Java 8 is used to represent a value that may or may not be present. It provides advantages over null references by making it clear that a value is optional, and by providing methods to handle the case where the value is absent. To use the Optional class,you can wrap a value in an Optional object using the of() method, or create an empty Optional using the empty() method. You can then use methods like isPresent() and get() to check if the value ispresent and retrieve it, respectively.
 
