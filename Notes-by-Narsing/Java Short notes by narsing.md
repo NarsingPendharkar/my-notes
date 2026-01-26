@@ -2138,7 +2138,7 @@ thd.start();
 }
 ```
 
-## Thread Life Cycle and States
+#### Thread Life Cycle and States
 
 A thread goes through several states:
 
@@ -2146,11 +2146,11 @@ A thread goes through several states:
 
 2.  **Runnable:** Thread is ready to run; waiting in the runnable queue.(Note: "Runnable" can mean ready and running because the OS scheduler decides when to run it.)
 
-3.  **Blocked/Waiting/Timed Waiting:** Thread is not eligible to run until a specific condition is met (e.g., waiting for I/O,     synchronization, or sleep).
+3.  **Blocked/Waiting/Timed Waiting:** Thread is not eligible to run until a specific condition is met (e.g., waiting for I/O, synchronization, or sleep).
 
 4.  **Terminated:** Thread execution completed or stopped.
 
-## What are the Different Ways to Create a Thread?
+#### What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -2182,24 +2182,24 @@ th.start();
 }
 ```
 
-## Why Prefer Runnable Over Thread?
+##### Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
 - Separation of **task (Runnable) and thread execution (Thread)**.
 
-## What is the Difference Between start() and run()?
+##### What is the Difference Between start() and run()?
 
 **Answer:**
 
 --------------------------------------------------
-  Method |   Description|
----------| ----------------------------------------|
- ** start()** |Starts a new thread and calls run() internally
- ** run()** |   Executes in the current thread like a normal method
-  --------------------------------------------------
+  Method |   Description
+---------| ----------------------------------------
+ **start()** |Starts a new thread and calls run() internally
+ **run()** |   Executes in the current thread like a normal method
+--------------------------------------------------
 
-## What is Thread Synchronization?
+##### What is Thread Synchronization?
 
 Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time.
 
@@ -2208,46 +2208,100 @@ Thread synchronization ensures that **only one thread** accesses a critical sect
 **Using synchronized Keyword**
 
 ```java
-public class ThreadSynchronisation implements Runnable{
 
-synchronized void print() {
+public class Counter {
 
-for(int i=1;i<=10;i++) {
+	private int count = 0;
 
-System.out.println(i);
+	public int getCount() {
+		return count;
+	}
 
-try {
-
-Thread.sleep(500);
-
-} catch (InterruptedException e) {
-
-e.printStackTrace();
-
+	public synchronized void increment() {
+		count++;
+		System.out.println(Thread.currentThread().getName() + " :" + count);
+	}
 }
 
-}
 
-}
 ```
 
 ```java
-public static void main(String[] args) {
+public static void main(String[] args) throws InterruptedException {
+		Counter counter = new Counter();
 
-ThreadSynchronisation ts=new ThreadSynchronisation();
+		Thread t1 = new Thread(() -> {
+			for (int i = 0; i < 10; i++) {
+				counter.increment();
+			}
+		});
+		t1.setName("main");
+		Thread t2 = new Thread(() -> {
+			for (int i = 0; i < 10; i++) {
+				counter.increment();
+			}
+		});
+		t2.setName("other");
+		t1.start();
+		t2.start();
 
-Thread tr=new Thread(()->ts.print());
+		t1.join();
+		t2.join();
 
-Thread tr1=new Thread(()->ts.print());
-
-tr.start();
-
-tr1.start();
-
-}}
+		System.out.println("Final Count: " + counter.getCount());
+	}
 ```
 
+
+
+> output :  main :1
+>
+> main :2
+>
+> main :3
+>
+> main :4
+>
+> main :5
+>
+> other :6
+>
+> other :7
+>
+> other :8
+>
+> other :9
+>
+> other :10
+>
+> Final Count: 10
+>
+> Without Synchronized :
+>
+> main :2
+>
+> main :3
+>
+> other :2
+>
+> other :5
+>
+> other :6
+>
+> other :7
+>
+> other :8
+>
+> main :4
+>
+> main :9
+>
+> main :10
+>
+> Final Count: 10
+
 **Key Points:**
+
  - synchronized **locks the method** so only **one thread** can execute   it at a time.
 
 - Prevents **race conditions** and **inconsistent results**.
@@ -2277,14 +2331,13 @@ Here's a **table of Java thread methods and their uses** for quick reference:
   `notify()             `|   Wakes up a single thread that is waiting on an   object's monitor.
   `notifyAll()          `|       Wakes up all threads waiting on an object's monitor.
   `stop() (Deprecated)  `| Forcefully stops a thread (unsafe and not recommended for use).
-  ---------------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 **What is Deadlock and How to Avoid It?**
 
 **Answer:**
 
-Deadlock occurs when **two or more threads wait indefinitely** for each
-other's locked resources.
+Deadlock occurs when **two or more threads wait indefinitely** for each other's locked resources.
 
 **✅ Example: Deadlock Situation**
 
@@ -2292,7 +2345,7 @@ other's locked resources.
 public class Resource {
 synchronized void method1(Resource r2) {
 System.out.println(Thread.currentThread().getName() + " locked method1");
-try { Thread.sleep(100); } **catch** (InterruptedException e) {}
+try { Thread.sleep(100); } catch (InterruptedException e) {}
 r2.method2();
 }
 synchronized void method2() {
@@ -2321,10 +2374,11 @@ t2.start();
 
 - Use **timeouts** with tryLock() from ReentrantLock.
 
-## What is a Thread Pool?
+----
 
-A **thread pool** manages a pool of worker threads and assigns tasks to
-them.
+##### What is a Thread Pool?
+
+A **thread pool** manages a pool of worker threads and assigns tasks to them.
 
 **Example: Using ExecutorService**
 
@@ -2361,13 +2415,16 @@ executor.shutdown();
 
 **Difference Between Callable and Runnable**
 
+| Feature           | Runnable    | Callable   |
+| ----------------- | ----------- | ---------- |
+| Return value      | ❌ No        | ✅ Yes      |
+| Checked exception | ❌ No        | ✅ Yes      |
+| Method            | `run()`     | `call()`   |
+| Executor support  | `execute()` | `submit()` |
+| Result handling   | ❌           | `Future`   |
+
 --------------------------------------------------------------------
-  Feature       |   Runnable            |       Callable
----------------|- -------------------|------- ------------------------
-  Return Type  |    void                       Future<V> (returns a value)
-  Exception Handling   |    Cannot throw checked   exceptions  |   Can throw checked exceptions
-  Lambda Support |   Yes           |             Yes
-  --------------------------------------------------------------------
+--------------------------------------------------------------------
 
 **Example:**
 
@@ -2428,7 +2485,7 @@ executor.shutdown(); // output : 42
   newCachedThreadPool()   |    Dynamically grows as needed, reuses  idle threads.
   newSingleThreadExecutor() |  Exactly 1 thread in the pool.
   newScheduledThreadPool(n)  | Allows scheduling tasks to run periodically.
-  -------------------------------------------------------------------
+-------------------------------------------------------------------
 
 **▶️ Example: Fixed Thread Pool (2 Threads)**
 
@@ -2505,7 +2562,7 @@ service.shutdown();
 ✅ Supports Callable → Future to get results.
 ✅ Allows controlled shutdown.
 
-## What is volatile Keyword?
+##### What is volatile Keyword?
 
 The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**.
 
@@ -2526,28 +2583,26 @@ running = false; // Stops the thread
 }
 ```
 
-**Serialization**
+----
 
-## What is Serialization & Deserialization?
+# **Serialization**
 
-- Serialization is the process of converting java object into byte
-  stream.
+##### What is Serialization & Deserialization?
 
+- Serialization is the process of converting java object into byte stream.
+  
 - Deserialization is the process of converting byte stream into object.
 
-- Serialized object can be saved into database , file or can be shared
-  over a network.
+- Serialized object can be saved into database , file or can be shared over a network.
 
 Points to remember:
 
-1.  If a parent class has implemented Serializable interface then child
-    class doesn't need to implement it but vice-versa is not true.
-
+1.  If a parent class has implemented Serializable interface then child class doesn't need to implement it but vice-versa is not true.
+    
 2.  Only non-static data members are saved via Serialization process.
 
-3.  Static data members and transient data members are not saved via
-    Serialization process.
-
+3.  Static data members and transient data members are not saved via Serialization process.
+    
 4.  If you mark a field **transient**, it won't be serialized.
 
 `private transient int age; // age won't be saved`
@@ -2627,7 +2682,7 @@ System.out.println("Student object Serialized !");
 
 }
 
-} **catch** (IOException e) {
+} catch (IOException e) {
 
 e.printStackTrace();
 
@@ -2641,12 +2696,12 @@ e.printStackTrace();
 
 # Servlet & JSP
 
-### What is a Servlet?
+##### What is a Servlet?
 
 A **Servlet** is a Java class that runs on a server, processes client
 requests (typically HTTP), and generates a response (usually HTML).
 
-###What are the types of Servlets?
+##### What are the types of Servlets?
 
 - **GenericServlet** (Protocol-independent) only required methods can be
   implemented.
@@ -2654,7 +2709,7 @@ requests (typically HTTP), and generates a response (usually HTML).
 - **HttpServlet** (Specifically for HTTP requests) only required methods
   can be implemented.
 
-###What are the key methods in a Servlet?
+##### What are the key methods in a Servlet?
 
 - **init():** Initializes the servlet (called once).
 
@@ -2663,29 +2718,23 @@ requests (typically HTTP), and generates a response (usually HTML).
 - **destroy():** Called before the servlet is removed from memory.
 
   
-## Difference between doGet() and doPost()?
+##### Difference between doGet() and doPost()?
 
 -------------------------------------------------------
-  Feature      doGet()               doPost()
------------- --------------------- --------------------
-  Data in URL? Yes (appended to URL) No (sent in request
-                                     body)
+  Feature   |   doGet()       |        doPost()
+------------ |:-------------------- |--------------------
+  Data in URL? |Yes (appended to URL) |No (sent in request  body)
+  Secure?   |   Less secure (visible in URL  | More secure  
+  Cacheable?   |Yes           |        No
+  Data Size?  | Limited (URL length limit|   Unlimited 
 
-  Secure?      Less secure (visible  More secure
-               in URL)               
+-------------------------------------------------------
 
-  Cacheable?   Yes                   No
+##### How does Servlet handle multiple requests?
 
-  Data Size?   Limited (URL length   Unlimited
-               limit)                
-  -------------------------------------------------------
+Servlets are **multi-threaded**. The container creates a single instance and multiple threads handle different requests concurrently.
 
-## How does Servlet handle multiple requests?
-
-Servlets are **multi-threaded**. The container creates a single instance
-and multiple threads handle different requests concurrently.
-
-## What is the lifecycle of a Servlet?
+##### What is the lifecycle of a Servlet?
 
 - **Loading & Instantiation** (init())
 
@@ -2693,11 +2742,10 @@ and multiple threads handle different requests concurrently.
 
 - **Destruction** (destroy())
 
-## What is RequestDispatcher?
+#### What is RequestDispatcher?
 
-- It is used to forward the resources to another servlet ,JSP , HTML
-  page.
-
+- It is used to forward the resources to another servlet ,JSP , HTML page.
+  
 - There are two methods forward() and include()
 
 - **Forward()** : URL doesn't change(happen on server)
@@ -2706,22 +2754,20 @@ and multiple threads handle different requests concurrently.
   changes.(happen on client side)
 
 RequestDispatcher
-dispatcher=request.getRequestDispatcher(\"login.jsp\");
+`dispatcher=request.getRequestDispatcher("login.jsp");`
 
-dispatcher.forward(request, response);
+`dispatcher.forward(request, response);`
 
-## 
+#### How to redirect a request in Servlet?
 
-## How to redirect a request in Servlet?
-
-- Using sendRedirect(): it is used to redirect the response to another
+- Using `sendRedirect()`: it is used to redirect the response to another
   resource .
 
 - It may be servlet or JSP or HTML
 
-response.sendRedirect(\"google.com\");
+`response.sendRedirect("google.com");`
 
-response.sendRedirect(\"welcome.jsp\");
+`response.sendRedirect("welcome.jsp");`
 
 **Difference:**
 
@@ -2729,7 +2775,7 @@ response.sendRedirect(\"welcome.jsp\");
 
 - **sendRedirect():** Works across different domains.
 
-## What is Session Management in Servlets?
+#### What is Session Management in Servlets?
 
 Techniques for managing user data across multiple requests:
 
@@ -2741,7 +2787,7 @@ Techniques for managing user data across multiple requests:
 
 - **Hidden Form Fields**
 
-## What is HttpSession?
+#### What is HttpSession?
 
 HttpSession is used to **store user data** across multiple requests.
 
@@ -2749,26 +2795,27 @@ HttpSession session=request.getSession();
 
 session.setAttribute(\"username\", \"narsing\");
 
-## What are Filters in Servlets?
+#### What are Filters in Servlets?
 
-Filters **intercept requests/responses** for processing (e.g., logging,
-authentication).
+Filters **intercept requests/responses** for processing (e.g., logging, authentication).
 
-**public** **class** MyFilter **implements** [Filter] {
+```java
+ public   class  MyFilter  implements  Filter {
 
-**public** **void** doFilter([ServletRequest] req,
-[ServletResponse] res, [FilterChain] chain)
+ public   void  doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 
-**throws** IOException, ServletException {
+ throws  IOException, ServletException {
 
-System.***out***.println(\"Filter executed before servlet\");
+System. *out *.println(\"Filter executed before servlet\");
 
-chain.doFilter(req, res); // Pass request to next filter or
-[servlet]
+chain.doFilter(req, res); // Pass request to next filter or servlet
 
 }
 
 }
+```
+
+
 
 ##  What is a ServletContext and ServletConfig?
 
@@ -2792,16 +2839,12 @@ chain.doFilter(req, res); // Pass request to next filter or
 --------------------------------------------
   Feature       JSP           Servlet
 ------------- ------------- ----------------
-  Type          HTML + Java   Pure Java code
+  Type     |     HTML + Java  | Pure Java code
 
   Performance   Slightly      Faster
                 slower        (precompiled)
 
-  Use Case      View Layer    Business Logic
-                (UI)          
-  --------------------------------------------
-
-**\**
+  Use Case    |  View Layer   (UI)    |    Business Logic              
 
 # JSP (Java Server Pages)
 
@@ -2810,11 +2853,11 @@ It allows embedding Java code in HTML pages using special JSP tags.
 
 ### Life Cycle Methods Life Cycle Methods
 
-- ** jspInit()**: Called when the JSP is first loaded.
+- jspInit(): Called when the JSP is first loaded.
 
-- ** jspService()**: Called for each request to the JSP.
+- jspService(): Called for each request to the JSP.
 
-- **jspDestroy()**: Called when the JSP is being removed from service.
+- jspDestroy(): Called when the JSP is being removed from service.
 
 ## What is JSP Expression Language (EL)?
 
