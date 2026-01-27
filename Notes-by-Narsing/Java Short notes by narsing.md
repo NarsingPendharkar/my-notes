@@ -2086,6 +2086,8 @@ System.out.println(time); //19:49:18.331792800
 System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 ```
 
+
+
 # Multithreading
 
 **What is Threads ?**
@@ -2193,10 +2195,12 @@ th.start();
 **Answer:**
 
 --------------------------------------------------
-  Method |   Description
----------| ----------------------------------------
- **start()** |Starts a new thread and calls run() internally
- **run()** |   Executes in the current thread like a normal method
+
+| Method      | Description                                         |
+| ----------- | --------------------------------------------------- |
+| **start()** | Starts a new thread and calls run() internally      |
+| **run()**   | Executes in the current thread like a normal method |
+
 --------------------------------------------------
 
 ##### What is Thread Synchronization?
@@ -2208,7 +2212,6 @@ Thread synchronization ensures that **only one thread** accesses a critical sect
 **Using synchronized Keyword**
 
 ```java
-
 public class Counter {
 
 	private int count = 0;
@@ -2307,30 +2310,33 @@ public static void main(String[] args) throws InterruptedException {
 - Prevents **race conditions** and **inconsistent results**.
 
 Here's a **table of Java thread methods and their uses** for quick reference:
+
 ### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
-  **Method**     |       **Use Case / Purpose**|
--------------------| --------------------------------|
-`  start()  `           `|  Starts a new thread and calls the run() method in a separate execution thread.|
-  `run()                `|    Contains the code to be executed when the thread is started.|
-  `sleep(milliseconds)  `| Pauses execution of the current thread for aspecified time (in milliseconds).
-  `join()               `|    Makes the calling thread wait until the specified thread finishes execution.
-  `getName()            `|    Retrieves the name of the thread.
-  `setName(String name) `| Sets the name of the thread. Useful for debugging and logging.
-  `getId()              `|     Returns the unique ID of the thread.
-  `getPriority()        `|    Gets the priority of the thread (default: 5, range: 1   to 10).
-  `setPriority(int priority)`     |   Sets the thread's priority (higher value means higher priority).
-  `isAlive()            `|     Checks whether a thread is currently running.
-  `isDaemon()           `|    Checks if the thread is a daemon thread (background service thread).
-  `setDaemon(boolean)   `|  Marks a thread as a daemon thread. Daemon threads run  in the background and terminate when all user threads exit.
-  `interrupt()          `|   Interrupts a sleeping or waiting thread, causing it to throw an InterruptedException.
-  `isInterrupted()      `|   Checks if the thread has been interrupted.
-  `yield()              `|    Temporarily pauses the execution of the current  thread to allow other threads to execute.
-  `wait()               `|   Causes the current thread to wait until another thread calls notify() or notifyAll(). Used in synchronization.
-  `notify()             `|   Wakes up a single thread that is waiting on an   object's monitor.
-  `notifyAll()          `|       Wakes up all threads waiting on an object's monitor.
-  `stop() (Deprecated)  `| Forcefully stops a thread (unsafe and not recommended for use).
+
+| **Method**                  | **Use Case / Purpose**                                       |
+| --------------------------- | ------------------------------------------------------------ |
+| `  start()  `           `   | Starts a new thread and calls the run() method in a separate execution thread. |
+| `run()                `     | Contains the code to be executed when the thread is started. |
+| `sleep(milliseconds)  `     | Pauses execution of the current thread for aspecified time (in milliseconds). |
+| `join()               `     | Makes the calling thread wait until the specified thread finishes execution. |
+| `getName()            `     | Retrieves the name of the thread.                            |
+| `setName(String name) `     | Sets the name of the thread. Useful for debugging and logging. |
+| `getId()              `     | Returns the unique ID of the thread.                         |
+| `getPriority()        `     | Gets the priority of the thread (default: 5, range: 1   to 10). |
+| `setPriority(int priority)` | Sets the thread's priority (higher value means higher priority). |
+| `isAlive()            `     | Checks whether a thread is currently running.                |
+| `isDaemon()           `     | Checks if the thread is a daemon thread (background service thread). |
+| `setDaemon(boolean)   `     | Marks a thread as a daemon thread. Daemon threads run  in the background and terminate when all user threads exit. |
+| `interrupt()          `     | Interrupts a sleeping or waiting thread, causing it to throw an InterruptedException. |
+| `isInterrupted()      `     | Checks if the thread has been interrupted.                   |
+| `yield()              `     | Temporarily pauses the execution of the current  thread to allow other threads to execute. |
+| `wait()               `     | Causes the current thread to wait until another thread calls notify() or notifyAll(). Used in synchronization. |
+| `notify()             `     | Wakes up a single thread that is waiting on an   object's monitor. |
+| `notifyAll()          `     | Wakes up all threads waiting on an object's monitor.         |
+| `stop() (Deprecated)  `     | Forcefully stops a thread (unsafe and not recommended for use). |
+
 ---------------------------------------------------------------------------
 
 **What is Deadlock and How to Avoid It?**
@@ -2366,7 +2372,7 @@ t2.start();
 ```
 
 > // output : Thread-2 locked method1
-// output : Thread-1 locked method1
+> // output : Thread-1 locked method1
 
 **Avoid Deadlock:**
 
@@ -2424,6 +2430,7 @@ executor.shutdown();
 | Result handling   | ❌           | `Future`   |
 
 --------------------------------------------------------------------
+
 --------------------------------------------------------------------
 
 **Example:**
@@ -2479,12 +2486,14 @@ executor.shutdown(); // output : 42
 **▶️ Types of ExecutorService**
 
 -------------------------------------------------------------------
-  Type                      |  Description
----------------------------| ---------------------------------------
-  newFixedThreadPool(n)    |   Fixed number of threads in the pool.
-  newCachedThreadPool()   |    Dynamically grows as needed, reuses  idle threads.
-  newSingleThreadExecutor() |  Exactly 1 thread in the pool.
-  newScheduledThreadPool(n)  | Allows scheduling tasks to run periodically.
+
+| Type                      | Description                                        |
+| ------------------------- | -------------------------------------------------- |
+| newFixedThreadPool(n)     | Fixed number of threads in the pool.               |
+| newCachedThreadPool()     | Dynamically grows as needed, reuses  idle threads. |
+| newSingleThreadExecutor() | Exactly 1 thread in the pool.                      |
+| newScheduledThreadPool(n) | Allows scheduling tasks to run periodically.       |
+
 -------------------------------------------------------------------
 
 **▶️ Example: Fixed Thread Pool (2 Threads)**
@@ -2550,6 +2559,7 @@ System.out.println("Thread two is running!");
 
 service.shutdown();
 ```
+
 - Only **1 thread** is available.
 
 - Task 1 executes first, Task 2 waits until Task 1 finishes, then runs.
@@ -2561,6 +2571,143 @@ service.shutdown();
 ✅ Handles task queuing automatically.
 ✅ Supports Callable → Future to get results.
 ✅ Allows controlled shutdown.
+
+# Future & Completable Future : 
+
+#### 1️⃣ Future (Basic Async Result)
+
+##### Key Points
+
+- Introduced in **Java 5**
+- Represents a **result of an async task**
+- **Blocking** (`get()` waits)
+- No chaining, no callbacks
+
+##### Example (Future)
+
+```java
+ExecutorService executor = Executors.newSingleThreadExecutor();
+
+Future<Integer> future = executor.submit(() -> {
+    Thread.sleep(1000);
+    return 10;
+});
+
+System.out.println("Doing other work...");
+
+Integer result = future.get(); // BLOCKS
+System.out.println("Result: " + result);
+
+executor.shutdown();
+```
+
+📌 Problem:
+
+- Thread blocks
+- Cannot combine tasks
+- Hard to handle errors
+
+------
+
+#### 2️⃣ CompletableFuture (Modern Async)
+
+##### Key Points
+
+- Introduced in **Java 8**
+- **Non-blocking**
+- Supports **chaining**, **callbacks**, **combining tasks**
+- Better exception handling
+
+------
+
+##### 3️⃣ CompletableFuture Example
+
+##### Non-Blocking Example
+
+```java
+CompletableFuture<Integer> future =
+        CompletableFuture.supplyAsync(() -> 10);
+
+future.thenAccept(result ->
+        System.out.println("Result: " + result));
+
+System.out.println("Main thread is free");
+```
+
+📌 Output order is **non-deterministic**
+
+------
+
+##### 4️⃣ Chaining Example (Very Important 🔥)
+
+```java
+CompletableFuture<Integer> future =
+        CompletableFuture.supplyAsync(() -> 10)
+                .thenApply(result -> result * 2)
+                .thenApply(result -> result + 5);
+
+System.out.println(future.join()); // 25
+```
+
+✔ Clean
+ ✔ Readable
+ ✔ No blocking till end
+
+------
+
+##### 5️⃣ Exception Handling
+
+##### Future (Bad)
+
+```java
+try {
+    future.get();
+} catch (ExecutionException e) {
+    e.getCause();
+}
+```
+
+##### CompletableFuture (Good)
+
+```java
+CompletableFuture<Integer> future =
+        CompletableFuture.supplyAsync(() -> {
+            throw new RuntimeException("Error");
+        }).exceptionally(ex -> {
+            System.out.println(ex.getMessage());
+            return 0;
+        });
+```
+
+------
+
+##### 6️⃣ Combining Multiple Tasks (🔥 Interview Favorite)
+
+```java
+CompletableFuture<Integer> f1 =
+        CompletableFuture.supplyAsync(() -> 10);
+
+CompletableFuture<Integer> f2 =
+        CompletableFuture.supplyAsync(() -> 20);
+
+CompletableFuture<Integer> combined =
+        f1.thenCombine(f2, Integer::sum);
+
+System.out.println(combined.join()); // 30
+```
+
+| Feature            | Future | CompletableFuture |
+| ------------------ | ------ | ----------------- |
+| Blocking           | Yes    | No                |
+| Callbacks          | ❌      | ✅                 |
+| Chaining           | ❌      | ✅                 |
+| Combine tasks      | ❌      | ✅                 |
+| Exception handling | Poor   | Excellent         |
+| Java version       | Java 5 | Java 8            |
+
+---
+
+
 
 ##### What is volatile Keyword?
 
@@ -2583,7 +2730,7 @@ running = false; // Stops the thread
 }
 ```
 
-----
+
 
 # **Serialization**
 
