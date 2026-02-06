@@ -1,17 +1,20 @@
 
 
-# 📘 Java Notes
+#  Java Notes
 
-##### 💻 Is Java Platform Independent? If yes, how?
 
-Yes! When we execute Java code, the **compiler** converts it into **bytecode**.  
-This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
 
+### 💻 Is Java Platform Independent? If yes, how?
+
+Yes! When we execute Java code, the **compiler** converts it into **bytecode**. This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
+
+> [!NOTE]
+>
 > 🔹 **Key Point:** Bytecode runs on JVM, not directly on the OS — that’s what makes Java platform independent.
 
 ---
 
-### 🌟 Top Java Features
+##### 🌟 Top Java Features
 
 | Feature                  | Description                                                  |
 | :----------------------- | :----------------------------------------------------------- |
@@ -47,14 +50,14 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 
 
-## 📦 What is a Class Loader?
+### 📦 What is a Class Loader?
 
 - It is a part of **JRE** which **loads classes and interfaces dynamically** into the **JVM** at runtime.  
 - It helps in loading bytecode when required, ensuring memory efficiency.
 
 ---
 
-## 🔁 Difference Between JVM, JRE, and JDK
+### 🔁 Difference Between JVM, JRE, and JDK
 
 | Component | Description |
 |------------|--------------|
@@ -62,13 +65,9 @@ This bytecode is **platform independent**, meaning it can run on any system that
 | **JRE (Java Runtime Environment)** | Provides the **libraries, class files, and JVM** necessary to **run** Java applications. |
 | **JVM (Java Virtual Machine)** | Converts **bytecode** into **machine code** and executes it. It is platform dependent but provides platform independence to Java code. |
 
-
-
-
-
 ---
 
-## 🆚 Differences Between Java and C++
+### 🆚 Differences Between Java and C++
 
 | **Basis** | **C++** | **Java** |
 |------------|----------|-----------|
@@ -86,9 +85,9 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 ### What will happen if we declare don't declare the main as static?
 
-- We can declare the main method without using static and without
-  getting any errors. But, the main method will not be treated as the
-  entry point to the application or the program.
+- We can declare the main method without using static and without getting any errors. But, the main method will not be treated as the entry point to the application or the program.
+
+---
 
 ### What is the Wrapper class in Java ?
 
@@ -98,17 +97,21 @@ This bytecode is **platform independent**, meaning it can run on any system that
 
 - Getting back to the wrapper class, Java contains 8 wrapper classes. They are Boolean, Byte, Short, Integer, Character, Long, Float, and Double. Further, custom wrapper classes can also be created in Java which is similar to the concept of Structure in the C programming language. We create our own wrapper class with the required data types.
 
+---
+
 ### Why do we need wrapper classes?
 
-- The wrapper class is an object class that encapsulates the primitive data types, and we need them for the following reasons:
-- Wrapper classes are final and immutable
-- Provides methods like valueOf(), parseInt(), etc.
-- It provides the feature of autoboxing and unboxing.
+The wrapper class is an object class that encapsulates the primitive data types, and we need them for the following reasons:
+
+1. Wrapper classes are final and immutable
+2. Provides methods like valueOf(), parseInt(), etc.
+3. It provides the feature of autoboxing and unboxing.
+
+---
 
 ### What is a class?
 
-- A class is a blueprint/template for creating objects. It defines
-  attributes (fields/variables) and behaviours (methods).
+- A class is a blueprint/template for creating objects. It defines attributes (fields/variables) and behavior's (methods).
 
 > **Example:**
 ```java
@@ -124,10 +127,11 @@ public class Home{
 ![](./media/media/image17.png){width="7.268055555555556in"
 height="4.107638888888889in"}
 
+---
+
 ### What is an object?
 
-- An object is an instance of a class. It has state (values of fields)
-  and behavior (methods it can perform).
+- An object is an instance of a class. It has state (values of fields) and behavior (methods it can perform).
 
 **Example:**
 
@@ -142,17 +146,16 @@ public class Main {
 }
 ```
 
-
+---
 
 ### How do you create an object ?
 
-- [Using **new** keyword] 
+- Using **new** keyword
 
 > ```java
 > Car myCar = new Car();
 > ```
 >
-> 
 
 - Using reflection (Class.forName()):
 
@@ -170,14 +173,14 @@ public class Main {
 
 > ```java
 > ObjectInputStream in = new ObjectInputStream(new
-> FileInputStream(\"file.dat\"));Car = (Car) in.readObject();
+> FileInputStream("file.dat"));
+> Car = (Car) in.readObject();
 > ```
 >
-> 
+
+---
 
 **What is the difference between a class and an object?**
-
-
 
 | Feature    | Class                | Object                |
 | ---------- | -------------------- | --------------------- |
