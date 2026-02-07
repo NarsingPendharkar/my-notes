@@ -2111,13 +2111,16 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - When various multiple threads are executed at a time this process is called multi-threadeding.
 
-> **Benefits:**
-
->- Better resource utilization
-
->- Improved application responsiveness
-
->- Simplified modelling of asynchronous or parallel tasks
+> [!IMPORTANT]
+>
+>  **Benefits:**
+>
+> 1.  Better resource utilization
+>
+> 2.  Improved application responsiveness
+>
+> 3.  Simplified modelling of asynchronous or parallel tasks
+>
 
 **Example: Basic Thread Creation**
 
@@ -2312,9 +2315,9 @@ public static void main(String[] args) throws InterruptedException {
 
 - Prevents **race conditions** and **inconsistent results**.
 
-Here's a **table of Java thread methods and their uses** for quick reference:
+---
 
-### **Java Thread Methods and Their Uses**
+#### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
 
@@ -2342,7 +2345,7 @@ Here's a **table of Java thread methods and their uses** for quick reference:
 
 ---------------------------------------------------------------------------
 
-**What is Deadlock and How to Avoid It?**
+#### **What is Deadlock and How to Avoid It?**
 
 **Answer:**
 
@@ -2574,6 +2577,8 @@ service.shutdown();
 ✅ Handles task queuing automatically.
 ✅ Supports Callable → Future to get results.
 ✅ Allows controlled shutdown.
+
+---
 
 ### Future & Completable Future : 
 
