@@ -3931,549 +3931,320 @@ Default methods in Java 8 are methods that have an implementation in an interfac
 
 The Optional class in Java 8 is used to represent a value that may or may not be present. It provides advantages over null references by making it clear that a value is optional, and by providing methods to handle the case where the value is absent. To use the Optional class,you can wrap a value in an Optional object using the of() method, or create an empty Optional using the empty() method. You can then use methods like isPresent() and get() to check if the value ispresent and retrieve it, respectively.
 
----
-
-
+------
 
 # Servlet & JSP
 
-##### What is a Servlet?
+## What is a Servlet?
 
-A **Servlet** is a Java class that runs on a server, processes client requests (typically HTTP), and generates a response (usually HTML).
-
-##### What are the types of Servlets?
-
-- **GenericServlet** (Protocol-independent) only required methods can be
-  implemented.
-
-- **HttpServlet** (Specifically for HTTP requests) only required methods
-  can be implemented.
-
-##### What are the key methods in a Servlet?
-
-- **init():** Initializes the servlet (called once).
-
-- **service():** Handles requests (GET, POST, etc.).
-
-- **destroy():** Called before the servlet is removed from memory.
-
-  
-
-##### Difference between doGet() and doPost()?
-
--------------------------------------------------------
-
-| Feature      | doGet()                     | doPost()                   |
-| ------------ | :-------------------------- | -------------------------- |
-| Data in URL? | Yes (appended to URL)       | No (sent in request  body) |
-| Secure?      | Less secure (visible in URL | More secure                |
-| Cacheable?   | Yes                         | No                         |
-| Data Size?   | Limited (URL length limit   | Unlimited                  |
-
--------------------------------------------------------
-
-##### How does Servlet handle multiple requests?
-
-Servlets are **multi-threaded**. The container creates a single instance and multiple threads handle different requests concurrently.
-
-##### What is the lifecycle of a Servlet?
-
-- **Loading & Instantiation** (init())
-
-- **Handling Requests** (service(), doGet(), doPost())
-
-- **Destruction** (destroy())
-
-#### What is RequestDispatcher?
-
-- It is used to forward the resources to another servlet ,JSP , HTML page.
-
-- There are two methods forward() and include()
-
-- **Forward()** : URL doesn't change(happen on server)
-
-- **Include()** : include content from another resource and URL
-  changes.(happen on client side)
-
-```java
-RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
-
-dispatcher.forward(request, response);
-```
+A **Servlet** is a Java class that runs on a server, processes client requests (usually HTTP), and generates responses (HTML/JSON).
 
 ---
 
-#### How to redirect a request in Servlet?
+## Types of Servlets
 
-- Using `sendRedirect()`: it is used to redirect the response to another
-  resource .
+- **GenericServlet**
+  - Protocol independent
+  - Implement only required methods
 
-- It may be servlet or JSP or HTML
+- **HttpServlet**
+  - HTTP specific
+  - Supports `doGet()`, `doPost()`, etc.
 
-`response.sendRedirect("google.com");`
+---
 
-`response.sendRedirect("welcome.jsp");`
+## Servlet Lifecycle Methods
 
-**Difference:**
+- **init()** – Called once when servlet is loaded  
+- **service()** – Handles client requests  
+- **destroy()** – Called before servlet removal  
 
-- **forward():** Works within the same application.
+---
 
-- **sendRedirect():** Works across different domains.
+## Difference between doGet() and doPost()
 
-#### What is Session Management in Servlets?
+| Feature     | doGet()              | doPost()          |
+| ----------- | -------------------- | ----------------- |
+| Data in URL | Yes                  | No (request body) |
+| Security    | Less secure          | More secure       |
+| Cacheable   | Yes                  | No                |
+| Data Size   | Limited (URL length) | Unlimited         |
 
-Techniques for managing user data across multiple requests:
+---
 
-- **Cookies**
+## How does Servlet handle multiple requests?
 
-- **Session Tracking (HttpSession)**
+Servlets are **multithreaded**:
+- One servlet instance
+- Multiple threads handle concurrent requests
 
-- **URL Rewriting**
+---
 
-- **Hidden Form Fields**
+## RequestDispatcher
 
-#### What is HttpSession?
+Used to forward/include another resource (Servlet/JSP/HTML).
 
-HttpSession is used to **store user data** across multiple requests.
+- **forward()** – Server-side, URL unchanged
+- **include()** – Includes content, response combined
 
 ```java
-HttpSession session=request.getSession();
+RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+rd.forward(request, response);
+```
 
+------
+
+## sendRedirect()
+
+Redirects client to another resource.
+
+```java
+response.sendRedirect("welcome.jsp");
+```
+
+### forward() vs sendRedirect()
+
+| forward()        | sendRedirect()           |
+| ---------------- | ------------------------ |
+| Same application | Cross application/domain |
+| Server-side      | Client-side              |
+| URL unchanged    | URL changes              |
+
+------
+
+## Session Management Techniques
+
+- Cookies
+- HttpSession
+- URL Rewriting
+- Hidden Form Fields
+
+------
+
+## HttpSession
+
+Stores user data across requests.
+
+```java
+HttpSession session = request.getSession();
 session.setAttribute("username", "narsing");
 ```
 
----
+------
 
-#### What are Filters in Servlets?
+## Filters in Servlets
 
-Filters **intercept requests/responses** for processing (e.g., logging, authentication).
+Filters intercept requests/responses.
 
 ```java
- public   class  MyFilter  implements  Filter {
+public class MyFilter implements Filter {
 
- public   void  doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+    public void doFilter(ServletRequest req, ServletResponse res,
+                         FilterChain chain)
+            throws IOException, ServletException {
 
- throws  IOException, ServletException {
-
-System.out.println("Filter executed before servlet");
-
-chain.doFilter(req, res); // Pass request to next filter or servlet
-
-}
-
+        System.out.println("Filter before servlet");
+        chain.doFilter(req, res);
+    }
 }
 ```
 
+------
 
+### ServletContext vs ServletConfig
 
-####  What is a ServletContext and ServletConfig?
+| Feature  | ServletContext                    | ServletConfig      |
+| -------- | --------------------------------- | ------------------ |
+| Scope    | Application-wide                  | Servlet-specific   |
+| Used For | Global parameters                 | Servlet parameters |
+| Methods  | getInitParameter(), getRealPath() | getInitParameter() |
 
-----------------------------------------------------------------
+------
 
-  Feature   ServletContext                   ServletConfig
+### JSP vs Servlet
 
---------- -------------------------------- ---------------------
+| Feature     | JSP             | Servlet           |
+| ----------- | --------------- | ----------------- |
+| Type        | HTML + Java     | Pure Java         |
+| Performance | Slightly slower | Faster (compiled) |
+| Use Case    | UI / View layer | Business logic    |
 
-  Scope     Application-wide (shared across  Specific to a single
-            servlets)                        servlet
-
-  Use Case  Global parameters, resource      Servlet-specific
-            access                           settings
-
-  Methods   getInitParameter(),              getInitParameter() getRealPath()                    
-
-## 
-
-## What is the difference between JSP and Servlet?
-
---------------------------------------------
-
-  Feature       JSP           Servlet
-
-------------- ------------- ----------------
-
-  Type     |     HTML + Java  | Pure Java code
-
-  Performance   Slightly      Faster
-                slower        (precompiled)
-
-  Use Case    |  View Layer   (UI)    |    Business Logic              
+------
 
 # JSP (Java Server Pages)
 
-**Definition** : JSP is a technology used to create dynamic web content.
-It allows embedding Java code in HTML pages using special JSP tags.
+### JSP Lifecycle
 
-### Life Cycle Methods Life Cycle Methods
+- **jspInit()**
+- **jspService()**
+- **jspDestroy()**
 
-- jspInit(): Called when the JSP is first loaded.
+------
 
-- jspService(): Called for each request to the JSP.
+### JSP Expression Language (EL)
 
-- jspDestroy(): Called when the JSP is being removed from service.
+Simplifies attribute access.
 
-## What is JSP Expression Language (EL)?
-
-EL simplifies accessing attributes from request/session.
-
-```java
-    ${sessionScope.username} // Equivalent to
-    session.getAttribute("username");
+```jsp
+${sessionScope.username}
 ```
 
-## What are JSP Directives?
+Equivalent:
 
-Directives provide global information about the JSP.
+```java
+session.getAttribute("username");
+```
 
-- **<%@ page %\>** → Defines page settings.
+------
 
-- **<%@ include %\>** → Includes a file at compile-time.
+### JSP Directives
 
-- **<%@ taglib %\>** → Declares JSTL usage.
+- `<%@ page %>`
+- `<%@ include %>`
+- `<%@ taglib %>`
 
-**Example :**
-
-```xml
-<%@ page language="java" contentType="text/html charset=UTF-8" %>
-
+```jsp
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 ```
 
-##  How do you prevent multiple users from modifying the same session data?
+------
 
-Use **synchronization**:
+## Prevent Concurrent Session Modification
 
 ```java
 synchronized(session) {
-session.setAttribute("balance",newBalance);
+    session.setAttribute("balance", newBalance);
 }
 ```
 
-**How do you invalidate a session in a Servlet?**
+### Invalidate Session
 
+```java
 session.invalidate();
-
-## 1️8. How do you handle file uploads in JSP/Servlet?
-
-Use Apache Commons FileUpload:
-
-> DiskFileItemFactory **factory** = **new** DiskFileItemFactory();
-
-[ServletFileUpload] **upload** = **new**
-[ServletFileUpload](factory);
-
-List\<FileItem\> **items** = upload.parseRequest(request);
-
-##  **JSP Core Tags**
-
-## 1. Directives (\<%@ \... %\>)
-
-**Directives provide global settings for JSP pages.**
-
-**✅ Example:**
-
-```xml
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core\" prefix="c" %>
 ```
 
-- **page -- Defines page properties (language, encoding).**
+------
 
-- **taglib -- Imports JSTL tags.**
+## File Upload in Servlet/JSP
 
-## 2. Scriptlets (\<% \... %\>)
+Using Apache Commons FileUpload:
 
-**Allows writing Java code inside JSP.**
+```java
+DiskFileItemFactory factory = new DiskFileItemFactory();
+ServletFileUpload upload = new ServletFileUpload(factory);
+List<FileItem> items = upload.parseRequest(request);
+```
 
-**✅ Example:**
+------
 
-\<% String message = \"Hello, JSP!\";
+# JSTL (JavaServer Pages Standard Tag Library)
 
-**int** number = 10;
+## Core Tags
 
-%\>
+### c:out
 
-\<p\>The message is:\<%= message %\>\</p\>
+```jsp
+<c:out value="Hello JSTL" />
+```
 
-> \<p\>The number is:\<%= number %\>\</p\>
+### c:set
 
-## 3. Expressions (\<%= \... %\>)
+```jsp
+<c:set var="name" value="Narsing" />
+```
 
-**Prints values directly in JSP.**
+### c:if
 
-**✅ Example:**
+```jsp
+<c:if test="${10 > 5}">
+    <p>10 is greater than 5</p>
+</c:if>
+```
 
-\<p\>Current Time: \<%= **new** java.util.Date() %\>\</p\>
+### c:choose
 
-\<c:out value=\"\<%= **new** java.util.Date() %\>\" /\>
+```jsp
+<c:choose>
+    <c:when test="${marks >= 90}">A Grade</c:when>
+    <c:otherwise>Fail</c:otherwise>
+</c:choose>
+```
 
-## 4. Declarations (\<%! \... %\>)
+------
 
-**Declares variables or methods at the class level.**
+## c:forEach
 
-**✅ Example:**
+```jsp
+<c:forEach var="item" items="${items}">
+    <li>${item}</li>
+</c:forEach>
+```
 
-\<%!
+------
 
-**int** square(**int** x) {
+## c:url
 
-**return** x \* x;
+```jsp
+<a href="<c:url value='/home' />">Home</a>
+```
 
+------
+
+## c:catch
+
+```jsp
+<c:catch var="error">
+    <%= 10 / 0 %>
+</c:catch>
+
+<p>Error: ${error}</p>
+```
+
+------
+
+## c:import
+
+```jsp
+<c:import url="header.jsp" />
+```
+
+Equivalent:
+
+```jsp
+<jsp:include page="header.jsp" />
+```
+
+------
+
+## Servlet → JSP Example
+
+### Servlet
+
+```java
+@WebServlet("/")
+public class HelloServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.setAttribute("message", "Welcome to JSP & JSTL!");
+        request.getRequestDispatcher("hello.jsp")
+               .forward(request, response);
+    }
 }
+```
 
-%\>
+### JSP
 
-\<p\>Square of 4: \<%= square(4) %\>\</p\>
+```jsp
+<h1>${message}</h1>
+```
 
-# 
+------
 
-## (JavaServer Pages Standard Tag Library) JSTL
 
-JSTL makes JSP more readable and maintainable by replacing scriptlets
-with clean, XML-like tags.
-
-## 1. Core Tags (c:out, c:set, c:if, c:choose)
-
-\<!\-- Printing Data (c:out) \--\>
-
-\<c:out value=\"Hello, JSTL!\" /\>
-
-Equivalent to \<%= \"Hello, JSTL!\" %\>
-
-Setting and Using Variables (c:set)
-
-\<c:set var=\"name\" value=\"Nirav\" /\>
-
-\<p\>Hello, \<c:out value=\"\${name}\" /\>!\</p\>
-
-Conditional Statements (c:if)
-
-\<c:if test=\"\${10 \> 5}\"\>
-
-\<p\>10 is greater t[han 5\</p\>]
-
-[\</]c:if\>
-
-Equivalent to:
-
-[jsp]
-
-\<% **if** (10 \> 5) [{ %\>]
-
-[\<p]\>10 is greater than 5\</p\>
-
-\<% }
-
-%\>
-
-Switch-Case Alternative (c:choose, c:when, c:otherwise)
-
-\<c:choose\>
-
-\<c:when test=\"\${age \>= 18}\"\>
-
-\<p\>You are an adult.\</p\>
-
-\</c:when\>
-
-\<c:otherwise\>
-
-\<p\>You are under 18.\</p\>
-
-\</c:otherwise\>
-
-\</c:choose\>
-
-## 2. Looping with c:forEach
-
-Iterating Over a List
-
-\<c:set var=\"items\" value=\"\${[\[\']Item 1\', \'Item 2\',
-\'Item 3\'\]}\" /\>
-
-\<ul\>
-
-\<[c:forEach] var=\"item\" items=\"\${items}\"\>
-
-\<li\>\${item}\</li\>
-
-\</c:forEach\>
-
-\</ul\>
-
-## 3. URL Handling (c:url)
-
-**Generating Dynamic URLs**
-
-\<a href=\"\<c:url value=\'/home\' /\>\"\>Home\</a\>
-
-**Ensures correct URL paths even when deployed in subdirectories.**
-
-## 4 Error Handling (c:catch)
-
-Catching Exceptions
-
-\<c:catch var=\"error\"\>
-
-\<%= 10 / 0 %\>
-
-\</c:catch\>
-
-\<p\>Error: \<c:out value=\"\${error}\" /\>\</p\>
-
-## 5. Importing Content (c:import)
-
-**Including External Files**
-
-\<[c:import] url=\"header.jsp\" /\>
-
-**Similar to:**
-
-\<jsp:include page=\"header.jsp\" /\>
-
-## Using JSP and JSTL in a Full Page
-
-**Example:** Servlet Passing Data to JSP
-
-*\@WebServlet*(\"/\")
-
-**public** **class** **HelloServlet** **extends** **HttpServlet** {
-
-**private** **static** **final** **long** ***serialVersionUID*** =
-**1L**;
-
-**protected** **void** **doGet**(**HttpServletRequest** request,
-**HttpServletResponse** response)
-
-**throws** **ServletException**, **IOException** {
-
-request.setAttribute(\"message\", \"Welcome to JSP & JSTL!\");
-
-**List**\<String\> **items** = **Arrays**.*asList*(\"Apple\",
-\"Banana\", \"Cherry\");
-
-request.setAttribute(\"items\", items);
-
-request.getRequestDispatcher(\"hello.jsp\").forward(request, response);
-
-}
-
-}
-
-**JSP Page (hello.jsp)**
-
-[\<%]@ page **language**=**\"java\"**
-**contentType**=**\"text/html; charset=UTF-8\"**
-
-**pageEncoding**=**\"UTF-8\"**%\>
-
-\<%@ taglib **uri**=**\"http://java.sun.com/jsp/jstl/core\"**
-**prefix**=**\"c\"**%\>
-
-**\<!**DOCTYPE **html\>**
-
-\<html\>
-
-\<head\>
-
-\<title\>Hello JSP [&] JSTL\</title\>
-
-\<link rel=**\"stylesheet\"** type=**\"text/css\"**
-
-href=**\"**\<c:url value=**\'/css/style.css\'** /\>**\"**\>
-
-\</head\>
-
-\<body\>
-
-\<h1\>\${message}\</h1\>
-
-\<h2\>Items:\</h2\>
-
-\<ul\>
-
-**\<**[c:forEach] **var**=**\"item\"**
-**items**=**\"**\${items}**\"\>**
-
-\<li\>\${item}\</li\>
-
-**\</**c:forEach**\>**
-
-\</ul\>
-
-*\<!\-- // c:out tag is used to print value on page*
-
-*// C:set tag is used to declare variable and use it \--\>*
-
-**\<**c:set **var**=**\"name\"** **value**=**\"Nirav\"** **/\>**
-
-\<p\>
-
-Hello,
-
-**\<**c:out **value**=**\"**\${name}**\"** **/\>**
-
-!
-
-\</p\>
-
-\<p\>\</p\>
-
-**\<**c:out **value**=**\"Narsing\"\>\</**c:out**\>**
-
-*\<!\-- // c:if tag is used for conditional [satements]*
-
-*// c:choose tag is used for switch cases \--\>*
-
-**\<**c:if **test**=**\"**\${ 10\>3 }**\"\>**
-
-\<p\>10 is greater than [3\</p\>]
-
-[**\</**c:]if**\>**
-
-**\<**c:set **var**=**\"m[arks\"]**
-[**value**=**\"**]**95\"** **/\>**
-
-**\<**c:choose**\>**
-
-[**\<**c:when **te**]**st**=**\"**\${marks\>90}**\"\>**A
-Grade**\</**c:when**\>**
-
-**\<**c:when **test**=**\"**\${marks\>80}**\"\>**B
-Grade**\</**c:when**\>**
-
-**\<**c:when **test**=**\"**\${marks\>70}**\"\>**C
-Grade**\</**c:when**\>**
-
-**\<**c:when **test**=**\"**\${marks\>60}**\"\>**D
-Grade**\</**c:when**\>**
-
-**\<**c:when **test**=**\"**\${marks\>50}**\"\>**E
-Grade**\</**c:when**\>**
-
-**\<**c:otherwise**\>**Not
-satisfactor[y**\</**c:otherwis]e**\>**
-
-**\</**c:choose**\>**
-
-**\<**c:catch **var**=**\"error\"\>**
-
-\<%= 10 / 0 %\>
-
-**\</**c:catch**\>**
-
-\<p\>
-
-Error:
-
-**\<**c:out **value**=**\"**\${error}**\"** **/\>**
-
-\</p\>
-
-\</body\>
-
-\</html\>
 
 #### JSP vs JSTL: When to Use What?
 
