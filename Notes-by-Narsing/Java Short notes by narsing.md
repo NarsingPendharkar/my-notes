@@ -279,7 +279,7 @@ public class Singleton {
 
 
 
-### How do you design an immutable class in Java? What rules should you follow?
+#### How do you design an immutable class in Java? What rules should you follow?
 
 An **immutable class** is a class whose objects cannot be modified once created.
 
@@ -363,9 +363,9 @@ public record Immutable (int id,String name) {
 
 - Ideal for DTOs and response objects in microservices
 
-# Methods & Object Behavior
+### Methods & Object Behavior
 
-### What is the difference between a method and a constructor?
+#### What is the difference between a method and a constructor?
 
 | **Feature**     | **Constructor**                                | **Method**                        |
 | --------------- | ---------------------------------------------- | --------------------------------- |
@@ -376,7 +376,7 @@ public record Immutable (int id,String name) {
 
 ​               
 
-## What is this keyword?
+### What is this keyword?
 
 - this refers to the current object.
 
@@ -395,7 +395,7 @@ class Car {
 
 
 
-##  What is static keyword ?
+###  What is static keyword ?
 
 - Static members belong to the class, not instances.
 
@@ -439,15 +439,15 @@ There are four types: 
 
 
 
-# **String**
+### **String**
 
-### What is a String in Java?
+#### What is a String in Java?
 
 - String is the sequence of the characters.
 
 - It is an object of String class.
 
-### What is Java String Pool?
+#### What is Java String Pool?
 
 A Java String Pool is a place in heap memory where all the strings defined in the program are stored. JVM checks for the presence of the object in the String pool, If String is available in the pool, the same object reference is shared with the variable, else a new object is created.
 
@@ -455,10 +455,10 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 - Memory allocation divided into two types stack and pool memory
 
-- Stack Memory : stores the variable , methods and reference data during
+- **Stack Memory** : stores the variable , methods and reference data during
   execution
 
-- Heap memory : stores the objects and strings are stored
+- **Heap memory** : stores the objects and strings are stored
 
 - The below diagram illustrates how method calls and local variables are
   stored in the stack memory, while objects and string literals are
@@ -467,7 +467,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 ![Lightbox](./media/media/image19.png){width="5.386582458442694in"
 height="2.9434251968503937in"}
 
-## Why is String immutable?
+#### Why is String immutable?
 
 - Strings are immutable for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
@@ -479,7 +479,7 @@ height="2.9434251968503937in"}
 
 - Thread safe -- as String is immutable multiple threads can access it at a time.
 
-## StringBuilder vs StringBuffer vs String
+#### StringBuilder vs StringBuffer vs String
 
 - String Buffer and StringBuilder are the classes of java used to create immutable strings.
   
