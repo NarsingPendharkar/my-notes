@@ -2957,6 +2957,984 @@ You can define private methods in your class to customize the serialization logi
 
 ---
 
+## Java File Handling
+
+**File Handling Classes & Their Uses**
+
+| Class            | Purpose                                          |
+| ---------------- | ------------------------------------------------ |
+| File             | Represents file/directory path                   |
+| FileReader       | Reads character data from a file                 |
+| FileWriter       | Writes character data to a file                  |
+| BufferedReader   | Efficiently reads text from a file               |
+| BufferedWriter   | Efficiently writes text to a file                |
+| FileInputStream  | Reads binary data from a file                    |
+| FileOutputStream | Writes binary data to a file                     |
+| RandomAccessFile | Reads and writes at specific positions in a file |
+
+Perfect! I can clean all of this into **fully structured, GitHub/NotebookLM-ready Markdown**. I’ll:
+
+- Fix **headings and subheadings**
+- Format all **code blocks properly**
+- Format all **tables cleanly**
+- Highlight **notes, tips, and best practices**
+- Separate **File Handling** and **Design Patterns** sections
+
+Here’s your **clean Markdown version**:
+
+------
+
+~~~markdown
+# Java File Handling
+
+## Common File Handling Operations
+
+### Create a File
+```java
+public void createFile() throws IOException {
+    if (file.exists()) {
+        System.out.println("File already exists!");
+    } else {
+        file.createNewFile();
+        System.out.println("File created at path: " + file.getAbsolutePath());
+    }
+}
+~~~
+
+### Write to a File Using FileWriter
+
+```java
+public void updateFile() throws IOException {
+    FileWriter fw = new FileWriter(file);
+    fw.write("This is test file using java!\nMy name is Narsing!");
+    fw.close();
+    System.out.println("Data written!");
+}
+```
+
+### Write to a File Using BufferedWriter (Efficient Way)
+
+```java
+FileWriter fw = new FileWriter(file);
+BufferedWriter bw = new BufferedWriter(fw);
+bw.write("This is test file using java!\nMy name is Narsing!");
+bw.close();
+System.out.println("Data written!");
+```
+
+### Read from a File Using FileReader
+
+```java
+FileReader frd = new FileReader(file);
+int i;
+while ((i = frd.read()) != -1) {
+    System.out.print((char) i);
+}
+frd.close();
+```
+
+### Read from a File Using BufferedReader (Efficient Way)
+
+```java
+BufferedReader reader = new BufferedReader(new FileReader(file));
+String line;
+while ((line = reader.readLine()) != null) {
+    System.out.println(line);
+}
+reader.close();
+```
+
+### Read from a File Using Scanner
+
+```java
+public void readFile() throws IOException {
+    Scanner fi = new Scanner(file);
+    while (fi.hasNext()) {
+        System.out.println(fi.nextLine());
+    }
+}
+```
+
+### Delete a File
+
+```java
+if (file.exists() && file.delete()) {
+    System.out.println("File deleted successfully! " + file.list());
+}
+```
+
+### File Properties
+
+```java
+if (file.exists()) {
+    System.out.println("Name: " + file.getName());
+    System.out.println("Path: " + file.getAbsolutePath());
+    System.out.println("Writable: " + file.canWrite());
+    System.out.println("Readable: " + file.canRead());
+    System.out.println("Size: " + file.length() + " bytes");
+}
+```
+
+------
+
+## Working with Binary Files
+
+### Read Binary Data using FileInputStream
+
+```java
+FileInputStream fis = new FileInputStream("image.jpg");
+int i;
+while ((i = fis.read()) != -1) {
+    System.out.print(i + " ");
+}
+fis.close();
+```
+
+### Write Binary Data using FileOutputStream
+
+```java
+FileOutputStream fos = new FileOutputStream("output.txt");
+fos.write("Binary File Writing".getBytes());
+fos.close();
+```
+
+------
+
+## File Handling Concepts
+
+### What is File Handling in Java?
+
+**Answer:** File handling allows reading, writing, creating, and deleting files using `java.io` and `java.nio` packages.
+
+### Difference between FileReader and FileInputStream
+
+| Feature    | FileReader           | FileInputStream                |
+| ---------- | -------------------- | ------------------------------ |
+| Reads Data | Character data       | Binary data                    |
+| Buffering  | Uses buffering       | Reads byte-by-byte internally  |
+| Use Case   | Ideal for text files | Ideal for images, videos, etc. |
+
+### Difference between FileWriter and BufferedWriter
+
+| Feature     | FileWriter              | BufferedWriter          |
+| ----------- | ----------------------- | ----------------------- |
+| Writing     | Writes directly to file | Uses an internal buffer |
+| Performance | Slower for large files  | Faster due to buffering |
+
+### What is RandomAccessFile?
+
+**Answer:** Allows reading and writing at a specific position within a file.
+
+```java
+RandomAccessFile file = new RandomAccessFile("test.txt", "rw");
+file.seek(10); // Move cursor to byte 10
+file.writeBytes("New Data");
+file.close();
+```
+
+### How to Append Data to a File
+
+```java
+FileWriter writer = new FileWriter("test.txt", true);
+writer.write("Appended text");
+writer.close();
+```
+
+### How to List All Files in a Directory
+
+```java
+File folder = new File("C:/Users/Documents");
+String[] files = folder.list();
+for (String file : files) {
+    System.out.println(file);
+}
+```
+
+### How to Read a Large File Efficiently
+
+```java
+BufferedReader reader = new BufferedReader(new FileReader("largefile.txt"));
+String line;
+while ((line = reader.readLine()) != null) {
+    System.out.println(line);
+}
+reader.close();
+```
+
+### What Happens If We Don't Close a File Stream?
+
+**Answer:** It may cause **memory leaks** and file **locking issues**.
+Always use **try-with-resources**:
+
+```java
+try (FileReader reader = new FileReader("test.txt")) {
+    // Read file
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+> **Tip:**
+>
+> - Always **close file streams** to avoid memory leaks.
+> - Use **BufferedReader/BufferedWriter** for efficient I/O.
+> - Handle **FileNotFoundException** to avoid crashes.
+> - Use **try-with-resources** to ensure automatic closing.
+> - Prefer **absolute paths** for reliable file access.
+
+------
+
+## List of Methods & Their Return Types
+
+| Method                      | Return Type | Purpose                                 |
+| --------------------------- | ----------- | --------------------------------------- |
+| createNewFile()             | boolean     | Creates a new file                      |
+| delete()                    | boolean     | Deletes a file                          |
+| exists()                    | boolean     | Checks if a file exists                 |
+| getName()                   | String      | Returns the file name                   |
+| getAbsolutePath()           | String      | Returns absolute path                   |
+| canRead()                   | boolean     | Checks if file is readable              |
+| canWrite()                  | boolean     | Checks if file is writable              |
+| length()                    | long        | Returns file size in bytes              |
+| read() (FileReader)         | int         | Reads a character                       |
+| readLine() (BufferedReader) | String      | Reads a line of text                    |
+| write(String s)             | void        | Writes string to file                   |
+| close()                     | void        | Closes file stream                      |
+| seek(long pos)              | void        | Moves file pointer to specific position |
+
+------
+
+# Design Patterns
+
+**Definition:** Design patterns are solutions to recurring problems during application development.
+
+| Type       | Purpose                       | Examples                    |
+| ---------- | ----------------------------- | --------------------------- |
+| Creational | Object Creation               | Singleton, Factory, Builder |
+| Structural | Object Composition            | Adapter, Decorator, Proxy   |
+| Behavioral | Communication Between Objects | Observer, Strategy, Command |
+
+----
+
+### 1.**Singleton Design Pattern:**
+
+- There are multiple scenarios where we want single instance of class should be created and used throughout the application.
+  
+- In single design pattern single instance of class created and used throughout the application
+  
+- We can create only single instance of class by using below steps
+
+- **Private Constructor** : making private constructor restrict direct object instantiation
+  
+- **Private Static Instance** : create private instance
+
+- **Public Static Method**: this method creates and return object if object is doesn't exist.
+  
+- The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance.
+  
+- It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
+
+Example :
+
+``` java
+public class Singleton {
+
+// private constructor to avoid object instantiation from external
+resource
+
+// create private static object variable
+
+// create public static method that return object if object is null
+
+private static Singleton obj;
+
+private Singleton() {
+
+System.out.println("Created Object !");
+
+};
+
+public static Singleton getSingleObject() {
+
+if(obj==null) {
+
+obj=new Singleton();
+
+}
+
+return obj;
+
+}
+
+public static void main(String[] args) {
+
+Singleton obj1=Singleton.getSingleObject();
+
+Singleton obj2=Singleton.getSingleObject();
+
+System.out.println(obj1.equals(obj2));
+
+}
+
+}
+```
+
+### 2.**Factory Design Pattern:**
+
+- The Factory design pattern is used to create objects without exposing the object creation logic to the client.
+  
+- It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
+  
+- If we have one super class and multiple subclasses and based on data provided we have to create object of one of the subclass then we use factory design pattern.
+  
+- The Factory design pattern offers valuable advantages in encapsulating object creation.
+
+```java
+interface Vehical {
+
+public void drive() ;
+
+}
+
+public class [Bike] implements Vehical {
+
+ @Override
+
+public void drive() {
+
+System.out.println( "Bike is running ! ");
+
+}
+
+}
+
+public class [Car] implements Vehical{
+
+ @Override
+
+public void drive() {
+
+System.out.println( "Car is running ! ");
+
+}
+
+}
+
+public class [MainFactory] {
+
+public static void main(String [ ] args) {
+
+getVehicle( "car ").drive();
+
+}
+
+public static Vehical getVehicle(String type) {
+
+return type.equalsIgnoreCase( "car ") ? new Car() : new
+Bike();
+
+}
+
+}
+
+public class MainFactory {
+
+public static void main(String [ ] args) {
+
+getVehicle( "sfd ").drive();
+
+}
+
+public static Vehical getVehicle(String type) {
+
+if(type.equalsIgnoreCase( "car ")) {
+
+return new Car();
+
+}else if(type.equalsIgnoreCase( "truck ")) {
+
+return new Truck();
+
+}
+
+else{
+
+return new Bike();
+
+}
+
+}
+
+}
+```
+### 3. Builder Design Pattern
+
+**Purpose:** Build complex objects step by step.
+ **Real-life example:** Building a custom PC or a complex meal.
+
+```java
+class Meal {
+    private String drink;
+    private String mainCourse;
+    public static class Builder {
+        private String drink;
+        private String mainCourse;
+        public Builder setDrink(String drink){this.drink=drink; return this;}
+        public Builder setMainCourse(String main){this.mainCourse=main; return this;}
+        public Meal build(){return new Meal(this);}
+    }
+    private Meal(Builder b){drink=b.drink; mainCourse=b.mainCourse;}
+}
+```
+
+------
+
+### 4. Prototype Design Pattern
+
+**Purpose:** Clone objects instead of creating new ones.
+ **Real-life example:** Copying documents or cloning shapes in a drawing app.
+
+```java
+class Shape implements Cloneable {
+    public String type;
+    public Shape clone() throws CloneNotSupportedException { return (Shape) super.clone(); }
+}
+```
+
+------
+
+### 5. Abstract Factory Pattern
+
+**Purpose:** Provide an interface to create families of related objects.
+ **Real-life example:** UI toolkit creating Buttons and TextFields for Windows/Mac.
+
+```java
+interface GUIFactory { Button createButton(); TextField createTextField(); }
+class WindowsFactory implements GUIFactory { /* return WindowsButton/TextField */ }
+class MacFactory implements GUIFactory { /* return MacButton/TextField */ }
+```
+
+------
+
+## Structural Patterns
+
+### 1. Adapter Pattern
+
+**Purpose:** Convert one interface into another expected by client.
+ **Real-life example:** Power plug adapter.
+
+```java
+interface MediaPlayer { void play(String file); }
+class AudioPlayer implements MediaPlayer { public void play(String file){System.out.println("Playing "+file);} }
+class MediaAdapter implements MediaPlayer { /* adapts different formats */ }
+```
+
+------
+
+### 2. Decorator Pattern
+
+**Purpose:** Add behavior to objects dynamically.
+ **Real-life example:** Adding toppings to a pizza.
+
+```java
+interface Coffee { double cost(); }
+class SimpleCoffee implements Coffee { public double cost(){return 5;} }
+class MilkDecorator implements Coffee { Coffee c; public MilkDecorator(Coffee c){this.c=c;} public double cost(){return c.cost()+2;} }
+```
+
+------
+
+### 3. Proxy Pattern
+
+**Purpose:** Control access to an object.
+ **Real-life example:** Virtual proxy for image loading.
+
+```java
+interface Image { void display(); }
+class RealImage implements Image { public void display(){System.out.println("Displaying image");} }
+class ProxyImage implements Image { RealImage real; public void display(){if(real==null) real=new RealImage(); real.display();} }
+```
+
+------
+
+### 4. Facade Pattern
+
+**Purpose:** Provide a unified interface to a set of interfaces.
+ **Real-life example:** Home theater system controlling multiple devices.
+
+```java
+class HomeTheaterFacade {
+    Amplifier amp; DVDPlayer dvd; Lights lights;
+    void watchMovie(){lights.dim(); amp.on(); dvd.play();}
+}
+```
+
+------
+
+### 5. Composite Pattern
+
+**Purpose:** Treat a group of objects like a single object.
+ **Real-life example:** File system (folders containing files/folders).
+
+```java
+interface Component { void showDetails(); }
+class Leaf implements Component { public void showDetails(){System.out.println("File");} }
+class Composite implements Component {
+    List<Component> children = new ArrayList<>();
+    public void add(Component c){children.add(c);}
+    public void showDetails(){children.forEach(Component::showDetails);}
+}
+```
+
+------
+
+### 6. Bridge Pattern
+
+**Purpose:** Decouple abstraction from implementation.
+ **Real-life example:** Different remote controls controlling different devices.
+
+```java
+interface Remote { void pressButton(); }
+class TVRemote implements Remote { public void pressButton(){System.out.println("TV button pressed");} }
+class AdvancedRemote { Remote remote; void press(){remote.pressButton();} }
+```
+
+------
+
+## Behavioral Patterns
+
+### 1. Observer Pattern
+
+**Purpose:** One-to-many dependency; notify observers on state change.
+ **Real-life example:** Social media notifications.
+
+```java
+interface Observer { void update(); }
+class Subject {
+    List<Observer> observers = new ArrayList<>();
+    void addObserver(Observer o){observers.add(o);}
+    void notifyObservers(){observers.forEach(Observer::update);}
+}
+```
+
+------
+
+### 2. Strategy Pattern
+
+**Purpose:** Define a family of algorithms and make them interchangeable.
+ **Real-life example:** Payment method selection (Credit Card, PayPal, UPI).
+
+```java
+interface PaymentStrategy { void pay(int amount); }
+class CreditCard implements PaymentStrategy { public void pay(int amt){System.out.println("Paid "+amt+" via Credit Card");} }
+class PayPal implements PaymentStrategy { public void pay(int amt){System.out.println("Paid "+amt+" via PayPal");} }
+```
+
+------
+
+### 3. Command Pattern
+
+**Purpose:** Encapsulate a request as an object.
+ **Real-life example:** Remote control commands (Turn On, Turn Off).
+
+```java
+interface Command { void execute(); }
+class Light { void on(){System.out.println("Light ON");} void off(){System.out.println("Light OFF");} }
+class LightOnCommand implements Command { Light light; public LightOnCommand(Light l){light=l;} public void execute(){light.on();} }
+```
+
+------
+
+### 4. Iterator Pattern
+
+**Purpose:** Access elements of a collection sequentially without exposing its structure.
+ **Real-life example:** Traversing a list of songs in a playlist.
+
+```java
+interface Iterator { boolean hasNext(); Object next(); }
+class NameRepository {
+    String[] names = {"Alice", "Bob"};
+    Iterator getIterator(){ return new NameIterator(); }
+    class NameIterator implements Iterator { int index=0; public boolean hasNext(){return index<names.length;} public Object next(){return names[index++];} }
+}
+```
+
+------
+
+### 5. Template Method Pattern
+
+**Purpose:** Define skeleton of algorithm, letting subclasses redefine steps.
+ **Real-life example:** Cooking recipe steps.
+
+```java
+abstract class Game { abstract void initialize(); abstract void startPlay(); abstract void endPlay(); 
+    public final void play(){initialize(); startPlay(); endPlay();} }
+class Football extends Game { void initialize(){System.out.println("Football initialized");} void startPlay(){System.out.println("Football started");} void endPlay(){System.out.println("Football ended");} }
+```
+
+------
+
+### 6. State Pattern
+
+**Purpose:** Alter behavior when object state changes.
+ **Real-life example:** Traffic light changing behavior (Red, Green, Yellow).
+
+```java
+interface State { void doAction(Context context); }
+class Context { private State state; public void setState(State s){state=s;} public State getState(){return state;} }
+class StartState implements State { public void doAction(Context context){System.out.println("Starting..."); context.setState(this);} }
+```
+
+------
+
+### 7. Mediator Pattern
+
+**Purpose:** Reduce communication complexity between multiple objects.
+ **Real-life example:** Air traffic control coordinating airplanes.
+
+```java
+interface Mediator { void sendMessage(String msg, Colleague colleague); }
+abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;} }
+```
+
+
+
+---
+
+
+
+## What is a Regular Expression?
+
+> **Answer:** A regular expression (regex) is a special sequence of characters that helps you **match, find, or manage text**.
+
+- **Pattern Class:** Used to define regular expressions and compile them.  
+- **Matcher:** Used to perform match operations on a string.
+
+---
+
+## Basic Syntax
+
+| Pattern | Description                   |
+| ------- | ----------------------------- |
+| `.`     | Any character                 |
+| `\d`    | Digit `[0-9]`                 |
+| `\D`    | Non-digit                     |
+| `\w`    | Word character `[a-zA-Z_0-9]` |
+| `\W`    | Non-word character            |
+| `\s`    | Whitespace                    |
+| `\S`    | Non-whitespace                |
+| `^`     | Beginning of a line           |
+| `$`     | End of a line                 |
+| `*`     | 0 or more occurrences         |
+| `+`     | 1 or more occurrences         |
+| `?`     | 0 or 1 occurrence             |
+| `` ` `` | Backtick character            |
+| `[]`    | Character class               |
+| `()`    | Grouping                      |
+
+#### 1. Basic Matchers
+
+| Matcher | Description                      | Example                        | Matches             |
+| ------- | -------------------------------- | ------------------------------ | ------------------- |
+| `.`     | Any character except newline     | `a.c` with `abc`, `a1c`, `a-c` | `abc`, `a1c`, `a-c` |
+| `[]`    | Any one character from the set   | `[aeiou]` with `cat`           | `a`                 |
+| `[^]`   | Any character **not** in the set | `[^aeiou]` with `cat`          | `c`, `t`            |
+| `` ` `` | Backtick character               | `` `cat ``                     | `` `cat ``          |
+| `()`    | Grouping                         | `(ab)+` with `ababab`          | `ababab`            |
+
+#### 2. Quantifiers
+
+| Quantifier | Meaning                      | Example                          | Matches            |
+| ---------- | ---------------------------- | -------------------------------- | ------------------ |
+| `*`        | 0 or more characters in word | `go*gle` with `gogle`, `gooogle` | `gogle`, `gooogle` |
+| `+`        | 1 or more characters in word | `go+gle` with `gogle`, `gooogle` | `gogle`, `gooogle` |
+| `?`        | 0 or 1 occurrence            | `colou?r` with `color`, `colour` | `color`, `colour`  |
+| `{n}`      | Exactly n occurrences        | `a{3}` with `aaabc`              | `aaa`              |
+| `{n,}`     | At least n occurrences       | `a{2,}` with `aaaabc`            | `aaaa`             |
+| `{n,m}`    | Between n and m occurrences  | `a{2,4}` with `aaaaa`            | `aaaa`             |
+
+#### 3. Anchors
+
+| Anchor | Description         | Example                        | Matches |
+| ------ | ------------------- | ------------------------------ | ------- |
+| `^`    | Start of string     | `^Java` with `Java is best`    | `Java`  |
+| `$`    | End of string       | `end$` with `This is the end`  | `end`   |
+| `\b`   | Word boundary       | `\bJava\b` with `I love Java.` | `Java`  |
+| `\B`   | Not a word boundary | `\BJava` with `SuperJava`      | `Java`  |
+
+#### 4. Predefined Character Classes
+
+| Class | Meaning                     | Example                    | Matches           |
+| ----- | --------------------------- | -------------------------- | ----------------- |
+| `\d`  | Digit [0-9]                 | `\d+` with `abc123`        | `123`             |
+| `\D`  | Non-digit                   | `\D+` with `abc123`        | `abc`             |
+| `\w`  | Word character [a-zA-Z0-9_] | `\w+` with `var_1 = 10`    | `var_1`, `10`     |
+| `\W`  | Non-word character          | `\W+` with `Hello, world!` | `,`, ` `, `!`     |
+| `\s`  | Whitespace                  | `\s+` with `Hello World`   | ` ` (space)       |
+| `\S`  | Non-whitespace              | `\S+` with `Hello, World`  | `Hello,`, `World` |
+
+---
+
+#### 5. Groups & Capturing
+
+| Concept        | Description         | Example                          | Match/Group                  |
+| -------------- | ------------------- | -------------------------------- | ---------------------------- |
+| `()`           | Capturing group     | `(abc)+` with `abcabc`           | `abcabc`                     |
+| `(?:)`         | Non-capturing group | `(?:abc)+`                       | Matches without capturing    |
+| `(?<name>...)` | Named group         | `(?<year>\d{4})-(?<month>\d{2})` | Use `.group("year")` in Java |
+
+---
+
+#### 6. Lookahead & Lookbehind
+
+| Type       | Description         | Example                     | Matches  |
+| ---------- | ------------------- | --------------------------- | -------- |
+| `(?=...)`  | Positive lookahead  | `\d(?=px)` with `10px 20px` | `0`, `0` |
+| `(?!...)`  | Negative lookahead  | `\d(?!px)` with `10px 50em` | `5`, `0` |
+| `(?<=...)` | Positive lookbehind | `(?<=\$)\d+` with `$100`    | `100`    |
+| `(?<!...)` | Negative lookbehind | `(?<!x)hi` with `xhi ahi`   | `ahi`    |
+
+---
+
+#### 7. Escape Characters
+
+| Escape | Meaning          | Example                | Matches |
+| ------ | ---------------- | ---------------------- | ------- |
+| `\.`   | Literal dot      | `a\.b` with `a.b`      | `a.b`   |
+| `\\`   | Backslash        | `\\n` in `C:\\Users\\` | `\`     |
+| `\*`   | Literal asterisk | `a\*b` with `a*b`      | `a*b`   |
+| `\+`   | Literal plus     | `c\+d` with `c+d`      | `c+d`   |
+
+---
+
+#### 8. Common Patterns
+
+| Pattern              | Use Case                | Example               | Matches            |
+| -------------------- | ----------------------- | --------------------- | ------------------ |
+| `[6-9]\d{9}`         | Indian mobile number    | `9876543210`          | Valid mobile       |
+| `[A-Z]{5}\d{4}[A-Z]` | PAN card                | `ABCDE1234F`          | Valid PAN          |
+| `\b\w+ing\b`         | Words ending with "ing" | `playing, going`      | `playing`, `going` |
+| `https?://\S+`       | URL                     | `https://example.com` | URL                |
+| `^[A-Z][a-z]+$`      | Proper noun             | `India`               | `India`            |
+
+
+
+### Why Use the Comparable Interface in Java?
+
+The **Comparable** interface is used to define the **natural ordering** of objects in a class.  
+It provides a way to **compare two objects of the same type** to determine their relative order.
+
+You use the **Comparable** interface when:
+- You want to **sort a collection** of custom objects (e.g., using `Collections.sort()` or `Arrays.sort()`).
+- You need to store objects in a **sorted data structure** like `TreeSet` or `TreeMap`.
+
+**Implemention** :
+
+```java
+class Student implements Comparable<Student> {
+    private String name;
+    private int marks;
+
+    public Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        return Integer.compare(this.marks, other.marks); // Sort by marks (ascending)
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + marks;
+    }
+}
+
+public class ComparableExample {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("John", 85),
+            new Student("Alice", 92),
+            new Student("Bob", 78)
+        );
+
+        Collections.sort(students); // Uses compareTo()
+        System.out.println(students);
+    }
+}
+
+```
+
+## Difference Between Comparable and Comparator in Java
+
+Both `Comparable` and `Comparator` are used to **sort custom objects**, but they differ in **how** and **where** the comparison logic is defined.
+
+---
+
+### 🔹 Comparable
+
+| Feature                         | Description                                                  |
+| ------------------------------- | ------------------------------------------------------------ |
+| **Package**                     | `java.lang`                                                  |
+| **Purpose**                     | Defines **natural ordering** of objects.                     |
+| **Method**                      | `int compareTo(T obj)`                                       |
+| **Sorting Logic**               | Defined **inside the class** being compared.                 |
+| **Affects Class Code**          | Yes — must modify the class to change sorting behavior.      |
+| **Used By**                     | `Collections.sort()` and `Arrays.sort()` when no Comparator is provided. |
+| **Number of Sorting Sequences** | Only **one** (natural order).                                |
+
+**Example:**
+
+```java
+class Student implements Comparable<Student> {
+    private String name;
+    private int marks;
+
+    public Student(String name, int marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public int compareTo(Student other) {
+        return Integer.compare(this.marks, other.marks); // Sort by marks
+    }
+}
+```
+
+## Comparator in Java
+
+The **Comparator** interface is used to define **custom sorting logic** for objects, **outside the class** being compared.  
+It allows multiple sorting sequences without modifying the original class.
+
+---
+
+### 🔹 Key Points
+
+- Belongs to the **`java.util`** package.  
+- Used when we want to **sort objects differently** (e.g., by name, marks, age).  
+- Contains a single method:  
+
+```java
+import java.util.*;
+
+public class ComparatorLambdaExample {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("John", 85),
+            new Student("Alice", 92),
+            new Student("Bob", 78)
+        );
+
+        // Sort by Marks (Ascending)
+        students.sort((s1, s2) -> Integer.compare(s1.getMarks(), s2.getMarks()));
+
+        // Sort by Name (Alphabetical)
+        students.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
+
+        students.forEach(System.out::println);
+    }
+}
+```
+# Interview Questions :
+
+### In what scenarios would you use Java's synchronized keyword, and why?
+
+In Java, the "synchronized" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
+
+### Why would you use the volatile keyword in your Java application, and what does it do?
+
+The "volatile" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
+
+### Why would you use synchronization in your Java application, and what are the different ways of achieving synchronization?
+
+Synchronization in Java is used to ensure that multiple threads do not access the same critical section of code simultaneously. There are two ways to achieve synchronization in Java: using synchronized methods and using synchronized blocks.
+
+### When would you use the wait and notify methods in your Java application, and how would you implement them?
+
+The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
+
+### What is a deadlock in Java, and how would you avoid it in your multi-threaded application?
+
+In Java, a deadlock occurs when two or more threads are blocked and waiting for each other to release the locks they hold. To avoid deadlock, you should ensure that your code does not acquire multiple locks simultaneously or hold locks for too long.
+
+### What is the Singleton design pattern, and why would you use it in your Java application?
+
+The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance. It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
+
+### When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
+
+The Factory design pattern is used to create objects without exposing the object creation logic to the client. It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
+
+### What is the Builder design pattern, and how does it differ from the Factory pattern?
+ The Builder design pattern is used to create complex objects step by step. It differs from the Factory pattern in that it allows for greater control over the creation process and provides a way to create objects with different configurations.
+
+### How does the Observer design pattern work, and when would you use it in your Java code?
+
+The Observer design pattern is used to define a one-to-many relationship between objects so that when one object changes state, all its dependents are notified and updated automatically.
+
+ ### When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
+ The Template Method design pattern is used to define the skeleton of an algorithm in a superclass, with specific steps left to be implemented by subclasses. It differs from the Strategy pattern in that the steps of the algorithm are fixed and cannot be changed by subclasses.
+
+### What is a Hash Table, and how does it work in Java?
+
+A Hash Table is a data structure that maps keys to values. It uses a hash function to compute an index into an array of buckets or slots, where each slot contains a linked list of key-value pairs.
+
+### What is a Linked List, and when would you use it over an Array in Java?
+
+A Linked List is a data structure that consists of a sequence of nodes, where each node contains a value and a reference to the next node in the sequence. It is used when you need to insert or delete elements frequently, as these operations are more efficient than with an array.
+
+### What is a Tree data structure, and how does it differ from other data structures like Lists and Maps in Java?
+ A Tree data structure is a hierarchical data structure that consists of nodes connected by edges. It differs from Lists and Maps in that it can represent relationships between elements, and it allows for efficient searching and insertion operations.
+
+### When would you use a Queue data structure in Java, and what are its advantages over other data structures?
+
+A Queue data structure is used to store elements in a FIFO (First In, First Out) order. It is useful when you need to process elements in the order in which they were added, such as in a message queue.
+
+###What is a Stack data structure, and how is it implemented in Java?
+
+A Stack data structure is used to store elements in a LIFO (Last In, First Out) order. It is useful when you need to keep track of the order in which elements were added, such as in a history list.
+
+### What is the difference between Checked and Unchecked Exceptions in Java, and when would you use each one?
+
+In Java, exceptions are used to handle error conditions that occur during program execution. Checked exceptions are exceptions that must be declared in a method's throws clause, and are checked at compile-time. This means that the code will not compile unless the exception is handled or declared to be thrown. Checked exceptions are typically used for error conditions that the application can reasonably be expected to recover from, such as file I/O errors or network connection errors. On the other hand, unchecked exceptions are exceptions that are not checked at compile-time, and do not need to be declared in a method's throws clause. Unchecked exceptions are typically used for errors that are caused by programming mistakes, such as null pointer exceptions or array index out-of-bounds exceptions.
+
+### How do you handle Exceptions in Java using the try-catch-finally block, and what are some best practices for using it?
+ In Java, exceptions are handled using the try-catch-finally block. The try block contains the code that may throw an exception, and the catch block contains the code that handles the exception. The finally block contains code that is executed regardless of whether or not an exception is thrown. The finally block is typically used to clean up any resources that were opened in the try block. When using the try-catch-finally block, it's important to catch specific exceptions rather than catching a generic Exception. This helps to ensure that the code is handling only the specific exceptions that it is designed to handle, rather than catching and handling all exceptions indiscriminately. It's also important to avoid catching exceptions that cannot be handled properly, as this can lead to unpredictable behavior.
+
+### What is the purpose of the throws keyword in Java, and how can it be used to propagate Exceptions?
+
+In Java, the throws keyword is used to declare that a method may throw a specific exception. This allows the method to pass the responsibility of handling the exception up the call stack to the method that called it. When a method declares that it throws an exception, any method that calls it must either handle the exception or declare that it too throws the exception. By using the throws keyword to propagate exceptions up the call stack, you can ensure that exceptions are handled by the appropriate code, rather than being caught and handled in the wrong place.
+
+### How do you create Custom Exceptions in Java, and when would you use them in your code?
+
+In Java, you can create custom exceptions by extending the Exception class or one of its subclasses. When creating a custom exception, you should provide a descriptive name and an appropriate constructor that takes a message describing the exception. You can also add additional fields and methods as needed to provide more context about the exception. Custom exceptions are typically used when there is a specific error condition that occurs frequently in your application and that cannot be adequately described by the built-in exception classes. By creating a custom exception, you can provide more detailed information about the error condition and make it easier for developers to understand and handle the exception.
+
+### How does Java handle garbage collection, and what are some strategies for optimizing garbage collection performance?
+
+In Java, garbage collection is the process of automatically freeing memory that is no longer being used by an application. Java uses a mark-and-sweep algorithm for garbage collection, which works by marking all objects that are still being used and then sweeping away any objects that are not marked. To optimize garbage collection performance, you can use strategies such as minimizing object creation, minimizing object retention, and tuning the garbage collector settings. Minimizing object creation involves reusing objects rather than creating new ones, while minimizing object retention involves releasing objects as soon as they are no longer needed
+
+### Why would you use lambda expressions in your Java 8 application, and how do they work?
+ Lambda expressions are used in Java 8 to provide a concise way of writing anonymous functions. They work by allowing you to define a function inline, without having to write a separate class that implements an interface. This can make your code more readable and easier to maintain, especially when you need to pass functions as arguments or use them in streams.
+
+### When would you use the Stream API in your Java 8 code, and what are its benefits over traditional iteration?
+
+The Stream API in Java 8 is used to perform operations on a sequence of elements, such as filtering, mapping, and reducing. It provides benefits over traditional iteration by allowing you to write more concise and expressive code, and by enabling parallel processing of the data. Streams also support lazy evaluation, which means that operations are only performed when needed, leading to better performance and memory
+usage.
+
+### What are the default methods in Java 8, and why were they introduced to the language?
+
+Default methods in Java 8 are methods that have an implementation in an interface. They were introduced to the language to provide a way to add new methods to existing interfaces without breaking the existing code that implements those interfaces. Default methods can also provide a default implementation for a method, which can be overridden by a class that implements the interface.
+
+### How would you use the Optional class in your Java 8 code, and what are its advantages over null references?
+
+The Optional class in Java 8 is used to represent a value that may or may not be present. It provides advantages over null references by making it clear that a value is optional, and by providing methods to handle the case where the value is absent. To use the Optional class,you can wrap a value in an Optional object using the of() method, or create an empty Optional using the empty() method. You can then use methods like isPresent() and get() to check if the value ispresent and retrieve it, respectively.
+
+---
+
+
+
 # Servlet & JSP
 
 ##### What is a Servlet?
@@ -2980,15 +3958,17 @@ A **Servlet** is a Java class that runs on a server, processes client requests (
 - **destroy():** Called before the servlet is removed from memory.
 
   
+
 ##### Difference between doGet() and doPost()?
 
 -------------------------------------------------------
-  Feature   |   doGet()       |        doPost()
------------- |:-------------------- |--------------------
-  Data in URL? |Yes (appended to URL) |No (sent in request  body)
-  Secure?   |   Less secure (visible in URL  | More secure  
-  Cacheable?   |Yes           |        No
-  Data Size?  | Limited (URL length limit|   Unlimited 
+
+| Feature      | doGet()                     | doPost()                   |
+| ------------ | :-------------------------- | -------------------------- |
+| Data in URL? | Yes (appended to URL)       | No (sent in request  body) |
+| Secure?      | Less secure (visible in URL | More secure                |
+| Cacheable?   | Yes                         | No                         |
+| Data Size?   | Limited (URL length limit   | Unlimited                  |
 
 -------------------------------------------------------
 
@@ -3007,7 +3987,7 @@ Servlets are **multi-threaded**. The container creates a single instance and mul
 #### What is RequestDispatcher?
 
 - It is used to forward the resources to another servlet ,JSP , HTML page.
-  
+
 - There are two methods forward() and include()
 
 - **Forward()** : URL doesn't change(happen on server)
@@ -3089,8 +4069,11 @@ chain.doFilter(req, res); // Pass request to next filter or servlet
 ####  What is a ServletContext and ServletConfig?
 
 ----------------------------------------------------------------
+
   Feature   ServletContext                   ServletConfig
+
 --------- -------------------------------- ---------------------
+
   Scope     Application-wide (shared across  Specific to a single
             servlets)                        servlet
 
@@ -3104,8 +4087,11 @@ chain.doFilter(req, res); // Pass request to next filter or servlet
 ## What is the difference between JSP and Servlet?
 
 --------------------------------------------
+
   Feature       JSP           Servlet
+
 ------------- ------------- ----------------
+
   Type     |     HTML + Java  | Pure Java code
 
   Performance   Slightly      Faster
@@ -3146,8 +4132,8 @@ Directives provide global information about the JSP.
 - **<%@ taglib %\>** → Declares JSTL usage.
 
 **Example :**
-```xml
 
+```xml
 <%@ page language="java" contentType="text/html charset=UTF-8" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -3490,753 +4476,14 @@ Error:
 \</html\>
 
 #### JSP vs JSTL: When to Use What?
-| Feature           | JSP (Old Way)               | JSTL (Best Practice)                  |
-|------------------|----------------------------|--------------------------------------|
-| Print a Variable  | `<%= name %>`              | `<c:out value="${name}" />`          |
-| Conditional       | `<% if (x > 10) { %> ... <% } %>` | `<c:if test="${x > 10}"> ... </c:if>` |
-| Looping           | `<% for (...) { %> ... <% } %>`  | `<c:forEach var="item" items="${list}"> ... </c:forEach>` |
-| Exception Handling| `try { ... } catch { ... }` | `<c:catch var="error"> ... </c:catch>` |
+
+| Feature            | JSP (Old Way)                     | JSTL (Best Practice)                                      |
+| ------------------ | --------------------------------- | --------------------------------------------------------- |
+| Print a Variable   | `<%= name %>`                     | `<c:out value="${name}" />`                               |
+| Conditional        | `<% if (x > 10) { %> ... <% } %>` | `<c:if test="${x > 10}"> ... </c:if>`                     |
+| Looping            | `<% for (...) { %> ... <% } %>`   | `<c:forEach var="item" items="${list}"> ... </c:forEach>` |
+| Exception Handling | `try { ... } catch { ... }`       | `<c:catch var="error"> ... </c:catch>`                    |
 
 ---
 
-## Java File Handling
-
-**File Handling Classes & Their Uses**
-
-| Class            | Purpose                                          |
-| ---------------- | ------------------------------------------------ |
-| File             | Represents file/directory path                   |
-| FileReader       | Reads character data from a file                 |
-| FileWriter       | Writes character data to a file                  |
-| BufferedReader   | Efficiently reads text from a file               |
-| BufferedWriter   | Efficiently writes text to a file                |
-| FileInputStream  | Reads binary data from a file                    |
-| FileOutputStream | Writes binary data to a file                     |
-| RandomAccessFile | Reads and writes at specific positions in a file |
-
-Perfect! I can clean all of this into **fully structured, GitHub/NotebookLM-ready Markdown**. I’ll:
-
-- Fix **headings and subheadings**
-- Format all **code blocks properly**
-- Format all **tables cleanly**
-- Highlight **notes, tips, and best practices**
-- Separate **File Handling** and **Design Patterns** sections
-
-Here’s your **clean Markdown version**:
-
-------
-
-~~~markdown
-# Java File Handling
-
-## Common File Handling Operations
-
-### Create a File
-```java
-public void createFile() throws IOException {
-    if (file.exists()) {
-        System.out.println("File already exists!");
-    } else {
-        file.createNewFile();
-        System.out.println("File created at path: " + file.getAbsolutePath());
-    }
-}
-~~~
-
-### Write to a File Using FileWriter
-
-```java
-public void updateFile() throws IOException {
-    FileWriter fw = new FileWriter(file);
-    fw.write("This is test file using java!\nMy name is Narsing!");
-    fw.close();
-    System.out.println("Data written!");
-}
-```
-
-### Write to a File Using BufferedWriter (Efficient Way)
-
-```java
-FileWriter fw = new FileWriter(file);
-BufferedWriter bw = new BufferedWriter(fw);
-bw.write("This is test file using java!\nMy name is Narsing!");
-bw.close();
-System.out.println("Data written!");
-```
-
-### Read from a File Using FileReader
-
-```java
-FileReader frd = new FileReader(file);
-int i;
-while ((i = frd.read()) != -1) {
-    System.out.print((char) i);
-}
-frd.close();
-```
-
-### Read from a File Using BufferedReader (Efficient Way)
-
-```java
-BufferedReader reader = new BufferedReader(new FileReader(file));
-String line;
-while ((line = reader.readLine()) != null) {
-    System.out.println(line);
-}
-reader.close();
-```
-
-### Read from a File Using Scanner
-
-```java
-public void readFile() throws IOException {
-    Scanner fi = new Scanner(file);
-    while (fi.hasNext()) {
-        System.out.println(fi.nextLine());
-    }
-}
-```
-
-### Delete a File
-
-```java
-if (file.exists() && file.delete()) {
-    System.out.println("File deleted successfully! " + file.list());
-}
-```
-
-### File Properties
-
-```java
-if (file.exists()) {
-    System.out.println("Name: " + file.getName());
-    System.out.println("Path: " + file.getAbsolutePath());
-    System.out.println("Writable: " + file.canWrite());
-    System.out.println("Readable: " + file.canRead());
-    System.out.println("Size: " + file.length() + " bytes");
-}
-```
-
-------
-
-## Working with Binary Files
-
-### Read Binary Data using FileInputStream
-
-```java
-FileInputStream fis = new FileInputStream("image.jpg");
-int i;
-while ((i = fis.read()) != -1) {
-    System.out.print(i + " ");
-}
-fis.close();
-```
-
-### Write Binary Data using FileOutputStream
-
-```java
-FileOutputStream fos = new FileOutputStream("output.txt");
-fos.write("Binary File Writing".getBytes());
-fos.close();
-```
-
-------
-
-## File Handling Concepts
-
-### What is File Handling in Java?
-
-**Answer:** File handling allows reading, writing, creating, and deleting files using `java.io` and `java.nio` packages.
-
-### Difference between FileReader and FileInputStream
-
-| Feature    | FileReader           | FileInputStream                |
-| ---------- | -------------------- | ------------------------------ |
-| Reads Data | Character data       | Binary data                    |
-| Buffering  | Uses buffering       | Reads byte-by-byte internally  |
-| Use Case   | Ideal for text files | Ideal for images, videos, etc. |
-
-### Difference between FileWriter and BufferedWriter
-
-| Feature     | FileWriter              | BufferedWriter          |
-| ----------- | ----------------------- | ----------------------- |
-| Writing     | Writes directly to file | Uses an internal buffer |
-| Performance | Slower for large files  | Faster due to buffering |
-
-### What is RandomAccessFile?
-
-**Answer:** Allows reading and writing at a specific position within a file.
-
-```java
-RandomAccessFile file = new RandomAccessFile("test.txt", "rw");
-file.seek(10); // Move cursor to byte 10
-file.writeBytes("New Data");
-file.close();
-```
-
-### How to Append Data to a File
-
-```java
-FileWriter writer = new FileWriter("test.txt", true);
-writer.write("Appended text");
-writer.close();
-```
-
-### How to List All Files in a Directory
-
-```java
-File folder = new File("C:/Users/Documents");
-String[] files = folder.list();
-for (String file : files) {
-    System.out.println(file);
-}
-```
-
-### How to Read a Large File Efficiently
-
-```java
-BufferedReader reader = new BufferedReader(new FileReader("largefile.txt"));
-String line;
-while ((line = reader.readLine()) != null) {
-    System.out.println(line);
-}
-reader.close();
-```
-
-### What Happens If We Don't Close a File Stream?
-
-**Answer:** It may cause **memory leaks** and file **locking issues**.
-Always use **try-with-resources**:
-
-```java
-try (FileReader reader = new FileReader("test.txt")) {
-    // Read file
-} catch (IOException e) {
-    e.printStackTrace();
-}
-```
-
-> **Tip:**
->
-> - Always **close file streams** to avoid memory leaks.
-> - Use **BufferedReader/BufferedWriter** for efficient I/O.
-> - Handle **FileNotFoundException** to avoid crashes.
-> - Use **try-with-resources** to ensure automatic closing.
-> - Prefer **absolute paths** for reliable file access.
-
-------
-
-## List of Methods & Their Return Types
-
-| Method                      | Return Type | Purpose                                 |
-| --------------------------- | ----------- | --------------------------------------- |
-| createNewFile()             | boolean     | Creates a new file                      |
-| delete()                    | boolean     | Deletes a file                          |
-| exists()                    | boolean     | Checks if a file exists                 |
-| getName()                   | String      | Returns the file name                   |
-| getAbsolutePath()           | String      | Returns absolute path                   |
-| canRead()                   | boolean     | Checks if file is readable              |
-| canWrite()                  | boolean     | Checks if file is writable              |
-| length()                    | long        | Returns file size in bytes              |
-| read() (FileReader)         | int         | Reads a character                       |
-| readLine() (BufferedReader) | String      | Reads a line of text                    |
-| write(String s)             | void        | Writes string to file                   |
-| close()                     | void        | Closes file stream                      |
-| seek(long pos)              | void        | Moves file pointer to specific position |
-
-------
-
-# Design Patterns
-
-**Definition:** Design patterns are solutions to recurring problems during application development.
-
-| Type        | Purpose                       | Examples                    |
-| ----------- | ----------------------------- | --------------------------- |
-| Creational  | Object Creation               | Singleton, Factory, Builder |
-| Structural  | Object Composition            | Adapter, Decorator, Proxy   |
-| Behavioural | Communication Between Objects | Observer, Strategy, Command |
-
-----
-
-### **Singleton Design Pattern:**
-
-- There are multiple scenarios where we want single instance of class should be created and used throughout the application.
-  
-- In single design pattern single instance of class created and used throughout the application
-  
-- We can create only single instance of class by using below steps
-
-- **Private Constructor** : making private constructor restrict direct object instantiation
-  
-- **Private Static Instance** : create private instance
-
-- **Public Static Method**: this method creates and return object if object is doesn't exist.
-  
-- The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance.
-  
-- It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
-
-Example :
-
-``` java
-public class Singleton {
-
-// private constructor to avoid object instantiation from external
-resource
-
-// create private static object variable
-
-// create public static method that return object if object is null
-
-private static Singleton obj;
-
-private Singleton() {
-
-System.out.println("Created Object !");
-
-};
-
-public static Singleton getSingleObject() {
-
-if(obj==null) {
-
-obj=new Singleton();
-
-}
-
-return obj;
-
-}
-
-public static void main(String[] args) {
-
-Singleton obj1=Singleton.getSingleObject();
-
-Singleton obj2=Singleton.getSingleObject();
-
-System.out.println(obj1.equals(obj2));
-
-}
-
-}
-```
-
-### **Factory Design Pattern:**
-
-- The Factory design pattern is used to create objects without exposing the object creation logic to the client.
-  
-- It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
-  
-- If we have one super class and multiple subclasses and based on data provided we have to create object of one of the subclass then we use factory design pattern.
-  
-- The Factory design pattern offers valuable advantages in encapsulating object creation.
-
-```java
-interface Vehical {
-
-public void drive() ;
-
-}
-
-public class [Bike] implements Vehical {
-
- @Override
-
-public void drive() {
-
-System.out.println( "Bike is running ! ");
-
-}
-
-}
-
-public class [Car] implements Vehical{
-
- @Override
-
-public void drive() {
-
-System.out.println( "Car is running ! ");
-
-}
-
-}
-
-public class [MainFactory] {
-
-public static void main(String [ ] args) {
-
-getVehicle( "car ").drive();
-
-}
-
-public static Vehical getVehicle(String type) {
-
-return type.equalsIgnoreCase( "car ") ? new Car() : new
-Bike();
-
-}
-
-}
-
-public class MainFactory {
-
-public static void main(String [ ] args) {
-
-getVehicle( "sfd ").drive();
-
-}
-
-public static Vehical getVehicle(String type) {
-
-if(type.equalsIgnoreCase( "car ")) {
-
-return new Car();
-
-}else if(type.equalsIgnoreCase( "truck ")) {
-
-return new Truck();
-
-}
-
-else{
-
-return new Bike();
-
-}
-
-}
-
-}
-```
----
-
-
-
-## What is a Regular Expression?
-
-> **Answer:** A regular expression (regex) is a special sequence of characters that helps you **match, find, or manage text**.
-
-- **Pattern Class:** Used to define regular expressions and compile them.  
-- **Matcher:** Used to perform match operations on a string.
-
----
-
-## Basic Syntax
-
-| Pattern | Description                   |
-| ------- | ----------------------------- |
-| `.`     | Any character                 |
-| `\d`    | Digit `[0-9]`                 |
-| `\D`    | Non-digit                     |
-| `\w`    | Word character `[a-zA-Z_0-9]` |
-| `\W`    | Non-word character            |
-| `\s`    | Whitespace                    |
-| `\S`    | Non-whitespace                |
-| `^`     | Beginning of a line           |
-| `$`     | End of a line                 |
-| `*`     | 0 or more occurrences         |
-| `+`     | 1 or more occurrences         |
-| `?`     | 0 or 1 occurrence             |
-| `` ` `` | Backtick character            |
-| `[]`    | Character class               |
-| `()`    | Grouping                      |
-
-#### 1. Basic Matchers
-
-| Matcher | Description                      | Example                        | Matches             |
-| ------- | -------------------------------- | ------------------------------ | ------------------- |
-| `.`     | Any character except newline     | `a.c` with `abc`, `a1c`, `a-c` | `abc`, `a1c`, `a-c` |
-| `[]`    | Any one character from the set   | `[aeiou]` with `cat`           | `a`                 |
-| `[^]`   | Any character **not** in the set | `[^aeiou]` with `cat`          | `c`, `t`            |
-| `` ` `` | Backtick character               | `` `cat ``                     | `` `cat ``          |
-| `()`    | Grouping                         | `(ab)+` with `ababab`          | `ababab`            |
-
-#### 2. Quantifiers
-
-| Quantifier | Meaning                      | Example                          | Matches            |
-| ---------- | ---------------------------- | -------------------------------- | ------------------ |
-| `*`        | 0 or more characters in word | `go*gle` with `gogle`, `gooogle` | `gogle`, `gooogle` |
-| `+`        | 1 or more characters in word | `go+gle` with `gogle`, `gooogle` | `gogle`, `gooogle` |
-| `?`        | 0 or 1 occurrence            | `colou?r` with `color`, `colour` | `color`, `colour`  |
-| `{n}`      | Exactly n occurrences        | `a{3}` with `aaabc`              | `aaa`              |
-| `{n,}`     | At least n occurrences       | `a{2,}` with `aaaabc`            | `aaaa`             |
-| `{n,m}`    | Between n and m occurrences  | `a{2,4}` with `aaaaa`            | `aaaa`             |
-
-#### 3. Anchors
-
-| Anchor | Description         | Example                        | Matches |
-| ------ | ------------------- | ------------------------------ | ------- |
-| `^`    | Start of string     | `^Java` with `Java is best`    | `Java`  |
-| `$`    | End of string       | `end$` with `This is the end`  | `end`   |
-| `\b`   | Word boundary       | `\bJava\b` with `I love Java.` | `Java`  |
-| `\B`   | Not a word boundary | `\BJava` with `SuperJava`      | `Java`  |
-
-#### 4. Predefined Character Classes
-
-| Class | Meaning                     | Example                    | Matches           |
-| ----- | --------------------------- | -------------------------- | ----------------- |
-| `\d`  | Digit [0-9]                 | `\d+` with `abc123`        | `123`             |
-| `\D`  | Non-digit                   | `\D+` with `abc123`        | `abc`             |
-| `\w`  | Word character [a-zA-Z0-9_] | `\w+` with `var_1 = 10`    | `var_1`, `10`     |
-| `\W`  | Non-word character          | `\W+` with `Hello, world!` | `,`, ` `, `!`     |
-| `\s`  | Whitespace                  | `\s+` with `Hello World`   | ` ` (space)       |
-| `\S`  | Non-whitespace              | `\S+` with `Hello, World`  | `Hello,`, `World` |
-
----
-
-#### 5. Groups & Capturing
-
-| Concept        | Description         | Example                          | Match/Group                  |
-| -------------- | ------------------- | -------------------------------- | ---------------------------- |
-| `()`           | Capturing group     | `(abc)+` with `abcabc`           | `abcabc`                     |
-| `(?:)`         | Non-capturing group | `(?:abc)+`                       | Matches without capturing    |
-| `(?<name>...)` | Named group         | `(?<year>\d{4})-(?<month>\d{2})` | Use `.group("year")` in Java |
-
----
-
-#### 6. Lookahead & Lookbehind
-
-| Type       | Description         | Example                     | Matches  |
-| ---------- | ------------------- | --------------------------- | -------- |
-| `(?=...)`  | Positive lookahead  | `\d(?=px)` with `10px 20px` | `0`, `0` |
-| `(?!...)`  | Negative lookahead  | `\d(?!px)` with `10px 50em` | `5`, `0` |
-| `(?<=...)` | Positive lookbehind | `(?<=\$)\d+` with `$100`    | `100`    |
-| `(?<!...)` | Negative lookbehind | `(?<!x)hi` with `xhi ahi`   | `ahi`    |
-
----
-
-#### 7. Escape Characters
-
-| Escape | Meaning          | Example                | Matches |
-| ------ | ---------------- | ---------------------- | ------- |
-| `\.`   | Literal dot      | `a\.b` with `a.b`      | `a.b`   |
-| `\\`   | Backslash        | `\\n` in `C:\\Users\\` | `\`     |
-| `\*`   | Literal asterisk | `a\*b` with `a*b`      | `a*b`   |
-| `\+`   | Literal plus     | `c\+d` with `c+d`      | `c+d`   |
-
----
-
-#### 8. Common Patterns
-
-| Pattern              | Use Case                | Example               | Matches            |
-| -------------------- | ----------------------- | --------------------- | ------------------ |
-| `[6-9]\d{9}`         | Indian mobile number    | `9876543210`          | Valid mobile       |
-| `[A-Z]{5}\d{4}[A-Z]` | PAN card                | `ABCDE1234F`          | Valid PAN          |
-| `\b\w+ing\b`         | Words ending with "ing" | `playing, going`      | `playing`, `going` |
-| `https?://\S+`       | URL                     | `https://example.com` | URL                |
-| `^[A-Z][a-z]+$`      | Proper noun             | `India`               | `India`            |
-
-
-
-### Why Use the Comparable Interface in Java?
-
-The **Comparable** interface is used to define the **natural ordering** of objects in a class.  
-It provides a way to **compare two objects of the same type** to determine their relative order.
-
-You use the **Comparable** interface when:
-- You want to **sort a collection** of custom objects (e.g., using `Collections.sort()` or `Arrays.sort()`).
-- You need to store objects in a **sorted data structure** like `TreeSet` or `TreeMap`.
-
-**Implemention** :
-
-```java
-class Student implements Comparable<Student> {
-    private String name;
-    private int marks;
-
-    public Student(String name, int marks) {
-        this.name = name;
-        this.marks = marks;
-    }
-
-    @Override
-    public int compareTo(Student other) {
-        return Integer.compare(this.marks, other.marks); // Sort by marks (ascending)
-    }
-
-    @Override
-    public String toString() {
-        return name + " - " + marks;
-    }
-}
-
-public class ComparableExample {
-    public static void main(String[] args) {
-        List<Student> students = Arrays.asList(
-            new Student("John", 85),
-            new Student("Alice", 92),
-            new Student("Bob", 78)
-        );
-
-        Collections.sort(students); // Uses compareTo()
-        System.out.println(students);
-    }
-}
-
-```
-
-## Difference Between Comparable and Comparator in Java
-
-Both `Comparable` and `Comparator` are used to **sort custom objects**, but they differ in **how** and **where** the comparison logic is defined.
-
----
-
-### 🔹 Comparable
-
-| Feature                         | Description                                                  |
-| ------------------------------- | ------------------------------------------------------------ |
-| **Package**                     | `java.lang`                                                  |
-| **Purpose**                     | Defines **natural ordering** of objects.                     |
-| **Method**                      | `int compareTo(T obj)`                                       |
-| **Sorting Logic**               | Defined **inside the class** being compared.                 |
-| **Affects Class Code**          | Yes — must modify the class to change sorting behavior.      |
-| **Used By**                     | `Collections.sort()` and `Arrays.sort()` when no Comparator is provided. |
-| **Number of Sorting Sequences** | Only **one** (natural order).                                |
-
-**Example:**
-
-```java
-class Student implements Comparable<Student> {
-    private String name;
-    private int marks;
-
-    public Student(String name, int marks) {
-        this.name = name;
-        this.marks = marks;
-    }
-
-    @Override
-    public int compareTo(Student other) {
-        return Integer.compare(this.marks, other.marks); // Sort by marks
-    }
-}
-```
-
-## Comparator in Java
-
-The **Comparator** interface is used to define **custom sorting logic** for objects, **outside the class** being compared.  
-It allows multiple sorting sequences without modifying the original class.
-
----
-
-### 🔹 Key Points
-
-- Belongs to the **`java.util`** package.  
-- Used when we want to **sort objects differently** (e.g., by name, marks, age).  
-- Contains a single method:  
-
-```java
-import java.util.*;
-
-public class ComparatorLambdaExample {
-    public static void main(String[] args) {
-        List<Student> students = Arrays.asList(
-            new Student("John", 85),
-            new Student("Alice", 92),
-            new Student("Bob", 78)
-        );
-
-        // Sort by Marks (Ascending)
-        students.sort((s1, s2) -> Integer.compare(s1.getMarks(), s2.getMarks()));
-
-        // Sort by Name (Alphabetical)
-        students.sort((s1, s2) -> s1.getName().compareTo(s2.getName()));
-
-        students.forEach(System.out::println);
-    }
-}
-```
-# Interview Questions :
-
-### In what scenarios would you use Java's synchronized keyword, and why?
-
-In Java, the "synchronized" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
-
-### Why would you use the volatile keyword in your Java application, and what does it do?
-
-The "volatile" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
-
-### Why would you use synchronization in your Java application, and what are the different ways of achieving synchronization?
-
-Synchronization in Java is used to ensure that multiple threads do not access the same critical section of code simultaneously. There are two ways to achieve synchronization in Java: using synchronized methods and using synchronized blocks.
-
-### When would you use the wait and notify methods in your Java application, and how would you implement them?
-
-The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
-
-### What is a deadlock in Java, and how would you avoid it in your multi-threaded application?
-
-In Java, a deadlock occurs when two or more threads are blocked and waiting for each other to release the locks they hold. To avoid deadlock, you should ensure that your code does not acquire multiple locks simultaneously or hold locks for too long.
-
-### What is the Singleton design pattern, and why would you use it in your Java application?
-
-The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance. It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
-
-### When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
-
-The Factory design pattern is used to create objects without exposing the object creation logic to the client. It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
-
-### What is the Builder design pattern, and how does it differ from the Factory pattern?
- The Builder design pattern is used to create complex objects step by step. It differs from the Factory pattern in that it allows for greater control over the creation process and provides a way to create objects with different configurations.
-
-### How does the Observer design pattern work, and when would you use it in your Java code?
-
-The Observer design pattern is used to define a one-to-many relationship between objects so that when one object changes state, all its dependents are notified and updated automatically.
-
- ### When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
- The Template Method design pattern is used to define the skeleton of an algorithm in a superclass, with specific steps left to be implemented by subclasses. It differs from the Strategy pattern in that the steps of the algorithm are fixed and cannot be changed by subclasses.
-
-### What is a Hash Table, and how does it work in Java?
-
-A Hash Table is a data structure that maps keys to values. It uses a hash function to compute an index into an array of buckets or slots, where each slot contains a linked list of key-value pairs.
-
-### What is a Linked List, and when would you use it over an Array in Java?
-
-A Linked List is a data structure that consists of a sequence of nodes, where each node contains a value and a reference to the next node in the sequence. It is used when you need to insert or delete elements frequently, as these operations are more efficient than with an array.
-
-### What is a Tree data structure, and how does it differ from other data structures like Lists and Maps in Java?
- A Tree data structure is a hierarchical data structure that consists of nodes connected by edges. It differs from Lists and Maps in that it can represent relationships between elements, and it allows for efficient searching and insertion operations.
-
-### When would you use a Queue data structure in Java, and what are its advantages over other data structures?
-
-A Queue data structure is used to store elements in a FIFO (First In, First Out) order. It is useful when you need to process elements in the order in which they were added, such as in a message queue.
-
-###What is a Stack data structure, and how is it implemented in Java?
-
-A Stack data structure is used to store elements in a LIFO (Last In, First Out) order. It is useful when you need to keep track of the order in which elements were added, such as in a history list.
-
-### What is the difference between Checked and Unchecked Exceptions in Java, and when would you use each one?
-
-In Java, exceptions are used to handle error conditions that occur during program execution. Checked exceptions are exceptions that must be declared in a method's throws clause, and are checked at compile-time. This means that the code will not compile unless the exception is handled or declared to be thrown. Checked exceptions are typically used for error conditions that the application can reasonably be expected to recover from, such as file I/O errors or network connection errors. On the other hand, unchecked exceptions are exceptions that are not checked at compile-time, and do not need to be declared in a method's throws clause. Unchecked exceptions are typically used for errors that are caused by programming mistakes, such as null pointer exceptions or array index out-of-bounds exceptions.
-
-### How do you handle Exceptions in Java using the try-catch-finally block, and what are some best practices for using it?
- In Java, exceptions are handled using the try-catch-finally block. The try block contains the code that may throw an exception, and the catch block contains the code that handles the exception. The finally block contains code that is executed regardless of whether or not an exception is thrown. The finally block is typically used to clean up any resources that were opened in the try block. When using the try-catch-finally block, it's important to catch specific exceptions rather than catching a generic Exception. This helps to ensure that the code is handling only the specific exceptions that it is designed to handle, rather than catching and handling all exceptions indiscriminately. It's also important to avoid catching exceptions that cannot be handled properly, as this can lead to unpredictable behavior.
-
-### What is the purpose of the throws keyword in Java, and how can it be used to propagate Exceptions?
-
-In Java, the throws keyword is used to declare that a method may throw a specific exception. This allows the method to pass the responsibility of handling the exception up the call stack to the method that called it. When a method declares that it throws an exception, any method that calls it must either handle the exception or declare that it too throws the exception. By using the throws keyword to propagate exceptions up the call stack, you can ensure that exceptions are handled by the appropriate code, rather than being caught and handled in the wrong place.
-
-### How do you create Custom Exceptions in Java, and when would you use them in your code?
-
-In Java, you can create custom exceptions by extending the Exception class or one of its subclasses. When creating a custom exception, you should provide a descriptive name and an appropriate constructor that takes a message describing the exception. You can also add additional fields and methods as needed to provide more context about the exception. Custom exceptions are typically used when there is a specific error condition that occurs frequently in your application and that cannot be adequately described by the built-in exception classes. By creating a custom exception, you can provide more detailed information about the error condition and make it easier for developers to understand and handle the exception.
-
-### How does Java handle garbage collection, and what are some strategies for optimizing garbage collection performance?
-
-In Java, garbage collection is the process of automatically freeing memory that is no longer being used by an application. Java uses a mark-and-sweep algorithm for garbage collection, which works by marking all objects that are still being used and then sweeping away any objects that are not marked. To optimize garbage collection performance, you can use strategies such as minimizing object creation, minimizing object retention, and tuning the garbage collector settings. Minimizing object creation involves reusing objects rather than creating new ones, while minimizing object retention involves releasing objects as soon as they are no longer needed
-
-### Why would you use lambda expressions in your Java 8 application, and how do they work?
- Lambda expressions are used in Java 8 to provide a concise way of writing anonymous functions. They work by allowing you to define a function inline, without having to write a separate class that implements an interface. This can make your code more readable and easier to maintain, especially when you need to pass functions as arguments or use them in streams.
-
-### When would you use the Stream API in your Java 8 code, and what are its benefits over traditional iteration?
-
-The Stream API in Java 8 is used to perform operations on a sequence of elements, such as filtering, mapping, and reducing. It provides benefits over traditional iteration by allowing you to write more concise and expressive code, and by enabling parallel processing of the data. Streams also support lazy evaluation, which means that operations are only performed when needed, leading to better performance and memory
-usage.
-
-### What are the default methods in Java 8, and why were they introduced to the language?
-
-Default methods in Java 8 are methods that have an implementation in an interface. They were introduced to the language to provide a way to add new methods to existing interfaces without breaking the existing code that implements those interfaces. Default methods can also provide a default implementation for a method, which can be overridden by a class that implements the interface.
-
-### How would you use the Optional class in your Java 8 code, and what are its advantages over null references?
-
-The Optional class in Java 8 is used to represent a value that may or may not be present. It provides advantages over null references by making it clear that a value is optional, and by providing methods to handle the case where the value is absent. To use the Optional class,you can wrap a value in an Optional object using the of() method, or create an empty Optional using the empty() method. You can then use methods like isPresent() and get() to check if the value ispresent and retrieve it, respectively.
+## 
