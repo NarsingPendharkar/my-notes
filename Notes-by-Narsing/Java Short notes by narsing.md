@@ -2950,14 +2950,13 @@ You can define private methods in your class to customize the serialization logi
 
 > **Tip:** Always explicitly declare `serialVersionUID` to avoid compatibility issues across different compilers or minor class changes.
 
-
+---
 
 # Servlet & JSP
 
 ##### What is a Servlet?
 
-A **Servlet** is a Java class that runs on a server, processes client
-requests (typically HTTP), and generates a response (usually HTML).
+A **Servlet** is a Java class that runs on a server, processes client requests (typically HTTP), and generates a response (usually HTML).
 
 ##### What are the types of Servlets?
 
@@ -3011,10 +3010,13 @@ Servlets are **multi-threaded**. The container creates a single instance and mul
 - **Include()** : include content from another resource and URL
   changes.(happen on client side)
 
-RequestDispatcher
-`dispatcher=request.getRequestDispatcher("login.jsp");`
+```java
+RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
 
-`dispatcher.forward(request, response);`
+dispatcher.forward(request, response);
+```
+
+---
 
 #### How to redirect a request in Servlet?
 
@@ -3049,9 +3051,13 @@ Techniques for managing user data across multiple requests:
 
 HttpSession is used to **store user data** across multiple requests.
 
+```java
 HttpSession session=request.getSession();
 
-session.setAttribute(\"username\", \"narsing\");
+session.setAttribute("username", "narsing");
+```
+
+---
 
 #### What are Filters in Servlets?
 
@@ -3064,7 +3070,7 @@ Filters **intercept requests/responses** for processing (e.g., logging, authenti
 
  throws  IOException, ServletException {
 
-System. *out *.println(\"Filter executed before servlet\");
+System.out.println("Filter executed before servlet");
 
 chain.doFilter(req, res); // Pass request to next filter or servlet
 
@@ -3075,7 +3081,7 @@ chain.doFilter(req, res); // Pass request to next filter or servlet
 
 
 
-##  What is a ServletContext and ServletConfig?
+####  What is a ServletContext and ServletConfig?
 
 ----------------------------------------------------------------
   Feature   ServletContext                   ServletConfig
@@ -3086,9 +3092,7 @@ chain.doFilter(req, res); // Pass request to next filter or servlet
   Use Case  Global parameters, resource      Servlet-specific
             access                           settings
 
-  Methods   getInitParameter(),              getInitParameter()
-            getRealPath()                    
-  ----------------------------------------------------------------
+  Methods   getInitParameter(),              getInitParameter() getRealPath()                    
 
 ## 
 
