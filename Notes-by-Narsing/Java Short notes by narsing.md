@@ -2,7 +2,7 @@
 
 #  Java Notes
 
-
+<h1 style="text-align:center">Java</h1>
 
 ### 💻 Is Java Platform Independent? If yes, how?
 
