@@ -2,8 +2,6 @@
 
 #  Java Notes
 
-<h1 style="text-align:center">Java</h1>
-
 ### 💻 Is Java Platform Independent? If yes, how?
 
 Yes! When we execute Java code, the **compiler** converts it into **bytecode**. This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
