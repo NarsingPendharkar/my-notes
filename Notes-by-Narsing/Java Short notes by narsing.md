@@ -491,7 +491,7 @@ height="2.9434251968503937in"}
 
   
 
-## What is String interning?
+#### What is String interning?
 
 - String.intern() moves a string to the String Pool if it isn\'t already there.
 
@@ -648,11 +648,13 @@ public class StringMethods {
 
 
 
+---
 
+### Object-Oriented Concepts
 
-# Object-Oriented Concepts
+---
 
-## What is encapsulation in Java
+#### What is encapsulation in Java
 
 - Encapsulation = data hiding + data protection.
 
@@ -671,7 +673,7 @@ public double getBalance() {
 
 
 
-## What is the difference between an instance variable and a local variable?
+#### What is the difference between an instance variable and a local variable?
 
 | Feature | Instance Variable             | Local Variable               |
 | ------- | ----------------------------- | ---------------------------- |
@@ -682,13 +684,13 @@ public double getBalance() {
 
 
 
-## How are objects stored in memory?
+#### How are objects stored in memory?
 
 - Heap Memory: Objects are stored here.
 
 - Stack Memory: Stores local variables & references.
 
-## What is garbage collection ?
+#### What is garbage collection ?
 
 - Garbage collector automatically find and removes unused objects from heap memory to free up the space.
   
@@ -698,11 +700,11 @@ public double getBalance() {
 
 - **Paralle GC :** multi-threaded , good for big application
 
-## What is finalize ()?
+#### What is finalize ()?
 
 - It is a method which is called before object is removed in GC.
 
-## How can you make an object eligible for garbage collection?
+#### How can you make an object eligible for garbage collection?
 
 - **Set reference to null:**
 
@@ -734,7 +736,7 @@ new Car(); // This object has no reference, so it will be GC
 
 
 
-###  What is the difference between shallow copy and deep copy?
+####  What is the difference between shallow copy and deep copy?
 
 | **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
 | -------------- | ------------------------------------- | ----------------------------------- |
@@ -749,7 +751,7 @@ Car car2 = car1; // Deep Copy – creates a new object with copied data
 Car car2 = new Car(car1);
 ```
 
-### What is the difference between == and .equals() in objects?
+#### What is the difference between == and .equals() in objects?
 
 - == checks reference equality (same memory address).
 - .equals() checks weather both strings have same characters.
@@ -762,7 +764,7 @@ System.out.println(s1 == s2);       // false → compares memory addresses
 System.out.println(s1.equals(s2));  // true  → compares con
 ```
 
-### Can we override a static method?
+#### Can we override a static method?
 
 - ❌ **No**, static methods belong to the class, not instances.  
 - When a subclass defines a static method with the same signature, it **hides** the parent method — it does **not override** it.
@@ -794,7 +796,7 @@ public class Test {
 
 ---
 
-### Usage of this keyword
+#### Usage of this keyword
 
 The `this` keyword refers to the current instance of the class. It is used to differentiate between instance variables and local variables, call constructors, and return the current object.
 
@@ -921,9 +923,9 @@ public class Example {
 }
 ```
 
+---
 
-
-# Comparison: this vs static
+### Comparison: this vs static
 
 | Feature            | this                         | static                                    |
 | ------------------ | ---------------------------- | ----------------------------------------- |
@@ -947,11 +949,11 @@ public class Example {
 
 ------
 
-#  OOPs (Object-Oriented Programming) 
+###  OOPs (Object-Oriented Programming) 
 
 Object-Oriented Programming (OOP) principles, which include Encapsulation, Inheritance, Polymorphism, and Abstraction.
 
-### What are the four main principles of OOP?
+#### What are the four main principles of OOP?
 
 The four pillars of Object-Oriented Programming (OOP) in are:
 
@@ -967,18 +969,15 @@ The four pillars of Object-Oriented Programming (OOP) in are:
 ![](./media/media/image20.png){width="4.873470034995625in"
 height="3.25in"}
 
-## What is the difference between an Object and a Class?
+#### What is the difference between an Object and a Class?
 
 --------------------------------------------------------
-  Feature      Class                   Object
------------- ----------------------- -------------------
-  Definition   Blueprint for creating  Instance of a class
-               objects                 
-
-  Memory       No memory allocated     Memory is allocated
-
-  Example      Car class               Car myCar = new Car();
-## What is Encapsulation ?
+  Feature |     Class             |      Object
+------------| -----------------------| -------------------
+  Definition|   Blueprint for creating objects | Instance of a class
+  Memory   |    No memory allocated  |   Memory is allocated
+  Example  |    Car class     |          Car myCar = new Car();
+#### What is Encapsulation ?
 
 - Binding or Wrapping data and code into a single unit is called Encapsulation. For example, an **ATM Machine** allows users to perform operations like cash withdrawal and money transfer without knowing the internal workings
 - Achieved using private variables + public getter/setter methods.
@@ -1010,7 +1009,9 @@ public class Main {
 - **Benefits:** Data security, easy modification, and better
   maintainability.
 
-### **What is Inheritance in Java**
+---
+
+#### **What is Inheritance in Java**
 
 - Inheritance means creating a child class from parent class where child
   class acquires all the properties of parent class.
