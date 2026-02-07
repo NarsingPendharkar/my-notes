@@ -2733,6 +2733,8 @@ running = false; // Stops the thread
 }
 ```
 
+---
+
 
 
 # **Serialization**
@@ -2745,29 +2747,29 @@ running = false; // Stops the thread
 
 - Serialized object can be saved into database , file or can be shared over a network.
 
-Points to remember:
-
-1.  If a parent class has implemented Serializable interface then child class doesn't need to implement it but vice-versa is not true.
-    
-2.  Only non-static data members are saved via Serialization process.
-
-3.  Static data members and transient data members are not saved via Serialization process.
-    
-4.  If you mark a field **transient**, it won't be serialized.
-
-`private transient int age; // age won't be saved`
+> [!WARNING]
+>
+> Points to remember:
+>
+> 1.  If a parent class has implemented Serializable interface then child class doesn't need to implement it but vice-versa is not true.
+>     
+> 2.  Only non-static data members are saved via Serialization process.
+>
+> 3.  Static data members and transient data members are not saved via Serialization process.
+>     
+> 4.  If you mark a field **transient**, it won't be serialized.
+>
+> `private transient int age; // age won't be saved`
 
 ![serialize-deserialize-java](./media/media/image22.png){width="4.756472003499563in"
 height="3.153846237970254in"}
 
 Methods for Serializing and Deserializing an Object:
 
-- **ObjectOutputStream** class object is used for serialization of
-  object.
-
-- **ObjectInputStream** class object is used for deserialization of
-  object.
-
+- **ObjectOutputStream** class object is used for serialization of object.
+  
+- **ObjectInputStream** class object is used for deserialization of object.
+  
 - **Ob.writeObject() :** methods used to write object stream into file.
 
 - **Ob.readObject() :** method used to read object stream from file.
@@ -2843,7 +2845,7 @@ e.printStackTrace();
 }
 ```
 
-## 1. Core Concepts & Definitions
+#### 1. Core Concepts & Definitions
 
 - **Serialization:** Converting an object to a byte stream using `ObjectOutputStream`.
 - **Deserialization:** Reconstituting an object from a byte stream using `ObjectInputStream`.
@@ -2852,7 +2854,7 @@ e.printStackTrace();
 
 ------
 
-## 2. Process Workflow
+#### 2. Process Workflow
 
 ```mermaid
 graph LR
@@ -2865,7 +2867,7 @@ graph LR
 
 ------
 
-## 3. Implementation Essentials
+#### 3. Implementation Essentials
 
 ### Primary Classes
 
@@ -2893,7 +2895,7 @@ class User implements Serializable {
 
 ------
 
-## 4. Key Keywords & Visibility
+#### 4. Key Keywords & Visibility
 
 - **`transient`**: Variables marked as `transient` are skipped during serialization. They return to default values (e.g., `null` or `0`) upon deserialization.
 - **`static`**: These belong to the class, not the object instance, and are **never serialized**.
@@ -2901,22 +2903,22 @@ class User implements Serializable {
 
 ------
 
-## 5. Advanced Customization
+#### 5. Advanced Customization
 
-### Callback Methods
+#### Callback Methods
 
 You can define private methods in your class to customize the serialization logic (e.g., for encryption):
 
 - `private void writeObject(ObjectOutputStream oos)`
 - `private void readObject(ObjectInputStream ois)`
 
-### Serialization Proxy Pattern
+##### Serialization Proxy Pattern
 
 > **Tip:** As suggested in *Effective Java*, use the **Serialization Proxy Pattern** to avoid security risks and maintenance costs associated with native serialization. You serialize a private static nested "proxy" class instead of the actual object.
 
 ------
 
-## 6. Comparison: Serializable vs. Externalizable
+#### 6. Comparison: Serializable vs. Externalizable
 
 | Feature            | `Serializable`                    | `Externalizable`                              |
 | ------------------ | --------------------------------- | --------------------------------------------- |
@@ -2927,7 +2929,7 @@ You can define private methods in your class to customize the serialization logi
 
 ------
 
-## 7. Security & Vulnerabilities
+#### 7. Security & Vulnerabilities
 
 > **Warning:** Deserializing untrusted data is **inherently dangerous**. The incoming stream determines which objects are created, allowing attackers to execute malicious code.
 
@@ -2939,7 +2941,7 @@ You can define private methods in your class to customize the serialization logi
 
 ------
 
-## 8. Interview Tips & Pitfalls
+#### 8. Interview Tips & Pitfalls
 
 - **Is the constructor called during deserialization?**
   - For `Serializable`: **No**.
