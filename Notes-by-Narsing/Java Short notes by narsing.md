@@ -3760,27 +3760,21 @@ try (FileReader reader = new FileReader("test.txt")) {
 
 ### **Singleton Design Pattern:**
 
-- There are multiple scenarios where we want single instance of class
-  should be created and used throughout the application.
-
-- In single design pattern single instance of class created and used
-  throughout the application
-
+- There are multiple scenarios where we want single instance of class should be created and used throughout the application.
+  
+- In single design pattern single instance of class created and used throughout the application
+  
 - We can create only single instance of class by using below steps
 
-- **Private Constructor** : making private constructor restrict direct
-  object instantiation
-
+- **Private Constructor** : making private constructor restrict direct object instantiation
+  
 - **Private Static Instance** : create private instance
 
-- **Public Static Method**: this method creates and return object if
-  object is doesn't exist.
-
-- The Singleton design pattern is used to ensure that a class has only
-  one instance and provides a global point of access to that instance.
-
-- It is used when you want to limit the number of instances of a class
-  and ensure that all clients use the same instance.
+- **Public Static Method**: this method creates and return object if object is doesn't exist.
+  
+- The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance.
+  
+- It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
 
 Example :
 
@@ -3798,7 +3792,7 @@ private static Singleton obj;
 
 private Singleton() {
 
-System.out.println(\"Created Object !\");
+System.out.println("Created Object !");
 
 };
 
@@ -3814,7 +3808,7 @@ return obj;
 
 }
 
-public static void main(String\[\] args) {
+public static void main(String[] args) {
 
 Singleton obj1=Singleton.getSingleObject();
 
@@ -3829,18 +3823,13 @@ System.out.println(obj1.equals(obj2));
 
 ### **Factory Design Pattern:**
 
-- The Factory design pattern is used to create objects without exposing
-  the object creation logic to the client.
-
-- It provides a way to encapsulate object creation and allows for
-  flexible object creation without changing the code that uses it.
-
-- If we have one super class and multiple subclasses and based on data
-  provided we have to create object of one of the subclass then we use
-  factory design pattern.
-
-- The Factory design pattern offers valuable advantages in encapsulating
-  object creation.
+- The Factory design pattern is used to create objects without exposing the object creation logic to the client.
+  
+- It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
+  
+- If we have one super class and multiple subclasses and based on data provided we have to create object of one of the subclass then we use factory design pattern.
+  
+- The Factory design pattern offers valuable advantages in encapsulating object creation.
 
 ```java
 interface Vehical {
@@ -3851,11 +3840,11 @@ public void drive() ;
 
 public class [Bike] implements Vehical {
 
-\@Override
+ @Override
 
 public void drive() {
 
-System.out.println(\"Bike is running !\");
+System.out.println( "Bike is running ! ");
 
 }
 
@@ -3863,11 +3852,11 @@ System.out.println(\"Bike is running !\");
 
 public class [Car] implements Vehical{
 
-\@Override
+ @Override
 
 public void drive() {
 
-System.out.println(\"Car is running !\");
+System.out.println( "Car is running ! ");
 
 }
 
@@ -3875,15 +3864,15 @@ System.out.println(\"Car is running !\");
 
 public class [MainFactory] {
 
-public static void main(String\[\] args) {
+public static void main(String [ ] args) {
 
-getVehicle(\"car\").drive();
+getVehicle( "car ").drive();
 
 }
 
 public static Vehical getVehicle(String type) {
 
-return type.equalsIgnoreCase(\"car\") ? new Car() : new
+return type.equalsIgnoreCase( "car ") ? new Car() : new
 Bike();
 
 }
@@ -3892,19 +3881,19 @@ Bike();
 
 public class MainFactory {
 
-public static void main(String\[\] args) {
+public static void main(String [ ] args) {
 
-getVehicle(\"sfd\").drive();
+getVehicle( "sfd ").drive();
 
 }
 
 public static Vehical getVehicle(String type) {
 
-if(type.equalsIgnoreCase(\"car\")) {
+if(type.equalsIgnoreCase( "car ")) {
 
 return new Car();
 
-}else if(type.equalsIgnoreCase(\"truck\")) {
+}else if(type.equalsIgnoreCase( "truck ")) {
 
 return new Truck();
 
