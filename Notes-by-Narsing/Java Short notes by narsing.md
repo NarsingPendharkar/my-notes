@@ -1056,7 +1056,7 @@ myCar.honk();
 >
 > //Car is honking\...
 
-### What are the Types of Inheritance?
+#### What are the Types of Inheritance?
 
 Java supports different types of inheritance, except **multiple inheritance** (to avoid ambiguity).  
 
@@ -1071,13 +1071,13 @@ Java supports different types of inheritance, except **multiple inheritance** (t
 
 ---
 
-## Why Java Does Not Support Multiple Inheritance?
+#### Why Java Does Not Support Multiple Inheritance?
 
 - To **avoid ambiguity** caused by multiple parent classes having methods with the same name.
 
 ---
 
-### 💡 Example: Diamond Problem
+#### 💡 Example: Diamond Problem
 
 ```java
 class A {
@@ -1101,23 +1101,25 @@ class C extends A {
 // Class D cannot extend both B and C to avoid ambiguity
 ```
 
-## What is Polymorphism?
+---
+
+#### What is Polymorphism?
 
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
 
-### 🔹 Types of Polymorphism
+#### 🔹 Types of Polymorphism
 - **Compile-time Polymorphism (Method Overloading)**
 - **Runtime Polymorphism (Method Overriding)**
 
 ---
 
-## What is Method Overloading?
+#### What is Method Overloading?
 
 - When multiple methods have the **same name** but **different parameters** (type or number of arguments).  
 - It is an example of **compile-time polymorphism**.
 
-### 🧠 Example
+#### 🧠 Example
 
 ```java
 class MathOperations {
@@ -1143,7 +1145,7 @@ public class Main {
 
 
 
-## What is Method Overriding?
+#### What is Method Overriding?
 
 When the same method (same name, parameters, and return type) is present in both parent and child classes,  
 and the method in the child class overrides the one in the parent class.
@@ -1152,7 +1154,7 @@ It is an example of **runtime polymorphism**.
 
 ---
 
-### 🧠 Example
+#### 🧠 Example
 
 ```java
 class Parent {
@@ -1176,9 +1178,9 @@ public class Main {
 }
 ```
 
+---
 
-
-## What is Abstraction?
+#### What is Abstraction?
 
 Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  
 It helps reduce complexity by focusing on what an object does rather than how it does it.
@@ -1191,10 +1193,9 @@ It allows developers to define a common structure for related objects and enforc
 
 ---
 
-## What is an Abstract Class?
+#### What is an Abstract Class?
 
-An **abstract class** in Java is declared using the `abstract` keyword.  
-It is a special kind of class that cannot be instantiated directly — meaning you **cannot create an object** of an abstract class.
+An **abstract class** in Java is declared using the `abstract` keyword.  It is a special kind of class that cannot be instantiated directly — meaning you **cannot create an object** of an abstract class.
 
 An abstract class may contain:
 - **Abstract methods:** Methods without implementation (no method body).  
@@ -1204,7 +1205,7 @@ Abstract classes are useful when you want to provide **partial implementation** 
 
 ---
 
-### 🧠 Example: Abstract Class
+#### 🧠 Example: Abstract Class
 
 ```java
 abstract class Animal {
@@ -1230,17 +1231,15 @@ public class Main {
 }
 ```
 
-## What is an Interface in Java?
+#### What is an Interface in Java?
 
-An **interface** in Java is a special type of class that contains only **abstract methods** (methods without a body).  
-It is used to achieve **100% abstraction** and **multiple inheritance** in Java.
+An **interface** in Java is a special type of class that contains only **abstract methods** (methods without a body)..It is used to achieve **100% abstraction** and **multiple inheritance** in Java.
 
-Interfaces define a **contract** that implementing classes must follow.  
-A class that implements an interface must provide implementations for all of its abstract methods.
+Interfaces define a **contract** that implementing classes must follow.A class that implements an interface must provide implementations for all of its abstract methods.
 
 ---
 
-### 🧠 Key Features of an Interface
+#### 🧠 Key Features of an Interface
 
 - All methods in an interface are **public** and **abstract** by default.  
 - All variables are **public**, **static**, and **final** (constants).  
@@ -1253,7 +1252,7 @@ A class that implements an interface must provide implementations for all of its
 
 ---
 
-### 🧩 Example: Interface in Java
+#### 🧩 Example: Interface in Java
 
 ```java
 interface Animal {
@@ -1264,9 +1263,7 @@ class Dog implements Animal {
     public void makeSound() {
         System.out.println("Bark");
     }
-}
-
-public class Main {
+}public class Main {
     public static void main(String[] args) {
         Animal obj = new Dog();
         obj.makeSound();
@@ -1274,14 +1271,13 @@ public class Main {
 }
 ```
 
-## What is the Difference Between Abstract Class and Interface?
+#### What is the Difference Between Abstract Class and Interface?
 
-Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction** in Java,  
-but they differ in structure, purpose, and how they are implemented.
+Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction** in Java,but they differ in structure, purpose, and how they are implemented.
 
 ---
 
-### 🧩 Comparison Table
+#### 🧩 Comparison Table
 
 | **Feature**                   | **Abstract Class**                                           | **Interface**                                                |
 | ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1309,14 +1305,9 @@ but they differ in structure, purpose, and how they are implemented.
 
 ### 🧠 Real-World Example
 
-- **Abstract Class Example:**  
-  A `Vehicle` abstract class can define shared attributes like `speed` and `fuelType`,  
-  and abstract methods like `start()` or `stop()`.  
-  Subclasses (`Car`, `Bike`) implement these methods differently.
-
-- **Interface Example:**  
-  An interface `Flyable` can be implemented by multiple classes like `Bird`, `Helicopter`, or `Airplane`,  
-  regardless of their hierarchy — representing shared ability to fly.
+- **Abstract Class Example:**A `Vehicle` abstract class can define shared attributes like `speed` and `fuelType`,and abstract methods like `start()` or `stop()`.Subclasses (`Car`, `Bike`) implement these methods differently.
+  
+- **Interface Example:**An interface `Flyable` can be implemented by multiple classes like `Bird`, `Helicopter`, or `Airplane`,regardless of their hierarchy — representing shared ability to fly.
 
 ---
 
@@ -1383,20 +1374,16 @@ public class CollectionExample {
         List<String> names = new ArrayList<>();
         names.add("Java");
         names.add("Spring");
-        names.add("Hibernate");
-
-        System.out.println("List Elements: " + names);
+        names.add("Hibernate");        System.out.println("List Elements: " + names);
     }
 }
 ```
 
 ### What is the difference between Collection and Collections in Java?
 
-- **Collection**: It is the root interface of all collections in Java.  
-  It provides methods for adding, removing, and checking the size of a collection.
-
-- **Collections**: It is a utility class that provides static methods to  
-  manipulate and process collections.
+- **Collection**: It is the root interface of all collections in Java.It provides methods for adding, removing, and checking the size of a collection.
+  
+- **Collections**: It is a utility class that provides static methods tomanipulate and process collections.
 
 ---
 
@@ -1428,12 +1415,8 @@ public class CollectionExample {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>(Arrays.asList("A", "B", "A"));
         Set<String> set = new HashSet<>(Arrays.asList("A", "B", "A"));
-        Map<Integer, String> map = new HashMap<>();
-
-        map.put(1, "Java");
-        map.put(2, "Python");
-
-        System.out.println(list); // Output: [A, B, A]
+        Map<Integer, String> map = new HashMap<>();        map.put(1, "Java");
+        map.put(2, "Python");        System.out.println(list); // Output: [A, B, A]
         System.out.println(set);  // Output: [A, B]
         System.out.println(map);  // Output: {1=Java, 2=Python}
     }
@@ -1644,8 +1627,7 @@ System.out.println(list); // Output: [A, B, A]
 
 - Elements are processed in the order they arrive.
 - Supports **PriorityQueue** (elements sorted by priority).
-- A **Queue** in Java is a **FIFO (First In, First Out)** data structure,  
-  where elements are **inserted at the end** and **removed from the front**.
+- A **Queue** in Java is a **FIFO (First In, First Out)** data structure,  where elements are **inserted at the end** and **removed from the front**.
 
 ---
 
@@ -1781,8 +1763,7 @@ System.out.println(filteredNames); // [Mike]
 ---
 
 ##### **Intermediate Operations**
-These return a **new stream** and allow chaining of multiple operations.  
-They are **lazy**, meaning they don't execute until a **terminal operation** is invoked.
+These return a **new stream** and allow chaining of multiple operations.  They are **lazy**, meaning they don't execute until a **terminal operation** is invoked.
 
 | Method         | Description                                      |
 | -------------- | ------------------------------------------------ |
@@ -1857,10 +1838,9 @@ System.out.println(lengths); // Output:  [4, 6, 3 ]
 
 - **sorted() and sorted(Comparator <? super T > comparator)**
 
-> **Definition:** Returns a stream with the elements sorted in natural
-> order or via a provided comparator.
->
-> **Example:**
+> **Definition:** Returns a stream with the elements sorted in natura order or via a provided comparator.
+> 
+>**Example:**
 
 ```java
 List <Integer > numbers = Arrays.asList(5, 3, 1, 4, 2);
@@ -1898,8 +1878,7 @@ System.out.println(limitedNames); // Output:  [Alice, Bob ]
 
 - **skip(long n)**
 
-> **Definition:** Skips the first *n* elements and returns a stream of
-> the remaining elements. **Example:**
+> **Definition:** Skips the first *n* elements and returns a stream o the remaining elements. **Example:**
 
 ```java
 List <String > [words] = Arrays.asList( "java ",  "stream ","api ");
@@ -1922,7 +1901,7 @@ List <Integer > flattenedList = listOfLists.stream().flatMap(List::stream).colle
 System.out.println(flattenedList); // Output:  [1, 2, 3, 4, 5, 6 ]
 ```
 
-### **Terminal Operations with Examples**
+#### **Terminal Operations with Examples**
 
 - **forEach(Consumer <T > action)**
 
@@ -2029,7 +2008,7 @@ System.out.println(allEven); // Output: true
 ```
 
 
-##  Default & Static Methods in Interfaces
+####  Default & Static Methods in Interfaces
 
 - Java 8 allows default method implementations in interfaces.
 
