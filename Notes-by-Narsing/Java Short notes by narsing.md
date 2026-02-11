@@ -1323,7 +1323,7 @@ Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction**
 
 # 🧱 Collection Framework
 
-### 💡 What is the Collection Framework?
+#### 💡 What is the Collection Framework?
 
 The **Collection Framework** in Java is a **unified architecture** that provides **ready-made data structures** and **algorithms** to store, retrieve, and manipulate groups of objects efficiently.
 
@@ -1331,13 +1331,13 @@ It is part of the **`java.util` package** and helps developers avoid writing cus
 
 ---
 
-### 🧠 Definition
+#### 🧠 Definition
 
 > The **Collection Framework** is a set of **classes and interfaces** that implement commonly reusable collection data structures such as **List**, **Set**, **Queue**, and **Map**.
 
 ---
 
-### ⚙️ Key Features
+#### ⚙️ Key Features
 
 - Provides **predefined data structures** for storing objects.
 - Supports **searching, sorting, insertion, deletion, and iteration**.
@@ -1347,7 +1347,7 @@ It is part of the **`java.util` package** and helps developers avoid writing cus
 
 ---
 
-### 🧩 Key Interfaces in the Collection Framework
+#### 🧩 Key Interfaces in the Collection Framework
 
 | **Interface** | **Description**                                              |
 | ------------- | ------------------------------------------------------------ |
@@ -1358,7 +1358,7 @@ It is part of the **`java.util` package** and helps developers avoid writing cus
 
 ---
 
-### 🧰 Package Location
+#### 🧰 Package Location
 
 > All collection classes and interfaces are part of **`java.util`** package.
 
@@ -1374,12 +1374,13 @@ public class CollectionExample {
         List<String> names = new ArrayList<>();
         names.add("Java");
         names.add("Spring");
-        names.add("Hibernate");        System.out.println("List Elements: " + names);
+        names.add("Hibernate");        
+        System.out.println("List Elements: " + names);
     }
 }
 ```
 
-### What is the difference between Collection and Collections in Java?
+#### What is the difference between Collection and Collections in Java?
 
 - **Collection**: It is the root interface of all collections in Java.It provides methods for adding, removing, and checking the size of a collection.
   
@@ -1394,7 +1395,7 @@ public class CollectionExample {
 | **Example**    | `List<String> list = new ArrayList<>();`         | `Collections.sort(list);`                                    |
 | **Methods**    | `add()`, `remove()`, `size()`, `contains()`      | `sort()`, `reverse()`, `shuffle()`, `min()`, `max()`, `synchronizedList()` |
 
-### What is the difference between List, Set, and Map?
+#### What is the difference between List, Set, and Map?
 
 ---
 
@@ -1423,7 +1424,7 @@ public class CollectionExample {
 }
 ```
 
-### What are the differences between ArrayList and LinkedList
+#### What are the differences between ArrayList and LinkedList
 
 | Feature            | ArrayList                                   | LinkedList                    |
 | ------------------ | ------------------------------------------- | ----------------------------- |
@@ -1441,7 +1442,7 @@ public class CollectionExample {
 
 ---
 
-### What is the difference between HashSet, LinkedHashSet, and TreeSet?
+#### What is the difference between HashSet, LinkedHashSet, and TreeSet?
 
 | Feature         | HashSet         | LinkedHashSet             | TreeSet                  |
 | --------------- | --------------- | ------------------------- | ------------------------ |
@@ -1474,7 +1475,7 @@ public class SetExamples {
 }
 ```
 
-### What is the difference between HashMap, LinkedHashMap, and TreeMap?
+#### What is the difference between HashMap, LinkedHashMap, and TreeMap?
 
 | Feature         | HashMap             | LinkedHashMap             | TreeMap                  |
 | --------------- | ------------------- | ------------------------- | ------------------------ |
@@ -1511,7 +1512,7 @@ public class MapExample {
 }
 ```
 
-### What is the difference between Vector and ArrayList?
+#### What is the difference between Vector and ArrayList?
 
 | Feature             | ArrayList                      | Vector                     |
 | ------------------- | ------------------------------ | -------------------------- |
@@ -1526,7 +1527,7 @@ Use **ArrayList** unless **thread safety** is specifically required.
 
 ---
 
-### What is ConcurrentHashMap and how is it different from HashMap?
+#### What is ConcurrentHashMap and how is it different from HashMap?
 
 | Feature           | HashMap                | ConcurrentHashMap                   |
 | ----------------- | ---------------------- | ----------------------------------- |
@@ -1540,7 +1541,7 @@ Use **ArrayList** unless **thread safety** is specifically required.
 
 ---
 
-### What is the difference between Fail-Fast and Fail-Safe Iterators?
+#### What is the difference between Fail-Fast and Fail-Safe Iterators?
 
 | Feature      | Fail-Fast                                                    | Fail-Safe                                                   |
 | ------------ | ------------------------------------------------------------ | ----------------------------------------------------------- |
@@ -1653,7 +1654,7 @@ numLine.remove();
 System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
 ```
 
-## When to Use What?
+#### When to Use What?
 
 | Use Case                           | Best Choice                           |
 | ---------------------------------- | ------------------------------------- |
@@ -1662,9 +1663,15 @@ System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
 | Key-value mappings                 | **Map (HashMap, TreeMap)**            |
 | Processing in FIFO order           | **Queue (LinkedList, PriorityQueue)** |
 
-#  8 Key Features & Concepts
 
-## 1) Lambda Expressions
+
+---
+
+
+
+#  Java 8 Key Features & Concepts
+
+#### 1) Lambda Expressions
 
 - Introduced in **Java 8** for functional programming.
 - Acts as an **anonymous function** — no method name, return type, or access modifiers.
@@ -1698,7 +1705,7 @@ names.forEach(name -> System.out.println(name));
 
 ```
 
-## 2) Functional Interfaces
+#### 2) Functional Interfaces
 
 - An interface with only **one abstract method**.
 - Annotated with **@FunctionalInterface** to indicate it's a functional interface.
@@ -1706,7 +1713,7 @@ names.forEach(name -> System.out.println(name));
 
 ---
 
-### Common Functional Interfaces
+#### Common Functional Interfaces
 
 | Interface          | Description                      | Method Signature    |
 | ------------------ | -------------------------------- | ------------------- |
@@ -2025,7 +2032,7 @@ System.out.println("Vehicle is starting");
 }}
 ```
 
-### Optional Class:
+#### Optional Class:
 
 **Definition:** Optional class is used to handle null values securely.
 
@@ -2039,7 +2046,7 @@ optional.ifPresent(System.out::println);
 **Common Methods:** *of(), ofNullable(), isPresent(), ifPresent(),
 get(), orElse()*
 
-## New Date & Time API
+#### New Date & Time API
 
 - 8 introduced LocalDate, LocalTime, LocalDateTime, and Duration.
 
@@ -2067,7 +2074,7 @@ System.out.println(time); //19:49:18.331792800
 System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 ```
 
-
+---
 
 # Multithreading
 
