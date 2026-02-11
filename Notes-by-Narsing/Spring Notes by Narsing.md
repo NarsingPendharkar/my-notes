@@ -1,8 +1,11 @@
-# Spring Core
+> [!NOTE]
+>
+> # Spring Core
+>
 
-###   **What are the key features of the Spring Framework?**
+####   **What are the key features of the Spring Framework?**
 >  **Definition,** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
- 
+
 * **Lightweight,** doesn't force developer to implement any interface.
 * **Loose coupling,** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
 * **Ready-made Templates,** it provides readymade templates of hibernate like jdbctemplate, jpa where no need to write lots of code for connections, exception handling and committing the transections all are done automatically.
@@ -16,7 +19,7 @@
 * It is responsible for Dependency Injection and managing the life cycle of beans.
 * Task of IOC container, Instantiating, Assembling, Configuration of beans.
 
-## **Types of IOC container?**
+### **Types of IOC container?**
 
 *** Bean Factory**, is a basic container. Its depreciated now.
 
@@ -893,7 +896,7 @@ return new MyService();
 }
 
 }
-```
+ ```
 
 @EnableScheduling
 
