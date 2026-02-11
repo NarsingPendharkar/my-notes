@@ -35,7 +35,7 @@ ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
 
 > Note , bean file should be in resource folder
 
-## **Explain Dependency Injection (DI) in Spring.**
+### **Explain Dependency Injection (DI) in Spring.**
 
 Dependency Injection is a design pattern where the dependencies of a class are injected by the Spring container rather than being instantiated manually.
 
