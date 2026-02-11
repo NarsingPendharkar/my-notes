@@ -21,7 +21,7 @@
 
 ### **Types of IOC container?**
 
-*** Bean Factory**, is a basic container. Its depreciated now.
+**Bean Factory**, is a basic container. Its depreciated now.
 
 ```java
     Resource resource=new ClassPathResource("bean.xml");
@@ -154,7 +154,7 @@ System. out .println("Hello mr . "  name);
 4. Bean used
 5. Bean destroyed
 
-## Spring - Bean Scopes
+### Spring - Bean Scopes
 
 |  |  |
 | --- | --- |
@@ -165,7 +165,7 @@ System. out .println("Hello mr . "  name);
 | 4 | **session**  New bean created for each new HTTP Session. |
 | 5 | **global-session**  This scopes a bean definition to a global HTTP session. |
 
-## **What are different ways to configure a Spring Bean?**
+### **What are different ways to configure a Spring Bean?**
 
 1. **XML Configuration (beans.xml)**
 
@@ -211,7 +211,11 @@ http,//www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 </beans>
 ```
 
-1. **Java-Based Configuration (@Configuration)**
+---
+
+
+
+2. **Java-Based Configuration (@Configuration)**
 
 * Java-based configuration allows you to configure beans using Java classes. You can use the **@Configuration** and **@Bean** annotations.
 * Annotating a class with the **@Configuration** indicates that the class can be used by the Spring IoC container as a source of bean definitions.
@@ -254,9 +258,11 @@ return person2;
 
 }
 ```
-1. **Annotation-Based Configuration** (@Component, @Service, @Repository)
+---
 
-* Once <context,annotation-config/> is configured, you can start annotating your code to indicate that Spring should automatically wire values into properties, methods, and constructors
+3. **Annotation-Based Configuration** (@Component, @Service, @Repository)
+
+* Once **<context,annotation-config/>** is configured, you can start annotating your code to indicate that Spring should automatically wire values into properties, methods, and constructors
 
 **Example ,**
 
@@ -265,41 +271,41 @@ return person2;
 
 public class PersonAnnotationBasedConfig {
 
-private String name;
+    private String name;
 
-private int age;
+    private int age;
 
-private String surname;
+    private String surname;
 
-PersonAnnotationBasedConfig() {
+    PersonAnnotationBasedConfig() {
 
-this.age = 2;
+        this.age = 2;
 
-this.name = "Annotation based";
+        this.name = "Annotation based";
 
-this.surname = "Configuration";
+        this.surname = "Configuration";
 
-}
+    }
 
-public PersonAnnotationBasedConfig(String name, int age, String surname) {
+    public PersonAnnotationBasedConfig(String name, int age, String surname) {
 
-super();
+        super();
 
-this.name = name;
+        this.name = name;
 
-this.age = age;
+        this.age = age;
 
-this.surname = surname;
+        this.surname = surname;
 
-}
+    }
 
-@Override
+    @Override
 
-public String toString() {
+    public String toString() {
 
-return "Person [name="  name  ", age="  age  ", surname="  surname  "]";
+        return "Person [name="  name  ", age="  age  ", surname="  surname  "]";
 
-}
+    }
 
 }
 
