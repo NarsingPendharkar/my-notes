@@ -4,7 +4,7 @@
 >
 
 ####   **What are the key features of the Spring Framework?**
->  **Definition,** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
+>  **Defination : ** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
 
 * **Lightweight,** doesn't force developer to implement any interface.
 * **Loose coupling,** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
@@ -567,13 +567,13 @@ return mav;
 
 What are @RequestMapping and its variants?
 
-* @RequestMapping("/path") → General mapping
-* @GetMapping("/path") → Maps HTTP GET request
-* @PostMapping("/path") → Maps HTTP POST request
-* @PutMapping("/path") → Maps HTTP PUT request
-* @DeleteMapping("/path") → Maps HTTP DELETE request
+* `@RequestMapping("/path")` → General mapping
+* `@GetMapping("/path")` → Maps HTTP GET request
+* `@PostMapping("/path")` → Maps HTTP POST request
+* `@PutMapping("/path")` → Maps HTTP PUT request
+* `@DeleteMapping("/path")` → Maps HTTP DELETE request
 
-What is @ModelAttribute in Spring MVC?
+#### What is @ModelAttribute in Spring MVC?
 
 It binds form data to a model object.
 
@@ -584,74 +584,76 @@ Example,
 
 public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
-@RequestParam("assignee") int userid, Model model) throws SQLException {
+                       @RequestParam("assignee") int userid, Model model) throws SQLException {
 
-if (bindingResult.hasErrors()) {
+    if (bindingResult.hasErrors()) {
 
-model.addAttribute("message", "Plese enter proper detials");
+        model.addAttribute("message", "Plese enter proper detials");
 
-return "redirect,/createtask";
+        return "redirect,/createtask";
 
-} else {
+    } else {
 
-User assigenedUser = userService.userbyid(userid);
+        User assigenedUser = userService.userbyid(userid);
 
-tasks.setAssignedUser(assigenedUser);
+        tasks.setAssignedUser(assigenedUser);
 
-taskserviceImpl.saveTask(tasks);
+        taskserviceImpl.saveTask(tasks);
 
-System.*out*.println("saved");
+        System.out.println("saved");
 
-model.addAttribute("message", "Task added !");
+        model.addAttribute("message", "Task added !");
 
-return "redirect,/tasks-list";
+        return "redirect,/tasks-list";
 
-}
+    }
 
 }
 ```
 
-Core Spring Annotations-
+---
+
+## Core Spring Annotations-
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
 
-@Component , Marks a Java class as a Spring-managed bean
-Example,
+**@Component** : Marks a Java class as a Spring-managed bean
+Example:
 
 
 ```java
- @Component
+@Component
 public class MyComponent {
 
-public void sayHello() {
+    public void sayHello() {
 
-System.*out*.println("Hello from MyComponent");
+        System.out.println("Hello from MyComponent");
 
-}
+    }
 
 }
 ```
 
-@Service
+**@Service**
 
-* Definition, Specialized version of @Component, used to mark a service layer class which contains business.
+* Defination :  Specialized version of @Component, used to mark a service layer class which contains business.
 
 Example,
 ```java
-*@Service*
+@Service
 
 public class UserService {
 
-public String getUser() {
+    public String getUser() {
 
-return "Nirav";
+        return "Nirav";
 
-}
+    }
 ```
 
-@Repository
+**@Repository**
 
-* Definition, Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
+*  Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
 
 Example,
 ```java
@@ -659,26 +661,29 @@ Example,
 
 public class UserRepository {
 
-public void saveUser() {
+    public void saveUser() {
 
-System.out.println("User saved!");
+        System.out.println("User saved!");
 
-}
+    }
 }
 ```
 
-@Autowired
+**@Autowired**
 
-* Definition, Automatically injects dependencies where required.
+* Defination :  Automatically injects dependencies where required.
 
 Example,
- *@Autowired*
+
+```java
+@Autowired
 
 private TaskRepository taskRepository;
+```
 
-@Qualifier
+**@Qualifier**
 
-* Definition, Used along with @Autowired to resolve ambiguity when multiple beans of the same type exist.
+* **Definition:** Used along with @Autowired to resolve ambiguity when multiple beans of the same type exist.
 
 Example,
 ```java
@@ -693,17 +698,17 @@ public class MyBean2 {}
 @Service
 public class MyService {
 
-@Autowired
+    @Autowired
 
-@Qualifier("bean1")
+    @Qualifier("bean1")
 
-private MyBean1 myBean;
+    private MyBean1 myBean;
 
 }
 
 ```
 @Value
-* Definition, Injects values from properties files into Spring beans or assign default value to methods.
+* Defination :  Injects values from properties files into Spring beans or assign default value to methods.
 
 Example,
 ```java
@@ -714,7 +719,7 @@ private String appName;
 
 @Scope
 
-* Definition, Defines the scope of a Spring bean (singleton, prototype, request, etc.).
+* Defination :  Defines the scope of a Spring bean (singleton, prototype, request, etc.).
 
 Example,
 ```java
@@ -727,7 +732,7 @@ public class PrototypeBean {}
 
 @Controller
 
-* Definition, Marks a class as a Spring MVC controller to handle HTTP requests.
+* Defination :  Marks a class as a Spring MVC controller to handle HTTP requests.
 
 Example,
 *@Controller*
@@ -736,7 +741,7 @@ public class TaskController {}
 
 @RestController
 
-* Definition, A combination of @Controller and @ResponseBody, used for RESTful APIs.
+* Defination :  A combination of @Controller and @ResponseBody, used for RESTful APIs.
 
 Example,
 
@@ -758,7 +763,7 @@ return "Hello API!";
 
 @RequestMapping
 
-* Definition, Maps HTTP requests to controller methods.
+* Defination :  Maps HTTP requests to controller methods.
 
 Example,
 ```java
@@ -781,7 +786,7 @@ return "profile";
 
 @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
 
-* Definition, Shortcut annotations for specific HTTP methods.
+* Defination :  Shortcut annotations for specific HTTP methods.
 
 Example,
 ```java
@@ -796,7 +801,7 @@ return "Dashboard";
 
 @PathVariable
 
-* Definition, Extracts values from the URL path.
+* Defination :  Extracts values from the URL path.
 * URL , *localhost,8080/deleteTask/2*
 
 Example,
@@ -816,7 +821,7 @@ return "redirect,/tasks-list";
 
 @RequestParam
 
-* Definition, Extracts query parameters from the URL*.*
+* Defination :  Extracts query parameters from the URL*.*
 * *URL* *, localhost,8080/search?keyword=”google*”
 
 Example,
@@ -830,7 +835,7 @@ return "Searching for, "  keyword;
 
 @ModelAttribute
 
-* Definition, Binds from data into java object.
+* Defination :  Binds from data into java object.
 
 Example,
 *@PostMapping*("/register")
@@ -845,7 +850,7 @@ return "success";
 
 @ExceptionHandler ,@ControllerAdvice
 
-* Definition, This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
+* Defination :  This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
 
 Example,
 ```java
@@ -870,7 +875,7 @@ Spring Boot Annotations
 
 @SpringBootApplication
 
-* Definition, Marks the main Spring Boot application class.
+* Defination :  Marks the main Spring Boot application class.
 
 Example,
 ```java
@@ -887,7 +892,7 @@ SpringApplication.*run*(DemoAppMssqlApplication.class, args);
 ```
 @JsonIgoner & @JsonIgnoreProperties
 
-* Definition, used to filter out the fields data form response. These fields are not sent in response.
+* Defination :  used to filter out the fields data form response. These fields are not sent in response.
 
 Example,
 ```java
@@ -918,7 +923,7 @@ private String password;
 
 @Configuration
 
-* Definition, Marks a class as a Spring configuration class and it is a source of beans.
+* Defination :  Marks a class as a Spring configuration class and it is a source of beans.
 
 Example,
  ```java
@@ -939,7 +944,7 @@ return new MyService();
 
 @EnableScheduling
 
-* Definition, Enables scheduling tasks. When @EnableScheduling Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
+* Defination :  Enables scheduling tasks. When @EnableScheduling Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
 
 Example,
 ```java
@@ -963,7 +968,7 @@ Used for database interaction.
 ```java
 @Entity
 
-* Definition, Marks a class as a JPA entity (database table representation).
+* Defination :  Marks a class as a JPA entity (database table representation).
 
 Example,
 @Entity
@@ -1005,7 +1010,7 @@ private User assignedUser;
 
 @Transactional
 
-* Definition, it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
+* Defination :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
 * @EnableTransactionManagements , To use above annotation we need to add this annotation to your main application class.
 * Example,
 
@@ -1039,7 +1044,7 @@ Used for authentication and authorization.
 
 @EnableWebSecurity
 
-* Definition, Enables Spring Security in the application.
+* Defination :  Enables Spring Security in the application.
 
 Example,
  @EnableWebSecurity
@@ -1048,7 +1053,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {}
 
 @PreAuthorize
 
-* Definition, Restricts access to a method based on roles.
+* Defination :  Restricts access to a method based on roles.
 
 Example:
 
