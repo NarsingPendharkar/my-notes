@@ -39,7 +39,7 @@ ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
 
 Dependency Injection is a design pattern where the dependencies of a class are injected by the Spring container rather than being instantiated manually.
 
-**Example,**
+**Example : **
 
 **Without DI ,**
 
@@ -375,7 +375,7 @@ public class PersonAnnotationBasedConfig {
 
 * Execute the main class to verify that Spring loads and manages beans correctly.
 
-Example,
+Example : 
 ```java
 public class MainApplicationToRun
 
@@ -447,7 +447,7 @@ public class MainApplicationToRun
 | Configuration Required | Yes (@Configuration) | No |
 | Auto-Scanning | No | Yes |
 
-**Example,**
+**Example : **
 ```java
 @Configuration
 
@@ -577,7 +577,7 @@ What are @RequestMapping and its variants?
 
 It binds form data to a model object.
 
-Example,
+Example : 
 
 ```java
 @PostMapping("saveTask")
@@ -638,7 +638,7 @@ public class MyComponent {
 
 * Defination :  Specialized version of @Component, used to mark a service layer class which contains business.
 
-Example,
+Example : 
 ```java
 @Service
 
@@ -655,7 +655,7 @@ public class UserService {
 
 *  Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
 
-Example,
+Example : 
 ```java
 @Repository
 
@@ -673,7 +673,7 @@ public class UserRepository {
 
 * Defination :  Automatically injects dependencies where required.
 
-Example,
+Example : 
 
 ```java
 @Autowired
@@ -685,7 +685,7 @@ private TaskRepository taskRepository;
 
 * **Definition:** Used along with @Autowired to resolve ambiguity when multiple beans of the same type exist.
 
-Example,
+Example : 
 ```java
 @Component("bean1")
 
@@ -707,34 +707,41 @@ public class MyService {
 }
 
 ```
-@Value
-* Defination :  Injects values from properties files into Spring beans or assign default value to methods.
+---
 
-Example,
+**@Value**
+
+* **Defination** :  Injects values from properties files into Spring beans or assign default value to methods.
+
+Example : 
 ```java
 @Value("${app.name}")
 
 private String appName;
 ```
 
-@Scope
+---
 
-* Defination :  Defines the scope of a Spring bean (singleton, prototype, request, etc.).
+**@Scope**
 
-Example,
+* **Defination** :  Defines the scope of a Spring bean (singleton, prototype, request, etc.).
+
+Example : 
 ```java
-@Component
+---@Component
 @Scope("prototype")
 public class PrototypeBean {}
 ```
 
+---
+
 ### Spring MVC Annotations
 
-@Controller
+**@Controller**
 
-* Defination :  Marks a class as a Spring MVC controller to handle HTTP requests.
+* **Defination :**  Marks a class as a Spring MVC controller to handle HTTP requests.
 
-Example,
+Example : 
 *@Controller*
 
 public class TaskController {}
@@ -743,7 +750,7 @@ public class TaskController {}
 
 * Defination :  A combination of @Controller and @ResponseBody, used for RESTful APIs.
 
-Example,
+Example : 
 
 ```java
 @RestController
@@ -765,7 +772,7 @@ return "Hello API!";
 
 * Defination :  Maps HTTP requests to controller methods.
 
-Example,
+Example : 
 ```java
 @Controller
 
@@ -788,7 +795,7 @@ return "profile";
 
 * Defination :  Shortcut annotations for specific HTTP methods.
 
-Example,
+Example : 
 ```java
 @GetMapping("dashboard" )
 
@@ -804,7 +811,7 @@ return "Dashboard";
 * Defination :  Extracts values from the URL path.
 * URL , *localhost,8080/deleteTask/2*
 
-Example,
+Example : 
 ```java
 @GetMapping("deleteTask/{id}")
 
@@ -824,7 +831,7 @@ return "redirect,/tasks-list";
 * Defination :  Extracts query parameters from the URL*.*
 * *URL* *, localhost,8080/search?keyword=”google*”
 
-Example,
+Example : 
 *@GetMapping*("/search")
 
 public String search(*@RequestParam* String keyword) {
@@ -837,7 +844,7 @@ return "Searching for, "  keyword;
 
 * Defination :  Binds from data into java object.
 
-Example,
+Example : 
 *@PostMapping*("/register")
 
 public String registerUser(*@ModelAttribute* User user) {
@@ -852,7 +859,7 @@ return "success";
 
 * Defination :  This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
 
-Example,
+Example : 
 ```java
 @ControllerAdvice
 
@@ -877,7 +884,7 @@ Spring Boot Annotations
 
 * Defination :  Marks the main Spring Boot application class.
 
-Example,
+Example : 
 ```java
 @SpringBootApplication
 
@@ -894,7 +901,7 @@ SpringApplication.*run*(DemoAppMssqlApplication.class, args);
 
 * Defination :  used to filter out the fields data form response. These fields are not sent in response.
 
-Example,
+Example : 
 ```java
 @Entity
 
@@ -925,7 +932,7 @@ private String password;
 
 * Defination :  Marks a class as a Spring configuration class and it is a source of beans.
 
-Example,
+Example : 
  ```java
 @Configuration
 
@@ -946,7 +953,7 @@ return new MyService();
 
 * Defination :  Enables scheduling tasks. When @EnableScheduling Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
 
-Example,
+Example : 
 ```java
  @EnableScheduling
 
@@ -970,7 +977,7 @@ Used for database interaction.
 
 * Defination :  Marks a class as a JPA entity (database table representation).
 
-Example,
+Example : 
 @Entity
 
 public class Tasks {
@@ -1012,7 +1019,7 @@ private User assignedUser;
 
 * Defination :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
 * @EnableTransactionManagements , To use above annotation we need to add this annotation to your main application class.
-* Example,
+* Example : 
 
 ```java
 @SpringBootApplication
@@ -1046,7 +1053,7 @@ Used for authentication and authorization.
 
 * Defination :  Enables Spring Security in the application.
 
-Example,
+Example : 
  @EnableWebSecurity
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {}
@@ -1084,7 +1091,7 @@ What is Spring Data JPA?
 
 Spring Data JPA simplifies database operations by providing a repository abstraction layer.
 
-Example,
+Example : 
 
 *@Repository*
 
@@ -1100,7 +1107,7 @@ How do you secure a Spring Boot application?
 * Configure authentication (UserDetailsService)
 * Implement JWT (JSON Web Token)
 
-Example,
+Example : 
 
 @Configuration
 
@@ -1135,7 +1142,7 @@ Spring Cloud is used for developing distributed microservices-based applications
 
 What is @FeignClient in Spring Cloud?
 
-Feign is a REST client that simplifies HTTP calls in microservices. Example,
+Feign is a REST client that simplifies HTTP calls in microservices. Example : 
 
 @FeignClient(name = "user-service")
 
@@ -1151,7 +1158,7 @@ What is Spring AOP?
 
 Aspect-Oriented Programming (AOP) is used to separate cross-cutting concerns (logging, security, transactions).
 
-Example,
+Example : 
 
 @Aspect
 
@@ -1174,7 +1181,7 @@ What is the difference between @RestController and @Controller?
 * @Controller → Returns views (JSP, Thymeleaf)
 * @RestController → Returns JSON/XML responses
 
-Example,
+Example : 
 
 @RestController
 
@@ -1212,7 +1219,7 @@ Answer,
 3. Protection against security threats like CSRF, XSS, session fixation, clickjacking, etc.
 4. Integration with OAuth2, JWT, LDAP, and custom authentication mechanisms
 
-Example,
+Example : 
 If a user tries to access /admin, Spring Security will check whether they have the ADMIN role before granting access.
 
 Spring Security architecture
@@ -2011,7 +2018,7 @@ Common Spring Security Annotations
 | @Secured("ROLE\_USER") | Restrict method access |
 | @RolesAllowed({"ROLE\_USER", "ROLE\_ADMIN"}) | Allows multiple roles |
 
-Example, Securing Methods
+Example :  Securing Methods
 
 @Service
 
@@ -2052,7 +2059,7 @@ Spring Security uses filters and interceptors to handle authentication and autho
 2. If the user has access rights, the request proceeds.
 3. If not, Spring Security denies access (403 Forbidden error).
 
-Example, Restricting Access
+Example :  Restricting Access
 
 @Bean
 
@@ -2124,7 +2131,7 @@ These annotations are used for method-level security in Spring Security.
 | @Secured | Restricts access to a method based on roles | @Secured("ROLE\_USER") |
 | @RolesAllowed | Similar to @Secured, but uses Java EE standard | @RolesAllowed({"ROLE\_USER", "ROLE\_ADMIN"}) |
 
-* Example, Using @PreAuthorize
+* Example :  Using @PreAuthorize
 
 @Service
 
@@ -2156,7 +2163,7 @@ JWT (JSON Web Token) is a stateless authentication mechanism used to secure APIs
 3. The token is sent in the Authorization header (Bearer <token>).
 4. On subsequent requests, the server verifies the token instead of checking session data.
 
-Example, Generating JWT Token
+Example :  Generating JWT Token
 
 public String generateToken(String username) {
 
@@ -2182,7 +2189,7 @@ Answer,
 CSRF (Cross-Site Request Forgery) protection is enabled by default in Spring Security.
 However, for REST APIs, CSRF can be disabled as they don’t use cookies for authentication.
 
-Example, Disabling CSRF in Spring Security
+Example :  Disabling CSRF in Spring Security
 
 @Bean
 
