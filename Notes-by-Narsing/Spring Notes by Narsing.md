@@ -144,9 +144,40 @@ public   class  Student {
 }
 ```
 
+---
+
+#### What is @Autowired?
+
+`@Autowired` is used to inject dependency automatically by Spring IoC container.
+
+------
+
+#### What are types of Dependency Injection in Spring?
+
+1. Constructor Injection
+2. Setter Injection
+3. Field Injection
+
+------
+
+#### Which is better and why?
+
+Constructor Injection is better.
+
+#### ✅ Advantages:
+
+1. Makes dependency mandatory
+2. Makes class immutable (`final`)
+3. Easy for unit testing
+4. No null issues
+5. Clean code
+6. Recommended by Spring team
+
+---
+
 ## **Spring Bean and Configuration**
 
-### **Bean Life Cycle**
+#### **Bean Life Cycle**
 
 1. Bean is instantiated
 2. Dependency is injected
@@ -350,50 +381,50 @@ public class MainApplicationToRun
 
 {
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
-// 1️ Create IOC container using XML-based configuration
+        // 1️ Create IOC container using XML-based configuration
 
-ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
-// Retrieve beans from XML configuration (setter-based and constructor-based)
+        // Retrieve beans from XML configuration (setter-based and constructor-based)
 
-Person p = (Person) context.getBean("setterbased");
+        Person p = (Person) context.getBean("setterbased");
 
-System.err.println("XML Configuration (Setter-based Bean), "  p);
+        System.err.println("XML Configuration (Setter-based Bean), "  p);
 
-Person p2 = (Person) context.getBean("constructorbased");
+        Person p2 = (Person) context.getBean("constructorbased");
 
-System.err.println("XML Configuration (Constructor-based Bean), "  p2);
+        System.err.println("XML Configuration (Constructor-based Bean), "  p2);
 
-// 2️ Annotation-based configuration
-
-
-ApplicationContext annotationContext = new AnnotationConfigApplicationContext(PersonAnnotationBasedConfig.class);
-
-// Retrieve bean from @Component-based configuration
-
-PersonAnnotationBasedConfig annotatedBean = (PersonAnnotationBasedConfig) annotationContext.getBean("personbean");
-
-System.out.println("Annotation-based Configuration, "  annotatedBean);
+        // 2️ Annotation-based configuration
 
 
-// 3️⃣ Java-based configuration
+        ApplicationContext annotationContext = new AnnotationConfigApplicationContext(PersonAnnotationBasedConfig.class);
+
+        // Retrieve bean from @Component-based configuration
+
+        PersonAnnotationBasedConfig annotatedBean = (PersonAnnotationBasedConfig) annotationContext.getBean("personbean");
+
+        System.out.println("Annotation-based Configuration, "  annotatedBean);
 
 
-ApplicationContext javaContext = new AnnotationConfigApplicationContext(PersonJavaBasedConfig.class);
+        // 3️⃣ Java-based configuration
 
-// Retrieve beans from Java-based configuration
 
-Person javaPerson1 = (Person) javaContext.getBean("constructorBasedPerson");
+        ApplicationContext javaContext = new AnnotationConfigApplicationContext(PersonJavaBasedConfig.class);
 
-System.out.println("Java-based Configuration (Constructor-based Bean), "  javaPerson1);
+        // Retrieve beans from Java-based configuration
 
-Person javaPerson2 = (Person) javaContext.getBean("setterBasedPerson");
+        Person javaPerson1 = (Person) javaContext.getBean("constructorBasedPerson");
 
-System.out.println("Java-based Configuration (Setter-based Bean), "  javaPerson2);
+        System.out.println("Java-based Configuration (Constructor-based Bean), "  javaPerson1);
 
-}
+        Person javaPerson2 = (Person) javaContext.getBean("setterBasedPerson");
+
+        System.out.println("Java-based Configuration (Setter-based Bean), "  javaPerson2);
+
+    }
 
 }
 ```
@@ -422,13 +453,13 @@ System.out.println("Java-based Configuration (Setter-based Bean), "  javaPerson2
 
 class AppConfig {
 
-@Bean
+    @Bean
 
-public Engine engine() {
+    public Engine engine() {
 
-return new Engine();
+        return new Engine();
 
-}
+    }
 }
 
 ```
@@ -463,23 +494,23 @@ return new Engine();
 ```xml
 <servlet>
 
-<servlet-name>HelloWeb</servlet-name>
+    <servlet-name>HelloWeb</servlet-name>
 
-<servlet-class>
+    <servlet-class>
 
-org.springframework.web.servlet.DispatcherServlet
+        org.springframework.web.servlet.DispatcherServlet
 
-</servlet-class>
+    </servlet-class>
 
-<load-on-startup>1</load-on-startup>
+    <load-on-startup>1</load-on-startup>
 
 </servlet>
 
 <servlet-mapping>
 
-<servlet-name>HelloWeb</servlet-name>
+    <servlet-name>HelloWeb</servlet-name>
 
-<url-pattern>\*/</url-pattern>
+    <url-pattern>\*/</url-pattern>
 
 </servlet-mapping>
 ```
@@ -490,23 +521,25 @@ org.springframework.web.servlet.DispatcherServlet
 
 * It is a class which is used to resolve the internal view in Spring MVC.
 * We can define the properties like prefix and suffix where prefix contains location of view and suffix contains extension of view page.
-* Example ,
+* Example :
 
+```xml
 *<!-- used to map vies according to controller -->*
 
 <bean name="viewResolver"
 
-class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
-<property name="prefix" value="/WEB-INF/views/" />
+    <property name="prefix" value="/WEB-INF/views/" />
 
-<property name="suffix" value=".jsp" />
+    <property name="suffix" value=".jsp" />
 
 </bean>
+```
 
-Explain Model,ModelMap and ModelAndView in Spring MVC.
+#### Explain Model,ModelMap and ModelAndView in Spring MVC.
 
-1. Model , it is used to pass information from controller to view using model object.
+1. **Model** , it is used to pass information from controller to view using model object.
 
 ```java
 Model model = new Model();
@@ -514,9 +547,9 @@ Model model = new Model();
 model.addAttribute("msg", “hello “));
 ```
 
-1. ModelMap , it is similar to model only difference is that it provides map functionalities.
+1. **ModelMap** , it is similar to model only difference is that it provides map functionalities.
    Methods , addAttribute(), get(),put()
-2. ModelAndView, If you want to return model and view in same object then we can use ModelAndView class object.
+2. **ModelAndView**, If you want to return model and view in same object then we can use **ModelAndView** class object.
 
 ```java
 public ModelAndView showWelcomePage() {
