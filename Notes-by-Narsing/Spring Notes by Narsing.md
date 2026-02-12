@@ -65,13 +65,13 @@ Address  add = new  Address(); // creating instance
 ```java
 public class Employee {
 
-Address address;
+    Address address;
 
-Employee( Address address){
+    Employee( Address address){
 
-this.address=address; // not creating instance
+        this.address=address; // not creating instance
 
-}
+    }
 
 }
 ```
@@ -88,7 +88,7 @@ Example ,
 
 <bean id="studentbean" class="com.springtutorial.Student">
 
-<property name="name" value="Nirav"></property>
+    <property name="name" value="Nirav"></property>
 
 </bean>
 
@@ -97,7 +97,7 @@ Example ,
 
 <bean id="stdbean" class="com.springtutorial.Student">
 
-<constructor-arg name="name" value="Nikita"></constructor-arg>
+    <constructor-arg name="name" value="Nikita"></constructor-arg>
 
 </bean>
 ```
@@ -105,41 +105,41 @@ Example ,
 ```java
 public   class  Student {
 
- private  String name;
+    private  String name;
 
- public  String  getName () {
+    public  String  getName () {
 
- return  name;
+        return  name;
 
-}
+    }
 
-// setter based DI
+    // setter based DI
 
- public   void   setName (String name) {
+    public   void   setName (String name) {
 
- this .name = name;
+        this .name = name;
 
-}
+    }
 
-// constrctor based DI
+    // constrctor based DI
 
- public   Student (String name) {
+    public   Student (String name) {
 
- this .name = name;
+        this .name = name;
 
-}
+    }
 
- public   Student () {
+    public   Student () {
 
- super ();
+        super ();
 
-}
+    }
 
- public   void   display () {
+    public   void   display () {
 
-System. out .println("Hello mr . "  name);
+        System. out .println("Hello mr . "  name);
 
-}
+    }
 
 }
 ```
@@ -178,35 +178,35 @@ XML configuration was a common way to define beans. You specify the beans and th
 
 <beans xmlns = "http,//www.springframework.org/schema/beans"
 
-xmlns,xsi = "http,//www.w3.org/2001/XMLSchema-instance"
+       xmlns,xsi = "http,//www.w3.org/2001/XMLSchema-instance"
 
-xsi,schemaLocation = "http,//www.springframework.org/schema/beans
+       xsi,schemaLocation = "http,//www.springframework.org/schema/beans
 
-http,//www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+                             http,//www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-<!-- DI inection using constructor -->
+    <!-- DI inection using constructor -->
 
-<bean id="constructorbased" class="com.DependencyInjectionTutorial.Person">
+    <bean id="constructorbased" class="com.DependencyInjectionTutorial.Person">
 
-<constructor-arg name="name" value="narsing"></constructor-arg>
+        <constructor-arg name="name" value="narsing"></constructor-arg>
 
-<constructor-arg name="age" value="45"></constructor-arg>
+        <constructor-arg name="age" value="45"></constructor-arg>
 
-<constructor-arg name="surname" value="pendharkar"></constructor-arg>
+        <constructor-arg name="surname" value="pendharkar"></constructor-arg>
 
-</bean>
+    </bean>
 
-<!-- DI injection using setter method -->
+    <!-- DI injection using setter method -->
 
-<bean id="setterbased" class="com.DependencyInjectionTutorial.Person">
+    <bean id="setterbased" class="com.DependencyInjectionTutorial.Person">
 
-<property name="age" value="28"></property>
+        <property name="age" value="28"></property>
 
-<property name="name" value="narsing"></property>
+        <property name="name" value="narsing"></property>
 
-<property name="surname" value="pendharkar"></property>
+        <property name="surname" value="pendharkar"></property>
 
-</bean>
+    </bean>
 
 </beans>
 ```
@@ -230,31 +230,31 @@ http,//www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 public class PersonJavaBasedConfig {
 
-@Bean("constructorBasedPerson")
+    @Bean("constructorBasedPerson")
 
-public Person constructorBasedPerson() {
+    public Person constructorBasedPerson() {
 
-Person person1 = new Person("JavaBased", 1, "Configuration Using constructor");
+        Person person1 = new Person("JavaBased", 1, "Configuration Using constructor");
 
-return person1;
+        return person1;
 
-}
+    }
 
-@Bean("setterBasedPerson")
+    @Bean("setterBasedPerson")
 
-public Person setterBasedPerson() {
+    public Person setterBasedPerson() {
 
-Person person2 = new Person();
+        Person person2 = new Person();
 
-person2.setAge(1);
+        person2.setAge(1);
 
-person2.setName("JavaBased");
+        person2.setName("JavaBased");
 
-person2.setSurname("Configuration Using Setter Mathod");
+        person2.setSurname("Configuration Using Setter Mathod");
 
-return person2;
+        return person2;
 
-}
+    }
 
 }
 ```
