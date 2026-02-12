@@ -683,7 +683,7 @@ private TaskRepository taskRepository;
 
 **@Qualifier**
 
-* **Definition:** Used along with @Autowired to resolve ambiguity when multiple beans of the same type exist.
+* **Definition:** Used along with **@Autowired** to resolve ambiguity when multiple beans of the same type exist.
 
 Example : 
 ```java
@@ -728,7 +728,7 @@ private String appName;
 
 Example : 
 ```java
----@Component
+@Component
 @Scope("prototype")
 public class PrototypeBean {}
 ```
@@ -746,9 +746,9 @@ Example :
 
 public class TaskController {}
 
-@RestController
+**@RestController**
 
-* Defination :  A combination of @Controller and @ResponseBody, used for RESTful APIs.
+* **Defination :**  A combination of **@Controller** and **@ResponseBody**, used for RESTful APIs.
 
 Example : 
 
@@ -757,20 +757,20 @@ Example :
 
 public class ApiController {
 
-*@GetMapping*("/data")
+    @GetMapping("/data")
 
-public String getData() {
+    public String getData() {
 
-return "Hello API!";
+        return "Hello API!";
 
-}
+    }
 
 }
 ```
 
-@RequestMapping
+**@RequestMapping**
 
-* Defination :  Maps HTTP requests to controller methods.
+* **Defination** :  Maps HTTP requests to controller methods.
 
 Example : 
 ```java
