@@ -539,7 +539,7 @@ class AppConfig {
 
 #### Explain Model,ModelMap and ModelAndView in Spring MVC.
 
-1. **Model** , it is used to pass information from controller to view using model object.
+1. **Model** : it is used to pass information from controller to view using model object.
 
 ```java
 Model model = new Model();
@@ -547,20 +547,20 @@ Model model = new Model();
 model.addAttribute("msg", “hello “));
 ```
 
-1. **ModelMap** , it is similar to model only difference is that it provides map functionalities.
+1. **ModelMap** : it is similar to model only difference is that it provides map functionalities.
    Methods , addAttribute(), get(),put()
-2. **ModelAndView**, If you want to return model and view in same object then we can use **ModelAndView** class object.
+2. **ModelAndView** : If you want to return model and view in same object then we can use **ModelAndView** class object.
 
 ```java
 public ModelAndView showWelcomePage() {
 
-ModelAndView mav = new ModelAndView();
+    ModelAndView mav = new ModelAndView();
 
-mav.setViewName("welcome");
+    mav.setViewName("welcome");
 
-mav.addObject("message", "Hello, Spring MVC!");
+    mav.addObject("message", "Hello, Spring MVC!");
 
-return mav;
+    return mav;
 
 }
 ```
@@ -683,7 +683,7 @@ private TaskRepository taskRepository;
 
 **@Qualifier**
 
-* **Definition:** Used along with **@Autowired** to resolve ambiguity when multiple beans of the same type exist.
+* **Definition:** Used along with **@Autowired** to resolve ambiguity when multiple beans of the same type exist. It tells Spring exactly which bean to inject.
 
 Example : 
 ```java
@@ -734,6 +734,68 @@ public class PrototypeBean {}
 ```
 
 ---
+
+ **@Lazy**
+
+By default, Spring creates all singleton beans at startup (Eager initialization means loaded when application starts) .
+
+`@Lazy` tells Spring:
+
+> Don’t create this bean at startup. Create it only when it is first used.
+
+---
+
+#### 🔹 Example 1 – Lazy Bean
+
+```java
+@Component
+@Lazy
+public class HeavyService {
+
+    public HeavyService() {
+        System.out.println("HeavyService Created");
+    }
+}
+```
+
+Now this bean will be created only when required.
+
+------
+
+#### 🔹 Example 2 – Lazy Injection
+
+```java
+@Service
+public class OrderService {
+
+    private final PaymentService paymentService;
+
+    public OrderService(@Lazy PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+}
+```
+
+Here, `PaymentService` will be created only when used.
+
+------
+
+#### ✅ Why Use `@Lazy`?
+
+1. Improves startup time
+2. Avoids unnecessary bean creation
+3. Helps resolve circular dependency
+
+---
+
+#### 🎯 Difference Between `@Primary` and `@Qualifier`
+
+| Feature     | @Primary       | @Qualifier              |
+| ----------- | -------------- | ----------------------- |
+| Purpose     | Default bean   | Specific bean selection |
+| Usage       | On bean class  | On injection point      |
+| Control     | Global default | Local selection         |
+| Flexibility | Less           | More                    |
 
 ### Spring MVC Annotations
 
