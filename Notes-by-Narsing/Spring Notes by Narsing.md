@@ -804,9 +804,12 @@ Here, `PaymentService` will be created only when used.
 * **Defination :**  Marks a class as a Spring MVC controller to handle HTTP requests.
 
 Example : 
-*@Controller*
+
+```java
+@Controller
 
 public class TaskController {}
+```
 
 **@RestController**
 
@@ -842,20 +845,20 @@ Example :
 
 public class UserController {
 
-@GetMapping("/profile")
+    @GetMapping("/profile")
 
-public String showProfile() {
+    public String showProfile() {
 
-return "profile";
+        return "profile";
 
-}
+    }
 
 }
 ```
 
-@GetMapping, @PostMapping, @PutMapping, @DeleteMapping
+**@GetMapping, @PostMapping, @PutMapping, @DeleteMapping**
 
-* Defination :  Shortcut annotations for specific HTTP methods.
+* **Defination :**  Shortcut annotations for specific HTTP methods.
 
 Example : 
 ```java
@@ -868,10 +871,10 @@ return "Dashboard";
 }
 ```
 
-@PathVariable
+**@PathVariable**
 
-* Defination :  Extracts values from the URL path.
-* URL , *localhost,8080/deleteTask/2*
+* **Defination** :  Extracts values from the URL path.
+* `URL : localhost,8080/deleteTask/2`
 
 Example : 
 ```java
@@ -879,11 +882,11 @@ Example :
 
 public String deleteTask(*@PathVariable*("id") int taskId, Model model) throws SQLException {
 
-taskserviceImpl.deleteTask(taskId);
+    taskserviceImpl.deleteTask(taskId);
 
-model.addAttribute("message", "Task deleted!");
+    model.addAttribute("message", "Task deleted!");
 
-return "redirect,/tasks-list";
+    return "redirect,/tasks-list";
 
 }
 ```
@@ -891,10 +894,12 @@ return "redirect,/tasks-list";
 @RequestParam
 
 * Defination :  Extracts query parameters from the URL*.*
-* *URL* *, localhost,8080/search?keyword=”google*”
+* *URL* : `localhost,8080/search?keyword=”google”`
 
 Example : 
-*@GetMapping*("/search")
+
+```java
+@GetMapping("/search")
 
 public String search(*@RequestParam* String keyword) {
 
@@ -902,24 +907,29 @@ return "Searching for, "  keyword;
 
 }
 
-@ModelAttribute
+```
 
-* Defination :  Binds from data into java object.
+**@ModelAttribute**
+
+* **Defination** :  Binds from data into java object.
 
 Example : 
-*@PostMapping*("/register")
 
-public String registerUser(*@ModelAttribute* User user) {
+```java
+@PostMapping("/register")
+
+public String registerUser(@ModelAttribute User user) {
 
 userService.save(user);
 
 return "success";
 
 }
+```
 
-@ExceptionHandler ,@ControllerAdvice
+**@ExceptionHandler ,@ControllerAdvice**
 
-* Defination :  This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
+* **Defination :**  This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
 
 Example : 
 ```java
@@ -940,11 +950,11 @@ return "Login";
 }
 ```
 
-Spring Boot Annotations
+# Spring Boot Annotations
 
-@SpringBootApplication
+**@SpringBootApplication**
 
-* Defination :  Marks the main Spring Boot application class.
+* **Defination** :  Marks the main Spring Boot application class.
 
 Example : 
 ```java
@@ -954,12 +964,12 @@ public class DemoAppMssqlApplication {
 
 public static void main(String[] args) {
 
-SpringApplication.*run*(DemoAppMssqlApplication.class, args);
+SpringApplication.run(DemoAppMssqlApplication.class, args);
 
 }
 
 ```
-@JsonIgoner & @JsonIgnoreProperties
+**@JsonIgoner & @JsonIgnoreProperties**
 
 * Defination :  used to filter out the fields data form response. These fields are not sent in response.
 
@@ -971,28 +981,28 @@ Example :
 
 public class User {
 
-@Id
+    @Id
 
-@GeneratedValue(strategy = GenerationType.*SEQUENCE*,generator = "userseq")
+    @GeneratedValue(strategy = GenerationType.*SEQUENCE*,generator = "userseq")
 
-@SequenceGenerator(name="userseq",sequenceName = "userseq", initialValue = 1000, allocationSize = 1)
+    @SequenceGenerator(name="userseq",sequenceName = "userseq", initialValue = 1000, allocationSize = 1)
 
-private Long id;
+    private Long id;
 
-@Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
 
-private String username;
+    private String username;
 
-@Column(nullable = false)
+    @Column(nullable = false)
 
-@JsonIgnore
+    @JsonIgnore
 
-private String password;
+    private String password;
 ```
 
-@Configuration
+@**Configuration**
 
-* Defination :  Marks a class as a Spring configuration class and it is a source of beans.
+* **Defination** :  Marks a class as a Spring configuration class and it is a source of beans.
 
 Example : 
  ```java
@@ -1011,9 +1021,9 @@ return new MyService();
 }
  ```
 
-@EnableScheduling
+@**EnableScheduling**
 
-* Defination :  Enables scheduling tasks. When @EnableScheduling Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
+* **Defination** :  Enables scheduling tasks. When @**EnableScheduling** Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
 
 Example : 
 ```java
@@ -1030,7 +1040,7 @@ System.out.println("Running every 5 seconds");
 }
 ```
 
-Spring Data JPA Annotations
+# Spring Data JPA Annotations
 
 Used for database interaction.
 
@@ -1039,49 +1049,49 @@ Used for database interaction.
 
 * Defination :  Marks a class as a JPA entity (database table representation).
 
-Example : 
+    Example : 
 @Entity
 
 public class Tasks {
 
-@Id
+    @Id
 
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-private Long task\_id;
+    private Long task\_id;
 
-@NotNull
+    @NotNull
 
-private String title;
+    private String title;
 
-@NotNull
+    @NotNull
 
-private String description;
+    private String description;
 
-@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
 
-private Date deadline;
+    private Date deadline;
 
-@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
 
-private Priority priority;
+    private Priority priority;
 
-@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
 
-private TaskStatus status;
+    private TaskStatus status;
 
-@ManyToOne
+    @ManyToOne
 
-@JoinColumn(name = "user\_id")
+    @JoinColumn(name = "user\_id")
 
-private User assignedUser;
+    private User assignedUser;
 ```
 
-@Transactional
+@**Transactional**
 
-* Defination :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
-* @EnableTransactionManagements , To use above annotation we need to add this annotation to your main application class.
-* Example : 
+* **Defination** :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
+* @**EnableTransactionManagements** , To use above annotation we need to add this annotation to your main application class.
+* Example :
 
 ```java
 @SpringBootApplication
@@ -1107,22 +1117,22 @@ userRepository.save(user);
 }
 ```
 
-Spring Security Annotations
+# Spring Security Annotations
 
-Used for authentication and authorization.
+#### Used for authentication and authorization.
 
-@EnableWebSecurity
+@**EnableWebSecurity**
 
-* Defination :  Enables Spring Security in the application.
+* **Defination** :  Enables Spring Security in the application.
 
 Example : 
- @EnableWebSecurity
+ @**EnableWebSecurity**
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {}
 
 @PreAuthorize
 
-* Defination :  Restricts access to a method based on roles.
+* **Defination** :  Restricts access to a method based on roles.
 
 Example:
 
@@ -1130,7 +1140,7 @@ Example:
 
 public void adminOnly() {}
 
-What is the difference between Spring MVC and Spring Boot?
+#### What is the difference between Spring MVC and Spring Boot?
 
 |  |  |  |
 | --- | --- | --- |
@@ -1139,7 +1149,7 @@ What is the difference between Spring MVC and Spring Boot?
 | Embedded Server | No | Yes (Tomcat, Jetty) |
 | Dependencies | More setup needed | Minimal setup |
 
-What is @SpringBootApplication?
+#### What is @SpringBootApplication?
 
 It is a combination of,
 
@@ -1149,17 +1159,19 @@ It is a combination of,
 
 # Spring Data JPA & Transactions
 
-What is Spring Data JPA?
+#### What is Spring Data JPA?
 
 Spring Data JPA simplifies database operations by providing a repository abstraction layer.
 
 Example : 
 
-*@Repository*
+```java
+@Repository
 
 public interface EmpRepository extends JpaRepository<Employee, Long>{
 
 }
+```
 
 Spring Security Questions
 
@@ -1171,29 +1183,33 @@ How do you secure a Spring Boot application?
 
 Example : 
 
+```java
 @Configuration
 
 @EnableWebSecurity
 
 public class SecurityConfig {
 
-@Bean
+    @Bean
 
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
 
-.formLogin();
+            .formLogin();
 
-return http.build();
+        return http.build();
+
+    }
 
 }
+```
 
-}
+
 
 # Microservices & Cloud Questions
 
-What is Spring Cloud?
+#### What is Spring Cloud?
 
 Spring Cloud is used for developing distributed microservices-based applications. It provides features like,
 
@@ -1202,10 +1218,11 @@ Spring Cloud is used for developing distributed microservices-based applications
 * Load Balancing (Ribbon)
 * Circuit Breaker (Resilience4J)
 
-What is @FeignClient in Spring Cloud?
+#### What is @FeignClient in Spring Cloud?
 
 Feign is a REST client that simplifies HTTP calls in microservices. Example : 
 
+```java
 @FeignClient(name = "user-service")
 
 public interface UserClient {
@@ -1215,13 +1232,17 @@ public interface UserClient {
 User getUserById(@PathVariable Long id);
 
 }
+```
 
-What is Spring AOP?
+
+
+#### What is Spring AOP?
 
 Aspect-Oriented Programming (AOP) is used to separate cross-cutting concerns (logging, security, transactions).
 
 Example : 
 
+```java
 @Aspect
 
 @Component
@@ -1237,14 +1258,18 @@ System.out.println("Method Called, "  joinPoint.getSignature().getName());
 }
 
 }
+```
 
-What is the difference between @RestController and @Controller?
+
+
+#### What is the difference between @RestController and @Controller?
 
 * @Controller → Returns views (JSP, Thymeleaf)
 * @RestController → Returns JSON/XML responses
 
 Example : 
 
+```java
 @RestController
 
 @RequestMapping("/api")
@@ -1260,6 +1285,7 @@ return "Hello, World!";
 }
 
 }
+```
 
 What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
 
