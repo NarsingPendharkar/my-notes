@@ -613,6 +613,69 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 ---
 
+####  **What is Spring Boot and why is it used?**
+
+**Answer:** Spring Boot simplifies Java application development by providing auto-configuration, embedded servers, and production-ready features.
+**Example:**
+
+```java
+@SpringBootApplication
+public class Application {
+public static void main (String[] args) {
+SpringApplication. run (Application.class, args);
+}
+}
+```
+
+#### What are the main features and advantages of using Spring Boot for application development?
+
+- **Auto-configuration** :Auto-configuration in Spring Boot is one of its key features that simplifies application setup. In traditional Spring, when setting up a project, developers had to manually
+  configure both their own classes and the Spring-provided classes, such as data sources,
+  transaction managers, or web servers. This often involved a significant amount of boilerplate code.
+
+- **Embedded Servers** : Spring Boot comes with embedded servers like Tomcat, Jetty, or
+  Undertow, so you don’t need to deploy WAR files or set up an external server.
+- **Spring Boot Actuator** : It includes built-in production-ready features like health checks,
+  metrics, application monitoring, and externalized configuration.
+- **Starter Dependencies** : Spring Boot simplifies dependency management with a set of
+  curated, versioned dependencies that work well together.
+- **Spring Boot CLI** : A command-line interface for running and testing Spring Boot
+  applications quickly, allowing you to write Groovy scripts and start applications with
+  minimal setup.
+- **Spring Boot DevTools** : Provides a set of tools to improve the development experience,
+  such as automatic restarts, live reload, and enhanced logging, to speed up development
+  cycles
+
+---
+
+#### What are Spring Boot starters?
+
+Answer: Spring Boot Starters are pre-configured Maven dependencies that simplify
+adding specific features to your Spring Boot application. When you include a starter, you
+don't need to manually add its transitive dependencies, as they are already included.
+Starters group together commonly used dependencies for features like web development,
+security, data access, etc., allowing for easy integration.
+**Example:**
+o spring-boot-starter-web for web apps.
+o spring-boot-starter-security for security features.
+
+```xml
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+#### Explain the @SpringBootApplication annotation.
+
+**@Configuration :** Marks the class as a source of bean definitions for the application   context. It is equivalent to using XML configuration in traditional Spring, but in a  more concise and Java-based way.
+**@EnableAutoConfiguration :** Tells Spring Boot to automatically configure the  application based on the dependencies present in the classpath. This reduces the  need for manual configuration and setup, making it easier to create production-  ready applications.
+**@ComponentScan :** Tells Spring to scan the package (and sub-packages) for  components, configurations, and services. This allows Spring to discover and register  beans, such as @Controller, @Service, @Repository, etc.
+
+---
+
+
+
 ## Core Spring Annotations-
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
