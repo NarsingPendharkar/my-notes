@@ -1229,7 +1229,7 @@ private String appName;
 
 ------
 
-## 5️⃣ What are Spring Profiles and how do they work?
+#### 5️⃣ What are Spring Profiles and how do they work?
 
 **Answer:**
 
@@ -1243,7 +1243,7 @@ Example environments:
 
 ------
 
-### Step 1: Create profile-specific file
+##### Step 1: Create profile-specific file
 
 ```
 application-dev.properties
@@ -1252,7 +1252,7 @@ application-prod.properties
 
 ------
 
-### Step 2: Activate Profile
+##### Step 2: Activate Profile
 
 In properties:
 
@@ -1270,7 +1270,7 @@ java -jar app.jar --spring.profiles.active=prod
 
 ------
 
-### Step 3: Use @Profile Annotation
+##### Step 3: Use @Profile Annotation
 
 ```java
 @Bean
@@ -1288,41 +1288,261 @@ public DataSource prodDataSource() {
 
 Only active profile bean will load.
 
-------
+---
 
-# Real Interview Scenario (3+ Years)
-
-👉 Question: *How do you manage DB config for Dev and Prod?*
-
-Answer:
-
-- Create application-dev.properties and application-prod.properties
-- Keep different DB credentials
-- Activate profile using spring.profiles.active
-- Use @Profile for environment-specific beans
-
-------
-
-# Important Advanced Point
-
-For complex configuration use:
-
-```java
-@ConfigurationProperties(prefix = "app")
-```
-
-Better than multiple `@Value`.
-
-------
-
-If you want next:
-
-- Spring Boot Auto Configuration Internals
-- Actuator & Monitoring
-- Logging Configuration
-- Production Best Practices
+# Spring Boot – RESTful Web Services 
 
 ---
+
+#### 1️⃣ What is @RestController in Spring Boot?
+
+**Answer:**
+
+`@RestController` is a combination of:
+
+- `@Controller`
+- `@ResponseBody`
+
+It is used to create REST APIs that return **JSON or XML response directly**, not JSP pages.
+
+### Example:
+
+```java
+@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello REST API";
+    }
+}
+```
+
+
+
+### 2️⃣ How to create a simple RESTful API using Spring Boot?
+
+##### Step 1: Add Dependency
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+------
+
+##### Step 2: Create Model
+
+```java
+public class User {
+    private Long id;
+    private String name;
+
+    // getters and setters
+}
+```
+
+------
+
+##### Step 3: Create Controller
+
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @GetMapping
+    public List<User> getUsers() {
+        return List.of(new User(1L, "Narsing"));
+    }
+}
+```
+
+### Access:
+
+```url
+http://localhost:8080/users
+```
+
+------
+
+### 3️⃣ How to handle HTTP methods (GET, POST, PUT, DELETE)?
+
+Spring Boot provides specific annotations:
+
+| HTTP Method | Annotation     |
+| ----------- | -------------- |
+| GET         | @GetMapping    |
+| POST        | @PostMapping   |
+| PUT         | @PutMapping    |
+| DELETE      | @DeleteMapping |
+
+------
+
+##### Example:
+
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return new User(id, "Narsing");
+    }
+
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return user;
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        user.setId(id);
+        return user;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        return "User deleted with id: " + id;
+    }
+}
+```
+
+------
+
+#### 4️⃣ What is @RequestBody and @ResponseBody?
+
+##### @RequestBody
+
+Used to convert JSON request body into Java object.
+
+```java
+{
+  "id": 1,
+  "name": "Narsing"
+}
+@PostMapping
+public User save(@RequestBody User user) {
+    return user;
+}
+```
+
+👉 JSON → Java Object
+
+------
+
+##### @ResponseBody
+
+Converts Java object into JSON response.
+
+```java
+@ResponseBody
+@GetMapping("/user")
+public User getUser() {
+    return new User(1L, "Narsing");
+}
+```
+
+👉 Java Object → JSON
+
+⚡ Note: `@RestController` already includes `@ResponseBody`.
+
+------
+
+#### 5️⃣ How to handle query parameters in Spring Boot?
+
+We use `@RequestParam`.
+
+##### Example:
+
+URL:
+
+```url
+http://localhost:8080/search?name=Narsing
+```
+
+Controller:
+
+```java
+@GetMapping("/search")
+public String search(@RequestParam String name) {
+    return "Searching for: " + name;
+}
+```
+
+------
+
+##### Optional Query Parameter:
+
+```java
+@GetMapping("/search")
+public String search(@RequestParam(required = false) String name) {
+    return name != null ? name : "No name provided";
+}
+```
+
+------
+
+##### With Default Value:
+
+```java
+@GetMapping("/search")
+public String search(@RequestParam(defaultValue = "Guest") String name) {
+    return "Hello " + name;
+}
+```
+
+------
+
+#### Difference between @PathVariable and @RequestParam?
+
+- `@PathVariable` → Value from URL path
+   Example: `/users/10`
+- `@RequestParam` → Value from query string
+   Example: `/users?id=10`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
