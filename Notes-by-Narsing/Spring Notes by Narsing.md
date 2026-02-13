@@ -613,67 +613,6 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 ---
 
-####  **What is Spring Boot and why is it used?**
-
-**Answer:** Spring Boot simplifies Java application development by providing auto-configuration, embedded servers, and production-ready features.
-**Example:**
-
-```java
-@SpringBootApplication
-public class Application {
-public static void main (String[] args) {
-SpringApplication. run (Application.class, args);
-}
-}
-```
-
-#### What are the main features and advantages of using Spring Boot for application development?
-
-- **Auto-configuration** :Auto-configuration in Spring Boot is one of its key features that simplifies application setup. In traditional Spring, when setting up a project, developers had to manually
-  configure both their own classes and the Spring-provided classes, such as data sources,
-  transaction managers, or web servers. This often involved a significant amount of boilerplate code.
-
-- **Embedded Servers** : Spring Boot comes with embedded servers like Tomcat, Jetty, or
-  Undertow, so you don’t need to deploy WAR files or set up an external server.
-- **Spring Boot Actuator** : It includes built-in production-ready features like health checks,
-  metrics, application monitoring, and externalized configuration.
-- **Starter Dependencies** : Spring Boot simplifies dependency management with a set of
-  curated, versioned dependencies that work well together.
-- **Spring Boot CLI** : A command-line interface for running and testing Spring Boot
-  applications quickly, allowing you to write Groovy scripts and start applications with
-  minimal setup.
-- **Spring Boot DevTools** : Provides a set of tools to improve the development experience,
-  such as automatic restarts, live reload, and enhanced logging, to speed up development
-  cycles
-
----
-
-#### What are Spring Boot starters?
-
-**Answer:** Spring Boot Starters are pre-configured Maven dependencies that simplify
-adding specific features to your Spring Boot application. When you include a starter, you
-don't need to manually add its transitive dependencies, as they are already included.
-Starters group together commonly used dependencies for features like web development,
-security, data access, etc., allowing for easy integration.
-**Example:**
-o spring-boot-starter-web for web apps.
-o spring-boot-starter-security for security features.
-
-```xml
-<dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-```
-
-#### Explain the @SpringBootApplication annotation.
-
-**@Configuration :** Marks the class as a source of bean definitions for the application   context. It is equivalent to using XML configuration in traditional Spring, but in a  more concise and Java-based way.
-**@EnableAutoConfiguration :** Tells Spring Boot to automatically configure the  application based on the dependencies present in the classpath. This reduces the  need for manual configuration and setup, making it easier to create production-  ready applications.
-**@ComponentScan :** Tells Spring to scan the package (and sub-packages) for  components, configurations, and services. This allows Spring to discover and register  beans, such as @Controller, @Service, @Repository, etc.
-
----
-
 
 
 ## Core Spring Annotations-
@@ -1013,7 +952,379 @@ return "Login";
 }
 ```
 
-# Spring Boot Annotations
+# Spring Boot
+
+---
+
+#### 1️⃣ What is Spring Boot and why is it used?
+
+**Answer:**
+
+Spring Boot is a framework built on top of Spring that helps to create **standalone, production-ready applications** with minimal configuration.
+
+It eliminates:
+
+- XML configuration
+- Manual dependency setup
+- Server deployment complexity
+
+### Why we use it?
+
+- Faster development
+- Embedded server (Tomcat/Jetty)
+- Auto configuration
+- Microservices friendly
+
+### Example:
+
+```java
+@SpringBootApplication
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+}
+
+```
+
+---
+
+#### 2️⃣ What are the main features of Spring Boot?
+
+**Answer:**
+
+1. **Auto Configuration**
+    Automatically configures beans based on classpath dependencies.
+2. **Starter Dependencies**
+    Provides ready-to-use dependency bundles.
+3. **Embedded Server**
+    No need to install external server (Tomcat included).
+4. **Production Ready Features**
+    Monitoring using Actuator.
+5. **Minimal Configuration**
+    Mostly annotation-based configuration.
+
+------
+
+#### 3️⃣ What are Spring Boot Starters?
+
+**Answer:**
+
+Starters are **predefined dependency packages** that simplify build configuration. Instead of adding multiple dependencies manually, we add one starter.
+
+##### Common Starters:
+
+- `spring-boot-starter-web`
+- `spring-boot-starter-data-jpa`
+- `spring-boot-starter-security`
+- `spring-boot-starter-test`
+
+##### Example (Maven):
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+👉 This includes:
+
+- Spring MVC
+- Jackson
+- Validation
+- Embedded Tomcat
+
+------
+
+#### 4️⃣ Explain @SpringBootApplication
+
+**Answer:**
+
+`@SpringBootApplication` is a **combination of three annotations**:
+
+1. `@Configuration`
+    Marks class as configuration class.
+2. `@EnableAutoConfiguration`
+    Enables Spring Boot auto configuration.
+3. `@ComponentScan`
+    Scans components in current package and sub-packages.
+
+##### Equivalent Code:
+
+```java
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
+public class MyApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApplication.class, args);
+    }
+}
+```
+
+---
+
+### Spring Boot Configuration
+
+---
+
+#### 1️⃣ How to configure Spring Boot using application.properties?
+
+**Answer:**
+
+`application.properties` is used to configure:
+- Server settings
+- Database connection
+- Logging
+- Custom properties
+
+It is located inside:
+
+`src/main/resources/application.properties`
+
+##### Example:
+
+~~~properties
+```properties
+# Server Configuration
+server.port=9090
+
+# Database Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/bankdb
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+
+# Logging
+logging.level.org.springframework=INFO
+
+# Custom Property
+app.name=Banking Application
+~~~
+
+##### Access custom property:
+
+```java
+@Value("${app.name}")
+private String appName;
+```
+
+------
+
+#### 2️⃣ Difference between application.properties and application.yml
+
+| application.properties | application.yml            |
+| ---------------------- | -------------------------- |
+| Key-value format       | YAML format (hierarchical) |
+| Flat structure         | Nested structure           |
+| More repetitive        | Cleaner & readable         |
+| Uses `=`               | Uses indentation           |
+
+------
+
+##### Example (Properties)
+
+```properties
+server.port=8081
+spring.datasource.url=jdbc:mysql://localhost:3306/test
+```
+
+### Example (YAML)
+
+```yaml
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+```
+
+> [!TIP]
+>
+> **YAML** is preferred in microservices because it's cleaner for complex configuration.
+
+------
+
+#### 3️⃣ How to externalize configuration in Spring Boot?
+
+Externalizing configuration means keeping configuration **outside the application code**, especially for different environments.
+
+##### Methods:
+
+##### 1️⃣ Using application-{profile}.properties
+
+```
+application-dev.properties
+application-prod.properties
+```
+
+------
+
+##### 2️⃣ Using Environment Variables
+
+```bash
+export SERVER_PORT=9090
+```
+
+Spring Boot automatically maps it.
+
+------
+
+##### 3️⃣ Using Command Line Arguments
+
+```bash
+java -jar app.jar --server.port=8085
+```
+
+------
+
+##### 4️⃣ Using External File
+
+```bash
+java -jar app.jar --spring.config.location=/path/application.properties
+```
+
+------
+
+##### Priority Order (High to Low)
+
+1. Command line arguments
+2. Environment variables
+3. External config file
+4. application.properties inside jar
+
+------
+
+##### 4️⃣ What is @Value used for?
+
+**Answer:**
+
+`@Value` is used to inject property values into variables.
+
+##### Example:
+
+```properties
+app.version=1.0
+```
+
+```java
+@Value("${app.version}")
+private String version;
+```
+
+It can also inject:
+
+- System properties
+- Environment variables
+- Default values
+
+```java
+@Value("${app.name:DefaultApp}")
+private String appName;
+```
+
+👉 If property not found, "DefaultApp" will be used.
+
+------
+
+## 5️⃣ What are Spring Profiles and how do they work?
+
+**Answer:**
+
+Profiles are used to define **environment-specific configuration**.
+
+Example environments:
+
+- dev
+- test
+- prod
+
+------
+
+### Step 1: Create profile-specific file
+
+```
+application-dev.properties
+application-prod.properties
+```
+
+------
+
+### Step 2: Activate Profile
+
+In properties:
+
+```properties
+spring.profiles.active=dev
+```
+
+OR
+
+Command line:
+
+```bash
+java -jar app.jar --spring.profiles.active=prod
+```
+
+------
+
+### Step 3: Use @Profile Annotation
+
+```java
+@Bean
+@Profile("dev")
+public DataSource devDataSource() {
+    return new H2DataSource();
+}
+
+@Bean
+@Profile("prod")
+public DataSource prodDataSource() {
+    return new MySQLDataSource();
+}
+```
+
+Only active profile bean will load.
+
+------
+
+# Real Interview Scenario (3+ Years)
+
+👉 Question: *How do you manage DB config for Dev and Prod?*
+
+Answer:
+
+- Create application-dev.properties and application-prod.properties
+- Keep different DB credentials
+- Activate profile using spring.profiles.active
+- Use @Profile for environment-specific beans
+
+------
+
+# Important Advanced Point
+
+For complex configuration use:
+
+```java
+@ConfigurationProperties(prefix = "app")
+```
+
+Better than multiple `@Value`.
+
+------
+
+If you want next:
+
+- Spring Boot Auto Configuration Internals
+- Actuator & Monitoring
+- Logging Configuration
+- Production Best Practices
+
+---
+
+
 
 **@SpringBootApplication**
 
