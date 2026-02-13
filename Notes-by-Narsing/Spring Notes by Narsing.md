@@ -650,7 +650,7 @@ SpringApplication. run (Application.class, args);
 
 #### What are Spring Boot starters?
 
-Answer: Spring Boot Starters are pre-configured Maven dependencies that simplify
+**Answer:** Spring Boot Starters are pre-configured Maven dependencies that simplify
 adding specific features to your Spring Boot application. When you include a starter, you
 don't need to manually add its transitive dependencies, as they are already included.
 Starters group together commonly used dependencies for features like web development,
