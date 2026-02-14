@@ -1305,7 +1305,7 @@ Only active profile bean will load.
 
 It is used to create REST APIs that return **JSON or XML response directly**, not JSP pages.
 
-### Example:
+##### Example:
 
 ```java
 @RestController
@@ -1506,53 +1506,161 @@ public String search(@RequestParam(defaultValue = "Guest") String name) {
 
 
 
+---
 
+#### 1️⃣ How to Connect Spring Boot with a Database?
 
+**Answer:**
 
+Spring Boot connects to a database using:
 
+- JDBC Driver
+- `application.properties` configuration
+- Spring Data JPA / Hibernate
+- Auto-configuration
 
+It automatically configures `DataSource`, `EntityManager`, and `TransactionManager`.
 
+### Example:
 
+**Step 1: Add Dependencies**
 
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
 
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+</dependency>
+```
 
+**Step 2: Configure Database**
 
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/bankdb
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
 
+🔥 **Interview Points:**
 
+- Default connection pool → HikariCP
+- `ddl-auto=update` updates schema automatically
+- Auto-configuration handled by Spring Boot
 
+------
 
+#### 2️⃣ What is Spring Data JPA?
 
+**Answer:**
 
+Spring Data JPA is a module of the Spring Framework that simplifies database operations using JPA.
 
+It reduces boilerplate code and automatically implements CRUD methods.
 
+### Example:
 
+```java
+public interface UserRepository extends JpaRepository<User, Long> {
 
+    List<User> findByName(String name);
+}
+```
 
+✔ No implementation required
+ ✔ Query generated automatically
 
+🔥 **Interview Difference:**
 
+| Concept         | Meaning              |
+| --------------- | -------------------- |
+| JPA             | Specification        |
+| Hibernate       | JPA Implementation   |
+| Spring Data JPA | Simplifies JPA usage |
 
+------
 
+#### 3️⃣ What is `@Entity` Annotation?
 
+**Answer:**
 
+`@Entity` marks a class as a JPA entity and maps it to a database table.
 
+### Example:
 
+```java
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "users")
+public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private String name;
+}
+```
 
+🔥 **Important Points:**
 
+- Must have `@Id`
+- Must have default constructor
+- Managed by Hibernate
+- If `@Table` is not used → table name defaults to class name
 
+------
 
+#### 4️⃣ What is `@Repository` Annotation?
 
+**Answer:**
 
+`@Repository` is used in the DAO layer.
 
-**@SpringBootApplication**
+It:
 
-* **Defination** :  Marks the main Spring Boot application class.
+- Marks class as Spring Bean
+- Handles persistence exceptions
+- Converts SQL exceptions into `DataAccessException`
 
-Example : 
+### Example:
+
+```java
+@Repository
+public class UserDAO {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public void save(User user) {
+        entityManager.persist(user);
+    }
+}
+```
+
+🔥 **Interview Note:**
+ If you extend `JpaRepository`, no need to add `@Repository` manually.
+
+------
+
+#### 5️⃣ Explain `@Transactional` Annotation in Spring Boot
+
+@**Transactional**
+
+* **Defination** :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
+* @**EnableTransactionManagements** , To use above annotation we need to add this annotation to your main application class.
+* Example :
+
 ```java
 @SpringBootApplication
+
+@EnableTransactionManagement
 
 public class DemoAppMssqlApplication {
 
@@ -1561,8 +1669,159 @@ public static void main(String[] args) {
 SpringApplication.run(DemoAppMssqlApplication.class, args);
 
 }
-
 ```
+
+```java
+@Transactional
+
+public void updateUser(User user) {
+
+userRepository.save(user);
+
+}
+```
+
+`@Transactional` manages database transactions and ensures:
+
+- Atomicity
+- Consistency
+- Commit on success
+- Rollback on failure
+
+If any runtime exception occurs → transaction rolls back.
+
+🔥 **Default Behavior:**
+
+- Rolls back only for RuntimeException
+- Does NOT rollback for Checked Exception
+
+---
+
+#### 🔥 Transaction Propagation Types
+
+| Propagation Type   | Meaning (Short)                                  | When to Use                      | Example                                                   |
+| ------------------ | ------------------------------------------------ | -------------------------------- | --------------------------------------------------------- |
+| REQUIRED (Default) | Uses existing transaction, else creates new      | Normal service methods           | `@Transactional(propagation = Propagation.REQUIRED)`      |
+| REQUIRES_NEW       | Always creates new transaction, suspends current | Audit logging, notifications     | `@Transactional(propagation = Propagation.REQUIRES_NEW)`  |
+| SUPPORTS           | Uses existing transaction, else runs without     | Read-only operations             | `@Transactional(propagation = Propagation.SUPPORTS)`      |
+| NOT_SUPPORTED      | Runs without transaction, suspends existing      | Report generation                | `@Transactional(propagation = Propagation.NOT_SUPPORTED)` |
+| MANDATORY          | Must have existing transaction, else exception   | Internal service call validation | `@Transactional(propagation = Propagation.MANDATORY)`     |
+| NEVER              | Must NOT have transaction, else exception        | Strict non-transactional logic   | `@Transactional(propagation = Propagation.NEVER)`         |
+| NESTED             | Runs inside parent transaction using savepoint   | Partial rollback scenario        | `@Transactional(propagation = Propagation.NESTED)`        |
+
+------
+
+#### 🔥 Transaction Isolation Levels
+
+| Isolation Level  | Prevents                         | Problem Still Possible         | Example                                                  |
+| ---------------- | -------------------------------- | ------------------------------ | -------------------------------------------------------- |
+| READ_UNCOMMITTED | Nothing                          | Dirty, Non-repeatable, Phantom | `@Transactional(isolation = Isolation.READ_UNCOMMITTED)` |
+| READ_COMMITTED   | Dirty Reads                      | Non-repeatable, Phantom        | `@Transactional(isolation = Isolation.READ_COMMITTED)`   |
+| REPEATABLE_READ  | Dirty + Non-repeatable Reads     | Phantom Reads                  | `@Transactional(isolation = Isolation.REPEATABLE_READ)`  |
+| SERIALIZABLE     | Dirty + Non-repeatable + Phantom | None (Fully Safe)              | `@Transactional(isolation = Isolation.SERIALIZABLE)`     |
+
+> [!TIP]
+>
+> - Default propagation → **REQUIRED**
+> - MySQL default isolation → **REPEATABLE_READ**
+> - `REQUIRES_NEW` is common in banking audit logs
+> - Higher isolation = More consistency but lower performance
+
+
+
+----
+
+#### How do you Package a Spring Boot Application as a WAR?
+
+**Answer:**
+
+By default, Spring Boot creates a **JAR** file.
+
+To create a WAR file (for deployment in external Tomcat):
+
+------
+
+##### Step 1: Change Packaging
+
+In `pom.xml`:
+
+```xml
+<packaging>war</packaging>
+```
+
+------
+
+##### Step 2: Exclude Embedded Tomcat
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <scope>provided</scope>
+</dependency>
+```
+
+------
+
+##### Step 3: Extend SpringBootServletInitializer
+
+```java
+@SpringBootApplication
+public class MyApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(MyApplication.class);
+    }
+}
+```
+
+------
+
+##### Build WAR
+
+```cmd
+mvn clean package
+```
+
+Deploy generated WAR file to external Tomcat.
+
+> [!TIP]
+>
+> - JAR → Embedded Tomcat (recommended for microservices)
+> - WAR → External server deployment
+> - Modern architecture prefers JAR with containerization (Docker)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **@JsonIgoner & @JsonIgnoreProperties**
 
 * Defination :  used to filter out the fields data form response. These fields are not sent in response.
@@ -1679,36 +1938,6 @@ public class Tasks {
     @JoinColumn(name = "user\_id")
 
     private User assignedUser;
-```
-
-@**Transactional**
-
-* **Defination** :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
-* @**EnableTransactionManagements** , To use above annotation we need to add this annotation to your main application class.
-* Example :
-
-```java
-@SpringBootApplication
-
-@EnableTransactionManagement
-
-public class DemoAppMssqlApplication {
-
-public static void main(String[] args) {
-
-SpringApplication.run(DemoAppMssqlApplication.class, args);
-
-}
-```
-
-```java
-@Transactional
-
-public void updateUser(User user) {
-
-userRepository.save(user);
-
-}
 ```
 
 # Spring Security Annotations
@@ -3392,10 +3621,11 @@ return false;
 }
 ```
 
-# JPA Configuration in Spring MVC project
+---
 
 
-# Two Database Configuration in Spring Boot – Notes
+
+### Two Database Configuration in Spring Boot
 
 **1. Why Multiple Databases in Spring Boot?**
 In real-world applications (banking, audit, reporting): One database for core business data Another database for audit / logs / reports Sometimes read & write databases are separated Spring Boot supports multiple DataSources, but we must configure them manually.
@@ -3414,7 +3644,7 @@ Key Point :
 Example (`application.properties`)
 
 
-```yaml
+```properties
 spring.application.name=twodb
 server.port=8181
 
@@ -3434,16 +3664,17 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 ```
 
-
-
-Note : jdbc-url is mandatory when DataSourceBuilder is used @ConfigurationProperties binds these values automatically
+> [!NOTE]
+>
+> jdbc-url is mandatory when DataSourceBuilder is used @ConfigurationProperties binds these values automatically
+>
 
 ------------
 
 
 **3. DataSource Configuration**
 
-What is DataSource?
+**What is DataSource?**
 Represents database connection pool Holds URL, username, password, driver Why @ConfigurationProperties? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
 
 ```java
@@ -3466,13 +3697,16 @@ Important Annotations Annotation
 
 **4. EntityManagerFactory Configuration**
 
-What is EntityManagerFactory?
-Responsible for:
-Managing entities
-Creating EntityManager
-Handling persistence context
-Why Separate EntityManagerFactory?
+**What is EntityManagerFactory?**
+
+1. Responsible for:
+2. Managing entities
+3. Creating EntityManager
+4. Handling persistence context
+
+**Why Separate EntityManagerFactory?**
 Each database:
+
 - Has different entities
 - Has different persistence unit
 - Configuration
@@ -3496,11 +3730,11 @@ packages() → tells where entity classes are persistenceUnit() → logical name
 
 ------------
 
-
 **5. TransactionManager Configuration**
 
-Why TransactionManager?
+**Why TransactionManager?**
 Handles:
+
 - Commit
 - Rollback
 - Transaction boundaries
@@ -3517,11 +3751,10 @@ public PlatformTransactionManager primaryTransactionManager(
 }
 ```
 
-Why @Qualifier?
+**Why @Qualifier?**
 Multiple EntityManagerFactory beans exist Spring needs to know which one to inject
 
 ------------
-
 
 **6. @EnableJpaRepositories Configuration Why Required?**
 When multiple databases exist: Spring cannot auto-detect repositories We must explicitly define: Repository package EntityManagerFactory TransactionManager Configuration
