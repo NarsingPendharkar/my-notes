@@ -510,7 +510,7 @@ class AppConfig {
 
     <servlet-name>HelloWeb</servlet-name>
 
-    <url-pattern>\*/</url-pattern>
+    <url-pattern> */</url-pattern>
 
 </servlet-mapping>
 ```
@@ -1900,7 +1900,7 @@ Used for database interaction.
 ```java
 @Entity
 
-* Defination :  Marks a class as a JPA entity (database table representation).
+Defination :  Marks a class as a JPA entity (database table representation).
 
     Example : 
 @Entity
@@ -1911,7 +1911,7 @@ public class Tasks {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Long task\_id;
+    private Long task _id;
 
     @NotNull
 
@@ -1935,7 +1935,7 @@ public class Tasks {
 
     @ManyToOne
 
-    @JoinColumn(name = "user\_id")
+    @JoinColumn(name = "user _id")
 
     private User assignedUser;
 ```
@@ -2050,9 +2050,9 @@ Feign is a REST client that simplifies HTTP calls in microservices. Example :
 
 public interface UserClient {
 
-@GetMapping("/users/{id}")
+    @GetMapping("/users/{id}")
 
-User getUserById(@PathVariable Long id);
+    User getUserById(@PathVariable Long id);
 
 }
 ```
@@ -2072,13 +2072,13 @@ Example :
 
 public class LoggingAspect {
 
-@Before("execution(\* com.example.service.\*.\*(..))")
+    @Before("execution( * com.example.service. *. *(..))")
 
-public void logBefore(JoinPoint joinPoint) {
+    public void logBefore(JoinPoint joinPoint) {
 
-System.out.println("Method Called, "  joinPoint.getSignature().getName());
+        System.out.println("Method Called, "  joinPoint.getSignature().getName());
 
-}
+    }
 
 }
 ```
@@ -2099,13 +2099,13 @@ Example :
 
 public class ApiController {
 
-@GetMapping("/hello")
+    @GetMapping("/hello")
 
-public String sayHello() {
+    public String sayHello() {
 
-return "Hello, World!";
+        return "Hello, World!";
 
-}
+    }
 
 }
 ```
@@ -2167,25 +2167,30 @@ Adding Spring Security to a Spring Boot Project
 
 1. Dependencies (Maven) for spring boot,
 
+```xml
 <dependency>
 
-<groupId>org.springframework.boot</groupId>
+    <groupId>org.springframework.boot</groupId>
 
-<artifactId>spring-boot-starter-security</artifactId>
+    <artifactId>spring-boot-starter-security</artifactId>
 
 </dependency>
+```
+
+
 
 1. For Spring MVC
 
+```xml
 <!--spring-webmvc -->
 
 <dependency>
 
-<groupId>org.springframework</groupId>
+    <groupId>org.springframework</groupId>
 
-<artifactId>spring-webmvc</artifactId>
+    <artifactId>spring-webmvc</artifactId>
 
-<version>7.0.0-M2</version>
+    <version>7.0.0-M2</version>
 
 </dependency>
 
@@ -2193,11 +2198,11 @@ Adding Spring Security to a Spring Boot Project
 
 <dependency>
 
-<groupId>org.springframework</groupId>
+    <groupId>org.springframework</groupId>
 
-<artifactId>spring-context</artifactId>
+    <artifactId>spring-context</artifactId>
 
-<version>7.0.0-M2</version>
+    <version>7.0.0-M2</version>
 
 </dependency>
 
@@ -2205,11 +2210,11 @@ Adding Spring Security to a Spring Boot Project
 
 <dependency>
 
-<groupId>org.springframework.security</groupId>
+    <groupId>org.springframework.security</groupId>
 
-<artifactId>spring-security-web</artifactId>
+    <artifactId>spring-security-web</artifactId>
 
-<version>6.4.3</version>
+    <version>6.4.3</version>
 
 </dependency>
 
@@ -2217,11 +2222,11 @@ Adding Spring Security to a Spring Boot Project
 
 <dependency>
 
-<groupId>org.springframework.security</groupId>
+    <groupId>org.springframework.security</groupId>
 
-<artifactId>spring-security-core</artifactId>
+    <artifactId>spring-security-core</artifactId>
 
-<version>6.4.3</version>
+    <version>6.4.3</version>
 
 </dependency>
 
@@ -2229,148 +2234,160 @@ Adding Spring Security to a Spring Boot Project
 
 <dependency>
 
-<groupId>org.springframework.security</groupId>
+    <groupId>org.springframework.security</groupId>
 
-<artifactId>spring-security-config</artifactId>
+    <artifactId>spring-security-config</artifactId>
 
-<version>6.4.3</version>
+    <version>6.4.3</version>
 
 </dependency>
+```
+
+
 
 * By default, Spring Security provides a login form with a generated username (user) and password (logged in the console).
 
-Configuring Spring Security (Basic Authentication)
+---
 
-Custom Security Configuration (IN Memory Authentication)
 
+
+### Configuring Spring Security (Basic Authentication)
+
+**Custom Security Configuration (IN Memory Authentication)**
+
+```java
 @Configuration
 
 @EnableWebSecurity
 
 public class SecurityConfig {
 
-@Bean
+    @Bean
 
-public BCryptPasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
 
-return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
+
+    }
+
+    // In-memory authentication setup
+
+    @Bean
+
+    public UserDetailsService userservice() {
+
+        UserDetails user1 = User.withUsername("user")
+
+            .password(passwordEncoder().encode("u123"))
+
+            .authorities("USER")
+
+            .build();
+
+        UserDetails admin = User.withUsername("admin")
+
+            .password(passwordEncoder().encode("a123"))
+
+            .authorities("ADMIN")
+
+            .build();
+
+        return new InMemoryUserDetailsManager(user1, admin);
+
+    }
+
+    @Bean
+
+    public SecurityFilterChain filter(HttpSecurity http) throws Exception {
+
+        http.csrf(csrf -> csrf.disable())
+
+            .authorizeHttpRequests(auth -> auth
+
+                                   .requestMatchers("/admin/ * *").hasAuthority("ADMIN")
+
+                                   .requestMatchers("/user/ * *").hasAuthority("USER")
+
+                                   .anyRequest().authenticated()
+
+                                  )
+
+            .formLogin(form -> form
+
+                       .defaultSuccessUrl("/home", true)
+
+                       .permitAll()
+
+                      )
+
+            .logout(logout -> logout
+
+                    .permitAll()
+
+                   )
+
+            .exceptionHandling(exception -> exception
+
+                               .accessDeniedHandler((request, response, accessDeniedException) -> {
+
+                                   response.setStatus(403); // Forbidden
+
+                                   response.getWriter().write("You are not authorized to access this resource!");
+
+                               })
+
+                              );
+
+        return http.build();
+
+    }
+
+    @Bean
+
+    public AuthenticationManager authManager(UserDetailsService userDetailsService) {
+
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+
+        provider.setUserDetailsService(userDetailsService);
+
+        provider.setPasswordEncoder(passwordEncoder());
+
+        return new ProviderManager(provider);
+
+    }
 
 }
+```
 
-// In-memory authentication setup
-
-@Bean
-
-public UserDetailsService userservice() {
-
-UserDetails user1 = User.withUsername("user")
-
-.password(passwordEncoder().encode("u123"))
-
-.authorities("USER")
-
-.build();
-
-UserDetails admin = User.withUsername("admin")
-
-.password(passwordEncoder().encode("a123"))
-
-.authorities("ADMIN")
-
-.build();
-
-return new InMemoryUserDetailsManager(user1, admin);
-
-}
-
-@Bean
-
-public SecurityFilterChain filter(HttpSecurity http) throws Exception {
-
-http.csrf(csrf -> csrf.disable())
-
-.authorizeHttpRequests(auth -> auth
-
-.requestMatchers("/admin/\*\*").hasAuthority("ADMIN")
-
-.requestMatchers("/user/\*\*").hasAuthority("USER")
-
-.anyRequest().authenticated()
-
-)
-
-.formLogin(form -> form
-
-.defaultSuccessUrl("/home", true)
-
-.permitAll()
-
-)
-
-.logout(logout -> logout
-
-.permitAll()
-
-)
-
-.exceptionHandling(exception -> exception
-
-.accessDeniedHandler((request, response, accessDeniedException) -> {
-
-response.setStatus(403); // Forbidden
-
-response.getWriter().write("You are not authorized to access this resource!");
-
-})
-
-);
-
-return http.build();
-
-}
-
-@Bean
-
-public AuthenticationManager authManager(UserDetailsService userDetailsService) {
-
-DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-
-provider.setUserDetailsService(userDetailsService);
-
-provider.setPasswordEncoder(passwordEncoder());
-
-return new ProviderManager(provider);
-
-}
-
-}
-
-User Authentication (Database)
+#### **User Authentication (Database)**
 
 Replace in-memory authentication with database authentication using UserDetailsService.
 
-Step 1, Create User Entity
+**Step 1: Create User Entity**
 
+```java
 @Entity
 
 @Table(name = "users")
 
 public class Users {
 
-@Id
+    @Id
 
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-private Long id;
+    private Long id;
 
-private String username;
+    private String username;
 
-private String password;
+    private String password;
 
-private String role;
+    private String role;
+```
 
-Step 2, Create UserRepository
+Step 2: Create UserRepository
 
+```java
 @Repository
 
 public interface Userrepository extends JpaRepository<Users, Integer> {
@@ -2378,64 +2395,70 @@ public interface Userrepository extends JpaRepository<Users, Integer> {
 Optional<Users> findByUsername(String username);
 
 }
+```
 
-Step 3, Implement UserDetailsService
+Step 3: Implement UserDetailsService
 
+```java
 @Service
 
 public class Usersservice implements UserDetailsService {
 
-@Autowired
+    @Autowired
 
-private Userrepository userrepository;
+    private Userrepository userrepository;
 
-@Override
+    @Override
 
-public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-Users foundUser=userrepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+        Users foundUser=userrepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
 
-return new User(foundUser.getUsername(),
+        return new User(foundUser.getUsername(),
 
-foundUser.getPassword(),
+                        foundUser.getPassword(),
 
-Collections.singletonList(new SimpleGrantedAuthority(foundUser.getRole())));
+                        Collections.singletonList(new SimpleGrantedAuthority(foundUser.getRole())));
 
-}
+    }
 
-Step 4, Update Security Configuration
+    Step 4, Update Security Configuration
 
-@Autowired
+        @Autowired
 
-private Usersservice usersservice;
+        private Usersservice usersservice;
 
-@Bean
+    @Bean
 
-public BCryptPasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
 
-return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
 
-}
+    }
 
-@Bean
+    @Bean
 
-public AuthenticationManager authManager() { DaoAuthenticationProvider
+    public AuthenticationManager authManager() { DaoAuthenticationProvider
 
-authenticationProvider=new DaoAuthenticationProvider();
+        authenticationProvider=new DaoAuthenticationProvider();
 
-authenticationProvider.setUserDetailsService(usersservice);
+                                                authenticationProvider.setUserDetailsService(usersservice);
 
-authenticationProvider.setPasswordEncoder(passwordEncoder()); return new
+                                                authenticationProvider.setPasswordEncoder(passwordEncoder()); return new
 
-ProviderManager(authenticationProvider);
+                                                    ProviderManager(authenticationProvider);
 
-}
+                                               }
+```
 
-Note , if we don’t define AuthenticationManager bean in our application and we implemented UserServiceDetails and service bean is injected in config class then spring automatically create authenticationmanager bean .
+> [!TIP]
+>
+> if we don’t define AuthenticationManager bean in our application and we implemented UserServiceDetails and service bean is injected in config class then spring automatically create authenticationmanager bean .
+>
 
-# JWT Authentication & Authorization in Spring Security
+### JWT Authentication & Authorization in Spring Security
 
-## What is JWT?
+##### What is JWT?
 
 JWT (JSON Web Token) is a compact, URL-safe token used for authentication and authorization. It consists of three parts,
 
@@ -2445,7 +2468,7 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 
 🔹 Signature – Ensures integrity and authenticity of the token.
 
-## How JWT Works in Spring Security
+##### How JWT Works in Spring Security
 
 1. User logs in → Sends username & password to the authentication endpoint.
 2. Spring Security validates credentials using AuthenticationManager.
@@ -2453,48 +2476,57 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 4. Client stores JWT (localStorage/sessionStorage) and includes it in the Authorization header for further requests.
 5. Spring Security filters validate the JWT on every request.
 
-### Flow to Implement JWT Authentication in Spring Boot
+##### Flow to Implement JWT Authentication in Spring Boot
 
 Here is a step-by-step guide to creating your JWT Authentication project based on the code you've provided.
 
-## Step 1, Set Up the Spring Boot Project
+##### Step 1: Set Up the Spring Boot Project
 
-* Create a Spring Boot project using Spring Initializr or manually with spring-boot-starter-security, spring-boot-starter-web, spring-boot-starter-data-jpa, and jjwt.
+* Create a Spring Boot project using Spring Initializer or manually with spring-boot-starter-security, spring-boot-starter-web, spring-boot-starter-data-jpa, and jwt.
 
-## Step 2, Configure Application Properties
+##### Step 2: Configure Application Properties
 
 * Define JWT properties and database configuration in application.properties or
 
+```properties
 narsing.app.Secret= ======================Narsing=token===========================
 
 narsing.app.ExpirationMs=360000
+```
 
-## Step 3, Create the Person Entity
+
+
+##### Step 3: Create the Person Entity
 
 * This entity will represent the user in the database.
 
+```java
 @Entity
 
 @Table(name = "users")
 
 public class Person {
 
-@Id
+    @Id
 
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-private Long id;
+    private Long id;
 
-private String username;
+    private String username;
 
-private String password;
+    private String password;
 
-private String role;
+    private String role;
+```
 
-## Step 4, Create the PersonRepository
+
+
+##### Step 4: Create the PersonRepository
 
 * This repository will interact with the database.
 
+```java
 @Repository
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
@@ -2502,207 +2534,223 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 Optional<Person> findByUsername(String username);
 
 }
+```
 
-## Step 5, Implement PersonService for User Authentication
+
+
+##### Step 5: Implement PersonService for User Authentication
 
 * This service will load user details from the database and encode passwords.
 
+```java
 @Service
 
 public class PersonService implements UserDetailsService{
 
-@Autowired
+    @Autowired
 
-private PersonRepository userRepository;
+    private PersonRepository userRepository;
 
-@Autowired
+    @Autowired
 
-private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-@Override
+    @Override
 
-public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-Person databasePerson = userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
+        Person databasePerson = userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("User not found"));
 
-SimpleGrantedAuthority userRole = new SimpleGrantedAuthority("ROLE\_"  databasePerson.getRole());
+        SimpleGrantedAuthority userRole = new SimpleGrantedAuthority("ROLE _"  databasePerson.getRole());
 
-User user = new User(databasePerson.getUsername(), databasePerson.getPassword(),
+        User user = new User(databasePerson.getUsername(), databasePerson.getPassword(),
 
-Collections.singletonList(userRole));
+                             Collections.singletonList(userRole));
 
-return user;
+        return user;
 
-}
+    }
+```
 
-## Step 6, Implement MethodsOfJwt for Token Generation & Validation
+
+
+##### Step 6: Implement MethodsOfJwt for Token Generation & Validation
 
 * This utility class generates, parses, and validates JWT tokens.
 
+```java
 @Component
 
 public class MethodsOfJwt {
 
-private static Logger logger = LoggerFactory.getLogger(MethodsOfJwt.class);
+    private static Logger logger = LoggerFactory.getLogger(MethodsOfJwt.class);
 
-@Value("${narsing.app.Secret}")
+    @Value("${narsing.app.Secret}")
 
-private String sercretKey;
+    private String sercretKey;
 
-@Value("${narsing.app.ExpirationMs}")
+    @Value("${narsing.app.ExpirationMs}")
 
-private int expiryTime;
+    private int expiryTime;
 
-public String generateTokenFromUsername(UserDetails userDetails) throws InvalidKeyException {
+    public String generateTokenFromUsername(UserDetails userDetails) throws InvalidKeyException {
 
-String username = userDetails.getUsername();
+        String username = userDetails.getUsername();
 
-return Jwts.builder().subject(username).issuedAt(new Date())
+        return Jwts.builder().subject(username).issuedAt(new Date())
 
-.expiration(new Date((new Date()).getTime()  expiryTime)).signWith(key()).compact();
+            .expiration(new Date((new Date()).getTime()  expiryTime)).signWith(key()).compact();
+
+    }
+
+    public String getUsernamefromToken(String token) {
+
+        String username = Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(token).getPayload()
+
+            .getSubject();
+
+        return username;
+
+    }
+
+    public boolean validateToken(String authToken) {
+
+        try {
+
+            System.out.println("Validate");
+
+            Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(authToken);
+
+            return true;
+
+        } catch (MalformedJwtException e) {
+
+            logger.error("Invalid JWT token, {}", e.getMessage());
+
+        } catch (ExpiredJwtException e) {
+
+            logger.error("JWT token is expired, {}", e.getMessage());
+
+        } catch (UnsupportedJwtException e) {
+
+            logger.error("JWT token is unsupported, {}", e.getMessage());
+
+        } catch (IllegalArgumentException e) {
+
+            logger.error("JWT claims string is empty, {}", e.getMessage());
+
+        }
+
+        return false;
+
+    }
+
+    private Key key() {
+
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(sercretKey));
+
+    }
+
+    public String getJwtFromHeader(HttpServletRequest request) {
+
+        String bearerToken = request.getHeader("Authorization");
+
+        logger.debug("Authorization Header, {}", bearerToken);
+
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+
+            return bearerToken.substring(7); // Remove Bearer prefix
+
+        }
+
+        return null;
+
+    }
 
 }
+```
 
-public String getUsernamefromToken(String token) {
 
-String username = Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(token).getPayload()
-
-.getSubject();
-
-return username;
-
-}
-
-public boolean validateToken(String authToken) {
-
-try {
-
-System.out.println("Validate");
-
-Jwts.parser().verifyWith((SecretKey) key()).build().parseSignedClaims(authToken);
-
-return true;
-
-} catch (MalformedJwtException e) {
-
-logger.error("Invalid JWT token, {}", e.getMessage());
-
-} catch (ExpiredJwtException e) {
-
-logger.error("JWT token is expired, {}", e.getMessage());
-
-} catch (UnsupportedJwtException e) {
-
-logger.error("JWT token is unsupported, {}", e.getMessage());
-
-} catch (IllegalArgumentException e) {
-
-logger.error("JWT claims string is empty, {}", e.getMessage());
-
-}
-
-return false;
-
-}
-
-private Key key() {
-
-return Keys.hmacShaKeyFor(Decoders.BASE64.decode(sercretKey));
-
-}
-
-public String getJwtFromHeader(HttpServletRequest request) {
-
-String bearerToken = request.getHeader("Authorization");
-
-logger.debug("Authorization Header, {}", bearerToken);
-
-if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-
-return bearerToken.substring(7); // Remove Bearer prefix
-
-}
-
-return null;
-
-}
-
-}
 
 ## Step 7, Implement TokenFilter for Request Filtering
 
 * This filter extracts the JWT token and sets authentication.
 
+```java
 @Component
 
 public class TokenFilter extends OncePerRequestFilter {
 
-private static final Logger logger = LoggerFactory.getLogger(TokenFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(TokenFilter.class);
 
-@Autowired
+    @Autowired
 
-private PersonService personService;
+    private PersonService personService;
 
-@Autowired
+    @Autowired
 
-private MethodsOfJwt jwtmethod;
+    private MethodsOfJwt jwtmethod;
 
-@Override
+    @Override
 
-protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 
-throws ServletException, IOException {
+        throws ServletException, IOException {
 
-logger.debug("AuthTokenFilter called for URI, {}", request.getRequestURI());
+        logger.debug("AuthTokenFilter called for URI, {}", request.getRequestURI());
 
-try {
+        try {
 
-String jwt = parseJwt(request);
+            String jwt = parseJwt(request);
 
-if (jwt != null && jwtmethod.validateToken(jwt)) {
+            if (jwt != null && jwtmethod.validateToken(jwt)) {
 
-String username = jwtmethod.getUsernamefromToken(jwt);
+                String username = jwtmethod.getUsernamefromToken(jwt);
 
-UserDetails userDetails = personService.loadUserByUsername(username);
+                UserDetails userDetails = personService.loadUserByUsername(username);
 
-UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 
-userDetails, null, userDetails.getAuthorities());
+                    userDetails, null, userDetails.getAuthorities());
 
-logger.debug("Roles from JWT, {}", userDetails.getAuthorities());
+                logger.debug("Roles from JWT, {}", userDetails.getAuthorities());
 
-authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            }
+
+        } catch (Exception e) {
+
+            logger.error("Cannot set user authentication, {}", e);
+
+        }
+
+        filterChain.doFilter(request, response);
+
+    }
+
+    private String parseJwt(HttpServletRequest request) {
+
+        String jwt = jwtmethod.getJwtFromHeader(request);
+
+        logger.debug("AuthTokenFilter.java, {}", jwt);
+
+        return jwt;
+
+    }
 
 }
+```
 
-} catch (Exception e) {
 
-logger.error("Cannot set user authentication, {}", e);
 
-}
-
-filterChain.doFilter(request, response);
-
-}
-
-private String parseJwt(HttpServletRequest request) {
-
-String jwt = jwtmethod.getJwtFromHeader(request);
-
-logger.debug("AuthTokenFilter.java, {}", jwt);
-
-return jwt;
-
-}
-
-}
-
-## Step 8, Configure Spring Security
+##### Step 8: Configure Spring Security
 
 * Define security rules and set JWT authentication.
 
+```java
 @Configuration
 
 @EnableWebSecurity
@@ -2711,223 +2759,231 @@ return jwt;
 
 public class AuthSecurityConfig {
 
-@Bean
+    @Bean
 
-public EntryPoint entryPoint() {
+    public EntryPoint entryPoint() {
 
-return new EntryPoint();
+        return new EntryPoint();
+
+    }
+
+    @Bean
+
+    public TokenFilter getTokenFilter() {
+
+        return new TokenFilter();
+
+    }
+
+    @Bean
+
+    public BCryptPasswordEncoder passwordEncoder() {
+
+        return new BCryptPasswordEncoder();
+
+    }
+
+    @Bean
+
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("/", "/login").permitAll()
+
+                                   .requestMatchers("/authuser").permitAll().requestMatchers("/admin").hasRole("ADMIN")
+
+                                   .requestMatchers("/user").hasAnyRole("ADMIN", "USER").anyRequest().authenticated());
+
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPoint()));
+
+        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+
+        http.csrf(csrf -> csrf.disable());
+
+        http.addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+
+    }
+
+    @Bean
+
+    public AuthenticationManager getAuthenticationManager(AuthenticationConfiguration configuration) throws Exception {
+
+        return configuration.getAuthenticationManager();
+
+    }
 
 }
+```
 
-@Bean
 
-public TokenFilter getTokenFilter() {
-
-return new TokenFilter();
-
-}
-
-@Bean
-
-public BCryptPasswordEncoder passwordEncoder() {
-
-return new BCryptPasswordEncoder();
-
-}
-
-@Bean
-
-SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-
-http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("/", "/login").permitAll()
-
-.requestMatchers("/authuser").permitAll().requestMatchers("/admin").hasRole("ADMIN")
-
-.requestMatchers("/user").hasAnyRole("ADMIN", "USER").anyRequest().authenticated());
-
-http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-http.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPoint()));
-
-http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
-
-http.csrf(csrf -> csrf.disable());
-
-http.addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
-return http.build();
-
-}
-
-@Bean
-
-public AuthenticationManager getAuthenticationManager(AuthenticationConfiguration configuration) throws Exception {
-
-return configuration.getAuthenticationManager();
-
-}
-
-}
 
 ## Step 9, Create Authentication Controller
 
 * This handles user login and JWT generation.
 
+```java
 @Controller
 
 public class Homecontrol {
 
-@Autowired
+    @Autowired
 
-private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
-@Autowired
+    @Autowired
 
-private MethodsOfJwt methodsOfJwt;
+    private MethodsOfJwt methodsOfJwt;
 
-@GetMapping("/hello")
+    @GetMapping("/hello")
 
-@ResponseBody
+    @ResponseBody
 
-public String sayHello() {
+    public String sayHello() {
 
-return "Hello";
+        return "Hello";
+
+    }
+
+    @GetMapping(value = { "/", "/login" })
+
+    public String loginHello() {
+
+        return "login";
+
+    }
+
+    @PreAuthorize("hasRole('USER')")
+
+    @GetMapping("/user")
+
+    @ResponseBody
+
+    public String userEndpoint() {
+
+        return "Hello, User!";
+
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+
+    @GetMapping("/admin")
+
+    @ResponseBody
+
+    public String adminEndpoint() {
+
+        return "Hello, Admin!";
+
+    }
+
+    // validate user
+
+    @PostMapping("/authuser")
+
+    public ModelAndView validateUser(@ModelAttribute Person person) {
+
+        Authentication auth;
+
+        try {
+
+            String username = person.getUsername();
+
+            String password = person.getPassword();
+
+            auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
+        } catch (Exception e) {
+
+            ModelAndView errorView = new ModelAndView("errorPage"); // Return errorPage.jsp
+
+            errorView.addObject("message", "Bad credentials");
+
+            errorView.addObject("status", false);
+
+            return errorView;
+
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+
+        String jwtToken = methodsOfJwt.generateTokenFromUsername(userDetails);
+
+        List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+
+            .collect(Collectors.toList());
+
+        ModelAndView mv = new ModelAndView("responsePage"); // Return responsePage.jsp
+
+        mv.addObject("username", userDetails.getUsername());
+
+        mv.addObject("roles", roles);
+
+        mv.addObject("token", jwtToken);
+
+        return mv;
+
+    }
 
 }
+```
 
-@GetMapping(value = { "/", "/login" })
 
-public String loginHello() {
 
-return "login";
+##### Step 10: Create EntryPoint Class to handle unauthorised
 
-}
-
-@PreAuthorize("hasRole('USER')")
-
-@GetMapping("/user")
-
-@ResponseBody
-
-public String userEndpoint() {
-
-return "Hello, User!";
-
-}
-
-@PreAuthorize("hasRole('ADMIN')")
-
-@GetMapping("/admin")
-
-@ResponseBody
-
-public String adminEndpoint() {
-
-return "Hello, Admin!";
-
-}
-
-// validate user
-
-@PostMapping("/authuser")
-
-public ModelAndView validateUser(@ModelAttribute Person person) {
-
-Authentication auth;
-
-try {
-
-String username = person.getUsername();
-
-String password = person.getPassword();
-
-auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-
-} catch (Exception e) {
-
-ModelAndView errorView = new ModelAndView("errorPage"); // Return errorPage.jsp
-
-errorView.addObject("message", "Bad credentials");
-
-errorView.addObject("status", false);
-
-return errorView;
-
-}
-
-SecurityContextHolder.getContext().setAuthentication(auth);
-
-UserDetails userDetails = (UserDetails) auth.getPrincipal();
-
-String jwtToken = methodsOfJwt.generateTokenFromUsername(userDetails);
-
-List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-
-.collect(Collectors.toList());
-
-ModelAndView mv = new ModelAndView("responsePage"); // Return responsePage.jsp
-
-mv.addObject("username", userDetails.getUsername());
-
-mv.addObject("roles", roles);
-
-mv.addObject("token", jwtToken);
-
-return mv;
-
-}
-
-}
-
-## Step 10, Create EntryPoint Class to handle unauthorised
-
+```java
 public class EntryPoint implements AuthenticationEntryPoint {
 
-private static final Logger logger = LoggerFactory.getLogger(EntryPoint.class);
+    private static final Logger logger = LoggerFactory.getLogger(EntryPoint.class);
 
-@Override
+    @Override
 
-public void commence(HttpServletRequest request, HttpServletResponse response,
+    public void commence(HttpServletRequest request, HttpServletResponse response,
 
-AuthenticationException authException) throws IOException, ServletException {
+                         AuthenticationException authException) throws IOException, ServletException {
 
-logger.error("Unauthorized error, {}", authException.getMessage());
+        logger.error("Unauthorized error, {}", authException.getMessage());
 
-response.setContentType(MediaType.APPLICATION\_JSON\_VALUE);
+        response.setContentType(MediaType.APPLICATION _JSON _VALUE);
 
-response.setStatus(HttpServletResponse.SC\_UNAUTHORIZED);
+        response.setStatus(HttpServletResponse.SC _UNAUTHORIZED);
 
-final Map<String, Object> body = new HashMap<>();
+        final Map<String, Object> body = new HashMap<>();
 
-body.put("status", HttpServletResponse.SC\_UNAUTHORIZED);
+        body.put("status", HttpServletResponse.SC _UNAUTHORIZED);
 
-body.put("error", "Unauthorized");
+        body.put("error", "Unauthorized");
 
-body.put("message", authException.getMessage());
+        body.put("message", authException.getMessage());
 
-body.put("path", request.getServletPath());
+        body.put("path", request.getServletPath());
 
-final ObjectMapper mapper = new ObjectMapper();
+        final ObjectMapper mapper = new ObjectMapper();
 
-mapper.writeValue(response.getOutputStream(), body);
+        mapper.writeValue(response.getOutputStream(), body);
+
+    }
 
 }
-
-}
+```
 
 Now, your JWT authentication project is fully implemented!
 
 JWT (JSON Web Token) is used for stateless authentication.
 
-Common Spring Security Annotations
+#### Common Spring Security Annotations
 
-|  |  |
-| --- | --- |
 | Annotation | Purpose |
+| --- | --- |
 | @EnableWebSecurity | Enables Spring Security |
-| @PreAuthorize("hasRole('ROLE\_ADMIN')") | Method-level security |
-| @Secured("ROLE\_USER") | Restrict method access |
-| @RolesAllowed({"ROLE\_USER", "ROLE\_ADMIN"}) | Allows multiple roles |
+| @PreAuthorize("hasRole('ROLE _ADMIN')") | Method-level security |
+| @Secured("ROLE _USER") | Restrict method access |
+| @RolesAllowed({"ROLE _USER", "ROLE _ADMIN"}) | Allows multiple roles |
 
 Example :  Securing Methods
 
@@ -2943,7 +2999,7 @@ return "Admin Access";
 
 }
 
-@Secured({"ROLE\_USER"})
+@Secured({"ROLE _USER"})
 
 public String userAccessMethod() {
 
@@ -2982,11 +3038,11 @@ http
 
 .authorizeHttpRequests(auth -> auth
 
-.requestMatchers("/admin/\*\*").hasAuthority("ROLE\_ADMIN")
+.requestMatchers("/admin/ * *").hasAuthority("ROLE _ADMIN")
 
-.requestMatchers("/user/\*\*").hasAuthority("ROLE\_USER")
+.requestMatchers("/user/ * *").hasAuthority("ROLE _USER")
 
-.requestMatchers("/doctor/\*\*").hasAuthority("ROLE\_DOCTOR")
+.requestMatchers("/doctor/ * *").hasAuthority("ROLE _DOCTOR")
 
 .requestMatchers("/", "/login", "/register").permitAll()
 
@@ -3039,8 +3095,8 @@ These annotations are used for method-level security in Spring Security.
 | --- | --- | --- |
 | Annotation | Description | Example |
 | @PreAuthorize | Checks before the method executes | @PreAuthorize("hasRole('ADMIN')") |
-| @Secured | Restricts access to a method based on roles | @Secured("ROLE\_USER") |
-| @RolesAllowed | Similar to @Secured, but uses Java EE standard | @RolesAllowed({"ROLE\_USER", "ROLE\_ADMIN"}) |
+| @Secured | Restricts access to a method based on roles | @Secured("ROLE _USER") |
+| @RolesAllowed | Similar to @Secured, but uses Java EE standard | @RolesAllowed({"ROLE _USER", "ROLE _ADMIN"}) |
 
 * Example :  Using @PreAuthorize
 
@@ -3084,7 +3140,7 @@ return Jwts.builder()
 
 .setIssuedAt(new Date())
 
-.setExpiration(new Date(System.currentTimeMillis()  1000 \* 60 \* 60)) // 1 hour validity
+.setExpiration(new Date(System.currentTimeMillis()  1000  * 60  * 60)) // 1 hour validity
 
 .signWith(SignatureAlgorithm.HS256, secretKey)
 
@@ -3102,59 +3158,63 @@ However, for REST APIs, CSRF can be disabled as they don’t use cookies for aut
 
 Example :  Disabling CSRF in Spring Security
 
+```java
 @Bean
 
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-http
+    http
 
-.csrf(csrf -> csrf.disable())
+        .csrf(csrf -> csrf.disable())
 
-.authorizeHttpRequests(auth -> auth
+        .authorizeHttpRequests(auth -> auth
 
-.requestMatchers("/admin/\*\*").hasAuthority("ROLE\_ADMIN")
+                               .requestMatchers("/admin/ * *").hasAuthority("ROLE _ADMIN")
 
-.requestMatchers("/user/\*\*").hasAuthority("ROLE\_USER")
+                               .requestMatchers("/user/ * *").hasAuthority("ROLE _USER")
 
-.requestMatchers("/", "/home", "/login", "/register").permitAll()
+                               .requestMatchers("/", "/home", "/login", "/register").permitAll()
 
-.anyRequest().authenticated()
+                               .anyRequest().authenticated()
 
-)
+                              )
 
-.formLogin(login -> login
+        .formLogin(login -> login
 
-.loginPage("/login") // Redirects to this page when login is required
+                   .loginPage("/login") // Redirects to this page when login is required
 
-.defaultSuccessUrl("/dashboard", true)
+                   .defaultSuccessUrl("/dashboard", true)
 
-.permitAll()
+                   .permitAll()
 
-)
+                  )
 
-.logout(logout -> logout
+        .logout(logout -> logout
 
-.logoutUrl("/logout")
+                .logoutUrl("/logout")
 
-.logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/login")
 
-.permitAll()
+                .permitAll()
 
-)
+               )
 
-.exceptionHandling(exception -> exception
+        .exceptionHandling(exception -> exception
 
-.authenticationEntryPoint((request, response, authException) -> {
+                           .authenticationEntryPoint((request, response, authException) -> {
 
-response.sendRedirect("/login"); // Redirect to login page instead of /error
+                               response.sendRedirect("/login"); // Redirect to login page instead of /error
 
-})
+                           })
 
-);
+                          );
 
-return http.build();
+    return http.build();
 
 }
+```
+
+
 
 |  |  |  |
 | --- | --- | --- |
@@ -3171,7 +3231,7 @@ Spring Security Flow for the Given Configuration
 1. User Requests a Page
 
 * If it's a public page (**/home, /login, /register**), it loads normally.
-* If it's a secured page (**/admin/\*\***,** /user/\*\***), authentication is checked.
+* If it's a secured page (**/admin/ * ***,** /user/ * ***), authentication is checked.
 
 1. Authentication Flow (Login)
 
@@ -3184,8 +3244,8 @@ Spring Security Flow for the Given Configuration
 
 1. Authorization Flow
 
-* If a user accesses /admin/\*\*, Spring Security checks for "ROLE\_ADMIN".
-* If a user accesses /user/\*\*, it checks for "ROLE\_USER".
+* If a user accesses /admin/ * *, Spring Security checks for "ROLE _ADMIN".
+* If a user accesses /user/ * *, it checks for "ROLE _USER".
 * If unauthorized, redirects to /login.
 
 1. Logout Flow
@@ -3219,13 +3279,15 @@ Spring Boot provides a simple way to upload files using MultipartFile.
 
 Add this configuration in application.properties,
 
-    spring.servlet.multipart.enabled=true
-    
-    spring.servlet.multipart.max-file-size=5MB
-    
-    spring.servlet.multipart.max-request-size=10MB
-    
-    spring.servlet.multipart.file-size-threshold=5KB
+```properties
+spring.servlet.multipart.enabled=true
+
+spring.servlet.multipart.max-file-size=5MB
+
+spring.servlet.multipart.max-request-size=10MB
+
+spring.servlet.multipart.file-size-threshold=5KB
+```
 
 ✅ Step 2, Create Entity Class
 
@@ -3244,19 +3306,19 @@ If storing only the file path,
 
 public class Filedetails {
 
-@Id
+    @Id
 
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-private long id;
+    private long id;
 
-private String filename;
+    private String filename;
 
-private String filepath;
+    private String filepath;
 
-private String filetype;
+    private String filetype;
 
-private Long fileSize;
+    private Long fileSize;
 ```
 
 If storing the file as binary data,
@@ -3274,107 +3336,107 @@ If storing the file as binary data,
 
 public class Filedata {
 
-@Id
+    @Id
 
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-private long id;
+    private long id;
 
-private String fileName;
+    private String fileName;
 
-private String type;
+    private String type;
 
-@Lob
+    @Lob
 
-@Column(columnDefinition = "VARBINARY(MAX)")
+    @Column(columnDefinition = "VARBINARY(MAX)")
 
-private byte[] fileData;
+    private byte[] fileData;
 
-✅ Step 3, File Upload Service
+    ✅ Step 3, File Upload Service
 
-If storing the file as binary data,
+        If storing the file as binary data,
 
-public String uploadFile(MultipartFile file) throws IOException {
+    public String uploadFile(MultipartFile file) throws IOException {
 
-Filedata filedata = new Filedata();
+        Filedata filedata = new Filedata();
 
-filedata.setFileName(file.getOriginalFilename());
+        filedata.setFileName(file.getOriginalFilename());
 
-filedata.setType(file.getContentType());
+        filedata.setType(file.getContentType());
 
-filedata.setFileData(file.getBytes());
+        filedata.setFileData(file.getBytes());
 
-fileRepository.save(filedata);
+        fileRepository.save(filedata);
 
-return filedata.getFileName();
+        return filedata.getFileName();
 
-}
+    }
 
-public Filedata getFileByName(String fileName) {
+    public Filedata getFileByName(String fileName) {
 
-return fileRepository.findByFileName(fileName).orElse(null);
+        return fileRepository.findByFileName(fileName).orElse(null);
 
-}
+    }
 
-If storing only the file path,
+    If storing only the file path,
 
-private FileRepository fileRepository;
+    private FileRepository fileRepository;
 
-private static final String UPLOAD\_DIR = "D,\\Test uploads";
+    private static final String UPLOAD _DIR = "D,  Test uploads";
 
-static {
+    static {
 
-if (!new File(UPLOAD\_DIR).exists()) {
+        if (!new File(UPLOAD _DIR).exists()) {
 
-new File(UPLOAD\_DIR).mkdir();
+            new File(UPLOAD _DIR).mkdir();
 
-}
+        }
 
-}
+    }
 
-// Upload File and Store Path in Database
+    // Upload File and Store Path in Database
 
-public String uploadFile(MultipartFile multipartFile) {
+    public String uploadFile(MultipartFile multipartFile) {
 
-try {
+        try {
 
-if (multipartFile.isEmpty()) {
+            if (multipartFile.isEmpty()) {
 
-return "File is empty. Please select a valid file.";
+                return "File is empty. Please select a valid file.";
 
-}
+            }
 
-String filePath = Paths.get(UPLOAD\_DIR, multipartFile.getOriginalFilename()).toString();
+            String filePath = Paths.get(UPLOAD _DIR, multipartFile.getOriginalFilename()).toString();
 
-// automatically detect path
+            // automatically detect path
 
-Files.copy(multipartFile.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE\_EXISTING);
+            Files.copy(multipartFile.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE _EXISTING);
 
-// Save file details in the database
+            // Save file details in the database
 
-Filedetails details = new Filedetails();
+            Filedetails details = new Filedetails();
 
-details.setFilename(multipartFile.getOriginalFilename());
+            details.setFilename(multipartFile.getOriginalFilename());
 
-details.setFilepath(filePath);
+            details.setFilepath(filePath);
 
-details.setFiletype(multipartFile.getContentType());
+            details.setFiletype(multipartFile.getContentType());
 
-details.setFileSize((multipartFile.getSize()) % 1024);
+            details.setFileSize((multipartFile.getSize()) % 1024);
 
-// Assuming you have a JPA repository
+            // Assuming you have a JPA repository
 
-fileRepository.save(details);
+            fileRepository.save(details);
 
-return "File uploaded successfully, "  filePath;
+            return "File uploaded successfully, "  filePath;
 
-} catch (IOException e) {
+        } catch (IOException e) {
 
-return "Error storing file, "  e.getMessage();
+            return "Error storing file, "  e.getMessage();
 
-}
+        }
 
-}
+    }
 ```
 
 // Retrieve File Path from Database
@@ -3382,27 +3444,27 @@ return "Error storing file, "  e.getMessage();
 ```java
 public byte[] downloadFile(String filename) {
 
-Optional<Filedetails> foundFile = fileRepository.findByFilename(filename);
+    Optional<Filedetails> foundFile = fileRepository.findByFilename(filename);
 
-if (foundFile.isPresent()) {
+    if (foundFile.isPresent()) {
 
-String filePath = foundFile.get().getFilepath();
+        String filePath = foundFile.get().getFilepath();
 
-try {
+        try {
 
-return Files.readAllBytes(Paths.get(filePath));
+            return Files.readAllBytes(Paths.get(filePath));
 
-} catch (Exception e) {
+        } catch (Exception e) {
 
-throw new RuntimeException("Error reading file, "  e.getMessage());
+            throw new RuntimeException("Error reading file, "  e.getMessage());
 
-}
+        }
 
-} else {
+    } else {
 
-throw new RuntimeException("File not found!");
+        throw new RuntimeException("File not found!");
 
-}
+    }
 
 }
 ```
@@ -3416,15 +3478,15 @@ If storing the file as binary data,
 
 public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
 
-try {
+    try {
 
-return ResponseEntity.ok(fileService.uploadFile(file));
+        return ResponseEntity.ok(fileService.uploadFile(file));
 
-} catch (Exception e) {
+    } catch (Exception e) {
 
-return ResponseEntity.status(HttpStatus.INTERNAL\_SERVER\_ERROR).body("error occured ");
+        return ResponseEntity.status(HttpStatus.INTERNAL _SERVER _ERROR).body("error occured ");
 
-}
+    }
 
 }
 
@@ -3432,25 +3494,25 @@ return ResponseEntity.status(HttpStatus.INTERNAL\_SERVER\_ERROR).body("error occ
 
 public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 
-Filedata fileData = fileService.getFileByName(fileName);
+    Filedata fileData = fileService.getFileByName(fileName);
 
-if (fileData == null) {
+    if (fileData == null) {
 
-return ResponseEntity.status(HttpStatus.NOT\_FOUND).body(null);
+        return ResponseEntity.status(HttpStatus.NOT _FOUND).body(null);
 
-}
+    }
 
-HttpHeaders headers = new HttpHeaders();
+    HttpHeaders headers = new HttpHeaders();
 
-headers.setContentType(MediaType.parseMediaType(fileData.getType())); // Set correct content type
+    headers.setContentType(MediaType.parseMediaType(fileData.getType())); // Set correct content type
 
-headers.setContentDisposition(ContentDisposition.attachment()
+    headers.setContentDisposition(ContentDisposition.attachment()
 
-.filename(fileData.getFileName(), StandardCharsets.UTF\_8)
+                                  .filename(fileData.getFileName(), StandardCharsets.UTF _8)
 
-.build());
+                                  .build());
 
-return new ResponseEntity<>(fileData.getFileData(), headers, HttpStatus.OK);
+    return new ResponseEntity<>(fileData.getFileData(), headers, HttpStatus.OK);
 
 }
 
@@ -3464,21 +3526,21 @@ If storing only the file path,
 
 public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
 
-try {
+    try {
 
-String msg = fileService.uploadFile(file);
+        String msg = fileService.uploadFile(file);
 
-redirectAttributes.addFlashAttribute("msg", msg); // Add flash attribute for success message
+        redirectAttributes.addFlashAttribute("msg", msg); // Add flash attribute for success message
 
-return "redirect,/home"; // Redirect to index page
+        return "redirect,/home"; // Redirect to index page
 
-} catch (Exception e) {
+    } catch (Exception e) {
 
-redirectAttributes.addFlashAttribute("msg", "Error, "  e.getMessage());
+        redirectAttributes.addFlashAttribute("msg", "Error, "  e.getMessage());
 
-return "redirect,/home"; // Redirect back to index even in case of error
+        return "redirect,/home"; // Redirect back to index even in case of error
 
-}
+    }
 
 }
 ```
@@ -3490,23 +3552,23 @@ return "redirect,/home"; // Redirect back to index even in case of error
 
 public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 
-try {
+    try {
 
-byte[] fileData = fileService.downloadFile(fileName);
+        byte[] fileData = fileService.downloadFile(fileName);
 
-HttpHeaders headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
 
-headers.setContentType(MediaType.APPLICATION\_OCTET\_STREAM);
+        headers.setContentType(MediaType.APPLICATION _OCTET _STREAM);
 
-headers.setContentDisposition(ContentDisposition.attachment().filename(fileName).build());
+        headers.setContentDisposition(ContentDisposition.attachment().filename(fileName).build());
 
-return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
+        return new ResponseEntity<>(fileData, headers, HttpStatus.OK);
 
-} catch (RuntimeException e) {
+    } catch (RuntimeException e) {
 
-return ResponseEntity.status(HttpStatus.NOT\_FOUND).body(null);
+        return ResponseEntity.status(HttpStatus.NOT _FOUND).body(null);
 
-}
+    }
 
 }
 
@@ -3526,39 +3588,39 @@ To allow files (like images, PDFs) to open in a browser instead of downloading,
 
 public ResponseEntity<Resource> viewFile(@PathVariable Long id) {
 
-FileDetails fileDetails = fileService.getFileById(id);
+    FileDetails fileDetails = fileService.getFileById(id);
 
-if (fileDetails == null) {
+    if (fileDetails == null) {
 
-return ResponseEntity.notFound().build();
+        return ResponseEntity.notFound().build();
 
-}
+    }
 
-try {
+    try {
 
-Path path = Paths.get(fileDetails.getFilepath());
+        Path path = Paths.get(fileDetails.getFilepath());
 
-Resource resource = new UrlResource(path.toUri());
+        Resource resource = new UrlResource(path.toUri());
 
-if (resource.exists() && resource.isReadable()) {
+        if (resource.exists() && resource.isReadable()) {
 
-return ResponseEntity.ok()
+            return ResponseEntity.ok()
 
-.contentType(MediaType.parseMediaType(fileDetails.getFiletype()))
+                .contentType(MediaType.parseMediaType(fileDetails.getFiletype()))
 
-.body(resource);
+                .body(resource);
 
-} else {
+        } else {
 
-return ResponseEntity.status(HttpStatus.INTERNAL\_SERVER\_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL _SERVER _ERROR).build();
 
-}
+        }
 
-} catch (Exception e) {
+    } catch (Exception e) {
 
-return ResponseEntity.status(HttpStatus.INTERNAL\_SERVER\_ERROR).build();
+        return ResponseEntity.status(HttpStatus.INTERNAL _SERVER _ERROR).build();
 
-}
+    }
 
 }
 ```
@@ -3572,17 +3634,17 @@ Delete File from System and Database
 
 public String deleteFile(@PathVariable long id, RedirectAttributes redirectAttributes) {
 
-if (fileService.deleteFile(id)) {
+    if (fileService.deleteFile(id)) {
 
-redirectAttributes.addFlashAttribute("msg", "File deleted with ID, "  id);
+        redirectAttributes.addFlashAttribute("msg", "File deleted with ID, "  id);
 
-} else {
+    } else {
 
-redirectAttributes.addFlashAttribute("msg", "Failed to delete file with ID, "  id);
+        redirectAttributes.addFlashAttribute("msg", "Failed to delete file with ID, "  id);
 
-}
+    }
 
-return "redirect,/home";
+    return "redirect,/home";
 
 }
 ```
@@ -3594,29 +3656,29 @@ Delete Logic in Service
 
 public boolean deleteFile(Long id) {
 
-Filedetails filetodelete=fileRepository.findById(id).orElse(null);
+    Filedetails filetodelete=fileRepository.findById(id).orElse(null);
 
-if(filetodelete==null) {
+    if(filetodelete==null) {
 
-return false;
+        return false;
 
-}
+    }
 
-Path path=Paths.get(filetodelete.getFilepath());
+    Path path=Paths.get(filetodelete.getFilepath());
 
-try {
+    try {
 
-Files.deleteIfExists(path);
+        Files.deleteIfExists(path);
 
-fileRepository.delete(filetodelete);
+        fileRepository.delete(filetodelete);
 
-return true;
+        return true;
 
-} catch (Exception e) {
+    } catch (Exception e) {
 
-return false;
+        return false;
 
-}
+    }
 
 }
 ```
