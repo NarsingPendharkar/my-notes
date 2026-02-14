@@ -3230,9 +3230,9 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 | JWT authentication | ❌ No | ✅ Yes |
 | Mobile Apps | ❌ No | ✅ Yes |
 
-Rule of Thumb, Enable CSRF for form-based login apps and disable it for APIs, JWT, and stateless services.
+#### Rule of Thumb, Enable CSRF for form-based login apps and disable it for APIs, JWT, and stateless services.
 
-Spring Security Flow for the Given Configuration
+##### Spring Security Flow for the Given Configuration
 
 1. User Requests a Page
 
