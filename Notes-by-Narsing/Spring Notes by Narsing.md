@@ -2987,31 +2987,33 @@ JWT (JSON Web Token) is used for stateless authentication.
 
 Example :  Securing Methods
 
+```java
 @Service
 
 public class UserService {
 
-@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
 
-public String adminOnlyMethod() {
+    public String adminOnlyMethod() {
 
-return "Admin Access";
+        return "Admin Access";
+
+    }
+
+    @Secured({"ROLE _USER"})
+
+    public String userAccessMethod() {
+
+        return "User Access";
+
+    }
 
 }
+```
 
-@Secured({"ROLE _USER"})
+#### How does authentication and authorization work in Spring Security?
 
-public String userAccessMethod() {
-
-return "User Access";
-
-}
-
-}
-
-How does authentication and authorization work in Spring Security?
-
-Answer,
+**Answer:**
 Spring Security uses filters and interceptors to handle authentication and authorization.
 
 *Authentication Flow (Who are you?)*
@@ -3028,95 +3030,98 @@ Spring Security uses filters and interceptors to handle authentication and autho
 
 Example :  Restricting Access
 
+```java
 @Bean
 
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-http
+    http
 
-.csrf(csrf -> csrf.disable())
+        .csrf(csrf -> csrf.disable())
 
-.authorizeHttpRequests(auth -> auth
+        .authorizeHttpRequests(auth -> auth
 
-.requestMatchers("/admin/ * *").hasAuthority("ROLE _ADMIN")
+                               .requestMatchers("/admin/ * *").hasAuthority("ROLE _ADMIN")
 
-.requestMatchers("/user/ * *").hasAuthority("ROLE _USER")
+                               .requestMatchers("/user/ * *").hasAuthority("ROLE _USER")
 
-.requestMatchers("/doctor/ * *").hasAuthority("ROLE _DOCTOR")
+                               .requestMatchers("/doctor/ * *").hasAuthority("ROLE _DOCTOR")
 
-.requestMatchers("/", "/login", "/register").permitAll()
+                               .requestMatchers("/", "/login", "/register").permitAll()
 
-.anyRequest().authenticated()
+                               .anyRequest().authenticated()
 
-)
+                              )
 
-.formLogin(login -> login
+        .formLogin(login -> login
 
-.loginPage("/medcare/login")
+                   .loginPage("/medcare/login")
 
-.loginProcessingUrl("/login")
+                   .loginProcessingUrl("/login")
 
-.defaultSuccessUrl("/dashboard", true)
+                   .defaultSuccessUrl("/dashboard", true)
 
-.permitAll()
+                   .permitAll()
 
-)
+                  )
 
-.logout(logout -> logout
+        .logout(logout -> logout
 
-.logoutUrl("/medcare/logout")
+                .logoutUrl("/medcare/logout")
 
-.logoutSuccessUrl("/medcare/login")
+                .logoutSuccessUrl("/medcare/login")
 
-.permitAll()
+                .permitAll()
 
-)
+               )
 
-.exceptionHandling(exception -> exception
+        .exceptionHandling(exception -> exception
 
-.authenticationEntryPoint((request, response, authException) -> {
+                           .authenticationEntryPoint((request, response, authException) -> {
 
-response.sendRedirect("/medcare/login"); // Redirect to login page instead of /error
+                               response.sendRedirect("/medcare/login"); // Redirect to login page instead of /error
 
-})
+                           })
 
-);
+                          );
 
-return http.build();
+    return http.build();
 
 }
+```
 
-What is the difference between @PreAuthorize, @Secured, and @RolesAllowed?
+#### What is the difference between @PreAuthorize, @Secured, and @RolesAllowed?
 
-Answer,
+**Answer:**
 These annotations are used for method-level security in Spring Security.
 
-|  |  |  |
-| --- | --- | --- |
 | Annotation | Description | Example |
+| --- | --- | --- |
 | @PreAuthorize | Checks before the method executes | @PreAuthorize("hasRole('ADMIN')") |
 | @Secured | Restricts access to a method based on roles | @Secured("ROLE _USER") |
 | @RolesAllowed | Similar to @Secured, but uses Java EE standard | @RolesAllowed({"ROLE _USER", "ROLE _ADMIN"}) |
 
 * Example :  Using @PreAuthorize
 
+```java
 @Service
 
 public class UserService {
 
-@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
 
-public String getAdminData() {
+    public String getAdminData() {
 
-return "Admin Data";
+        return "Admin Data";
 
-}
+    }
+```
 
-@PreAuthorize is preferred over @Secured because it supports SpEL (Spring Expression Language) for complex conditions.
+#### @PreAuthorize is preferred over @Secured because it supports SpEL (Spring Expression Language) for complex conditions.
 
 What is JWT? How does it work?
 
-Answer,
+**Answer:**
 JWT (JSON Web Token) is a stateless authentication mechanism used to secure APIs. It consists of three parts,
 
 1. Header – Algorithm & Token Type (HS256)
@@ -3132,27 +3137,29 @@ JWT (JSON Web Token) is a stateless authentication mechanism used to secure APIs
 
 Example :  Generating JWT Token
 
+```java
 public String generateToken(String username) {
 
-return Jwts.builder()
+    return Jwts.builder()
 
-.setSubject(username)
+        .setSubject(username)
 
-.setIssuedAt(new Date())
+        .setIssuedAt(new Date())
 
-.setExpiration(new Date(System.currentTimeMillis()  1000  * 60  * 60)) // 1 hour validity
+        .setExpiration(new Date(System.currentTimeMillis()  1000  * 60  * 60)) // 1 hour validity
 
-.signWith(SignatureAlgorithm.HS256, secretKey)
+        .signWith(SignatureAlgorithm.HS256, secretKey)
 
-.compact();
+        .compact();
 
 }
+```
 
-🔹 JWT is preferred for REST APIs because it eliminates session management.
+#### 🔹 JWT is preferred for REST APIs because it eliminates session management.
 
-How to disable CSRF in Spring Security?
+##### How to disable CSRF in Spring Security?
 
-Answer,
+**Answer:**
 CSRF (Cross-Site Request Forgery) protection is enabled by default in Spring Security.
 However, for REST APIs, CSRF can be disabled as they don’t use cookies for authentication.
 
@@ -3216,9 +3223,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 
 
 
-|  |  |  |
-| --- | --- | --- |
 | **Scenario** | **CSRF Enabled **✅ | **CSRF Disabled** ❌ |
+| --- | --- | --- |
 | Session-based apps (e.g., banking, admin panels) | ✅ Yes | ❌ No |
 | REST APIs / Microservices | ❌ No | ✅ Yes |
 | JWT authentication | ❌ No | ✅ Yes |
