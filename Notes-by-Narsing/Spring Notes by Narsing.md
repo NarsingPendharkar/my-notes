@@ -3091,9 +3091,9 @@ public class UserService {
     }
 ```
 
-#### @PreAuthorize is preferred over @Secured because it supports SpEL (Spring Expression Language) for complex conditions.
+**@PreAuthorize** is preferred over **@Secured** because it supports SpEL (Spring Expression Language) for complex conditions.
 
-What is JWT? How does it work?
+#### What is JWT? How does it work?
 
 **Answer:**
 JWT (JSON Web Token) is a stateless authentication mechanism used to secure APIs. It consists of three parts,
@@ -3208,12 +3208,12 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 
 ##### Spring Security Flow for the Given Configuration
 
-1. User Requests a Page
+1. **User Requests a Page**
 
 * If it's a public page (**/home, /login, /register**), it loads normally.
 * If it's a secured page (**/admin/ * ***,** /user/ * ***), authentication is checked.
 
-1. Authentication Flow (Login)
+1. **Authentication Flow (Login)**
 
 * User submits credentials at /login.
 * AuthenticationManager uses DaoAuthenticationProvider.
@@ -3222,24 +3222,26 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 * If valid, user details are stored in SecurityContextHolder.
 * On success → Redirects to /dashboard, else → Redirects back to /login?error.
 
-1. Authorization Flow
+1. **Authorization Flow**
 
 * If a user accesses /admin/ * *, Spring Security checks for "ROLE _ADMIN".
 * If a user accesses /user/ * *, it checks for "ROLE _USER".
 * If unauthorized, redirects to /login.
 
-1. Logout Flow
+1. **Logout Flow**
 
 * User clicks logout (/logout).
 * Spring Security clears the session and redirects to /login.
 
-1. Exception Handling
+1. **Exception Handling**
 
 * If an unauthenticated user tries accessing a restricted page, they are redirected to /login.
 
-File Handling in Java Spring Framework
+---
 
-Introduction
+## File Handling in Java Spring Framework
+
+**Introduction**
 
 * File handling in Spring allows us to upload, store, retrieve, and download files using Spring Boot, MultipartFile, and FileSystem or Database.
 * Spring provides the MultipartFile interface to handle file uploads.
@@ -3917,4 +3919,323 @@ com.example.twodb
  │   ├── entity
  │   ├── repo
  │   └── config
+
+
+
+---
+
+## ⚡ Reactive Programming with Spring Boot 
+
+------
+
+### 🔁 a. What is Reactive Programming in Spring Boot?
+
+Reactive Programming is an **asynchronous, non-blocking** programming model used to build scalable applications.
+
+👉 Instead of:
+
+- One request → One thread (Blocking)
+
+👉 It uses:
+
+- Event-driven model
+- Fewer threads
+- Better resource utilization
+
+It is supported in Spring Boot using WebFlux.
+
+------
+
+#### 🏦 Real-Life Example:
+
+In a **banking system**,
+10,000 users checking balance simultaneously:
+
+- Traditional MVC → 10,000 threads ❌ (Heavy)
+- Reactive → Few threads handle all requests ✅ (High scalability)
+
+------
+
+### 🌊 b. What is Spring WebFlux?
+
+**Spring WebFlux** is the reactive web framework introduced in Spring 5.
+
+It supports:
+
+- Non-blocking APIs
+- Asynchronous processing
+- Reactive streams
+
+Works on:
+
+- Netty (Non-blocking server)
+- Servlet 3.1+ containers
+
+Dependency:
+
+```xml
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+```
+
+------
+
+### 🎯 When to Use WebFlux?
+
+✅ Microservices
+✅ Streaming data
+✅ High-concurrency systems
+❌ Simple CRUD apps (Spring MVC is enough)
+
+------
+
+### 🔄 c. What are Mono and Flux in Spring WebFlux?
+
+They are reactive types from Project Reactor.
+
+### 🧩 Mono
+
+- Returns 0 or 1 result
+- Similar to Optional / Single object
+
+```java
+Mono<User> userMono = Mono.just(new User("Narsing"));
+```
+
+📌 Example:
+Get account details → One response
+
+------
+
+### 🌊 Flux
+
+- Returns 0 to N results
+- Like List / Stream
+
+```java
+Flux<String> names = Flux.just("A", "B", "C");
+```
+
+📌 Example:
+Get transaction history → Multiple records
+
+------
+
+**🔥 Quick Difference**
+
+| Type | Returns | Use Case            |
+| ---- | ------- | ------------------- |
+| Mono | 0 or 1  | Single object       |
+| Flux | 0 to N  | Collection / Stream |
+
+------
+
+### 🌐 d. How to use @GetMapping in Spring WebFlux?
+
+Same annotation as MVC, but return type is Mono or Flux.
+
+```java
+@RestController
+@RequestMapping("/accounts")
+public class AccountController {
+
+    @GetMapping("/{id}")
+    public Mono<Account> getAccount(@PathVariable String id) {
+        return accountService.findById(id);
+    }
+
+    @GetMapping
+    public Flux<Account> getAllAccounts() {
+        return accountService.findAll();
+    }
+}
+```
+
+### 🏦 Real-Life:
+
+- `/accounts/101` → returns Mono
+- `/accounts` → returns Flux
+
+------
+
+### 🚨 e. How do you handle exceptions in WebFlux?
+
+#### ✅ 1️⃣ Using @ExceptionHandler
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public Mono<ResponseEntity<String>> handleException(AccountNotFoundException ex) {
+        return Mono.just(ResponseEntity
+                .badRequest()
+                .body(ex.getMessage()));
+    }
+}
+```
+
+------
+
+#### ✅ 2️⃣ Using onErrorResume()
+
+```java
+public Mono<Account> getAccount(String id) {
+    return repository.findById(id)
+            .switchIfEmpty(Mono.error(new AccountNotFoundException("Not Found")))
+            .onErrorResume(e -> Mono.just(new Account("Default")));
+}
+```
+
+------
+
+### 🏦 Real-Life:
+
+If account not found:
+
+- Return custom error JSON
+- Avoid application crash
+
+------
+
+#### 🎯 MVC vs WebFlux (Interview Comparison)
+
+| Feature           | Spring MVC             | WebFlux              |
+| ----------------- | ---------------------- | -------------------- |
+| Programming Model | Blocking               | Non-blocking         |
+| Thread Model      | One thread per request | Event-loop           |
+| Scalability       | Moderate               | High                 |
+| Best For          | CRUD apps              | High traffic systems |
+
+### ⚡ Reactive (WebFlux) vs CompletableFuture
+
+This is a **very common 3–5 year experience interview question**.
+
+------
+
+#### 🔹 1️⃣ What is CompletableFuture?
+
+`CompletableFuture` is a class introduced in Java 8 (from Oracle Corporation Java platform) to perform **asynchronous, non-blocking tasks**.
+
+It runs tasks in a separate thread (usually ForkJoinPool).
+
+#### ✅ Example
+
+```java
+CompletableFuture<String> future =
+    CompletableFuture.supplyAsync(() -> {
+        return "Account Details";
+    });
+
+future.thenAccept(result -> System.out.println(result));
+```
+
+👉 Good for simple async operations.
+
+------
+
+#### 🔹 2️⃣ What is Reactive (WebFlux)?
+
+Reactive uses **Mono and Flux** from Project Reactor inside Spring WebFlux.
+
+It follows:
+
+- Event-driven
+- Non-blocking
+- Backpressure support
+- Stream processing
+
+#### ✅ Example
+
+```java
+Mono<String> mono = Mono.just("Account Details");
+mono.subscribe(System.out::println);
+```
+
+
+
+| Feature      | CompletableFuture  | Reactive (WebFlux)               |
+| ------------ | ------------------ | -------------------------------- |
+| Model        | Future-based async | Stream-based async               |
+| Data Type    | Single result      | Single (Mono) or Multiple (Flux) |
+| Backpressure | ❌ No               | ✅ Yes                            |
+| Thread Model | Uses thread pool   | Event-loop model                 |
+| Scalability  | Medium             | High                             |
+| Best For     | Simple async tasks | High-concurrency apps            |
+
+### 🧾 Scenario:
+
+User dashboard loads:
+
+- Account details
+- Loan details
+- Transaction history
+
+------
+
+### 🔹 Using CompletableFuture
+
+```
+CompletableFuture<Account> account = getAccount();
+CompletableFuture<List<Transaction>> txns = getTransactions();
+
+CompletableFuture.allOf(account, txns).join();
+```
+
+⚠️ Issues:
+
+- No streaming
+- No backpressure
+- More thread usage
+
+------
+
+### 🔹 Using Reactive (WebFlux)
+
+```
+Mono<Account> account = accountService.getAccount();
+Flux<Transaction> txns = transactionService.getTransactions();
+
+return Mono.zip(account, txns.collectList());
+```
+
+✅ Efficient
+ ✅ Handles thousands of users
+ ✅ Better for microservices
+
+---
+
+#### What is Backpressure?
+
+It controls data flow when:
+ Producer → Faster
+ Consumer → Slower
+
+Reactive supports this.
+ CompletableFuture does NOT.
+
+Example:
+ Transaction stream generating 10,000 records
+ UI can only process 100 per second
+
+Reactive manages this automatically.
+
+------
+
+### 🎯 When to Use What?
+
+#### ✅ Use CompletableFuture When:
+
+- Calling 2–3 external APIs
+- Simple parallel execution
+- Not building reactive system
+
+#### ✅ Use Reactive When:
+
+- High traffic system
+- Streaming data
+- Microservices architecture
+- Real-time updates
 
