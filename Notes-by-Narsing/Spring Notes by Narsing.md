@@ -1792,33 +1792,7 @@ Deploy generated WAR file to external Tomcat.
 > - WAR → External server deployment
 > - Modern architecture prefers JAR with containerization (Docker)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 
 
@@ -2110,7 +2084,7 @@ public class ApiController {
 }
 ```
 
-What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
+#### What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
 
 |  |  |  |  |
 | --- | --- | --- | --- |
@@ -2118,9 +2092,9 @@ What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
 | Write java code | Small java code | Just provide Mapping | Use JPARepository Interface it will take care of everything. |
 | Write Sql Queries | Write SQL Queries | No need to write Query | No need to write Query |
 
-What is Spring Security?
+### What is Spring Security?
 
-Answer,
+**Answer:**
 
 * Spring Security is a powerful authentication and authorization framework for Java applications, primarily used in Spring-based projects.
 * It provides built-in security features like,
@@ -2130,20 +2104,20 @@ Answer,
 3. Protection against security threats like CSRF, XSS, session fixation, clickjacking, etc.
 4. Integration with OAuth2, JWT, LDAP, and custom authentication mechanisms
 
-Example : 
+**Example :** 
 If a user tries to access /admin, Spring Security will check whether they have the ADMIN role before granting access.
 
-Spring Security architecture
+### Spring Security architecture
 
 ![Spring Security Architecture](data,image/png;base64...)
 
-Security filter chain ,
+#### Security filter chain :
 
 * This is used to filter the requests and it also authenticate and authorise the user
 * Filter run the first in processing order
 * We can add custom filters in applications
 
-Authentication ,
+#### Authentication :
 
 * When user submit login form
 * AuthenticationManager receive the request
@@ -2151,19 +2125,19 @@ Authentication ,
 * And also, user password encoder to compare password
 * If authentication is successful, it returns authentication manager object
 
-Authorisation ,
+#### Authorisation :
 
 * Once authentication is successful , system will check the roles of user and according to that resource access is granted
 * If not, then system give exception.
 
-Why use Spring Security?
+### Why use Spring Security?
 
 *  Provides authentication and authorization
-   Prevents common security threats (CSRF, XSS, SQL Injection, etc.)
-   Supports integration with OAuth2, JWT, LDAP, etc.
-   Highly customizable
+*  Prevents common security threats (CSRF, XSS, SQL Injection, etc.)
+*  Supports integration with OAuth2, JWT, LDAP, etc.
+*  Highly customizable
 
-Adding Spring Security to a Spring Boot Project
+##### Adding Spring Security to a Spring Boot Project
 
 1. Dependencies (Maven) for spring boot,
 
@@ -2672,7 +2646,7 @@ public class MethodsOfJwt {
 
 
 
-## Step 7, Implement TokenFilter for Request Filtering
+##### Step 7: Implement TokenFilter for Request Filtering
 
 * This filter extracts the JWT token and sets authentication.
 
@@ -3016,19 +2990,19 @@ public class UserService {
 **Answer:**
 Spring Security uses filters and interceptors to handle authentication and authorization.
 
-*Authentication Flow (Who are you?)*
+***Authentication Flow (Who are you?)***
 
 1. A user sends login credentials (username & password).
 2. AuthenticationManager checks credentials using UserDetailsService and PasswordEncoder.
 3. If valid, Spring Security stores the user details in the SecurityContextHolder.
 
-*Authorization Flow (What can you do?)*
+***Authorization Flow (What can you do?)***
 
 1. After authentication, the system checks roles and permissions.
 2. If the user has access rights, the request proceeds.
 3. If not, Spring Security denies access (403 Forbidden error).
 
-Example :  Restricting Access
+**Example :  Restricting Access**
 
 ```java
 @Bean
