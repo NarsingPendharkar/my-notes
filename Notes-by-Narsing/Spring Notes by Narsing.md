@@ -190,15 +190,15 @@ Constructor Injection is better.
 |  |  |
 | --- | --- |
 | Sr.No. | Scope & Description |
-| 1 | **singleton**  A single instance per Spring IoC container (default). @Scope(“singleton”) |
-| 2 | **prototype**  new instance created each time when bean is requested. |
-| 3 | **request**  new instance created each new HTTP request. |
-| 4 | **session**  New bean created for each new HTTP Session. |
-| 5 | **global-session**  This scopes a bean definition to a global HTTP session. |
+| 1 | **singleton**  : A single instance per Spring IoC container (default). **@Scope(“singleton”)** |
+| 2 | **prototype** : new instance created each time when bean is requested. |
+| 3 | **request **:  new instance created each new HTTP request. |
+| 4 | **session** : New bean created for each new HTTP Session. |
+| 5 | **global-session** : This scopes a bean definition to a global HTTP session. |
 
 ### **What are different ways to configure a Spring Bean?**
 
-1. **XML Configuration (beans.xml)**
+1. #### **XML Configuration (beans.xml)**
 
 **Example ,**
 
@@ -244,9 +244,7 @@ XML configuration was a common way to define beans. You specify the beans and th
 
 ---
 
-
-
-2. **Java-Based Configuration (@Configuration)**
+2. #### **Java-Based Configuration (@Configuration)**
 
 * Java-based configuration allows you to configure beans using Java classes. You can use the **@Configuration** and **@Bean** annotations.
 * Annotating a class with the **@Configuration** indicates that the class can be used by the Spring IoC container as a source of bean definitions.
@@ -448,6 +446,7 @@ public class MainApplicationToRun
 | Auto-Scanning | No | Yes |
 
 **Example : **
+
 ```java
 @Configuration
 
@@ -615,7 +614,7 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 
 
-## Core Spring Annotations-
+## Core Spring Annotations
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
 
@@ -882,7 +881,7 @@ Example :
 ```java
 @GetMapping("deleteTask/{id}")
 
-public String deleteTask(*@PathVariable*("id") int taskId, Model model) throws SQLException {
+public String deleteTask(@PathVariable("id") int taskId, Model model) throws SQLException {
 
     taskserviceImpl.deleteTask(taskId);
 
@@ -893,7 +892,9 @@ public String deleteTask(*@PathVariable*("id") int taskId, Model model) throws S
 }
 ```
 
-@RequestParam
+---
+
+**@RequestParam**
 
 * Defination :  Extracts query parameters from the URL*.*
 * *URL* : `localhost,8080/search?keyword=”google”`
@@ -929,7 +930,7 @@ return "success";
 }
 ```
 
-**@ExceptionHandler ,@ControllerAdvice**
+**@ExceptionHandler : @ControllerAdvice**
 
 * **Defination :**  This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
 
@@ -954,9 +955,24 @@ return "Login";
 
 # Spring Boot
 
----
+#### What is the difference between Spring MVC and Spring Boot?
 
-#### 1️⃣ What is Spring Boot and why is it used?
+|                 |                   |                     |
+| --------------- | ----------------- | ------------------- |
+| Feature         | Spring MVC        | Spring Boot         |
+| Configuration   | Manual            | Auto-configured     |
+| Embedded Server | No                | Yes (Tomcat, Jetty) |
+| Dependencies    | More setup needed | Minimal setup       |
+
+#### What is @SpringBootApplication?
+
+It is a combination of,
+
+* **@Configuration**
+* **@EnableAutoConfiguration**
+* **@ComponentScan**
+
+####  What is Spring Boot and why is it used?
 
 **Answer:**
 
@@ -1508,229 +1524,6 @@ public String search(@RequestParam(defaultValue = "Guest") String name) {
 
 ---
 
-#### 1️⃣ How to Connect Spring Boot with a Database?
-
-**Answer:**
-
-Spring Boot connects to a database using:
-
-- JDBC Driver
-- `application.properties` configuration
-- Spring Data JPA / Hibernate
-- Auto-configuration
-
-It automatically configures `DataSource`, `EntityManager`, and `TransactionManager`.
-
-### Example:
-
-**Step 1: Add Dependencies**
-
-```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-data-jpa</artifactId>
-</dependency>
-
-<dependency>
-    <groupId>com.mysql</groupId>
-    <artifactId>mysql-connector-j</artifactId>
-</dependency>
-```
-
-**Step 2: Configure Database**
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/bankdb
-spring.datasource.username=root
-spring.datasource.password=root
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-```
-
-🔥 **Interview Points:**
-
-- Default connection pool → HikariCP
-- `ddl-auto=update` updates schema automatically
-- Auto-configuration handled by Spring Boot
-
-------
-
-#### 2️⃣ What is Spring Data JPA?
-
-**Answer:**
-
-Spring Data JPA is a module of the Spring Framework that simplifies database operations using JPA.
-
-It reduces boilerplate code and automatically implements CRUD methods.
-
-### Example:
-
-```java
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    List<User> findByName(String name);
-}
-```
-
-✔ No implementation required
- ✔ Query generated automatically
-
-🔥 **Interview Difference:**
-
-| Concept         | Meaning              |
-| --------------- | -------------------- |
-| JPA             | Specification        |
-| Hibernate       | JPA Implementation   |
-| Spring Data JPA | Simplifies JPA usage |
-
-------
-
-#### 3️⃣ What is `@Entity` Annotation?
-
-**Answer:**
-
-`@Entity` marks a class as a JPA entity and maps it to a database table.
-
-### Example:
-
-```java
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "users")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-}
-```
-
-🔥 **Important Points:**
-
-- Must have `@Id`
-- Must have default constructor
-- Managed by Hibernate
-- If `@Table` is not used → table name defaults to class name
-
-------
-
-#### 4️⃣ What is `@Repository` Annotation?
-
-**Answer:**
-
-`@Repository` is used in the DAO layer.
-
-It:
-
-- Marks class as Spring Bean
-- Handles persistence exceptions
-- Converts SQL exceptions into `DataAccessException`
-
-### Example:
-
-```java
-@Repository
-public class UserDAO {
-
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    public void save(User user) {
-        entityManager.persist(user);
-    }
-}
-```
-
-🔥 **Interview Note:**
- If you extend `JpaRepository`, no need to add `@Repository` manually.
-
-------
-
-#### 5️⃣ Explain `@Transactional` Annotation in Spring Boot
-
-@**Transactional**
-
-* **Defination** :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
-* @**EnableTransactionManagements** , To use above annotation we need to add this annotation to your main application class.
-* Example :
-
-```java
-@SpringBootApplication
-
-@EnableTransactionManagement
-
-public class DemoAppMssqlApplication {
-
-public static void main(String[] args) {
-
-SpringApplication.run(DemoAppMssqlApplication.class, args);
-
-}
-```
-
-```java
-@Transactional
-
-public void updateUser(User user) {
-
-userRepository.save(user);
-
-}
-```
-
-`@Transactional` manages database transactions and ensures:
-
-- Atomicity
-- Consistency
-- Commit on success
-- Rollback on failure
-
-If any runtime exception occurs → transaction rolls back.
-
-🔥 **Default Behavior:**
-
-- Rolls back only for RuntimeException
-- Does NOT rollback for Checked Exception
-
----
-
-#### 🔥 Transaction Propagation Types
-
-| Propagation Type   | Meaning (Short)                                  | When to Use                      | Example                                                   |
-| ------------------ | ------------------------------------------------ | -------------------------------- | --------------------------------------------------------- |
-| REQUIRED (Default) | Uses existing transaction, else creates new      | Normal service methods           | `@Transactional(propagation = Propagation.REQUIRED)`      |
-| REQUIRES_NEW       | Always creates new transaction, suspends current | Audit logging, notifications     | `@Transactional(propagation = Propagation.REQUIRES_NEW)`  |
-| SUPPORTS           | Uses existing transaction, else runs without     | Read-only operations             | `@Transactional(propagation = Propagation.SUPPORTS)`      |
-| NOT_SUPPORTED      | Runs without transaction, suspends existing      | Report generation                | `@Transactional(propagation = Propagation.NOT_SUPPORTED)` |
-| MANDATORY          | Must have existing transaction, else exception   | Internal service call validation | `@Transactional(propagation = Propagation.MANDATORY)`     |
-| NEVER              | Must NOT have transaction, else exception        | Strict non-transactional logic   | `@Transactional(propagation = Propagation.NEVER)`         |
-| NESTED             | Runs inside parent transaction using savepoint   | Partial rollback scenario        | `@Transactional(propagation = Propagation.NESTED)`        |
-
-------
-
-#### 🔥 Transaction Isolation Levels
-
-| Isolation Level  | Prevents                         | Problem Still Possible         | Example                                                  |
-| ---------------- | -------------------------------- | ------------------------------ | -------------------------------------------------------- |
-| READ_UNCOMMITTED | Nothing                          | Dirty, Non-repeatable, Phantom | `@Transactional(isolation = Isolation.READ_UNCOMMITTED)` |
-| READ_COMMITTED   | Dirty Reads                      | Non-repeatable, Phantom        | `@Transactional(isolation = Isolation.READ_COMMITTED)`   |
-| REPEATABLE_READ  | Dirty + Non-repeatable Reads     | Phantom Reads                  | `@Transactional(isolation = Isolation.REPEATABLE_READ)`  |
-| SERIALIZABLE     | Dirty + Non-repeatable + Phantom | None (Fully Safe)              | `@Transactional(isolation = Isolation.SERIALIZABLE)`     |
-
-> [!TIP]
->
-> - Default propagation → **REQUIRED**
-> - MySQL default isolation → **REPEATABLE_READ**
-> - `REQUIRES_NEW` is common in banking audit logs
-> - Higher isolation = More consistency but lower performance
-
-
-
-----
-
 #### How do you Package a Spring Boot Application as a WAR?
 
 **Answer:**
@@ -1871,14 +1664,15 @@ System.out.println("Running every 5 seconds");
 
 Used for database interaction.
 
+**@Entity**
+
+**Defination** :  Marks a class as a JPA entity (database table representation).
+
+**Example :**
+
 ```java
+
 @Entity
-
-Defination :  Marks a class as a JPA entity (database table representation).
-
-    Example : 
-@Entity
-
 public class Tasks {
 
     @Id
@@ -1914,65 +1708,412 @@ public class Tasks {
     private User assignedUser;
 ```
 
-# Spring Security Annotations
 
-#### Used for authentication and authorization.
 
-@**EnableWebSecurity**
-
-* **Defination** :  Enables Spring Security in the application.
-
-Example : 
- @**EnableWebSecurity**
-
-public class SecurityConfig extends WebSecurityConfigurerAdapter {}
-
-@PreAuthorize
-
-* **Defination** :  Restricts access to a method based on roles.
-
-Example:
-
-`@PreAuthorize("hasRole('ADMIN')")`
-
-public void adminOnly() {}
-
-#### What is the difference between Spring MVC and Spring Boot?
-
-|  |  |  |
-| --- | --- | --- |
-| Feature | Spring MVC | Spring Boot |
-| Configuration | Manual | Auto-configured |
-| Embedded Server | No | Yes (Tomcat, Jetty) |
-| Dependencies | More setup needed | Minimal setup |
-
-#### What is @SpringBootApplication?
-
-It is a combination of,
-
-* @Configuration
-* @EnableAutoConfiguration
-* @ComponentScan
+---
 
 # Spring Data JPA & Transactions
 
-#### What is Spring Data JPA?
+#### How to Connect Spring Boot with a Database?
 
-Spring Data JPA simplifies database operations by providing a repository abstraction layer.
+Spring Boot connects to a database using:
 
-Example : 
+- JDBC Driver
+- `application.properties` configuration
+- Spring Data JPA / Hibernate
+- Auto-configuration
+
+It automatically configures `DataSource`, `EntityManager`, and `TransactionManager`.
+
+##### Example:
+
+**Step 1: Add Dependencies**
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+</dependency>
+```
+
+**Step 2: Configure Database**
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/bankdb
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+
+------
+
+####  What is Spring Data JPA?
+
+**Answer:**
+
+Spring Data JPA is part of the larger Spring Data family, providing a repository abstraction layer for handling CRUD (Create, Read, Update, Delete) operations with ease. It allows developers to interact with a relational database using domain objects (entities), eliminating the need for manually writing SQL queries or boilerplate code.
+
+Spring Data JPA internally uses JPA, the Java standard for Object-Relational Mapping (ORM). With ORM, Java objects are automatically mapped to database tables, making it easier to interact with the database in an object-oriented way.
+
+##### Example:
+
+```java
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    List<User> findByName(String name);
+}
+```
+
+---
+
+#### Benefits of Using Spring Data JPA
+
+Here are some of the key benefits of using Spring Data JPA:
+
+- **Simplified Data Access Layer**: Spring Data JPA abstracts the complex database interaction layer, allowing you to focus on your business logic.
+- **Less Boilerplate Code**: You can perform CRUD operations without writing any SQL or JDBC code.
+- **Custom Queries**: Easily create custom queries with method names or the `@Query` annotation for more complex queries.
+- **Pagination and Sorting**: It provides built-in support for pagination and sorting, which is essential for managing large datasets.
+- **Integration with Spring Boot**: Spring Boot makes configuring Spring Data JPA even easier, offering features like automatic configuration and the ability to connect to a database with minimal setup.
+
+
+
+------
+
+Excellent 🔥
+If you master JPA annotations in structured form, interviews become easy.
+
+Below is a **clean markdown table** you can copy into your notes.
+
+------
+
+# 📘 JPA Annotations 
+
+#### 1️⃣ Entity & Table Level Annotations
+
+| Annotation            | Used On | Purpose                          | Example                                               |
+| --------------------- | ------- | -------------------------------- | ----------------------------------------------------- |
+| `@Entity`             | Class   | Marks class as JPA entity        | `@Entity public class User {}`                        |
+| `@Table`              | Class   | Defines table name & constraints | `@Table(name="users")`                                |
+| `@Id`                 | Field   | Marks primary key                | `@Id private Long id;`                                |
+| `@GeneratedValue`     | Field   | PK generation strategy           | `@GeneratedValue(strategy = GenerationType.IDENTITY)` |
+| `@Column`             | Field   | Maps column properties           | `@Column(nullable=false, unique=true)`                |
+| `@Transient`          | Field   | Not persisted in DB              | `@Transient private String tempData;`                 |
+| `@Enumerated`         | Field   | Maps Enum type                   | `@Enumerated(EnumType.STRING)`                        |
+| `@Temporal` (Old JPA) | Field   | Date mapping (for Date)          | `@Temporal(TemporalType.DATE)`                        |
+| `@Lob`                | Field   | Large object (CLOB/BLOB)         | `@Lob private String description;`                    |
+
+------
+
+## 2️⃣ Primary Key Strategies
+
+| Strategy   | Meaning                | Example                                             |
+| ---------- | ---------------------- | --------------------------------------------------- |
+| `IDENTITY` | Auto-increment (MySQL) | `@GeneratedValue(strategy=GenerationType.IDENTITY)` |
+| `SEQUENCE` | Uses DB sequence       | `@GeneratedValue(strategy=GenerationType.SEQUENCE)` |
+| `TABLE`    | Uses separate table    | Rarely used                                         |
+| `AUTO`     | Provider decides       | Default option                                      |
+
+------
+
+## 3️⃣ Relationship Annotations
+
+### 🔹 One-to-One
+
+| Annotation    | Example                              |
+| ------------- | ------------------------------------ |
+| `@OneToOne`   | `@OneToOne private Profile profile;` |
+| `@JoinColumn` | `@JoinColumn(name="user_id")`        |
+
+------
+
+### 🔹 One-to-Many
+
+| Annotation   | Example                       |
+| ------------ | ----------------------------- |
+| `@OneToMany` | `@OneToMany(mappedBy="user")` |
+| `mappedBy`   | `mappedBy="customer"`         |
+
+------
+
+### 🔹 Many-to-One
+
+| Annotation    | Example                              |
+| ------------- | ------------------------------------ |
+| `@ManyToOne`  | `@ManyToOne(fetch = FetchType.LAZY)` |
+| `@JoinColumn` | `@JoinColumn(name="customer_id")`    |
+
+👉 Foreign key usually lives in Many side.
+
+------
+
+### 🔹 Many-to-Many
+
+| Annotation           | Example                        |
+| -------------------- | ------------------------------ |
+| `@ManyToMany`        | `@ManyToMany`                  |
+| `@JoinTable`         | `@JoinTable(name="user_role")` |
+| `joinColumns`        | `@JoinColumn(name="user_id")`  |
+| `inverseJoinColumns` | `@JoinColumn(name="role_id")`  |
+
+------
+
+## 4️⃣ Fetch & Cascade Options
+
+### Fetch Types
+
+| Fetch Type | Meaning            |
+| ---------- | ------------------ |
+| `EAGER`    | Load immediately   |
+| `LAZY`     | Load when accessed |
+
+Best Practice: Use LAZY.
+
+------
+
+### Cascade Types
+
+| Cascade   | Meaning                  |
+| --------- | ------------------------ |
+| `PERSIST` | Save child automatically |
+| `MERGE`   | Update child             |
+| `REMOVE`  | Delete child             |
+| `REFRESH` | Reload entity            |
+| `DETACH`  | Detach from context      |
+| `ALL`     | All operations           |
+
+------
+
+## 5️⃣ Inheritance Mapping
+
+| Annotation             | Purpose                | Example                                           |
+| ---------------------- | ---------------------- | ------------------------------------------------- |
+| `@Inheritance`         | Strategy definition    | `@Inheritance(strategy = InheritanceType.JOINED)` |
+| `SINGLE_TABLE`         | One table for all      | Default                                           |
+| `JOINED`               | Separate tables joined | Enterprise preferred                              |
+| `TABLE_PER_CLASS`      | Separate tables        | Rare                                              |
+| `@DiscriminatorColumn` | Distinguish types      | `@DiscriminatorColumn(name="type")`               |
+
+------
+
+## 6️⃣ Embedded Objects
+
+| Annotation           | Purpose                  | Example                                                      |
+| -------------------- | ------------------------ | ------------------------------------------------------------ |
+| `@Embeddable`        | Defines embeddable class | `@Embeddable class Address {}`                               |
+| `@Embedded`          | Uses embedded class      | `@Embedded private Address address;`                         |
+| `@AttributeOverride` | Override column          | `@AttributeOverride(name="city", column=@Column(name="user_city"))` |
+
+------
+
+## 7️⃣ Lifecycle Callbacks
+
+| Annotation     | Trigger Time      |
+| -------------- | ----------------- |
+| `@PrePersist`  | Before insert     |
+| `@PostPersist` | After insert      |
+| `@PreUpdate`   | Before update     |
+| `@PostUpdate`  | After update      |
+| `@PreRemove`   | Before delete     |
+| `@PostLoad`    | After entity load |
+
+Example:
+
+```java
+@PrePersist
+public void beforeInsert() {
+    this.createdAt = LocalDateTime.now();
+}
+```
+
+------
+
+## 8️⃣ Locking & Versioning
+
+| Annotation | Purpose                           |
+| ---------- | --------------------------------- |
+| `@Version` | Optimistic locking                |
+| `@Lock`    | Pessimistic locking in repository |
+
+Example:
+
+```java
+@Version
+private Long version;
+```
+
+Prevents lost updates.
+
+------
+
+## 9️⃣ Index & Constraints
+
+| Annotation                                                   | Example                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `@Table(indexes = @Index(name="idx_email", columnList="email"))` | Create index                                                 |
+| `@UniqueConstraint`                                          | `@Table(uniqueConstraints = @UniqueConstraint(columnNames="email"))` |
+
+---
+
+
+
+#### What is `@Entity` Annotation?
+
+**Answer:**
+
+`@Entity` marks a class as a JPA entity and maps it to a database table.
+
+### Example:
+
+```java
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+}
+```
+
+🔥 **Important Points:**
+
+- Must have `@Id`
+- Must have default constructor
+- Managed by Hibernate
+- If `@Table` is not used → table name defaults to class name
+
+------
+
+####  What is `@Repository` Annotation?
+
+**Answer:**
+
+`@Repository` is used in the DAO layer.
+
+It:
+
+- Marks class as Spring Bean
+- Handles persistence exceptions
+- Converts SQL exceptions into `DataAccessException`
+
+### Example:
 
 ```java
 @Repository
+public class UserDAO {
 
-public interface EmpRepository extends JpaRepository<Employee, Long>{
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public void save(User user) {
+        entityManager.persist(user);
+    }
+}
+```
+
+🔥 **Interview Note:**
+ If you extend `JpaRepository`, no need to add `@Repository` manually.
+
+------
+
+####  Explain `@Transactional` Annotation in Spring Boot
+
+@**Transactional**
+
+* **Defination** :  it is used with methods or classes that are communicating with database and performing some operation. If some reason method is failed or error occurred to complete the operation then this annotation automatically rollback the transactions.
+* @**EnableTransactionManagements** : To use above annotation we need to add this annotation to your main application class.
+* Example :
+
+```java
+@SpringBootApplication
+
+@EnableTransactionManagement
+
+public class DemoAppMssqlApplication {
+
+public static void main(String[] args) {
+
+SpringApplication.run(DemoAppMssqlApplication.class, args);
 
 }
 ```
 
-Spring Security Questions
+```java
+@Transactional
 
-How do you secure a Spring Boot application?
+public void updateUser(User user) {
+
+userRepository.save(user);
+
+}
+```
+
+`@Transactional` manages database transactions and ensures:
+
+- Atomicity
+- Consistency
+- Commit on success
+- Rollback on failure
+
+If any runtime exception occurs → transaction rolls back.
+
+🔥 **Default Behavior:**
+
+- Rolls back only for RuntimeException
+- Does NOT rollback for Checked Exception
+
+---
+
+#### 🔥 Transaction Propagation Types
+
+| Propagation Type   | Meaning (Short)                                  | When to Use                      | Example                                                   |
+| ------------------ | ------------------------------------------------ | -------------------------------- | --------------------------------------------------------- |
+| REQUIRED (Default) | Uses existing transaction, else creates new      | Normal service methods           | `@Transactional(propagation = Propagation.REQUIRED)`      |
+| REQUIRES_NEW       | Always creates new transaction, suspends current | Audit logging, notifications     | `@Transactional(propagation = Propagation.REQUIRES_NEW)`  |
+| SUPPORTS           | Uses existing transaction, else runs without     | Read-only operations             | `@Transactional(propagation = Propagation.SUPPORTS)`      |
+| NOT_SUPPORTED      | Runs without transaction, suspends existing      | Report generation                | `@Transactional(propagation = Propagation.NOT_SUPPORTED)` |
+| MANDATORY          | Must have existing transaction, else exception   | Internal service call validation | `@Transactional(propagation = Propagation.MANDATORY)`     |
+| NEVER              | Must NOT have transaction, else exception        | Strict non-transactional logic   | `@Transactional(propagation = Propagation.NEVER)`         |
+| NESTED             | Runs inside parent transaction using savepoint   | Partial rollback scenario        | `@Transactional(propagation = Propagation.NESTED)`        |
+
+------
+
+#### 🔥 Transaction Isolation Levels
+
+| Isolation Level  | Prevents                         | Problem Still Possible         | Example                                                  |
+| ---------------- | -------------------------------- | ------------------------------ | -------------------------------------------------------- |
+| READ_UNCOMMITTED | Nothing                          | Dirty, Non-repeatable, Phantom | `@Transactional(isolation = Isolation.READ_UNCOMMITTED)` |
+| READ_COMMITTED   | Dirty Reads                      | Non-repeatable, Phantom        | `@Transactional(isolation = Isolation.READ_COMMITTED)`   |
+| REPEATABLE_READ  | Dirty + Non-repeatable Reads     | Phantom Reads                  | `@Transactional(isolation = Isolation.REPEATABLE_READ)`  |
+| SERIALIZABLE     | Dirty + Non-repeatable + Phantom | None (Fully Safe)              | `@Transactional(isolation = Isolation.SERIALIZABLE)`     |
+
+> [!TIP]
+>
+> - Default propagation → **REQUIRED**
+> - MySQL default isolation → **REPEATABLE_READ**
+> - `REQUIRES_NEW` is common in banking audit logs
+> - Higher isolation = More consistency but lower performance
+
+
+
+---
+
+
+
+### Spring Security Questions
+
+#### How do you secure a Spring Boot application?
 
 * Use Spring Security (spring-boot-starter-security)
 * Configure authentication (UserDetailsService)
@@ -2002,7 +2143,35 @@ public class SecurityConfig {
 }
 ```
 
+# Spring Security Annotations
 
+#### Used for authentication and authorization.
+
+@**EnableWebSecurity**
+
+* **Defination** :  Enables Spring Security in the application.
+
+Example : 
+
+```java
+ @EnableWebSecurity
+
+public class SecurityConfig extends WebSecurityConfigurerAdapter {}
+
+
+```
+
+---
+
+@**PreAuthorize**
+
+**Defination** :  Restricts access to a method based on roles.
+
+Example:
+
+`@PreAuthorize("hasRole('ADMIN')")`
+
+`public void adminOnly() {}`
 
 # Microservices & Cloud Questions
 
