@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 > # Spring Core Concepts
+=======
+> [!NOTE]
+>
+> # Spring Core concepts
+>>>>>>> 61e322a5eaef9942ab6d367e7522e080c6c2d326
 >
 
 ####   **What are the key features of the Spring Framework?**
