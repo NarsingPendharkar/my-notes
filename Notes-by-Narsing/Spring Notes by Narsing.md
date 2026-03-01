@@ -84,12 +84,13 @@ public class Employee {
 
 ---
 
-**Ways of DI:**
+### **Ways of DI:**
 
 1. **DI by using Constructor:** we can inject value by constructor <constructor-args> sub element of bean.
 2. **DI by using Setter Method :** we can use setter method for DI by using <property> sub element of bean.
+3. **Field Injection** : @Autowired annotation is used for field injection
 
-Example :
+**Example :**
 
 ```xml
 <!-- setter based injection -->
@@ -110,47 +111,86 @@ Example :
 </bean>
 ```
 
+##### 1️⃣ Constructor Injection (Recommended ✅) using constructor
+
+**Example**
+
 ```java
-public   class  Student {
-
-    private  String name;
-
-    public  String  getName () {
-
-        return  name;
-
+@Service
+public class OrderService {
+    private final OrderRepository orderRepository;
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
-
-    // setter based DI
-
-    public   void   setName (String name) {
-
-        this .name = name;
-
-    }
-
-    // constrctor based DI
-
-    public   Student (String name) {
-
-        this .name = name;
-
-    }
-
-    public   Student () {
-
-        super ();
-
-    }
-
-    public   void   display () {
-
-        System. out .println("Hello mr . "  name);
-
-    }
-
 }
 ```
+
+> [!IMPORTANT]
+>
+> **Why Preferred?**
+>
+> ✔ Makes dependency mandatory
+>  ✔ Immutable (final field)
+>  ✔ Easy for unit testing
+>  ✔ Prevents NullPointerException
+>  ✔ Recommended for production
+
+------
+
+##### 2️⃣ Setter Injection using setter method
+
+**Example**
+
+```java
+@Service
+public class OrderService {
+
+    private OrderRepository orderRepository;
+
+    @Autowired
+    public void setOrderRepository(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+}
+```
+
+> [!IMPORTANT]
+>
+> **✅ When to Use?**
+>
+> ✔ Optional dependencies
+>  ✔ When dependency may change
+
+> [!WARNING]
+>
+> **❌ Problem**
+>
+> Dependency is not mandatory.
+>  Object can exist in invalid state.
+
+------
+
+##### 3️⃣ Field Injection (Not Recommended ❌) using  @Autowired annotation
+
+**Example**
+
+```java
+@Service
+public class OrderService {
+    @Autowired
+    private OrderRepository orderRepository;
+}
+```
+
+> [!CAUTION]
+>
+> **❌ Why Not Recommended?**
+>
+> - Hard to unit test
+> - Cannot make field final
+> - Violates clean code principles
+> - Hidden dependency
+> - Reflection based injection
 
 ---
 
@@ -160,19 +200,11 @@ public   class  Student {
 
 ------
 
-#### What are types of Dependency Injection in Spring?
-
-1. Constructor Injection
-2. Setter Injection
-3. Field Injection
-
-------
-
 #### Which is better and why?
 
-Constructor Injection is better.
+**Constructor Injection** is better.
 
-#### ✅ Advantages:
+**✅ Advantages:**
 
 1. Makes dependency mandatory
 2. Makes class immutable (`final`)
@@ -195,18 +227,17 @@ Constructor Injection is better.
 
 ### Spring - Bean Scopes
 
-|  |  |
-| --- | --- |
 | Sr.No. | Scope & Description |
-| 1 | **singleton**  : A single instance per Spring IoC container (default). **@Scope(“singleton”)** |
-| 2 | **prototype** : new instance created each time when bean is requested. |
-| 3 | **request **:  new instance created each new HTTP request. |
-| 4 | **session** : New bean created for each new HTTP Session. |
-| 5 | **global-session** : This scopes a bean definition to a global HTTP session. |
+| --- | --- |
+| 1      | **singleton**  : A single instance per Spring IoC container (default). `@Scope(“singleton”)` |
+| 2      | **prototype** : new instance created each time when bean is requested. `@Scope(“prototype”)` |
+| 3      | **request **:  new instance created each new HTTP request.   |
+| 4      | **session** : New bean created for each new HTTP Session.    |
+| 5      | **global-session** : This scopes a bean definition to a global HTTP session. |
 
-### **What are different ways to configure a Spring Bean?**
+#### **What are different ways to configure a Spring Bean?**
 
-1. #### **XML Configuration (beans.xml)**
+1. **XML Configuration (beans.xml)**
 
 **Example :**
 
@@ -252,7 +283,7 @@ XML configuration was a common way to define beans. You specify the beans and th
 
 ---
 
-2. #### **Java-Based Configuration (@Configuration)**
+2. **Java-Based Configuration (@Configuration)**
 
 * Java-based configuration allows you to configure beans using Java classes. You can use the **@Configuration** and **@Bean** annotations.
 * Annotating a class with the **@Configuration** indicates that the class can be used by the Spring IoC container as a source of bean definitions.
@@ -347,6 +378,8 @@ public class PersonAnnotationBasedConfig {
 }
 
 ```
+
+---
 
 ### **Steps to Create a Spring Core Application**
 
