@@ -1,6 +1,6 @@
 > [!NOTE]
 >
-> # Spring Core
+> # Spring Core concepts
 >
 
 ####   **What are the key features of the Spring Framework?**
