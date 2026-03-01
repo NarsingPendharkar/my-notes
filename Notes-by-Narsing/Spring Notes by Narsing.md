@@ -10,6 +10,8 @@
 * **Fast development**
 * **Powerful abstraction**
 
+---
+
 ### **What is IOC container?** 
 
 * Inversion of Control (IOC) is the design principle where the control of object creation, configuration and management is transferred from programmer to spring framework.
@@ -21,19 +23,22 @@
 
 ### Types of IOC container
 
-**Bean Factory**: is a basic container. Its depreciated now.
+1.  **Bean Factory**: is a basic container. Its depreciated now.
 
 ```java
     Resource resource=new ClassPathResource("bean.xml");
     BeanFactory beanFactory=new XmlBeanFactory(resource);
 ```
 
-* **Application Context:** advance container which provide more functionalities than bean Factory. 
+2. **Application Context:** advance container which provide more functionalities than bean Factory. 
+
 ```java
 ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
 ```
 
 > Note : bean file should be in resource folder
+
+---
 
 ### **Explain Dependency Injection (DI) in Spring.**
 
@@ -43,9 +48,9 @@ Dependency Injection is a design pattern where the dependencies of a class are i
 
 **Without DI :**
 
-// without DI Here is dependacy between employee and address because employee forced
-
-//to use same add object
+> [!NOTE]
+>
+> without DI Here is dependecy between employee and address because employee forced to use same add object
 
 ```java
 public  class  Employee {
@@ -58,9 +63,10 @@ Address  add = new  Address(); // creating instance
 
 **With DI :**
 
-// there is no dependancy between employe and address bacause
-
-//employee is not forced to use same address
+> [!NOTE]
+>
+> there is no dependency between employee and address because employee is not forced to use same address
+>
 
 ```java
 public class Employee {
@@ -75,6 +81,8 @@ public class Employee {
 
 }
 ```
+
+---
 
 **Ways of DI:**
 
