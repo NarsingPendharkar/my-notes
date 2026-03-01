@@ -1,18 +1,12 @@
-<<<<<<< HEAD
-> # Spring Core Concepts
-=======
-> [!NOTE]
->
-> # Spring Core concepts
->>>>>>> 61e322a5eaef9942ab6d367e7522e080c6c2d326
->
+
+# Spring Framework
 
 ####   **What are the key features of the Spring Framework?**
 >  **Defination : ** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
 
-* **Lightweight,** doesn't force developer to implement any interface.
-* **Loose coupling,** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
-* **Ready-made Templates,** it provides readymade templates of hibernate like jdbctemplate, jpa where no need to write lots of code for connections, exception handling and committing the transections all are done automatically.
+* **Lightweight:** doesn't force developer to implement any interface.
+* **Loose coupling:** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
+* **Ready-made Templates:** it provides readymade templates of hibernate like jdbctemplate: jpa where no need to write lots of code for connections, exception handling and committing the transections all are done automatically.
 * **Fast development**
 * **Powerful abstraction**
 
@@ -23,21 +17,23 @@
 * It is responsible for Dependency Injection and managing the life cycle of beans.
 * Task of IOC container, Instantiating, Assembling, Configuration of beans.
 
-### **Types of IOC container?**
+---
 
-**Bean Factory**, is a basic container. Its depreciated now.
+### Types of IOC container
+
+**Bean Factory**: is a basic container. Its depreciated now.
 
 ```java
     Resource resource=new ClassPathResource("bean.xml");
     BeanFactory beanFactory=new XmlBeanFactory(resource);
 ```
 
-* **Application Context,** advance container which provide more functionalities than bean Factory. 
+* **Application Context:** advance container which provide more functionalities than bean Factory. 
 ```java
 ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
 ```
 
-> Note , bean file should be in resource folder
+> Note : bean file should be in resource folder
 
 ### **Explain Dependency Injection (DI) in Spring.**
 
@@ -45,7 +41,7 @@ Dependency Injection is a design pattern where the dependencies of a class are i
 
 **Example : **
 
-**Without DI ,**
+**Without DI :**
 
 // without DI Here is dependacy between employee and address because employee forced
 
@@ -60,7 +56,7 @@ Address  add = new  Address(); // creating instance
 }
 ```
 
-**With DI ,**
+**With DI :**
 
 // there is no dependancy between employe and address bacause
 
@@ -80,12 +76,12 @@ public class Employee {
 }
 ```
 
-**Ways of DI,**
+**Ways of DI:**
 
-1. **DI by using Constructor,** we can inject value by constructor <constructor-args> sub element of bean.
-2. **DI by using Setter Method ,** we can use setter method for DI by using <property> sub element of bean.
+1. **DI by using Constructor:** we can inject value by constructor <constructor-args> sub element of bean.
+2. **DI by using Setter Method :** we can use setter method for DI by using <property> sub element of bean.
 
-Example ,
+Example :
 
 ```xml
 <!-- setter based injection -->
@@ -204,7 +200,7 @@ Constructor Injection is better.
 
 1. #### **XML Configuration (beans.xml)**
 
-**Example ,**
+**Example :**
 
 XML configuration was a common way to define beans. You specify the beans and their dependencies in an XML file, typically named `applicationContext.xml`.
 
@@ -295,9 +291,9 @@ public class PersonJavaBasedConfig {
 
 3. **Annotation-Based Configuration** (@Component, @Service, @Repository)
 
-* Once **<context,annotation-config/>** is configured, you can start annotating your code to indicate that Spring should automatically wire values into properties, methods, and constructors
+* Once **<context:annotation-config/>** is configured, you can start annotating your code to indicate that Spring should automatically wire values into properties, methods, and constructors
 
-**Example ,**
+**Example :**
 
 ```java
 @Component("personbean")
@@ -360,9 +356,9 @@ public class PersonAnnotationBasedConfig {
 
 1. Configure Beans (Based on Configuration Type)
 
-* **XML-Based**, Create beans.xml inside the resources folder and define beans.
-* **Java-Based,** Create a @Configuration class and define beans using @Bean.
-* **Annotation-Based,** Use @Component on a class to let Spring manage it.
+* **XML-Based**: Create beans.xml inside the resources folder and define beans.
+* **Java-Based:** Create a @Configuration class and define beans using @Bean.
+* **Annotation-Based:** Use @Component on a class to let Spring manage it.
 
 1. Initialize Application Context in Main Class
 
@@ -472,8 +468,8 @@ class AppConfig {
 
 * Spring MVC is the sub framework of spring which is used for the development of web applications.
 * Spring MVC follows the MVC pattern which separates the application in three parts i.e Model , View and Controller
-* **Easy Development,** MVC pattern makes easy development
-* **Rapid Development**, it helps for faster development.
+* **Easy Development:** MVC pattern makes easy development
+* **Rapid Development**: it helps for faster development.
 * Powerful configuration.
 * It uses all features of spring core.
 * It is flexible, easy to test and much features.
