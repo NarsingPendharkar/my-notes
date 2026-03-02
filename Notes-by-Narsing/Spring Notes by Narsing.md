@@ -2442,9 +2442,9 @@ public class SecurityConfig {
 
 # Spring Security Annotations
 
-#### Used for authentication and authorization.
+Used for authentication and authorization.
 
-@**EnableWebSecurity**
+### @**EnableWebSecurity**
 
 * **Defination** :  Enables Spring Security in the application.
 
@@ -2460,7 +2460,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {}
 
 ---
 
-@**PreAuthorize**
+### @**PreAuthorize**
 
 **Defination** :  Restricts access to a method based on roles.
 
@@ -2523,34 +2523,9 @@ public class LoggingAspect {
 }
 ```
 
+---
 
-
-#### What is the difference between @RestController and @Controller?
-
-* @Controller → Returns views (JSP, Thymeleaf)
-* @RestController → Returns JSON/XML responses
-
-Example : 
-
-```java
-@RestController
-
-@RequestMapping("/api")
-
-public class ApiController {
-
-    @GetMapping("/hello")
-
-    public String sayHello() {
-
-        return "Hello, World!";
-
-    }
-
-}
-```
-
-#### What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
+### What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
 
 |  |  |  |  |
 | --- | --- | --- | --- |
@@ -3559,7 +3534,9 @@ public class UserService {
 
 **@PreAuthorize** is preferred over **@Secured** because it supports SpEL (Spring Expression Language) for complex conditions.
 
-#### What is JWT? How does it work?
+---
+
+### What is JWT? How does it work?
 
 **Answer:**
 JWT (JSON Web Token) is a stateless authentication mechanism used to secure APIs. It consists of three parts,
@@ -3568,14 +3545,14 @@ JWT (JSON Web Token) is a stateless authentication mechanism used to secure APIs
 2. Payload – User data (username, roles)
 3. Signature – Ensures integrity using a secret key
 
-*JWT Authentication Flow*
+***JWT Authentication Flow***
 
 1. The user logs in with credentials.
 2. The server generates a JWT token.
 3. The token is sent in the Authorization header (Bearer <token>).
 4. On subsequent requests, the server verifies the token instead of checking session data.
 
-Example :  Generating JWT Token
+**Example :  Generating JWT Token**
 
 ```java
 public String generateToken(String username) {
@@ -3595,15 +3572,17 @@ public String generateToken(String username) {
 }
 ```
 
-#### 🔹 JWT is preferred for REST APIs because it eliminates session management.
+JWT is preferred for REST APIs because it eliminates session management.
 
-##### How to disable CSRF in Spring Security?
+---
+
+### How to disable CSRF in Spring Security?
 
 **Answer:**
-CSRF (Cross-Site Request Forgery) protection is enabled by default in Spring Security.
+**CSRF (Cross-Site Request Forgery)** protection is enabled by default in Spring Security.
 However, for REST APIs, CSRF can be disabled as they don’t use cookies for authentication.
 
-Example :  Disabling CSRF in Spring Security
+**Example :**  Disabling CSRF in Spring Security
 
 ```java
 @Bean
@@ -3670,9 +3649,13 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 | JWT authentication | ❌ No | ✅ Yes |
 | Mobile Apps | ❌ No | ✅ Yes |
 
-#### Rule of Thumb, Enable CSRF for form-based login apps and disable it for APIs, JWT, and stateless services.
+> [!IMPORTANT]
+>
+> Rule of Thumb, Enable CSRF for form-based login apps and disable it for APIs, JWT, and stateless services.
 
-##### Spring Security Flow for the Given Configuration
+---
+
+### Spring Security Flow for the Given Configuration
 
 1. **User Requests a Page**
 
@@ -3712,18 +3695,20 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 * File handling in Spring allows us to upload, store, retrieve, and download files using Spring Boot, MultipartFile, and FileSystem or Database.
 * Spring provides the MultipartFile interface to handle file uploads.
 
-File Handling Approaches in Spring
+##### File Handling Approaches in Spring:
 
 There are two common ways to handle files in a Spring application,
 
 1. Store files on the local file system and store metadata (path, name, type) in a database.specially when we are working with large size files use this.
 2. Store files directly in a database as binary data (BLOB).
 
-## File Upload in Spring Boot
+---
+
+### File Upload in Spring Boot
 
 Spring Boot provides a simple way to upload files using MultipartFile.
 
-✅ Step 1, Enable Multipart Support
+**✅ Step 1: Enable Multipart Support**
 
 Add this configuration in application.properties,
 
@@ -3737,7 +3722,7 @@ spring.servlet.multipart.max-request-size=10MB
 spring.servlet.multipart.file-size-threshold=5KB
 ```
 
-✅ Step 2, Create Entity Class
+**✅ Step 2: Create Entity Class**
 
 If storing only the file path,
 
@@ -3766,10 +3751,10 @@ public class Filedetails {
 
     private String filetype;
 
-    private Long fileSize;
+    private Long fileSize;}
 ```
 
-If storing the file as binary data,
+**If storing the file as binary data**
 
 ```java
 @Entity
@@ -3797,97 +3782,101 @@ public class Filedata {
     @Lob
 
     @Column(columnDefinition = "VARBINARY(MAX)")
-
     private byte[] fileData;
-
-    ✅ Step 3, File Upload Service
-
-        If storing the file as binary data,
-
-    public String uploadFile(MultipartFile file) throws IOException {
-
-        Filedata filedata = new Filedata();
-
-        filedata.setFileName(file.getOriginalFilename());
-
-        filedata.setType(file.getContentType());
-
-        filedata.setFileData(file.getBytes());
-
-        fileRepository.save(filedata);
-
-        return filedata.getFileName();
-
-    }
-
-    public Filedata getFileByName(String fileName) {
-
-        return fileRepository.findByFileName(fileName).orElse(null);
-
-    }
-
-    If storing only the file path,
-
-    private FileRepository fileRepository;
-
-    private static final String UPLOAD _DIR = "D,  Test uploads";
-
-    static {
-
-        if (!new File(UPLOAD _DIR).exists()) {
-
-            new File(UPLOAD _DIR).mkdir();
-
-        }
-
-    }
-
-    // Upload File and Store Path in Database
-
-    public String uploadFile(MultipartFile multipartFile) {
-
-        try {
-
-            if (multipartFile.isEmpty()) {
-
-                return "File is empty. Please select a valid file.";
-
-            }
-
-            String filePath = Paths.get(UPLOAD _DIR, multipartFile.getOriginalFilename()).toString();
-
-            // automatically detect path
-
-            Files.copy(multipartFile.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE _EXISTING);
-
-            // Save file details in the database
-
-            Filedetails details = new Filedetails();
-
-            details.setFilename(multipartFile.getOriginalFilename());
-
-            details.setFilepath(filePath);
-
-            details.setFiletype(multipartFile.getContentType());
-
-            details.setFileSize((multipartFile.getSize()) % 1024);
-
-            // Assuming you have a JPA repository
-
-            fileRepository.save(details);
-
-            return "File uploaded successfully, "  filePath;
-
-        } catch (IOException e) {
-
-            return "Error storing file, "  e.getMessage();
-
-        }
-
-    }
+}
 ```
 
-// Retrieve File Path from Database
+​    **✅ Step 3: File Upload Service**
+
+​        If storing the file as binary data,
+
+​    
+
+```java
+public String uploadFile(MultipartFile file) throws IOException {
+
+      Filedata filedata = new Filedata();
+
+      filedata.setFileName(file.getOriginalFilename());
+
+      filedata.setType(file.getContentType());
+
+      filedata.setFileData(file.getBytes());
+
+      fileRepository.save(filedata);
+
+      return filedata.getFileName();
+
+  }
+
+  public Filedata getFileByName(String fileName) {
+
+      return fileRepository.findByFileName(fileName).orElse(null);
+
+  }
+
+  If storing only the file path,
+
+  private FileRepository fileRepository;
+
+  private static final String UPLOAD _DIR = "D,  Test uploads";
+
+  static {
+
+      if (!new File(UPLOAD _DIR).exists()) {
+
+          new File(UPLOAD _DIR).mkdir();
+
+      }
+
+  }
+
+  // Upload File and Store Path in Database
+
+  public String uploadFile(MultipartFile multipartFile) {
+
+      try {
+
+          if (multipartFile.isEmpty()) {
+
+              return "File is empty. Please select a valid file.";
+
+          }
+
+          String filePath = Paths.get(UPLOAD _DIR, multipartFile.getOriginalFilename()).toString();
+
+          // automatically detect path
+
+          Files.copy(multipartFile.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE _EXISTING);
+
+          // Save file details in the database
+
+          Filedetails details = new Filedetails();
+
+          details.setFilename(multipartFile.getOriginalFilename());
+
+          details.setFilepath(filePath);
+
+          details.setFiletype(multipartFile.getContentType());
+
+          details.setFileSize((multipartFile.getSize()) % 1024);
+
+          // Assuming you have a JPA repository
+
+          fileRepository.save(details);
+
+          return "File uploaded successfully, "  filePath;
+
+      } catch (IOException e) {
+
+          return "Error storing file, "  e.getMessage();
+
+      }
+
+  }
+```
+
+**// Retrieve File Path from Database**
 
 ```java
 public byte[] downloadFile(String filename) {
@@ -3917,7 +3906,7 @@ public byte[] downloadFile(String filename) {
 }
 ```
 
-✅ Step 4, File Upload download Controller
+**✅ Step 4: File Upload download Controller**
 
 If storing the file as binary data,
 
@@ -3965,11 +3954,10 @@ public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 }
 
 ```
-If storing only the file path,
-
-// Upload File Endpoint
+**If storing only the file path**
 
 ```java
+// Upload File Endpoint
 @PostMapping("/upload")
 
 public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
@@ -3991,11 +3979,7 @@ public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttri
     }
 
 }
-```
-
 // Download File Endpoint
-
-```java
 @GetMapping("/download/{fileName}")
 
 public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
@@ -4019,15 +4003,21 @@ public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
     }
 
 }
-
 ```
-How It Works?
+
+---
+
+**How It Works?**
 
 1. Retrieves the file path from the database.
 2. Reads the file from the system.
 3. Returns the file as a Resource with a Content-Disposition header.
 
-File View in Browser
+---
+
+
+
+### File View in Browser
 
 To allow files (like images, PDFs) to open in a browser instead of downloading,
 
@@ -4075,7 +4065,7 @@ public ResponseEntity<Resource> viewFile(@PathVariable Long id) {
 
 📌 This method will open PDFs, images, and other supported file types directly in the browser.
 
-Delete File from System and Database
+**Delete File from System and Database**
 
 ```java
 @GetMapping("/delete/{id}")
@@ -4097,7 +4087,7 @@ public String deleteFile(@PathVariable long id, RedirectAttributes redirectAttri
 }
 ```
 
-Delete Logic in Service
+**Delete Logic in Service**
 
 ```java
 // delete file from database and direcotry
@@ -4133,17 +4123,15 @@ public boolean deleteFile(Long id) {
 
 ---
 
+## Two Database Configuration in Spring Boot
 
+### **1. Why Multiple Databases in Spring Boot?**
 
-### Two Database Configuration in Spring Boot
-
-**1. Why Multiple Databases in Spring Boot?**
 In real-world applications (banking, audit, reporting): One database for core business data Another database for audit / logs / reports Sometimes read & write databases are separated Spring Boot supports multiple DataSources, but we must configure them manually.
 
 ------------
 
-
-**2. Application Properties Configuration**
+### **2. Application Properties Configuration**
 
 Define connection details for each database Each database is identified using a custom prefix
 
@@ -4181,8 +4169,7 @@ spring.jpa.show-sql=true
 
 ------------
 
-
-**3. DataSource Configuration**
+### **3. DataSource Configuration**
 
 **What is DataSource?**
 Represents database connection pool Holds URL, username, password, driver Why @ConfigurationProperties? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
@@ -4204,8 +4191,7 @@ Important Annotations Annotation
 
 ------------
 
-
-**4. EntityManagerFactory Configuration**
+### **4. EntityManagerFactory Configuration**
 
 **What is EntityManagerFactory?**
 
@@ -4240,7 +4226,7 @@ packages() → tells where entity classes are persistenceUnit() → logical name
 
 ------------
 
-**5. TransactionManager Configuration**
+### **5. TransactionManager Configuration**
 
 **Why TransactionManager?**
 Handles:
@@ -4266,7 +4252,8 @@ Multiple EntityManagerFactory beans exist Spring needs to know which one to inje
 
 ------------
 
-**6. @EnableJpaRepositories Configuration Why Required?**
+### **6. @EnableJpaRepositories Configuration Why Required?**
+
 When multiple databases exist: Spring cannot auto-detect repositories We must explicitly define: Repository package EntityManagerFactory TransactionManager Configuration
 
 
@@ -4284,8 +4271,7 @@ What happens if this is not configured? 👉 Spring throws No qualifying bean or
 
 ------------
 
-
-**7. Complete Primary DB Configuration Class**
+### **7. Complete Primary DB Configuration Class**
 
 
 ```java
@@ -4330,8 +4316,8 @@ public class UserDbConfig {
 
 ------------
 
+### **8. Secondary Database Configuration**
 
-**8. Secondary Database Configuration**
 Key Differences No @Primary Different: Property prefix Entity package Repository package Persistence unit
 
 
@@ -4373,8 +4359,7 @@ public class AddressDbConfig {
 
 ------------
 
-
-**9. Package Structure (Best Practice)**
+### **9. Package Structure (Best Practice)**
 
 com.example.twodb
  ├── primary
@@ -4390,7 +4375,7 @@ com.example.twodb
 
 ---
 
-## ⚡ Reactive Programming with Spring Boot 
+# ⚡ Reactive Programming with Spring Boot 
 
 ------
 
@@ -4566,7 +4551,7 @@ If account not found:
 
 ------
 
-#### 🎯 MVC vs WebFlux (Interview Comparison)
+#### 🎯 MVC vs WebFlux 
 
 | Feature           | Spring MVC             | WebFlux              |
 | ----------------- | ---------------------- | -------------------- |
