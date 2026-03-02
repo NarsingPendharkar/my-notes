@@ -3,7 +3,7 @@
 
 ### **What are the key features of the Spring Framework?**
 
-**Defination : ** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
+**Defination:** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
 
 * **Lightweight:** doesn't force developer to implement any interface.
 * **Loose coupling:** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
