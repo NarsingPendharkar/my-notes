@@ -687,8 +687,10 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
 
-**@Component** : Marks a Java class as a Spring-managed bean
-Example:
+### **@Component** 
+
+**Definition** : is a generic stereotype annotation that marks a class as a Spring-managed component.
+**Example**:
 
 
 ```java
@@ -704,11 +706,18 @@ public class MyComponent {
 }
 ```
 
-**@Service**
+> [!TIP]
+>
+> Use Case : Used when the class doesn't clearly fall into service, repository, or controller layers.
 
-* Defination :  Specialized version of @Component, used to mark a service layer class which contains business.
+---
 
-Example : 
+### @Service
+
+**Definition** :  Specialized version of **@Component**, used to mark a service layer class which contains business.
+
+**Example :** 
+
 ```java
 @Service
 
@@ -721,11 +730,14 @@ public class UserService {
     }
 ```
 
-**@Repository**
+---
 
-*  Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
+### **@Repository**
 
-Example : 
+Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
+
+**Example :** 
+
 ```java
 @Repository
 
@@ -739,9 +751,11 @@ public class UserRepository {
 }
 ```
 
-**@Autowired**
+---
 
-* Defination :  Automatically injects dependencies where required.
+### **@Autowired**
+
+**Defination :**  Automatically injects dependencies where required.
 
 Example : 
 
@@ -751,9 +765,11 @@ Example :
 private TaskRepository taskRepository;
 ```
 
-**@Qualifier**
+---
 
-* **Definition:** Used along with **@Autowired** to resolve ambiguity when multiple beans of the same type exist. It tells Spring exactly which bean to inject.
+### **@Qualifier**
+
+**Definition:** Used along with **@Autowired** to resolve ambiguity when multiple beans of the same type exist. It tells Spring exactly which bean to inject.
 
 Example : 
 ```java
@@ -779,9 +795,9 @@ public class MyService {
 ```
 ---
 
-**@Value**
+### **@Value**
 
-* **Defination** :  Injects values from properties files into Spring beans or assign default value to methods.
+**Defination** :  Injects values from properties files into Spring beans or assign default value to methods.
 
 Example : 
 ```java
@@ -792,9 +808,9 @@ private String appName;
 
 ---
 
-**@Scope**
+### **@Scope**
 
-* **Defination** :  Defines the scope of a Spring bean (singleton, prototype, request, etc.).
+**Defination** :  Defines the scope of a Spring bean (singleton, prototype, request, etc.).
 
 Example : 
 ```java
@@ -805,13 +821,13 @@ public class PrototypeBean {}
 
 ---
 
- **@Lazy**
+###  **@Lazy**
 
 By default, Spring creates all singleton beans at startup (Eager initialization means loaded when application starts) .
 
-`@Lazy` tells Spring:
-
-> Don’t create this bean at startup. Create it only when it is first used.
+> [!WARNING]
+>
+> `@Lazy` tells Spring  Don’t create this bean at startup. Create it only when it is first used.
 
 ---
 
@@ -1669,11 +1685,9 @@ Deploy generated WAR file to external Tomcat.
 
 ---
 
+### @JsonIgoner & @JsonIgnoreProperties
 
-
-**@JsonIgoner & @JsonIgnoreProperties**
-
-* Defination :  used to filter out the fields data form response. These fields are not sent in response.
+**Defination** :  used to filter out the fields data form response. These fields are not sent in response.
 
 Example : 
 ```java
@@ -1712,13 +1726,13 @@ Example :
 
 public class AppConfig {
 
-@Bean
+    @Bean
 
-public MyService myService() {
+    public MyService myService() {
 
-return new MyService();
+        return new MyService();
 
-}
+    }
 
 }
  ```
