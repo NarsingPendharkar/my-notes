@@ -118,7 +118,6 @@ public class Employee {
 
 </bean>
 
-
 <!-- constructor based injection -->
 
 <bean id="stdbean" class="com.springtutorial.Student">
@@ -496,16 +495,15 @@ public class MainApplicationToRun
 }
 ```
 
-###  **What is the difference between @Component, @Service, and @Repository?**
+### **What is the difference between @Component, @Service, and @Repository?**
 
-|  |  |
-| --- | --- |
 | **Annotation** | **Purpose** |
-| @Component | Generic bean for any class |
-| @Service | Specifically for business logic/service layer |
-| @Repository | Used in the DAO layer and integrates exception translation |
+| --- | --- |
+| @Component     | Generic bean for any class                                 |
+| @Service       | Specifically for business logic/service layer              |
+| @Repository    | Used in the DAO layer and integrates exception translation |
 
-###  **What is the difference between @Bean and @Component?**
+### **What is the difference between @Bean and @Component?**
 
 |  |  |  |
 | --- | --- | --- |
@@ -681,8 +679,6 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 ---
 
-
-
 ## Core Spring Annotations
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
@@ -696,13 +692,9 @@ These annotations are primarily used for dependency injection (DI) and component
 ```java
 @Component
 public class MyComponent {
-
     public void sayHello() {
-
         System.out.println("Hello from MyComponent");
-
     }
-
 }
 ```
 
@@ -720,11 +712,8 @@ public class MyComponent {
 
 ```java
 @Service
-
 public class UserService {
-
     public String getUser() {
-
         return "Nirav";
 
     }
@@ -735,6 +724,11 @@ public class UserService {
 ### **@Repository**
 
 Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
+
+**Use Case**
+
+1.  Used for data persistence
+2. Automatically translates exceptions to Spring’s DataAccessException
 
 **Example :** 
 
@@ -883,9 +877,9 @@ Here, `PaymentService` will be created only when used.
 | Control     | Global default | Local selection         |
 | Flexibility | Less           | More                    |
 
-### Spring MVC Annotations
+---
 
-**@Controller**
+### **@Controller**
 
 * **Defination :**  Marks a class as a Spring MVC controller to handle HTTP requests.
 
@@ -897,7 +891,7 @@ Example :
 public class TaskController {}
 ```
 
-**@RestController**
+### **@RestController**
 
 * **Defination :**  A combination of **@Controller** and **@ResponseBody**, used for RESTful APIs.
 
@@ -919,7 +913,7 @@ public class ApiController {
 }
 ```
 
-**@RequestMapping**
+### **@RequestMapping**
 
 * **Defination** :  Maps HTTP requests to controller methods.
 
@@ -942,7 +936,7 @@ public class UserController {
 }
 ```
 
-**@GetMapping, @PostMapping, @PutMapping, @DeleteMapping**
+### **@GetMapping, @PostMapping, @PutMapping, @DeleteMapping**
 
 * **Defination :**  Shortcut annotations for specific HTTP methods.
 
@@ -957,7 +951,7 @@ return "Dashboard";
 }
 ```
 
-**@PathVariable**
+### **@PathVariable**
 
 * **Defination** :  Extracts values from the URL path.
 * `URL : localhost,8080/deleteTask/2`
@@ -979,7 +973,7 @@ public String deleteTask(@PathVariable("id") int taskId, Model model) throws SQL
 
 ---
 
-**@RequestParam**
+### **@RequestParam**
 
 * Defination :  Extracts query parameters from the URL*.*
 * *URL* : `localhost,8080/search?keyword=”google”`
@@ -997,7 +991,7 @@ return "Searching for, "  keyword;
 
 ```
 
-**@ModelAttribute**
+### **@ModelAttribute**
 
 * **Defination** :  Binds from data into java object.
 
@@ -1015,7 +1009,7 @@ return "success";
 }
 ```
 
-**@ExceptionHandler : @ControllerAdvice**
+### **@ExceptionHandler : @ControllerAdvice**
 
 * **Defination :**  This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
 
@@ -1038,11 +1032,9 @@ return "Login";
 }
 ```
 
-# Spring Boot
+---
 
-![image-20260302054531148](D:\Study Notes\my-notes\Notes-by-Narsing\media\media\spring architecture)
-
-#### Spring Framework vs Spring Boot 
+### Spring Framework vs Spring Boot 
 
 | Feature / Aspect              | Spring Framework                                             | Spring Boot                                                  |
 | ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1059,9 +1051,8 @@ return "Login";
 
 #### What is the difference between Spring MVC and Spring Boot?
 
-|                 |                   |                     |
-| --------------- | ----------------- | ------------------- |
 | Feature         | Spring MVC        | Spring Boot         |
+| --------------- | ----------------- | ------------------- |
 | Configuration   | Manual            | Auto-configured     |
 | Embedded Server | No                | Yes (Tomcat, Jetty) |
 | Dependencies    | More setup needed | Minimal setup       |
@@ -1402,9 +1393,7 @@ public DataSource prodDataSource() {
 
 Only active profile bean will load.
 
----
 
-# Spring Boot – RESTful Web Services 
 
 ---
 
@@ -1699,7 +1688,7 @@ public class User {
 
     @Id
 
-    @GeneratedValue(strategy = GenerationType.*SEQUENCE*,generator = "userseq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "userseq")
 
     @SequenceGenerator(name="userseq",sequenceName = "userseq", initialValue = 1000, allocationSize = 1)
 
@@ -1716,7 +1705,7 @@ public class User {
     private String password;
 ```
 
-@**Configuration**
+### @**Configuration**
 
 * **Defination** :  Marks a class as a Spring configuration class and it is a source of beans.
 
@@ -1737,7 +1726,7 @@ public class AppConfig {
 }
  ```
 
-@**EnableScheduling**
+### @**EnableScheduling**
 
 * **Defination** :  Enables scheduling tasks. When @**EnableScheduling** Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
 
@@ -1760,7 +1749,7 @@ System.out.println("Running every 5 seconds");
 
 Used for database interaction.
 
-**@Entity**
+### **@Entity**
 
 **Defination** :  Marks a class as a JPA entity (database table representation).
 
@@ -1806,59 +1795,52 @@ public class Tasks {
 
 
 
----
-
-Here are clean, structured Markdown notes you can directly use for interview preparation.
-
+# **🚀 Caching in Spring Boot**
 
 ---
 
-🚀 Caching in Spring Boot
-
----
-
-1️⃣ What is Caching?
+### 1️⃣ What is Caching?
 
 Caching is a technique of storing frequently accessed data in memory to improve application performance.
 
-Why We Use Caching?
+**Why We Use Caching?**
 
-Reduce database load
+- Reduce database load
 
-Improve response time
+- Improve response time
 
-Reduce latency
+- Reduce latency
 
-Improve scalability
+- Improve scalability
+
 
 
 
 ---
 
-2️⃣ Spring Boot Caching Overview
+### 2️⃣ Spring Boot Caching Overview
 
 Spring Boot provides caching abstraction using:
 
-@EnableCaching
-
-Spring uses AOP (Proxy-based mechanism) internally.
+@**EnableCaching** : Spring uses AOP (Proxy-based mechanism) internally.
 
 
 ---
 
-3️⃣ Cache Annotations (Very Important)
+### 3️⃣ Cache Annotations (Very Important)
 
-✅ 1. @Cacheable
+##### ✅ 1. @Cacheable
 
 Stores method result in cache
 
 Skips method execution if data exists in cache
 
-
+```java
 @Cacheable(value = "users", key = "#id")
 public User getUserById(Long id) {
     return userRepository.findById(id).orElse(null);
 }
+```
 
 👉 First call → DB hit
 👉 Next calls → From cache
@@ -1866,85 +1848,99 @@ public User getUserById(Long id) {
 
 ---
 
-✅ 2. @CacheEvict
+##### ✅ 2. @CacheEvict
 
 Removes data from cache
 
-
+```java
 @CacheEvict(value = "users", key = "#id")
 public void deleteUser(Long id) {
     userRepository.deleteById(id);
 }
+```
+
+
+
 
 
 ---
 
-✅ 3. @CachePut
+##### ✅ 3. @CachePut
 
 Always executes method
 
 Updates cache with new value
 
-
+```java
 @CachePut(value = "users", key = "#user.id")
 public User updateUser(User user) {
     return userRepository.save(user);
 }
+```
+
+
+
 
 
 ---
 
-4️⃣ Cache Providers (Interview Important)
+#### 4️⃣ Cache Providers (Interview Important)
 
 Spring provides abstraction only. We configure provider.
 
-Provider	Type	Usage
+| Provider          | Type             | Usage         |
+| ----------------- | ---------------- | ------------- |
+| ConcurrentHashMap | in-memory        | Default       |
+| EhCache           | In-memory        | Enterprise    |
+| Caffeine          | High performance | Local cache   |
+| Redis             | Distributed      | Microservices |
 
-ConcurrentHashMap	In-memory	Default
-EhCache	In-memory	Enterprise
-Caffeine	High performance	Local cache
-Redis	Distributed	Microservices
 
-
-🔥 Most used in production: Redis
 
 
 ---
 
-5️⃣ Redis Caching (Most Asked)
+### 5️⃣ Redis Caching (Most Asked)
 
-Why Redis?
+##### Why Redis?
 
-Distributed cache
+- Distributed cache
 
-Shared across multiple instances
+- Shared across multiple instances
 
-Supports TTL
+- Supports TTL
 
-High performance
+- High performance
+
 
 
 Redis Configuration
 
+```properties
 spring.cache.type=redis
 spring.redis.host=localhost
 spring.redis.port=6379
+```
+
+
 
 
 ---
 
-6️⃣ TTL (Time To Live)
+### 6️⃣ TTL (Time To Live)
 
 Automatically expires cache after some time.
 
+```properties
 spring.cache.redis.time-to-live=60000
+```
 
 👉 Cache expires after 60 seconds.
 
 
 ---
 
-7️⃣ Internal Working (Interview Explanation)
+### 7️⃣ Internal Working 
 
 When method with @Cacheable is called:
 
@@ -1962,86 +1958,61 @@ When method with @Cacheable is called:
 
 5. Returns response.
 
-
-
 Uses proxy-based AOP mechanism.
 
+---
+
+### Difference between @Cacheable and @CachePut?
+
+| @Cacheable                      | @CachePut       |
+| ------------------------------- | --------------- |
+| Skips execution if cache exists | Always executes |
+| Used for read                   | Used for update |
 
 ---
 
-8️⃣ Common Interview Questions
-
-🔹 Q1: Difference between @Cacheable and @CachePut?
-
-@Cacheable	@CachePut
-
-Skips execution if cache exists	Always executes
-Used for read	Used for update
-
-
-
----
-
-🔹 Q2: What is stale data problem?
+### What is stale data problem?
 
 When DB is updated but cache still has old data.
 
-Solution:
+**Solution:**
 
-Use @CacheEvict
+- Use @CacheEvict
 
-Use TTL
+- Use TTL
 
-Use event-based invalidation
+- Use event-based invalidation
 
 
-
----
-
-🔹 Q3: Why Redis preferred in Microservices?
-
-Local cache works per instance.
-Redis works as centralized shared cache across services.
 
 
 ---
 
-🔹 Q4: What is self-invocation problem?
+### Why Redis preferred in Microservices?
+
+- Local cache works per instance.
+
+- Redis works as centralized shared cache across services.
+
+
+---
+
+### What is self-invocation problem?
 
 If a method inside same class calls @Cacheable method → caching will NOT work.
 
-Reason: Spring uses proxy mechanism.
+Reason: Spring uses proxy mechanism
 
+ **Example (Banking App)**
 
----
-
-9️⃣ Real-Time Example (Banking App)
-
+```java
 @Cacheable(value = "accounts", key = "#accountNumber")
 public Account getAccountDetails(String accountNumber) {
     return accountRepository.findByAccountNumber(accountNumber);
 }
+```
 
 Improves performance for repeated account lookup.
-
-
----
-
-🔟 Best Practices (Experienced Level)
-
-✅ Use Redis for microservices
-✅ Always configure TTL
-✅ Use proper key strategy
-✅ Avoid caching very large objects
-✅ Handle cache eviction properly
-✅ Don’t cache highly dynamic data
-
-
----
-
-🎯 30-Second Interview Summary Answer
-
-“Spring Boot caching is implemented using @EnableCaching and annotations like @Cacheable, @CacheEvict, and @CachePut. It improves performance by storing frequently accessed data in memory. In microservices, Redis is commonly used as a distributed cache. Internally, Spring uses proxy-based AOP to intercept method calls.”
 
 
 ---
@@ -2116,15 +2087,6 @@ Here are some of the key benefits of using Spring Data JPA:
 - **Custom Queries**: Easily create custom queries with method names or the `@Query` annotation for more complex queries.
 - **Pagination and Sorting**: It provides built-in support for pagination and sorting, which is essential for managing large datasets.
 - **Integration with Spring Boot**: Spring Boot makes configuring Spring Data JPA even easier, offering features like automatic configuration and the ability to connect to a database with minimal setup.
-
-
-
-------
-
-Excellent 🔥
-If you master JPA annotations in structured form, interviews become easy.
-
-Below is a **clean markdown table** you can copy into your notes.
 
 ------
 
