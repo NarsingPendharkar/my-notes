@@ -1808,6 +1808,245 @@ public class Tasks {
 
 ---
 
+Here are clean, structured Markdown notes you can directly use for interview preparation.
+
+
+---
+
+🚀 Caching in Spring Boot
+
+---
+
+1️⃣ What is Caching?
+
+Caching is a technique of storing frequently accessed data in memory to improve application performance.
+
+Why We Use Caching?
+
+Reduce database load
+
+Improve response time
+
+Reduce latency
+
+Improve scalability
+
+
+
+---
+
+2️⃣ Spring Boot Caching Overview
+
+Spring Boot provides caching abstraction using:
+
+@EnableCaching
+
+Spring uses AOP (Proxy-based mechanism) internally.
+
+
+---
+
+3️⃣ Cache Annotations (Very Important)
+
+✅ 1. @Cacheable
+
+Stores method result in cache
+
+Skips method execution if data exists in cache
+
+
+@Cacheable(value = "users", key = "#id")
+public User getUserById(Long id) {
+    return userRepository.findById(id).orElse(null);
+}
+
+👉 First call → DB hit
+👉 Next calls → From cache
+
+
+---
+
+✅ 2. @CacheEvict
+
+Removes data from cache
+
+
+@CacheEvict(value = "users", key = "#id")
+public void deleteUser(Long id) {
+    userRepository.deleteById(id);
+}
+
+
+---
+
+✅ 3. @CachePut
+
+Always executes method
+
+Updates cache with new value
+
+
+@CachePut(value = "users", key = "#user.id")
+public User updateUser(User user) {
+    return userRepository.save(user);
+}
+
+
+---
+
+4️⃣ Cache Providers (Interview Important)
+
+Spring provides abstraction only. We configure provider.
+
+Provider	Type	Usage
+
+ConcurrentHashMap	In-memory	Default
+EhCache	In-memory	Enterprise
+Caffeine	High performance	Local cache
+Redis	Distributed	Microservices
+
+
+🔥 Most used in production: Redis
+
+
+---
+
+5️⃣ Redis Caching (Most Asked)
+
+Why Redis?
+
+Distributed cache
+
+Shared across multiple instances
+
+Supports TTL
+
+High performance
+
+
+Redis Configuration
+
+spring.cache.type=redis
+spring.redis.host=localhost
+spring.redis.port=6379
+
+
+---
+
+6️⃣ TTL (Time To Live)
+
+Automatically expires cache after some time.
+
+spring.cache.redis.time-to-live=60000
+
+👉 Cache expires after 60 seconds.
+
+
+---
+
+7️⃣ Internal Working (Interview Explanation)
+
+When method with @Cacheable is called:
+
+1. Spring checks cache.
+
+
+2. If present → returns cached value.
+
+
+3. If not → executes method.
+
+
+4. Stores result in cache.
+
+
+5. Returns response.
+
+
+
+Uses proxy-based AOP mechanism.
+
+
+---
+
+8️⃣ Common Interview Questions
+
+🔹 Q1: Difference between @Cacheable and @CachePut?
+
+@Cacheable	@CachePut
+
+Skips execution if cache exists	Always executes
+Used for read	Used for update
+
+
+
+---
+
+🔹 Q2: What is stale data problem?
+
+When DB is updated but cache still has old data.
+
+Solution:
+
+Use @CacheEvict
+
+Use TTL
+
+Use event-based invalidation
+
+
+
+---
+
+🔹 Q3: Why Redis preferred in Microservices?
+
+Local cache works per instance.
+Redis works as centralized shared cache across services.
+
+
+---
+
+🔹 Q4: What is self-invocation problem?
+
+If a method inside same class calls @Cacheable method → caching will NOT work.
+
+Reason: Spring uses proxy mechanism.
+
+
+---
+
+9️⃣ Real-Time Example (Banking App)
+
+@Cacheable(value = "accounts", key = "#accountNumber")
+public Account getAccountDetails(String accountNumber) {
+    return accountRepository.findByAccountNumber(accountNumber);
+}
+
+Improves performance for repeated account lookup.
+
+
+---
+
+🔟 Best Practices (Experienced Level)
+
+✅ Use Redis for microservices
+✅ Always configure TTL
+✅ Use proper key strategy
+✅ Avoid caching very large objects
+✅ Handle cache eviction properly
+✅ Don’t cache highly dynamic data
+
+
+---
+
+🎯 30-Second Interview Summary Answer
+
+“Spring Boot caching is implemented using @EnableCaching and annotations like @Cacheable, @CacheEvict, and @CachePut. It improves performance by storing frequently accessed data in memory. In microservices, Redis is commonly used as a distributed cache. Internally, Spring uses proxy-based AOP to intercept method calls.”
+
+
+---
+
+
 # Spring Data JPA & Transactions
 
 #### How to Connect Spring Boot with a Database?
