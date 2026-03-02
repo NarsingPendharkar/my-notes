@@ -538,7 +538,7 @@ class AppConfig {
 ```
 # **Spring MVC**
 
-**What is Spring MVC and its features.**
+### **What is Spring MVC and its features.**
 
 * Spring MVC is the sub framework of spring which is used for the development of web applications.
 * Spring MVC follows the MVC pattern which separates the application in three parts i.e Model , View and Controller
@@ -548,7 +548,7 @@ class AppConfig {
 * It uses all features of spring core.
 * It is flexible, easy to test and much features.
 
-**Explain the flow of a Spring MVC application.**
+### **Explain the flow of a Spring MVC application.**
 
 1. **Client Request** → client Sent request to the Dispatcher Servlet
 2. **DispatcherServlet** → receive request from client and request to the appropriate Controller
@@ -558,7 +558,7 @@ class AppConfig {
 
 ![Spring DispatcherServlet](data,image/png;base64...)
 
-**Explain Dispatcher Servlet in Spring MVC.**
+### **Explain Dispatcher Servlet in Spring MVC.**
 
 * Dispatcher servlet serve as Front Controller who manage all the request and sent it to respective controller.
 * Dispatcher Servlet is a class which receive all incoming request from client and maps it to appropriate controller, model, and view.
@@ -590,7 +590,7 @@ class AppConfig {
 
 ![](data,image/png;base64...)
 
-**Explain InternalViewResolver in Spring MVC.**
+### **Explain InternalViewResolver in Spring MVC.**
 
 * It is a class which is used to resolve the internal view in Spring MVC.
 * We can define the properties like prefix and suffix where prefix contains location of view and suffix contains extension of view page.
@@ -610,7 +610,7 @@ class AppConfig {
 </bean>
 ```
 
-#### Explain Model,ModelMap and ModelAndView in Spring MVC.
+### Explain Model,ModelMap and ModelAndView in Spring MVC.
 
 1. **Model** : it is used to pass information from controller to view using model object.
 
@@ -648,9 +648,7 @@ What are @RequestMapping and its variants?
 
 ---
 
-
-
-#### What is @ModelAttribute in Spring MVC?
+### What is @ModelAttribute in Spring MVC?
 
 It binds form data to a model object.
 
@@ -690,7 +688,7 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 ---
 
-## Core Spring Annotations
+# Core Spring Annotations
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
 
