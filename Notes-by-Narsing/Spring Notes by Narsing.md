@@ -1,8 +1,9 @@
 
 # Spring Framework
 
-####   **What are the key features of the Spring Framework?**
->  **Defination : ** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
+### **What are the key features of the Spring Framework?**
+
+**Defination : ** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
 
 * **Lightweight:** doesn't force developer to implement any interface.
 * **Loose coupling:** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
@@ -18,6 +19,22 @@
 * IOC container is a core part of spring framework which is used to manage the application beans
 * It is responsible for Dependency Injection and managing the life cycle of beans.
 * Task of IOC container, Instantiating, Assembling, Configuration of beans.
+
+---
+
+### **How IoC Works in Spring**
+
+1. The developer defines application components (beans) using annotations or configuration.
+
+2. Spring's IoC container:
+
+   - Scans the class path.
+
+   - Detects annotated components.
+
+   - Creates and wires dependencies automatically.
+
+3. The container manages the entire lifecycle of those objects.
 
 ---
 
@@ -212,6 +229,17 @@ public class OrderService {
 4. No null issues
 5. Clean code
 6. Recommended by Spring team
+
+---
+
+#### Spring DI Annotations 
+
+| Annotation   | Definition / Introduction                                    | Injection Type      | When to Use                                                  | Example Usage                                      | Interview Important Points                                   |
+| ------------ | ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------ |
+| `@Autowired` | Spring annotation used to inject dependency automatically from IoC container | By Type             | Default choice for injecting beans                           | `public OrderService(PaymentService ps){}`         | Prefer constructor injection; optional if single constructor (Spring 4.3+); fails if multiple beans without qualifier |
+| `@Qualifier` | Used with `@Autowired` to resolve ambiguity when multiple beans of same type exist | By Name (with Type) | When more than one implementation of same interface exists   | `@Qualifier("upiPayment")`                         | Used to avoid `NoUniqueBeanDefinitionException`; more specific than `@Primary` |
+| `@Inject`    | Java standard (JSR-330) annotation for dependency injection  | By Type             | When writing framework-independent code                      | `@Inject public OrderService(PaymentService ps){}` | Similar to `@Autowired` but lacks `required=false`; comes from `jakarta.inject` |
+| `@Value`     | Injects values from properties, environment variables, or SpEL expressions | Property-based      | For configuration values from `application.properties` or `application.yml` | `@Value("${app.name}")`                            | Use for small configs; prefer `@ConfigurationProperties` for large config structures |
 
 ---
 
