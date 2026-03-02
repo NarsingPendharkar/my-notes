@@ -1402,9 +1402,31 @@ public DataSource prodDataSource() {
 
 Only active profile bean will load.
 
-
-
 ---
+
+### ResponseEntity and Status Codes
+
+ResponseEntity allows customizing the response body, headers, and HTTP status.
+
+**Example**
+
+```java
+@GetMapping("/{id}")
+
+public ResponseEntity<User> getUser(@PathVariable Long id) { User user = userService.findById(id);
+
+                                                            if (user == null) {
+
+                                                                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+                                                            }
+
+                                                            return ResponseEntity.ok(user);
+
+                                                           }
+```
+
+
 
 #### 1️⃣ What is @RestController in Spring Boot?
 
@@ -2412,6 +2434,24 @@ If any runtime exception occurs → transaction rolls back.
 > - Higher isolation = More consistency but lower performance
 
 
+
+---
+
+### Connection Pooling (HikariCP)
+
+Spring Boot uses HikariCP as the default connection pool for better performance.
+
+**Default Settings (optional to override)** 
+
+```properties
+spring.datasource.hikari.maximum-pool-size=10 
+
+spring.datasource.hikari.minimum-idle=5
+
+spring.datasource.hikari.idle-timeout=30000 
+
+spring.datasource.hikari.pool-name=SpringBootHikariCP
+```
 
 ---
 
