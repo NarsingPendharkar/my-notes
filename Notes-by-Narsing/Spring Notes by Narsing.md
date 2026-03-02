@@ -1024,6 +1024,23 @@ return "Login";
 
 # Spring Boot
 
+![image-20260302054531148](D:\Study Notes\my-notes\Notes-by-Narsing\media\media\spring architecture)
+
+#### Spring Framework vs Spring Boot 
+
+| Feature / Aspect              | Spring Framework                                             | Spring Boot                                                  |
+| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Setup & Configuration**     | Manual XML or Java-based configuration required              | Auto-configuration with minimal setup                        |
+| **Application Startup**       | Requires external servlet container (e.g., Tomcat deployment) | Comes with embedded servers (Tomcat, Jetty, Undertow)        |
+| **Dependency Management**     | Developer manually manages dependencies                      | Pre-configured starter dependencies (`spring-boot-starter-*`) |
+| **Boilerplate Code**          | More configuration and setup code                            | Minimal configuration and boilerplate                        |
+| **Project Structure**         | No fixed structure; developer decides                        | Follows convention over configuration                        |
+| **Production Readiness**      | Monitoring and metrics require manual setup                  | Built-in Actuator for health checks, metrics, etc.           |
+| **Build Output**              | Typically WAR file                                           | Executable JAR by default                                    |
+| **Learning Curve**            | Steeper due to configuration complexity                      | Easier and faster to get started                             |
+| **CLI Support**               | Not available                                                | Available via Spring Boot CLI                                |
+| **Microservices Development** | Requires manual setup                                        | Designed for microservices architecture                      |
+
 #### What is the difference between Spring MVC and Spring Boot?
 
 |                 |                   |                     |
@@ -1033,15 +1050,9 @@ return "Login";
 | Embedded Server | No                | Yes (Tomcat, Jetty) |
 | Dependencies    | More setup needed | Minimal setup       |
 
-#### What is @SpringBootApplication?
+---
 
-It is a combination of,
-
-* **@Configuration**
-* **@EnableAutoConfiguration**
-* **@ComponentScan**
-
-####  What is Spring Boot and why is it used?
+###  What is Spring Boot and why is it used?
 
 **Answer:**
 
@@ -1060,7 +1071,7 @@ It eliminates:
 - Auto configuration
 - Microservices friendly
 
-### Example:
+**Example:**
 
 ```java
 @SpringBootApplication
@@ -1126,7 +1137,9 @@ Starters are **predefined dependency packages** that simplify build configuratio
 
 **Answer:**
 
-`@SpringBootApplication` is a **combination of three annotations**:
+The **@SpringBootApplication** annotation is the primary entry point of any Spring Boot application. It is a convenience annotation that combines three commonly used annotations in Spring:
+
+**@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan**
 
 1. `@Configuration`
     Marks class as configuration class.
