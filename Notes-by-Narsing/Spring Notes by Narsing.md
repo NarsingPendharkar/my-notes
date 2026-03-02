@@ -1,5 +1,8 @@
-
 # Spring Framework
+
+[TOC]
+
+
 
 ### **What are the key features of the Spring Framework?**
 
@@ -53,6 +56,8 @@
 ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
 ```
 
+> [!CAUTION]
+>
 > Note : bean file should be in resource folder
 
 ---
@@ -252,6 +257,8 @@ public class OrderService {
 4. Bean used
 5. Bean destroyed
 
+---
+
 ### Spring - Bean Scopes
 
 | Sr.No. | Scope & Description |
@@ -262,7 +269,7 @@ public class OrderService {
 | 4      | **session** : New bean created for each new HTTP Session.    |
 | 5      | **global-session** : This scopes a bean definition to a global HTTP session. |
 
-#### **What are different ways to configure a Spring Bean?**
+### **What are different ways to configure a Spring Bean?**
 
 1. **XML Configuration (beans.xml)**
 
@@ -639,6 +646,10 @@ What are @RequestMapping and its variants?
 * `@PutMapping("/path")` → Maps HTTP PUT request
 * `@DeleteMapping("/path")` → Maps HTTP DELETE request
 
+---
+
+
+
 #### What is @ModelAttribute in Spring MVC?
 
 It binds form data to a model object.
@@ -704,7 +715,7 @@ public class MyComponent {
 
 ---
 
-### @Service
+### **@Service**
 
 **Definition** :  Specialized version of **@Component**, used to mark a service layer class which contains business.
 
