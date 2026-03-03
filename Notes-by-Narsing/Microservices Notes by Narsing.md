@@ -1,6 +1,6 @@
-# **Spring Boot Microservices**
+Spring Boot Microservices
 
-> **What is Monolithic Architecture?**
+### What is Monolithic Architecture?
 
 If we develop all the functionalities in single application, then it is called Monolithic Application.
 
@@ -14,37 +14,34 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 > incorrect.](./media/media/image4.jpeg){width="4.972439851268591in"
 > height="2.7625in"}
 
-**What are Microservices?**
+### What are Microservices?
 
-- **Definition:**
-  Microservices is an architectural style where an application is divided into small, independent services that communicate via APIs (usually REST). Each service focuses on a specific business capability and can be developed, deployed, and scaled independently.
-  
-- **Simplified Definition:**
-  "Microservices are small services that work together."
+Definition:
+Microservices is an architectural style where an application is divided into small, independent services that communicate via APIs (usually REST). Each service focuses on a specific business capability and can be developed, deployed, and scaled independently.
 
-- **Key Characteristics:**
+Simplified Definition:
+"Microservices are small services that work together."
 
-  - Small, independently deployable units
+Key Characteristics:
 
-  - Each service owns its own data and logic
+- Small, independently deployable units
+- Each service owns its own data and logic
+- Communicate using lightweight protocols (HTTP/REST, messaging)
+- Designed for autonomy and resilience
 
-  - Communicate using lightweight protocols (HTTP/REST, messaging)
+Analogy:
+Each microservice is like a specialized shop in a mall the mall (system) still functions even if one shop closes.
 
-  - Designed for autonomy and resilience
+Key Points:
 
-- Analogy:
-  Each microservice is like a specialized shop in a mall the mall (system) still functions even if one shop closes.
-
-**Key Points:**
-
-**Microservices is not:**
+Microservices is not:
 
 - ❌ A technology
 - ❌ A programming language
 - ❌ A framework
 - ❌ An API
 
-**It is an architectural design pattern**
+It is an architectural design pattern
 
 - Used to build distributed and independent services.
 
@@ -52,33 +49,34 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 
 - Services communicate through APIs (usually REST or messaging).
 
-## **Challenges with Microservices**
+---
 
-> Bounded Context
->
-> Repeated configurations
->
-> Visibility
+### Challenges with Microservices
 
-- **Bounded context** means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
+1. Bounded Context
+2. Repeated configurations
+
+3. Visibility
+
+- Bounded context means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
   
-- In Several micro services we **need to write same configurations** like data source, smtp, kafka, redis etc.
+- In Several micro services we need to write same configurations like data source, smtp, kafka, redis etc.
   
-- In micro service architecture we might not get chance to work with all apis in the application.
+- In microservice architecture we might not get chance to work with all apis in the application.
 
 ------
 
-## **Monolith vs Microservices**
+### Monolith vs Microservices
 
-| Aspect            | Monolithic Architecture          | Microservices Architecture                   |
-| ----------------- | -------------------------------- | -------------------------------------------- |
-| **Structure**     | Single deployable unit           | Multiple independent services                |
-| **Development**   | Easier to start with             | Complex setup, more coordination             |
-| **Scaling**       | Scales the entire application    | Scales specific services independently       |
-| **Deployment**    | One deployment for all features  | Independent deployment per service           |
-| **Change Impact** | One bug can impact the whole app | Failures are isolated to individual services |
+| Aspect        | Monolithic Architecture          | Microservices Architecture                   |
+| ------------- | -------------------------------- | -------------------------------------------- |
+| Structure     | Single deployable unit           | Multiple independent services                |
+| Development   | Easier to start with             | Complex setup, more coordination             |
+| Scaling       | Scales the entire application    | Scales specific services independently       |
+| Deployment    | One deployment for all features  | Independent deployment per service           |
+| Change Impact | One bug can impact the whole app | Failures are isolated to individual services |
 
-**When to Use Microservices**
+#### When to Use Microservices
 
 - Large and complex applications
 
@@ -90,9 +88,9 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 
 - Support for different technologies (polyglot architecture)
 
-**Pros and Cons :**
+Pros and Cons :
 
-**Pros:**
+Pros:
 
 - Independent development & deployment
 
@@ -102,7 +100,7 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 
 - Fault isolation improves system resilience
 
-**Cons:**
+Cons:
 
 - Higher operational complexity
 
@@ -112,20 +110,24 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 
 - Requires robust DevOps and monitoring setup
 
-### **What are the key benefits of microservices?**
+---
 
-- **Scalability:** Independent services can scale separately.
+### What are the key benefits of microservices?
 
-- **Resilience:** Failure in one service doesn't bring down the entire
+- Scalability: Independent services can scale separately.
+
+- Resilience: Failure in one service doesn't bring down the entire
   system.
 
-- **Faster Development:** Teams can work on separate services.
+- Faster Development: Teams can work on separate services.
 
-- **Technology Agnostic:** Each service can use different tech stacks.
+- Technology Agnostic: Each service can use different tech stacks.
 
-- **Deployment Independence:** Services can be deployed separately.
+- Deployment Independence: Services can be deployed separately.
 
-### **What are the challenges of microservices?**
+---
+
+### What are the challenges of microservices?
 
 - Service Discovery & Communication (Eureka, Consul)
 
@@ -137,50 +139,45 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 
 - Latency (Inter-service network calls add delays)
 
-### **Microservices Architecture & Key Components**
+---
 
-#### **Core Components**
+### Microservices Architecture & Key Components
 
-| Component                | Description                                                  | Example / Tools                                         |
-| ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------- |
-| **API Gateway**          | Acts as a single-entry point for all client requests. Handles routing, authentication, load balancing, and rate limiting. | Spring Cloud Gateway, Zuul                              |
-| **Service Discovery**    | Helps microservices find each other dynamically without hardcoding URLs. Registers and discovers service instances. | Eureka, Consul                                          |
-| **Config Server**        | Provides centralized configuration for all services. Ensures consistency across environments. | Spring Cloud Config                                     |
-| **Load Balancer**        | Distributes requests across service instances for high availability and performance. | Spring Cloud LoadBalancer (modern), Ribbon (deprecated) |
-| **Messaging System**     | Enables asynchronous communication between services to improve resilience and decoupling. | Kafka, RabbitMQ                                         |
-| **Database per Service** | Each service owns its database schema and data, allowing isolation and independent scaling. | MySQL, MongoDB, PostgreSQL                              |
-| **Observability**        | Monitoring and troubleshooting distributed systems using logs, metrics, and tracing. | ELK Stack, Prometheus, Grafana, Jaeger                  |
+#### Core Components
+
+| Component            | Description                                                  | Example / Tools                                         |
+| -------------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
+| API Gateway          | Acts as a single-entry point for all client requests. Handles routing, authentication, load balancing, and rate limiting. | Spring Cloud Gateway, Zuul                              |
+| Service Discovery    | Helps microservices find each other dynamically without hardcoding URLs. Registers and discovers service instances. | Eureka, Consul                                          |
+| Config Server        | Provides centralized configuration for all services. Ensures consistency across environments. | Spring Cloud Config                                     |
+| Load Balancer        | Distributes requests across service instances for high availability and performance. | Spring Cloud LoadBalancer (modern), Ribbon (deprecated) |
+| Messaging System     | Enables asynchronous communication between services to improve resilience and decoupling. | Kafka, RabbitMQ                                         |
+| Database per Service | Each service owns its database schema and data, allowing isolation and independent scaling. | MySQL, MongoDB, PostgreSQL                              |
+| Observability        | Monitoring and troubleshooting distributed systems using logs, metrics, and tracing. | ELK Stack, Prometheus, Grafana, Jaeger                  |
 
 ---
 
-### **Communication Patterns**
+### Communication Patterns
 
-| Type             | Description                                                  | Example / Tools                            |
-| ---------------- | ------------------------------------------------------------ | ------------------------------------------ |
-| **Synchronous**  | Services communicate directly in real time.                  | REST (Spring MVC/WebFlux), gRPC            |
-| **Asynchronous** | Services exchange messages or events, improving resilience and scalability. | Kafka, RabbitMQ, Event-driven architecture |
-
----
-
-### **Common Design Patterns in Microservices**
-
-| Pattern                                             | Purpose                                                      | Example Tool / Concept               |
-| --------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
-| **Circuit Breaker**                                 | Prevents repeated calls to a failing service to avoid cascading failures. | Resilience4j, Hystrix                |
-| **Saga Pattern**                                    | Manages distributed transactions. Can be Choreography (event-based) or Orchestration (central coordinator). | Order Service ↔ Payment Service flow |
-| **CQRS** (Command Query Responsibility Segregation) | Separates read and write operations for better scalability and performance. | Event Sourcing + Query Services      |
-| **Bulkhead Pattern**                                | Isolates failures by partitioning resources into independent pools. | Separate thread pools per service    |
+| Type         | Description                                                  | Example / Tools                            |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------ |
+| Synchronous  | Services communicate directly in real time.                  | REST (Spring MVC/WebFlux), gRPC            |
+| Asynchronous | Services exchange messages or events, improving resilience and scalability. | Kafka, RabbitMQ, Event-driven architecture |
 
 ---
 
-### **Microservices Development Approaches**
+### Common Design Patterns in Microservices
 
-| Approach                       | Description                                                  |
-| ------------------------------ | ------------------------------------------------------------ |
-| **Monolithic Architecture**    | Single deployable unit; simple to start but difficult to scale as the project grows. |
-| **Microservices Architecture** | Application is split into independent services that can be developed, deployed, and scaled separately. |
+| Pattern                                         | Purpose                                                      | Example Tool / Concept               |
+| ----------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
+| Circuit Breaker                                 | Prevents repeated calls to a failing service to avoid cascading failures. | Resilience4j, Hystrix                |
+| Saga Pattern                                    | Manages distributed transactions. Can be Choreography (event-based) or Orchestration (central coordinator). | Order Service ↔ Payment Service flow |
+| CQRS (Command Query Responsibility Segregation) | Separates read and write operations for better scalability and performance. | Event Sourcing + Query Services      |
+| Bulkhead Pattern                                | Isolates failures by partitioning resources into independent pools. | Separate thread pools per service    |
 
-# **Microservices Architecture{.underline}**
+---
+
+### Microservices Architecture
 
 There is no fixed architecture for micro services development. We can customize micro services architecture according to our project requirement.
 
@@ -188,94 +185,94 @@ There is no fixed architecture for micro services development. We can customize 
 > incorrect.](./media/media/image5.jpeg){width="4.7230391513560805in"
 > height="1.9015594925634296in"}
 
-### **Service Discovery & Service Registry:**
+### Service Discovery & Service Registry:
 
-**🔹 Service Discovery**
+#### 🔹 Service Discovery
 
-It's the **mechanism to automatically detect network locations (IP &
-Port)** of services.
+It's the mechanism to automatically detect network locations (IP &
+Port) of services.
 
 🧠 *Example:*
-When Course-Service wants to call Student-Service, it**asks the Discovery Server** for the address instead of hardcoding it.
+When Course-Service wants to call Student-Service, itasks the Discovery Server for the address instead of hardcoding it.
 
-**🔹 Service Registry**
+🔹 Service Registry
 
-It's the **database (or directory)** where all microservices **register their IP and port** when they start.
+It's the database (or directory) where all microservices register their IP and port when they start.
 👉 Discovery Service uses this registry to help other services find each other.
 
 🧠 *Think of it as a phonebook for microservices.*
 
-**🔹 How It Works**
+🔹 How It Works
 
-1.  Each microservice starts → **registers itself** with the Discovery Server.
+1.  Each microservice starts → registers itself with the Discovery Server.
     
 2.  Discovery Server keeps all active service details (name, IP, port).
 
-3.  When one service wants another → it **queries the Discovery Server**.
+3.  When one service wants another → it queries the Discovery Server.
     
-4.  If multiple instances exist → **Load Balancer** chooses one.
+4.  If multiple instances exist → Load Balancer chooses one.
 
-**Why We Need Service Discovery**
+Why We Need Service Discovery
 
-- In Microservices, each service (Address, Student, Course, etc.) runs on **different IPs and ports**.
+- In Microservices, each service (Address, Student, Course, etc.) runs on different IPs and ports.
   
 - Managing and finding these addresses manually is difficult.
 
-- **Solution → Service Discovery & Service Registry** (provided by Spring Cloud).
+- Solution → Service Discovery & Service Registry (provided by Spring Cloud).
 
-#### **Service Discovery Types**
+Service Discovery Types
 
-| Type                      | Description                                                  | Example                           |
-| ------------------------- | ------------------------------------------------------------ | --------------------------------- |
-| **Client-Side Discovery** | Client queries the registry and selects an instance.         | Netflix Eureka, Zookeeper, Consul |
-| **Server-Side Discovery** | Client sends request to a load balancer, which selects the service instance. | NGINX, AWS ELB                    |
+| Type                  | Description                                                  | Example                           |
+| --------------------- | ------------------------------------------------------------ | --------------------------------- |
+| Client-Side Discovery | Client queries the registry and selects an instance.         | Netflix Eureka, Zookeeper, Consul |
+| Server-Side Discovery | Client sends request to a load balancer, which selects the service instance. | NGINX, AWS ELB                    |
 
-  Discovery       Balancer**, which queries registry **ELB**
-  -----------------------------------------------------------------------
+🔹 Real-Life example
 
-**🔹 Real-Life example**
+📞 Service Registry = Phonebook
+📲 Service Discovery = Calling someone using that phonebook
 
-📞 **Service Registry =** Phonebook
-📲 **Service Discovery =** Calling someone using that phonebook
+🔹 In Spring Boot
 
-**🔹 In Spring Boot**
-
-✅ Use **Spring Cloud Netflix Eureka**
+✅ Use Spring Cloud Netflix Eureka
 
 - Eureka Server → Discovery Server
 
 - Eureka Client → Microservices registering themselves
 
-### **API Gateway**
 
-**🔹 Definition**
 
-API Gateway is a **single-entry point** for all client requests in a **microservices architecture**.It routes, filters, secures, and manages all incoming requests to the appropriate microservice.
+---
 
-**🔹 Purpose**
+#### API Gateway
 
-- Acts as a **front door** for all microservices.
+🔹 Definition
 
-- **Receives** client requests → **forwards** to correct microservice →
-  **returns** response to the client.
+API Gateway is a single-entry point for all client requests in a microservices architecture.It routes, filters, secures, and manages all incoming requests to the appropriate microservice.
 
-**🔹 Key Functions**
+🔹 Purpose
 
-1.  **Routing:** Directs requests to the right microservice.
+1. Acts as a front door for all microservices.
+2. Receives client requests → forwards to correct microservice →
+   returns response to the client.
 
-2.  **Security:** Manages authentication & authorization (e.g., JWT,
+🔹 Key Functions
+
+1.  Routing: Directs requests to the right microservice.
+
+2.  Security: Manages authentication & authorization (e.g., JWT,
     OAuth2).
 
-3.  **Load Balancing:** Distributes traffic evenly between service
+3.  Load Balancing: Distributes traffic evenly between service
     instances.
 
-4.  **Aggregation:** Combines data from multiple services into one
+4.  Aggregation: Combines data from multiple services into one
     response.
 
-5.  **Monitoring:** Logs and tracks API calls for analytics and
+5.  Monitoring: Logs and tracks API calls for analytics and
     debugging.
 
-**🔹 Example (Spring Cloud Gateway)**
+🔹 Example (Spring Cloud Gateway)
 
 ```yaml
 spring:
@@ -292,60 +289,59 @@ uri: http://localhost:8081
 
 predicates:
 
-- Path=/students/**
+- Path=/students/
 ```
 
-📘 **Explanation:**
-Any request to **/students/\*\*** will be routed to the **Student Service**   running on port 8081.
+📘 Explanation:
+Any request to /students/ will be routed to the Student Service   running on port 8081.
 
-**🔹 Real-Life Example**
+🔹 Real-Life Example
 
-API Gateway works like a **reception desk** in a company:
+API Gateway works like a reception desk in a company:
 
 - All visitors (clients) enter through one desk.
 
 - The receptionist (gateway) sends them to the correct department
   (microservice).
 
-![](./media/media/image6.png){width="6.439581146106737in"
-height="2.678261154855643in"}
+---
 
-⚖️ Load Balancing in Spring Boot Microservices
+### ⚖️ Load Balancing in Spring Boot Microservices
 
 🔹 Definition
 
-Load Balancing is the process of distributing incoming network requests
-across multiple instances of the same microservice to ensure high
-availability, performance, and reliability.
+Load Balancing is the process of distributing incoming network requests across multiple instances of the same microservice to ensure high availability, performance, and reliability.
 
-✅ Load Balancer = Traffic manager for microservices → distributes
-requests evenly for better performance and reliability.
+> [!IMPORTANT]
+>
+> ✅ Load Balancer = Traffic manager for microservices → distributes requests evenly for better performance and reliability.
+>
 
 🔹 Purpose
 
-- Prevents any single service instance from being overloaded.
+1. Prevents any single service instance from being overloaded.
 
-- Improves scalability and fault tolerance.
+2. Improves scalability and fault tolerance.
 
-- Ensures even traffic distribution among service instances.
+3. Ensures even traffic distribution among service instances.
 
 🔹 How It Works
 
-- When multiple instances of a service (e.g., *Student-Service*) are
-  running,\
+1. When multiple instances of a service (e.g., *Student-Service*) are
+  running,
   the Load Balancer decides which instance should handle the request.
 
-- It can use different algorithms like:
+2. It can use different algorithms like:
 
-  - Round Robin (default)
+  Round Robin (default)
 
-  - Random
+  Random
 
-  - Weighted Distribution
+  Weighted Distribution
 
-🔹 Types of Load Balancing
+#### 🔹 Types of Load Balancing
 
-1.  Client-Side Load Balancing
+1.  ##### Client-Side Load Balancing
 
     - Performed by the client before making a request.
 
@@ -353,7 +349,7 @@ requests evenly for better performance and reliability.
 
     - 🧠 *Tool:* Spring Cloud LoadBalancer (replacement for Ribbon).
 
-2.  Server-Side Load Balancing
+2.  ##### Server-Side Load Balancing
 
     - Done by an external load balancer (e.g., *NGINX*, *AWS ELB*).
 
@@ -362,63 +358,63 @@ requests evenly for better performance and reliability.
 
 🔹 Example (Client-Side Load Balancing in Spring Boot)
 
-\@RestController
+```java
+@RestController
 
 public class StudentController {
 
-\@Autowired
+    @Autowired
 
-private RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
-\@GetMapping(\"/get-courses\")
+    @GetMapping("/get-courses")
 
-public String getCourses() {
+    public String getCourses() {
 
-String response =
-restTemplate.getForObject(\"http://COURSE-SERVICE/courses\",
-String.class);
+        String response =
+            restTemplate.getForObject("http://COURSE-SERVICE/courses",
+                                      String.class);
 
-return response;
+        return response;
+
+    }
 
 }
 
-}
-
-\@Configuration
+@Configuration
 
 public class AppConfig {
 
-\@Bean
+    @Bean
 
-\@LoadBalanced
+    @LoadBalanced
 
-public RestTemplate restTemplate() {
+    public RestTemplate restTemplate() {
 
-return new RestTemplate();
+        return new RestTemplate();
+
+    }
 
 }
+```
 
-}
+📘 Explanation:
+@LoadBalanced makes RestTemplate use Spring Cloud LoadBalancer, which automatically picks one instance of COURSE-SERVICE from Eureka Registry.
 
-📘 Explanation:\
-\@LoadBalanced makes RestTemplate use Spring Cloud LoadBalancer,\
-which automatically picks one instance of COURSE-SERVICE from Eureka
-Registry.
-
-Admin Server
+### Admin Server
 
 - It is used to monitor and manage all the apis at one place.
 
 - It provides beautiful user interface to access all apis actuator
   endpoints at one place.
 
-Zipkin Server
+### Zipkin Server
 
 - It is used for distributed tracing of our requests
 
 - It provides beautiful user interface to access apis execution details.
 
-Config Server
+### Config Server
 
 - It is used to separate application code and application properties.
 
@@ -427,14 +423,14 @@ Config Server
 - It makes our application loosely coupled with properties file or yml
   file.
 
-Feign Client
+### Feign Client
 
 - It is used for interservice communication
 
 - If one api communicate with another api with in the same application
   then it is called as Inter service communication.
 
-Kafka Server
+### Kafka Server
 
 - It is used as message broker
 
@@ -442,7 +438,7 @@ Kafka Server
 
 - It works based on pub-sub model
 
-Redis Server
+### Redis Server
 
 - Redis is a cache server
 
@@ -452,431 +448,667 @@ Redis Server
 
 ![A table with text and numbers AI-generated content may be
 incorrect.](./media/media/image7.jpeg){width="2.7744192913385826in"
-height="1.3125in"}=\> As part of Micro services architecture we are
-going to use below components. (all the below components are not
-mandatory
+height="1.3125in"}
 
-### **🔄 Communication Patterns Microservices**
+----
 
-**🔹 Introduction**
+### 🔄 Communication Patterns Microservices
 
-In Microservices, communication happens between multiple independent
-services.\
-There are two main types of communication patterns:
+🔹 Introduction
 
-- **Synchronous (Direct & Real-time) :** Direct API calls (waits for
+In Microservices, communication happens between multiple independent services. There are two main types of communication patterns:
+
+- Synchronous (Direct & Real-time) : Direct API calls (waits for
   response)
 
-- **Asynchronous (Event-driven & Message-based)** : Message-based (does
+- Asynchronous (Event-driven & Message-based) : Message-based (does
   not wait, better scalability)
 
-#### 1. Synchronous Communication
+#### 1. Synchronous Communication in Spring Boot
 
-➡ Services communicate **directly** using REST APIs --- one waits for
-the other's response.
+➡ Services communicate directly using REST APIs — one service waits for the other's response.
 
-**a) Using RestTemplate**
+Used mainly in:
+- Microservices architecture
+- Service-to-service communication
+- Traditional blocking applications
 
-- Classic client used for years before WebClient
+---
 
-- Synchronous/blocking
+#### a) Using RestTemplate
 
-- Still widely used in traditional Spring Boot apps
+##### Introduction
 
-**configuration:**
+- Classic REST client used before WebClient
+- Synchronous and blocking
+- Still used in traditional Spring Boot applications
+- Now in maintenance mode (not recommended for new projects)
 
-\@Bean
+---
 
-**[public]{.underline}** [RestTemplate]{.underline} restTemplate() {
+------
 
-**return** **new** [RestTemplate]{.underline}();
+##### Configuration
 
+```java
+@Bean
+public RestTemplate restTemplate() {
+    return new RestTemplate();
+}
+```
+
+##### Usage Example
+
+```java
+@Autowired
+private RestTemplate restTemplate;
+
+public AddressDTO getAddressById(long id) {
+    String url = "http://localhost:8281/api/address/getbyId/" + id;
+    return restTemplate.getForObject(url, AddressDTO.class);
+}
+```
+
+------
+
+##### Interview Points
+
+- Blocking call (thread waits for response)
+- Simple and easy to use
+- Not suitable for high-concurrency reactive systems
+- Being replaced by WebClient in modern applications
+
+------
+
+#### b) Using FeignClient
+
+##### Introduction
+
+- Developed by Netflix
+- Supported via Spring Cloud OpenFeign
+- Declarative REST client (interface-based)
+- Reduces boilerplate code
+- Supports load balancing with Eureka
+
+------
+
+##### 1. Add Dependency
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
+
+------
+
+##### 2. Enable Feign
+
+```java
+@SpringBootApplication
+@EnableFeignClients
+public class OrderServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(OrderServiceApplication.class, args);
+    }
+}
+```
+
+------
+
+##### 3. Create Feign Interface
+
+```java
+@FeignClient(value = "userservice", path = "/user")
+public interface UserFeignClient {
+
+    @GetMapping
+    ResponseEntity<List<UserDTO>> getAllUsers();
+
+    @GetMapping("/{id}")
+    ResponseEntity<UserDTO> getUserByID(@PathVariable long id);
+}
+```
+
+------
+
+##### 4. Use Feign Client
+
+```java
+@Autowired
+private UserFeignClient userService;
+
+@GetMapping("/getusers")
+public ResponseEntity<List<UserDTO>> getAllUsers() {
+    return userService.getAllUsers();
 }
 
-**How to use Use:**
-
-\@Autowired
-
-**private** [RestTemplate]{.underline} restTemplate;
-
-**public** [AddressDTO]{.underline} getAddressById(**long** id) {
-
-String url = \"http://localhost:8281/api/address/getbyId/\" + id;
-
-**return** [restTemplate]{.underline}.getForObject(url,
-[AddressDTO]{.underline}.**class**);
-
+@GetMapping("/user/{id}")
+public ResponseEntity<UserDTO> getUserById(@PathVariable long id) {
+    return userService.getUserByID(id);
 }
+```
 
-**b) Using FeignClient**
+------
 
-- Introduced by Netflix, Supported in Spring Cloud
+##### Interview Points
 
-- Simple interface-based client
+- Declarative and clean approach
+- Best suited for microservices
+- Works well with service discovery (Eureka)
+- Still blocking (unless used with reactive stack)
 
-- No need to write WebClient/RestTemplate logic
+------
 
-- Supports Load Balancing with Eureka out-of-the-box
+#### c) Using WebClient
 
-**1.Add Dependency in pom.xml**
+##### Introduction
 
-\<dependency\>
-
-\<groupId\>org.springframework.cloud\</groupId\>
-
-\<artifactId\>spring-cloud-starter-openfeign\</artifactId\>
-
-\</dependency\>
-
-**2.Enable it in main class of application**
-
-\@SpringBootApplication
-
-\@EnableFeignClients
-
-**public** **class** OrderServiceApplication {
-
-**public** **static** **void** main(String\[\] args) {
-
-SpringApplication.run(OrderServiceApplication.**class**, args);
-
-}
-
-}
-
-**3.Create an Interface to call service methods**
-
-\@FeignClient(value = \"userservice\" ,path = \"/user\")
-
-**public** **interface** UserFeignClient {
-
-\@GetMapping
-
-**public** ResponseEntity\<List\<UserDTO\>\> getAllUsers();
-
-\@GetMapping(\"{id}\")
-
-**public** ResponseEntity\<UserDTO\> getUserByID(@PathVariable **long**
-id);
-
-}
-
-**4.Autowire interface and call methods**
-
-\@Autowired
-
-**private** UserFeignClient userService;
-
-\@GetMapping(\"/getusers\")
-
-**public** ResponseEntity\<List\<UserDTO\>\> getAllUsers() {
-
-**return** userService.getAllUsers();
-
-}
-
-\@GetMapping(\"/user/{id}\")
-
-**public** ResponseEntity\<UserDTO\> getUserById(@PathVariable **long**
-id) {
-
-**return** userService.getUserByID(id);
-
-}
-
-**c) Using WebClient**
-
-- Introduced in Spring 5 (Replaces RestTemplate in Reactive apps)
-
-- Asynchronous, non-blocking (supports reactive programming)
-
+- Introduced in Spring 5
+- Replaces RestTemplate for modern applications
+- Asynchronous and non-blocking
+- Built on Project Reactor
 - Can be used in both reactive and traditional apps
 
-**Common Use Case:**
+------
 
-Call another microservice and return the result asynchronously.
+##### Configuration
 
-**How to Configure ?**
-
-\@Bean
-
-**[public]{.underline}** WebClient getWebclient() {
-
-**return** WebClient
-
-.builder().baseUrl(\"http://localhost:8383/\")
-
-.defaultHeader(HttpHeaders.***CONTENT_TYPE***,
-MediaType.***APPLICATION_JSON_VALUE***)
-
-.build();
-
+```java
+@Bean
+public WebClient webClient() {
+    return WebClient.builder()
+            .baseUrl("http://localhost:8383/")
+            .defaultHeader(HttpHeaders.CONTENT_TYPE,
+                           MediaType.APPLICATION_JSON_VALUE)
+            .build();
 }
+```
 
-**Example:**
+------
 
-\@Autowired
+##### Example – Single Object
 
-**private** WebClient webClient;
+```java
+@Autowired
+private WebClient webClient;
 
-\@GetMapping(\"/user\")
-
-**public** UserDTO getUser() {
-
-**return**
-webClient.get().uri(\"user\").retrieve().bodyToMono(UserDTO.**class**).block();
-
+@GetMapping("/user")
+public UserDTO getUser() {
+    return webClient.get()
+            .uri("user")
+            .retrieve()
+            .bodyToMono(UserDTO.class)
+            .block();   // Blocking here (not recommended in reactive apps)
 }
+```
 
-\@GetMapping(\"/user/{id}\")
+------
 
-**public** List\<UserDTO\> getUser(@PathVariable **long** id) {
+##### Example – List of Objects
 
-**return** webClient
-
-.get().uri(\"/user/\" + String.valueOf(id))
-
-.retrieve().
-
-bodyToFlux(UserDTO.**class**)
-
-.collectList()
-
-.block();
-
+```java
+@GetMapping("/user/{id}")
+public List<UserDTO> getUser(@PathVariable long id) {
+    return webClient.get()
+            .uri("/user/" + id)
+            .retrieve()
+            .bodyToFlux(UserDTO.class)
+            .collectList()
+            .block();   // Converts Flux to List
 }
+```
 
-**When to Use What?**
+------
 
-----------------------------------------------------
-  **Use Case**           **Recommendation**
----------------------- -----------------------------
-  **✅ Simple sync       RestTemplate / Feign
-  calls**                
+##### Interview Points
 
-  **✅ Async / Reactive  WebClient
-  programming**          
+- Non-blocking by default
+- Uses Mono (single value) and Flux (multiple values)
+- Avoid using .block() in reactive applications
+- Best choice for high scalability systems
+- Supports streaming and SSE
 
-  **✅ Declarative,      FeignClient
-  minimal code**         
+| Client       | Blocking        | Best For                            |
+| ------------ | --------------- | ----------------------------------- |
+| RestTemplate | Yes             | Legacy applications                 |
+| FeignClient  | Yes             | Microservices with clean code       |
+| WebClient    | No (by default) | Reactive & high-performance systems |
 
-  **✅ Streaming / SSE** WebClient
+---
 
-  **⚠️ Blocking call     WebClient
-  avoidance**            
+##### When to Use What? – Spring REST Clients 
 
-  **❌ Deprecated        RestTemplate (Spring
-  (future)**             recommends WebClient)
-  ----------------------------------------------------
+| Use Case                                | Recommendation                 | Reason / Interview Explanation                               |
+| --------------------------------------- | ------------------------------ | ------------------------------------------------------------ |
+| ✅ Simple synchronous REST calls         | `RestTemplate` / `FeignClient` | Good for traditional blocking applications. Easy to implement in simple microservices. |
+| ✅ Async / Reactive programming          | `WebClient`                    | Non-blocking, built on Project Reactor. Best for reactive systems. |
+| ✅ Declarative & minimal code            | `FeignClient`                  | Interface-based HTTP client. Reduces boilerplate. Best for microservices communication. |
+| ✅ Streaming / Server-Sent Events (SSE)  | `WebClient`                    | Supports streaming and reactive backpressure handling.       |
+| ⚠️ Avoid blocking calls in reactive apps | `WebClient`                    | Prevents thread blocking. Ideal for high-concurrency systems. |
+| ❌ Deprecated (future direction)         | `RestTemplate`                 | Maintenance mode. Spring recommends `WebClient` for new development. |
 
-#### **2. Asynchronous Communication**
+---
 
-➡ Services communicate through **messages** --- sender doesn't wait for
-response.\
-Used for **event-driven** or **decoupled** systems.
+##### Quick Interview Summary
 
-**a) With Apache Kafka**
+- `RestTemplate` → Blocking, traditional, simple use cases.
+- `WebClient` → Non-blocking, reactive, scalable.
+- `FeignClient` → Declarative REST client for microservices.
+- In modern Spring Boot applications → Prefer `WebClient`.
+- In microservices with service-to-service calls → Feign is commonly used.
+- In high-load banking systems → WebClient improves scalability.
 
-- Distributed event streaming platform.
+#### 2. Asynchronous Communication in Spring Boot
 
-- High throughput and reliable message delivery.
+➡ Services communicate through messages — the sender does NOT wait for an immediate response.
 
-kafkaTemplate.send(\"student-topic\", studentData);
+Used in:
+- Event-driven architecture
+- High scalability systems
+- Decoupled microservices
+- Background processing
+- Notification systems
 
-**b) With ActiveMQ**
+---
 
-- Traditional **message broker** supporting JMS (Java Message Service).
+#### a) Using Apache Kafka
 
-- Reliable for enterprise-level message queues.
+##### Introduction
 
-**c) With RabbitMQ**
+- Distributed event streaming platform
+- Designed for high throughput and fault tolerance
+- Suitable for real-time data pipelines
+- Works on publish-subscribe model
 
-- Lightweight message broker using **AMQP protocol**.
+---
 
-- Ideal for microservices event communication (publisher--subscriber
-  pattern).
+##### Basic Example (Producer)
 
-**🧠 Summary**
+```java
+@Autowired
+private KafkaTemplate<String, Object> kafkaTemplate;
 
-----------------------------------------------------------------------------
-  Type           Tool                   Communication   Use Case
--------------- ---------------------- --------------- ----------------------
-  Synchronous    RestTemplate,          Direct          Real-time
-                 FeignClient, WebClient                 requests/responses
+public void sendStudentEvent(Student studentData) {
+    kafkaTemplate.send("student-topic", studentData);
+}
+```
 
-  Asynchronous   Kafka, ActiveMQ,       Message-based   Event-driven systems,
-                 RabbitMQ                               decoupling
-  ----------------------------------------------------------------------------
+------
 
-**Stateful vs Stateless Microservices :**
+##### Interview Points
 
-**Type Description**
+- Kafka stores messages using partitions and offsets
+- Supports high scalability
+- Durable and fault-tolerant
+- Best for streaming and real-time processing
+- Frequently used in banking and financial systems
 
-**Stateful Microservice:** A service that remembers client data (state)
-between multiple requests or sessions.
+------
 
-**Stateless Microservice:** A service that does not store client data
-between requests --- every request is independent.
+#### b) Using ActiveMQ
+
+##### Introduction
+
+- Traditional message broker
+- Supports JMS (Java Message Service)
+- Queue-based communication
+- Reliable for enterprise systems
+
+------
+
+##### Key Features
+
+- Point-to-Point (Queue)
+- Publish-Subscribe (Topic)
+- Persistent messaging
+- Transaction support
+
+------
+
+##### Interview Points
+
+- Uses JMS standard
+- Suitable for legacy enterprise systems
+- More traditional compared to Kafka
+
+------
+
+#### c) Using RabbitMQ
+
+##### Introduction
+
+- Lightweight message broker
+- Uses AMQP protocol
+- Supports publisher-subscriber model
+- Common in microservices
+
+------
+
+##### Key Features
+
+- Message queues
+- Exchange types (Direct, Topic, Fanout, Headers)
+- Reliable delivery
+- Easy to integrate with Spring Boot
+
+------
+
+##### Interview Points
+
+- Ideal for event-driven microservices
+- Supports routing logic via exchanges
+- Less heavy compared to Kafka
+
+------
+
+##### Synchronous vs Asynchronous 
+
+| Type         | Tools                                | Communication Style     | Use Case                         |
+| ------------ | ------------------------------------ | ----------------------- | -------------------------------- |
+| Synchronous  | RestTemplate, FeignClient, WebClient | Direct request-response | Real-time API calls              |
+| Asynchronous | Kafka, ActiveMQ, RabbitMQ            | Message-based           | Event-driven systems, decoupling |
+
+------
+
+##### Experienced-Level Interview Notes
+
+- Async improves scalability and fault tolerance
+- Sender and receiver are loosely coupled
+- Retry mechanisms and DLQ (Dead Letter Queue) are important concepts
+- Kafka → Streaming platform
+- RabbitMQ → Messaging broker
+- ActiveMQ → JMS-based traditional broker
+
+---
+
+### Stateful vs Stateless Microservices :
+
+Type Description
+
+Stateful Microservice: A service that remembers client data (state) between multiple requests or sessions.
+
+Stateless Microservice: A service that does not store client data between requests --- every request is independent.
 
 ![](./media/media/image8.png){width="6.730496500437446in"
 height="2.588652668416448in"}
 
-## **What is a circuit breaker in microservices?** A circuit breaker prevents cascading failures by stopping calls to a failing service.
+### What is a circuit breaker in microservices? 
+
+A circuit breaker prevents cascading failures by stopping calls to a failing service.
 
 Example: Using Resilience4J
 
-**\@RestController**
+```java
+@RestController
 
-**public** **class** **FallbackController** {
+public class FallbackController {
 
-**\@GetMapping**(\"/studentFallback\")
+    @GetMapping("/studentFallback")
+    public ResponseEntity<String> studentFallback() {
+    return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+    .body("Student Service is currently unavailable. Please try again later.");
 
-**public** **ResponseEntity**\<String\> **studentFallback**() {
+  }
 
-**return** **ResponseEntity**
+  @GetMapping("/addressFallback")
+  public ResponseEntity<String> addressFallback() {
+      return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Address Service is currently unavailable. Please try again later.");
+ }
 
-.**status**(**HttpStatus**.***SERVICE_UNAVAILABLE***)
+ }
+```
 
-.body(\"Student Service is currently unavailable. Please try again
-later.\");
+---
 
-}
+## Distributed Transactions in Microservices
 
-**\@GetMapping**(\"/addressFallback\")
+### 1. Definition / Introduction
 
-**public** **ResponseEntity**\<String\> **addressFallback**() {
+In microservices architecture, each service has its own database (Database-per-Service pattern).
 
-**return** **ResponseEntity**
+Because of this:
+- Traditional ACID transactions across multiple services are NOT possible.
+- We need alternative patterns to maintain data consistency.
 
-.**status**(**HttpStatus**.***SERVICE_UNAVAILABLE***)
+---
 
-.body(\"Address Service is currently unavailable. Please try again
-later.\");
+### 2. Common Approaches
 
-}
+#### 1️⃣ SAGA Pattern (Recommended)
 
-}
+- Uses compensating transactions
+- Each service performs a local transaction
+- If one step fails → previous steps are rolled back using compensating actions
 
-**How do you handle distributed transactions in microservices?\**
-Since microservices follow database-per-service, traditional ACID
-transactions won't work. We use:
+graph TD;
 
-1.  SAGA Pattern (Compensating transactions)
+```mermaid
+%% Step 1
+Step1[1️⃣ Order Service<br/>Create Order]
 
-2.  2PC (Two-Phase Commit) (Not recommended due to performance issues)
+%% Step 2
+Step2[2️⃣ Publish Order Created Event]
 
-3.  Event-Driven Approach (Using Kafka for event sourcing)
+%% Step 3
+Step3[3️⃣ Payment Service<br/>Process Payment]
 
-## **What is Distributed Tracing?**
+%% Step 4
+Step4[4️⃣ Publish Payment Success Event]
 
-- When you have **microservices architecture**, a single client request
-  often travels through **multiple services** (e.g., Gateway →
-  AuthService → UserService → PaymentService). Tracking **where a
-  request spends time** or **where it fails** becomes difficult.
+%% Step 5
+Step5[5️⃣ Inventory Service<br/>Reserve Product]
 
-- **Distributed Tracing** helps to trace a request **across multiple
-  microservices** --- it gives visibility into the **complete flow** and
-  helps find **performance bottlenecks** and **errors**.
+%% Step 6
+Step6[6️⃣ Publish Inventory Success Event]
 
-What is **Spring Cloud Sleuth**?
+%% Step 7
+Step7[7️⃣ Complete Order]
 
-**Spring Cloud Sleuth** is a **distributed tracing tool** that
-integrates easily with **Spring Boot** microservices.\
-It **adds unique trace IDs and span IDs** to logs so that you can trace
-a single request across different services.
+%% Step 8 (Compensation)
+Step8[❌ If Failure → Trigger Compensation<br/>Refund / Cancel Order]
 
-**➤ Key Concepts:**
+%% Flow
+Step1 --> Step2
+Step2 --> Step3
+Step3 -->|Success| Step4
+Step4 --> Step5
+Step5 -->|Success| Step6
+Step6 --> Step7
 
-------------------------------------------------------------------
-  Term          Description
-------------- ----------------------------------------------------
-  Trace ID      Unique ID for the entire request (same across all
-                services involved).
+%% Failure Flow
+Step3 -->|Failure| Step8
+Step5 -->|Failure| Step8
 
-  Span ID       Unique ID for a single operation or step within that
-                trace.
+%% Styling
+style Step1 fill:#aed6f1,stroke:#333
+style Step2 fill:#d5f5e3,stroke:#333
+style Step3 fill:#aed6f1,stroke:#333
+style Step4 fill:#d5f5e3,stroke:#333
+style Step5 fill:#aed6f1,stroke:#333
+style Step6 fill:#d5f5e3,stroke:#333
+style Step7 fill:#f7dc6f,stroke:#333,stroke-width:2px
+style Step8 fill:#f5b7b1,stroke:#333,stroke-width:2px
+```
 
-  Parent Span   Links the current span to the previous one, forming
-  ID            a hierarchy.
-  ------------------------------------------------------------------
+##### Types of Saga
 
-**⚙️ Example Flow**
+| Type | Description |
+|------|------------|
+| Choreography | Services communicate via events (no central coordinator) |
+| Orchestration | Central orchestrator controls the workflow |
 
-Imagine a request travels like this:
+##### Interview Points
+
+- Most recommended pattern
+- Works well with Kafka / RabbitMQ
+- Eventually consistent
+- Suitable for order-payment-inventory workflows
+
+---
+
+#### 2️⃣ Two-Phase Commit (2PC)
+
+- Coordinator asks all services to prepare
+- If all agree → commit
+- If one fails → rollback
+
+##### Why Not Recommended?
+
+- Performance bottleneck
+- Single point of failure
+- Not scalable in microservices
+
+##### Interview Point
+
+- Suitable for monolith or tightly coupled systems
+- Avoid in cloud-native architectures
+
+---
+
+#### 3️⃣ Event-Driven Approach
+
+- Services publish events (e.g., OrderCreated)
+- Other services react asynchronously
+- Uses Kafka, RabbitMQ, etc.
+
+##### Interview Points
+
+- Highly scalable
+- Loose coupling
+- Supports eventual consistency
+- Common in modern banking systems
+
+---
+
+## Distributed Tracing
+
+##### 1. Definition / Introduction
+
+In microservices, a single client request travels through multiple services:
+
+Gateway → AuthService → UserService → PaymentService
+
+Tracking:
+- Where request failed
+- Where time was spent
+- Performance bottlenecks
+
+becomes difficult.
+
+Distributed Tracing solves this by tracking the complete request flow across services.
+
+---
+
+### Spring Cloud Sleuth
+
+Spring Cloud Sleuth is a distributed tracing tool for Spring Boot microservices.
+
+It:
+- Automatically adds Trace ID and Span ID
+- Propagates tracing headers between services
+- Integrates with logging frameworks
+
+---
+
+#### Key Concepts
+
+| Term | Description |
+|------|------------|
+| Trace ID | Unique ID for entire request (same across all services) |
+| Span ID | Unique ID for a single operation |
+| Parent Span ID | Links spans to form hierarchy |
+
+---
+
+##### Example Flow
 
 Client → API Gateway → Order Service → Payment Service
 
-Sleuth automatically adds IDs to logs like:
+Logs look like:
 
-\[traceId=abc123, spanId=def456\] Starting OrderService
+```powershell
+[traceId=abc123, spanId=def456] Starting OrderService
+[traceId=abc123, spanId=ghi789, parentId=def456] Calling PaymentService
+```
 
-\[traceId=abc123, spanId=ghi789, parentId=def456\] Calling
-PaymentService
+You track the same `traceId` across all services.
 
-So, you can track the **same traceId** across all logs to understand the
-flow.
+---
 
-**🧩 Sleuth + Zipkin**
+### Sleuth + Zipkin Integration
 
-Sleuth can work with **Zipkin** (a visualization tool) to show request
-traces in a dashboard.
+Sleuth works with Zipkin for visualization.
 
-**Flow:**
+Flow:
+1. Sleuth adds tracing data
+2. Sends data to Zipkin server
+3. Zipkin UI shows latency and service interactions
 
-1.  Sleuth adds tracing info in each request.
+---
 
-2.  It sends trace data to **Zipkin server**.
+##### Dependencies
 
-3.  You can visualize timing, latency, and service interactions.
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-sleuth</artifactId>
+</dependency>
 
-**🧠 Example Configuration**
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zipkin</artifactId>
+</dependency>
+```
 
-**pom.xml**
+------
 
-\<dependency\>
+##### application.yml Configuration
 
-\<groupId\>org.springframework.cloud\</groupId\>
-
-\<artifactId\>spring-cloud-starter-sleuth\</artifactId\>
-
-\</dependency\>
-
-\<dependency\>
-
-\<groupId\>org.springframework.cloud\</groupId\>
-
-\<artifactId\>spring-cloud-starter-zipkin\</artifactId\>
-
-\</dependency\>
-
-**application.yml**
-
+```yaml
 spring:
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1.0   # Trace 100% of requests
+```
 
-zipkin:
+------
 
-base-url: http://localhost:9411
+##### Interview Important Points
 
-sleuth:
+- Sleuth works using interceptors and filters
+- Trace ID propagates via HTTP headers
+- Very important in production microservices
+- Helps debug latency issues
+- Used with monitoring tools
 
-sampler:
+------
 
-probability: 1.0 \# trace 100% of requests
+##### 
 
-**💡 Short Summary**
+### Advanced Interview Note (Very Important)
 
-----------------------------------------------------------------
-  Feature          Description
----------------- -----------------------------------------------
-  Sleuth           Adds trace and span IDs to logs automatically.
+Spring Cloud Sleuth is now replaced by:
 
-  Distributed      Technique to track a request through multiple
-  Tracing          microservices.
+👉 Micrometer Tracing (in newer Spring Boot versions)
 
-  Zipkin           UI and storage for tracing data visualization.
-  ----------------------------------------------------------------
+Modern stack:
 
-## **How do you deploy microservices?**
+- Micrometer Tracing
+- Zipkin / Jaeger
+- OpenTelemetry
+
+This is a high-value interview discussion point.
+
+---
+
+
+
+### How do you deploy microservices?
 
 - Docker (Containerization)
 
@@ -886,7 +1118,7 @@ probability: 1.0 \# trace 100% of requests
 
 - CI/CD Pipelines (Jenkins, GitHub Actions)
 
-## **How do you secure microservices?**
+### How do you secure microservices?
 
 - OAuth2 & JWT (Token-Based Authentication)
 
@@ -894,7 +1126,7 @@ probability: 1.0 \# trace 100% of requests
 
 - API Gateway (Central authentication)
 
-## **How do you monitor microservices?**
+### How do you monitor microservices?
 
 - Logging: ELK (Elasticsearch, Logstash, Kibana)
 
@@ -902,7 +1134,7 @@ probability: 1.0 \# trace 100% of requests
 
 - Metrics: Prometheus + Grafana
 
-## **What is service mesh in microservices?** A service mesh (Istio, Linkerd) handles service-to-service communication with:
+### What is service mesh in microservices? A service mesh (Istio, Linkerd) handles service-to-service communication with:
 
 1.  Traffic Control
 
@@ -910,104 +1142,112 @@ probability: 1.0 \# trace 100% of requests
 
 3.  Observability
 
-## **What is CQRS in microservices?**
+### What is CQRS in microservices?
 
-**Answer:**\
-**CQRS (Command Query Responsibility Segregation)** separates read
-(Query Service) and write (Command Service) operations for performance
+Answer:
+CQRS (Command Query Responsibility Segregation) separates read (Query Service) and write (Command Service) operations for performance
 optimization.
 
 📌 Example:
 
-- **Writes:** PostgreSQL for transactional data
+- Writes: PostgreSQL for transactional data
 
-- **Reads:** Elasticsearch for fast querying
+- Reads: Elasticsearch for fast querying
 
-# **Steps to create Microservice application** 
+### Steps to create Microservice application 
 
-1.  Create spring boot application for student
+1.  ##### Create spring boot application for student
 
-\@Entity
+```java
+@Entity
 
-\@Table(name = \"address\")
+@Table(name = "address")
 
-**public** **class** Address {
+public class Address {
 
-\@Id
+@Id
 
-\@GeneratedValue(strategy = GenerationType.***IDENTITY***)
+@GeneratedValue(strategy = GenerationType.*IDENTITY*)
 
-\@Column(name = \"id\")
+@Column(name = "id")
 
-**private** Long id;
+private Long id;
 
-\@Column(name = \"street\")
+@Column(name = "street")
 
-**private** String street;
+private String street;
 
-\@Column(name = \"city\")
+@Column(name = "city")
 
-**private** String city;
+private String city;}
+```
 
-\@Repository
+```java
+@Repository
 
-**public** **interface** AddressRepository **extends**
-JpaRepository\<Address, Long\> {
+public interface AddressRepository extends
+JpaRepository<Address, Long> {
 
-Optional\<Address\> findById(**long** id);
+Optional<Address> findById(long id);
+
+}
+```
+
+```java
+@Service
+
+public class AddressService {
+
+Logger logger=LoggerFactory.getLogger(AddressService.class);
+
+@Autowired AddressRepository addressRepository;
+
+public Address saveAddress(Address newaAddress) {
+
+return addressRepository.save(newaAddress);
 
 }
 
-\@Service
+public Address findAddressById(long id) {
 
-**public** **class** AddressService {
+logger.info("called method ");
 
-Logger logger=LoggerFactory.getLogger(AddressService.**class**);
-
-\@Autowired AddressRepository addressRepository;
-
-**public** Address saveAddress(Address newaAddress) {
-
-**return** addressRepository.save(newaAddress);
-
-}
-
-**public** Address findAddressById(**long** id) {
-
-logger.info(\"called method \");
-
-**return** addressRepository.findById(id).orElse(**null**);
-
-}
-
-}
-
-\@RestController
-
-\@RequestMapping(\"/api/address\")
-
-**public** **class** AddressController {
-
-\@Autowired AddressService addressService;
-
-\@GetMapping(\"/getbyId/{id}\")
-
-**public** Address getAddress(@PathVariable **long** id) {
-
-**return** addressService.findAddressById(id);
-
-}
-
-\@PostMapping(\"/create\")
-
-**public** Address getAddress(@RequestBody Address address) {
-
-**return** addressService.saveAddress(address);
+return addressRepository.findById(id).orElse(null);
 
 }
 
 }
+```
 
+```java
+@RestController
+
+@RequestMapping("/api/address")
+
+public class AddressController {
+
+@Autowired AddressService addressService;
+
+@GetMapping("/getbyId/{id}")
+
+public Address getAddress(@PathVariable long id) {
+
+return addressService.findAddressById(id);
+
+}
+
+@PostMapping("/create")
+
+public Address getAddress(@RequestBody Address address) {
+
+return addressService.saveAddress(address);
+
+}
+
+}
+```
+
+```properties
 spring.application.name=address-service
 
 server.port=8281
@@ -1032,159 +1272,174 @@ spring.cache.type=simple
 
 eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
-eureka.instance.instance-id=\${spring.application.name}:\${server.port}
+eureka.instance.instance-id=${spring.application.name}:${server.port}
+```
 
-Add dependency to call instance in Eureka server
+**Add dependency to call instance in Eureka server**
 
-\<dependency\>
+```xml
+<dependency>
 
-\<groupId\>org.springframework.cloud\</groupId\>
+<groupId>org.springframework.cloud</groupId>
 
-\<artifactId\>spring-cloud-starter-netflix-eureka-client\</artifactId\>
+<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 
-\<version\>4.2.1\</version\>
+<version>4.2.1</version>
 
-\</dependency\>
+</dependency>
+```
 
-2.  Create spring boot application for Address
 
-\@Entity
 
-\@Table(name = \"student\")
+2.  ##### Create spring boot application for Address
 
-**public** **class** Student {
+```java
+@Entity
 
-\@Id
+@Table(name = "student")
 
-\@GeneratedValue(strategy = GenerationType.***IDENTITY***)
+public class Student {
 
-\@Column(name = \"id\")
+@Id
 
-**private** Long id;
+@GeneratedValue(strategy = GenerationType.*IDENTITY*)
 
-\@Column(name = \"first_name\")
+@Column(name = "id")
 
-**private** String firstName;
+private Long id;
 
-\@Column(name = \"last_name\")
+@Column(name = "first_name")
 
-**private** String lastName;
+private String firstName;
 
-\@Column(name = \"email\")
+@Column(name = "last_name")
 
-**private** String email;
+private String lastName;
 
-\@Column(name = \"address_id\")
+@Column(name = "email")
 
-**private** **long** addressId;
+private String email;
 
-\@Repository
+@Column(name = "address_id")
 
-**public** **interface** StudentRepository **extends**
-JpaRepository\<Student, Long\>{
+private long addressId;}
+```
 
-Optional\<Student\> findById(**long** id);
+```java
+@Repository
+
+public interface StudentRepository extends
+JpaRepository<Student, Long>{
+
+Optional<Student> findById(long id);
+
+}
+```
+
+```java
+@Service
+
+public class StudentService {
+
+@Autowired StudentRepository studentRepository;
+
+@Autowired WebClient webClient;
+
+public Student saveStudent(Student newStudent) {
+
+return studentRepository.save(newStudent);
 
 }
 
-\@Service
+public Student findAddressById(long id) {
 
-**public** **class** StudentService {
-
-\@Autowired StudentRepository studentRepository;
-
-\@Autowired WebClient webClient;
-
-**public** Student saveStudent(Student newStudent) {
-
-**return** studentRepository.save(newStudent);
+return studentRepository.findById(id).orElse(null);
 
 }
 
-**public** Student findAddressById(**long** id) {
+public AddressDTO findstudentAddress(long id) {
 
-**return** studentRepository.findById(id).orElse(**null**);
+Mono<AddressDTO> stdAddress=
+webClient.get().uri("/getbyId/"+id).retrieve().bodyToMono(AddressDTO.class);
 
-}
-
-**public** AddressDTO findstudentAddress(**long** id) {
-
-Mono\<AddressDTO\> stdAddress=
-webClient.get().uri(\"/getbyId/\"+id).retrieve().bodyToMono(AddressDTO.**class**);
-
-**return** stdAddress.block();
+return stdAddress.block();
 
 }
 
 }
+```
 
-**public** **class** AddressDTO {
+```java
+public class AddressDTO {
 
-**private** **long** id;
+private long id;
 
-**private** String street;
+private String street;
 
-**private** String city;
+private String city;
 
-**public** **class** StudentDTO {
+public class StudentDTO {
 
-**private** Long id;
+private Long id;
 
-**private** String firstName;
+private String firstName;
 
-**private** String lastName;
+private String lastName;
 
-**private** String email;
+private String email;
+private AddressDTO studentAddress;}
+```
 
-**private** AddressDTO studentAddress;
 
-\@Configuration
 
-**public** **class** StudentConfig {
+```java
+@Configuration
 
-\@Value(\"\${address.service.url}\")
+public class StudentConfig {
 
-**private** String addressServiceURL;
+@Value("${address.service.url}")
 
-\@Bean
+private String addressServiceURL;
 
-**[public]{.underline}** WebClient webClient() {
+@Bean
 
-**return** WebClient.builder()
+public WebClient webClient() {
+
+return WebClient.builder()
 
 .baseUrl(addressServiceURL)
 
-.defaultHeader(HttpHeaders.***CONTENT_TYPE***,
-MediaType.***APPLICATION_JSON_VALUE***)
+.defaultHeader(HttpHeaders.*CONTENT_TYPE*,
+MediaType.*APPLICATION_JSON_VALUE*)
 
 .build();
 
 }
 
 }
+```
 
-\@Component
+```java
+@Component
 
-// below used when we are not using [eureka]{.underline} server
+// below used when we are not using [eureka] server
 
-//@FeignClient([url]{.underline}=\"\${address.service.feignclienturl}\"
-, path = \"/[api]{.underline}/address\" , value =
-\"address-feignclient\")
+//@FeignClient([url]="${address.service.feignclienturl}", path = "/[api]/address" , value ="address-feignclient")
 
-// use this with [eureka]{.underline} server
+// use this with [eureka] server
 
-\@FeignClient(value = \"ADDRESS-SERVICE\", path = \"/api/address\")
+@FeignClient(value = "ADDRESS-SERVICE", path = "/api/address")
 
-**public** **interface** AddressFeignClient {
+public interface AddressFeignClient {
 
-\@GetMapping(\"/getbyId/{id}\")
+    @GetMapping("/getbyId/{id}")
 
-**public**
-Optional\<AddressDTO\>getAddressUsingFeignClient(@PathVariable **long**
-id);
+    public Optional<AddressDTO>getAddressUsingFeignClient(@PathVariable long id);
 
 }
+```
 
+```properties
 spring.application.name=student-services
 
 server.port=8285
@@ -1207,38 +1462,40 @@ spring.jpa.properties.hibernate.format_sql=true
 
 spring.cache.type=simple
 
-[address.service.url]{.underline}=http://localhost:8283/api/address/
+address.service.url=http://localhost:8283/api/address/
 
-[address.service.feignclienturl]{.underline}=http://localhost:8283
-
+address.service.feignclienturl=http://localhost:8283
 #eureka server
 
 eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
-eureka.instance.instance-id=\${spring.application.name}:\${server.port}
+eureka.instance.instance-id=${spring.application.name}:${server.port}
+```
 
-3.  Call address application url in student application using webclient
-    or resttemplate
+#### 3. Call address application url in student application using webclient or resttemplate
 
-4.  Also we can user feigncinet
+#### 4. Also we can user feigncinet
 
-5.  Also use eureka server for automatic url calling
+#### 5. Also use eureka server for automatic url calling
 
-\@SpringBootApplication
+```java
+@SpringBootApplication
 
-\@EnableEurekaServer
+@EnableEurekaServer
 
-**public** **class** EurekaServerApplication {
+public class EurekaServerApplication {
 
-**public** **static** **void** main(String\[\] args) {
+public static void main(String[] args) {
 
-SpringApplication.run(EurekaServerApplication.**class**, args);
+SpringApplication.run(EurekaServerApplication.class, args);
 
 }
 
 }
+```
 
-Application.properties
+```properties
+#Application.properties
 
 spring.application.name=eureka-server
 
@@ -1247,40 +1504,134 @@ server.port=8761
 eureka.client.register-with-eureka=false
 
 eureka.client.fetch-registry=false
+```
 
-#### Step-by-Step Microservices Creation:
 
---------------------------------------------------------------
-  Step     Description
--------- -----------------------------------------------------
-  **1️⃣**   **Create Eureka Server** → \@EnableEurekaServer, add
-           dependencies, server.port=8761
 
-  **2️⃣**   **Create Address Service** → Register with Eureka
-           (spring.application.name=address-service)
+# Step-by-Step Microservices Creation (Spring Boot + Eureka)
 
-  **3️⃣**   **Create Student Service** → Use WebClient or
-           FeignClient to call Address Service
+This is a typical flow for building microservices using:
+- Spring Boot
+- Eureka (Service Discovery)
+- Feign/WebClient (Service Communication)
 
-  **4️⃣**   **Use DTOs** → StudentDTO + AddressDTO for response
-           objects
+```mermaid
+graph TD;
 
-  **5️⃣**   **Enable Feign Clients** → Annotate
-           \@EnableFeignClients in StudentServiceApplication
+    %% Step 1
+    Step1[1️⃣ Create Eureka Server<br/>@EnableEurekaServer<br/>Port: 8761]
 
-  **6️⃣**   **Communication Options** → Use WebClient,
-           RestTemplate, or Feign
+    %% Step 2
+    Step2[2️⃣ Create Address Service<br/>Register with Eureka]
 
-  **7️⃣**   **Test Locally** → Run Eureka, Address, and Student
-           service on different ports
+    %% Step 3
+    Step3[3️⃣ Create Student Service<br/>Call Address Service]
 
-  **8️⃣**   (Optional) Add Spring Cloud Gateway for centralized
-           routing & load balancing
-  --------------------------------------------------------------
+    %% Step 4
+    Step4[4️⃣ Use DTOs<br/>StudentDTO + AddressDTO]
 
-**SWAGGER**
+    %% Step 5
+    Step5[5️⃣ Enable Feign Clients<br/>@EnableFeignClients]
 
-## **What is swagger ?**
+    %% Step 6
+    Step6[6️⃣ Choose Communication<br/>WebClient / Feign / RestTemplate]
+
+    %% Step 7
+    Step7[7️⃣ Test Locally<br/>Different Ports]
+
+    %% Step 8
+    Step8[8️⃣ Optional: Add API Gateway<br/>Routing & Load Balancing]
+
+    %% Flow
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step4 --> Step5
+    Step5 --> Step6
+    Step6 --> Step7
+    Step7 --> Step8
+
+    %% Styling
+    style Step1 fill:#ffd580,stroke:#333,stroke-width:2px
+    style Step2 fill:#bfb,stroke:#333,stroke-width:1px
+    style Step3 fill:#bfb,stroke:#333,stroke-width:1px
+    style Step4 fill:#bbf,stroke:#333,stroke-width:1px
+    style Step5 fill:#bbf,stroke:#333,stroke-width:1px
+    style Step6 fill:#f9f,stroke:#333,stroke-width:1px
+    style Step7 fill:#d5f5e3,stroke:#333,stroke-width:1px
+    style Step8 fill:#f7dc6f,stroke:#333,stroke-width:2px
+```
+
+---
+
+| Step | Description                                                  | Interview Important Points                                   |
+| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1️⃣    | **Create Eureka Server** → Add dependency, use `@EnableEurekaServer`, set `server.port=8761` | Central registry where services register themselves          |
+| 2️⃣    | **Create Address Service** → Register with Eureka using `spring.application.name=address-service` | Must add `@EnableDiscoveryClient` (if required) and Eureka client dependency |
+| 3️⃣    | **Create Student Service** → Call Address Service using WebClient or FeignClient | Demonstrates service-to-service communication                |
+| 4️⃣    | **Use DTOs** → `StudentDTO` + `AddressDTO` for response objects | Avoid exposing entity classes directly                       |
+| 5️⃣    | **Enable Feign Clients** → Add `@EnableFeignClients` in main class | Required to activate Feign interface scanning                |
+| 6️⃣    | **Communication Options** → WebClient, RestTemplate, or Feign | Prefer Feign (clean code) or WebClient (reactive)            |
+| 7️⃣    | **Test Locally** → Run Eureka, Address, Student services on different ports | Example: 8761 (Eureka), 8081 (Address), 8082 (Student)       |
+| 8️⃣    | **(Optional) Add Spring Cloud Gateway** → Centralized routing and load balancing | Acts as API Gateway for security, routing, rate limiting     |
+
+---
+
+# Basic Flow Architecture
+
+
+
+```mermaid
+graph TD;
+
+    %% Client Layer
+    Client[👤 Client]
+
+    %% Gateway Layer
+    Gateway[🚪 API Gateway]
+
+    %% Service Layer
+    subgraph Microservices
+        StudentService[🎓 Student Service]
+        AddressService[📍 Address Service]
+    end
+
+    %% Service Discovery
+    Eureka[(🗂 Eureka Server)]
+
+    %% Flow
+    Client --> Gateway
+    Gateway --> StudentService
+    StudentService --> AddressService
+
+    %% Service Registration
+    StudentService --> Eureka
+    AddressService --> Eureka
+    Gateway --> Eureka
+
+    %% Styling
+    style Client fill:#f9f,stroke:#333,stroke-width:1px
+    style Gateway fill:#bbf,stroke:#333,stroke-width:1px
+    style StudentService fill:#bfb,stroke:#333,stroke-width:1px
+    style AddressService fill:#bfb,stroke:#333,stroke-width:1px
+    style Eureka fill:#ffd580,stroke:#333,stroke-width:2px
+```
+
+## Description
+
+- **Client** sends request.
+- **Gateway (Optional)** handles routing, security, and load balancing.
+- **Student Service** processes request and calls Address Service.
+- **Address Service** returns address data.
+- All services **register with Eureka Server** for service discovery.
+
+----
+
+
+
+# SWAGGER
+
+## What is swagger ?
 
 - Swagger is an open-source framework for designing, building, and
   documenting RESTful APIs.
@@ -1288,109 +1639,109 @@ eureka.client.fetch-registry=false
 - It provides a simple, easy-to-use interface for developers to define
   API endpoints, parameters, responses, and other details.
 
-## **Why Swagger in Spring Boot?**
+## Why Swagger in Spring Boot?
 
-1.  **API Documentation**: Swagger generates API documentation
+1.  API Documentation: Swagger generates API documentation
     automatically, making it easier for developers to understand and use
     the API.
 
-2.  **API Testing**: Swagger provides a UI interface for testing API
+2.  API Testing: Swagger provides a UI interface for testing API
     endpoints, eliminating the need for external tools like Postman.
 
-3.  **Contract-First Development**: Swagger allows you to define the API
+3.  Contract-First Development: Swagger allows you to define the API
     contract (endpoints, parameters, responses) before implementing the
     API logic.
 
-4.  **Automatic API documentation generation**.
+4.  Automatic API documentation generation.
 
-5.  **Interactive UI for testing APIs**.
+5.  Interactive UI for testing APIs.
 
-6.  **Helps frontend developers understand API contracts**.
+6.  Helps frontend developers understand API contracts.
 
-7.  **Supports multiple response types and request schemas**.
+7.  Supports multiple response types and request schemas.
 
-## **Swagger Dependency** 
+## Swagger Dependency 
 
-\<dependency\>\
-\<groupId\>org.springdoc\</groupId\>\
-\<artifactId\>springdoc-openapi-starter-webmvc-ui\</artifactId\>\
-\<version\>2.8.3\</version\>\
-\</dependency\>
+<dependency>
+<groupId>org.springdoc</groupId>
+<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+<version>2.8.3</version>
+</dependency>
 
-## **Explanation of Swagger Annotations**
+## Explanation of Swagger Annotations
 
-** @Tag(name = \"User Management\", description = \"APIs for managing
-users\")**\
-Defines a **category** for API documentation.
+ @Tag(name = "User Management", description = "APIs for managing
+users")
+Defines a category for API documentation.
 
-**\@Operation(summary = \"\...\", description = \"\...\")**\
-Describes the **purpose of each API endpoint**.
+@Operation(summary = "...", description = "...")
+Describes the purpose of each API endpoint.
 
- **\@ApiResponses(value = {\...})**\
-Lists possible **HTTP responses** with status codes.
+ @ApiResponses(value = {...})
+Lists possible HTTP responses with status codes.
 
-** @ApiResponse(responseCode = \"200\", description = \"Success\",
-content = \@Content(\...))**\
-Specifies a **response type** for successful API calls.
+ @ApiResponse(responseCode = "200", description = "Success",
+content = @Content(...))
+Specifies a response type for successful API calls.
 
-**\@ApiResponse(responseCode = \"404\", description = \"User not
-found\")**\
-Handles cases where **resources are missing**.
+@ApiResponse(responseCode = "404", description = "User not
+found")
+Handles cases where resources are missing.
 
-**Example :**
+Example :
 
-\@RestController
+@RestController
 
-\@RequestMapping(\"/api/admin\")
+@RequestMapping("/api/admin")
 
-\@CrossOrigin(\"\*\")
+@CrossOrigin("*")
 
-\@Tag(name = \"User Management by ADMIN\", description = \"APIs for
-managing users by ADMIN\")
+@Tag(name = "User Management by ADMIN", description = "APIs for
+managing users by ADMIN")
 
-**public** **class** AdminController {
+public class AdminController {
 
-\@Autowired
+@Autowired
 
-**private** UserdataService userService;
+private UserdataService userService;
 
-\@Autowired
+@Autowired
 
-**private** BCryptPasswordEncoder passwordEncoder;
+private BCryptPasswordEncoder passwordEncoder;
 
-\@Autowired
+@Autowired
 
-**private** ModelMapper modelMapper;
+private ModelMapper modelMapper;
 
-\@Autowired
+@Autowired
 
-**private** EmailService [emailService]{.underline};
+private EmailService [emailService];
 
-\@Operation(
+@Operation(
 
-summary = \"Register new user\",
+summary = "Register new user",
 
-description = \"Creates and returns a new user if the email does not
-already exist\"
+description = "Creates and returns a new user if the email does not
+already exist"
 
 )
 
-\@ApiResponses({
+@ApiResponses({
 
-\@ApiResponse(responseCode = \"201\", description = \"User created
-successfully\"),
+@ApiResponse(responseCode = "201", description = "User created
+successfully"),
 
-\@ApiResponse(
+@ApiResponse(
 
-responseCode = \"400\",
+responseCode = "400",
 
-description = \"Invalid input or duplicate email\",
+description = "Invalid input or duplicate email",
 
-content = \@Content(
+content = @Content(
 
-mediaType = \"application/json\",
+mediaType = "application/json",
 
-schema = \@Schema(implementation = String.**class**)
+schema = @Schema(implementation = String.class)
 
 )
 
@@ -1398,23 +1749,23 @@ schema = \@Schema(implementation = String.**class**)
 
 })
 
-\@PostMapping(\"/register\")
+@PostMapping("/register")
 
-**public** ResponseEntity\<?\> newUser(@RequestBody \@Valid AppUser
+public ResponseEntity<?> newUser(@RequestBody @Valid AppUser
 newUser)
 
-**throws** MessagingException, IOException, DocumentException {
+throws MessagingException, IOException, DocumentException {
 
-**if** (newUser.getId() != **null**) {
+if (newUser.getId() != null) {
 
-**return** ResponseEntity.badRequest().body(\"Don\'t send user ID!\");
+return ResponseEntity.badRequest().body("Don't send user ID!");
 
 }
 
-**if** (userService.emailExist(newUser.getEmail())) {
+if (userService.emailExist(newUser.getEmail())) {
 
-**throw** **new** UserAlreadyExistsException(\"User already registered
-with email: \" + newUser.getEmail());
+throw new UserAlreadyExistsException("User already registered
+with email: " + newUser.getEmail());
 
 }
 
@@ -1422,93 +1773,93 @@ newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
 AppUser savedUser = userService.register(newUser);
 
-**return** ResponseEntity
+return ResponseEntity
 
-.status(HttpStatus.***CREATED***)
+.status(HttpStatus.*CREATED*)
 
-.body(modelMapper.map(savedUser, AppUserResponse.**class**));
+.body(modelMapper.map(savedUser, AppUserResponse.class));
 
 }
 
-\@Operation(summary = \"List all users\", description = \"Returns a list
-of all registered users\")
+@Operation(summary = "List all users", description = "Returns a list
+of all registered users")
 
-\@GetMapping(\"/list\")
+@GetMapping("/list")
 
-**public** List\<AppUserResponse\> getAllUsers() {
+public List<AppUserResponse> getAllUsers() {
 
-**return** userService.getAllUsers()
+return userService.getAllUsers()
 
 .stream()
 
-.map(user -\> modelMapper.map(user, AppUserResponse.**class**))
+.map(user -> modelMapper.map(user, AppUserResponse.class))
 
 .toList();
 
 }
 
-\@Operation(summary = \"Update user by ID\", description = \"Updates an
-existing user based on their ID\")
+@Operation(summary = "Update user by ID", description = "Updates an
+existing user based on their ID")
 
-\@ApiResponses({
+@ApiResponses({
 
-\@ApiResponse(responseCode = \"200\", description = \"User updated
-successfully\"),
+@ApiResponse(responseCode = "200", description = "User updated
+successfully"),
 
-\@ApiResponse(responseCode = \"404\", description = \"User not found\")
+@ApiResponse(responseCode = "404", description = "User not found")
 
 })
 
-\@PutMapping(\"/{id}\")
+@PutMapping("/{id}")
 
-**public** ResponseEntity\<?\> updateUser(@RequestBody \@Valid AppUser
-userdata, \@PathVariable Long id) {
+public ResponseEntity<?> updateUser(@RequestBody @Valid AppUser
+userdata, @PathVariable Long id) {
 
 userdata.setPassword(passwordEncoder.encode(userdata.getPassword()));
 
 AppUser updated = userService.updateUser(userdata, id);
 
-**return** ResponseEntity.ok(modelMapper.map(updated,
-AppUserResponse.**class**));
+return ResponseEntity.ok(modelMapper.map(updated,
+AppUserResponse.class));
 
 }
 
-\@Operation(summary = \"Delete user by ID\", description = \"Deletes a
-user from the system based on the provided ID\")
+@Operation(summary = "Delete user by ID", description = "Deletes a
+user from the system based on the provided ID")
 
-\@ApiResponse(responseCode = \"200\", description = \"User deleted
-successfully\")
+@ApiResponse(responseCode = "200", description = "User deleted
+successfully")
 
-\@DeleteMapping(\"/{id}\")
+@DeleteMapping("/{id}")
 
-**public** ResponseEntity\<Map\<String, Object\>\>
+public ResponseEntity<Map<String, Object>>
 deleteUserById(@PathVariable Long id) {
 
 userService.deleteUser(id);
 
-Map\<String, Object\> response = **new** HashMap\<\>();
+Map<String, Object> response = new HashMap<>();
 
-response.put(\"message\", \"User deleted successfully\");
+response.put("message", "User deleted successfully");
 
-**return** ResponseEntity.ok(response);
+return ResponseEntity.ok(response);
 
 }
 
-\@Operation(summary = \"Get user by ID\", description = \"Fetches a
-single user based on their ID\")
+@Operation(summary = "Get user by ID", description = "Fetches a
+single user based on their ID")
 
-\@ApiResponse(responseCode = \"200\", description = \"User retrieved
-successfully\")
+@ApiResponse(responseCode = "200", description = "User retrieved
+successfully")
 
-\@GetMapping(\"/{id}\")
+@GetMapping("/{id}")
 
-**public** AppUserResponse getUserById(
+public AppUserResponse getUserById(
 
-\@Parameter(description = \"ID of the user to fetch\") \@PathVariable
+@Parameter(description = "ID of the user to fetch") @PathVariable
 Long id) {
 
-**return** modelMapper.map(userService.getUserById(id),
-AppUserResponse.**class**);
+return modelMapper.map(userService.getUserById(id),
+AppUserResponse.class);
 
 }
 
