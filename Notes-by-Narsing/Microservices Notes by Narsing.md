@@ -1147,21 +1147,19 @@ spring:
 
 ------
 
-##### 
-
-### Advanced Interview Note (Very Important)
-
-Spring Cloud Sleuth is now replaced by:
-
-👉 Micrometer Tracing (in newer Spring Boot versions)
-
-Modern stack:
-
-- Micrometer Tracing
-- Zipkin / Jaeger
-- OpenTelemetry
-
-This is a high-value interview discussion point.
+> [!IMPORTANT]
+>
+> #### Spring Cloud Sleuth is now replaced by:
+>
+> 👉 Micrometer Tracing (in newer Spring Boot versions)
+>
+> Modern stack:
+>
+> - Micrometer Tracing
+> - Zipkin / Jaeger
+> - OpenTelemetry
+>
+> This is a high-value interview discussion point.
 
 ---
 
