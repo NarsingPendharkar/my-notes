@@ -2403,6 +2403,216 @@ If any runtime exception occurs → transaction rolls back.
 
 ---
 
+### 👉 What is Propagation?
+
+It defines **how a method behaves when it is called inside another transaction**.
+
+------
+
+### ✅ Common Propagation Types (Interview Focus)
+
+#### 1. REQUIRED (Default)
+
+👉 If transaction exists → Join it
+👉 If not → Create new transaction
+
+```java
+@Transactional(propagation = Propagation.REQUIRED)
+public void placeOrder() { }
+```
+
+##### 🔎 Use Case
+
+Service A calls Service B → both run in **same transaction**
+
+If B fails → entire transaction rolls back.
+
+✔ Most commonly used.
+
+------
+
+#### 2. REQUIRES_NEW
+
+👉 Always create new transaction
+👉 Suspend existing transaction (if any)
+
+```java
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+public void saveAuditLog() { }
+```
+
+##### 🔎 Use Case
+
+Order service fails but you still want to save audit logs.
+
+✔ Even if outer transaction fails → inner one commits.
+
+------
+
+#### 3. SUPPORTS
+
+👉 If transaction exists → join
+👉 If not → execute without transaction
+
+Used for read operations.
+
+------
+
+#### 4. NOT_SUPPORTED
+
+👉 Suspend current transaction
+👉 Run without transaction
+
+Used when you don’t want transaction overhead.
+
+------
+
+#### 5. MANDATORY
+
+👉 Must have existing transaction
+👉 If not → Exception
+
+------
+
+#### 6. NEVER
+
+👉 Should NOT have transaction
+👉 If exists → Exception
+
+------
+
+#### 🔥 Real Example 
+
+```
+placeOrder()  --> REQUIRED
+   |
+   --> paymentService()  --> REQUIRED
+   --> auditService()    --> REQUIRES_NEW
+```
+
+If payment fails:
+
+- Order → Rollback
+- Audit → Still committed
+
+------
+
+### 🔹 2️⃣ Transaction Isolation Levels
+
+#### 👉 What is Isolation?
+
+It defines **how one transaction sees data of another transaction**.
+
+Prevents concurrency problems.
+
+------
+
+#### 🔥 Common Concurrency Problems
+
+| Problem             | Meaning                              |
+| ------------------- | ------------------------------------ |
+| Dirty Read          | Reading uncommitted data             |
+| Non-Repeatable Read | Same query returns different results |
+| Phantom Read        | New rows appear in second read       |
+
+------
+
+#### ✅ Isolation Levels (Low → High)
+
+------
+
+#### 1️⃣ READ_UNCOMMITTED
+
+- Dirty read possible
+- Lowest isolation
+- Rarely used
+
+------
+
+#### 2️⃣ READ_COMMITTED (Most Common)
+
+- Cannot read uncommitted data
+- Prevents dirty read
+- Non-repeatable read possible
+
+```java
+@Transactional(isolation = Isolation.READ_COMMITTED)
+```
+
+✔ Default in many databases like MySQL
+
+------
+
+#### 3️⃣ REPEATABLE_READ(Default)
+
+- Prevents dirty read
+- Prevents non-repeatable read
+- Phantom read possible
+
+✔ Default in MySQL InnoDB
+
+------
+
+#### 4️⃣ SERIALIZABLE (Highest)
+
+- Fully isolated
+- No dirty, non-repeatable, phantom
+- Slow (locks entire range)
+
+```java
+@Transactional(isolation = Isolation.SERIALIZABLE)
+```
+
+| Isolation        | Dirty Read | Non-Repeatable | Phantom |
+| ---------------- | ---------- | -------------- | ------- |
+| READ_UNCOMMITTED | ✅          | ✅              | ✅       |
+| READ_COMMITTED   | ❌          | ✅              | ✅       |
+| REPEATABLE_READ  | ❌          | ❌              | ✅       |
+| SERIALIZABLE     | ❌          | ❌              | ❌       |
+
+Imagine your banking system:
+
+#### Scenario: Checking Account Balance
+
+If isolation is too low:
+Two users may see inconsistent balance.
+
+Best choice:
+✔ `REPEATABLE_READ` or `SERIALIZABLE` for critical transfers.
+
+---
+
+#### Q1: What is default propagation in Spring?
+
+👉 REQUIRED
+
+#### Q2: Default isolation in MySQL?
+
+👉 REPEATABLE_READ
+
+#### Q3: When to use REQUIRES_NEW?
+
+👉 Logging, audit, notifications
+
+#### Q4: Can isolation be changed at method level?
+
+👉 Yes using `@Transactional(isolation = Isolation.X)`
+
+#### Q5:  If outer method is NOT transactional and inner is REQUIRED, what happens?
+
+👉 Inner method creates new transaction.
+
+
+
+| Propagation                          | Isolation                            |
+| ------------------------------------ | ------------------------------------ |
+| Transaction behavior between methods | Data visibility between transactions |
+| Spring concept                       | Database concept                     |
+
+
+
+---
+
 #### 🔥 Transaction Propagation Types
 
 | Propagation Type   | Meaning (Short)                                  | When to Use                      | Example                                                   |
