@@ -1,7 +1,6 @@
----
 
-# Hibernate]("https://www.google.com/")
----
+
+
 
 ###  What is Hibernate? Why is it used?
 
@@ -357,13 +356,13 @@ Step  |    Operation   |     Method Used
 
 ## Explain Hibernate Architecture.
 
-Answer:  Hibernate consists of several components:
+**Answer:**  
 
-1.   Configuration (hibernate.cfg.xml)  -- Stores database and
-Hibernate configurations.
+Hibernate consists of several components:
 
-2.   SessionFactory  -- A factory for Session objects (one per
-database).
+1.   Configuration (hibernate.cfg.xml)  -- Stores database and Hibernate configurations.
+
+2.   SessionFactory  -- A factory for Session objects (one per database).
 
 3.   Session  -- Provides methods for performing CRUD operations.
 
@@ -371,26 +370,29 @@ database).
 
 5.   Query API  -- HQL (Hibernate Query Language) and Criteria API.
 
-## What is SessionFactory in Hibernate?
+---
 
-Answer:  SessionFactory is a heavyweight object that creates and manages Session objects. It is created  once per database  and is thread-safe.
 
-## What is Session in Hibernate?
 
-Answer:  A Session is a lightweight, non-thread-safe object that acts as a bridge between Java code and the database. It is used to perform CRUD operations.
+### What is SessionFactory in Hibernate?
 
-## What are the different states of an entity in Hibernate?
+**Answer:**  SessionFactory is a heavyweight object that creates and manages Session objects. It is created  once per database  and is thread-safe.
+
+### What is Session in Hibernate?
+
+**Answer:**  A Session is a lightweight, non-thread-safe object that acts as a bridge between Java code and the database. It is used to perform CRUD operations.
+
+### What are the different states of an entity in Hibernate?
 
 -  Transient:  The object is created but not associated with a   Hibernate session.
 
 -  Persistent:  The object is associated with a session and mapped to   a database.
 
--  Detached:  The object was persistent but is now out of the session
-scope.
+-  Detached:  The object was persistent but is now out of the session scope.
 
 -  Removed:  The object is marked for deletion.
 
-##  What is HQL (Hibernate Query Language)? How is it different from SQL?
+###  What is HQL (Hibernate Query Language)? How is it different from SQL?
 
 Answer:  HQL is an object-oriented query language that uses entity names instead of table names. It is database-independent.
 Example:
@@ -402,7 +404,7 @@ query.setParameter("name", "Nirav");
 List<Student> students = query.list();
 ```
 
-## What are Fetch Types in Hibernate?
+### What are Fetch Types in Hibernate?
 
 -  Lazy Loading (FetchType.LAZY)  -- Data is loaded only when   requested.
 
@@ -416,7 +418,7 @@ Example:
 
 private  List<Course> courses;
 
-##  What is the difference between save(), persist(), and saveOrUpdate()?
+###  What is the difference between save(), persist(), and saveOrUpdate()?
 
 -------------------------------------------------------------------------
 Method           |When to Use                         |Returns
@@ -425,7 +427,7 @@ save()           |Inserts new record                  |Generated primary key
 persist()        |Inserts new record, but doesn't return ID     |void
 saveOrUpdate()   |Inserts if new, updates if existing |void
 
-## What are @OneToOne, @OneToMany, and @ManyToMany relationships in Hibernate?
+### What are @OneToOne, @OneToMany, and @ManyToMany relationships in Hibernate?
 
 Answer:
 
@@ -441,7 +443,7 @@ Example:
 
 private  List<Employee> employees;
 
-## What is the difference between First-Level and Second-Level Cache?
+### What is the difference between First-Level and Second-Level Cache?
 
 -----------------------------------------------------------------------
 Cache Type            |          Scope              |      Default?
@@ -449,7 +451,7 @@ Cache Type            |          Scope              |      Default?
 First-Level Cache     |          Per Session        |      Yes
 Second-Level Cache    |          Across Sessions    |      No
 
-## What is the difference between HQL and Criteria API?
+### What is the difference between HQL and Criteria API?
 
 ------------------------------------------------------------------------
 Feature       | HQL                                 |  Criteria API
@@ -469,18 +471,17 @@ Query<Student> query =
 session.createQuery(cq);
 List<Student> students = query.getResultList();
 ```
-## What are the different caching strategies in Hibernate?
+### What are the different caching strategies in Hibernate?
 
 1.   Read-Only:  Best for static data.
 
-2.   Non-Strict Read-Write:  Allows reads, but updates are not
-guaranteed.
+2.   Non-Strict Read-Write:  Allows reads, but updates are not guaranteed.
 
 3.   Read-Write:  Uses timestamps to maintain consistency.
 
 4.   Transactional:  Works with JTA transactions.
 
-## How does Hibernate handle transactions?
+### How does Hibernate handle transactions?
 
 Answer:  Transactions in Hibernate are managed using
 beginTransaction() and commit().
@@ -496,32 +497,32 @@ Transaction txn= null ;
 
 try  {
 
-txn=session.beginTransaction();
+    txn=session.beginTransaction();
 
-Question q=session.~~load~~(Question. class , 2);
+    Question q=session.~~load~~(Question. class , 2);
 
-System. *out *.println(q.toString());
+    System. *out *.println(q.toString());
 
-txn.commit();
+    txn.commit();
 
-session.close();
+    session.close();
 
-HibernateUtil.shutdown();
+    HibernateUtil.shutdown();
 
 }  catch  (Exception e) {
 
-if (txn!= null ) {
+    if (txn!= null ) {
 
-txn.rollback();
+        txn.rollback();
 
-}
+    }
 
-e.printStackTrace();
+    e.printStackTrace();
 
 }
 ```
 
-## How would you optimize performance in Hibernate?
+### How would you optimize performance in Hibernate?
 
 - Use  lazy loading  (FetchType.LAZY).
 
@@ -531,260 +532,472 @@ e.printStackTrace();
 
 - Use  pagination  in queries.
 
-## What will happen if you don't close a Hibernate Session?
+### What will happen if you don't close a Hibernate Session?
 
 Answer:  Memory leaks can occur because the session holds database connections and cached objects.
 
-## How do you integrate Hibernate with Spring Boot?
+### How do you integrate Hibernate with Spring Boot?
 
 By using spring-boot-starter-data-jpa:
 
+```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/hibernate_db
 
 spring.jpa.hibernate.ddl-auto=update
+```
 
-## Hibernate Mappings Explained with Example
 
-### One-to-One Mapping
 
-Definition:
+---
 
-In  One-to-One mapping , one entity is related to exactly one other entity.
-Example: A  Person  has only  one Passport , and a Passport belongs to only one Person.
+## Entity Mapping 
 
-### 🛠 Implementation:
+### 1. One-to-One (1:1)
 
--  Use @OneToOne annotation.
+##### **Definition**
 
--  Use @JoinColumn to specify the foreign key.
+One record in Table A relates to exactly one record in Table B.
 
-### 📌 Example
+Example:
+
+- One user has one profile.
+- One person has one passport.
+
+------
+
+##### Database Idea
+
+```text
+User
+-----
+id (PK)
+name
+
+UserProfile
+-----------
+id (PK)
+user_id (FK, UNIQUE)
+bio
+```
+
+`user_id` must be UNIQUE to enforce 1:1.
+
+------
+
+##### Mermaid Diagram
+
+```mermaid
+erDiagram
+    USER ||--|| USER_PROFILE : has
+    USER {
+        Long id
+        String name
+    }
+    USER_PROFILE {
+        Long id
+        String bio
+        Long user_id
+    }
+```
+
+
+
+------
+
+##### Java JPA Example
+
+##### User Entity
 
 ```java
-public   class  Person {
+import jakarta.persistence.*;
 
-@Id
+@Entity
+public class User {
 
-@GeneratedValue(strategy = GenerationType. *IDENTITY *)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-private   int  id;
+    private String name;
 
-@Column
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserProfile profile;
 
-@NotBlank
-
-private  String name;
-
-@OneToOne(cascade = CascadeType. *ALL *)
-
-@JoinColumn(name="passport_id")
-
-private  Passport passport;
-
-}
-
-public   class  Passport {
-
-@Id
-
-@GeneratedValue(strategy = GenerationType. *IDENTITY *)
-
-private   int  id;
-
-private  String passportNumber;
-
-@OneToOne
-
-private  Person person;
-
+    // getters and setters
 }
 ```
 
-🔹**  Database Example: **
+------
 
----------------------------------
-person_id   |name  |  passport_id
------------ |------- |-------------
-1     |      Nirav |  101
-
-
-
-------------------------------
-passport_id   |passportNumber
--------------| ----------------
-101           |A123456
-
-------------------------------
-
-###  One-to-Many Mapping
-
-Definition:
-
-In  One-to-Many mapping , one entity can be related to multiple other entities.
-Example: A  Department  has multiple  Employees , but an Employee belongs to only one Department.
-
-###  Implementation:
-
--  Use @OneToMany on the parent (Department)
-
--  Use @ManyToOne on the child (Employee)
-
--  Use mappedBy to establish bidirectional mapping
-
-### 📌 Example
+##### UserProfile Entity
 
 ```java
-public   class  Department {
-
-@Id
-
-@GeneratedValue(strategy = GenerationType. *IDENTITY *)
-
-private   int  id;
-
-private  String department;
-
-@OneToMany(mappedBy = "department", cascade = CascadeType. *ALL *)
-
-private  List<Employee> employees;
-
-}
+import jakarta.persistence.*;
 
 @Entity
+public class UserProfile {
 
-public   class  Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-@Id
+    private String bio;
 
-@GeneratedValue(strategy = GenerationType. *AUTO *)
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
 
-private   int  id;
-
-private  String name;
-
-private   double  salary;
-
-@ManyToOne
-
-@JoinColumn(name = "department_id")
-
-private  Department department;
-
-}
-
-```
-🔹  Database Example:
-
-----------------------
-department_id |  name
---------------- |------
-1           |    IT
-
--------------------------------------
-employee_id |  name|    department_id
--------------| -------| ---------------
-101      |     Nirav  | 1
-102        |   Raj    | 1
--------------------------------------
-
-### Many-to-Many Mapping
-
-### Definition:
-
-In  Many-to-Many mapping , multiple entities can be associated with multiple other entities.
-Example: A  Student  can enroll in multiple  Courses , and a Course can have multiple Students.
-
-### Implementation:
-
--  Use @ManyToMany on both entities.
-
--  Use @JoinTable to create a join table between them.
-
-### Example
-
-```java
-@Entity
-
-@Table(name = "student")
-
-public   class  Student {
-
-@Id
-
-@GeneratedValue(strategy = GenerationType. *IDENTITY *)
-
-private   int  id;
-
-private  String name;
-
-@ManyToMany
-
-@JoinTable(
-
-name = "student_course",
-
-joinColumns = @JoinColumn(name = "student_id"),
-
-inverseJoinColumns = @JoinColumn(name = "course_id")
-
-)
-
-private  List<Course> courses;
-
-// Getters, Setters, Constructors
-
-}
-
-@Entity
-
-@Table(name = "course")
-
-public   class  Course {
-
-@Id
-
-@GeneratedValue(strategy = GenerationType. *IDENTITY *)
-
-private   int  id;
-
-private  String title;
-
-@ManyToMany(mappedBy = "courses")
-
-private  List<Student> students;
-
-// Getters, Setters, Constructors
-
+    // getters and setters
 }
 ```
 
-🔹  **Database Example (Join Table)**:
+------
 
-------------------------
-student_id   |course_id
-------------| -----------
-1           | 101
-1          |  102
-2           | 101
-------------------------
+##### Explanation
 
-> 👆  Student 1 is enrolled in Course 101 and 102, while Student 2 is only in Course 101.
+- `@OneToOne` defines the relationship.
+- `@JoinColumn` creates the foreign key.
+- `unique = true` enforces one-to-one.
+- `mappedBy` means `UserProfile` owns the relationship.
+- Cascade allows saving profile when user is saved.
 
-### Summary Table of Hibernate Mappings
+------
 
---------------------------------------------------------
-Mapping Type  | Example            | Hibernate Annotation
---------------| -------------------| ---------------------
-One-to-One   |  Person ↔ Passport  | @OneToOne
-One-to-Many  |  Department ↔ Employees |@OneToMany, @ManyToOne
-Many-to-Many |  Student ↔ Course    |@ManyToMany
+### 2. One-to-Many (1:N)
 
+##### Definition
 
-✔  One-to-One : One entity maps to exactly one other entity.
-✔  One-to-Many : One entity maps to multiple child entities.
-✔  Many-to-Many : Entities have multiple relationships with each other via a join table.
+One record in Table A relates to many records in Table B.
 
-### Hibernate Mapping Annotations Summary Table
+Example:
+
+- One customer has many orders.
+- One author writes many books.
+
+------
+
+##### Database Idea
+
+```text
+Customer
+--------
+id (PK)
+name
+
+Orders
+------
+id (PK)
+customer_id (FK)
+order_date
+```
+
+Foreign key is on the many side.
+
+------
+
+##### Mermaid Diagram
+
+```mermaid
+erDiagram
+    CUSTOMER ||--o{ ORDERS : places
+    CUSTOMER {
+        Long id
+        String name
+    }
+    ORDERS {
+        Long id
+        String orderDate
+        Long customer_id
+    }
+```
+
+ 
+
+------
+
+##### Java JPA Example
+
+##### Customer Entity
+
+```java
+import jakarta.persistence.*;
+import java.util.List;
+
+@Entity
+public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+    // getters and setters
+}
+```
+
+------
+
+##### Order Entity
+
+```java
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "orders")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String orderDate;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    // getters and setters
+}
+```
+
+------
+
+##### Explanation
+
+- `@ManyToOne` is placed on the many side.
+- `@JoinColumn` creates foreign key.
+- Many orders can reference one customer.
+- Each order belongs to only one customer.
+- `mappedBy` connects both sides.
+
+------
+
+##### Important Rule
+
+Foreign key always goes on the **many side**.
+
+------
+
+### 3. Many-to-Many (M:N)
+
+##### Definition
+
+Many records in Table A relate to many records in Table B.
+
+Example:
+
+- Students enroll in many courses.
+- Courses have many students.
+
+------
+
+##### Database Idea
+
+```text
+Student
+-------
+id (PK)
+name
+
+Course
+------
+id (PK)
+title
+
+Student_Course
+--------------
+student_id (FK)
+course_id (FK)
+PRIMARY KEY (student_id, course_id)
+```
+
+Requires a junction table.
+
+------
+
+##### Mermaid Diagram
+
+```mermaid
+erDiagram
+    STUDENT }o--o{ COURSE : enrolls
+    STUDENT {
+        Long id
+        String name
+    }
+    COURSE {
+        Long id
+        String title
+    }
+```
+
+`}o--o{` means many-to-many.
+
+------
+
+##### Java JPA Example
+
+##### Student Entity
+
+```java
+import jakarta.persistence.*;
+import java.util.Set;
+
+@Entity
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    @ManyToMany
+    @JoinTable(
+        name = "student_course",
+        joinColumns = @JoinColumn(name = "student_id"),
+        inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private Set<Course> courses;
+
+    // getters and setters
+}
+```
+
+------
+
+##### Course Entity
+
+```java
+import jakarta.persistence.*;
+import java.util.Set;
+
+@Entity
+public class Course {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    @ManyToMany(mappedBy = "courses")
+    private Set<Student> students;
+
+    // getters and setters
+}
+```
+
+------
+
+##### Explanation
+
+- `@ManyToMany` defines the relationship.
+- `@JoinTable` creates the junction table.
+- `joinColumns` → current entity key.
+- `inverseJoinColumns` → other entity key.
+- `mappedBy` defines inverse side.
+- JPA generates junction table automatically.
+
+------
+
+### 4. Better Many-to-Many (With Extra Fields)
+
+If you need extra columns like:
+
+- enrollmentDate
+- grade
+- status
+
+Create a separate entity:
+
+------
+
+##### Mermaid Diagram (With Junction Entity)
+
+```mermaid
+erDiagram
+    STUDENT ||--o{ ENROLLMENT : has
+    COURSE  ||--o{ ENROLLMENT : contains
+    ENROLLMENT {
+        Long student_id
+        Long course_id
+        String grade
+    }
+```
+
+------
+
+##### Java Example (Simplified)
+
+```java
+@Entity
+public class Enrollment {
+
+    @EmbeddedId
+    private EnrollmentId id;
+
+    private String grade;
+
+    @ManyToOne
+    @MapsId("studentId")
+    private Student student;
+
+    @ManyToOne
+    @MapsId("courseId")
+    private Course course;
+}
+```
+
+This is the preferred real-world approach.
+
+------
+
+### 5. Quick Comparison
+
+| Relationship | Annotation  | Foreign Key Location | Extra Table |
+| ------------ | ----------- | -------------------- | ----------- |
+| One-to-One   | @OneToOne   | Owning side          | No          |
+| One-to-Many  | @ManyToOne  | Many side            | No          |
+| Many-to-Many | @ManyToMany | Junction table       | Yes         |
+
+------
+
+### 6. Short Revision Summary
+
+- 1:1 → `@OneToOne`
+- 1:N → `@ManyToOne` on many side
+- M:N → `@ManyToMany` + `@JoinTable`
+- Foreign key always on many side
+- Use explicit entity if junction needs extra fields
+- `mappedBy` means non-owning side
+
+> [!TIP]
+>
+> One side must be the **owning side**.
+>
+> The owning side:
+>
+> - Contains `@JoinColumn`
+> - Controls database updates
+>
+> The inverse side:
+>
+> - Uses `mappedBy`
+> - Does not control database
+
+------
+
+> [!IMPORTANT]
+>
+> **Rule to Remember**
+>
+> Many side is usually the owning side.
+
+##### Hibernate Mapping Annotations Summary Table
 
 ---------------------------------------------------------------------------------
 Annotation                |    Description   |  Example Usage
@@ -799,7 +1012,7 @@ Annotation                |    Description   |  Example Usage
 @Temporal(TemporalType.DATE)  | Specifies how Date/Time fields should be stored |    @Temporal(TemporalType.DATE)   private Date dob;
 @Lob                           |Maps a field to  a large object (BLOB or CLOB)| @Lob private byte] image;
 
-### Primary Key and ID Generation
+##### Primary Key and ID Generation
 
 ---
 
@@ -812,7 +1025,7 @@ Annotation                |    Description   |  Example Usage
 
 ---
 
-### Example: SEQUENCE Strategy (PostgreSQL / Oracle)
+##### Example: SEQUENCE Strategy (PostgreSQL / Oracle)
 
 ```java
 @Entity
@@ -832,10 +1045,10 @@ public class Student {
 }
 ```
 
-generation
+
 --------------------------------------------------------------------------------
 
-### One-to-One Mapping
+##### One-to-One Mapping
 
 -----------------------------------------------------------------------
 Annotation        |  Description                         |   Example Usage
@@ -845,7 +1058,7 @@ Annotation        |  Description                         |   Example Usage
 @MapsId           |   Uses the primary key of the parent entity as the foreignkey  | @MapsId private Long id; 
 -----------------------------------------------------------------------
 
-### One-to-Many and Many-to-One Mapping
+##### One-to-Many and Many-to-One Mapping
 
 ---
 
@@ -860,7 +1073,7 @@ Annotation        |  Description                         |   Example Usage
 
 ### Example: Bidirectional One-to-Many Mapping
 
-#### Parent Entity (Department)
+##### Parent Entity (Department)
 
 ```java
 @Entity
@@ -879,7 +1092,7 @@ public class Department {
 
 
 
-### Many-to-Many Mapping
+##### Many-to-Many Mapping
 
 ---
 
@@ -891,9 +1104,9 @@ public class Department {
 
 ---
 
-### Example: Many-to-Many Mapping
+##### Example: Many-to-Many Mapping
 
-#### Student Entity (Owning Side)
+##### Student Entity (Owning Side)
 
 ```java
 @Entity
@@ -915,7 +1128,7 @@ public class Student {
 }
 ```
 
-### Cascade and Fetch Strategies
+##### Cascade and Fetch Strategies
 
 ---
 
@@ -930,7 +1143,7 @@ public class Student {
 
 ---
 
-### Example: Cascade and Fetch Usage
+##### Example: Cascade and Fetch Usage
 
 ```java
 @Entity
@@ -947,7 +1160,7 @@ public class Department {
 }
 ```
 
-### Named Queries (JPQL and Native SQL)
+##### Named Queries (JPQL and Native SQL)
 
 ---
 
@@ -959,7 +1172,7 @@ public class Department {
 
 ---
 
-### Example: Repository Usage
+##### Example: Repository Usage
 
 ```java
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -972,7 +1185,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 }
 ```
 
-### Transactional and Locking Annotations
+#### Transactional and Locking Annotations
 
 ---
 
@@ -984,7 +1197,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
 ---
 
-### Example: Update Query with Transaction
+##### Example: Update Query with Transaction
 
 ```java
 @Transactional
@@ -1072,14 +1285,14 @@ It is only supported by  Hibernate.(Java Persistence API). | It is supported by 
 It will create a new row in the table for detached object. | It will throw persistence exception for detached object.
 ---------------------------------------------------
 
-## What is Cache?
+### What is Cache?
 
 Cache is a **temporary memory** that stores frequently accessed data to
 reduce database hits and improve application performance.
 
 ---
 
-## What is First Level Cache (L1 Cache)?
+### What is First Level Cache (L1 Cache)?
 
 - First-level cache is **associated with Hibernate Session**
 - It is **enabled by default**
@@ -1094,7 +1307,7 @@ reduce database hits and improve application performance.
 
 ---
 
-## What is Second Level Cache (L2 Cache)?
+### What is Second Level Cache (L2 Cache)?
 
 - Second-level cache is associated with **SessionFactory**
 - It must be **explicitly enabled**
@@ -1109,23 +1322,22 @@ reduce database hits and improve application performance.
 
 ---
 
-## How to Remove a Particular Object from Cache?
+### How to Remove a Particular Object from Cache?
 
 ```java
 session.evict(entity);
 ```
 
-## How to Clean Cache?
+### How to Clean Cache?
 
 **Answer:**
-Hibernate `Session` provides the `clear()` method to remove **all entities**
-from the first-level (Session) cache.
+Hibernate `Session` provides the `clear()` method to remove **all entities** from the first-level (Session) cache.
 
 ```java
 session.clear();
 ```
 
-## Which Version of Hibernate, Spring, and Spring Boot Have You Used?
+### Which Version of Hibernate, Spring, and Spring Boot Have You Used?
 
 **Answer:**
 
@@ -1133,20 +1345,18 @@ session.clear();
 - Spring Framework: **4.x**
 - Spring Boot: **2.x**
 
-## In One-to-Many & Many-to-One Mapping,
-
-## How Many Tables Are Created by Default and When `mappedBy` Is Used?
+### In One-to-Many & Many-to-One Mapping,How Many Tables Are Created by Default and When `mappedBy` Is Used?
 
 **Answer:**
 
-### Without `mappedBy`
+##### Without `mappedBy`
 
 - **3 tables** are created:
   - Parent table
   - Child table
   - Join table
 
-### With `mappedBy`
+##### With `mappedBy`
 
 - **2 tables** are created:
   - Parent table
@@ -1156,20 +1366,18 @@ session.clear();
 
 ------
 
-## In Many-to-Many Mapping,
-
-## How Many Tables Are Created by Default and When `mappedBy` Is Used?
+### In Many-to-Many Mapping,How Many Tables Are Created by Default and When `mappedBy` Is Used?
 
 **Answer:**
 
-### Without `mappedBy`
+##### Without `mappedBy`
 
 - **3 tables** are created:
   - First entity table
   - Second entity table
   - Join table
 
-### With `mappedBy`
+##### With `mappedBy`
 
 - **Still 3 tables** are created
 
@@ -1177,12 +1385,10 @@ session.clear();
 
 ------
 
-## What Is Dirty Checking?
+### What Is Dirty Checking?
 
 **Answer:**
- Dirty checking is a Hibernate mechanism where changes made to a **persistent
- entity** are automatically detected and synchronized with the database at
- transaction commit—**without calling the `update()` method**.
+ Dirty checking is a Hibernate mechanism where changes made to a **persistent entity** are automatically detected and synchronized with the database at transaction commit—**without calling the `update()` method**.
 
 ```
 student.setName("New Name"); // automatically updated
@@ -1194,7 +1400,7 @@ student.setName("New Name"); // automatically updated
 @Immutable
 ```
 
-## What is process for Automatic ID generation from any random number?
+### What is process for Automatic ID generation from any random number?
 
 ```java
 @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq",
@@ -1203,22 +1409,21 @@ initialValue = 500, allocationSize=1)
 @GeneratedValue(generator = "mySeqGen")
 ```
 
-## How to show SQL queries at run time?
+### How to show SQL queries at run time?
 
-Answer :  While specifying hibernate properties, add Show_SQL
-property as a true,
+Answer :  While specifying hibernate properties, add Show_SQL property as a true,
 
 `e.g. <property name="show_sql">true</property>`
 
-## What does hbm2ddl does?
+### What does hbm2ddl does?
 
 Answer :  It validates number of column.
 
-## How to disable 1st level cache?
+### How to disable 1st level cache?
 
 Answer :  We can't disable cache but we can clear all cache using clear( ) method of session, then it works as disabled.
 
-## How to enable 2nd level cache?
+### How to enable 2nd level cache?
 
 - Add 3 rd party jar files. (ehcache)
 
@@ -1233,11 +1438,11 @@ settings.put(Environment.USE_SECOND_LEVEL_CACHE, "true");
 settings.put(Environment.CACHE_REGION_FACTORY,"org.hibernate.cache.ehcache.EhCach-eRegionFactory");
 ```
 
-## How you have used Hibernate (XML, Annotations, Java Based)?
+### How you have used Hibernate (XML, Annotations, Java Based)?
 
 (Always Answer as) Annotation Based.
 
-## Native Queries-Definition, syntax, advantages?
+### Native Queries-Definition, syntax, advantages?
 
 - It allows developers to write  pure SQL queries  and execute them within Hibernate.
 
@@ -1245,12 +1450,9 @@ settings.put(Environment.CACHE_REGION_FACTORY,"org.hibernate.cache.ehcache.EhCac
 
 - You need to pass a string containing the SQL query to the createSQLQuery() method.
 
-- `List<Object]> results =
-session.createNativeQuery("SELECT id, name, age FROM
-Employee").list();`
+- `List<Object]> results =session.createNativeQuery("SELECT id, name, age FROM Employee").list();`
 
-
-## What is Spring Data JPA?
+### What is Spring Data JPA?
 
 Answer :
 
@@ -1260,7 +1462,7 @@ Answer :
 
 - It is built on top of JPA and provide the repository interface that handles all the database operations.
 
-## What are the advantages of Spring Data JPA?
+### What are the advantages of Spring Data JPA?
 
 Answer:
 
@@ -1272,7 +1474,7 @@ Answer:
 
 - Support Native Query, Criteria API,JPQL
 
-## What is the purpose of the @Entity annotation in JPA?
+### What is the purpose of the @Entity annotation in JPA?
 
 Answer :  The @Entity annotation marks a Java class as a  JPA entity , meaning it maps to a table in the database.
 
@@ -1280,20 +1482,15 @@ Answer :  The @Entity annotation marks a Java class as a  JPA entity , meaning i
 
 It is used in Spring Data JPA to indicate that a class is a  DAO (Data Access Object) . It also enables  exception translation  for database-related exceptions.
 
-## What is the difference between JpaRepository, CrudRepository, and PagingAndSortingRepository?
+### What is the difference between JpaRepository, CrudRepository, and PagingAndSortingRepository?
 
-------------------------------------------------------------------------------
 Interface                   | Description
 ----------------------------| -------------------------------------------------
 CrudRepository              | Provides basic CRUD operations (save(), findById(), delete()).      |
 PagingAndSortingRepository  | Extends CrudRepository with pagination and sorting features.           |
 JpaRepository               | Extends PagingAndSortingRepository and provides flush, batch processing, and custom queries .
 
-
-!](./media/media/image5.png){width="4.6375in"
-height="3.8695647419072614in"}
-
-## What are Derived Queries in Spring Data JPA?
+### What are Derived Queries in Spring Data JPA?
 
 Spring Data JPA generates queries  automatically  based on method
 names.
@@ -1302,7 +1499,7 @@ Example:
 
 List<Employee> findByDepartment(String department);
 
-## How do you write a custom query using @Query annotation?
+### How do you write a custom query using @Query annotation?
 
 ```java
 @Query( value="SELECT count(task_id) FROM tasks
@@ -1321,23 +1518,24 @@ nativeQuery= true )
 public  Integer getOverduetasks( String date);
 ```
 
-## How Do You Enable Pagination in Spring Data JPA?
+### How Do You Enable Pagination in Spring Data JPA?
 
 **Answer:**
 
 Pagination is used to fetch a **limited number of records per request**
 instead of loading all data at once from the database.
 
-### Benefits
+##### Benefits
 - Improves **performance**
 - Reduces **memory usage**
 - Suitable for **large datasets**
 
 ---
 
-### Key Interfaces and Classes
+#### Key Interfaces and Classes
 
 #### Pageable
+
 - Used to pass pagination information to repository methods
 - Includes page number, page size, and sorting details
 
@@ -1371,7 +1569,7 @@ Pageable pageable = PageRequest.of(page, size);
 
 > Page index starts from **0**
 
-### Pagination in Repository
+#### Pagination in Repository
 
 ```java
 public interface TaskRepository extends JpaRepository<Tasks, Long> {
@@ -1381,7 +1579,7 @@ public interface TaskRepository extends JpaRepository<Tasks, Long> {
 
 ------
 
-### Example: Pagination in Service
+#### Example: Pagination in Service
 
 ```java
 Pageable pageable = PageRequest.of(0, 10);
@@ -1455,14 +1653,13 @@ btn-secondary btn-sm">Next</a>
 </div>
 ```
 
-## What is Lazy and Eager loading?
+### What is Lazy and Eager loading?
 
 -------------------------------------------------------------
 | Type      | Description                                     
 -----------|--------------------------------------------------
 |  Lazy Loading   | Loads data  only when needed  (default for @OneToMany, @ManyToOne)  Ex : @OneToMany(fetch = FetchType.LAZY)             
 |  Eager Loading   | Loads data  immediately  along with parent entity.  ex : @OneToMany(fetch = FetchType.EAGER)  
-
 
 ### What is the purpose of @Modifying in Spring Data JPA?
 
@@ -1494,7 +1691,7 @@ repository.save(emp);
 }
 ```
 
-## What is the difference between @Transactional at method vs class level?
+### What is the difference between @Transactional at method vs class level?
 
 -  At Method Level : Affects only that method.
 
@@ -1530,13 +1727,17 @@ How to roll back a transaction in Spring Data JPA?
 
 `@Transactional(rollbackFor = Exception.class)`
 
+---
+
+
+
 ## Pagination in Spring Data JPA
 
-## What is Pagination?
+### What is Pagination?
 
 Pagination allows you to  fetch data in smaller chunks (pages) instead of retrieving all records at once, improving performance.
 
-###  Steps for Pagination in Spring Data JPA
+####  Steps for Pagination in Spring Data JPA
 
 1.  Use  Spring's Pageable interface  to request specific pages.
 
@@ -1545,9 +1746,9 @@ results.
 
 3.  Call a repository method that  returns Page<T> .
 
-## 🔹 Example: Implementing Pagination
+#### Example: Implementing Pagination
 
-###  Entity Class (Product)
+####  Entity Class (Product)
 
 ```java
 public   class  Product {
@@ -1563,13 +1764,13 @@ private  String title;
 private  Double price;}
 ```
 
-### Repository Interface (ProductRepository )
+#### Repository Interface (ProductRepository )
 ```java
 
 public   interface  ProductRepository  extends JpaRepository<Product, Integer>
 ```
 
-### Service Layer: Using Pagination
+#### Service Layer: Using Pagination
 
 ```java
 public  Page<Product> getAllProducts( int  pageNo,  int
@@ -1593,7 +1794,7 @@ page      |  Zero-based index of the page to retrieve.
 size       | Number of records per page.
 ----------------------------------------
 
-### Controller Layer: Handling Pagination Requests
+#### Controller Layer: Handling Pagination Requests
 
 ```java
 @GetMapping("/products")
@@ -1607,7 +1808,7 @@ return  productService.getAllProducts(pageNo, pageSize);
 }
 ```
 
-### Example Request and Response
+#### Example Request and Response
 
 Request URL:
 
@@ -1695,7 +1896,7 @@ Response (PageNumber-2 , 2 products per page):
 }
 ```
 
-##  Pagination Methods in Page Interface
+####  Pagination Methods in Page Interface
 
 ------------------------------------------------------
 Method            |   Description
@@ -1709,13 +1910,13 @@ hasNext()        |    Returns true if the next page exists.
 hasPrevious()   |     Returns true if a previous page exists.
 
 
-# Sorting in Spring Data JPA
+## Sorting in Spring Data JPA
 
-## What is Sorting?
+### What is Sorting?
 
 Sorting allows us to  order database records based on specific fields .
 
-### Sorting Methods in Spring Data JPA
+#### Sorting Methods in Spring Data JPA
 
 There are  three ways  to perform sorting:
 
@@ -1725,9 +1926,9 @@ There are  three ways  to perform sorting:
 
 3.   Using @Query Annotation for Custom Sorting
 
-## Sorting using Sort Parameter
+#### Sorting using Sort Parameter
 
-Service Method
+**Service Method**
 
 ```java
 // sort product using sort method
@@ -1739,7 +1940,7 @@ return  productRepository.findAll(Sort.by("price").descending());
 }
 ```
 
-Controller Method
+**Controller Method**
 
 ```java
 // sort by sort method
@@ -1755,7 +1956,7 @@ return  ResponseEntity.ok(listsorted);
 }
 ```
 
-Example Request:
+**Example Request:**
 
 http://localhost:8483/sortbyprice
 
@@ -1895,3 +2096,9 @@ Repository     | Page<T>              |List<T> findAll(Sort s)
 Support        | findAll(Pageable p)  |
 Methods Used   | PageRequest.of(page,   size)         |  Sort.by("column").ascending()
 Query Type     | JPQL, Native, Derived|  JPQL, Native, Derived
+
+---
+
+----
+
+> 
