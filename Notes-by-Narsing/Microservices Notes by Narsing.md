@@ -1201,15 +1201,19 @@ spring:
 
 ### What is CQRS in microservices?
 
-Answer:
+**Answer:**
 CQRS (Command Query Responsibility Segregation) separates read (Query Service) and write (Command Service) operations for performance
 optimization.
 
-📌 Example:
+**📌 Example:**
 
 - Writes: PostgreSQL for transactional data
 
 - Reads: Elasticsearch for fast querying
+
+---
+
+
 
 ### Steps to create Microservice application 
 
@@ -1674,7 +1678,7 @@ graph TD;
     style Eureka fill:#ffd580,stroke:#333,stroke-width:2px
 ```
 
-## Description
+##### Description
 
 - **Client** sends request.
 - **Gateway (Optional)** handles routing, security, and load balancing.
@@ -1688,27 +1692,21 @@ graph TD;
 
 # SWAGGER
 
-## What is swagger ?
+### What is swagger ?
 
-- Swagger is an open-source framework for designing, building, and
-  documenting RESTful APIs.
+- Swagger is an open-source framework for designing, building, and documenting RESTful APIs.
+  
+- It provides a simple, easy-to-use interface for developers to define API endpoints, parameters, responses, and other details.
 
-- It provides a simple, easy-to-use interface for developers to define
-  API endpoints, parameters, responses, and other details.
+### Why Swagger in Spring Boot?
 
-## Why Swagger in Spring Boot?
-
-1.  API Documentation: Swagger generates API documentation
-    automatically, making it easier for developers to understand and use
+1.  API Documentation: Swagger generates API documentation automatically, making it easier for developers to understand and use
     the API.
-
-2.  API Testing: Swagger provides a UI interface for testing API
-    endpoints, eliminating the need for external tools like Postman.
-
-3.  Contract-First Development: Swagger allows you to define the API
-    contract (endpoints, parameters, responses) before implementing the
-    API logic.
-
+    
+2.  API Testing: Swagger provides a UI interface for testing API endpoints, eliminating the need for external tools like Postman.
+    
+3.  Contract-First Development: Swagger allows you to define the API contract (endpoints, parameters, responses) before implementing the API logic.
+    
 4.  Automatic API documentation generation.
 
 5.  Interactive UI for testing APIs.
@@ -1717,36 +1715,33 @@ graph TD;
 
 7.  Supports multiple response types and request schemas.
 
-## Swagger Dependency 
+##### Swagger Dependency 
 
+```xml
 <dependency>
 <groupId>org.springdoc</groupId>
 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 <version>2.8.3</version>
 </dependency>
+```
 
-## Explanation of Swagger Annotations
 
- @Tag(name = "User Management", description = "APIs for managing
-users")
-Defines a category for API documentation.
 
-@Operation(summary = "...", description = "...")
-Describes the purpose of each API endpoint.
+##### Explanation of Swagger Annotations
 
- @ApiResponses(value = {...})
-Lists possible HTTP responses with status codes.
+ @Tag(name = "User Management", description = "APIs for managing users") Defines a category for API documentation.
 
- @ApiResponse(responseCode = "200", description = "Success",
-content = @Content(...))
-Specifies a response type for successful API calls.
+@Operation(summary = "...", description = "...") Describes the purpose of each API endpoint.
 
-@ApiResponse(responseCode = "404", description = "User not
-found")
-Handles cases where resources are missing.
+ @ApiResponses(value = {...}) Lists possible HTTP responses with status codes.
+
+ @ApiResponse(responseCode = "200", description = "Success", content = @Content(...))Specifies a response type for successful API calls.
+
+@ApiResponse(responseCode = "404", description = "User not found") Handles cases where resources are missing.
 
 Example :
 
+```java
 @RestController
 
 @RequestMapping("/api/admin")
@@ -1921,3 +1916,5 @@ AppUserResponse.class);
 }
 
 }
+```
+
