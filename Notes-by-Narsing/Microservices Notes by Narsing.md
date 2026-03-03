@@ -1163,8 +1163,6 @@ spring:
 
 ---
 
-
-
 ### How do you deploy microservices?
 
 - Docker (Containerization)
