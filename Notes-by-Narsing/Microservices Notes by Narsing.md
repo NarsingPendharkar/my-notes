@@ -865,7 +865,7 @@ public class FallbackController {
 
 ## Distributed Transactions in Microservices
 
-### 1. Definition / Introduction
+### 1. Introduction
 
 In microservices architecture, each service has its own database (Database-per-Service pattern).
 
@@ -883,55 +883,67 @@ Because of this:
 - Each service performs a local transaction
 - If one step fails → previous steps are rolled back using compensating actions
 
-graph TD;
+------
+
+##### 🔥 SAGA Pattern – Microservices Transaction Flow
 
 ```mermaid
-%% Step 1
-Step1[1️⃣ Order Service<br/>Create Order]
+graph TD;
 
-%% Step 2
-Step2[2️⃣ Publish Order Created Event]
+    %% Step 1
+    Step1[1️⃣ Order Service<br/>Create Order]
 
-%% Step 3
-Step3[3️⃣ Payment Service<br/>Process Payment]
+    %% Step 2
+    Step2[2️⃣ Publish Order Created Event]
 
-%% Step 4
-Step4[4️⃣ Publish Payment Success Event]
+    %% Step 3
+    Step3[3️⃣ Payment Service<br/>Process Payment]
 
-%% Step 5
-Step5[5️⃣ Inventory Service<br/>Reserve Product]
+    %% Step 4
+    Step4[4️⃣ Publish Payment Success Event]
 
-%% Step 6
-Step6[6️⃣ Publish Inventory Success Event]
+    %% Step 5
+    Step5[5️⃣ Inventory Service<br/>Reserve Product]
 
-%% Step 7
-Step7[7️⃣ Complete Order]
+    %% Step 6
+    Step6[6️⃣ Publish Inventory Success Event]
 
-%% Step 8 (Compensation)
-Step8[❌ If Failure → Trigger Compensation<br/>Refund / Cancel Order]
+    %% Step 7
+    Step7[7️⃣ Complete Order]
 
-%% Flow
-Step1 --> Step2
-Step2 --> Step3
-Step3 -->|Success| Step4
-Step4 --> Step5
-Step5 -->|Success| Step6
-Step6 --> Step7
+    %% Step 8 (Compensation)
+    Step8[❌ If Failure → Trigger Compensation<br/>Refund / Cancel Order]
 
-%% Failure Flow
-Step3 -->|Failure| Step8
-Step5 -->|Failure| Step8
+    %% Flow
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 -->|Success| Step4
+    Step4 --> Step5
+    Step5 -->|Success| Step6
+    Step6 --> Step7
 
-%% Styling
-style Step1 fill:#aed6f1,stroke:#333
-style Step2 fill:#d5f5e3,stroke:#333
-style Step3 fill:#aed6f1,stroke:#333
-style Step4 fill:#d5f5e3,stroke:#333
-style Step5 fill:#aed6f1,stroke:#333
-style Step6 fill:#d5f5e3,stroke:#333
-style Step7 fill:#f7dc6f,stroke:#333,stroke-width:2px
-style Step8 fill:#f5b7b1,stroke:#333,stroke-width:2px
+    %% Failure Flow
+    Step3 -->|Failure| Step8
+    Step5 -->|Failure| Step8
+
+    %% Styling
+    style Step1 fill:#aed6f1,stroke:#333
+    style Step2 fill:#d5f5e3,stroke:#333
+    style Step3 fill:#aed6f1,stroke:#333
+    style Step4 fill:#d5f5e3,stroke:#333
+    style Step5 fill:#aed6f1,stroke:#333
+    style Step6 fill:#d5f5e3,stroke:#333
+    style Step7 fill:#f7dc6f,stroke:#333,stroke-width:2px
+    style Step8 fill:#f5b7b1,stroke:#333,stroke-width:2px
 ```
+
+#### ✅ What is SAGA Pattern?
+
+SAGA is a distributed transaction pattern used in microservices where:
+
+- Each service performs **local transaction**
+- If one service fails → previously completed services execute **compensating transactions**
+- No global database transaction (No 2PC)
 
 ##### Types of Saga
 
@@ -970,6 +982,8 @@ style Step8 fill:#f5b7b1,stroke:#333,stroke-width:2px
 
 #### 3️⃣ Event-Driven Approach
 
+Event-Driven Architecture (EDA) is a design pattern where services communicate by **publishing and consuming events** through a **message broker**, instead of direct API calls.
+
 - Services publish events (e.g., OrderCreated)
 - Other services react asynchronously
 - Uses Kafka, RabbitMQ, etc.
@@ -980,6 +994,51 @@ style Step8 fill:#f5b7b1,stroke:#333,stroke-width:2px
 - Loose coupling
 - Supports eventual consistency
 - Common in modern banking systems
+
+```mermaid
+graph TD;
+
+    %% Step 1
+    Step1[1️⃣ Order Service<br/>Create Order]
+
+    %% Step 2
+    Step2[2️⃣ Publish Event<br/>Order Created]
+
+    %% Step 3
+    Step3[3️⃣ Message Broker<br/>Kafka / RabbitMQ]
+
+    %% Step 4
+    Step4[4️⃣ Payment Service<br/>Consume Event]
+
+    %% Step 5
+    Step5[5️⃣ Inventory Service<br/>Consume Event]
+
+    %% Step 6
+    Step6[6️⃣ Send Success / Failure Event]
+
+    %% Step 7
+    Step7[7️⃣ Update Order Status<br/>Completed / Failed]
+
+    %% Flow
+    Step1 --> Step2
+    Step2 --> Step3
+    Step3 --> Step4
+    Step3 --> Step5
+    Step4 --> Step6
+    Step5 --> Step6
+    Step6 --> Step7
+
+    %% Styling
+    style Step1 fill:#aed6f1,stroke:#333
+    style Step2 fill:#d5f5e3,stroke:#333
+    style Step3 fill:#f9e79f,stroke:#333,stroke-width:2px
+    style Step4 fill:#aed6f1,stroke:#333
+    style Step5 fill:#aed6f1,stroke:#333
+    style Step6 fill:#f5b7b1,stroke:#333
+    style Step7 fill:#f7dc6f,stroke:#333,stroke-width:2px
+```
+
+
 
 ---
 
