@@ -4,9 +4,9 @@
 
 ###  What is Hibernate? Why is it used?
 
-Answer:  Hibernate is a object relational mapping framework which maps the java classes to the database tables and java data types to SQL data types automatically and generates the queries automatically.
+**Answer:**  Hibernate is a object relational mapping framework which maps the java classes to the database tables and java data types to SQL data types automatically and generates the queries automatically.
 
-######  Advantages of Hibernate over JDBC:
+#####  Advantages of Hibernate over JDBC:
 
 - Reduces boilerplate code
 
@@ -20,7 +20,7 @@ Answer:  Hibernate is a object relational mapping framework which maps the java 
 
 - Provides HQL (Hibernate Query Language) for database operations
 
-######  Disadvantages of Hibernate over JDBC:
+#####  Disadvantages of Hibernate over JDBC:
 
 - Can't perform multiple insertion at a time
 
@@ -38,9 +38,9 @@ Answer:  Hibernate is a object relational mapping framework which maps the java 
 
 ## #What is ORM?
 
-Answer:  ORM stands for object relational mapping and it is a technic for converting object-oriented programming data to relational database.It is a programming technique that maps the object to the data stored in the database.
+**Answer:**  ORM stands for object relational mapping and it is a technic for converting object-oriented programming data to relational database.It is a programming technique that maps the object to the data stored in the database.
 
-## What are the advantages of Hibernate over JDBC?
+### What are the advantages of Hibernate over JDBC?
 
 -------------------------------------------------------------------------
 Feature          |   JDBC              |  Hibernate
@@ -53,9 +53,9 @@ Database       |      Database-specific  |  Works with multiple databases
 
 Hibernate Example :
 
-1.   First create new maven project and use quick-start arch type.
+1.   ##### First create new maven project and use quick-start arch type.
 
-2.   Then Add required dependencies in pom.xml
+2.   ##### Then Add required dependencies in pom.xml
 
 ```xml
 <!-- MS SQL -->
@@ -95,8 +95,7 @@ Hibernate Example :
 </dependency>
 ```
 
-3.   Create the hibernate configuration file in resource folder i.e
-hibernate.cfg.xml
+3. ##### Create the hibernate configuration file in resource folder i.e hibernate.cfg.xml
 
 ```xml
 <?xml version='1.0' encoding='UTF-8'?>
@@ -144,7 +143,7 @@ name="hibernate.connection.username">user</property>
 </hibernate-configuration>
 ```
 
-4.   Create class for table mapping
+4.   ##### Create class for table mapping
 
 ```java
 @Entity
@@ -169,7 +168,7 @@ private  String address;
 }
 ```
 
-5.   Now write a code to connect database and perform operation
+5.   ##### Now write a code to connect database and perform operation
 
 ```java
 public   static   void  main(String args) {
@@ -233,9 +232,9 @@ e.printStackTrace(); // Print the actual error
 }
 ```
 
-###   Steps to Create a  SessionFactory  Object in Hibernate and Perform an Operation
+###   Steps to Create a SessionFactory Object in Hibernate and Perform an Operation
 
-###### Step 1: Load Hibernate Configuration
+##### Step 1: Load Hibernate Configuration
 
 - The **Configuration** class is used to  load and   configure  Hibernate settings from `hibernate.cfg.xml`.
 
@@ -257,7 +256,7 @@ configuration.
 - `cfg.configure("hibernate.cfg.xml")` loads database connection
 details and Hibernate properties.'
 
-### Step 2: Add Annotated Entity Class (Optional)
+##### Step 2: Add Annotated Entity Class (Optional)
 
 - If you're using  annotations  instead of hbm.xml mapping files, register the entity class:
 
@@ -268,7 +267,7 @@ details and Hibernate properties.'
 - This tells Hibernate to recognize the @Entity annotated
 Employee class.
 
-### Step 3: Build the SessionFactory Object
+##### Step 3: Build the SessionFactory Object
 
 - The SessionFactory is the main Hibernate factory for   creating sessions:
 
@@ -280,7 +279,7 @@ Employee class.
 - buildSessionFactory reads the configuration and creates a  single instance  of SessionFactory.
 - This object  must be created once  (Singleton Pattern).
 
-### Step 4: Open a Session
+##### Step 4: Open a Session
 
 - A Session represents a  database connection .
 
@@ -292,7 +291,7 @@ Employee class.
 
 - Sessions are  not thread-safe ; use a new one for each transaction.
 
-### Step 5: Begin a Transaction
+##### Step 5: Begin a Transaction
 
 - Transactions ensure  ACID compliance :
 
@@ -304,7 +303,7 @@ Employee class.
 
 - All DB changes must be committed or rolled back within a transaction.
 
-### Step 6: Perform a Database Operation
+##### Step 6: Perform a Database Operation
 
 -  Example: Saving an Employee object
 
@@ -314,7 +313,7 @@ Employee class.
 
 - save(emp) inserts a new row if the primary key does not exist;  other wise, it updates.
 
-### Step 7: Commit the Transaction
+##### Step 7: Commit the Transaction
 
 - Save the changes to the database:
 
@@ -324,7 +323,7 @@ Employee class.
 
 - commit() makes the changes permanent.
 
-#### Step 8: Close the Session and SessionFactory
+##### Step 8: Close the Session and SessionFactory
 
 - Always  release resources  after use:
 
@@ -340,7 +339,7 @@ sessionFactory.close();
 
 - sessionFactory.close(); shuts down Hibernate completely.
 
-### ✅ Summary of Steps
+##### ✅ Summary of Steps
 
 ----------------------------------------------------------------------
 Step  |    Operation   |     Method Used
