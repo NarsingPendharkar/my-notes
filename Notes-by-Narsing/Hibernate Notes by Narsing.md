@@ -2036,11 +2036,11 @@ Method                           |  Description
 `Sort.by("name", "salary") `       |Sorts by name first, then salary.
 ------------------------------------------------------------
 
-# Combining Pagination & Sorting
+## Combining Pagination & Sorting
 
 You can combine both as shown below:
 
-### 📌 Example Service Method
+#### 📌 Example Service Method
 
 ```java
 public Page<Employee> getEmployees(String department, int page, int
@@ -2056,7 +2056,7 @@ return employeeRepository.findByDepartment(department, pageable);
 }
 ```
 
-### 📌 Example Controller
+#### 📌 Example Controller
 
 ```java
 @GetMapping("/employees")
@@ -2079,12 +2079,12 @@ sortDir);
 }
 ```
 
-### 📌 Example Request
+#### 📌 Example Request
 
 GET
 http://localhost:8080/employees?department=IT&page=0&size=3&sortBy=name&sortDir=desc
 
-# 🔹 Summary
+##### 🔹 Summary
 
 ------------------------------------------------------------------------
 Feature        | Pagination            | Sorting
