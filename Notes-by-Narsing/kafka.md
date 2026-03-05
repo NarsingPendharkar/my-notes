@@ -1,12 +1,164 @@
-# What is Apache Kafka?
 
-### Introduction
+
+# Kafka
+
+### What is Event Streaming?
+
+#### Definition
+
+**Event streaming** is the process of **capturing, storing, processing, and delivering data events in real time**.
+
+An **event** means something that happened in a system.
+
+Examples of events:
+
+- Order Created
+- Payment Completed
+- User Logged In
+- Sensor Temperature Updated
+
+Event streaming ensures **data flows continuously from source → processing → destination**.
+
+------
+
+##### Simple Idea
+
+Instead of saving data and processing it later, **systems process data instantly when it happens**.
+
+------
+
+##### Real-Life Analogy
+
+Event streaming is like the **human nervous system**.
+
+- Sensors → detect changes
+- Nerves → carry signals
+- Brain → processes signals
+- Body → reacts immediately
+
+Similarly:
+
+```text
+Event Source → Event Stream → Processing System → Action
+```
+
+Explanation
+
+- Systems generate events
+- Events flow through streams
+- Systems process them in real time
+- Data is delivered to other systems
+
+------
+
+### What is an Event?
+
+An **event** represents **a change or action in a system**.
+
+Example event structure:
+
+```json
+{
+  "event": "OrderCreated",
+  "orderId": 12345,
+  "user": "John",
+  "time": "2026-03-05T10:30:00"
+}
+```
+
+Important parts of an event:
+
+| Field      | Meaning                      |
+| ---------- | ---------------------------- |
+| Event Type | What happened                |
+| Data       | Information related to event |
+| Timestamp  | When event occurred          |
+
+------
+
+### Event Streaming Flow
+
+Typical event streaming process:
+
+1. **Event is generated**
+2. **Event is captured**
+3. **Event is stored**
+4. **Event is processed**
+5. **Event is delivered to other systems**
+
+------
+
+##### Visual Flow
+
+```mermaid
+flowchart LR
+    A[Event Source\nApp / Sensor / DB]
+    B[Event Streaming Platform]
+    C[Stream Processing]
+    D[Consumer Applications]
+
+    A --> B
+    B --> C
+    C --> D
+```
+
+------
+
+#### Common Use Cases of Event Streaming
+
+##### 1. Financial Transactions
+
+Banks process payments instantly.
+
+Example:
+
+1. ATM Withdrawal
+2. Credit Card Payment
+3. UPI Transfer
+
+------
+
+##### 2. Logistics Tracking
+
+Track vehicles and shipments in real time.
+
+Example:
+
+1. Truck Location Updated
+2. Shipment Delivered
+3. Fuel Level Updated
+
+------
+
+##### 3. IoT Sensor Monitoring
+
+Factories continuously monitor machines.
+
+Example:
+
+1. Temperature Sensor
+2. Pressure Sensor
+3. Machine Status
+
+------
+
+##### 4. Customer Activity Tracking
+
+Retail and apps track user actions.
+
+Example:
+
+1. Product Viewed
+2. Order Placed
+3. Payment Completed
+
+---
+
+### What is Apache Kafka?
+
+#### Introduction
 
 Apache Kafka is a **distributed event-streaming platform** designed to handle very large amounts of data in real time. Kafka can process millions of messages per second, store them safely, and allow multiple consumers to read the same data independently.
-
-Apache Kafka is like a big, fast room where lots of information comes in from many places. It makes sure all the information is kept and processed in the right order. This allows us to look at and understand what is happening right now. Kafka is great for dealing with huge amounts of information that keep coming all the time.
-
-For example, imagine a big river where thousands of different colored balls are thrown in regularly. Kafka is like a special machine that catches each ball, sorts them by color, and puts them in separate containers. We can then find and look at the balls based on their colors.
 
 In simple words, Kafka allows applications to:
 
@@ -43,7 +195,7 @@ Kafka is widely used when:
 
 ------
 
-#### How Kafka Works (Simple Architecture)
+##### How Kafka Works (Simple Architecture)
 
 ```mermaid
 flowchart LR
@@ -140,7 +292,7 @@ flowchart LR
 
 ------
 
-## Real-Life Example (E-commerce)
+##### Real-Life Example (E-commerce)
 
 User places an order.
 
@@ -162,62 +314,430 @@ Consumers:
 All consume the **same event independently**.
 
 ---
-### What is a Kafka Broker?
 
-A Kafka broker is like a helper that lets information go between those who send information (producers) and those who receive information (consumers). The broker handles all requests to write new information and read existing information. The Kafka cluster is the group of one or more Kafka brokers working together. Each broker in the cluster has its own unique number ID. For example lets say we have the cluster of the 3 Kafka brokers. Each of these 3 brokers has its own special number ID that is different from the others.
+## Apache Kafka Core Components 
 
-flowchart TB
-    subgraph Cluster
-        B1[Broker1]
-        B2[Broker2]
-        B3[Broker3]
+------
+
+### Kafka Cluster
+
+#### Definition
+
+A **Kafka Cluster** is a **group of multiple Kafka brokers working together** to store and manage data streams.
+It provides **high availability, scalability, and fault tolerance**.
+
+If one broker fails, another broker in the cluster can continue serving the data.
+
+------
+
+##### Example
+
+Imagine an **e-commerce system**.
+
+- Order service sends events
+- Payment service sends events
+- Inventory service sends events
+
+These events are stored across **multiple brokers inside a Kafka cluster** so the system can handle millions of messages.
+
+Example Event:
+
+1. Order Created
+2. Payment Completed
+3. Inventory Updated
+
+```mermaid
+flowchart LR
+    Producer1[Order Service] --> B1[Broker 1]
+    Producer2[Payment Service] --> B2[Broker 2]
+    Producer3[Inventory Service] --> B3[Broker 3]
+
+    subgraph Kafka Cluster
+        B1
+        B2
+        B3
     end
-    P[Producer] --> B1
-    C[Consumer] --> B2
+
+    B1 --> Consumer[Analytics Service]
+    B2 --> Consumer
+    B3 --> Consumer
+```
+
+Explanation:
+
+- Multiple brokers together form a **Kafka Cluster**
+- Producers send data to the cluster
+- Consumers read data from the cluster
+
+------
+
+### Kafka Broker
+
+#### Definition
+
+A **Kafka Broker** is a **Kafka server responsible for receiving, storing, and serving messages**.
+
+Each broker stores **topics and partitions** and handles requests from **producers and consumers**.
+
+Every broker has a **unique broker ID**.
+
+------
+
+##### Example
+
+A banking system publishes transactions:
+
+1. Account Debited
+2. Account Credited
+3. Transaction Completed
+
+The **Kafka Broker stores these messages inside topic partitions** and provides them to consumers.
 
 
-#### Kafka Broker
-A Kafka broker is like a single worker or machine in the Kafka system. Its main jobs are to receive new messages coming in safely store those messages and provide the stored messages to any consumers that need them. The broker acts as the middle person between producers sending messages and consumers receiving messages.
 
-#### Cluster
-A Kafka cluster is a group of multiple Kafka brokers all working together. Having a cluster allows Kafka to handle very large amounts of data. If more data needs to be processed new brokers can easily be added to make the cluster bigger. If less data needs processing, brokers can be removed to make the cluster smaller.
+```mermaid
+flowchart TB
+    Producer --> Broker
 
-#### Topic
-A topic is like a labelled box or category that related messages go into in Kafka. Producers publish their messages into a specific topic box. Consumers subscribe to one or more topic boxes to receive all the messages placed into those boxes. Using topics helps organize messages and allows parallel processing of different message categories.
+    subgraph Broker
+        Topic[Transaction Topic]
 
-#### Partitions
-Each topic is further divided into partitions. A partition is like a sub-box inside the main topic box. Having partitions allows a topics messages to be spread across multiple brokers enabling parallel processing. Each partition is stored on a separate Kafka broker in the cluster. This prevents any single broker from getting overloaded with data.
+        Topic --> P1[Partition 0]
+        Topic --> P2[Partition 1]
+        Topic --> P3[Partition 2]
+    end
 
-#### Working of Kafka Broker
+    Broker --> Consumer
+```
 
-Producers send messages
-Producers are programs or applications that create and send data messages to Kafka brokers. These messages can contain any type of data like logs, events, records or other information from the producer. Producers are responsible for pushing their data into the Kafka system.
+Explanation:
 
-#### Message storage
-When producers send messages, the Kafka brokers receive and safely store those messages. The brokers act like secure storage spaces that hold onto the messages until they are needed. The messages are kept in an organized way that allows fast reading and writing, so they can be easily accessed later.
+- Broker receives messages
+- Stores them in **topics**
+- Topics contain **partitions**
+- Consumers read messages
 
-#### Topics and partitions
-Inside Kafka, related messages are grouped together into categories called topics. A topic is like a big labeled box that holds all messages of the same type or category. However, each topic is further divided into smaller partitions, which are like sub boxes inside the main topic box. Having these partitions allows different parts of the big topic to be processed in parallel by multiple brokers at the same time. Partitions also make it easy to increase processing power by simply adding more partitions as the amount of data grows.
+------
 
-#### Replication for reliability
-To ensure no data is lost if a broker fails, Kafka makes multiple copies or replicas of each partition across different brokers in the cluster. So if one broker goes down the replicas on other brokers can still serve the messages, providing reliability and preventing data loss.
+### Kafka Connect
 
-#### Leaders and followers
-For the each partition one broker acts as the leader and is responsible for the handling all read and write requests for that partitions messages. The other brokers that have the replicas of that partition are called the followers. The followers constantly copy over any new data from the leader to stay update. If the leader broker fails one of the follower brokers is automatically elected as the new leader to take over.
+#### Definition
 
-#### Consumer consumption
-Consumers are the applications that subscribe to one or more topics in order to receive and process the messages from those topics. As the new messages are published to the topic by the producers the Kafka brokers deliver those messages to all the subscribed consumers for that topic. Importantly consumers receive the messages in the exact same order they were originally sent by the producers allowing for the proper sequential and real time processing.
+**Kafka Connect** is a tool used to **integrate Kafka with external systems** like databases, file systems, and cloud storage.
 
-### How Kafka Brokers Connect with Producers and Consumers
-Apache Kafka brokers are the intermediary between producers (who write data) and consumers (who read data). This is how they interact on both sides:
+It helps **import data into Kafka or export data from Kafka** without writing custom code.
 
-Producers Interaction
-Producers send a message to a broker's leader partition of a specific Kafka topic.
+There are two types:
 
-The broker writes the message and sends an acknowledgment (ACK) back to the producer after successfully writing the message.
-Producers can be configured for high reliability with features like acks=all and idempotent producers to avoid duplications.
-#### Consumers Interaction
-Consumers pull messages directly from the topic partitions of the broker.
+- **Source Connector** → moves data **into Kafka**
+- **Sink Connector** → moves data **from Kafka to another system**
 
-Kafka uses the consumer groups to manage the message delivery across multiple consumers.
-Each consumer gets one partition out of the partitioned group such that there's parallel processing, load balancing, and efficient consumption of real-time data.
+------
+
+##### Example
+
+Banking transaction data stored in **MySQL database** needs to be streamed to Kafka.
+
+Kafka Connect reads data from MySQL and pushes it into Kafka topics.
+
+Example flow:
+
+```
+MySQL Database → Kafka Topic → Analytics System
+```
+
+
+
+```mermaid
+flowchart LR
+    DB[(MySQL Database)]
+    KC[Kafka Connect]
+    KT[Kafka Topic]
+    ES[(Elasticsearch)]
+
+    DB -->|Source Connector| KC
+    KC --> KT
+    KT -->|Sink Connector| ES
+```
+
+Explanation:
+
+- Source connector imports data from DB
+- Sink connector exports data to another system
+
+------
+
+### Kafka Streams
+
+#### Definition
+
+**Kafka Streams** is a **Java library used to process and transform Kafka data in real time**.
+
+It allows developers to perform operations like:
+
+- Filtering
+- Aggregation
+- Transformation
+- Windowing
+
+directly on streaming data.
+
+------
+
+##### Example
+
+An e-commerce system processes order events.
+
+Incoming events:
+
+```cmd
+Order Created
+
+Order Cancelled
+
+Order Completed
+```
+
+Kafka Streams processes these events to calculate **real-time sales statistics**.
+
+Example result:
+
+```cmd
+Total Orders Today: 1500
+Total Revenue: $50,000
+```
+
+
+
+------
+
+##### example 
+
+```mermaid
+flowchart LR
+    Producer[Order Service] --> Topic1[Order Topic]
+
+    Topic1 --> Streams[Kafka Streams Processing]
+
+    Streams --> Topic2[Processed Orders]
+    Topic2 --> Consumer[Analytics Dashboard]
+```
+
+**Explanation:**
+
+- Producer sends events
+- Kafka Streams processes events
+- Output is stored in another topic
+- Consumers read processed data
+
+------
+
+##### Quick Summary Table
+
+| Component     | Purpose                                              |
+| ------------- | ---------------------------------------------------- |
+| Kafka Cluster | Group of brokers working together                    |
+| Kafka Broker  | Server that stores and manages messages              |
+| Kafka Connect | Tool to move data between Kafka and external systems |
+| Kafka Streams | Library to process Kafka data in real time           |
+
+---
+
+## Kafka Topics and Partitions
+
+------
+
+### Kafka Topic
+
+#### Definition
+
+A **Kafka Topic** is a **logical category or channel where messages (events) are stored**.
+
+Producers **send messages to a topic**, and consumers **read messages from that topic**.
+
+A topic works like a **message category**.
+
+------
+
+##### Example
+
+In an **e-commerce system**, different topics can exist.
+
+1. order-topic
+2. payment-topic
+3. shipment-topic
+
+Example events in `order-topic`:
+
+- Order Created
+- Order Cancelled
+- Order Delivered
+
+##### 
+
+```mermaid
+flowchart LR
+    Producer --> Topic
+    Topic --> Consumer1
+    Topic --> Consumer2
+```
+
+Explanation
+
+- Producer sends messages to **topic**
+- Multiple consumers can read messages from the same topic
+
+------
+
+```mermaid
+flowchart LR
+    OrderService --> OrderTopic
+    PaymentService --> PaymentTopic
+
+    OrderTopic --> AnalyticsService
+    OrderTopic --> NotificationService
+
+    PaymentTopic --> BillingService
+```
+
+Explanation
+
+- Multiple services produce data
+- Data is stored in different topics
+- Consumers read topics based on their needs
+
+------
+
+### Kafka Partition
+
+#### Definition
+
+A **Partition** is a **physical division of a Kafka topic used to store data and enable parallel processing**.
+
+Topics are split into **multiple partitions** to improve:
+
+- **Scalability**
+- **Performance**
+- **Parallel consumption**
+
+Messages inside a partition are stored in **ordered sequence**.
+
+------
+
+##### Example
+
+Topic: `order-topic`
+
+1. Partition 0
+2. Partition 1
+3. Partition 2
+
+Events stored like:
+
+```text
+Partition 0 → Order1, Order4, Order7
+Partition 1 → Order2, Order5, Order8
+Partition 2 → Order3, Order6, Order9
+```
+
+```mermaid
+flowchart TB
+    Producer --> Topic
+
+    subgraph Topic
+        P0[Partition 0]
+        P1[Partition 1]
+        P2[Partition 2]
+    end
+
+    P0 --> Consumer
+    P1 --> Consumer
+    P2 --> Consumer
+```
+
+Explanation
+
+- Topic is divided into partitions
+- Producers send messages
+- Consumers read from partitions
+
+------
+
+#### How Messages Are Stored in Partition
+
+Each message gets an **offset** (unique sequence number).
+
+Example:
+
+```text
+Partition 0
+
+Offset 0 → Order Created
+Offset 1 → Payment Done
+Offset 2 → Order Shipped
+```
+
+```mermaid
+flowchart TB
+    P[Partition]
+
+    P --> O0[Offset 0]
+    P --> O1[Offset 1]
+    P --> O2[Offset 2]
+```
+
+Explanation
+
+- Messages are stored sequentially
+- Offset helps consumers track reading position
+
+------
+
+### Why Partitions Are Important
+
+Partitions allow Kafka to **process large volumes of data efficiently**.
+
+Benefits:
+
+| Benefit             | Explanation                                       |
+| ------------------- | ------------------------------------------------- |
+| Scalability         | Topics can grow with more partitions              |
+| Parallel Processing | Multiple consumers read partitions simultaneously |
+| High Throughput     | Large number of messages handled                  |
+| Fault Tolerance     | Partitions can be replicated across brokers       |
+
+------
+
+##### Example: Parallel Processing
+
+```mermaid
+flowchart LR
+    Producer --> Topic
+
+    subgraph Topic
+        P0[Partition 0]
+        P1[Partition 1]
+        P2[Partition 2]
+    end
+
+    P0 --> Consumer1
+    P1 --> Consumer2
+    P2 --> Consumer3
+```
+
+Explanation
+
+- Each consumer reads a **different partition**
+- Messages processed **in parallel**
+- Improves performance
+
+------
+
+##### Quick Comparison
+
+| Concept   | Meaning                              |
+| --------- | ------------------------------------ |
+| Topic     | Logical category of messages         |
+| Partition | Physical storage unit inside topic   |
+| Offset    | Position of message inside partition |
+
