@@ -166,6 +166,15 @@ All consume the **same event independently**.
 
 A Kafka broker is like a helper that lets information go between those who send information (producers) and those who receive information (consumers). The broker handles all requests to write new information and read existing information. The Kafka cluster is the group of one or more Kafka brokers working together. Each broker in the cluster has its own unique number ID. For example lets say we have the cluster of the 3 Kafka brokers. Each of these 3 brokers has its own special number ID that is different from the others.
 
+flowchart TB
+    subgraph Cluster
+        B1[Broker1]
+        B2[Broker2]
+        B3[Broker3]
+    end
+    P[Producer] --> B1
+    C[Consumer] --> B2
+
 
 #### Kafka Broker
 A Kafka broker is like a single worker or machine in the Kafka system. Its main jobs are to receive new messages coming in safely store those messages and provide the stored messages to any consumers that need them. The broker acts as the middle person between producers sending messages and consumers receiving messages.
