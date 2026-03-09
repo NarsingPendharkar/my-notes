@@ -1323,21 +1323,19 @@ Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction**
 
 # 🧱 Collection Framework
 
-#### 💡 What is the Collection Framework?
+### 💡 What is the Collection Framework?
 
 The **Collection Framework** in Java is a **unified architecture** that provides **ready-made data structures** and **algorithms** to store, retrieve, and manipulate groups of objects efficiently.
 
 It is part of the **`java.util` package** and helps developers avoid writing custom data structures like arrays, linked lists, or hash tables from scratch.
 
----
+##### 🧠 Definition :
 
-#### 🧠 Definition
-
-> The **Collection Framework** is a set of **classes and interfaces** that implement commonly reusable collection data structures such as **List**, **Set**, **Queue**, and **Map**.
+The **Collection Framework** is a set of **classes and interfaces** that implement commonly reusable collection data structures such as **List**, **Set**, **Queue**, and **Map**.
 
 ---
 
-#### ⚙️ Key Features
+##### ⚙️ Key Features
 
 - Provides **predefined data structures** for storing objects.
 - Supports **searching, sorting, insertion, deletion, and iteration**.
@@ -1347,7 +1345,7 @@ It is part of the **`java.util` package** and helps developers avoid writing cus
 
 ---
 
-#### 🧩 Key Interfaces in the Collection Framework
+##### 🧩 Key Interfaces in the Collection Framework
 
 | **Interface** | **Description**                                              |
 | ------------- | ------------------------------------------------------------ |
@@ -1355,14 +1353,6 @@ It is part of the **`java.util` package** and helps developers avoid writing cus
 | **Set**       | Unordered collection that does **not allow duplicates**. Example: `HashSet`, `LinkedHashSet`, `TreeSet`. |
 | **Queue**     | Follows **FIFO (First-In-First-Out)** order. Example: `PriorityQueue`, `LinkedList`. |
 | **Map**       | Stores elements in **key–value pairs** where keys are unique. Example: `HashMap`, `LinkedHashMap`, `TreeMap`. |
-
----
-
-#### 🧰 Package Location
-
-> All collection classes and interfaces are part of **`java.util`** package.
-
----
 
 ### 🧾 Example
 
@@ -1380,11 +1370,11 @@ public class CollectionExample {
 }
 ```
 
-#### What is the difference between Collection and Collections in Java?
+### What is the difference between Collection and Collections in Java?
 
-- **Collection**: It is the root interface of all collections in Java.It provides methods for adding, removing, and checking the size of a collection.
+- **Collection**: It is the root interface of all collections in Java. It provides methods for adding, removing, and checking the size of a collection.
   
-- **Collections**: It is a utility class that provides static methods tomanipulate and process collections.
+- **Collections**: It is a utility class that provides static methods to manipulate and process collections.
 
 ---
 
@@ -1416,8 +1406,10 @@ public class CollectionExample {
     public static void main(String[] args) {
         List<String> list = new ArrayList<>(Arrays.asList("A", "B", "A"));
         Set<String> set = new HashSet<>(Arrays.asList("A", "B", "A"));
-        Map<Integer, String> map = new HashMap<>();        map.put(1, "Java");
-        map.put(2, "Python");        System.out.println(list); // Output: [A, B, A]
+        Map<Integer, String> map = new HashMap<>();        
+        map.put(1, "Java");
+        map.put(2, "Python");        
+        System.out.println(list); // Output: [A, B, A]
         System.out.println(set);  // Output: [A, B]
         System.out.println(map);  // Output: {1=Java, 2=Python}
     }
@@ -1555,7 +1547,7 @@ Use **ArrayList** unless **thread safety** is specifically required.
 
 ---
 
-### How do you sort a List in Java?
+#### How do you sort a List in Java?
 
 - **Using Collections.sort()**
 
@@ -1908,7 +1900,7 @@ List <Integer > flattenedList = listOfLists.stream().flatMap(List::stream).colle
 System.out.println(flattenedList); // Output:  [1, 2, 3, 4, 5, 6 ]
 ```
 
-#### **Terminal Operations with Examples**
+### **Terminal Operations with Examples**
 
 - **forEach(Consumer <T > action)**
 
@@ -2015,7 +2007,7 @@ System.out.println(allEven); // Output: true
 ```
 
 
-####  Default & Static Methods in Interfaces
+###  Default & Static Methods in Interfaces
 
 - Java 8 allows default method implementations in interfaces.
 
@@ -2078,7 +2070,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 # Multithreading
 
-**What is Threads ?**
+### **What is Threads ?**
 
 - Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
@@ -2088,7 +2080,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - Multithreading enables you to perform multiple tasks at a time
 
-**What is Multithreading in Java?**
+### **What is Multithreading in Java?**
 
 - Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
@@ -2143,7 +2135,7 @@ A thread goes through several states:
 
 4.  **Terminated:** Thread execution completed or stopped.
 
-#### What are the Different Ways to Create a Thread?
+### What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -2175,13 +2167,13 @@ th.start();
 }
 ```
 
-##### Why Prefer Runnable Over Thread?
+### Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
 - Separation of **task (Runnable) and thread execution (Thread)**.
 
-##### What is the Difference Between start() and run()?
+### What is the Difference Between start() and run()?
 
 **Answer:**
 
@@ -2194,7 +2186,7 @@ th.start();
 
 --------------------------------------------------
 
-##### What is Thread Synchronization?
+### What is Thread Synchronization?
 
 Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time.
 
@@ -2302,7 +2294,7 @@ public static void main(String[] args) throws InterruptedException {
 
 ---
 
-#### **Java Thread Methods and Their Uses**
+##### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
 
@@ -2330,46 +2322,253 @@ public static void main(String[] args) throws InterruptedException {
 
 ---------------------------------------------------------------------------
 
-#### **What is Deadlock and How to Avoid It?**
+Below is a **clean interview-ready Markdown note** you can use for revision.
 
-**Answer:**
+------
 
-Deadlock occurs when **two or more threads wait indefinitely** for each other's locked resources.
+# Deadlock 
 
-**✅ Example: Deadlock Situation**
+##### 1. Definition
+
+**Deadlock** is a situation where **two or more threads are blocked forever**, each waiting for the other thread to release a resource.
+
+In simple words:
+
+> **Thread A waits for a resource held by Thread B, and Thread B waits for a resource held by Thread A.**
+
+As a result, **both threads never complete execution**.
+
+------
+
+##### 2. Conditions Required for Deadlock
+
+Deadlock occurs when the following **4 conditions** happen simultaneously.
+
+| Condition        | Meaning                                           |
+| ---------------- | ------------------------------------------------- |
+| Mutual Exclusion | Resource can be used by only one thread at a time |
+| Hold and Wait    | Thread holds one resource and waits for another   |
+| No Preemption    | Resource cannot be forcibly taken                 |
+| Circular Wait    | Threads wait for each other in a cycle            |
+
+------
+
+##### 3. Example
 
 ```java
-public class Resource {
-synchronized void method1(Resource r2) {
-System.out.println(Thread.currentThread().getName() + " locked method1");
-try { Thread.sleep(100); } catch (InterruptedException e) {}
-r2.method2();
-}
-synchronized void method2() {
-System.out.println(Thread.currentThread().getName() + " locked method2");
-}
-}
-
 public class DeadlockExample {
-public static void main(String[] args) {
-Resource r1 = new Resource();
-Resource r2 = new Resource();
-Thread t1 = new Thread(() -> r1.method1(r2), "Thread-1");
-t1.start();
-t2.start();
-}
-}
 
+    private static final Object lock1 = new Object();
+    private static final Object lock2 = new Object();
+
+    public static void main(String[] args) {
+
+        Thread t1 = new Thread(() -> {
+            synchronized (lock1) {
+                System.out.println("Thread1 locked lock1");
+
+                try { Thread.sleep(100); } catch (Exception e) {}
+
+                synchronized (lock2) {
+                    System.out.println("Thread1 locked lock2");
+                }
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            synchronized (lock2) {
+                System.out.println("Thread2 locked lock2");
+
+                try { Thread.sleep(100); } catch (Exception e) {}
+
+                synchronized (lock1) {
+                    System.out.println("Thread2 locked lock1");
+                }
+            }
+        });
+
+        t1.start();
+        t2.start();
+    }
+}
 ```
 
-> // output : Thread-2 locked method1
-> // output : Thread-1 locked method1
+##### What happens here
 
-**Avoid Deadlock:**
+1. **Thread1 locks lock1**
+2. **Thread2 locks lock2**
+3. Thread1 waits for **lock2**
+4. Thread2 waits for **lock1**
 
-- Always **lock resources in a fixed order**.
+Both threads wait forever → **Deadlock**
 
-- Use **timeouts** with tryLock() from ReentrantLock.
+------
+
+##### 4. Deadlock Visualization
+
+```mermaid
+graph LR
+
+Thread1 -->|holds| Lock1
+Thread2 -->|holds| Lock2
+
+Thread1 -->|waiting for| Lock2
+Thread2 -->|waiting for| Lock1
+```
+
+------
+
+##### 5. Circular Wait Diagram
+
+```mermaid
+graph TD
+
+T1(Thread 1)
+T2(Thread 2)
+
+L1(Lock 1)
+L2(Lock 2)
+
+T1 -->|holds| L1
+T2 -->|holds| L2
+
+T1 -->|waiting| L2
+T2 -->|waiting| L1
+```
+
+------
+
+##### 6. Real Life Example
+
+Imagine:
+
+- Person A holds **Pen**
+- Person B holds **Paper**
+
+Person A says:
+"I will give pen after I get paper"
+
+Person B says:
+"I will give paper after I get pen"
+
+Both wait forever → **Deadlock**
+
+------
+
+#### 7. How to Avoid Deadlock
+
+##### 1. Lock Ordering
+
+Always acquire locks in the **same order**.
+
+Correct Example:
+
+```java
+synchronized(lock1){
+    synchronized(lock2){
+        // safe
+    }
+}
+```
+
+All threads must follow **lock1 → lock2 order**.
+
+------
+
+##### 2. Use tryLock()
+
+Using `ReentrantLock`.
+
+```java
+Lock lock1 = new ReentrantLock();
+Lock lock2 = new ReentrantLock();
+
+if(lock1.tryLock()){
+    try{
+        if(lock2.tryLock()){
+            try{
+                // critical section
+            }finally{
+                lock2.unlock();
+            }
+        }
+    }finally{
+        lock1.unlock();
+    }
+}
+```
+
+------
+
+##### 3. Timeout Mechanism
+
+Avoid waiting forever.
+
+----
+
+##### Q1: What is Deadlock?
+
+**Answer**
+
+Deadlock is a situation where **two or more threads wait forever for resources held by each other**, causing the program to stop progressing.
+
+------
+
+##### Q2: What are the four conditions for Deadlock?
+
+**Answer**
+
+1. Mutual Exclusion
+2. Hold and Wait
+3. No Preemption
+4. Circular Wait
+
+------
+
+##### Q3: How do you detect Deadlock in Java?
+
+**Answer**
+
+Java provides **ThreadMXBean** to detect deadlocks.
+
+```java
+ThreadMXBean bean = ManagementFactory.getThreadMXBean();
+long[] threadIds = bean.findDeadlockedThreads();
+```
+
+------
+
+##### Q4: How can we prevent Deadlock?
+
+**Answer**
+
+- Lock ordering
+- Using `tryLock()`
+- Timeout
+- Avoid nested locks
+- Reduce synchronization
+
+------
+
+##### Q5: Difference Between Deadlock and Starvation
+
+| Feature    | Deadlock                            | Starvation               |
+| ---------- | ----------------------------------- | ------------------------ |
+| Definition | Threads wait forever for each other | Thread never gets CPU    |
+| Cause      | Circular resource dependency        | Low priority thread      |
+| Result     | Program stuck                       | Thread execution delayed |
+
+------
+
+##### 9. Interview Tip (Important)
+
+Interviewers often ask:
+
+> "Can deadlock happen with **synchronized** blocks?"
+
+Answer:
+
+**Yes.** Deadlock commonly occurs when **multiple synchronized blocks lock resources in different order**.
 
 ----
 
