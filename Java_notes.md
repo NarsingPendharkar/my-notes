@@ -1,6 +1,6 @@
 
 
-#  Java Notes
+#  Java
 
 ### 💻 Is Java Platform Independent? If yes, how?
 
@@ -77,6 +77,8 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
+> [!TIP]
+>
 > 🧠 **Summary:**  
 > - Java simplifies development by managing memory and platform differences internally.  
 > - C++ offers more hardware control but requires manual memory management.
@@ -148,31 +150,52 @@ public class Main {
 
 ### How do you create an object ?
 
-- Using **new** keyword
+- **Using new keyword**
 
 > ```java
 > Car myCar = new Car();
 > ```
 >
 
-- Using reflection (Class.forName()):
+- **Using Reflection (`newInstance()`)**
 
 > ```java
-> Car obj = (Car) Class.forName("Car").newInstance();
+> class Student {
+> 
+>     void show() {
+>         System.out.println("Object created using reflection");
+>     }
+> }
+> 
+> public class Test {
+> 
+>     public static void main(String[] args) throws Exception {
+> 
+>         Student s = Student.class.newInstance();
+>         s.show();
+>     }
+> }
 > ```
 
-- Using clone method (clone()):
+- **Using clone method (clone()):**
 
 > ```java
-> Car car2 = (Car) car1.clone();
+> class Student implements Cloneable {
+> 
+>     int id = 10;
+> 
+>     public Object clone() throws CloneNotSupportedException {
+>         return super.clone();
+>     }
+> }
 > ```
 
-- Using deserialization (ObjectInputStream):
+- **Using deserialization (ObjectInputStream):**
 
 > ```java
-> ObjectInputStream in = new ObjectInputStream(new
-> FileInputStream("file.dat"));
-> Car = (Car) in.readObject();
+> ObjectInputStream in = new ObjectInputStream(new FileInputStream("object.ser"));
+> 
+> Student s = (Student) in.readObject();
 > ```
 >
 
@@ -188,6 +211,11 @@ public class Main {
 
 --------------------------------------------------
 
+<div style="display:flex;align-items:center;margin:60px 0;">
+<hr style="flex:1;border:none;height:2px;background:#007bff;">
+<span style="width:12px;height:12px;background:#007bff;border-radius:50%;margin:0 10px;"></span>
+<hr style="flex:1;border:none;height:2px;background:#007bff;">
+</div>
 
 ### Constructors
 
@@ -277,8 +305,6 @@ public class Singleton {
 
 ---
 
-
-
 #### How do you design an immutable class in Java? What rules should you follow?
 
 An **immutable class** is a class whose objects cannot be modified once created.
@@ -333,9 +359,9 @@ public final class Immutable {
 
 
 
-✅ No setters,
-✅ Fields are private final,
-✅ Class is final,
+✅ No setters
+✅ Fields are private final
+✅ Class is final
 ➡️ Hence, **Immutable**
 
 **Modern Approach (Using record in Java 16+)**
