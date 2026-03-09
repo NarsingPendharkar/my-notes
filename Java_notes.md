@@ -910,13 +910,32 @@ public class Example {
 
 - Static blocks execute when the class is loaded.
 
-------
-
-###  
+---
 
 <div align="center"><h1>OOPs (Object-Oriented Programming) </h1></div>
 
-Object-Oriented Programming (OOP) principles, which include Encapsulation, Inheritance, Polymorphism, and Abstraction.
+- **OOP (Object-Oriented Programming)** is a programming approach where programs are designed using **objects and classes** that contain **data (variables) and behavior (methods)**.
+- An **object** represents a real-world entity and contains **data (variables)** and **behavior (methods)**.
+- OOP helps to make programs **modular, reusable, and easy to maintain**.
+
+##### Core Principles of OOP
+
+| Principle         | Description                                  |
+| ----------------- | -------------------------------------------- |
+| **Encapsulation** | Wrapping data and methods into a single unit |
+| **Inheritance**   | One class acquiring properties of another    |
+| **Polymorphism**  | One method having multiple forms             |
+| **Abstraction**   | Hiding implementation details                |
+
+
+
+```mermaid
+graph TD
+OOP --> Encapsulation
+OOP --> Inheritance
+OOP --> Polymorphism
+OOP --> Abstraction
+```
 
 ### What are the four main principles of OOP?
 
@@ -930,17 +949,11 @@ The four pillars of Object-Oriented Programming (OOP) in are:
 
 - **Abstraction** → Hiding implementation details from users.
 
-![](./media/media/image20.png){width="4.873470034995625in"
-height="3.25in"}
+![](./media/media/image20.png){width="1.873470034995625in"
+height="1.25in"}
 
-### What is the difference between an Object and a Class?
 
---------------------------------------------------------
-  Feature |     Class             |      Object
-------------| -----------------------| -------------------
-  Definition|   Blueprint for creating objects | Instance of a class
-  Memory   |    No memory allocated  |   Memory is allocated
-  Example  |    Car class     |          Car myCar = new Car();
+
 ------
 
 ### What is Encapsulation?
