@@ -111,6 +111,10 @@ The wrapper class is an object class that encapsulates the primitive data types,
 
 ---
 
+<div align="center">
+    <h1>Class & Object </h1>
+</div>
+
 ### What is a class?
 
 - A class is a blueprint/template for creating objects. It defines attributes (fields/variables) and behavior's (methods).
