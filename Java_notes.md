@@ -1477,7 +1477,7 @@ public class SetExamples {
 
 ---
 
-### 🧠 Example
+##### 🧠 Example
 
 ```java
 import java.util.*;
