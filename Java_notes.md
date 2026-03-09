@@ -209,13 +209,9 @@ public class Main {
 | Memory     | No Memory            | Memory is allocated   |
 | Example    | Car class            | Car carObj=new Car(); |
 
---------------------------------------------------
 
-<div style="display:flex;align-items:center;margin:60px 0;">
-<hr style="flex:1;border:none;height:2px;background:#007bff;">
-<span style="width:12px;height:12px;background:#007bff;border-radius:50%;margin:0 10px;"></span>
-<hr style="flex:1;border:none;height:2px;background:#007bff;">
-</div>
+
+<br>
 
 ### Constructors
 
