@@ -1,6 +1,9 @@
 
 
-#  Java
+<div align="center">
+#  ──────────────── Java  ─────────────────
+
+
 
 ### 💻 Is Java Platform Independent? If yes, how?
 
@@ -211,7 +214,7 @@ public class Main {
 
 <hr>
 
-<div align="center" style="color:red">
+<div align="center">
     <h1>Constructors</h1>
 </div>
 
