@@ -941,37 +941,83 @@ height="3.25in"}
   Definition|   Blueprint for creating objects | Instance of a class
   Memory   |    No memory allocated  |   Memory is allocated
   Example  |    Car class     |          Car myCar = new Car();
-#### What is Encapsulation ?
+------
 
-- Binding or Wrapping data and code into a single unit is called Encapsulation. For example, an **ATM Machine** allows users to perform operations like cash withdrawal and money transfer without knowing the internal workings
-- Achieved using private variables + public getter/setter methods.
-- **Example:**
+### What is Encapsulation?
+
+**Encapsulation** is an **OOP principle** that means **wrapping data (variables) and code (methods) together into a single unit (class)** and restricting direct access to the data.
+
+Encapsulation is the process of **wrapping data and methods into a single unit (class) and restricting direct access to data using private variables and public getter/setter methods.**
+
+Real-world example: **ATM Machine**
+A user can withdraw money or check balance without knowing the internal implementation.
+
+------
+
+##### How Encapsulation is Achieved
+
+1. Declare variables as **private**
+2. Provide **public getter and setter methods** to access and update data.
+
+------
+
+##### Example
 
 ```java
 class BankAccount {
-    private double balance;
+
+    private double balance;   // private variable
+
     public void setBalance(double balance) {
-        this.balance = balance; // Setter method
+        this.balance = balance;   // setter
     }
+
     public double getBalance() {
-        return balance; // Getter method
+        return balance;   // getter
     }
 }
 
 public class Main {
     public static void main(String[] args) {
+
         BankAccount account = new BankAccount();
+
         account.setBalance(1000);
-        System.out.println("Balance: " + account.getBalance()); //
-        Output: Balance: 1000
+        System.out.println("Balance: " + account.getBalance());
     }
 }
 ```
 
+Output
 
+```
+Balance: 1000
+```
 
-- **Benefits:** Data security, easy modification, and better
-  maintainability.
+------
+
+##### How It Works
+
+```mermaid
+classDiagram
+class BankAccount{
+  -double balance
+  +setBalance(double)
+  +getBalance()
+}
+```
+
+- `balance` is **private** → cannot be accessed directly
+- Access is allowed through **getter/setter methods**
+
+------
+
+##### Benefits of Encapsulation
+
+1. **Data Security** – prevents direct access to variables
+2. **Controlled Access** – data can be validated before updating
+3. **Maintainability** – easier to modify internal implementation
+4. **Flexibility** – logic can be added inside getters/setters
 
 ---
 
