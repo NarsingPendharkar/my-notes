@@ -209,11 +209,11 @@ public class Main {
 | Memory     | No Memory            | Memory is allocated   |
 | Example    | Car class            | Car carObj=new Car(); |
 
+---
 
-
-<br>
-
-### Constructors
+<div align="center">
+    <h1>Constructors</h1>
+</div>
 
 ####  What is a constructor?
 
