@@ -209,9 +209,9 @@ public class Main {
 | Memory     | No Memory            | Memory is allocated   |
 | Example    | Car class            | Car carObj=new Car(); |
 
----
+<hr>
 
-<div align="center">
+<div align="center" style="color:red">
     <h1>Constructors</h1>
 </div>
 
