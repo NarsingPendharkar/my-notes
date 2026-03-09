@@ -391,9 +391,15 @@ public record Immutable (int id,String name) {
 
 - Ideal for DTOs and response objects in microservices
 
-### Methods & Object Behavior
+---
 
-#### What is the difference between a method and a constructor?
+
+
+<div align="center">
+    <h1>Methods & Object Behavior</h1>
+</div>
+
+### What is the difference between a method and a constructor?
 
 | **Feature**     | **Constructor**                                | **Method**                        |
 | --------------- | ---------------------------------------------- | --------------------------------- |
@@ -401,55 +407,6 @@ public record Immutable (int id,String name) {
 | **Name**        | Same as class name                             | Any valid method name             |
 | **Return Type** | No return type (not even `void`)               | Can have a return type            |
 | **Call**        | Called automatically when an object is created | Called explicitly                 |
-
-​               
-
-### What is this keyword?
-
-- this refers to the current object.
-
-- Used to differentiate instance variables from local variables.
-
-Example : 
-
-```java
-class Car {
-    String brand;
-    Car(String brand) {
-        this.brand = brand; // `this` differentiates instance and local variable
-    }
-}
-```
-
-
-
-###  What is static keyword ?
-
-- Static members belong to the class, not instances.
-
-- **Example:**
-
-```java
-class Car {
-
-static int totalCars = 0; // Shared among all objects
-
-Car() { totalCars++; }
-
-}
-```
-
-
-
-- Static methods can be called without an object:
-
-```java
-Car.totalCars;    // No object needed
-```
-
----
-
-
 
 ### **What are Access modifiers ?**
 
@@ -465,37 +422,38 @@ There are four types: 
   
 - **Private**: Accessible only within the same class.
 
+---
 
 
-### **String**
 
-#### What is a String in Java?
+<div align="center">
+    <h1>String</h1>
+</div>
+
+### What is a String in Java?
 
 - String is the sequence of the characters.
 
 - It is an object of String class.
 
-#### What is Java String Pool?
+### What is Java String Pool?
 
 A Java String Pool is a place in heap memory where all the strings defined in the program are stored. JVM checks for the presence of the object in the String pool, If String is available in the pool, the same object reference is shared with the variable, else a new object is created.
 
-## Java Stack vs Heap Memory Allocation
+### Java Stack vs Heap Memory Allocation
 
 - Memory allocation divided into two types stack and pool memory
 
-- **Stack Memory** : stores the variable , methods and reference data during
-  execution
-
+- **Stack Memory** : stores the variable , methods and reference data duringexecution
+  
 - **Heap memory** : stores the objects and strings are stored
 
-- The below diagram illustrates how method calls and local variables are
-  stored in the stack memory, while objects and string literals are
-  stored in the heap memory.
+- The below diagram illustrates how method calls and local variables are stored in the stack memory, while objects and string literals are stored in the heap memory.
 
 ![Lightbox](./media/media/image19.png){width="5.386582458442694in"
 height="2.9434251968503937in"}
 
-#### Why is String immutable?
+### Why is String immutable?
 
 - Strings are immutable for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
@@ -507,7 +465,7 @@ height="2.9434251968503937in"}
 
 - Thread safe -- as String is immutable multiple threads can access it at a time.
 
-#### StringBuilder vs StringBuffer vs String
+### StringBuilder vs StringBuffer vs String
 
 - String Buffer and StringBuilder are the classes of java used to create immutable strings.
   
@@ -517,11 +475,10 @@ height="2.9434251968503937in"}
   | Thread-safe? | Yes    | No            | Yes (Synchronized)        |
   | Performance  | slow   | Fast          | Slower than StringBuilder |
 
-  
 
-#### What is String interning?
+### What is String interning?
 
-- String.intern() moves a string to the String Pool if it isn\'t already there.
+- `String.intern()` moves a string to the String Pool if it isn\'t already there.
 
 - **Example:**
 
@@ -536,7 +493,7 @@ System.out.println(s2 == s3); // true (both refer to the same
 object in the String Pool)
 ```
 
-**What is the String Pool in Java?**
+### **What is the String Pool in Java?**
 
 - String pool is a special memory in heap memory where Java stores **string literals** to optimize memory usage.
 
@@ -678,30 +635,9 @@ public class StringMethods {
 
 ---
 
-### Object-Oriented Concepts
+<div align="center"><h1>THIS & STATIC KEYWORD</h1></div>
 
----
-
-#### What is encapsulation in Java
-
-- Encapsulation = data hiding + data protection.
-
-- **Example:**
-
-```java
-class BankAccount {
-
-private double balance; // Private field
-
-public double getBalance() { 
-    return balance; 
-} // Controlled access
-}
-```
-
-
-
-#### What is the difference between an instance variable and a local variable?
+### What is the difference between an instance variable and a local variable?
 
 | Feature | Instance Variable             | Local Variable               |
 | ------- | ----------------------------- | ---------------------------- |
@@ -712,13 +648,13 @@ public double getBalance() {
 
 
 
-#### How are objects stored in memory?
+### How are objects stored in memory?
 
 - Heap Memory: Objects are stored here.
 
 - Stack Memory: Stores local variables & references.
 
-#### What is garbage collection ?
+### What is garbage collection ?
 
 - Garbage collector automatically find and removes unused objects from heap memory to free up the space.
   
@@ -728,11 +664,11 @@ public double getBalance() {
 
 - **Paralle GC :** multi-threaded , good for big application
 
-#### What is finalize ()?
+### What is finalize ()?
 
 - It is a method which is called before object is removed in GC.
 
-#### How can you make an object eligible for garbage collection?
+### How can you make an object eligible for garbage collection?
 
 - **Set reference to null:**
 
@@ -764,7 +700,7 @@ new Car(); // This object has no reference, so it will be GC
 
 
 
-####  What is the difference between shallow copy and deep copy?
+###  What is the difference between shallow copy and deep copy?
 
 | **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
 | -------------- | ------------------------------------- | ----------------------------------- |
@@ -779,7 +715,7 @@ Car car2 = car1; // Deep Copy – creates a new object with copied data
 Car car2 = new Car(car1);
 ```
 
-#### What is the difference between == and .equals() in objects?
+### What is the difference between == and .equals() in objects?
 
 - == checks reference equality (same memory address).
 - .equals() checks weather both strings have same characters.
@@ -792,7 +728,7 @@ System.out.println(s1 == s2);       // false → compares memory addresses
 System.out.println(s1.equals(s2));  // true  → compares con
 ```
 
-#### Can we override a static method?
+### Can we override a static method?
 
 - ❌ **No**, static methods belong to the class, not instances.  
 - When a subclass defines a static method with the same signature, it **hides** the parent method — it does **not override** it.
@@ -820,11 +756,9 @@ public class Test {
 }
 ```
 
-
-
 ---
 
-#### Usage of this keyword
+<div align="center"><h2>this Keyword</h2></div>
 
 The `this` keyword refers to the current instance of the class. It is used to differentiate between instance variables and local variables, call constructors, and return the current object.
 
@@ -915,7 +849,11 @@ public class Example {
 }
 ```
 
-STATIC KEYWORD
+
+
+<div align="center">
+    <h2>Static keyword</h2>
+</div>
 
 The static keyword is used to define class-level members (variables,
 methods, blocks, and nested classes). Static members belong to the class
@@ -931,14 +869,11 @@ rather than individual objects.
 
 4.  Cannot use this inside a static method.
 
-- **static Variables :** Static variables are shared among all instances
-  and can be accessed without referring class object.
-
-- **Static Methods:** They belong to class and can be called without
-  creating an instance of the class.
-
-- **Static Blocks:** Static blocks are used for static initialization of
-  a class. This block is executed when the class is loaded.
+- **static Variables :** Static variables are shared among all instances and can be accessed without referring class object.
+  
+- **Static Methods:** They belong to class and can be called without creating an instance of the class.
+  
+- **Static Blocks:** Static blocks are used for static initialization of a class. This block is executed when the class is loaded.
 
 ```java
 public class Example {
@@ -977,17 +912,18 @@ public class Example {
 
 ------
 
-###  OOPs (Object-Oriented Programming) 
+###  
+
+<div align="center"><h1>OOPs (Object-Oriented Programming) </h1></div>
 
 Object-Oriented Programming (OOP) principles, which include Encapsulation, Inheritance, Polymorphism, and Abstraction.
 
-#### What are the four main principles of OOP?
+### What are the four main principles of OOP?
 
 The four pillars of Object-Oriented Programming (OOP) in are:
 
-- **Encapsulation** → Data hiding (using private fields &
-  getters/setters).
-
+- **Encapsulation** → Data hiding (using private fields & getters/setters).
+  
 - **Inheritance** → One class acquires properties of another.
 
 - **Polymorphism** → Many forms (method overloading & overriding).
@@ -997,7 +933,7 @@ The four pillars of Object-Oriented Programming (OOP) in are:
 ![](./media/media/image20.png){width="4.873470034995625in"
 height="3.25in"}
 
-#### What is the difference between an Object and a Class?
+### What is the difference between an Object and a Class?
 
 --------------------------------------------------------
   Feature |     Class             |      Object
@@ -1039,95 +975,222 @@ public class Main {
 
 ---
 
-#### **What is Inheritance in Java**
+### What is Inheritance in Java?
 
-- Inheritance means creating a child class from parent class where child
-  class acquires all the properties of parent class.
+**Inheritance** is an **Object-Oriented Programming (OOP)** concept where one class **acquires the properties and behaviors (fields and methods)** of another class.
 
-- Extends keyword is used to inherit parent class.
+It helps in **code reusability**, **method overriding**, and creating a **parent–child relationship** between classes.
 
-- This will help for code reusability.
+------
 
-Example of Single Inheritance:
+##### Example
 
 ```java
-class Vehicle {
+class Animal {
 
-void start() { System.out.println("Vehicle is starting..."); }
-
+    void eat() {
+        System.out.println("Animal is eating");
+    }
 }
 
-class Car extends Vehicle {
+class Dog extends Animal {
 
-void honk() { System.out.println("Car is honking..."); }
-
+    void bark() {
+        System.out.println("Dog is barking");
+    }
 }
 
-public class Main  {
+public class Test {
+    public static void main(String[] args) {
 
-public static void main(String[] args) {
+        Dog d = new Dog();
 
-Car myCar = new Car();
-
-myCar.start(); // Inherited method
-
-myCar.honk();
-
+        d.eat();   // inherited method
+        d.bark();  // own method
+    }
 }
-
-[}] 
 ```
 
-**Output:**
+Output
 
-> //Vehicle  is starting\...
->
-> //Car is honking\...
+```
+Animal is eating
+Dog is barking
+```
 
-#### What are the Types of Inheritance?
+------
 
-Java supports different types of inheritance, except **multiple inheritance** (to avoid ambiguity).  
+##### How it Works
 
----
+```mermaid
+graph TD
+Animal --> Dog
+```
 
-| Type                         | Description                                                  |
-| ---------------------------- | ------------------------------------------------------------ |
-| **Single**                   | One class inherits another. `class B extends A`              |
-| **Multilevel**               | `A → B → C` (A is parent of B, B is parent of C)             |
-| **Hierarchical**             | One parent, multiple child classes.`A → B`, `A → C`          |
-| **Multiple (Not Supported)** | Java does **not** support multiple inheritance with classes to avoid ambiguity (confusion). Can be achieved using **interfaces**. |
+- **Animal** → Parent class (Super class)
+- **Dog** → Child class (Sub class)
 
----
+The **Dog class automatically gets the `eat()` method** from the **Animal class**.
 
-#### Why Java Does Not Support Multiple Inheritance?
+------
 
-- To **avoid ambiguity** caused by multiple parent classes having methods with the same name.
+### Benefits of Inheritance
 
----
+1. **Code Reusability** – reuse existing code
+2. **Method Overriding** – modify parent behavior
+3. **Extensibility** – easy to add new features
+4. **Maintainability** – organized code structure
 
-#### 💡 Example: Diamond Problem
+------
+
+### What are the Types of Inheritance?
+
+Java supports different types of inheritance except **multiple inheritance with classes** to avoid ambiguity (Diamond Problem).
+
+------
+
+| Type                         | Description                                                 |
+| ---------------------------- | ----------------------------------------------------------- |
+| **Single**                   | One class inherits from another class                       |
+| **Multilevel**               | A class inherits from a class that already inherits another |
+| **Hierarchical**             | Multiple child classes inherit from one parent              |
+| **Multiple (Not Supported)** | Java does not allow multiple inheritance with classes       |
+
+------
+
+# 1️⃣ Single Inheritance
+
+One child class inherits one parent class.
 
 ```java
 class A {
-    void show() {
+    void display() {
         System.out.println("Class A");
     }
 }
 
 class B extends A {
-    void show() {
-        System.out.println("Class B");
-    }
 }
-
-class C extends A {
-    void show() {
-        System.out.println("Class C");
-    }
-}
-
-// Class D cannot extend both B and C to avoid ambiguity
 ```
+
+Diagram
+
+```mermaid
+graph TD
+A --> B
+```
+
+------
+
+# 2️⃣ Multilevel Inheritance
+
+Inheritance chain.
+
+```java
+class A { }
+
+class B extends A { }
+
+class C extends B { }
+```
+
+Diagram
+
+```mermaid
+graph TD
+A --> B
+B --> C
+```
+
+------
+
+# 3️⃣ Hierarchical Inheritance
+
+One parent with multiple child classes.
+
+```java
+class A { }
+
+class B extends A { }
+
+class C extends A { }
+```
+
+Diagram
+
+```mermaid
+graph TD
+A --> B
+A --> C
+```
+
+------
+
+# 4️⃣ Multiple Inheritance (Not Supported)
+
+Java **does not allow**:
+
+```java
+class A { }
+
+class B { }
+
+class C extends A, B { }   // ❌ Not allowed
+```
+
+Reason: **Diamond Problem**
+
+Diagram
+
+```mermaid
+graph TD
+A --> B
+A --> C
+B --> D
+C --> D
+```
+
+Java avoids this confusion.
+
+------
+
+# How Java Achieves Multiple Inheritance
+
+Using **interfaces**.
+
+```java
+interface A {
+    void show();
+}
+
+interface B {
+    void display();
+}
+
+class C implements A, B {
+
+    public void show() {
+        System.out.println("A method");
+    }
+
+    public void display() {
+        System.out.println("B method");
+    }
+}
+```
+
+------
+
+### Interview Tip
+
+**Q: Why Java does not support multiple inheritance with classes?**
+
+**Answer:**
+To avoid the **Diamond Problem**, where a child class may inherit the same method from multiple parent classes causing ambiguity.
+
+------
+
+If you want, I can also give you a **complete OOP interview cheat sheet (Inheritance, Polymorphism, Encapsulation, Abstraction) in GitHub-ready Markdown** that looks very clean in documentation.
 
 ---
 
