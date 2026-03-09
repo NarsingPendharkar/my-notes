@@ -956,7 +956,7 @@ height="1.25in"}
 
 ------
 
-### What is Encapsulation?
+## What is Encapsulation?
 
 **Encapsulation** is an **OOP principle** that means **wrapping data (variables) and code (methods) together into a single unit (class)** and restricting direct access to the data.
 
@@ -1034,7 +1034,7 @@ class BankAccount{
 
 ---
 
-### What is Inheritance in Java?
+## What is Inheritance in Java?
 
 **Inheritance** is an **Object-Oriented Programming (OOP)** concept where one class **acquires the properties and behaviors (fields and methods)** of another class.
 
@@ -1226,12 +1226,11 @@ class C implements A, B {
 
 #### Why Java does not support multiple inheritance with classes?
 
-**Answer:**
-To avoid the **Diamond Problem**, where a child class may inherit the same method from multiple parent classes causing ambiguity.
+**Answer:** To avoid the **Diamond Problem**, where a child class may inherit the same method from multiple parent classes causing ambiguity.
 
 ---
 
-### What is Polymorphism?
+## What is Polymorphism?
 
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
@@ -1308,7 +1307,7 @@ public class Main {
 
 ---
 
-### What is Abstraction?
+## What is Abstraction?
 
 Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  It helps reduce complexity by focusing on what an object does rather than how it does it.
 
@@ -1332,7 +1331,7 @@ Abstract classes are useful when you want to provide **partial implementation** 
 
 ---
 
-#### 🧠 Example: Abstract Class
+##### 🧠 Example: Abstract Class
 
 ```java
 abstract class Animal {
@@ -1379,7 +1378,7 @@ Interfaces define a **contract** that implementing classes must follow.A class t
 
 ---
 
-#### 🧩 Example: Interface in Java
+##### 🧩 Example: Interface in Java
 
 ```java
 interface Animal {
@@ -1416,25 +1415,18 @@ Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction**
 | **Usage**                     | Used when classes share common behavior but differ in implementation. | Used to define a common contract for unrelated classes.      |
 | **Java Version Enhancements** | No major changes.                                            | Since Java 8 – default and static methods added; since Java 9 – private methods allowed. |
 
-##### 🧠 Key Points
+> [!TIP]
+>
+> - **Abstract Classes** are best used when you want to provide a **base class** with partial implementation that subclasses can extend.
+> - **Interfaces** are ideal for defining a **contract** or **capability** that multiple unrelated classes can implement.
+> - Java supports **multiple interfaces** for a single class, enabling **multiple inheritance** of behavior.
+>
 
-- **Abstract Classes** are best used when you want to provide a **base class** with partial implementation that subclasses can extend.
-- **Interfaces** are ideal for defining a **contract** or **capability** that multiple unrelated classes can implement.
-- Java supports **multiple interfaces** for a single class, enabling **multiple inheritance** of behavior.
+
 
 ---
 
-##### ✅ Summary
-
-- **Abstract Class →** Partial abstraction, shared logic, single inheritance.  
-- **Interface →** Full abstraction, behavior contracts, multiple inheritance.  
-- Together, they form the backbone of **object-oriented design** in Java.
-
----
-
-
-
-# 🧱 Collection Framework
+<div align="center"><h1>🧱 Collection Framework</h1></div>
 
 ### 💡 What is the Collection Framework?
 
@@ -1467,7 +1459,7 @@ The **Collection Framework** is a set of **classes and interfaces** that impleme
 | **Queue**     | Follows **FIFO (First-In-First-Out)** order. Example: `PriorityQueue`, `LinkedList`. |
 | **Map**       | Stores elements in **key–value pairs** where keys are unique. Example: `HashMap`, `LinkedHashMap`, `TreeMap`. |
 
-### 🧾 Example
+##### 🧾 Example
 
 ```java
 import java.util.*;
@@ -1488,8 +1480,6 @@ public class CollectionExample {
 - **Collection**: It is the root interface of all collections in Java. It provides methods for adding, removing, and checking the size of a collection.
   
 - **Collections**: It is a utility class that provides static methods to manipulate and process collections.
-
----
 
 | Feature        | Collection (Interface)                           | Collections (Class)                                          |
 | -------------- | ------------------------------------------------ | ------------------------------------------------------------ |
