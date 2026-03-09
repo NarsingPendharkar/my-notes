@@ -1,9 +1,8 @@
 
 
 <div align="center">
-#  ──────────────── Java  ─────────────────
-
-
+    <h1>Java</h1>
+</div>
 
 ### 💻 Is Java Platform Independent? If yes, how?
 
