@@ -1077,23 +1077,7 @@ Animal is eating
 Dog is barking
 ```
 
-------
-
-##### How it Works
-
-```mermaid
-graph TD
-Animal --> Dog
-```
-
-- **Animal** → Parent class (Super class)
-- **Dog** → Child class (Sub class)
-
-The **Dog class automatically gets the `eat()` method** from the **Animal class**.
-
-------
-
-### Benefits of Inheritance
+##### Benefits of Inheritance
 
 1. **Code Reusability** – reuse existing code
 2. **Method Overriding** – modify parent behavior
@@ -1117,7 +1101,7 @@ Java supports different types of inheritance except **multiple inheritance with 
 
 ------
 
-# 1️⃣ Single Inheritance
+##### 1️⃣ Single Inheritance
 
 One child class inherits one parent class.
 
@@ -1141,7 +1125,7 @@ A --> B
 
 ------
 
-# 2️⃣ Multilevel Inheritance
+##### 2️⃣ Multilevel Inheritance
 
 Inheritance chain.
 
@@ -1163,7 +1147,7 @@ B --> C
 
 ------
 
-# 3️⃣ Hierarchical Inheritance
+##### 3️⃣ Hierarchical Inheritance
 
 One parent with multiple child classes.
 
@@ -1185,7 +1169,7 @@ A --> C
 
 ------
 
-# 4️⃣ Multiple Inheritance (Not Supported)
+##### 4️⃣ Multiple Inheritance (Not Supported)
 
 Java **does not allow**:
 
@@ -1197,9 +1181,9 @@ class B { }
 class C extends A, B { }   // ❌ Not allowed
 ```
 
-Reason: **Diamond Problem**
+Reason: **Diamond Problem** (to avoids confusion.)
 
-Diagram
+
 
 ```mermaid
 graph TD
@@ -1209,11 +1193,11 @@ B --> D
 C --> D
 ```
 
-Java avoids this confusion.
+
 
 ------
 
-# How Java Achieves Multiple Inheritance
+##### How Java Achieves Multiple Inheritance
 
 Using **interfaces**.
 
@@ -1240,25 +1224,20 @@ class C implements A, B {
 
 ------
 
-### Interview Tip
-
-**Q: Why Java does not support multiple inheritance with classes?**
+#### Why Java does not support multiple inheritance with classes?
 
 **Answer:**
 To avoid the **Diamond Problem**, where a child class may inherit the same method from multiple parent classes causing ambiguity.
 
-------
-
-If you want, I can also give you a **complete OOP interview cheat sheet (Inheritance, Polymorphism, Encapsulation, Abstraction) in GitHub-ready Markdown** that looks very clean in documentation.
-
 ---
 
-#### What is Polymorphism?
+### What is Polymorphism?
 
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
 
 #### 🔹 Types of Polymorphism
+
 - **Compile-time Polymorphism (Method Overloading)**
 - **Runtime Polymorphism (Method Overriding)**
 
@@ -1269,7 +1248,7 @@ If you want, I can also give you a **complete OOP interview cheat sheet (Inherit
 - When multiple methods have the **same name** but **different parameters** (type or number of arguments).  
 - It is an example of **compile-time polymorphism**.
 
-#### 🧠 Example
+##### 🧠 Example
 
 ```java
 class MathOperations {
@@ -1297,14 +1276,13 @@ public class Main {
 
 #### What is Method Overriding?
 
-When the same method (same name, parameters, and return type) is present in both parent and child classes,  
-and the method in the child class overrides the one in the parent class.
+When the same method (same name, parameters, and return type) is present in both parent and child classes, and the method in the child class overrides the one in the parent class.
 
 It is an example of **runtime polymorphism**.
 
 ---
 
-#### 🧠 Example
+##### 🧠 Example
 
 ```java
 class Parent {
@@ -1330,10 +1308,9 @@ public class Main {
 
 ---
 
-#### What is Abstraction?
+### What is Abstraction?
 
-Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  
-It helps reduce complexity by focusing on what an object does rather than how it does it.
+Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  It helps reduce complexity by focusing on what an object does rather than how it does it.
 
 In Java, abstraction is mainly achieved using:
 - **Abstract classes**
@@ -1343,7 +1320,7 @@ It allows developers to define a common structure for related objects and enforc
 
 ---
 
-#### What is an Abstract Class?
+### What is an Abstract Class?
 
 An **abstract class** in Java is declared using the `abstract` keyword.  It is a special kind of class that cannot be instantiated directly — meaning you **cannot create an object** of an abstract class.
 
@@ -1381,7 +1358,7 @@ public class Main {
 }
 ```
 
-#### What is an Interface in Java?
+### What is an Interface in Java?
 
 An **interface** in Java is a special type of class that contains only **abstract methods** (methods without a body)..It is used to achieve **100% abstraction** and **multiple inheritance** in Java.
 
@@ -1389,7 +1366,7 @@ Interfaces define a **contract** that implementing classes must follow.A class t
 
 ---
 
-#### 🧠 Key Features of an Interface
+##### 🧠 Key Features of an Interface
 
 - All methods in an interface are **public** and **abstract** by default.  
 - All variables are **public**, **static**, and **final** (constants).  
@@ -1421,13 +1398,9 @@ class Dog implements Animal {
 }
 ```
 
-#### What is the Difference Between Abstract Class and Interface?
+### What is the Difference Between Abstract Class and Interface?
 
 Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction** in Java,but they differ in structure, purpose, and how they are implemented.
-
----
-
-#### 🧩 Comparison Table
 
 | **Feature**                   | **Abstract Class**                                           | **Interface**                                                |
 | ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1443,9 +1416,7 @@ Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction**
 | **Usage**                     | Used when classes share common behavior but differ in implementation. | Used to define a common contract for unrelated classes.      |
 | **Java Version Enhancements** | No major changes.                                            | Since Java 8 – default and static methods added; since Java 9 – private methods allowed. |
 
----
-
-### 🧠 Key Points
+##### 🧠 Key Points
 
 - **Abstract Classes** are best used when you want to provide a **base class** with partial implementation that subclasses can extend.
 - **Interfaces** are ideal for defining a **contract** or **capability** that multiple unrelated classes can implement.
@@ -1453,15 +1424,7 @@ Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction**
 
 ---
 
-### 🧠 Real-World Example
-
-- **Abstract Class Example:**A `Vehicle` abstract class can define shared attributes like `speed` and `fuelType`,and abstract methods like `start()` or `stop()`.Subclasses (`Car`, `Bike`) implement these methods differently.
-  
-- **Interface Example:**An interface `Flyable` can be implemented by multiple classes like `Bird`, `Helicopter`, or `Airplane`,regardless of their hierarchy — representing shared ability to fly.
-
----
-
-### ✅ Summary
+##### ✅ Summary
 
 - **Abstract Class →** Partial abstraction, shared logic, single inheritance.  
 - **Interface →** Full abstraction, behavior contracts, multiple inheritance.  
