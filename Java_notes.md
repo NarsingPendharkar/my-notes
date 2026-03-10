@@ -1496,7 +1496,7 @@ public class CollectionExample {
 | ------------------- | ------------------------- | ---------------------------------------------------- | ---------------------------------------- |
 | **Order**           | Maintains insertion order | No order guaranteed (except some like LinkedHashSet) | Keys are unique, values can be duplicate |
 | **Duplicates**      | Allows duplicates         | Does not allow duplicates                            | Keys are unique, values can repeat       |
-| **Implementations** | ArrayList, LinkedList     | HashSet, LinkedHashSet, TreeSet                      | HashMap, LinkedHashMap, TreeMap          |
+| **Implementations** | ArrayList, LinkedList     | HashSet, LinkedHashSet, TreeSet                      | HashMap,  , TreeMap                      |
 
 ---
 
@@ -1762,9 +1762,9 @@ System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
 
 ---
 
+<div align="center"><h1>Java 8 Key Features & Concepts</h1></div>
 
 
-#  Java 8 Key Features & Concepts
 
 #### 1) Lambda Expressions
 
@@ -1860,7 +1860,56 @@ List<String> filteredNames = names.stream()
 System.out.println(filteredNames); // [Mike]
 ```
 
-##### Stream Operations
+#### Sequential Stream vs Parallel Stream
+
+| Sequential Stream                | Parallel Stream             |
+| -------------------------------- | --------------------------- |
+| Uses single thread               | Uses multiple threads       |
+| Runs on single core              | Uses multiple cores         |
+| Order maintained                 | Order may not be maintained |
+| Processing slower for large data | Faster for large datasets   |
+
+Example
+
+```java
+list.parallelStream().forEach(System.out::println);
+```
+
+------
+
+#### map() vs flatMap()
+
+| map()                     | flatMap()                       |
+| ------------------------- | ------------------------------- |
+| Performs mapping          | Performs mapping and flattening |
+| One-to-one mapping        | One-to-many mapping             |
+| Produces stream of values | Produces flattened stream       |
+
+Example
+
+```java
+List<List<Integer>> list = Arrays.asList(
+        Arrays.asList(1,2),
+        Arrays.asList(3,4)
+);
+
+list.stream()
+    .flatMap(x -> x.stream())
+    .forEach(System.out::println);
+```
+
+Output
+
+```java
+1
+2
+3
+4
+```
+
+#### 
+
+#### Stream Operations
 
 ---
 
@@ -2127,6 +2176,53 @@ System.out.println("Vehicle is starting");
 }}
 ```
 
+### Default Methods in Interface
+
+Default methods were introduced in Java 8 to **allow adding new methods to an interface without breaking existing implementation classes**. If a new method is added to an interface normally, all implementing classes must implement it. Default methods solve this by providing a **method implementation inside the interface**, so existing classes continue working without modification.
+
+##### Example
+
+```java
+interface Vehicle {
+
+    default void start() {
+        System.out.println("Vehicle Starting");
+    }
+}
+
+class Car implements Vehicle {}
+
+public class Test {
+    public static void main(String[] args) {
+        Car c = new Car();
+        c.start();
+    }
+}
+```
+
+### Static Methods in Interface
+
+Static methods in interfaces are used to provide **common utility functionality related to that interface**. These methods belong to the interface itself and are **called using the interface name**, not by objects.
+
+##### Example
+
+```java
+interface MathUtil {
+
+    static int add(int a, int b) {
+        return a + b;
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+
+        int result = MathUtil.add(5, 10);
+        System.out.println(result);
+    }
+}
+```
+
 #### Optional Class:
 
 **Definition:** Optional class is used to handle null values securely.
@@ -2138,8 +2234,36 @@ Optional<String> optional = Optional.ofNullable("Hello");
 optional.ifPresent(System.out::println);
 ```
 
-**Common Methods:** *of(), ofNullable(), isPresent(), ifPresent(),
-get(), orElse()*
+**Common Methods:** `of(), ofNullable(), isPresent(), ifPresent(), get(), orElse()`
+
+### StringJoiner
+
+`StringJoiner` is a final class present in `java.util` package. It is used to **join multiple strings using a delimiter, prefix, and suffix**.
+
+### Example
+
+```java
+import java.util.StringJoiner;
+
+public class Test {
+    public static void main(String[] args) {
+
+        StringJoiner sj = new StringJoiner(",");
+
+        sj.add("Java");
+        sj.add("Spring");
+        sj.add("Kafka");
+
+        System.out.println(sj);
+    }
+}
+```
+
+Output
+
+```java
+Java,Spring,Kafka
+```
 
 #### New Date & Time API
 
@@ -2171,7 +2295,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 ---
 
-# Multithreading
+<div align="center"><h1>Multithreading</h1></div>
 
 ### **What is Threads ?**
 
@@ -2397,7 +2521,7 @@ public static void main(String[] args) throws InterruptedException {
 
 ---
 
-##### **Java Thread Methods and Their Uses**
+### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
 
@@ -2429,15 +2553,13 @@ Below is a **clean interview-ready Markdown note** you can use for revision.
 
 ------
 
-# Deadlock 
+### Deadlock 
 
 ##### 1. Definition
 
 **Deadlock** is a situation where **two or more threads are blocked forever**, each waiting for the other thread to release a resource.
 
-In simple words:
-
-> **Thread A waits for a resource held by Thread B, and Thread B waits for a resource held by Thread A.**
+In simple words: **Thread A waits for a resource held by Thread B, and Thread B waits for a resource held by Thread A.**
 
 As a result, **both threads never complete execution**.
 
