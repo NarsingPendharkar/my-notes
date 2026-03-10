@@ -553,3 +553,150 @@ You can say this in interviews:
 ---
 
 If you want, I can also give 15 interviewer questions they will definitely ask from this notification module (with answers) for 3+ years Java developer interviews.
+
+
+Add this point when explaining your module because it shows real backend experience (batch processing, scheduling, DB handling). Present it like this in an interview.
+
+
+---
+
+Batch Job for Notification Preference Expiry
+
+1. Requirement
+
+In the Marketing Notification Management module, users can pause notifications for 1 month, 3 months, or 6 months.
+
+When the pause period expires, we needed to:
+
+1. Remove expired records from the preferences table
+
+
+2. Move them to a history table for audit and tracking.
+
+
+
+
+---
+
+2. Solution Implemented
+
+We implemented a scheduled batch job that runs periodically and performs the following steps:
+
+1️⃣ Check records where pause expiry date is less than current date
+2️⃣ Move those records to notification_preference_history table
+3️⃣ Delete them from the active preferences table
+
+This helps to:
+
+Keep the main table clean
+
+Improve database performance
+
+Maintain historical data for audit
+
+
+
+---
+
+3. Example Table Structure
+
+Preferences Table (Active Records)
+
+notification_preferences
+
+customer_id	sms_enabled	email_enabled	pause_until
+
+101	true	false	2026-04-01
+
+
+
+---
+
+History Table
+
+notification_preferences_history
+
+Stores expired records for auditing.
+
+
+---
+
+4. Batch Job Implementation (Example)
+
+We used Spring Boot Scheduled Job.
+
+@Scheduled(cron = "0 0 2 * * ?")
+public void processExpiredPreferences() {
+
+    List<Preference> expired = preferenceRepository
+            .findByPauseUntilBefore(LocalDate.now());
+
+    historyRepository.saveAll(expired);
+
+    preferenceRepository.deleteAll(expired);
+}
+
+This job runs daily at 2 AM.
+
+
+---
+
+5. Why Batch Job is Important
+
+Benefits:
+
+Prevents large table size
+
+Improves query performance
+
+Maintains historical audit data
+
+Ensures automatic cleanup
+
+
+
+---
+
+6. Your Role
+
+In this implementation, I:
+
+Designed the expiry handling logic
+
+Implemented Spring scheduled batch job
+
+Developed database queries for expired records
+
+Implemented data migration to history table
+
+Tested the job to ensure data consistency
+
+
+
+---
+
+Best 2–3 Line Interview Answer
+
+If interviewer asks “Did you implement any batch processing?”
+
+You can say:
+
+> Yes, I implemented a scheduled batch job in the notification preference module. When a user's pause notification period expires, the job identifies those records, moves them to a history table for audit purposes, and deletes them from the active preferences table to keep the main table optimized.
+
+
+
+
+---
+
+If you want, I can also give a complete “Tell me about your project” answer for 3+ years Java developer interviews that combines:
+
+Rewards module
+
+Notification management
+
+Batch jobs
+
+Microservices architecture
+
+
+This answer usually impresses interviewers in the first 5 minutes.
