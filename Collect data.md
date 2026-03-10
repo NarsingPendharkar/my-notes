@@ -316,3 +316,240 @@ I was mainly responsible for developing REST APIs using Spring Boot, implementin
 ---
 
 If you want, I can also give 20 interview questions that interviewer will ask specifically from THIS project (very common in Java 3+ years interviews).
+
+
+Explain this module in interviews using a simple flow: purpose → features → how it works → your role.
+
+
+---
+
+Project Explanation – Customer Promotion & Marketing Notification Management
+
+1. Module Overview
+
+I worked on the Customer Promotion and Marketing Notification Management module.
+
+The purpose of this module is to allow users to control marketing notifications they receive from the banking application such as promotional offers, campaigns, and product updates.
+
+Users can enable, disable, or pause notifications for different communication channels.
+
+
+---
+
+2. Key Features
+
+1️⃣ Notification Preference Management
+
+Users can control notifications for multiple channels:
+
+SMS Notifications
+
+Email Notifications
+
+In-App Notifications
+
+Notification Center Messages
+
+
+Users can:
+
+Enable notifications
+
+Disable notifications
+
+Pause notifications for a certain time
+
+
+Example API:
+
+POST /notification/preferences
+
+Example request:
+
+{
+ "customerId": "12345",
+ "sms": true,
+ "email": false,
+ "inApp": true
+}
+
+
+---
+
+2️⃣ Pause Notifications Feature
+
+Users can temporarily pause marketing notifications for a selected duration.
+
+Available pause durations:
+
+1 Month
+
+3 Months
+
+6 Months
+
+
+Example:
+
+If a user pauses notifications for 3 months, they will not receive promotional alerts during that period.
+
+
+---
+
+3️⃣ Notification Preference Storage
+
+All user preferences are stored in the database.
+
+Example fields stored:
+
+customerId
+
+smsPreference
+
+emailPreference
+
+inAppPreference
+
+pauseStartDate
+
+pauseEndDate
+
+
+Example entity:
+
+class NotificationPreference {
+    private String customerId;
+    private boolean smsEnabled;
+    private boolean emailEnabled;
+    private boolean inAppEnabled;
+    private LocalDate pauseUntil;
+}
+
+
+---
+
+4. Data Warehouse Synchronization
+
+User preferences are also synchronized with the Data Warehouse.
+
+Purpose:
+
+Marketing systems use this data to decide whether a user should receive a notification or not.
+
+Flow:
+
+1️⃣ User updates notification preference in the app
+2️⃣ Preference stored in application database
+3️⃣ Data is synced to Data Warehouse
+4️⃣ Marketing campaign systems read this data
+5️⃣ Notifications are sent only to eligible users
+
+
+---
+
+5. Notification Flow (Architecture)
+
+Step-by-step flow:
+
+1. User updates notification preference in the mobile app
+
+
+2. Request goes to API Gateway
+
+
+3. Gateway routes request to Notification Management Service
+
+
+4. Service stores preference in database
+
+
+5. Data is synced with Data Warehouse
+
+
+6. Marketing system checks preference before sending notification
+
+
+
+
+---
+
+6. Technologies Used
+
+Backend:
+
+Java
+
+Spring Boot
+
+Spring Data JPA
+
+
+Database:
+
+Oracle / MySQL
+
+
+Architecture:
+
+Microservices
+
+REST APIs
+
+
+Integration:
+
+Data Warehouse synchronization
+
+Notification services
+
+
+
+---
+
+7. My Responsibilities
+
+In this module I worked on:
+
+Developing APIs for managing notification preferences
+
+Implementing pause notification logic
+
+Storing and updating user preferences in the database
+
+Integrating with data warehouse synchronization
+
+Handling validation and preference checks
+
+Writing unit test cases
+
+Fixing production issues
+
+
+
+---
+
+8. Example Logic (Pause Notification)
+
+Before sending notification we check:
+
+if(currentDate.isBefore(preference.getPauseUntil())){
+    // Do not send notification
+}
+
+This ensures users do not receive notifications during the pause period.
+
+
+---
+
+1-Minute Interview Explanation (Best Answer)
+
+You can say this in interviews:
+
+> I worked on the Customer Promotion and Marketing Notification Management module where users can manage their marketing notification preferences. Users can enable or disable notifications for different channels like SMS, email, and in-app notifications. They can also pause promotional notifications for a duration of 1, 3, or 6 months. These preferences are stored in the database and synchronized with the data warehouse so that marketing systems can check user preferences before sending notifications. My role involved developing REST APIs using Spring Boot, implementing the pause notification logic, managing preference storage, and integrating the service with downstream systems.
+
+
+
+
+---
+
+If you want, I can also give 15 interviewer questions they will definitely ask from this notification module (with answers) for 3+ years Java developer interviews.
