@@ -1,17 +1,4 @@
 
-Perfect 💪 — now let’s modify your Spring Boot Batch + JPA + H2 + Scheduler setup so that each run processes only one employee record at a time (every 10 seconds).
-
-This is a very real-world pattern — often used for polling small batches or queue-like processing.
-
-
----
-
-🎯 Goal
-
-➡ Each 10-second job run should process just one employee record (like a queue).
-➡ Once processed, it should mark that record as completed to avoid repetition.
-
-
 ---
 
 ✅ Step-by-step Implementation
