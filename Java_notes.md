@@ -575,15 +575,9 @@ flowchart TD
 
 ------
 
-#### 1. Heap Memory
+#### 1. Heap Memory (Objects)
 
-Stores **objects and instance variables**.
-
-**Characteristics**
-
-- Shared between threads
-- Managed by **Garbage Collector**
-- Largest memory area
+**Role:** Stores **objects and instance variables**.
 
 Example
 
@@ -591,36 +585,51 @@ Example
 Student s = new Student();
 ```
 
-Important points
+Explanation
+
+- Object `Student` → stored in **Heap**
+- Reference `s` → stored in **Stack**
+
+Memory idea
+
+```mermaid
+flowchart LR
+    A[Stack Reference s] --> B[Student Object in Heap]
+```
+
+Easy memory trick
 
 ```text
-Used for object storage
-Garbage collection happens here
+Heap = Object House
 ```
 
 ------
 
-# 2. Stack Memory
+#### 2. Stack Memory(methods)
 
-Stores **method calls, local variables, and references**.
-
-Characteristics
-
-- Each thread has its own stack
-- Memory is automatically removed after method execution
+**Role:** Stores **method calls and local variables**.
 
 Example
 
 ```java
 int a = 10;
-Student s = new Student();
+```
+
+`a` is stored in **Stack**.
+
+Each thread has **its own stack**.
+
+Easy memory trick
+
+```text
+Stack = Method execution area
 ```
 
 ------
 
-# 3. Method Area
+#### 3. Method Area(class data)
 
-Stores **class metadata**.
+**Role:** Stores **class level information**.
 
 Contains
 
@@ -634,9 +643,15 @@ Example
 static int count = 10;
 ```
 
+Easy memory trick
+
+```text
+Method Area = Class information storage
+```
+
 ------
 
-# 4. PC Register
+#### 4. PC Register
 
 PC = **Program Counter**
 
@@ -650,7 +665,7 @@ Thread → PC Register → current instruction
 
 ------
 
-# 5. Native Method Stack
+#### 5. Native Method Stack
 
 Used when Java calls **native methods written in C/C++**.
 
@@ -664,9 +679,7 @@ Native methods interact with OS libraries.
 
 ------
 
-# Example Memory Flow
-
-Code
+**Example Memory Flow**
 
 ```java
 class Test {
