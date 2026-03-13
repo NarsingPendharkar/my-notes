@@ -91,6 +91,118 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
+### What is Autoboxing and Unboxing ?
+
+Autoboxing is the automatic conversion of a primitive type into its corresponding wrapper class object, for example converting int to Integer. Unboxing is the reverse process where a wrapper object is converted back to its primitive type. This feature was introduced in Java 5 to simplify working with collections.
+
+#### 1. Autoboxing
+
+**Autoboxing** is the **automatic conversion of a primitive type into its corresponding wrapper class object**.
+
+Primitive → Object
+
+Example
+`int` → `Integer`
+
+##### Example
+
+```java
+int a = 10;
+
+Integer obj = a;   // Autoboxing
+```
+
+Equivalent to
+
+```java
+Integer obj = Integer.valueOf(a);
+```
+
+------
+
+#### Why Autoboxing is Needed
+
+Collections in Java (like `List`, `Set`, `Map`) store **objects, not primitives**.
+
+```java
+List<Integer> list = new ArrayList<>();
+
+list.add(10);   // Autoboxing
+```
+
+here
+
+```text
+int → Integer
+```
+
+------
+
+#### 2. Unboxing
+
+**Unboxing** is the **automatic conversion of a wrapper object into a primitive type**.
+
+Object → Primitive
+
+Example
+`Integer` → `int`
+
+### Example
+
+```java
+Integer obj = 20;
+
+int num = obj;   // Unboxing
+```
+
+Equivalent to
+
+```java
+int num = obj.intValue();
+```
+
+------
+
+##### Example Program
+
+```java
+public class Test {
+    public static void main(String[] args) {
+
+        int a = 5;
+
+        Integer obj = a;   // Autoboxing
+
+        int b = obj;       // Unboxing
+
+        System.out.println(a + " " + obj + " " + b);
+    }
+}
+```
+
+Output
+
+```
+5 5 5
+```
+
+------
+
+#### Wrapper Classes
+
+Primitive types have corresponding **wrapper classes**.
+
+| Primitive | Wrapper   |
+| --------- | --------- |
+| int       | Integer   |
+| double    | Double    |
+| char      | Character |
+| boolean   | Boolean   |
+| long      | Long      |
+| float     | Float     |
+
+---
+
 ### What is the Wrapper class in Java ?
 
 - Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types.
