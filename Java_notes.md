@@ -714,7 +714,7 @@ flowchart TD
 
 Always mention these **4 keywords**:
 
-```text
+```bash
 Heap → Objects
 Stack → Method calls & local variables
 Method Area → class metadata & static variables
@@ -955,60 +955,6 @@ public class StringMethods {
 | Default | Gets default value            | No default value             |
 | Value   | null                          | 0                            |
 
-
-
-### How are objects stored in memory?
-
-- Heap Memory: Objects are stored here.
-
-- Stack Memory: Stores local variables & references.
-
-### What is garbage collection ?
-
-- Garbage collector automatically find and removes unused objects from heap memory to free up the space.
-  
-- **System.gc();** requests garbage collection.
-
-- **Serial GC :** single threaded, good for small application
-
-- **Paralle GC :** multi-threaded , good for big application
-
-### What is finalize ()?
-
-- It is a method which is called before object is removed in GC.
-
-### How can you make an object eligible for garbage collection?
-
-- **Set reference to null:**
-
-```java
-Car myCar = new Car();
-
-myCar = null; // Eligible for GC
-```
-
-
-
-- **Reassign reference:**
-
-```java
-Car car1 = new Car();
-
-Car car2 = new Car();
-
-car1 = car2; // Old `car1` object is eligible for GC
-```
-
-
-
-- **Use anonymous objects:**
-
-```java
-new Car(); // This object has no reference, so it will be GC
-```
-
-
-
 ###  What is the difference between shallow copy and deep copy?
 
 | **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
@@ -1022,43 +968,6 @@ new Car(); // This object has no reference, so it will be GC
 Car car1 = new Car(); // Shallow Copy – both references point to the same object
 Car car2 = car1; // Deep Copy – creates a new object with copied data
 Car car2 = new Car(car1);
-```
-
-
-
-### Can We Use Static Methods in a Constructor?
-
-✅ **Yes, we can call static methods inside a constructor.**
-
-Reason:
- A **static method belongs to the class**, not to the object, so it can be accessed anywhere in the class including constructors.
-
-### Can we override a static method?
-
-- ❌ **No**, static methods belong to the class, not instances.  
-- When a subclass defines a static method with the same signature, it **hides** the parent method — it does **not override** it.
-
-**🧠 Example**
-
-```java
-class Parent {
-    static void display() {
-        System.out.println("Parent");
-    }
-}
-
-class Child extends Parent {
-    static void display() {
-        System.out.println("Child"); // Not overriding, but hiding
-    }
-}
-
-public class Test {
-    public static void main(String[] args) {
-        Parent p = new Child();
-        p.display(); // Output: Parent
-    }
-}
 ```
 
 ---
@@ -1160,9 +1069,7 @@ public class Example {
     <h2>Static keyword</h2>
 </div>
 
-The static keyword is used to define class-level members (variables,
-methods, blocks, and nested classes). Static members belong to the class
-rather than individual objects.
+The static keyword is used to define class-level members (variables, methods, blocks, and nested classes). Static members belong to the class rather than individual objects.
 
 **Features of static**
 
@@ -1193,6 +1100,42 @@ public class Example {
 
 ---
 
+### Can We Use Static Methods in a Constructor?
+
+✅ **Yes, we can call static methods inside a constructor.**
+
+Reason: A **static method belongs to the class**, not to the object, so it can be accessed anywhere in the class including constructors.
+
+### Can we override a static method?
+
+- ❌ **No**, static methods belong to the class, not instances.  
+- When a subclass defines a static method with the same signature, it **hides** the parent method — it does **not override** it.
+
+**🧠 Example**
+
+```java
+class Parent {
+    static void display() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    static void display() {
+        System.out.println("Child"); // Not overriding, but hiding
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.display(); // Output: Parent
+    }
+}
+```
+
+---
+
 ### Comparison: this vs static
 
 | Feature            | this                         | static                                    |
@@ -1217,6 +1160,54 @@ public class Example {
 
 ---
 
+### What is garbage collection ?
+
+- Garbage collector automatically find and removes unused objects from heap memory to free up the space.
+
+- **System.gc();** requests garbage collection.
+
+- **Serial GC :** single threaded, good for small application
+
+- **Paralle GC :** multi-threaded , good for big application
+
+### What is finalize ()?
+
+- It is a method which is called before object is removed in GC.
+
+### How can you make an object eligible for garbage collection?
+
+- **Set reference to null:**
+
+```java
+Car myCar = new Car();
+
+myCar = null; // Eligible for GC
+```
+
+
+
+- **Reassign reference:**
+
+```java
+Car car1 = new Car();
+
+Car car2 = new Car();
+
+car1 = car2; // Old `car1` object is eligible for GC
+```
+
+
+
+- **Use anonymous objects:**
+
+```java
+new Car(); // This object has no reference, so it will be GC
+```
+
+
+
+---
+
 <div align="center"><h1>OOPs (Object-Oriented Programming) </h1></div>
 
 - **OOP (Object-Oriented Programming)** is a programming approach where programs are designed using **objects and classes** that contain **data (variables) and behavior (methods)**.
@@ -1231,8 +1222,6 @@ public class Example {
 | **Inheritance**   | One class acquiring properties of another    |
 | **Polymorphism**  | One method having multiple forms             |
 | **Abstraction**   | Hiding implementation details                |
-
-
 
 ```mermaid
 graph TD
