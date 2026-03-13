@@ -1,4 +1,5 @@
-Core java 
+# Core java 
+
 1.	What is the difference between JDK, JRE, and JVM?
 2.	What are the main features of Java (OOP principles)?
 3.	What are primitive data types in Java?
@@ -9,7 +10,476 @@ Core java
 8.	What is a Constructor in Java? Types of constructors?
 9.	Can we use static methods in a Constructor?
 
-OOP Concepts
+##### answers :
+
+## What is the difference between **JDK, JRE, and JVM**?
+
+| Component | Purpose                          |
+| --------- | -------------------------------- |
+| JVM       | Executes Java bytecode           |
+| JRE       | Provides runtime environment     |
+| JDK       | Development kit containing tools |
+
+### JVM (Java Virtual Machine)
+
+Responsibilities:
+
+- Executes `.class` bytecode
+- Memory management
+- Garbage Collection
+- JIT Compilation
+
+### JRE (Java Runtime Environment)
+
+Contains:
+
+- JVM
+- Java libraries
+- Runtime components
+
+Used to **run Java programs**.
+
+### JDK (Java Development Kit)
+
+Contains:
+
+- JRE
+- Development tools
+
+Examples:
+
+```java
+javac  → compiler
+java   → run program
+javadoc
+jstack
+jmap
+```
+
+## Example
+
+```java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello Java");
+    }
+}
+```
+
+Compile:
+
+```
+javac Hello.java
+```
+
+Run:
+
+```
+java Hello
+```
+
+------
+
+## What are the **main Object-Oriented Programming principles in Java**?
+
+Java follows **four OOP principles**:
+
+1. Encapsulation
+2. Inheritance
+3. Polymorphism
+4. Abstraction
+
+### Encapsulation
+
+Wrapping **data and methods together** inside a class.
+
+### Inheritance
+
+One class **inherits properties of another class**.
+
+### Polymorphism
+
+Same method behaves **differently based on context**.
+
+### Abstraction
+
+Hiding internal implementation and exposing only functionality.
+
+## Example
+
+```java
+class Animal {
+    void sound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+
+    @Override
+    void sound() {
+        System.out.println("Dog barking");
+    }
+}
+```
+
+------
+
+# 3. Primitive Data Types in Java
+
+## Interview Question
+
+What are **primitive data types in Java**?
+
+## 
+
+Java has **8 primitive data types**.
+
+| Type    | Size    | Example             |
+| ------- | ------- | ------------------- |
+| byte    | 1 byte  | byte b = 10         |
+| short   | 2 bytes | short s = 100       |
+| int     | 4 bytes | int i = 1000        |
+| long    | 8 bytes | long l = 10000      |
+| float   | 4 bytes | float f = 10.5f     |
+| double  | 8 bytes | double d = 10.5     |
+| char    | 2 bytes | char c = 'A'        |
+| boolean | 1 bit   | boolean flag = true |
+
+## 
+
+Primitive types:
+
+- Store **actual values**
+- Faster than objects
+- Stored in **stack memory**
+
+## Example
+
+```java
+public class PrimitiveExample {
+
+    public static void main(String[] args) {
+
+        int age = 25;
+        double salary = 50000.50;
+        char grade = 'A';
+        boolean active = true;
+
+        System.out.println(age);
+    }
+}
+```
+
+------
+
+# 4. Autoboxing and Unboxing
+
+## Interview Question
+
+What is **Autoboxing and Unboxing** in Java?
+
+## 
+
+| Concept    | Description                |
+| ---------- | -------------------------- |
+| Autoboxing | Primitive → Wrapper object |
+| Unboxing   | Wrapper object → Primitive |
+
+## 
+
+Java automatically converts primitives to wrapper objects when needed.
+
+```
+int → Integer
+double → Double
+boolean → Boolean
+```
+
+## Example
+
+### Autoboxing
+
+```java
+int num = 10;
+Integer obj = num;   // Autoboxing
+```
+
+### Unboxing
+
+```java
+Integer obj = 20;
+int num = obj;      // Unboxing
+```
+
+## Real-world Scenario
+
+Used heavily in **Collections** because collections store **objects only**.
+
+```java
+List<Integer> list = new ArrayList<>();
+
+list.add(10);  // Autoboxing
+```
+
+------
+
+# 5. Access Modifiers in Java
+
+## Interview Question
+
+What are the **access modifiers in Java**?
+
+## 
+
+| Modifier  | Access Scope       |
+| --------- | ------------------ |
+| private   | Only within class  |
+| default   | Same package       |
+| protected | Package + subclass |
+| public    | Everywhere         |
+
+## 
+
+```
+Private  → Class only
+Default  → Package
+Protected → Package + Child class
+Public   → Anywhere
+```
+
+## Example
+
+```java
+class User {
+
+    private int id;
+    String name;        // default
+    protected int age;
+    public String email;
+}
+```
+
+------
+
+# 6. Package in Java
+
+## Interview Question
+
+What is a **package in Java**?
+
+## 
+
+A package is a **namespace that organizes related classes**.
+
+## 
+
+Benefits:
+
+- Avoid class name conflict
+- Better project structure
+- Access control
+
+Example structure
+
+```
+com.bank.app
+      |
+      ├── controller
+      ├── service
+      ├── repository
+      └── model
+```
+
+## Example
+
+Declare package
+
+```java
+package com.bank.service;
+
+public class PaymentService {
+}
+```
+
+Import package
+
+```java
+import com.bank.service.PaymentService;
+```
+
+------
+
+# 7. Static Keyword in Java
+
+## Interview Question
+
+What is the **static keyword in Java**?
+
+## 
+
+Static members belong to the **class rather than objects**.
+
+## 
+
+Types of static:
+
+- Static variable
+- Static method
+- Static block
+
+### Static Variable
+
+Shared among all objects.
+
+### Static Method
+
+Can be called without creating object.
+
+## Example
+
+```java
+class Counter {
+
+    static int count = 0;
+
+    Counter() {
+        count++;
+    }
+}
+public class Test {
+
+    public static void main(String[] args) {
+
+        new Counter();
+        new Counter();
+
+        System.out.println(Counter.count);
+    }
+}
+```
+
+Output
+
+```
+2
+```
+
+------
+
+# 8. Constructor in Java
+
+## Interview Question
+
+What is a **constructor in Java**?
+
+## 
+
+A constructor is a **special method used to initialize objects**.
+
+## Key Characteristics
+
+- Same name as class
+- No return type
+- Called automatically when object is created
+
+## Types of Constructors
+
+1. Default Constructor
+2. Parameterized Constructor
+
+------
+
+## Example
+
+### Default Constructor
+
+```java
+class User {
+
+    User() {
+        System.out.println("User created");
+    }
+}
+```
+
+### Parameterized Constructor
+
+```java
+class User {
+
+    String name;
+
+    User(String name) {
+        this.name = name;
+    }
+}
+```
+
+Usage
+
+```java
+User u = new User("Narsing");
+```
+
+------
+
+# 9. Can We Use Static Methods in a Constructor?
+
+## Interview Question
+
+Can we call **static methods inside a constructor**?
+
+## 
+
+Yes, **static methods can be called inside constructors**.
+
+## 
+
+Static methods belong to the class, so they can be called from:
+
+- Constructors
+- Instance methods
+- Static methods
+
+## Example
+
+```java
+class Test {
+
+    Test() {
+        show();   // calling static method
+    }
+
+    static void show() {
+        System.out.println("Static method called");
+    }
+
+    public static void main(String[] args) {
+        new Test();
+    }
+}
+```
+
+Output
+
+```
+Static method called
+```
+
+## Real-world Scenario
+
+In **Spring Boot applications**, constructors often call static **utility methods** for:
+
+- Validation
+- Logging
+- Configuration loading
+
+---
+
+
+
+# OOP Concepts
 
 10.	What is inheritance? Types of inheritance in Java?
 11.	What is polymorphism? Give examples
@@ -22,7 +492,7 @@ String Handling
 
 16.	What is the difference between String, StringBuilder, and StringBuffer?
 17.	Difference between creating String with literal and new operator
- 
+
 18.	What is String pool and how does it work?
 19.	What are the advantages of String pool?
 20.	Why String is immutable?
@@ -67,7 +537,7 @@ Core Concepts
 46.	What is dependency injection?
 47.	What is @Autowired?
 48.	What are Spring Boot starters?
- 
+
 49.	What is application.properties file?
 50.	Difference between Spring and Spring Boot?
 51.	What is IOC container in Spring?
@@ -109,7 +579,7 @@ Java 8 Features
 75.	What is Stream pipeline?
 76.	Difference between intermediate and terminal operators in Stream API
 77.	Using Stream API, find the 2nd highest salary from employee objects list
- 
+
 78.	Use of Stream API in projects
 79.	Lambda expressions vs Anonymous classes
 
@@ -151,7 +621,7 @@ Advanced Configuration
 106.	How do you write a global exception handler in Spring Boot?
 107.	Difference between application.properties and application.ymI?
 108.	What is the use of CommandLineRunner and ApplicationRunner?
- 
+
 109.	How does the embedded server (Tomcat) work in Spring Boot?
 110.	How do you override default auto-configurations?
 111.	How do you handle circular dependencies in Spring Boot?
@@ -195,7 +665,7 @@ Database & JPA Basics
 Testing Basics
 137.	What is JUnit? Basic annotations?
 138.	What is @Mockito? When to use @Mock?
- 
+
 139.	What is the difference between @Mock, @MockBean, and @Spy?
 140.	How do you test REST controllers using MockMvc?
 141.	What is @SpringBootTest vs @WebMvcTest?
@@ -236,7 +706,7 @@ Advanced Concurrency
 167.	How would you write a thread-safe singleton?
 168.	What is the Producer-Consumer pattern? Implement with BlockingQueue?
 169.	What is ForkJoinPool and how it differs from regular thread pools?
- 
+
 170.	How do Java Stream operations work internally (parallel vs sequential)?
 171.	What is a live-lock and how is it different from deadlock?
 172.	What is the Java Memory Model (JMM)?
@@ -278,7 +748,7 @@ Advanced JPA & Database
 202.	What is database indexing? Query optimization strategies?
 
 Advanced Spring Security
- 
+
 203.	How do you implement OAuth2 and JWT in Spring Boot?
 204.	What is a stateless session? How does JWT help?
 205.	How do you implement two-factor authentication (2FA)?
@@ -321,7 +791,7 @@ Apache Kafka
 238.	How do you handle exactly-once delivery semantics?
 239.	What is Kafka Streams? When to use it?
 240.	How do you monitor Kafka performance?
- 
+
 241.	Explain Kafka and how it handles real-time message processing
 
 Advanced Testing
@@ -360,7 +830,7 @@ DevOps & Cloud
 269.	What is monitoring and observability? Prometheus, Grafana setup?
 270.	JAR vs WAR files
 271.	Maven vs Gradle
- 
+
 272.	Continuous Integration vs Continuous Deployment
 
 Kubernetes & Cloud Native
@@ -398,7 +868,7 @@ Java 21+ Features
 298.	What are the benefits of pattern matching for instanceof?
 299.	What are getFirst() and getLast() methods in collections?
 300.	How do String Templates improve string building over concatenation?
- 
+
 Reactive Programming
 301.	What is reactive programming?
 302.	Difference between Mono and Flux?
@@ -426,7 +896,7 @@ Database Issues
 316.	Two users are trying to update the same product simultaneously. How do you handle this?
 
 Microservices Challenges
- 
+
 317.	You need to migrate a monolithic application with 2 million users to microservices. What's your strategy?
 318.	Service A depends on Service B, which depends on Service C. Service C is down. How do you prevent cascade failures?
 319.	You have an order that touches 5 different microservices. If one fails after others succeed, how do you handle this?
@@ -459,7 +929,7 @@ Week 1-2: Core Java Mastery
 •	Master collections and exception handling
 
 Week 3-4: Spring Boot Deep Dive
- 
+
 •	Focus on questions 101-200
 •	Build sample REST APIs
 •	Practice dependency injection scenarios
@@ -493,7 +963,7 @@ Annotation	Purpose	Scope
 @Repository	Data access	Class level
 @ControIIer	Web requests	Class level
 @RestControIIer	REST APIs	Class level
- 
+
 HTTP Status Codes
 
 Code	Meaning	When to Use
@@ -527,7 +997,7 @@ During Interview
 2.	Ask clarifying questions
 3.	Explain trade-offs and alternatives
 4.	Show willingness to learn
- 
+
 After Interview
 1.	Send thank you email within 24 hours
 2.	Address any gaps from the interview
