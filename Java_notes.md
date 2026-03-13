@@ -2090,6 +2090,97 @@ System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
 
 ---
 
+### Why HashMap allows one null key?
+
+**Answer**
+
+HashMap allows only one null key because internally it stores the null key in bucket index 0.
+
+Normally HashMap calculates bucket index using:
+
+hash(key) % capacity
+
+But if the key is null, there is no hashCode(), so Java directly stores it in bucket 0.
+
+Example
+
+```java
+Map<String, String> map = new HashMap<>();
+
+map.put(null, "Java");
+map.put(null, "Spring");   // replaces previous value
+
+System.out.println(map);
+```
+
+```bash
+Output
+{null=Spring}
+```
+
+✔ Only one null key allowed because keys must be unique.
+
+---
+
+### Why TreeSet does not allow null?
+TreeSet does not allow null because it uses sorting (Comparable / Comparator) internally.
+It compares elements using:
+`compareTo()`
+If null is inserted, Java cannot compare:
+`null.compareTo()`
+This causes NullPointerException.
+
+Example
+
+```java
+Set<Integer> set = new TreeSet<>();
+set.add(10);
+set.add(null);   // throws exception
+
+//Output :NullPointerException
+```
+✔ Because TreeSet uses Red-Black Tree for sorting.
+
+### How HashMap works internally?
+
+HashMap uses: Hashing + Bucket + LinkedList / Red Black Tree
+
+Step-by-step
+
+1️⃣ When put(key,value) is called
+
+`hashCode()` → calculate hash
+
+2️⃣ Java converts hash into bucket index
+
+index = hash & (capacity - 1)
+
+3️⃣ Data stored in bucket
+
+Structure:
+
+Bucket → Node(key,value,hash,next)
+
+4️⃣ If collision occurs
+
+Java 7 → `LinkedList`
+
+Java 8 → `LinkedList` → Red Black Tree (if >8 elements)
+
+
+Diagram
+
+HashMap
+```swift
+     |
+     |---- Bucket[0]
+     |---- Bucket[1] → Node → Node → Node
+     |---- Bucket[2]
+     |---- Bucket[3]
+```
+
+[========]
+
 <div align="center"><h1>Java 8 Key Features & Concepts</h1></div>
 
 
