@@ -535,6 +535,34 @@ There are four types: 
 
 ------
 
+
+
+### What is the difference between an instance variable and a local variable?
+
+| Feature | Instance Variable             | Local Variable               |
+| ------- | ----------------------------- | ---------------------------- |
+| Scope   | Exists throughout object life | Exists within a method/block |
+| Storage | Stored in heap memory         | Stored in stack memory       |
+| Default | Gets default value            | No default value             |
+| Value   | null                          | 0                            |
+
+###  What is the difference between shallow copy and deep copy?
+
+| **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
+| -------------- | ------------------------------------- | ----------------------------------- |
+| **Definition** | Copies reference, not the actual data | Copies the entire object            |
+| **Example**    | `clone()` method (default behavior)   | Custom implementation (manual copy) |
+
+**Example:** 
+
+```java
+Car car1 = new Car(); // Shallow Copy – both references point to the same object
+Car car2 = car1; // Deep Copy – creates a new object with copied data
+Car car2 = new Car(car1);
+```
+
+---
+
 ### Java Memory Model (JVM Memory)
 
 Java memory is divided into different areas used by the **JVM (Java Virtual Machine)**. JVM memory is divided into Heap, Stack, Method Area, PC Register, and Native Method Stack. Heap stores objects and is managed by garbage collection, Stack stores method calls and local variables for each thread, and Method Area stores class metadata and static variables.
@@ -775,11 +803,11 @@ String s3 = "Java"; // Already exists in the String Pool
 
 System.out.println(s2 == s3); // true (both refer to the same object in the String Pool)
 ```
+---
+
 ### What is String pool and how does it work and its advantages ?
 
-The Java String Pool (also called the String Intern Pool) is a special memory area inside the heap that stores string literals.
-
-When the JVM encounters a string literal:
+The Java String Pool (also called the String Intern Pool) is a special memory area inside the heap that stores string literals. When the JVM encounters a string literal:
 
 - It first checks whether an identical string already exists in the pool.
 - If found, it reuses the existing reference.
@@ -787,9 +815,8 @@ When the JVM encounters a string literal:
 - This mechanism reduces memory consumption by reusing immutable string objects.
 - Using the new keyword forces the JVM to create new objects in the heap outside the String Constant Pool, even if an identical value already exists there. Hence, s1 and s2 refer to different heap objects.
 
-Example:
-`String str1 = "Hello";`
-Here, the variable str1 is stored in the stack, while "Hello" is stored in the String Constant Pool inside the heap.
+**Example:**
+`String str1 = "Hello";` Here, the variable str1 is stored in the stack, while "Hello" is stored in the String Constant Pool inside the heap.
 
 ```java
 public class Example2 {
@@ -808,11 +835,14 @@ public class Example2 {
     }
 }
 ```
-Adantages :
+**Adantages :**
+
 1.  The main advantages of a string pool are memory efficiency and performance improvement. By reusing existing string objects, it reduces the overall memory footprint and speeds up operations like string comparison
 2. Performance Improvement
 3.  Thread Safety
 4. Security
+
+---
 
 ### What is the difference between == and .equals() in objects?
 
@@ -827,6 +857,8 @@ System.out.println(s1 == s2);       // false → compares memory addresses
 System.out.println(s1.equals(s2));  // true  → compares con
 ```
 
+---
+
 #### **String Methods :**
 
 1.  **Length() --** Return length of String
@@ -837,9 +869,8 @@ System.out.println(s1.equals(s2));  // true  → compares con
 
 4.  **equals() --** Compare two string content
 
-5.  **equalsIgnoreCase() --** Compare two string with ignoring case of
-    String
-
+5.  **equalsIgnoreCase() --** Compare two string with ignoring case of String
+    
 6.  **contains ()** -- check the string contains given char sequence
 
 7.  **toUpperCase() , toLowerCase()** - convert String case
@@ -965,31 +996,7 @@ public class StringMethods {
 
 ---
 
-<div align="center"><h1>THIS & STATIC KEYWORD</h1></div>
-
-### What is the difference between an instance variable and a local variable?
-
-| Feature | Instance Variable             | Local Variable               |
-| ------- | ----------------------------- | ---------------------------- |
-| Scope   | Exists throughout object life | Exists within a method/block |
-| Storage | Stored in heap memory         | Stored in stack memory       |
-| Default | Gets default value            | No default value             |
-| Value   | null                          | 0                            |
-
-###  What is the difference between shallow copy and deep copy?
-
-| **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
-| -------------- | ------------------------------------- | ----------------------------------- |
-| **Definition** | Copies reference, not the actual data | Copies the entire object            |
-| **Example**    | `clone()` method (default behavior)   | Custom implementation (manual copy) |
-
-**Example:** 
-
-```java
-Car car1 = new Car(); // Shallow Copy – both references point to the same object
-Car car2 = car1; // Deep Copy – creates a new object with copied data
-Car car2 = new Car(car1);
-```
+<div align="center"><h1>This & Static Keyword</h1></div>
 
 ---
 
