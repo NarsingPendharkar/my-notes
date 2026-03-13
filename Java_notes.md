@@ -64,7 +64,343 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 | **JDK (Java Development Kit)** | A complete software development kit used to **develop, compile, and run** Java applications. It includes JRE + development tools (compiler, debugger, etc.). |
 | **JRE (Java Runtime Environment)** | Provides the **libraries, class files, and JVM** necessary to **run** Java applications. |
 | **JVM (Java Virtual Machine)** | Converts **bytecode** into **machine code** and executes it. It is platform dependent but provides platform independence to Java code. |
+Below are important Java Exception Handling interview Q&A with short explanation + example for quick revision.
 
+
+---
+
+1. What is an Exception?
+
+Exception is an unexpected event that occurs during program execution and interrupts the normal flow of the program.
+
+Examples:
+
+dividing by zero
+
+accessing null object
+
+file not found
+
+
+Example:
+
+int a = 10;
+int b = 0;
+int c = a / b; // ArithmeticException
+
+If not handled, the program terminates abnormally.
+
+
+---
+
+2. Types of Exceptions in Java
+
+Mainly 3 types
+
+1️⃣ Checked Exceptions
+
+Checked at compile time.
+
+Examples:
+
+IOException
+
+SQLException
+
+FileNotFoundException
+
+
+Example
+
+FileReader file = new FileReader("test.txt");
+
+Must handle using try-catch or throws
+
+
+---
+
+2️⃣ Unchecked Exceptions
+
+Occur at runtime.
+
+Examples
+
+NullPointerException
+
+ArithmeticException
+
+ArrayIndexOutOfBoundsException
+
+
+Example
+
+String s = null;
+System.out.println(s.length()); // NullPointerException
+
+
+---
+
+3️⃣ Errors
+
+Serious problems that application should not handle.
+
+Examples
+
+OutOfMemoryError
+
+StackOverflowError
+
+
+
+---
+
+3. Difference Between Checked vs Unchecked Exception
+
+Feature	Checked Exception	Unchecked Exception
+
+Checked at	Compile time	Runtime
+Handling mandatory	Yes	No
+Parent class	Exception	RuntimeException
+Example	IOException	NullPointerException
+
+
+Example
+
+// Checked
+FileReader file = new FileReader("a.txt");
+
+// Unchecked
+int x = 10/0;
+
+
+---
+
+4. What is try-catch-finally?
+
+Used to handle exceptions and avoid program crash.
+
+Structure
+
+try {
+    // risky code
+    } catch(Exception e) {
+        // handling
+        } finally {
+            // always executes
+            }
+
+            Example
+
+            try {
+                int a = 10/0;
+                } catch (ArithmeticException e) {
+                    System.out.println("Cannot divide by zero");
+                    } finally {
+                        System.out.println("Always executed");
+                        }
+
+                        finally block
+
+                        always runs
+
+                        used for closing resources (DB, files)
+
+
+
+                        ---
+
+                        5. Can we use try without catch?
+
+                        ✅ Yes, but only with finally
+
+                        Example
+
+                        try {
+                            System.out.println("Hello");
+                            } finally {
+                                System.out.println("Cleanup code");
+                                }
+
+                                ❌ Not allowed
+
+                                try {
+                                }
+
+                                Must have catch or finally
+
+
+                                ---
+
+                                6. throw vs throws
+
+                                Feature	throw	throws
+
+                                Used for	explicitly throw exception	declare exception
+                                Used inside	method	method signature
+                                Keyword type	statement	declaration
+
+
+                                Example
+
+                                throw
+
+                                if(age < 18){
+                                    throw new IllegalArgumentException("Not eligible");
+                                    }
+
+                                    throws
+
+                                    public void readFile() throws IOException {
+                                        FileReader f = new FileReader("test.txt");
+                                        }
+
+
+                                        ---
+
+                                        7. Use Cases of User Defined Exceptions
+
+                                        We create custom exceptions for business rules.
+
+                                        Examples
+
+                                        Invalid bank transaction
+
+                                        Insufficient balance
+
+                                        Invalid order
+
+                                        Age restriction
+
+
+                                        Example
+
+                                        if(balance < amount){
+                                           throw new InsufficientBalanceException("Low balance");
+                                           }
+
+
+                                           ---
+
+                                           8. How to Create User Defined Exception
+
+                                           Step 1: Create class
+
+                                           class InsufficientBalanceException extends Exception {
+
+                                               public InsufficientBalanceException(String message){
+                                                       super(message);
+                                                           }
+                                                           }
+
+                                                           Step 2: Use it
+
+                                                           public void withdraw(int amount) throws InsufficientBalanceException {
+
+                                                               if(amount > balance){
+                                                                       throw new InsufficientBalanceException("Balance is low");
+                                                                           }
+                                                                           }
+
+                                                                           Step 3: Handle it
+
+                                                                           try {
+                                                                               account.withdraw(1000);
+                                                                               } catch (InsufficientBalanceException e) {
+                                                                                   System.out.println(e.getMessage());
+                                                                                   }
+
+
+                                                                                   ---
+
+                                                                                   9. What is NullPointerException?
+
+                                                                                   Occurs when calling method or accessing variable on null object.
+
+                                                                                   Example
+
+                                                                                   String name = null;
+                                                                                   name.length(); // NullPointerException
+
+
+                                                                                   ---
+
+                                                                                   How to Prevent It
+
+                                                                                   ✔ Null check
+
+                                                                                   if(name != null){
+                                                                                       name.length();
+                                                                                       }
+
+                                                                                       ✔ Use Optional
+
+                                                                                       Optional<String> name = Optional.ofNullable(null);
+
+                                                                                       ✔ Initialize objects
+
+
+                                                                                       ---
+
+                                                                                       10. What is ClassCastException?
+
+                                                                                       Occurs when object is cast to an incompatible type.
+
+                                                                                       Example
+
+                                                                                       Object obj = "Hello";
+
+                                                                                       Integer num = (Integer) obj; // ClassCastException
+
+                                                                                       Correct way
+
+                                                                                       Object obj = "Hello";
+
+                                                                                       if(obj instanceof String){
+                                                                                           String s = (String) obj;
+                                                                                           }
+
+
+                                                                                           ---
+
+                                                                                           11. Error vs Exception
+
+                                                                                           Feature	Exception	Error
+
+                                                                                           Type	Recoverable	Not recoverable
+                                                                                           Handled	Yes	Usually no
+                                                                                           Example	IOException	OutOfMemoryError
+
+
+                                                                                           Example
+
+                                                                                           // Exception
+                                                                                           int a = 10/0;
+
+                                                                                           // Error
+                                                                                           int[] arr = new int[999999999];
+
+
+                                                                                           ---
+
+                                                                                           ✅ Interview Tip (Important)
+
+                                                                                           Common runtime exceptions interviewer asks:
+
+                                                                                           NullPointerException
+
+                                                                                           ArithmeticException
+
+                                                                                           ArrayIndexOutOfBoundsException
+
+                                                                                           ClassCastException
+
+                                                                                           IllegalArgumentException
+
+
+
+                                                                                           ---
+
+                                                                                           If you want, I can also give 15 Advanced Exception Handling Interview Questions (Spring Boot + Production level) that 4+ years Java developers are asked in interviews. 🚀
 ---
 
 ### 🆚 Differences Between Java and C++
