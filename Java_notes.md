@@ -1352,12 +1352,10 @@ int x = 10/0;
 ```
 
 
-
 ### What is try-catch-finally?
-
 Used to handle exceptions and avoid program crash.
-
-Structure
+**Structure**
+```java
 try {
 // risky code
 } catch(Exception e) {
@@ -1365,9 +1363,9 @@ try {
 } finally {
 // always executes
 }
-
+```
 Example
-
+```java
 try {
 int a = 10/0;
 } catch (ArithmeticException e) {
@@ -1375,14 +1373,8 @@ System.out.println("Cannot divide by zero");
 } finally {
 System.out.println("Always executed");
 }
-
-finally block
-
-always runs
-
-used for closing resources (DB, files)
-
-
+```
+finally block always runs used for closing resources (DB, files)
 
 ---
 
