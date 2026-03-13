@@ -563,13 +563,13 @@ Car car2 = new Car(car1);
 
 ---
 
-### Java Memory Model (JVM Memory)
+### 💾 Java Memory Model (JVM Memory)
 
 Java memory is divided into different areas used by the **JVM (Java Virtual Machine)**. JVM memory is divided into Heap, Stack, Method Area, PC Register, and Native Method Stack. Heap stores objects and is managed by garbage collection, Stack stores method calls and local variables for each thread, and Method Area stores class metadata and static variables.
 
 Main memory areas:
 
-1. **Heap**
+1. **Heap** 
 2. **Stack**
 3. **Method Area**
 4. **PC Register**
@@ -725,22 +725,10 @@ flowchart TD
 
 ------
 
-##### Important Interview Points
-
-Always mention these **4 keywords**:
-
-```bash
-Heap → Objects
-Stack → Method calls & local variables
-Method Area → class metadata & static variables
-Garbage Collector → cleans heap memory
-```
-
-------
-
 <div align="center">
-    <h1>String</h1>
+    <h1>🧵 String in Java</h1>
 </div>
+
 
 ### What is a String in Java?
 
@@ -748,22 +736,13 @@ Garbage Collector → cleans heap memory
 
 - It is an object of String class.
 
+----
+
 ### What is Java String Pool?
 
 A Java String Pool is a place in heap memory where all the strings defined in the program are stored. JVM checks for the presence of the object in the String pool, If String is available in the pool, the same object reference is shared with the variable, else a new object is created.
 
-### Java Stack vs Heap Memory Allocation
-
-- Memory allocation divided into two types stack and pool memory
-
-- **Stack Memory** : stores the variable , methods and reference data duringexecution
-  
-- **Heap memory** : stores the objects and strings are stored
-
-- The below diagram illustrates how method calls and local variables are stored in the stack memory, while objects and string literals are stored in the heap memory.
-
-![Lightbox](./media/media/image19.png){width="5.386582458442694in"
-height="2.9434251968503937in"}
+---
 
 ### Why is String immutable?
 
@@ -787,6 +766,7 @@ height="2.9434251968503937in"}
   | Thread-safe? | Yes    | No            | Yes (Synchronized)        |
   | Performance  | slow   | Fast          | Slower than StringBuilder |
 
+---
 
 ### What is String interning?
 
@@ -809,11 +789,11 @@ System.out.println(s2 == s3); // true (both refer to the same object in the Stri
 
 The Java String Pool (also called the String Intern Pool) is a special memory area inside the heap that stores string literals. When the JVM encounters a string literal:
 
-- It first checks whether an identical string already exists in the pool.
-- If found, it reuses the existing reference.
-- If not, it creates a new string object in the pool.
-- This mechanism reduces memory consumption by reusing immutable string objects.
-- Using the new keyword forces the JVM to create new objects in the heap outside the String Constant Pool, even if an identical value already exists there. Hence, s1 and s2 refer to different heap objects.
+1. It first checks whether an identical string already exists in the pool.
+2. If found, it reuses the existing reference.
+3. If not, it creates a new string object in the pool.
+4. This mechanism **reduces memory consumption** by reusing immutable string objects.
+5. Using the **new keyword** forces the JVM to **create new objects in the heap** outside the **String Constant Pool**, even if an identical value already exists there. Hence, s1 and s2 refer to different heap objects.
 
 **Example:**
 `String str1 = "Hello";` Here, the variable str1 is stored in the stack, while "Hello" is stored in the String Constant Pool inside the heap.
@@ -902,7 +882,7 @@ public class StringMethods {
 
     String sentence=" abc1def2ghi3a ";
 
-    String reg="\\\\d";
+    String reg="\\d";
 
     String test=" ";
 
@@ -953,54 +933,11 @@ public class StringMethods {
 }}}
 ```
 
-**Output:**
-
-> //Compare Two Strings with [igonring]  case :true
->
-> //Check char present or not in string : true
->
-> //Change case of String narsing
->
-> //Change case of String NARSING
->
-> //Replace string charParsing
->
-> //Replace All in string : abc
->
-> //Start with string:true
->
-> //Start with string:true
->
-> //first Index of String:1
->
-> //Last Index of String:13
->
-> //Trim string:abc1def2ghi3a
->
-> //Check empty String:false
->
-> //Check empty String:true
->
-> //Matches to [regex] :false
->
-> //abc
->
-> //def
->
-> //ghi
->
-> //a
->
-
-
-
 ---
 
 <div align="center"><h1>This & Static Keyword</h1></div>
 
----
-
-<div align="center"><h2>this Keyword</h2></div>
+## This Keyword 
 
 The `this` keyword refers to the current instance of the class. It is used to differentiate between instance variables and local variables, call constructors, and return the current object.
 
@@ -1134,6 +1071,8 @@ public class Example {
 
 Reason: A **static method belongs to the class**, not to the object, so it can be accessed anywhere in the class including constructors.
 
+---
+
 ### Can we override a static method?
 
 - ❌ **No**, static methods belong to the class, not instances.  
@@ -1164,7 +1103,7 @@ public class Test {
 
 ---
 
-### Comparison: this vs static
+###  this vs static 
 
 | Feature            | this                         | static                                    |
 | ------------------ | ---------------------------- | ----------------------------------------- |
