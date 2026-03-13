@@ -141,13 +141,9 @@ int → Integer
 #### 2. Unboxing
 
 **Unboxing** is the **automatic conversion of a wrapper object into a primitive type**.
-
-Object → Primitive
-
-Example
 `Integer` → `int`
 
-### Example
+##### Example
 
 ```java
 Integer obj = 20;
@@ -188,7 +184,7 @@ Output
 
 ------
 
-#### Wrapper Classes
+### What is the Wrapper class in Java ?
 
 Primitive types have corresponding **wrapper classes**.
 
@@ -200,10 +196,6 @@ Primitive types have corresponding **wrapper classes**.
 | boolean   | Boolean   |
 | long      | Long      |
 | float     | Float     |
-
----
-
-### What is the Wrapper class in Java ?
 
 - Wrapper, in general, is referred to a larger entity that encapsulates a smaller entity. Here in Java, the wrapper class is an object class that encapsulates the primitive data types.
 
@@ -534,9 +526,25 @@ There are four types: 
   
 - **Private**: Accessible only within the same class.
 
+> [!TIP]
+>
+> private   → 🏠 My Room (only me)
+> default   → 🏢 My Building (same package)
+> protected → 🏫 My Family + Building (subclass + package)
+> public    → 🌍 World (anywhere)
+
+------
+
+##### Access Modifier Visibility Table
+
+| Modifier  | Same Class🏠 | Same Package🏢 | Subclass | Other Package |
+| --------- | ----------- | ------------- | -------- | ------------- |
+| private   | ✔           | ✖             | ✖        | ✖             |
+| default   | ✔           | ✔             | ✖        | ✖             |
+| protected | ✔           | ✔             | ✔        | ✖             |
+| public    | ✔           | ✔             | ✔        | ✔             |
+
 ---
-
-
 
 <div align="center">
     <h1>String</h1>
@@ -601,15 +609,27 @@ String s2 = s1.intern(); // Moves "Java" to the String Pool (orreturns the refer
 
 String s3 = "Java"; // Already exists in the String Pool
 
-System.out.println(s2 == s3); // true (both refer to the same
-object in the String Pool)
+System.out.println(s2 == s3); // true (both refer to the same object in the String Pool)
 ```
 
 ### **What is the String Pool in Java?**
 
 - String pool is a special memory in heap memory where Java stores **string literals** to optimize memory usage.
 
-**String Methods :**
+### What is the difference between == and .equals() in objects?
+
+- == checks reference equality (same memory address).
+- .equals() checks weather both strings have same characters.
+
+```java
+String s1 = new String("Narsing");
+String s2 = new String("Narsing");
+
+System.out.println(s1 == s2);       // false → compares memory addresses
+System.out.println(s1.equals(s2));  // true  → compares con
+```
+
+#### **String Methods :**
 
 1.  **Length() --** Return length of String
 
@@ -827,18 +847,14 @@ Car car2 = car1; // Deep Copy – creates a new object with copied data
 Car car2 = new Car(car1);
 ```
 
-### What is the difference between == and .equals() in objects?
 
-- == checks reference equality (same memory address).
-- .equals() checks weather both strings have same characters.
 
-```java
-String s1 = new String("Narsing");
-String s2 = new String("Narsing");
+### Can We Use Static Methods in a Constructor?
 
-System.out.println(s1 == s2);       // false → compares memory addresses
-System.out.println(s1.equals(s2));  // true  → compares con
-```
+✅ **Yes, we can call static methods inside a constructor.**
+
+Reason:
+ A **static method belongs to the class**, not to the object, so it can be accessed anywhere in the class including constructors.
 
 ### Can we override a static method?
 
