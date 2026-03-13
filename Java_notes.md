@@ -1348,6 +1348,229 @@ int x = 10/0;
 ```
 
 
+
+### What is try-catch-finally?
+
+Used to handle exceptions and avoid program crash.
+
+Structure
+try {
+// risky code
+} catch(Exception e) {
+// handling
+} finally {
+// always executes
+}
+
+Example
+
+try {
+int a = 10/0;
+} catch (ArithmeticException e) {
+System.out.println("Cannot divide by zero");
+} finally {
+System.out.println("Always executed");
+}
+
+finally block
+
+always runs
+
+used for closing resources (DB, files)
+
+
+
+---
+
+5. Can we use try without catch?
+
+✅ Yes, but only with finally
+
+Example
+
+try {
+System.out.println("Hello");
+} finally {
+System.out.println("Cleanup code");
+}
+
+❌ Not allowed
+
+try {
+}
+
+Must have catch or finally
+
+
+---
+
+6. throw vs throws
+
+Feature	throw	throws
+
+Used for	explicitly throw exception	declare exception
+Used inside	method	method signature
+Keyword type	statement	declaration
+
+
+Example
+
+throw
+
+if(age < 18){
+throw new IllegalArgumentException("Not eligible");
+}
+
+throws
+
+public void readFile() throws IOException {
+FileReader f = new FileReader("test.txt");
+}
+
+
+---
+
+7. Use Cases of User Defined Exceptions
+
+We create custom exceptions for business rules.
+
+Examples
+
+Invalid bank transaction
+
+Insufficient balance
+
+Invalid order
+
+Age restriction
+
+
+Example
+
+if(balance < amount){
+throw new InsufficientBalanceException("Low balance");
+}
+
+
+---
+
+8. How to Create User Defined Exception
+
+Step 1: Create class
+
+class InsufficientBalanceException extends Exception {
+
+public InsufficientBalanceException(String message){
+super(message);
+}
+}
+
+Step 2: Use it
+
+public void withdraw(int amount) throws InsufficientBalanceException {
+
+if(amount > balance){
+throw new InsufficientBalanceException("Balance is low");
+}
+}
+
+Step 3: Handle it
+
+try {
+account.withdraw(1000);
+} catch (InsufficientBalanceException e) {
+System.out.println(e.getMessage());
+}
+
+
+---
+
+9. What is NullPointerException?
+
+Occurs when calling method or accessing variable on null object.
+
+Example
+
+String name = null;
+name.length(); // NullPointerException
+
+
+---
+
+How to Prevent It
+
+✔ Null check
+
+if(name != null){
+name.length();
+}
+
+✔ Use Optional
+
+Optional<String> name = Optional.ofNullable(null);
+
+✔ Initialize objects
+
+
+---
+
+10. What is ClassCastException?
+
+Occurs when object is cast to an incompatible type.
+
+Example
+
+Object obj = "Hello";
+
+Integer num = (Integer) obj; // ClassCastException
+
+Correct way
+
+Object obj = "Hello";
+
+if(obj instanceof String){
+String s = (String) obj;
+}
+
+
+---
+
+11. Error vs Exception
+
+Feature	Exception	Error
+
+Type	Recoverable	Not recoverable
+Handled	Yes	Usually no
+Example	IOException	OutOfMemoryError
+
+
+Example
+
+// Exception
+int a = 10/0;
+
+// Error
+int[] arr = new int[999999999];
+
+
+---
+
+✅ Interview Tip (Important)
+
+Common runtime exceptions interviewer asks:
+
+NullPointerException
+
+ArithmeticException
+
+ArrayIndexOutOfBoundsException
+
+ClassCastException
+
+IllegalArgumentException
+
+---
+
 ---
 
 <div align="center"><h1>OOPs (Object-Oriented Programming) </h1></div>
