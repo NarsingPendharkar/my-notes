@@ -45,8 +45,6 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-
-
 ### 📦 What is a Class Loader?
 
 - It is a part of **JRE** which **loads classes and interfaces dynamically** into the **JVM** at runtime.  
@@ -61,12 +59,8 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 | **JDK (Java Development Kit)** | A complete software development kit used to **develop, compile, and run** Java applications. It includes JRE + development tools (compiler, debugger, etc.). |
 | **JRE (Java Runtime Environment)** | Provides the **libraries, class files, and JVM** necessary to **run** Java applications. |
 | **JVM (Java Virtual Machine)** | Converts **bytecode** into **machine code** and executes it. It is platform dependent but provides platform independence to Java code. |
-Below are important Java Exception Handling interview Q&A with short explanation + example for quick revision.
-
 
 ---
-
-
 
 ### 🆚 Differences Between Java and C++
 
@@ -78,13 +72,11 @@ Below are important Java Exception Handling interview Q&A with short explanation
 | **Global Scope** | Supports **global and namespace scope** | Does **not support** global scope |
 | **Feature Support** | Supports **goto, pointers, call by reference** (not in Java) | Supports **threads, documentation comments** (not in C++) |
 
----
-
-> [!TIP]
->
 > 🧠 **Summary:**  
-> - Java simplifies development by managing memory and platform differences internally.  
+>- Java simplifies development by managing memory and platform differences internally.  
 > - C++ offers more hardware control but requires manual memory management.
+
+---
 
 ### What will happen if we declare don't declare the main as static?
 
@@ -224,7 +216,8 @@ The wrapper class is an object class that encapsulates the primitive data types,
 
 - A class is a blueprint/template for creating objects. It defines attributes (fields/variables) and behavior's (methods).
 
-> **Example:**
+**Example:**
+
 ```java
 public class Home{
 	public static void main(String args[]){
