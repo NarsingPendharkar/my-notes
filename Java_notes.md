@@ -1958,11 +1958,51 @@ Use **ArrayList** unless **thread safety** is specifically required.
 | **Performance**   | Fast (Single-threaded) | Fast (Multi-threaded)               |
 | **Allows null?**  | Yes (keys & values)    | No null keys or values              |
 
----
-
 ✅ **Use `ConcurrentHashMap`** for **multi-threaded applications** to avoid synchronization issues that occur with `HashMap`.
+---
+
+### Difference between Iterator and ListIterator
+
+Feature|	Iterator	|ListIterator
+----------|--------------|----------------
+Direction|	Forward only	|Forward + Backward
+Collection support	|All collections|	Only List
+Add operation|	Not allowed|	Allowed
+Replace|	Not allowed|	Allowed
+
+
+** Iterator Example**
+
+```java
+List<String> list = new ArrayList<>();
+list.add("Java");
+list.add("Spring");
+Iterator<String> it = list.iterator();
+while(it.hasNext()) {
+   System.out.println(it.next());
+}
+```
+
 
 ---
+
+**ListIterator Example**
+
+```java
+List<String> list = new ArrayList<>();
+ListIterator<String> it = list.listIterator();
+while(it.hasNext()) {
+ System.out.println(it.next());
+}
+while(it.hasPrevious()) {
+  System.out.println(it.previous());
+}
+```
+
+✔ ListIterator can move both directions.
+
+---
+
 
 #### What is the difference between Fail-Fast and Fail-Safe Iterators?
 
