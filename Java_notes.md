@@ -7,7 +7,7 @@
 <img src="https://img.shields.io/badge/Spring-Boot-green?style=for-the-badge">
 <img src="https://img.shields.io/badge/Microservices-Architecture-blue?style=for-the-badge">
 
-
+---
 
 ### 💻 Is Java Platform Independent? If yes, how?
 
