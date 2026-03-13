@@ -788,10 +788,44 @@ String s3 = "Java"; // Already exists in the String Pool
 
 System.out.println(s2 == s3); // true (both refer to the same object in the String Pool)
 ```
+### What is String pool and how does it work and its advantages ?
 
-### **What is the String Pool in Java?**
+The Java String Pool (also called the String Intern Pool) is a special memory area inside the heap that stores string literals.
 
-- String pool is a special memory in heap memory where Java stores **string literals** to optimize memory usage.
+When the JVM encounters a string literal:
+
+- It first checks whether an identical string already exists in the pool.
+- If found, it reuses the existing reference.
+- If not, it creates a new string object in the pool.
+- This mechanism reduces memory consumption by reusing immutable string objects.
+- Using the new keyword forces the JVM to create new objects in the heap outside the String Constant Pool, even if an identical value already exists there. Hence, s1 and s2 refer to different heap objects.
+
+Example:
+`String str1 = "Hello";`
+Here, the variable str1 is stored in the stack, while "Hello" is stored in the String Constant Pool inside the heap.
+
+```java
+public class Example2 {
+    public static void main(String[] args) {
+        String s1 = new String("abc");
+        String s2 = new String("abc");
+        String s3 = "abc";
+        String s4 = "abc";
+
+        if (s1 == s2) {
+            System.out.println("both are not in same memory location because its created using new keyword which create object in heap memory for string ");
+        }
+        if (s3 == s4) {
+            System.out.println("both are in same memory location becsuse one single string is created in string pool and refered by both veriables");
+        }
+    }
+}
+```
+Adantages :
+1.  The main advantages of a string pool are memory efficiency and performance improvement. By reusing existing string objects, it reduces the overall memory footprint and speeds up operations like string comparison
+2. Performance Improvement
+3.  Thread Safety
+4. Security
 
 ### What is the difference between == and .equals() in objects?
 
