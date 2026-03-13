@@ -1,6 +1,7 @@
 <div align="center">
-  <h1 style="font-size:40px;">☕ JAVA</h1>
+  <h1 style="font-size:50px;">☕ JAVA</h1>
 </div>
+
 
 ### 💻 Is Java Platform Independent? If yes, how?
 Yes! When we execute Java code, the **compiler** converts it into **bytecode**. This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
@@ -305,7 +306,7 @@ public class Main {
 
 ---
 
-**What is the difference between a class and an object?**
+### **What is the difference between a class and an object?**
 
 | Feature    | Class                | Object                |
 | ---------- | -------------------- | --------------------- |
@@ -319,7 +320,7 @@ public class Main {
     <h1>Constructors</h1>
 </div>
 
-####  What is a constructor?
+###  What is a constructor?
 
 - A constructor is a special method used to initialize objects.
 
@@ -373,11 +374,11 @@ Car(Car c) { this.brand = c.brand; }
 ![](./media/media/image18.png){width="3.208581583552056in"
 height="2.438779527559055in"}
 
-#### What happens if a class doesn't have a constructor?
+### What happens if a class doesn't have a constructor?
 
 - JVM provides a default constructor automatically.
 
-#### Can a constructor be private?
+### Can a constructor be private?
 
 - Yes, it is used in the Singleton pattern:
 
@@ -405,7 +406,7 @@ public class Singleton {
 
 ---
 
-#### How do you design an immutable class in Java? What rules should you follow?
+### How do you design an immutable class in Java? What rules should you follow?
 
 An **immutable class** is a class whose objects cannot be modified once created.
 
@@ -457,8 +458,6 @@ public final class Immutable {
 }
 ```
 
-
-
 ✅ No setters
 ✅ Fields are private final
 ✅ Class is final
@@ -478,24 +477,20 @@ public record Immutable (int id,String name) {
 
 - Fields are private final
 
-- No setters generated
-  ➡️ **Immutable by default**
+- No setters generated ➡️ **Immutable by default**
 
 **✅ Key Benefits**
 
 - Thread-safe by default (no synchronization needed)
-
 - Easy to debug and test
-
 - Ideal for DTOs and response objects in microservices
 
 ---
 
-
-
 <div align="center">
-    <h1>Methods & Object Behavior</h1>
+    <h1>Methods & Object</h1>
 </div>
+
 
 ### What is the difference between a method and a constructor?
 
@@ -677,9 +672,7 @@ Native methods interact with OS libraries.
 
 ```java
 class Test {
-
     static int x = 10;
-
     public static void main(String[] args) {
         int a = 5;
         Student s = new Student();
