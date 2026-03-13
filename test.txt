@@ -1,5 +1,272 @@
 
+
+These are very common collection framework interview questions. I’ll explain them short + with example, useful for 3–5 years Java developer interviews.
+
+
 ---
+
+1. Why HashMap allows one null key?
+
+Answer
+
+HashMap allows only one null key because internally it stores the null key in bucket index 0.
+
+Normally HashMap calculates bucket index using:
+
+hash(key) % capacity
+
+But if the key is null, there is no hashCode(), so Java directly stores it in bucket 0.
+
+Example
+
+Map<String, String> map = new HashMap<>();
+
+map.put(null, "Java");
+map.put(null, "Spring");   // replaces previous value
+
+System.out.println(map);
+
+Output
+
+{null=Spring}
+
+✔ Only one null key allowed because keys must be unique.
+
+
+---
+
+2. Why TreeSet does not allow null?
+
+Answer
+
+TreeSet does not allow null because it uses sorting (Comparable / Comparator) internally.
+
+It compares elements using:
+
+compareTo()
+
+If null is inserted, Java cannot compare:
+
+null.compareTo()
+
+This causes NullPointerException.
+
+Example
+
+Set<Integer> set = new TreeSet<>();
+
+set.add(10);
+set.add(null);   // throws exception
+
+Output
+
+NullPointerException
+
+✔ Because TreeSet uses Red-Black Tree for sorting.
+
+
+---
+
+3. How HashMap works internally?
+
+Core concept
+
+HashMap uses:
+
+Hashing + Bucket + LinkedList / Red Black Tree
+
+Step-by-step
+
+1️⃣ When put(key,value) is called
+
+hashCode() → calculate hash
+
+2️⃣ Java converts hash into bucket index
+
+index = hash & (capacity - 1)
+
+3️⃣ Data stored in bucket
+
+Structure:
+
+Bucket → Node(key,value,hash,next)
+
+4️⃣ If collision occurs
+
+Java 7 → LinkedList
+
+Java 8 → LinkedList → Red Black Tree (if >8 elements)
+
+
+Diagram
+
+HashMap
+   |
+      |---- Bucket[0]
+         |---- Bucket[1] → Node → Node → Node
+            |---- Bucket[2]
+               |---- Bucket[3]
+
+               Example
+
+               Map<Integer,String> map = new HashMap<>();
+
+               map.put(1,"Java");
+               map.put(2,"Spring");
+               map.put(3,"Microservices");
+
+               Average Time Complexity
+
+               O(1)
+
+               Worst Case
+
+               O(log n) (Java 8 Tree)
+
+
+               ---
+
+               4. Difference between Iterator and ListIterator
+
+               Feature	Iterator	ListIterator
+
+               Direction	Forward only	Forward + Backward
+               Collection support	All collections	Only List
+               Add operation	Not allowed	Allowed
+               Replace	Not allowed	Allowed
+
+
+               Iterator Example
+
+               List<String> list = new ArrayList<>();
+               list.add("Java");
+               list.add("Spring");
+
+               Iterator<String> it = list.iterator();
+
+               while(it.hasNext()) {
+                       System.out.println(it.next());
+               }
+
+
+               ---
+
+               ListIterator Example
+
+               List<String> list = new ArrayList<>();
+
+               ListIterator<String> it = list.listIterator();
+
+               while(it.hasNext()) {
+                       System.out.println(it.next());
+               }
+
+               while(it.hasPrevious()) {
+                       System.out.println(it.previous());
+               }
+
+               ✔ ListIterator can move both directions.
+
+
+               ---
+
+               5. Fail Fast vs Fail Safe Iterator
+
+               Fail Fast Iterator
+
+               If collection is modified while iterating, it throws:
+
+               ConcurrentModificationException
+
+               Example
+
+               List<Integer> list = new ArrayList<>();
+               list.add(1);
+               list.add(2);
+
+               Iterator<Integer> it = list.iterator();
+
+               while(it.hasNext()) {
+                       list.add(3);   // modification
+               }
+
+               Output
+
+               ConcurrentModificationException
+
+               Examples
+
+               ArrayList
+
+               HashMap
+
+               HashSet
+
+
+
+               ---
+
+               Fail Safe Iterator
+
+               Fail safe iterators work on a copy of collection, so modification is allowed.
+
+               Example
+
+               CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
+
+               list.add(1);
+               list.add(2);
+
+               for(Integer i : list){
+                       list.add(3);  // allowed
+               }
+
+               Examples
+
+               CopyOnWriteArrayList
+
+               ConcurrentHashMap
+
+
+
+               ---
+
+               Quick Interview Summary (Easy Memory Trick)
+
+               Topic	Key Idea
+
+               HashMap null key	Stored in bucket 0
+               TreeSet null	Cannot compare null
+               HashMap working	Hashing + Bucket
+               Iterator	Forward only
+               ListIterator	Forward + Backward
+               Fail Fast	Throws exception
+               Fail Safe	Works on copy
+
+
+
+               ---
+
+               If you want, I can also show VERY IMPORTANT HashMap internal interview questions for 4+ years developers like:
+
+               Why HashMap capacity is always power of 2
+
+               What happens during HashMap resize
+
+               Difference between HashMap vs ConcurrentHashMap
+
+               Why equals() and hashCode() are required
+
+               How ConcurrentHashMap avoids locking
+
+
+               These are frequently asked in Spring Boot / Banking project interviews.
+               }
+               }
+               }
+               }
+               }
+--5-
 
 ✅ Step-by-step Implementation
 
