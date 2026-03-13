@@ -544,7 +544,171 @@ There are four types: 
 | protected | ✔           | ✔             | ✔        | ✖             |
 | public    | ✔           | ✔             | ✔        | ✔             |
 
----
+------
+
+### Java Memory Model (JVM Memory)
+
+Java memory is divided into different areas used by the **JVM (Java Virtual Machine)**. JVM memory is divided into Heap, Stack, Method Area, PC Register, and Native Method Stack. Heap stores objects and is managed by garbage collection, Stack stores method calls and local variables for each thread, and Method Area stores class metadata and static variables.
+
+Main memory areas:
+
+1. **Heap**
+2. **Stack**
+3. **Method Area**
+4. **PC Register**
+5. **Native Method Stack**
+
+------
+
+#### JVM Memory Architecture
+
+```mermaid
+flowchart TD
+    A[JVM Memory]
+
+    A --> B[Heap]
+    A --> C[Stack]
+    A --> D[Method Area]
+    A --> E[PC Register]
+    A --> F[Native Method Stack]
+```
+
+------
+
+#### 1. Heap Memory
+
+Stores **objects and instance variables**.
+
+**Characteristics**
+
+- Shared between threads
+- Managed by **Garbage Collector**
+- Largest memory area
+
+Example
+
+```java
+Student s = new Student();
+```
+
+Important points
+
+```text
+Used for object storage
+Garbage collection happens here
+```
+
+------
+
+# 2. Stack Memory
+
+Stores **method calls, local variables, and references**.
+
+Characteristics
+
+- Each thread has its own stack
+- Memory is automatically removed after method execution
+
+Example
+
+```java
+int a = 10;
+Student s = new Student();
+```
+
+------
+
+# 3. Method Area
+
+Stores **class metadata**.
+
+Contains
+
+- class structure
+- static variables
+- method bytecode
+
+Example
+
+```java
+static int count = 10;
+```
+
+------
+
+# 4. PC Register
+
+PC = **Program Counter**
+
+Stores the **address of current executing instruction**.
+
+Each thread has its own PC register.
+
+```text
+Thread → PC Register → current instruction
+```
+
+------
+
+# 5. Native Method Stack
+
+Used when Java calls **native methods written in C/C++**.
+
+Example
+
+```java
+System.currentTimeMillis();
+```
+
+Native methods interact with OS libraries.
+
+------
+
+# Example Memory Flow
+
+Code
+
+```java
+class Test {
+
+    static int x = 10;
+
+    public static void main(String[] args) {
+        int a = 5;
+        Student s = new Student();
+    }
+}
+```
+
+Memory allocation
+
+```mermaid
+flowchart TD
+    A[Method Area]
+    A --> B[Static variable x]
+
+    C[Stack]
+    C --> D[a = 5]
+    C --> E[Reference s]
+
+    F[Heap]
+    F --> G[Student Object]
+```
+
+------
+
+##### Important Interview Points
+
+Always mention these **4 keywords**:
+
+```text
+Heap → Objects
+Stack → Method calls & local variables
+Method Area → class metadata & static variables
+Garbage Collector → cleans heap memory
+```
+
+------
 
 <div align="center">
     <h1>String</h1>
