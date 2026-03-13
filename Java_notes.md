@@ -1,12 +1,9 @@
 <div align="center">
-<div align="center">
   <h1 style="font-size:40px;">☕ JAVA</h1>
 </div>
-
 <img src="https://img.shields.io/badge/Java-17-orange?style=for-the-badge">
 <img src="https://img.shields.io/badge/Spring-Boot-green?style=for-the-badge">
 <img src="https://img.shields.io/badge/Microservices-Architecture-blue?style=for-the-badge">
-
 ---
 
 ### 💻 Is Java Platform Independent? If yes, how?
