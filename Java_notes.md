@@ -1246,6 +1246,10 @@ new Car(); // This object has no reference, so it will be GC
 
 ---
 
+<div align="center">
+    <h1>Exception</h1>
+</div>
+
 ### What is an Exception?
 
 Exception is an unexpected event that occurs during program execution and interrupts the normal flow of the program.
