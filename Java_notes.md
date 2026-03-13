@@ -1127,51 +1127,252 @@ public class Test {
 
 ---
 
-### What is garbage collection ?
+<div align="center">
+    <h1>Garbage Collection</h1>
+</div>
 
-- Garbage collector automatically find and removes unused objects from heap memory to free up the space.
+### 1. What is Garbage Collection in Java?
 
-- **System.gc();** requests garbage collection.
+**Answer**
 
-- **Serial GC :** single threaded, good for small application
+Garbage Collection is the **automatic process in Java that removes unused objects from heap memory** to free space.
 
-- **Paralle GC :** multi-threaded , good for big application
+- Managed by the **JVM**
+- Objects with **no active references** are eligible for GC
+- Prevents memory leaks
 
-### What is finalize ()?
-
-- It is a method which is called before object is removed in GC.
-
-### How can you make an object eligible for garbage collection?
-
-- **Set reference to null:**
+Example:
 
 ```java
-Car myCar = new Car();
-
-myCar = null; // Eligible for GC
+Student s = new Student();
+s = null;   // object eligible for GC
 ```
 
+------
 
+### 2. When is an Object Eligible for Garbage Collection?
 
-- **Reassign reference:**
+An object becomes eligible when **it is no longer reachable by any reference**.
+
+Common cases:
+
+1. **Nullifying reference**
 
 ```java
-Car car1 = new Car();
-
-Car car2 = new Car();
-
-car1 = car2; // Old `car1` object is eligible for GC
+Student s = new Student();
+s = null;
 ```
 
-
-
-- **Use anonymous objects:**
+1. **Reassigning reference**
 
 ```java
-new Car(); // This object has no reference, so it will be GC
+Student s1 = new Student();
+Student s2 = new Student();
+s1 = s2;
 ```
 
+1. **Object created inside a method**
 
+```java
+void test(){
+    Student s = new Student();
+}
+```
+
+1. **Anonymous object**
+
+```java
+new Student();
+```
+
+------
+
+### 3. Can We Force Garbage Collection?
+
+No, **we cannot force it**.
+
+We can only **request** GC.
+
+```java
+System.gc();
+```
+
+or
+
+```java
+Runtime.getRuntime().gc();
+```
+
+The JVM **decides whether to run GC or not**.
+
+------
+
+### 4. What is the Difference Between `final`, `finally`, and `finalize()`?
+
+| Keyword        | Purpose                                                    |
+| -------------- | ---------------------------------------------------------- |
+| **final**      | Used for constant variables, methods, and classes          |
+| **finally**    | Block in exception handling that always executes           |
+| **finalize()** | Method called by GC before object destruction (deprecated) |
+
+Example:
+
+```java
+protected void finalize() {
+    System.out.println("Object destroyed");
+}
+```
+
+Note: `finalize()` is **deprecated after Java 9**.
+
+------
+
+### 5. What is JVM Heap Memory?
+
+Heap is the **runtime memory area where objects are stored**.
+
+It is mainly divided into:
+
+1. **Young Generation**
+2. **Old Generation**
+3. **Metaspace**
+
+------
+
+### 6. What is Generational Garbage Collection?
+
+Java divides heap into **generations** to improve GC performance.
+
+#### Young Generation
+
+Stores newly created objects.
+
+Parts:
+
+- Eden
+- Survivor S0
+- Survivor S1
+
+#### Old Generation
+
+Stores **long-lived objects**.
+
+#### Metaspace
+
+Stores **class metadata**.
+
+------
+
+### 7. What is a Memory Leak in Java?
+
+A memory leak occurs when:
+
+- Objects are **not used anymore**
+- But **references still exist**
+
+Example:
+
+```java
+List<Object> list = new ArrayList<>();
+while(true){
+    list.add(new Object());
+}
+```
+
+Objects stay referenced → memory fills up.
+
+------
+
+### 8. What is the Difference Between Minor GC and Major GC?
+
+| Type     | Description             |
+| -------- | ----------------------- |
+| Minor GC | Cleans Young Generation |
+| Major GC | Cleans Old Generation   |
+| Full GC  | Cleans entire heap      |
+
+Minor GC happens **frequently**, Major GC **less frequently but slower**.
+
+------
+
+### 9. What is the Default Garbage Collector in Modern Java?
+
+In modern versions of Java (Java 9+):
+
+Default GC = **G1 Garbage Collector**
+
+Features:
+
+- Works with **large heap sizes**
+- Reduces **pause time**
+- Divides heap into **regions**
+
+------
+
+### 10. What is `System.gc()`?
+
+`System.gc()` **suggests JVM to run Garbage Collector**.
+
+Example:
+
+```java
+System.gc();
+```
+
+Important:
+
+- It **does not guarantee** GC execution.
+
+------
+
+### 11. What Happens If GC Does Not Free Enough Memory?
+
+The JVM throws:
+
+**OutOfMemoryError**
+
+Example:
+
+```
+java.lang.OutOfMemoryError: Java heap space
+```
+
+------
+
+### 12. What is the Mark and Sweep Algorithm?
+
+Garbage collection typically works in **three steps**:
+
+1️⃣ **Mark** – Identify reachable objects
+2️⃣ **Sweep** – Remove unreachable objects
+3️⃣ **Compact** – Reorganize memory
+
+------
+
+### 13. What is an Anonymous Object?
+
+Object created **without reference variable**.
+
+Example:
+
+```java
+new Student();
+```
+
+Eligible for GC immediately.
+
+------
+
+### 14. Why Does Java Need Garbage Collection?
+
+Benefits:
+
+- Automatic memory management
+- Prevents memory leaks
+- Reduces programmer errors
+- Improves reliability
+
+Languages like **C++** require manual memory deallocation (`delete`).
 
 ---
 
@@ -1257,17 +1458,18 @@ Serious problems that application should not handle.
 Examples
 
 `OutOfMemoryError`
+
 `StackOverflowError`
+
 ---
 
 ### Difference Between Checked vs Unchecked Exception
 
-Feature	Checked Exception	Unchecked Exception
-
-Checked at	Compile time	Runtime
-Handling mandatory	Yes	No
-Parent class	Exception	RuntimeException
-Example	IOException	NullPointerException
+| Feature            | Checked Exception | Unchecked Exception |
+| ------------------ | ----------------- | ------------------- |
+| Checked at         | Compile time      | Runtime             |
+| Handling mandatory | Yes               | No                  |
+| Parent class       | Exception         | RuntimeException    |
 
 
 Example
@@ -1280,10 +1482,13 @@ FileReader file = new FileReader("a.txt");
 int x = 10/0;
 ```
 
+---
 
 ### What is try-catch-finally?
+
 Used to handle exceptions and avoid program crash.
 **Structure**
+
 ```java
 try {
 // risky code
@@ -1307,7 +1512,7 @@ finally block always runs used for closing resources (DB, files)
 
 ---
 
-#### Can we use try without catch?
+### Can we use try without catch?
 
 ✅ Yes, but only with finally
 
@@ -1331,7 +1536,7 @@ Must have catch or finally
 
 ---
 
-#### throw vs throws
+### throw vs throws
 
 | Feature  |  throw |  throws |
 | ------------ | ------------ | ------------ |
@@ -1339,7 +1544,7 @@ Must have catch or finally
 | Used inside  |  method |  method signature |
 |Keyword type| statement|  declaration |
 
-Example
+**Example**
 
 **throw**
 
@@ -1360,11 +1565,12 @@ FileReader f = new FileReader("test.txt");
 
 ---
 
-#### Use Cases of User Defined Exceptions
+### Use Cases of User Defined Exceptions
 
 We create custom exceptions for business rules.
 
-Examples
+**Examples**
+
 - Invalid bank transaction
 - Insufficient balance
 - Invalid order
@@ -1379,7 +1585,7 @@ throw new InsufficientBalanceException("Low balance");
 ```
 ---
 
-#### How to Create User Defined Exception
+### How to Create User Defined Exception
 
 **Step 1: Create class**
 
@@ -1416,7 +1622,7 @@ System.out.println(e.getMessage());
 
 ---
 
-#### What is NullPointerException?
+### What is NullPointerException?
 
 Occurs when calling method or accessing variable on null object.
 
@@ -1449,7 +1655,7 @@ name.length();
 
 ---
 
-What is ClassCastException?
+### What is ClassCastException?
 
 Occurs when object is cast to an incompatible type.
 
@@ -1491,8 +1697,6 @@ int[] arr = new int[999999999];
 
 
 
----
-
 <div align="center"><h1>OOPs (Object-Oriented Programming) </h1></div>
 
 - **OOP (Object-Oriented Programming)** is a programming approach where programs are designed using **objects and classes** that contain **data (variables) and behavior (methods)**.
@@ -1500,13 +1704,6 @@ int[] arr = new int[999999999];
 - OOP helps to make programs **modular, reusable, and easy to maintain**.
 
 ##### Core Principles of OOP
-
-| Principle         | Description                                  |
-| ----------------- | -------------------------------------------- |
-| **Encapsulation** | Wrapping data and methods into a single unit |
-| **Inheritance**   | One class acquiring properties of another    |
-| **Polymorphism**  | One method having multiple forms             |
-| **Abstraction**   | Hiding implementation details                |
 
 ```mermaid
 graph TD
