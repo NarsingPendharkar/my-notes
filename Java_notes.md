@@ -2418,8 +2418,7 @@ Collection support	|All collections|	Only List
 Add operation|	Not allowed|	Allowed
 Replace|	Not allowed|	Allowed
 
-
-** Iterator Example**
+**Iterator Example**
 
 ```java
 List<String> list = new ArrayList<>();
@@ -2504,7 +2503,7 @@ System.out.println(numbers); // Output: [8, 5, 4, 2]
 | **Key Methods**            | add(), get(), remove(), set()  | add(), remove(), contains()          | put(), get(), remove(), keySet() | offer() – insert, poll(), peek() – return head |
 | **Implementation Classes** | ArrayList, LinkedList          | HashSet, TreeSet, LinkedHashSet      | HashMap, TreeMap, LinkedHashMap  | PriorityQueue, ArrayDeque, LinkedList          |
 
-## List (Ordered, Allows Duplicates)
+#### List (Ordered, Allows Duplicates)
 
 - Maintains **insertion order**.
 - Can contain **duplicate elements**.
@@ -2521,21 +2520,21 @@ list.add("A"); // Duplicate allowed
 System.out.println(list); // Output: [A, B, A]
 ```
 
-## Set (Unique Elements, No Duplicates)
+#### Set (Unique Elements, No Duplicates)
 
 - Does **NOT** allow duplicate elements.
 - No guaranteed order (**HashSet**), but **TreeSet** sorts elements.
 
 ---
 
-## Map (Key-Value Pairs, Unique Keys)
+#### Map (Key-Value Pairs, Unique Keys)
 
 - Stores **key-value pairs** (`key -> value`).
 - **Keys** must be unique, **values** can be duplicate.
 
 ---
 
-## Queue (FIFO - First In, First Out)
+#### Queue (FIFO - First In, First Out)
 
 - Elements are processed in the order they arrive.
 - Supports **PriorityQueue** (elements sorted by priority).
@@ -2574,23 +2573,15 @@ System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
 | Key-value mappings                 | **Map (HashMap, TreeMap)**            |
 | Processing in FIFO order           | **Queue (LinkedList, PriorityQueue)** |
 
-
-
 ---
 
 ### Why HashMap allows one null key?
 
 **Answer**
 
-HashMap allows only one null key because internally it stores the null key in bucket index 0.
+HashMap allows only one null key because internally it stores the null key in bucket index 0. Normally HashMap calculates bucket index using: hash(key) % capacity But if the key is null, there is no hashCode(), so Java directly stores it in bucket 0.
 
-Normally HashMap calculates bucket index using:
-
-hash(key) % capacity
-
-But if the key is null, there is no hashCode(), so Java directly stores it in bucket 0.
-
-Example
+**Example**
 
 ```java
 Map<String, String> map = new HashMap<>();
@@ -2611,20 +2602,15 @@ Output
 ---
 
 ### Why TreeSet does not allow null?
-TreeSet does not allow null because it uses sorting (Comparable / Comparator) internally.
-It compares elements using:
-`compareTo()`
-If null is inserted, Java cannot compare:
-`null.compareTo()`
-This causes NullPointerException.
+TreeSet does not allow null because it uses sorting (Comparable / Comparator) internally. It compares elements using:
+`compareTo()` If null is inserted, Java cannot compare: `null.compareTo()` This causes NullPointerException.
 
-Example
+**Example**
 
 ```java
 Set<Integer> set = new TreeSet<>();
 set.add(10);
 set.add(null);   // throws exception
-
 //Output :NullPointerException
 ```
 ✔ Because TreeSet uses Red-Black Tree for sorting.
@@ -2635,39 +2621,45 @@ HashMap uses: Hashing + Bucket + LinkedList / Red Black Tree
 
 Step-by-step
 
-1️⃣ When put(key,value) is called
+1️⃣ **When put(key,value) is called**
 
 `hashCode()` → calculate hash
 
-2️⃣ Java converts hash into bucket index
+2️⃣ **Java converts hash into bucket index**
 
 index = hash & (capacity - 1)
 
-3️⃣ Data stored in bucket
+3️⃣ **Data stored in bucket**
 
 Structure:
 
 Bucket → Node(key,value,hash,next)
 
-4️⃣ If collision occurs
+4️⃣ **If collision occurs**
 
 Java 7 → `LinkedList`
 
 Java 8 → `LinkedList` → Red Black Tree (if >8 elements)
 
+Here’s a simple **Markdown Mermaid diagram** that shows how a **HashMap stores entries in buckets with chaining** (linked nodes for collisions).
 
-Diagram
+```mermaid
+flowchart TD
+    T[HashMap Table]
 
-HashMap
-```swift
-     |
-     |---- Bucket[0]
-     |---- Bucket[1] → Node → Node → Node
-     |---- Bucket[2]
-     |---- Bucket[3]
+    T --> B0[Bucket 0]
+    T --> B1[Bucket 1]
+    T --> B2[Bucket 2]
+    T --> B3[Bucket 3]
+
+    B1 --> N1[Node]
+    N1 --> N2[Node]
+    N2 --> N3[Node]
 ```
 
-[========]
+---
+
+
 
 <div align="center"><h1>Java 8 Key Features & Concepts</h1></div>
 
