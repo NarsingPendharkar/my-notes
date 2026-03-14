@@ -2623,19 +2623,13 @@ HashMap uses: Hashing + Bucket + LinkedList / Red Black Tree
 
 Step-by-step
 
-1️⃣ **When put(key,value) is called**
+1️⃣ **When put(key,value) is called** `hashCode()` → calculate hash
 
-`hashCode()` → calculate hash
-
-2️⃣ **Java converts hash into bucket index**
-
-index = hash & (capacity - 1)
+2️⃣ **Java converts hash into bucket index** index = hash & (capacity - 1)
 
 3️⃣ **Data stored in bucket**
 
-Structure:
-
-Bucket → Node(key,value,hash,next)
+Structure: Bucket → Node(key,value,hash,next)
 
 4️⃣ **If collision occurs**
 
