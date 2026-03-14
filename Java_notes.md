@@ -4200,7 +4200,7 @@ You can define private methods in your class to customize the serialization logi
 
 ##### Serialization Proxy Pattern
 
-> **Tip:** As suggested in *Effective Java*, use the **Serialization Proxy Pattern** to avoid security risks and maintenance costs associated with native serialization. You serialize a private static nested "proxy" class instead of the actual object.
+**Tip:** As suggested in *Effective Java*, use the **Serialization Proxy Pattern** to avoid security risks and maintenance costs associated with native serialization. You serialize a private static nested "proxy" class instead of the actual object.
 
 ------
 
@@ -4217,7 +4217,7 @@ You can define private methods in your class to customize the serialization logi
 
 #### 7. Security & Vulnerabilities
 
-> **Warning:** Deserializing untrusted data is **inherently dangerous**. The incoming stream determines which objects are created, allowing attackers to execute malicious code.
+**Warning:** Deserializing untrusted data is **inherently dangerous**. The incoming stream determines which objects are created, allowing attackers to execute malicious code.
 
 - **Gadget Chain:** A sequence of method calls across serializable objects that leads to an exploit like **Remote Code Execution (RCE)**.
 - **Prevention Strategies:**
@@ -4236,7 +4236,7 @@ You can define private methods in your class to customize the serialization logi
 - **Can you serialize a `static` variable?** No, because it belongs to the class, not the instance.
 - **What happens if a non-serializable object is a member of a serializable class?** It throws a `NotSerializableException` at runtime unless the field is marked `transient`.
 
-> **Tip:** Always explicitly declare `serialVersionUID` to avoid compatibility issues across different compilers or minor class changes.
+**Tip:** Always explicitly declare `serialVersionUID` to avoid compatibility issues across different compilers or minor class changes.
 
 ---
 
