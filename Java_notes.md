@@ -3215,30 +3215,6 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 > 3.  Simplified modelling of asynchronous or parallel tasks
 >
 
-**Example: Basic Thread Creation**
-
-```java
-public class Threading extends Thread{
-
-public void run() {
-
-System.out.println("run method used to run thread :"+Thread.currentThread().getName());
-
-}
-
-public static void main(String[] args) {
-
-Threading thd=new Threading();
-
-thd.setName("thread number 1");
-
-thd.start();
-
-}
-
-}
-```
-
 #### Thread Life Cycle and States
 
 A thread goes through several states:
@@ -3302,9 +3278,32 @@ th.start();
 
 --------------------------------------------------
 
+### What is volatile Keyword?
+
+The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "volatile" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
+
+**Example: Using volatile**
+
+```java
+class VolatileExample {
+
+private static volatile boolean running = true;
+
+public static void main(String[] args) throws InterruptedException {
+Thread t1 = new Thread(() -> {
+while (running) {} // Busy wait
+System.out.println("Thread Stopped"); });
+t1.start();
+Thread.sleep(1000);
+running = false; // Stops the thread
+}
+```
+
+---
+
 ### What is Thread Synchronization?
 
-Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time.
+Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time. In Java, the "**synchronized**" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
 
 **Example:**
 
@@ -3436,9 +3435,13 @@ public static void main(String[] args) throws InterruptedException {
 | `notifyAll()          `     | Wakes up all threads waiting on an object's monitor.         |
 | `stop() (Deprecated)  `     | Forcefully stops a thread (unsafe and not recommended for use). |
 
----------------------------------------------------------------------------
+### 
 
-Below is a **clean interview-ready Markdown note** you can use for revision.
+---
+
+### When would you use the wait and notify methods in your Java application ?
+
+The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
 
 ------
 
@@ -3995,27 +3998,6 @@ System.out.println(combined.join()); // 30
 ---
 
 
-
-### What is volatile Keyword?
-
-The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**.
-
-**Example: Using volatile**
-
-```java
-class VolatileExample {
-
-private static volatile boolean running = true;
-
-public static void main(String[] args) throws InterruptedException {
-Thread t1 = new Thread(() -> {
-while (running) {} // Busy wait
-System.out.println("Thread Stopped"); });
-t1.start();
-Thread.sleep(1000);
-running = false; // Stops the thread
-}
-```
 
 ---
 
@@ -5043,55 +5025,35 @@ public class ComparableExample {
 
 ```
 
-## Difference Between Comparable and Comparator in Java
+### Difference Between Comparable and Comparator in Java
 
 Both `Comparable` and `Comparator` are used to **sort custom objects**, but they differ in **how** and **where** the comparison logic is defined.
 
----
+#### Comparable vs Comparator
 
-### 🔹 Comparable
+| Feature      | Comparable    | Comparator     |
+| ------------ | ------------- | -------------- |
+| Package      | java.lang     | java.util      |
+| Method       | `compareTo()` | `compare()`    |
+| Sorting      | Natural order | Custom order   |
+| Modify class | Yes           | No             |
+| Example      | String        | Custom sorting |
 
-| Feature                         | Description                                                  |
-| ------------------------------- | ------------------------------------------------------------ |
-| **Package**                     | `java.lang`                                                  |
-| **Purpose**                     | Defines **natural ordering** of objects.                     |
-| **Method**                      | `int compareTo(T obj)`                                       |
-| **Sorting Logic**               | Defined **inside the class** being compared.                 |
-| **Affects Class Code**          | Yes — must modify the class to change sorting behavior.      |
-| **Used By**                     | `Collections.sort()` and `Arrays.sort()` when no Comparator is provided. |
-| **Number of Sorting Sequences** | Only **one** (natural order).                                |
+Example:
 
-**Example:**
+**Comparable**
 
 ```java
-class Student implements Comparable<Student> {
-    private String name;
-    private int marks;
-
-    public Student(String name, int marks) {
-        this.name = name;
-        this.marks = marks;
-    }
-
-    @Override
-    public int compareTo(Student other) {
-        return Integer.compare(this.marks, other.marks); // Sort by marks
+class Student implements Comparable<Student>{
+    public int compareTo(Student s){
+        return this.age - s.age;
     }
 }
 ```
 
-## Comparator in Java
+**Comparator**
 
-The **Comparator** interface is used to define **custom sorting logic** for objects, **outside the class** being compared.  
-It allows multiple sorting sequences without modifying the original class.
-
----
-
-### 🔹 Key Points
-
-- Belongs to the **`java.util`** package.  
-- Used when we want to **sort objects differently** (e.g., by name, marks, age).  
-- Contains a single method:  
+Example :
 
 ```java
 import java.util.*;
@@ -5114,27 +5076,7 @@ public class ComparatorLambdaExample {
     }
 }
 ```
-# Interview Questions :
-
-### In what scenarios would you use Java's synchronized keyword, and why?
-
-In Java, the "synchronized" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
-
-### Why would you use the volatile keyword in your Java application, and what does it do?
-
-The "volatile" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
-
-### Why would you use synchronization in your Java application, and what are the different ways of achieving synchronization?
-
-Synchronization in Java is used to ensure that multiple threads do not access the same critical section of code simultaneously. There are two ways to achieve synchronization in Java: using synchronized methods and using synchronized blocks.
-
-### When would you use the wait and notify methods in your Java application, and how would you implement them?
-
-The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
-
-### What is a deadlock in Java, and how would you avoid it in your multi-threaded application?
-
-In Java, a deadlock occurs when two or more threads are blocked and waiting for each other to release the locks they hold. To avoid deadlock, you should ensure that your code does not acquire multiple locks simultaneously or hold locks for too long.
+---
 
 ### What is the Singleton design pattern, and why would you use it in your Java application?
 
