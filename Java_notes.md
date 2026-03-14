@@ -2615,6 +2615,8 @@ set.add(null);   // throws exception
 ```
 ✔ Because TreeSet uses Red-Black Tree for sorting.
 
+---
+
 ### How HashMap works internally?
 
 HashMap uses: Hashing + Bucket + LinkedList / Red Black Tree
@@ -2661,9 +2663,7 @@ flowchart TD
 
 
 
-<div align="center"><h1>Java 8 Key Features & Concepts</h1></div>
-
-
+<div align="center"><h1>Java 8 Features</h1></div>
 
 #### 1) Lambda Expressions
 
@@ -2858,11 +2858,11 @@ long count = names.parallelStream()
 System.out.println(count); // Output: 2
 ```
 
-### **Intermediate Operations with Examples**
+#### **Intermediate Operations with Examples**
 
-- **filter(Predicate<T> predicate)**
+- ##### **filter(Predicate<T> predicate)**
 
-> **Definition:** Filters out elements that do not match a given predicate.
+**Definition:** Filters out elements that do not match a given predicate.
 
  **Example:**
 
@@ -2888,9 +2888,9 @@ System.out.println(lengths); // Output:  [4, 6, 3 ]
 
 - **sorted() and sorted(Comparator <? super T > comparator)**
 
-> **Definition:** Returns a stream with the elements sorted in natura order or via a provided comparator.
-> 
->**Example:**
+**Definition:** Returns a stream with the elements sorted in natura order or via a provided comparator.
+
+**Example:**
 
 ```java
 List <Integer > numbers = Arrays.asList(5, 3, 1, 4, 2);
@@ -2903,9 +2903,9 @@ System.out.println(sortedNumbers); // Output:  [1, 2, 3, 4, 5 ]
 
 - **distinct()**
 
-> **Definition:** Removes duplicate elements from the stream.
->
-> **Example:**
+**Definition:** Removes duplicate elements from the stream.
+
+**Example:**
 
 ```java
 List <Integer > numbers = Arrays.asList(5, 4,5,3, 1, 4, 2);
@@ -2917,8 +2917,9 @@ System.out.println(distinctList); // Output:  [1, 2, 3, 4, 5 ]
 
 - **limit(long maxSize)**
 
-> **Definition:** Returns a stream containing no more than the given
-> number of elements. **Example:**
+**Definition:** Returns a stream containing no more than the given number of elements. 
+
+**Example:**
 
 ```java
 List <String > names = Arrays.asList( "Alice ",  "Bob ",  "Charlie ", "David ");
@@ -2928,7 +2929,7 @@ System.out.println(limitedNames); // Output:  [Alice, Bob ]
 
 - **skip(long n)**
 
-> **Definition:** Skips the first *n* elements and returns a stream o the remaining elements. **Example:**
+**Definition:** Skips the first *n* elements and returns a stream o the remaining elements. **Example:**
 
 ```java
 List <String > [words] = Arrays.asList( "java ",  "stream ","api ");
@@ -2940,10 +2941,10 @@ System.out.println(skipedList); // output :  [stream,api ]
 
 - **flatMap(Function <T, Stream <R > > mapper)**
 
-> **Definition:** Transforms each element into a stream and then
-> flattens these streams into a single stream.
->
-> **Example:**
+**Definition:** Transforms each element into a stream and then
+flattens these streams into a single stream.
+
+**Example:**
 
 ```java
 List <List <Integer > > listOfLists = Arrays.asList(Arrays.asList(1, 2),Arrays.asList(3, 4),Arrays.asList(5, 6));
@@ -2955,7 +2956,7 @@ System.out.println(flattenedList); // Output:  [1, 2, 3, 4, 5, 6 ]
 
 - **forEach(Consumer <T > action)**
 
->**Definition:** Performs an action for each element of the stream.
+**Definition:** Performs an action for each element of the stream.
 
 **Example:**
 
@@ -2965,8 +2966,7 @@ names.stream().forEach(n- >System.out.print(n.toUpperCase()+ "  ")); // output :
 
 - **collect(Collector <T, A, R > collector)**
 
->**Definition:** Collects the stream 's elements into a collection or
-another type of result.
+**Definition:** Collects the stream 's elements into a collection or another type of result.
 
 **Example:**
 
@@ -2977,8 +2977,7 @@ System.out.println(namelist); //output :  [John, Jane ]
 
 - **reduce(BinaryOperator <T > accumulator)**
 
->**Definition:** Reduces the stream to a single value by repeatedly
-applying an accumulator function.
+**Definition:** Reduces the stream to a single value by repeatedly applying an accumulator function.
 
 **Example:**
 
@@ -2992,7 +2991,7 @@ System.out.println( total);
 
 - **count()**
 
->**Definition:** Returns the number of elements in the stream.
+**Definition:** Returns the number of elements in the stream.
 
 **Example:**
 
@@ -3006,8 +3005,7 @@ System.out.println(count); // Output: 5
 
 - **findFirst() and findAny()**
 
->**Definition:** Returns an Optional describing the first or any element
-of the stream, respectively.
+**Definition:** Returns an Optional describing the first or any element of the stream, respectively.
 
 **Example:**
 
@@ -3026,8 +3024,7 @@ System.out.println(any); // Output: 1
 - **min(Comparator <? super T > comparator) and max(Comparator <? super
   T > comparator)**
 
->**Definition:** Returns an Optional containing the minimum or maximum
-element according to the specified comparator.
+**Definition:** Returns an Optional containing the minimum or maximum element according to the specified comparator.
 
 **Example:**
 
@@ -3046,8 +3043,7 @@ System.out.println(max); // Output: 5
 - **allMatch(Predicate <? super T > predicate), anyMatch(Predicate <?
   super T > predicate), noneMatch(Predicate <? super T > predicate)**
 
->**Definition**: Evaluate whether the stream elements satisfy the given
-predicate.
+**Definition**: Evaluate whether the stream elements satisfy the given predicate.
 
 **Example:**
 
@@ -3452,7 +3448,7 @@ Below is a **clean interview-ready Markdown note** you can use for revision.
 
 ------
 
-### Deadlock 
+### What is Deadlock ? 
 
 ##### 1. Definition
 
@@ -3628,28 +3624,9 @@ if(lock1.tryLock()){
 
 Avoid waiting forever.
 
-----
-
-##### Q1: What is Deadlock?
-
-**Answer**
-
-Deadlock is a situation where **two or more threads wait forever for resources held by each other**, causing the program to stop progressing.
-
 ------
 
-##### Q2: What are the four conditions for Deadlock?
-
-**Answer**
-
-1. Mutual Exclusion
-2. Hold and Wait
-3. No Preemption
-4. Circular Wait
-
-------
-
-##### Q3: How do you detect Deadlock in Java?
+### How do you detect Deadlock in Java?
 
 **Answer**
 
@@ -3662,7 +3639,7 @@ long[] threadIds = bean.findDeadlockedThreads();
 
 ------
 
-##### Q4: How can we prevent Deadlock?
+### How can we prevent Deadlock?
 
 **Answer**
 
@@ -3674,7 +3651,7 @@ long[] threadIds = bean.findDeadlockedThreads();
 
 ------
 
-##### Q5: Difference Between Deadlock and Starvation
+### Difference Between Deadlock and Starvation
 
 | Feature    | Deadlock                            | Starvation               |
 | ---------- | ----------------------------------- | ------------------------ |
@@ -3696,7 +3673,7 @@ Answer:
 
 ----
 
-##### What is a Thread Pool?
+### What is a Thread Pool?
 
 A **thread pool** manages a pool of worker threads and assigns tasks to them.
 
@@ -3725,15 +3702,15 @@ executor.shutdown();
 
 ```
 
-> **Key Points:**
+> [!TIP]
+>
+> Reduces thread creation overhead.
+>
+> Manages concurrency efficiently.
 
->- Reduces thread creation overhead.
+---
 
->- Manages concurrency efficiently.
-
-
-
-**Difference Between Callable and Runnable**
+### **Difference Between Callable and Runnable**
 
 | Feature           | Runnable    | Callable   |
 | ----------------- | ----------- | ---------- |
@@ -3787,7 +3764,7 @@ executor.shutdown(); // output : 42
 - Use **Callable** when you need a return value or want to throw
   exceptions.
 
-▶️ **What is ExecutorService?**
+###  **What is ExecutorService?**
 
 - Part of java.util.concurrent package.
 
@@ -4025,7 +4002,7 @@ System.out.println(combined.join()); // 30
 
 
 
-##### What is volatile Keyword?
+### What is volatile Keyword?
 
 The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**.
 
@@ -4048,9 +4025,7 @@ running = false; // Stops the thread
 
 ---
 
-
-
-# **Serialization**
+<div align="center"><h1>Serialization </h1></div>
 
 ##### What is Serialization & Deserialization?
 
@@ -4187,8 +4162,6 @@ graph LR
 1. **`ObjectOutputStream`**: Uses `writeObject(Object obj)` to serialize.
 2. **`ObjectInputStream`**: Uses `readObject()` to deserialize.
 
-### Basic Example
-
 ```java
 import java.io.*;
 
@@ -4204,7 +4177,7 @@ class User implements Serializable {
 }
 ```
 
-> **Note:** If a parent class implements `Serializable`, all child classes are automatically serializable. However, if only the child implements it, the parent must have a no-argument constructor for the child to deserialize correctly.
+**Note:** If a parent class implements `Serializable`, all child classes are automatically serializable. However, if only the child implements it, the parent must have a no-argument constructor for the child to deserialize correctly.
 
 ------
 
