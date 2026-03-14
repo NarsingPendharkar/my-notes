@@ -2100,6 +2100,7 @@ It allows developers to define a common structure for related objects and enforc
 An **abstract class** in Java is declared using the `abstract` keyword.  It is a special kind of class that cannot be instantiated directly — meaning you **cannot create an object** of an abstract class.
 
 An abstract class may contain:
+
 - **Abstract methods:** Methods without implementation (no method body).  
 - **Concrete methods:** Regular methods with a complete implementation.
 
@@ -2137,7 +2138,7 @@ public class Main {
 
 An **interface** in Java is a special type of class that contains only **abstract methods** (methods without a body)..It is used to achieve **100% abstraction** and **multiple inheritance** in Java.
 
-Interfaces define a **contract** that implementing classes must follow.A class that implements an interface must provide implementations for all of its abstract methods.
+Interfaces define a **contract** that implementing classes must follow. A class that implements an interface must provide implementations for all of its abstract methods.
 
 ---
 
@@ -2407,7 +2408,6 @@ Use **ArrayList** unless **thread safety** is specifically required.
 | **Allows null?**  | Yes (keys & values)    | No null keys or values              |
 
 ✅ **Use `ConcurrentHashMap`** for **multi-threaded applications** to avoid synchronization issues that occur with `HashMap`.
----
 
 ### Difference between Iterator and ListIterator
 
