@@ -4860,18 +4860,40 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 
 ---
 
+### What is the Singleton design pattern, and why would you use it in your Java application?
 
+The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance. It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
+
+### When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
+
+The Factory design pattern is used to create objects without exposing the object creation logic to the client. It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
+
+### What is the Builder design pattern, and how does it differ from the Factory pattern?
+
+ The Builder design pattern is used to create complex objects step by step. It differs from the Factory pattern in that it allows for greater control over the creation process and provides a way to create objects with different configurations.
+
+### How does the Observer design pattern work, and when would you use it in your Java code?
+
+The Observer design pattern is used to define a one-to-many relationship between objects so that when one object changes state, all its dependents are notified and updated automatically.
+
+ ### When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
+
+ The Template Method design pattern is used to define the skeleton of an algorithm in a superclass, with specific steps left to be implemented by subclasses. It differs from the Strategy pattern in that the steps of the algorithm are fixed and cannot be changed by subclasses.
+
+---
+
+# Regular Expression
 
 ## What is a Regular Expression?
 
-> **Answer:** A regular expression (regex) is a special sequence of characters that helps you **match, find, or manage text**.
+**Answer:** A regular expression (regex) is a special sequence of characters that helps you **match, find, or manage text**.
 
 - **Pattern Class:** Used to define regular expressions and compile them.  
 - **Matcher:** Used to perform match operations on a string.
 
 ---
 
-## Basic Syntax
+##### Basic Syntax
 
 | Pattern | Description                   |
 | ------- | ----------------------------- |
@@ -4891,7 +4913,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 | `[]`    | Character class               |
 | `()`    | Grouping                      |
 
-#### 1. Basic Matchers
+##### 1. Basic Matchers
 
 | Matcher | Description                      | Example                        | Matches             |
 | ------- | -------------------------------- | ------------------------------ | ------------------- |
@@ -4901,7 +4923,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 | `` ` `` | Backtick character               | `` `cat ``                     | `` `cat ``          |
 | `()`    | Grouping                         | `(ab)+` with `ababab`          | `ababab`            |
 
-#### 2. Quantifiers
+##### 2. Quantifiers
 
 | Quantifier | Meaning                      | Example                          | Matches            |
 | ---------- | ---------------------------- | -------------------------------- | ------------------ |
@@ -4912,7 +4934,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 | `{n,}`     | At least n occurrences       | `a{2,}` with `aaaabc`            | `aaaa`             |
 | `{n,m}`    | Between n and m occurrences  | `a{2,4}` with `aaaaa`            | `aaaa`             |
 
-#### 3. Anchors
+##### 3. Anchors
 
 | Anchor | Description         | Example                        | Matches |
 | ------ | ------------------- | ------------------------------ | ------- |
@@ -4921,7 +4943,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 | `\b`   | Word boundary       | `\bJava\b` with `I love Java.` | `Java`  |
 | `\B`   | Not a word boundary | `\BJava` with `SuperJava`      | `Java`  |
 
-#### 4. Predefined Character Classes
+##### 4. Predefined Character Classes
 
 | Class | Meaning                     | Example                    | Matches           |
 | ----- | --------------------------- | -------------------------- | ----------------- |
@@ -4934,7 +4956,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 
 ---
 
-#### 5. Groups & Capturing
+##### 5. Groups & Capturing
 
 | Concept        | Description         | Example                          | Match/Group                  |
 | -------------- | ------------------- | -------------------------------- | ---------------------------- |
@@ -4944,7 +4966,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 
 ---
 
-#### 6. Lookahead & Lookbehind
+##### 6. Lookahead & Lookbehind
 
 | Type       | Description         | Example                     | Matches  |
 | ---------- | ------------------- | --------------------------- | -------- |
@@ -4955,7 +4977,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 
 ---
 
-#### 7. Escape Characters
+##### 7. Escape Characters
 
 | Escape | Meaning          | Example                | Matches |
 | ------ | ---------------- | ---------------------- | ------- |
@@ -4966,7 +4988,7 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 
 ---
 
-#### 8. Common Patterns
+##### 8. Common Patterns
 
 | Pattern              | Use Case                | Example               | Matches            |
 | -------------------- | ----------------------- | --------------------- | ------------------ |
@@ -4976,12 +4998,13 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 | `https?://\S+`       | URL                     | `https://example.com` | URL                |
 | `^[A-Z][a-z]+$`      | Proper noun             | `India`               | `India`            |
 
+---
+
 
 
 ### Why Use the Comparable Interface in Java?
 
-The **Comparable** interface is used to define the **natural ordering** of objects in a class.  
-It provides a way to **compare two objects of the same type** to determine their relative order.
+The **Comparable** interface is used to define the **natural ordering** of objects in a class.  It provides a way to **compare two objects of the same type** to determine their relative order.
 
 You use the **Comparable** interface when:
 - You want to **sort a collection** of custom objects (e.g., using `Collections.sort()` or `Arrays.sort()`).
@@ -5077,35 +5100,6 @@ public class ComparatorLambdaExample {
 }
 ```
 ---
-
-### What is the Singleton design pattern, and why would you use it in your Java application?
-
-The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance. It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
-
-### When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
-
-The Factory design pattern is used to create objects without exposing the object creation logic to the client. It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
-
-### What is the Builder design pattern, and how does it differ from the Factory pattern?
- The Builder design pattern is used to create complex objects step by step. It differs from the Factory pattern in that it allows for greater control over the creation process and provides a way to create objects with different configurations.
-
-### How does the Observer design pattern work, and when would you use it in your Java code?
-
-The Observer design pattern is used to define a one-to-many relationship between objects so that when one object changes state, all its dependents are notified and updated automatically.
-
- ### When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
- The Template Method design pattern is used to define the skeleton of an algorithm in a superclass, with specific steps left to be implemented by subclasses. It differs from the Strategy pattern in that the steps of the algorithm are fixed and cannot be changed by subclasses.
-
-### What is a Hash Table, and how does it work in Java?
-
-A Hash Table is a data structure that maps keys to values. It uses a hash function to compute an index into an array of buckets or slots, where each slot contains a linked list of key-value pairs.
-
-### What is a Linked List, and when would you use it over an Array in Java?
-
-A Linked List is a data structure that consists of a sequence of nodes, where each node contains a value and a reference to the next node in the sequence. It is used when you need to insert or delete elements frequently, as these operations are more efficient than with an array.
-
-### What is a Tree data structure, and how does it differ from other data structures like Lists and Maps in Java?
- A Tree data structure is a hierarchical data structure that consists of nodes connected by edges. It differs from Lists and Maps in that it can represent relationships between elements, and it allows for efficient searching and insertion operations.
 
 ### When would you use a Queue data structure in Java, and what are its advantages over other data structures?
 

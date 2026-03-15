@@ -59,33 +59,7 @@ Basic Control Structures
 40.	Explain the difference between break and continue statements
 41.	What is the difference between == and .equals()?
 
-Spring Boot Basics
-Core Concepts
 
-42.	What is Spring Boot?
-43.	What are the advantages of Spring Boot?
-44.	What is @SpringBootAppIication annotation?
-45.	What is the difference between @Component, @Service, and @Repository?
-46.	What is dependency injection?
-47.	What is @Autowired?
-48.	What are Spring Boot starters?
-
-49.	What is application.properties file?
-50.	Difference between Spring and Spring Boot?
-51.	What is IOC container in Spring?
-
-REST API Basics
-
-52.	What is HTTP? Common HTTP methods?
-53.	What are HTTP status codes (200, 404, 500)?
-54.	What is REST API?
-55.	What is JSON?
-56.	What is @RestControIIer vs @ControIIer?
-he process of creating a REST API (with example)?
-
-
-
-LEVEL 2: INTERMEDIATE (2-4 Years Experience)
 Advanced Core Java
 Collections Deep Dive
 
@@ -142,6 +116,77 @@ Multithreading Basics
 99.	Thread vs Runnable
 100.	What is the difference between Runnable and Callable?
 101.	Synchronized methods vs Synchronized blocks
+
+
+
+
+JVM Internals & Performance
+147.	How does the JVM work internally? (Class loader, memory areas, GC)
+148.	What are the different types of class loaders in Java?
+149.	What are strong, weak, soft, and phantom references in Java?
+150.	How does Java handle memory leaks despite having garbage collector?
+151.	What are different GC algorithms? When to use which?
+152.	How do you tune JVM performance?
+153.	What is JIT compilation?
+154.	What are JVM memory areas (Heap, Stack, Method Area, PC Register)?
+155.	What is metaspace in Java 8+?
+156.	How do you analyze heap dumps and thread dumps?
+
+Advanced Concurrency
+157.	What is the Executor framework in Java?
+158.	What is a Future in Java?
+159.	What is a ThreadPool and why should you use it?
+160.	What are the real differences between ReentrantLock and synchronized?
+161.	How does volatile differ from synchronized?
+162.	What's the difference between thread safety and atomicity?
+163.	When would you use CountDownLatch vs CyclicBarrier?
+164.	What is the difference between busy-waiting vs blocking vs non-blocking calls?
+165.	How does CompletableFuture work internally?
+166.	How do you avoid thread starvation?
+167.	How would you write a thread-safe singleton?
+168.	What is the Producer-Consumer pattern? Implement with BlockingQueue?
+169.	What is ForkJoinPool and how it differs from regular thread pools?
+
+170.	How do Java Stream operations work internally (parallel vs sequential)?
+171.	What is a live-lock and how is it different from deadlock?
+172.	What is the Java Memory Model (JMM)?
+173.	How does a Semaphore work? Real-life examples?
+174.	What is a BlockingQueue? Types and use cases?
+--------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+Spring Boot Basics Core Concepts
+
+42.	What is Spring Boot?
+43.	What are the advantages of Spring Boot?
+44.	What is @SpringBootAppIication annotation?
+45.	What is the difference between @Component, @Service, and @Repository?
+46.	What is dependency injection?
+47.	What is @Autowired?
+48.	What are Spring Boot starters?
+
+49.	What is application.properties file?
+50.	Difference between Spring and Spring Boot?
+51.	What is IOC container in Spring?
+
+REST API Basics
+
+52.	What is HTTP? Common HTTP methods?
+53.	What are HTTP status codes (200, 404, 500)?
+54.	What is REST API?
+55.	What is JSON?
+56.	What is @RestControIIer vs @ControIIer?
+he process of creating a REST API (with example)?
+
+
+
+LEVEL 2: INTERMEDIATE (2-4 Years Experience)
+
 
 Spring Boot Intermediate
 Advanced Configuration
@@ -210,40 +255,6 @@ th vs JWT?
 status codes: 401, 403, 404, 500, 502, 503?
 
 
-
-LEVEL 3: ADVANCED (4+ Years Experience)
-JVM Internals & Performance
-147.	How does the JVM work internally? (Class loader, memory areas, GC)
-148.	What are the different types of class loaders in Java?
-149.	What are strong, weak, soft, and phantom references in Java?
-150.	How does Java handle memory leaks despite having garbage collector?
-151.	What are different GC algorithms? When to use which?
-152.	How do you tune JVM performance?
-153.	What is JIT compilation?
-154.	What are JVM memory areas (Heap, Stack, Method Area, PC Register)?
-155.	What is metaspace in Java 8+?
-156.	How do you analyze heap dumps and thread dumps?
-
-Advanced Concurrency
-157.	What is the Executor framework in Java?
-158.	What is a Future in Java?
-159.	What is a ThreadPool and why should you use it?
-160.	What are the real differences between ReentrantLock and synchronized?
-161.	How does volatile differ from synchronized?
-162.	What's the difference between thread safety and atomicity?
-163.	When would you use CountDownLatch vs CyclicBarrier?
-164.	What is the difference between busy-waiting vs blocking vs non-blocking calls?
-165.	How does CompletableFuture work internally?
-166.	How do you avoid thread starvation?
-167.	How would you write a thread-safe singleton?
-168.	What is the Producer-Consumer pattern? Implement with BlockingQueue?
-169.	What is ForkJoinPool and how it differs from regular thread pools?
-
-170.	How do Java Stream operations work internally (parallel vs sequential)?
-171.	What is a live-lock and how is it different from deadlock?
-172.	What is the Java Memory Model (JMM)?
-173.	How does a Semaphore work? Real-life examples?
-174.	What is a BlockingQueue? Types and use cases?
 
 Advanced Spring Boot
 175.	How does Spring manage bean lifecycle? What are the hooks?
@@ -335,9 +346,7 @@ Advanced Testing
 ce testing?
 
 
-
-
-EXPERT LEVEL (5+ Years / Architect Level)
+-----------------------------------------------------------------------------
 System Design & Architecture
 251.	How do you design a scalable e-commerce system?
 252.	How do you implement distributed caching (Redis, Hazelcast)?

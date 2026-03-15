@@ -4,6 +4,8 @@
 
 
 
+# **Spring**
+
 ### **What are the key features of the Spring Framework?**
 
 **Defination:** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
@@ -1413,17 +1415,14 @@ ResponseEntity allows customizing the response body, headers, and HTTP status.
 ```java
 @GetMapping("/{id}")
 
-public ResponseEntity<User> getUser(@PathVariable Long id) { User user = userService.findById(id);
-
-                                                            if (user == null) {
-
-                                                                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-                                                            }
-
-                                                            return ResponseEntity.ok(user);
-
-                                                           }
+public ResponseEntity<User> getUser(@PathVariable Long id) 
+{ 
+    User user = userService.findById(id);
+    if (user == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+    return ResponseEntity.ok(user);
+}
 ```
 
 
@@ -2601,8 +2600,6 @@ Best choice:
 #### Q5:  If outer method is NOT transactional and inner is REQUIRED, what happens?
 
 👉 Inner method creates new transaction.
-
-
 
 | Propagation                          | Isolation                            |
 | ------------------------------------ | ------------------------------------ |
