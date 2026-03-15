@@ -8,16 +8,319 @@ Good approach 👍 For experienced Java interviews, organizing questions by **co
 
 # 1️⃣ Java Basics
 
-1. What is the difference between JDK, JRE, and JVM?
-2. What are the main features of Java (OOP principles)?
-3. What are primitive data types in Java?
-4. What are access modifiers in Java (private, protected, public, default)?
-5. What is a package in Java?
-6. What is the `static` keyword? Static variables and methods?
-7. What is a Constructor in Java? Types of constructors?
-8. Can we use static methods in a Constructor?
-9. What is the difference between `==` and `.equals()`?
-10. Explain the difference between `break` and `continue` statements.
+````markdown
+# 1️⃣ Java Basics
+
+---
+
+## 1. What is the difference between JDK, JRE, and JVM?
+
+| Component | Purpose |
+|---|---|
+| **JDK (Java Development Kit)** | Used to develop Java applications |
+| **JRE (Java Runtime Environment)** | Provides runtime environment to run Java programs |
+| **JVM (Java Virtual Machine)** | Executes Java bytecode |
+
+### Relationship
+
+```mermaid
+flowchart LR
+    A[JDK] --> B[JRE]
+    B --> C[JVM]
+````
+
+### Key Points
+
+* **JDK = JRE + Development Tools (javac, javadoc, jar)**
+* **JRE = JVM + Libraries**
+* JVM is platform dependent but **Java code is platform independent**
+
+---
+
+## 2. What are the main features of Java (OOP principles)?
+
+Java follows **Object-Oriented Programming (OOP)**.
+
+### Four Main Principles
+
+| Principle         | Meaning                            |
+| ----------------- | ---------------------------------- |
+| **Encapsulation** | Wrapping data and methods together |
+| **Inheritance**   | Reusing code from parent class     |
+| **Polymorphism**  | Same method behaves differently    |
+| **Abstraction**   | Hiding implementation details      |
+
+### Example
+
+```java
+class Animal {
+    void sound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+```
+
+---
+
+## 3. What are primitive data types in Java?
+
+Java has **8 primitive data types**.
+
+| Type    | Size    | Example             |
+| ------- | ------- | ------------------- |
+| byte    | 1 byte  | byte a = 10         |
+| short   | 2 bytes | short s = 100       |
+| int     | 4 bytes | int x = 1000        |
+| long    | 8 bytes | long l = 10000L     |
+| float   | 4 bytes | float f = 10.5f     |
+| double  | 8 bytes | double d = 20.5     |
+| char    | 2 bytes | char c = 'A'        |
+| boolean | 1 bit   | boolean flag = true |
+
+### Interview Tip
+
+Primitive types **store actual values**, not object references.
+
+---
+
+## 4. What are access modifiers in Java?
+
+Access modifiers control **visibility of classes, variables, and methods**.
+
+| Modifier  | Same Class | Same Package | Subclass | Other Package |
+| --------- | ---------- | ------------ | -------- | ------------- |
+| private   | ✅          | ❌            | ❌        | ❌             |
+| default   | ✅          | ✅            | ❌        | ❌             |
+| protected | ✅          | ✅            | ✅        | ❌             |
+| public    | ✅          | ✅            | ✅        | ✅             |
+
+### Example
+
+```java
+public class Employee {
+    private int id;
+    protected String name;
+    public double salary;
+}
+```
+
+---
+
+## 5. What is a package in Java?
+
+A **package** is a namespace used to organize classes and interfaces.
+
+### Benefits
+
+* Avoid class name conflicts
+* Better code organization
+* Access control
+
+### Example
+
+```java
+package com.bank.service;
+
+public class AccountService {
+}
+```
+
+### Types
+
+* **Built-in packages** → `java.util`, `java.lang`
+* **User-defined packages**
+
+---
+
+## 6. What is the `static` keyword? Static variables and methods?
+
+`static` means **belongs to class, not object**.
+
+### Static Variable
+
+* Shared across all objects
+* Single copy in memory
+
+```java
+class Counter {
+    static int count = 0;
+
+    Counter() {
+        count++;
+    }
+}
+```
+
+### Static Method
+
+* Called using class name
+* Cannot access non-static members directly
+
+```java
+class MathUtil {
+    static int add(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+Usage
+
+```java
+MathUtil.add(10,20);
+```
+
+---
+
+## 7. What is a Constructor in Java? Types of constructors?
+
+A **constructor** initializes an object when it is created.
+
+### Rules
+
+* Same name as class
+* No return type
+* Called automatically during object creation
+
+### Types
+
+| Type                      | Description                          |
+| ------------------------- | ------------------------------------ |
+| Default Constructor       | Provided by compiler if none defined |
+| Parameterized Constructor | Accepts parameters                   |
+| Copy Constructor          | Copies another object                |
+
+### Example
+
+```java
+class Student {
+
+    int id;
+    String name;
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+```
+
+---
+
+## 8. Can we use static methods in a Constructor?
+
+Yes.
+
+Constructors **can call static methods**, because static methods belong to the class.
+
+### Example
+
+```java
+class Test {
+
+    Test() {
+        display();
+    }
+
+    static void display() {
+        System.out.println("Static method called");
+    }
+}
+```
+
+### Important
+
+Static methods **do not require object creation**.
+
+---
+
+## 9. What is the difference between `==` and `.equals()`?
+
+| Feature          | `==`                      | `.equals()`       |
+| ---------------- | ------------------------- | ----------------- |
+| Purpose          | Compare references        | Compare values    |
+| Works on         | Primitive & Objects       | Objects           |
+| Default behavior | Memory address comparison | Can be overridden |
+
+### Example
+
+```java
+String a = new String("Java");
+String b = new String("Java");
+
+System.out.println(a == b);       // false
+System.out.println(a.equals(b));  // true
+```
+
+### Interview Tip
+
+* `==` → reference comparison
+* `.equals()` → logical value comparison
+
+---
+
+## 10. Explain the difference between `break` and `continue`
+
+| Keyword  | Purpose                     |
+| -------- | --------------------------- |
+| break    | Terminates loop immediately |
+| continue | Skips current iteration     |
+
+### Example
+
+```java
+for(int i=1;i<=5;i++){
+
+    if(i==3)
+        continue;
+
+    System.out.println(i);
+}
+```
+
+Output
+
+```
+1
+2
+4
+5
+```
+
+### break Example
+
+```java
+for(int i=1;i<=5;i++){
+
+    if(i==3)
+        break;
+
+    System.out.println(i);
+}
+```
+
+Output
+
+```
+1
+2
+```
+
+### Key Difference
+
+* **break → exit loop**
+* **continue → skip iteration**
+
+---
+
+```
+```
 
 ---
 
