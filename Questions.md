@@ -4168,39 +4168,707 @@ public Object logExecution(ProceedingJoinPoint joinPoint) throws Throwable {
 
 # 1️⃣4️⃣ Advanced JPA & Database
 
-193. What is the N+1 select problem in JPA? How to fix it?
-194. What are entity graphs and how do they help?
-195. When would you use `@Query` vs derived queries vs Criteria API?
-196. How does optimistic locking work in JPA? (`@Version` annotation)
-197. What is pessimistic locking? When to use it?
-198. How do you handle pagination and sorting in Spring Data JPA?
-199. What are database transactions? ACID properties?
-200. What is connection pooling? HikariCP configuration?
-201. How do you implement database migrations with Flyway/Liquibase?
-202. What is database indexing? Query optimization strategies?
-
 ---
+
+## 193. What is the N+1 Select Problem in JPA? How to fix it?
+
+### Problem
+
+Occurs when JPA executes:
+
+- **1 query to fetch parent entities**
+- **N queries to fetch child entities**
+
+Example:
+
+```java
+List<User> users = userRepository.findAll();
+```
+
+Then accessing:
+
+```java
+user.getOrders();
+```
+
+Queries executed:
+
+```sql
+1 query → users
+N queries → orders
+```
+
+Total = **N+1 queries**
+
+------
+
+### Example Flow
+
+```mermaid
+sequenceDiagram
+App->>DB: SELECT * FROM users
+loop for each user
+App->>DB: SELECT * FROM orders WHERE user_id=?
+end
+```
+
+------
+
+### Fixes
+
+1️⃣ **Fetch Join**
+
+```java
+@Query("SELECT u FROM User u JOIN FETCH u.orders")
+List<User> findAllUsersWithOrders();
+```
+
+2️⃣ **EntityGraph**
+
+```java
+@EntityGraph(attributePaths = {"orders"})
+List<User> findAll();
+```
+
+3️⃣ **Batch fetching**
+
+```properties
+spring.jpa.properties.hibernate.default_batch_fetch_size=50
+```
+
+------
+
+## 194. What are Entity Graphs?
+
+Entity Graphs control **which relationships should be loaded eagerly**.
+
+Avoids **N+1 problem without modifying query**.
+
+Example:
+
+```java
+@EntityGraph(attributePaths = {"orders"})
+List<User> findAll();
+```
+
+------
+
+### Diagram
+
+```mermaid
+graph LR
+User --> Orders
+User --> Address
+```
+
+With EntityGraph:
+
+```text
+Fetch only required relationships
+```
+
+------
+
+## 195. `@Query` vs Derived Queries vs Criteria API
+
+### Derived Query
+
+Spring automatically generates query from method name.
+
+```java
+List<User> findByEmail(String email);
+```
+
+Good for **simple queries**.
+
+------
+
+### `@Query`
+
+Write **custom JPQL/SQL query**.
+
+```java
+@Query("SELECT u FROM User u WHERE u.age > :age")
+List<User> findUsersOlderThan(int age);
+```
+
+Good for **complex queries**.
+
+------
+
+### Criteria API
+
+Build **dynamic queries programmatically**.
+
+```java
+CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+```
+
+Used when:
+
+```text
+Dynamic filters required
+```
+
+------
+
+### Comparison
+
+| Feature         | Derived | @Query  | Criteria  |
+| --------------- | ------- | ------- | --------- |
+| Simplicity      | High    | Medium  | Low       |
+| Flexibility     | Low     | High    | Very High |
+| Dynamic queries | No      | Limited | Yes       |
+
+------
+
+## 196. Optimistic Locking (`@Version`)
+
+Prevents **lost updates** when multiple users update same record.
+
+Example:
+
+```java
+@Version
+private Long version;
+```
+
+------
+
+### Flow
+
+```mermaid
+sequenceDiagram
+User1->>DB: Read product (v1)
+User2->>DB: Read product (v1)
+User1->>DB: Update (v2)
+User2->>DB: Update fails (version mismatch)
+```
+
+------
+
+### Advantages
+
+- No database lock
+- Better performance
+- Ideal for **low contention systems**
+
+------
+
+## 197. Pessimistic Locking
+
+Locks row **immediately when reading**.
+
+SQL example:
+
+```sql
+SELECT * FROM product WHERE id=1 FOR UPDATE
+```
+
+------
+
+### Types
+
+| Lock                        | Description        |
+| --------------------------- | ------------------ |
+| PESSIMISTIC_READ            | Prevent writes     |
+| PESSIMISTIC_WRITE           | Prevent read/write |
+| PESSIMISTIC_FORCE_INCREMENT | Increment version  |
+
+Example:
+
+```java
+@Lock(LockModeType.PESSIMISTIC_WRITE)
+Product findById(Long id);
+```
+
+------
+
+### When to Use
+
+- High contention
+- Banking systems
+- Inventory systems
+
+------
+
+## 198. Pagination and Sorting in Spring Data JPA
+
+Use **Pageable interface**.
+
+Example:
+
+```java
+Page<User> users = userRepository.findAll(PageRequest.of(0,10));
+```
+
+------
+
+### Sorting
+
+```java
+PageRequest.of(0,10, Sort.by("name").ascending());
+```
+
+------
+
+### API Example
+
+```http
+GET /users?page=0&size=10&sort=name
+```
+
+------
+
+### Flow
+
+```mermaid
+graph LR
+Client --> Controller
+Controller --> Repository
+Repository --> Database
+```
+
+------
+
+## 199. Database Transactions & ACID
+
+Transaction = **group of operations executed as single unit**
+
+Example:
+
+```text
+Transfer money
+Debit A
+Credit B
+```
+
+------
+
+### ACID Properties
+
+| Property    | Meaning                  |
+| ----------- | ------------------------ |
+| Atomicity   | All or nothing           |
+| Consistency | Data remains valid       |
+| Isolation   | Transactions independent |
+| Durability  | Changes persist          |
+
+------
+
+### Example
+
+```java
+@Transactional
+public void transferMoney(){}
+```
+
+------
+
+## 200. Connection Pooling & HikariCP
+
+Connection pooling **reuses database connections**.
+
+Without pool:
+
+```text
+Every request creates new connection
+```
+
+With pool:
+
+```text
+Reuse existing connections
+```
+
+------
+
+### Flow
+
+```mermaid
+graph LR
+App --> ConnectionPool
+ConnectionPool --> Database
+```
+
+------
+
+### HikariCP Config
+
+```properties
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.connection-timeout=30000
+```
+
+------
+
+## 201. Database Migrations (Flyway / Liquibase)
+
+Used to **version-control database schema**.
+
+------
+
+### Flyway Example
+
+Create migration file:
+
+```
+V1__create_user_table.sql
+```
+
+Example SQL:
+
+```sql
+CREATE TABLE users (
+ id BIGINT PRIMARY KEY,
+ name VARCHAR(100)
+);
+```
+
+Spring Boot automatically runs migrations on startup.
+
+------
+
+### Benefits
+
+- Versioned schema
+- Automated migrations
+- CI/CD friendly
+
+------
+
+## 202. Database Indexing & Query Optimization
+
+Index improves **query performance**.
+
+Example:
+
+```sql
+CREATE INDEX idx_user_email ON users(email);
+```
+
+------
+
+### Without Index
+
+```text
+Full table scan
+```
+
+### With Index
+
+```text
+Fast lookup
+```
+
+------
+
+### Optimization Strategies
+
+1️⃣ Use indexes on:
+
+- Foreign keys
+- Search columns
+
+2️⃣ Avoid:
+
+```sql
+SELECT *
+```
+
+3️⃣ Use:
+
+```sql
+EXPLAIN ANALYZE
+```
+
+4️⃣ Use pagination.
+
+------
 
 # 1️⃣5️⃣ Advanced Spring Security
 
-203. How do you implement OAuth2 and JWT in Spring Boot?
-204. What is a stateless session? How does JWT help?
-205. How do you implement two-factor authentication (2FA)?
-206. How does CSRF protection work in Spring?
-207. What is the difference between pre-auth and post-auth filters?
-208. How does `SecurityFilterChain` work in Spring Boot 3+?
-209. What is `UserDetailsService` and how do you implement it?
-210. How do you implement role-based access control (RBAC)?
-211. How do you implement method-level security?
-212. How do you secure microservices communication?
-213. How to implement OAuth authentication in Spring Boot?
+------
 
+## 203. OAuth2 + JWT in Spring Boot
 
+Typical architecture:
 
+```mermaid
+sequenceDiagram
+User->>AuthServer: Login
+AuthServer-->>User: JWT Token
+User->>API: Request + JWT
+API->>JWT Filter: Validate token
+JWT Filter-->>Controller: Authorized
+```
+
+Steps:
+
+1️⃣ Add dependency
+
+```
+spring-boot-starter-oauth2-resource-server
+```
+
+2️⃣ Configure JWT decoder
+
+3️⃣ Protect endpoints.
+
+------
+
+## 204. Stateless Session & JWT
+
+Stateless session:
+
+```text
+Server does NOT store session
+```
+
+Authentication info stored inside **JWT token**.
+
+------
+
+### Flow
+
+```mermaid
+sequenceDiagram
+Client->>Server: Login
+Server-->>Client: JWT
+Client->>Server: Request + JWT
+Server->>JWT: Validate
+Server-->>Client: Response
+```
+
+------
+
+### Benefits
+
+- Scalable
+- No server session storage
+- Works well with microservices
+
+------
+
+## 205. Two-Factor Authentication (2FA)
+
+Adds **second verification layer**.
+
+Example:
+
+1️⃣ Password login
+2️⃣ OTP verification
+
+------
+
+### Flow
+
+```mermaid
+sequenceDiagram
+User->>Server: Login
+Server-->>User: Send OTP
+User->>Server: Submit OTP
+Server-->>User: Authenticated
+```
+
+Methods:
+
+- SMS OTP
+- Email OTP
+- Google Authenticator (TOTP)
+
+------
+
+## 206. CSRF Protection
+
+CSRF = **Cross-Site Request Forgery**
+
+Attack:
+
+```text
+Malicious site sends request using logged-in user session
+```
+
+------
+
+### Protection
+
+Spring generates **CSRF token**.
+
+Example:
+
+```html
+<input type="hidden" name="_csrf">
+```
+
+For REST APIs:
+
+```java
+http.csrf().disable();
+```
+
+------
+
+## 207. Pre-auth vs Post-auth Filters
+
+### Pre-auth Filters
+
+Executed **before authentication**.
+
+Examples:
+
+- JWT filter
+- CORS filter
+
+------
+
+### Post-auth Filters
+
+Executed **after authentication**.
+
+Examples:
+
+- Authorization checks
+- Role verification
+
+------
+
+## 208. `SecurityFilterChain` (Spring Boot 3)
+
+Replaces **WebSecurityConfigurerAdapter**.
+
+Example:
+
+```java
+@Bean
+SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+    http
+      .csrf().disable()
+      .authorizeHttpRequests(auth -> auth
+        .requestMatchers("/public/**").permitAll()
+        .anyRequest().authenticated()
+      );
+
+    return http.build();
+}
+```
+
+------
+
+## 209. `UserDetailsService`
+
+Interface used to **load user data for authentication**.
+
+Example:
+
+```java
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
+
+    public UserDetails loadUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+}
+```
+
+------
+
+## 210. Role-Based Access Control (RBAC)
+
+Access based on **user roles**.
+
+Example roles:
+
+```text
+ROLE_USER
+ROLE_ADMIN
+```
+
+Example:
+
+```java
+.requestMatchers("/admin/**").hasRole("ADMIN")
+```
+
+------
+
+## 211. Method-Level Security
+
+Enable:
+
+```java
+@EnableMethodSecurity
+```
+
+Example:
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+public void deleteUser(){}
+```
+
+------
+
+## 212. Securing Microservices Communication
+
+Methods:
+
+1️⃣ **JWT tokens**
+2️⃣ **API Gateway authentication**
+3️⃣ **mTLS (Mutual TLS)**
+4️⃣ **OAuth2 resource server**
+
+Architecture:
+
+```mermaid
+graph LR
+Client --> API_Gateway
+API_Gateway --> ServiceA
+ServiceA --> ServiceB
+ServiceB --> Database
+```
+
+------
+
+## 213. OAuth Authentication in Spring Boot
+
+Steps:
+
+1️⃣ Configure OAuth provider (Google, GitHub)
+
+```properties
+spring.security.oauth2.client.registration.google.client-id=xxx
+spring.security.oauth2.client.registration.google.client-secret=xxx
+```
+
+------
+
+2️⃣ Add dependency
+
+```
+spring-boot-starter-oauth2-client
+```
+
+------
+
+3️⃣ Login flow
+
+```mermaid
+sequenceDiagram
+User->>App: Login with Google
+App->>Google OAuth: Redirect
+Google->>User: Authenticate
+Google-->>App: Access Token
+App-->>User: Logged in
+```
+
+------
 
 ---
 
-# 🚀 Microservices, Cloud & Architecture Interview Questions (Concept-wise)
+# 🚀 Microservices, Cloud & Architecture Interview Questions
 
 ---
 
