@@ -1917,57 +1917,1313 @@ Good 👍 I grouped your **Spring Boot interview questions** into **clear concep
 
 # 3️⃣ Dependency Injection (Advanced)
 
-112. What is constructor injection vs field injection vs setter injection?
-113. What is `@Qualifier` and `@Primary` annotation?
-114. If both `@Qualifier` and `@Primary` are used, which one takes precedence?
-115. How to avoid bean creation failures in dependency injection?
-116. `@Autowired` vs `@Qualifier`
-117. `@Primary` vs `@Qualifier`
+---
+
+## 112. Constructor Injection vs Field Injection vs Setter Injection
+
+### 1️⃣ Constructor Injection
+
+Dependencies are provided via **constructor parameters**.
+
+```java
+@Service
+public class OrderService {
+
+    private final PaymentService paymentService;
+
+    public OrderService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+}
+```
+
+### ✅ Advantages
+
+- Recommended by **Spring**
+- Ensures **mandatory dependencies**
+- Supports **immutability**
+- Easier **unit testing**
+
+### ❌ Disadvantages
+
+- Constructor becomes large if too many dependencies
+
+------
+
+### 2️⃣ Field Injection
+
+Dependency injected **directly into field**.
+
+```java
+@Service
+public class OrderService {
+
+    @Autowired
+    private PaymentService paymentService;
+}
+```
+
+### ❌ Problems
+
+- Hard to **unit test**
+- Breaks **encapsulation**
+- Cannot create **immutable objects**
+- Hidden dependencies
+
+### ⚠️ Recommendation
+
+**Avoid field injection in production code**
+
+------
+
+### 3️⃣ Setter Injection
+
+Dependency injected via **setter method**.
+
+```java
+@Service
+public class OrderService {
+
+    private PaymentService paymentService;
+
+    @Autowired
+    public void setPaymentService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+}
+```
+
+### Use Cases
+
+- **Optional dependencies**
+- **Reconfigurable dependencies**
+
+------
+
+### Quick Comparison
+
+| Type                  | Best For              | Recommended |
+| --------------------- | --------------------- | ----------- |
+| Constructor Injection | Required dependencies | ✅ Yes       |
+| Setter Injection      | Optional dependencies | ⚠️ Sometimes |
+| Field Injection       | Quick prototypes      | ❌ No        |
+
+------
+
+## 113. What is `@Qualifier` and `@Primary` annotation?
+
+### Problem
+
+When **multiple beans of same type exist**, Spring doesn't know which one to inject.
+
+Example:
+
+```java
+@Service
+public class PaypalPaymentService implements PaymentService {}
+@Service
+public class StripePaymentService implements PaymentService {}
+```
+
+------
+
+### `@Primary`
+
+Marks **default bean** when multiple beans exist.
+
+```java
+@Service
+@Primary
+public class PaypalPaymentService implements PaymentService {}
+```
+
+Spring will inject **PaypalPaymentService by default**.
+
+------
+
+### `@Qualifier`
+
+Used to **specify exact bean name**.
+
+```java
+@Autowired
+@Qualifier("stripePaymentService")
+private PaymentService paymentService;
+```
+
+------
+
+### Summary
+
+| Annotation   | Purpose                 |
+| ------------ | ----------------------- |
+| `@Primary`   | Default bean            |
+| `@Qualifier` | Explicit bean selection |
+
+------
+
+## 114. If both `@Qualifier` and `@Primary` are used, which one takes precedence?
+
+### Rule
+
+```
+@Qualifier > @Primary
+```
+
+### Example
+
+```java
+@Service
+@Primary
+class PaypalService implements PaymentService {}
+@Service
+class StripeService implements PaymentService {}
+```
+
+Injection:
+
+```java
+@Autowired
+@Qualifier("stripeService")
+private PaymentService paymentService;
+```
+
+### Result
+
+Spring injects:
+
+```
+StripeService
+```
+
+Even though `PaypalService` is `@Primary`.
+
+------
+
+## 115. How to avoid bean creation failures in dependency injection?
+
+### Common Causes
+
+- Multiple beans without qualifier
+- Circular dependency
+- Missing bean definition
+- Wrong package scanning
+
+------
+
+### Solutions
+
+#### 1️⃣ Use `@Qualifier`
+
+```java
+@Autowired
+@Qualifier("paypalService")
+PaymentService paymentService;
+```
+
+------
+
+#### 2️⃣ Use `@Primary`
+
+```java
+@Primary
+@Service
+class PaypalService {}
+```
+
+------
+
+#### 3️⃣ Enable Component Scan
+
+```java
+@ComponentScan("com.example")
+```
+
+------
+
+#### 4️⃣ Avoid Circular Dependency
+
+Bad example:
+
+```
+ServiceA → ServiceB
+ServiceB → ServiceA
+```
+
+Fix using:
+
+- Constructor redesign
+- `@Lazy`
+
+```java
+@Autowired
+@Lazy
+ServiceA serviceA;
+```
+
+------
+
+## 116. `@Autowired` vs `@Qualifier`
+
+### `@Autowired`
+
+Used for **automatic dependency injection by type**.
+
+```java
+@Autowired
+PaymentService paymentService;
+```
+
+Spring looks for **single bean of that type**.
+
+------
+
+### `@Qualifier`
+
+Used when **multiple beans of same type exist**.
+
+```java
+@Autowired
+@Qualifier("paypalService")
+PaymentService paymentService;
+```
+
+### Key Difference
+
+| Annotation   | Role                 |
+| ------------ | -------------------- |
+| `@Autowired` | Performs injection   |
+| `@Qualifier` | Specifies which bean |
+
+------
+
+## 117. `@Primary` vs `@Qualifier`
+
+| Feature    | `@Primary`                 | `@Qualifier`             |
+| ---------- | -------------------------- | ------------------------ |
+| Purpose    | Default bean               | Exact bean selection     |
+| Applied On | Bean class                 | Injection point          |
+| Priority   | Lower                      | Higher                   |
+| Use Case   | Most common implementation | Multiple implementations |
+
+------
+
+### Example
+
+```java
+@Service
+@Primary
+class PaypalService implements PaymentService {}
+@Service
+class StripeService implements PaymentService {}
+```
+
+Injection:
+
+```java
+@Autowired
+PaymentService paymentService;
+```
+
+Result:
+
+```
+PaypalService
+```
+
+------
+
+But if qualifier used:
+
+```java
+@Autowired
+@Qualifier("stripeService")
+PaymentService paymentService;
+```
+
+Result:
+
+```
+StripeService
+```
 
 ---
 
 # 4️⃣ REST API Basics
 
-52. What is HTTP? Common HTTP methods?
-53. What are HTTP status codes (200, 404, 500)?
-54. What is REST API?
-55. What is JSON?
-56. What is `@RestController` vs `@Controller`?
-57. The process of creating a REST API (with example)?
-
 ---
+
+## 52. What is HTTP? Common HTTP methods?
+
+### HTTP (HyperText Transfer Protocol)
+
+Protocol used for **communication between client and server** over the web.
+
+```mermaid
+sequenceDiagram
+Client->>Server: HTTP Request
+Server->>Client: HTTP Response
+```
+
+### Common HTTP Methods
+
+| Method | Purpose                | Example        |
+| ------ | ---------------------- | -------------- |
+| GET    | Retrieve data          | Get user       |
+| POST   | Create new resource    | Create order   |
+| PUT    | Update entire resource | Update user    |
+| PATCH  | Partial update         | Update email   |
+| DELETE | Remove resource        | Delete product |
+
+Example:
+
+```http
+GET /users/1
+POST /orders
+PUT /users/1
+DELETE /products/5
+```
+
+------
+
+## 53. What are HTTP status codes (200, 404, 500)?
+
+Status codes indicate **result of request**.
+
+### Categories
+
+| Range | Meaning       |
+| ----- | ------------- |
+| 1xx   | Informational |
+| 2xx   | Success       |
+| 3xx   | Redirection   |
+| 4xx   | Client error  |
+| 5xx   | Server error  |
+
+### Common Codes
+
+| Code | Meaning               |
+| ---- | --------------------- |
+| 200  | OK                    |
+| 201  | Created               |
+| 400  | Bad Request           |
+| 401  | Unauthorized          |
+| 403  | Forbidden             |
+| 404  | Not Found             |
+| 500  | Internal Server Error |
+| 503  | Service Unavailable   |
+
+Example response:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+```
+
+------
+
+## 54. What is REST API?
+
+**REST (Representational State Transfer)** is an architectural style for designing APIs.
+
+### REST Principles
+
+- Client-Server architecture
+- Stateless requests
+- Resource-based URLs
+- Use HTTP methods
+- Representation using JSON/XML
+
+Example:
+
+```http
+GET /users/1
+```
+
+Response:
+
+```json
+{
+  "id": 1,
+  "name": "John"
+}
+```
+
+### REST Architecture
+
+```mermaid
+graph LR
+Client --> API
+API --> Service
+Service --> Database
+```
+
+------
+
+## 55. What is JSON?
+
+**JSON (JavaScript Object Notation)** is a lightweight data format used for **API communication**.
+
+Example:
+
+```json
+{
+  "id": 101,
+  "name": "Laptop",
+  "price": 75000
+}
+```
+
+### Advantages
+
+- Lightweight
+- Human readable
+- Language independent
+- Faster than XML
+
+------
+
+## 56. `@RestController` vs `@Controller`
+
+### `@Controller`
+
+Used for **Spring MVC web applications** returning **views (HTML)**.
+
+```java
+@Controller
+public class HomeController {
+
+    @GetMapping("/")
+    public String home() {
+        return "index";
+    }
+}
+```
+
+### `@RestController`
+
+Used for **REST APIs** returning **JSON responses**.
+
+```java
+@RestController
+public class UserController {
+
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return userService.getUsers();
+    }
+}
+```
+
+### Key Difference
+
+| Feature     | Controller    | RestController                |
+| ----------- | ------------- | ----------------------------- |
+| Return type | View (HTML)   | JSON                          |
+| Annotation  | `@Controller` | `@Controller + @ResponseBody` |
+
+------
+
+## 57. Process of Creating a REST API (Spring Boot Example)
+
+### Step 1: Create Entity
+
+```java
+@Entity
+public class User {
+    @Id
+    private Long id;
+    private String name;
+}
+```
+
+### Step 2: Create Repository
+
+```java
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+}
+```
+
+### Step 3: Create Service
+
+```java
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository repository;
+
+    public List<User> getUsers(){
+        return repository.findAll();
+    }
+}
+```
+
+### Step 4: Create Controller
+
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    private UserService service;
+
+    @GetMapping
+    public List<User> getUsers(){
+        return service.getUsers();
+    }
+}
+```
+
+### REST API Flow
+
+```mermaid
+graph TD
+Client --> Controller
+Controller --> Service
+Service --> Repository
+Repository --> Database
+```
+
+------
 
 # 5️⃣ REST API Advanced
 
-118. `@RequestMapping` vs `@GetMapping`
-119. `@PathVariable` vs `@RequestParam`
-120. `@PostMapping` vs `@PutMapping`
-121. PUT vs PATCH
-122. `@ExceptionHandler` vs `@ControllerAdvice`
+------
+
+## 118. `@RequestMapping` vs `@GetMapping`
+
+### `@RequestMapping`
+
+Generic mapping for **all HTTP methods**.
+
+```java
+@RequestMapping(value="/users", method=RequestMethod.GET)
+public List<User> getUsers() {}
+```
+
+### `@GetMapping`
+
+Shortcut for **GET requests only**.
+
+```java
+@GetMapping("/users")
+public List<User> getUsers() {}
+```
+
+### Summary
+
+| Annotation        | Usage           |
+| ----------------- | --------------- |
+| `@RequestMapping` | Any HTTP method |
+| `@GetMapping`     | GET only        |
+
+------
+
+## 119. `@PathVariable` vs `@RequestParam`
+
+### `@PathVariable`
+
+Extract value from **URL path**.
+
+Example:
+
+```java
+@GetMapping("/users/{id}")
+public User getUser(@PathVariable Long id) {
+    return service.getUser(id);
+}
+```
+
+Request:
+
+```
+GET /users/10
+```
+
+------
+
+### `@RequestParam`
+
+Extract value from **query parameters**.
+
+```java
+@GetMapping("/users")
+public List<User> getUsers(@RequestParam String city) {
+    return service.findByCity(city);
+}
+```
+
+Request:
+
+```
+GET /users?city=Pune
+```
+
+------
+
+### Comparison
+
+| Feature | PathVariable | RequestParam    |
+| ------- | ------------ | --------------- |
+| Source  | URL path     | Query parameter |
+| Example | /users/10    | /users?id=10    |
+
+------
+
+## 120. `@PostMapping` vs `@PutMapping`
+
+### `@PostMapping`
+
+Used to **create new resource**.
+
+```java
+@PostMapping("/users")
+public User createUser(@RequestBody User user) {
+    return service.save(user);
+}
+```
+
+------
+
+### `@PutMapping`
+
+Used to **update existing resource**.
+
+```java
+@PutMapping("/users/{id}")
+public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    return service.update(id,user);
+}
+```
+
+### Summary
+
+| Method | Purpose |
+| ------ | ------- |
+| POST   | Create  |
+| PUT    | Update  |
+
+------
+
+## 121. PUT vs PATCH
+
+### PUT
+
+Updates **entire resource**.
+
+Example request:
+
+```json
+{
+  "id": 1,
+  "name": "John",
+  "email": "john@gmail.com"
+}
+```
+
+If field missing → may be overwritten.
+
+------
+
+### PATCH
+
+Updates **partial resource**.
+
+Example:
+
+```json
+{
+  "email": "newmail@gmail.com"
+}
+```
+
+------
+
+### Comparison
+
+| Feature     | PUT         | PATCH          |
+| ----------- | ----------- | -------------- |
+| Update type | Full update | Partial update |
+| Idempotent  | Yes         | Usually yes    |
+
+------
+
+## 122. `@ExceptionHandler` vs `@ControllerAdvice`
+
+### `@ExceptionHandler`
+
+Handles exceptions **inside a single controller**.
+
+```java
+@ExceptionHandler(UserNotFoundException.class)
+public ResponseEntity<String> handleException() {
+    return ResponseEntity.status(404).body("User not found");
+}
+```
+
+------
+
+### `@ControllerAdvice`
+
+Global exception handler for **all controllers**.
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException() {
+        return ResponseEntity.status(500).body("Internal error");
+    }
+}
+```
+
+------
+
+### Comparison
+
+| Feature     | ExceptionHandler  | ControllerAdvice |
+| ----------- | ----------------- | ---------------- |
+| Scope       | Single controller | Global           |
+| Reusability | Low               | High             |
+
+
 
 ---
 
 # 6️⃣ Spring Boot Important Annotations
 
-123. `@ComponentScan` vs `@EnableAutoConfiguration`
-124. `@Configuration` vs `@Bean`
-125. `@Async` vs `@Scheduled`
-126. `@Cacheable` vs `@CacheEvict`
-
 ---
+
+## 123. `@ComponentScan` vs `@EnableAutoConfiguration`
+
+### `@ComponentScan`
+Tells Spring **where to scan for components** (classes annotated with `@Component`, `@Service`, `@Repository`, `@Controller`).
+
+```java
+@SpringBootApplication
+@ComponentScan("com.example.service")
+public class Application {}
+```
+
+### `@EnableAutoConfiguration`
+
+Automatically **configures beans based on dependencies in classpath**.
+
+Example:
+
+- If `spring-boot-starter-web` present → Spring configures **Tomcat + DispatcherServlet**
+
+### Relationship
+
+`@SpringBootApplication` includes both.
+
+```java
+@SpringBootApplication =
+@Configuration
++ @EnableAutoConfiguration
++ @ComponentScan
+```
+
+### Summary
+
+| Annotation                 | Purpose                                 |
+| -------------------------- | --------------------------------------- |
+| `@ComponentScan`           | Scan project classes                    |
+| `@EnableAutoConfiguration` | Configure framework beans automatically |
+
+------
+
+## 124. `@Configuration` vs `@Bean`
+
+### `@Configuration`
+
+Marks a class as **Spring configuration class**.
+
+```java
+@Configuration
+public class AppConfig {}
+```
+
+### `@Bean`
+
+Defines a **bean manually** inside configuration class.
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public PaymentService paymentService() {
+        return new PaypalService();
+    }
+}
+```
+
+### Difference
+
+| Annotation       | Used On | Purpose               |
+| ---------------- | ------- | --------------------- |
+| `@Configuration` | Class   | Defines configuration |
+| `@Bean`          | Method  | Creates bean          |
+
+------
+
+## 125. `@Async` vs `@Scheduled`
+
+### `@Async`
+
+Runs method **asynchronously in separate thread**.
+
+```java
+@Async
+public void sendEmail() {
+    // runs in background
+}
+```
+
+Used for:
+
+- Email sending
+- Notifications
+- Background tasks
+
+Enable async:
+
+```java
+@EnableAsync
+```
+
+------
+
+### `@Scheduled`
+
+Runs method **at fixed time interval**.
+
+```java
+@Scheduled(fixedRate = 5000)
+public void cleanupLogs() {
+    // runs every 5 seconds
+}
+```
+
+Enable scheduling:
+
+```java
+@EnableScheduling
+```
+
+------
+
+### Comparison
+
+| Feature   | `@Async`           | `@Scheduled` |
+| --------- | ------------------ | ------------ |
+| Execution | Background thread  | Time-based   |
+| Trigger   | Method call        | Scheduler    |
+| Use case  | Non-blocking tasks | Cron jobs    |
+
+------
+
+## 126. `@Cacheable` vs `@CacheEvict`
+
+### `@Cacheable`
+
+Stores **method result in cache**.
+
+```java
+@Cacheable("products")
+public Product getProduct(Long id) {
+    return repository.findById(id);
+}
+```
+
+First call → DB
+Next calls → Cache
+
+------
+
+### `@CacheEvict`
+
+Removes data from cache.
+
+```java
+@CacheEvict(value="products", key="#id")
+public void deleteProduct(Long id) {
+    repository.deleteById(id);
+}
+```
+
+Used when data changes.
+
+------
+
+### Comparison
+
+| Annotation    | Purpose               |
+| ------------- | --------------------- |
+| `@Cacheable`  | Store result in cache |
+| `@CacheEvict` | Remove cache entry    |
+
+------
 
 # 7️⃣ Database & JPA Basics
 
-127. What is ORM?
-128. What is JPA? Difference between JPA and Hibernate?
-129. What is an Entity in JPA?
-130. What are JPA annotations (`@Entity`, `@Id`, `@GeneratedValue`)?
-131. What is the difference between `persist()` and `merge()`?
-132. What are JPA relationships (`@OneToMany`, `@ManyToOne`, etc.)?
-133. What is JPQL?
-134. What is lazy loading vs eager loading?
-135. What is the difference between `save()` and `saveAndFlush()`?
-136. In Hibernate, what is the difference between `get()` and `load()` methods?
+------
+
+## 127. What is ORM?
+
+**ORM (Object Relational Mapping)** maps **Java objects to database tables**.
+
+Example:
+
+| Java Class | Database Table |
+| ---------- | -------------- |
+| User       | users          |
+
+```java
+class User {
+   Long id;
+   String name;
+}
+```
+
+ORM converts it into SQL operations.
+
+### Benefits
+
+- Less SQL code
+- Object-oriented programming
+- DB abstraction
+
+Popular ORMs:
+
+- Hibernate
+- EclipseLink
+- TopLink
+
+------
+
+## 128. What is JPA? Difference between JPA and Hibernate?
+
+### JPA (Java Persistence API)
+
+Specification for **ORM in Java**.
+
+Provides interfaces and annotations for persistence.
+
+Examples:
+
+```java
+@Entity
+@Id
+@OneToMany
+```
+
+------
+
+### Hibernate
+
+Implementation of JPA.
+
+```
+JPA → Specification
+Hibernate → Implementation
+```
+
+------
+
+### Comparison
+
+| Feature        | JPA               | Hibernate               |
+| -------------- | ----------------- | ----------------------- |
+| Type           | Specification     | Framework               |
+| Developed by   | Oracle            | Hibernate team          |
+| Implementation | Requires provider | Provides implementation |
+
+------
+
+## 129. What is an Entity in JPA?
+
+An **Entity is a Java class mapped to a database table**.
+
+Example:
+
+```java
+@Entity
+public class User {
+
+    @Id
+    private Long id;
+
+    private String name;
+}
+```
+
+Mapping:
+
+```
+User class → users table
+```
+
+Rules:
+
+- Must have `@Entity`
+- Must have `@Id`
+- Must have default constructor
+
+------
+
+## 130. JPA annotations (`@Entity`, `@Id`, `@GeneratedValue`)
+
+### `@Entity`
+
+Marks class as database entity.
+
+```java
+@Entity
+public class Product {}
+```
+
+------
+
+### `@Id`
+
+Defines **primary key**.
+
+```java
+@Id
+private Long id;
+```
+
+------
+
+### `@GeneratedValue`
+
+Auto-generates primary key.
+
+```java
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
+```
+
+### Strategies
+
+| Strategy | Description       |
+| -------- | ----------------- |
+| IDENTITY | Auto increment    |
+| SEQUENCE | Database sequence |
+| AUTO     | Provider decides  |
+
+------
+
+## 131. Difference between `persist()` and `merge()`
+
+### `persist()`
+
+Used to **insert new entity**.
+
+```java
+entityManager.persist(user);
+```
+
+- Works only for **new entities**
+- Managed by persistence context
+
+------
+
+### `merge()`
+
+Used to **update detached entity**.
+
+```java
+entityManager.merge(user);
+```
+
+- Works for existing entities
+- Returns managed entity
+
+------
+
+### Comparison
+
+| Feature      | persist()  | merge()         |
+| ------------ | ---------- | --------------- |
+| Operation    | Insert     | Update          |
+| Entity state | New entity | Detached entity |
+
+------
+
+## 132. JPA Relationships
+
+Used to map **table relationships**.
+
+### Types
+
+| Annotation    | Relationship                 |
+| ------------- | ---------------------------- |
+| `@OneToOne`   | One user → one profile       |
+| `@OneToMany`  | One user → many orders       |
+| `@ManyToOne`  | Many orders → one user       |
+| `@ManyToMany` | Many students ↔ many courses |
+
+------
+
+### Example
+
+```java
+@Entity
+class Order {
+
+    @ManyToOne
+    private User user;
+}
+```
+
+------
+
+### Relationship Diagram
+
+```mermaid
+erDiagram
+User ||--o{ Order : places
+Order }o--|| Product : contains
+```
+
+------
+
+## 133. What is JPQL?
+
+**JPQL (Java Persistence Query Language)** queries **entities instead of tables**.
+
+Example SQL:
+
+```sql
+SELECT * FROM users
+```
+
+Example JPQL:
+
+```java
+SELECT u FROM User u WHERE u.name='John'
+```
+
+### Advantages
+
+- Database independent
+- Object oriented queries
+
+------
+
+## 134. Lazy Loading vs Eager Loading
+
+### Lazy Loading
+
+Data loaded **only when accessed**.
+
+```java
+@OneToMany(fetch = FetchType.LAZY)
+```
+
+Example:
+
+User → orders loaded **only when accessed**
+
+------
+
+### Eager Loading
+
+Data loaded **immediately with entity**.
+
+```java
+@OneToMany(fetch = FetchType.EAGER)
+```
+
+Example:
+
+User → orders loaded automatically
+
+------
+
+### Comparison
+
+| Feature      | Lazy                       | Eager                   |
+| ------------ | -------------------------- | ----------------------- |
+| Loading time | On demand                  | Immediately             |
+| Performance  | Better for large relations | Can cause heavy queries |
+
+------
+
+## 135. `save()` vs `saveAndFlush()`
+
+### `save()`
+
+Saves entity but **flush happens later**.
+
+```java
+repository.save(user);
+```
+
+Data may not be written to DB immediately.
+
+------
+
+### `saveAndFlush()`
+
+Saves and **immediately flushes changes to DB**.
+
+```java
+repository.saveAndFlush(user);
+```
+
+------
+
+### Difference
+
+| Method         | DB Write  |
+| -------------- | --------- |
+| save()         | Deferred  |
+| saveAndFlush() | Immediate |
+
+------
+
+## 136. Hibernate `get()` vs `load()`
+
+### `get()`
+
+Immediately fetches object from DB.
+
+```java
+User user = session.get(User.class,1);
+```
+
+If not found → returns **null**
+
+------
+
+### `load()`
+
+Returns **proxy object** (lazy loading).
+
+```java
+User user = session.load(User.class,1);
+```
+
+If accessed and not found → throws exception.
+
+------
+
+### Comparison
+
+| Feature           | get()           | load()         |
+| ----------------- | --------------- | -------------- |
+| Fetching          | Immediate       | Lazy           |
+| Return if missing | null            | Exception      |
+| Performance       | Slightly slower | Faster (proxy) |
 
 ---
 
@@ -1983,49 +3239,930 @@ Good 👍 I grouped your **Spring Boot interview questions** into **clear concep
 
 # 9️⃣ Spring Security Basics
 
-142. What is Authentication vs Authorization?
-143. What is Spring Security?
-144. How do you secure REST APIs using Spring Security?
-145. OAuth2 vs JWT?
-146. HTTP status codes: 401, 403, 404, 500, 502, 503?
+---
+
+## 142. Authentication vs Authorization
+
+### Authentication
+Verifies **who the user is**.
+
+Example:
+- Login with **username/password**
+- Login with **Google OAuth**
+
+```mermaid
+sequenceDiagram
+User->>Server: Username + Password
+Server->>Database: Validate credentials
+Database-->>Server: Valid user
+Server-->>User: Authenticated
+```
+
+Examples:
+
+- Login form
+- JWT token verification
+- OAuth login
+
+------
+
+### Authorization
+
+Determines **what the user is allowed to do**.
+
+Example:
+
+| User Role | Permission          |
+| --------- | ------------------- |
+| Admin     | Create/Delete users |
+| User      | View profile        |
+
+```mermaid
+graph TD
+User --> Authentication
+Authentication --> Authorization
+Authorization --> AccessGranted
+Authorization --> AccessDenied
+```
+
+------
+
+### Key Difference
+
+| Feature | Authentication  | Authorization        |
+| ------- | --------------- | -------------------- |
+| Purpose | Verify identity | Verify permissions   |
+| Happens | First           | After authentication |
+| Example | Login           | Role-based access    |
+
+------
+
+## 143. What is Spring Security?
+
+Spring Security is a **framework that provides authentication and authorization for Java applications**.
+
+### Features
+
+- Authentication
+- Authorization
+- Password encryption
+- CSRF protection
+- JWT support
+- OAuth2 support
+- Session management
+
+------
+
+### Security Flow
+
+```mermaid
+sequenceDiagram
+Client->>SecurityFilter: Request
+SecurityFilter->>AuthenticationManager: Validate credentials
+AuthenticationManager->>UserDetailsService: Load user
+UserDetailsService-->>AuthenticationManager: User details
+AuthenticationManager-->>SecurityFilter: Authenticated
+SecurityFilter-->>Controller: Allow request
+```
+
+------
+
+### Example Configuration
+
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+            .csrf().disable()
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
+            .httpBasic();
+
+        return http.build();
+    }
+}
+```
+
+------
+
+## 144. How do you secure REST APIs using Spring Security?
+
+### Typical Steps
+
+1️⃣ Add dependency
+
+```xml
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+
+------
+
+2️⃣ Configure security
+
+```java
+@Bean
+SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+    http
+      .csrf().disable()
+      .authorizeHttpRequests(auth -> auth
+          .requestMatchers("/public/**").permitAll()
+          .requestMatchers("/admin/**").hasRole("ADMIN")
+          .anyRequest().authenticated()
+      )
+      .sessionManagement()
+      .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+    return http.build();
+}
+```
+
+------
+
+3️⃣ Use JWT authentication
+
+```mermaid
+sequenceDiagram
+User->>Auth Server: Login
+Auth Server-->>User: JWT Token
+User->>API: Request + JWT
+API->>JWT Filter: Validate Token
+JWT Filter-->>Controller: Authorized
+```
+
+------
+
+### Best Practices
+
+- Use **JWT tokens**
+- Disable **sessions (stateless APIs)**
+- Enable **HTTPS**
+- Use **role-based access control**
+
+------
+
+## 145. OAuth2 vs JWT
+
+### OAuth2
+
+Authorization framework for **third-party access**.
+
+Example:
+
+- Login with Google
+- Login with Facebook
+
+Flow:
+
+```mermaid
+sequenceDiagram
+User->>Client App: Login
+Client App->>OAuth Server: Authorization request
+OAuth Server-->>User: Login page
+User-->>OAuth Server: Credentials
+OAuth Server-->>Client App: Access Token
+```
+
+------
+
+### JWT (JSON Web Token)
+
+Compact token used for **stateless authentication**.
+
+Example JWT:
+
+```json
+{
+ "sub": "user123",
+ "role": "ADMIN",
+ "exp": 1700000000
+}
+```
+
+JWT Structure:
+
+```
+Header.Payload.Signature
+```
+
+Example:
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+------
+
+### Comparison
+
+| Feature  | OAuth2                  | JWT                |
+| -------- | ----------------------- | ------------------ |
+| Type     | Authorization framework | Token format       |
+| Use case | Third-party login       | API authentication |
+| Example  | Google login            | Microservice auth  |
+
+------
+
+## 146. Important HTTP Status Codes
+
+### 401 — Unauthorized
+
+User **not authenticated**.
+
+Example:
+
+- Missing token
+- Invalid credentials
+
+```
+HTTP 401 Unauthorized
+```
+
+------
+
+### 403 — Forbidden
+
+User **authenticated but not allowed**.
+
+Example:
+
+- User accessing admin API.
+
+```
+HTTP 403 Forbidden
+```
+
+------
+
+### 404 — Not Found
+
+Requested resource **does not exist**.
+
+Example:
+
+```
+GET /users/999
+```
+
+User not found.
+
+------
+
+### 500 — Internal Server Error
+
+Server-side failure.
+
+Examples:
+
+- NullPointerException
+- Database crash
+
+------
+
+### 502 — Bad Gateway
+
+Server received **invalid response from upstream service**.
+
+Example:
+
+```
+Client → API Gateway → Downstream Service
+```
+
+Downstream service sends bad response.
+
+------
+
+### 503 — Service Unavailable
+
+Server temporarily **unable to handle request**.
+
+Common causes:
+
+- Server overload
+- Maintenance
+- Dependency service down
+
+------
+
+### Status Code Summary
+
+| Code | Meaning               | Typical Cause          |
+| ---- | --------------------- | ---------------------- |
+| 401  | Unauthorized          | Not logged in          |
+| 403  | Forbidden             | No permission          |
+| 404  | Not Found             | Resource missing       |
+| 500  | Internal Server Error | Server crash           |
+| 502  | Bad Gateway           | Upstream service error |
+| 503  | Service Unavailable   | Server overloaded      |
 
 ---
 
 # 🔟 Spring Bean Lifecycle & Scopes
 
-175. How does Spring manage bean lifecycle? What are the hooks?
-176. What is a proxy in Spring? JDK vs CGLIB proxies?
-177. What is the difference between `@Autowired`, `@Inject`, and `@Resource`?
-178. Can you inject a prototype bean into a singleton? How?
-179. What is the default scope of a bean in Spring?
-180. What are the scopes in Spring?
-181. Prototype vs Request Scope?
-
 ---
+
+## 175. How does Spring manage bean lifecycle? What are the hooks?
+
+### Bean Lifecycle Steps
+
+```mermaid
+flowchart LR
+A[Bean Instantiation] --> B[Dependency Injection]
+B --> C[BeanPostProcessor before init]
+C --> D[Initialization Methods]
+D --> E[Bean Ready for Use]
+E --> F[BeanPostProcessor after init]
+F --> G[Destroy Method]
+```
+
+### Lifecycle Hooks
+
+| Hook                                    | Purpose                         |
+| --------------------------------------- | ------------------------------- |
+| `@PostConstruct`                        | Runs after dependency injection |
+| `InitializingBean.afterPropertiesSet()` | Custom initialization           |
+| `@PreDestroy`                           | Runs before bean destruction    |
+| `DisposableBean.destroy()`              | Custom destroy logic            |
+| `BeanPostProcessor`                     | Intercept bean creation         |
+
+Example:
+
+```java
+@Component
+public class MyBean {
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Bean initialized");
+    }
+
+    @PreDestroy
+    public void cleanup() {
+        System.out.println("Bean destroyed");
+    }
+}
+```
+
+------
+
+## 176. What is a Proxy in Spring? JDK vs CGLIB proxies?
+
+### Proxy
+
+Spring creates **proxy objects** to apply features like:
+
+- AOP
+- Transactions
+- Security
+
+Instead of calling actual bean → request goes through proxy.
+
+
+
+------
+
+### JDK Dynamic Proxy
+
+- Uses **Java interfaces**
+- Proxy implements the interface
+
+```java
+interface PaymentService {}
+```
+
+Limitation:
+
+```text
+Works only if bean implements interface
+```
+
+------
+
+### CGLIB Proxy
+
+- Creates subclass at runtime
+- Works **without interface**
+
+```text
+class OrderService
+   ↑
+CGLIB Proxy
+```
+
+------
+
+### Comparison
+
+| Feature            | JDK Proxy       | CGLIB           |
+| ------------------ | --------------- | --------------- |
+| Requires interface | Yes             | No              |
+| Proxy type         | Interface       | Subclass        |
+| Performance        | Slightly faster | Slightly slower |
+
+------
+
+## 177. `@Autowired` vs `@Inject` vs `@Resource`
+
+### `@Autowired`
+
+Spring-specific annotation.
+
+Injection by **type**.
+
+```java
+@Autowired
+PaymentService service;
+```
+
+------
+
+### `@Inject`
+
+Standard **JSR-330** annotation.
+
+```java
+@Inject
+PaymentService service;
+```
+
+Works similar to `@Autowired`.
+
+------
+
+### `@Resource`
+
+Java **JSR-250** annotation.
+
+Injection by **name first**, then type.
+
+```java
+@Resource(name="paymentService")
+PaymentService service;
+```
+
+------
+
+### Comparison
+
+| Annotation   | Source  | Injection |
+| ------------ | ------- | --------- |
+| `@Autowired` | Spring  | Type      |
+| `@Inject`    | JSR-330 | Type      |
+| `@Resource`  | JSR-250 | Name      |
+
+------
+
+## 178. Can you inject a prototype bean into a singleton? How?
+
+### Problem
+
+Singleton created once, prototype created **every request**.
+
+If injected normally:
+
+```java
+@Autowired
+PrototypeBean bean;
+```
+
+Singleton will hold **same instance**.
+
+------
+
+### Solutions
+
+#### 1️⃣ `ObjectProvider`
+
+```java
+@Autowired
+ObjectProvider<PrototypeBean> provider;
+
+public void process(){
+    PrototypeBean bean = provider.getObject();
+}
+```
+
+------
+
+#### 2️⃣ `@Lookup`
+
+```java
+@Lookup
+public PrototypeBean getPrototypeBean(){
+    return null;
+}
+```
+
+------
+
+#### 3️⃣ ApplicationContext
+
+```java
+context.getBean(PrototypeBean.class);
+```
+
+------
+
+## 179. Default scope of bean in Spring
+
+Default scope:
+
+```text
+Singleton
+```
+
+Meaning:
+
+```text
+Only ONE instance per Spring container
+```
+
+Example:
+
+```java
+@Service
+public class UserService {}
+```
+
+------
+
+## 180. Bean scopes in Spring
+
+| Scope       | Description                |
+| ----------- | -------------------------- |
+| Singleton   | One instance per container |
+| Prototype   | New instance every request |
+| Request     | One per HTTP request       |
+| Session     | One per HTTP session       |
+| Application | One per ServletContext     |
+| WebSocket   | One per WebSocket          |
+
+Example:
+
+```java
+@Scope("prototype")
+@Component
+class OrderBean {}
+```
+
+------
+
+## 181. Prototype vs Request Scope
+
+| Feature           | Prototype         | Request            |
+| ----------------- | ----------------- | ------------------ |
+| Instance creation | Every injection   | Every HTTP request |
+| Scope             | Spring container  | Web request        |
+| Use case          | Temporary objects | Request data       |
+
+Example:
+
+```java
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
+```
+
+------
 
 # 1️⃣1️⃣ Spring Boot Observability & Monitoring
 
-181. What is Spring Boot Actuator? Important endpoints?
-182. How do you implement custom health checks?
-183. How do you implement custom metrics and monitoring?
+------
 
----
+## 181. What is Spring Boot Actuator?
+
+Spring Boot Actuator provides **production monitoring endpoints**.
+
+Dependency:
+
+```xml
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
+------
+
+### Important Endpoints
+
+| Endpoint            | Purpose                |
+| ------------------- | ---------------------- |
+| `/actuator/health`  | Application health     |
+| `/actuator/metrics` | JVM metrics            |
+| `/actuator/info`    | App info               |
+| `/actuator/env`     | Environment properties |
+| `/actuator/loggers` | Logging levels         |
+| `/actuator/beans`   | All beans              |
+
+Example:
+
+```http
+GET /actuator/health
+```
+
+Response:
+
+```json
+{
+ "status":"UP"
+}
+```
+
+------
+
+## 182. How do you implement custom health checks?
+
+Create **HealthIndicator**.
+
+```java
+@Component
+public class DatabaseHealthIndicator implements HealthIndicator {
+
+    @Override
+    public Health health() {
+        boolean dbUp = checkDatabase();
+
+        if(dbUp){
+            return Health.up().build();
+        }else{
+            return Health.down().build();
+        }
+    }
+}
+```
+
+Access:
+
+```
+/actuator/health
+```
+
+------
+
+## 183. Custom metrics and monitoring
+
+Use **Micrometer**.
+
+Example:
+
+```java
+@Autowired
+MeterRegistry registry;
+
+Counter counter = registry.counter("orders.created");
+counter.increment();
+```
+
+Example metric:
+
+```
+orders.created=10
+```
+
+Tools used:
+
+- Prometheus
+- Grafana
+- Datadog
+- New Relic
+
+------
 
 # 1️⃣2️⃣ Custom Auto Configuration
 
-180. How do you create custom auto-configuration?
-181. What is `@ConditionalOnProperty`, `@ConditionalOnClass`?
+------
 
----
+## 180. How do you create custom auto-configuration?
+
+Steps:
+
+1️⃣ Create configuration class
+
+```java
+@Configuration
+public class MyAutoConfig {
+
+    @Bean
+    public PaymentService paymentService(){
+        return new PaymentService();
+    }
+}
+```
+
+------
+
+2️⃣ Register auto configuration
+
+```
+META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+```
+
+Add:
+
+```
+com.example.MyAutoConfig
+```
+
+------
+
+3️⃣ Spring loads automatically when dependency added.
+
+------
+
+## 181. `@ConditionalOnProperty`, `@ConditionalOnClass`
+
+Used for **conditional bean creation**.
+
+------
+
+### `@ConditionalOnProperty`
+
+Bean created only if property exists.
+
+```java
+@ConditionalOnProperty(name="feature.payment.enabled", havingValue="true")
+```
+
+Example:
+
+```properties
+feature.payment.enabled=true
+```
+
+------
+
+### `@ConditionalOnClass`
+
+Bean created only if class exists in classpath.
+
+```java
+@ConditionalOnClass(DataSource.class)
+```
+
+Used in Spring Boot auto-config.
+
+------
 
 # 1️⃣3️⃣ Spring AOP (Aspect Oriented Programming)
 
-187. What is AOP and how is it implemented in Spring Boot?
-188. Explain `@Before`, `@After`, `@Around`, `@AfterReturning`, `@AfterThrowing` advices.
-189. What is a Pointcut and how do you define it?
-190. What is a JoinPoint and what data can it provide?
-191. How do you create custom annotations and intercept them using AOP?
-192. Real-world use cases of AOP (logging, auditing, security, caching).
+------
+
+## 187. What is AOP?
+
+AOP separates **cross-cutting concerns** from business logic.
+
+Examples:
+
+- Logging
+- Security
+- Transactions
+- Auditing
+
+```mermaid
+flowchart LR
+Controller --> Service
+Service --> Repository
+LoggingAspect --> Service
+SecurityAspect --> Controller
+```
+
+------
+
+## 188. AOP Advices
+
+| Advice            | When executed              |
+| ----------------- | -------------------------- |
+| `@Before`         | Before method execution    |
+| `@After`          | After method execution     |
+| `@Around`         | Before + After             |
+| `@AfterReturning` | After successful execution |
+| `@AfterThrowing`  | After exception            |
+
+Example:
+
+```java
+@Before("execution(* com.app.service.*.*(..))")
+public void logBefore(){
+    System.out.println("Method called");
+}
+```
+
+------
+
+## 189. What is a Pointcut?
+
+Pointcut defines **which methods AOP applies to**.
+
+Example:
+
+```java
+@Pointcut("execution(* com.app.service.*.*(..))")
+public void serviceMethods(){}
+```
+
+Meaning:
+
+```
+All methods inside service package
+```
+
+------
+
+## 190. What is JoinPoint?
+
+JoinPoint represents **method execution point**.
+
+It provides data like:
+
+- Method name
+- Arguments
+- Target object
+
+Example:
+
+```java
+@Before("serviceMethods()")
+public void log(JoinPoint joinPoint){
+    System.out.println(joinPoint.getSignature().getName());
+}
+```
+
+------
+
+## 191. Custom annotations + AOP
+
+### Step 1: Create annotation
+
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LogExecution {}
+```
+
+------
+
+### Step 2: Intercept with AOP
+
+```java
+@Aspect
+@Component
+public class LoggingAspect {
+
+    @Before("@annotation(LogExecution)")
+    public void log(){
+        System.out.println("Method executed");
+    }
+}
+```
+
+------
+
+### Step 3: Use annotation
+
+```java
+@LogExecution
+public void processOrder(){}
+```
+
+------
+
+## 192. Real-world use cases of AOP
+
+| Use Case     | Example            |
+| ------------ | ------------------ |
+| Logging      | Log API requests   |
+| Auditing     | Track user actions |
+| Security     | Check permissions  |
+| Transactions | `@Transactional`   |
+| Caching      | `@Cacheable`       |
+
+Example logging aspect:
+
+```java
+@Around("execution(* com.app.service.*.*(..))")
+public Object logExecution(ProceedingJoinPoint joinPoint) throws Throwable {
+
+    long start = System.currentTimeMillis();
+
+    Object result = joinPoint.proceed();
+
+    long time = System.currentTimeMillis() - start;
+
+    System.out.println("Execution time: " + time);
+
+    return result;
+}
+```
 
 ---
 
@@ -2058,10 +4195,8 @@ Good 👍 I grouped your **Spring Boot interview questions** into **clear concep
 212. How do you secure microservices communication?
 213. How to implement OAuth authentication in Spring Boot?
 
----
 
 
-I grouped your remaining questions into **clear architecture and platform concepts** so they are easier to revise for **4+ years Java/Spring Boot backend interviews**.
 
 ---
 
