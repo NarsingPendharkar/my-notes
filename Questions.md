@@ -186,146 +186,189 @@ Good approach 👍 For experienced Java interviews, organizing questions by **co
 
 
 
+Good 👍 I grouped your **Spring Boot interview questions** into **clear concept-based sections**. This structure helps during revision for **3–5 years experienced Java/Spring Boot interviews**.
 
-Spring Boot Basics Core Concepts
+---
 
-42.	What is Spring Boot?
-43.	What are the advantages of Spring Boot?
-44.	What is @SpringBootAppIication annotation?
-45.	What is the difference between @Component, @Service, and @Repository?
-46.	What is dependency injection?
-47.	What is @Autowired?
-48.	What are Spring Boot starters?
+# 🌱 Spring Boot Interview Questions (Concept-wise)
 
-49.	What is application.properties file?
-50.	Difference between Spring and Spring Boot?
-51.	What is IOC container in Spring?
+---
 
-REST API Basics
+# 1️⃣ Spring Core Fundamentals
 
-52.	What is HTTP? Common HTTP methods?
-53.	What are HTTP status codes (200, 404, 500)?
-54.	What is REST API?
-55.	What is JSON?
-56.	What is @RestControIIer vs @ControIIer?
-    The process of creating a REST API (with example)?
+42. What is Spring Boot?
+43. What are the advantages of Spring Boot?
+44. What is `@SpringBootApplication` annotation?
+45. What is the difference between `@Component`, `@Service`, and `@Repository`?
+46. What is Dependency Injection?
+47. What is `@Autowired`?
+48. What are Spring Boot starters?
+49. What is `application.properties` file?
+50. Difference between Spring Framework and Spring Boot?
+51. What is IOC container in Spring?
 
+---
 
-Spring Boot Intermediate
-Advanced Configuration
+# 2️⃣ Spring Boot Configuration & Auto Configuration
 
-102.	How does Spring Boot auto-configuration work?
-103.	What is the role of @Configuration and @Bean?
-104.	How do profiles work in Spring Boot (@ProfiIe use case)?
-105.	What is @TransactionaI, and what's the benefit?
-106.	How do you write a global exception handler in Spring Boot?
-107.	Difference between application.properties and application.ymI?
-108.	What is the use of CommandLineRunner and ApplicationRunner?
+102. How does Spring Boot auto-configuration work?
+103. What is the role of `@Configuration` and `@Bean`?
+104. How do profiles work in Spring Boot (`@Profile` use case)?
+105. What is `@Transactional`, and what's the benefit?
+106. How do you write a global exception handler in Spring Boot?
+107. Difference between `application.properties` and `application.yml`?
+108. What is the use of `CommandLineRunner` and `ApplicationRunner`?
+109. How does the embedded server (Tomcat) work in Spring Boot?
+110. How do you override default auto-configurations?
+111. How do you handle circular dependencies in Spring Boot?
 
-109.	How does the embedded server (Tomcat) work in Spring Boot?
-110.	How do you override default auto-configurations?
-111.	How do you handle circular dependencies in Spring Boot?
+---
 
-Dependency Injection
+# 3️⃣ Dependency Injection (Advanced)
 
-112.	What is constructor injection vs field injection vs setter injection?
-113.	What is @QuaIifier and @Primary annotation?
-114.	If both @QuaIifier and @Primary are used, which one will take precedence?
-115.	How to avoid bean creation failures in dependency injection?
-116.	@Autowired vs @QuaIifier
-117.	@Primary vs @QuaIifier
+112. What is constructor injection vs field injection vs setter injection?
+113. What is `@Qualifier` and `@Primary` annotation?
+114. If both `@Qualifier` and `@Primary` are used, which one takes precedence?
+115. How to avoid bean creation failures in dependency injection?
+116. `@Autowired` vs `@Qualifier`
+117. `@Primary` vs `@Qualifier`
 
-REST API Advanced
+---
 
-118.	@RequestMapping vs @GetMapping
-119.	@PathVariabIe vs @RequestParam
-120.	@PostMapping vs @PutMapping
-121.	PUT vs PATCH
-122.	@ExceptionHandIer vs @ControIIerAdvice
+# 4️⃣ REST API Basics
 
-Spring Boot Annotations
+52. What is HTTP? Common HTTP methods?
+53. What are HTTP status codes (200, 404, 500)?
+54. What is REST API?
+55. What is JSON?
+56. What is `@RestController` vs `@Controller`?
+57. The process of creating a REST API (with example)?
 
-123.	@ComponentScan vs @EnabIeAutoConfiguration
-124.	@Configuration vs @Bean
-125.	@Async vs @ScheduIed
-126.	@CacheabIe vs @CacheEvict
+---
 
-Database & JPA Basics
-127.	What is ORM?
-128.	What is JPA? Difference between JPA and Hibernate?
-129.	What is an Entity in JPA?
-130.	What are JPA annotations (@Entity, @ld, @GeneratedVaIue)?
-131.	What is the difference between persist() and merge()?
-132.	What are JPA relationships (@OneToMany, @ManyToOne, etc.)?
-133.	What is JPQL?
-134.	What is lazy loading vs eager loading?
-135.	What is the difference between save() and saveAndFlush()?
-136.	In Hibernate, what is the difference between get() and load() methods?
+# 5️⃣ REST API Advanced
 
-Testing Basics
-137.	What is JUnit? Basic annotations?
-138.	What is @Mockito? When to use @Mock?
+118. `@RequestMapping` vs `@GetMapping`
+119. `@PathVariable` vs `@RequestParam`
+120. `@PostMapping` vs `@PutMapping`
+121. PUT vs PATCH
+122. `@ExceptionHandler` vs `@ControllerAdvice`
 
-139.	What is the difference between @Mock, @MockBean, and @Spy?
-140.	How do you test REST controllers using MockMvc?
-141.	What is @SpringBootTest vs @WebMvcTest?
+---
 
-Security Basics
-142.	What is Authentication vs Authorization?
-143.	What is Spring Security?
-144.	How do you secure REST APIs using Spring Security?
-th vs JWT?
-status codes: 401, 403, 404, 500, 502, 503?
+# 6️⃣ Spring Boot Important Annotations
 
+123. `@ComponentScan` vs `@EnableAutoConfiguration`
+124. `@Configuration` vs `@Bean`
+125. `@Async` vs `@Scheduled`
+126. `@Cacheable` vs `@CacheEvict`
 
+---
 
-Advanced Spring Boot
-175.	How does Spring manage bean lifecycle? What are the hooks?
-176.	What is a proxy in Spring? JDK vs CGLIB proxies?
-177.	What is the difference between @Autowired, @lnject, and @Resource?
-178.	Can you inject a prototype bean into a singleton? How?
-179.	What is the default scope of a bean in Spring?
-180.	How do you create custom auto-configuration?
-181.	What is Spring Boot Actuator? Important endpoints?
-182.	How do you implement custom health checks?
-183.	What is @ConditionaIOnProperty, @ConditionaIOnCIass?
-184.	How do you implement custom metrics and monitoring?
-185.	What are the Scopes in Spring?
-186.	Prototype vs Request Scope?
+# 7️⃣ Database & JPA Basics
 
-Advanced AOP
-187.	What is AOP and how is it implemented in Spring Boot?
-188.	Explain @Before, @After, @Around, @AfterReturning, @AfterThrowing advices
-189.	What is a Pointcut and how do you define it?
-190.	What is a JoinPoint and what data can it provide?
-191.	How do you create custom annotations and intercept them using AOP?
-192.	Real-world use cases of AOP (logging, auditing, security, caching)
+127. What is ORM?
+128. What is JPA? Difference between JPA and Hibernate?
+129. What is an Entity in JPA?
+130. What are JPA annotations (`@Entity`, `@Id`, `@GeneratedValue`)?
+131. What is the difference between `persist()` and `merge()`?
+132. What are JPA relationships (`@OneToMany`, `@ManyToOne`, etc.)?
+133. What is JPQL?
+134. What is lazy loading vs eager loading?
+135. What is the difference between `save()` and `saveAndFlush()`?
+136. In Hibernate, what is the difference between `get()` and `load()` methods?
 
-Advanced JPA & Database
-193.	What is the N+1 select problem in JPA? How to fix it?
-194.	What are entity graphs and how do they help?
-195.	When would you use @Query vs derived queries vs Criteria API?
-196.	How does optimistic locking work in JPA? @Version annotation?
-197.	What is pessimistic locking? When to use it?
-198.	How do you handle pagination and sorting in Spring Data JPA?
-199.	What are database transactions? ACID properties?
-200.	What is connection pooling? HikariCP configuration?
-201.	How do you implement database migrations with Flyway/Liquibase?
-202.	What is database indexing? Query optimization strategies?
+---
 
-Advanced Spring Security
+# 8️⃣ Testing (Spring Boot)
 
-203.	How do you implement OAuth2 and JWT in Spring Boot?
-204.	What is a stateless session? How does JWT help?
-205.	How do you implement two-factor authentication (2FA)?
-206.	How does CSRF protection work in Spring?
-207.	What is the difference between pre-auth and post-auth filters?
-208.	How does SecurityFilterChain work in Spring Boot 3+?
-209.	What is UserDetailsService and how do you implement it?
-210.	How do you implement role-based access control (RBAC)?
-211.	How do you implement method-level security?
-212.	How do you secure microservices communication?
-213.	How to implement OAuth authentication in Spring Boot?
+137. What is JUnit? Basic annotations?
+138. What is Mockito? When to use `@Mock`?
+139. What is the difference between `@Mock`, `@MockBean`, and `@Spy`?
+140. How do you test REST controllers using MockMvc?
+141. What is `@SpringBootTest` vs `@WebMvcTest`?
+
+---
+
+# 9️⃣ Spring Security Basics
+
+142. What is Authentication vs Authorization?
+143. What is Spring Security?
+144. How do you secure REST APIs using Spring Security?
+145. OAuth2 vs JWT?
+146. HTTP status codes: 401, 403, 404, 500, 502, 503?
+
+---
+
+# 🔟 Spring Bean Lifecycle & Scopes
+
+175. How does Spring manage bean lifecycle? What are the hooks?
+176. What is a proxy in Spring? JDK vs CGLIB proxies?
+177. What is the difference between `@Autowired`, `@Inject`, and `@Resource`?
+178. Can you inject a prototype bean into a singleton? How?
+179. What is the default scope of a bean in Spring?
+180. What are the scopes in Spring?
+181. Prototype vs Request Scope?
+
+---
+
+# 1️⃣1️⃣ Spring Boot Observability & Monitoring
+
+181. What is Spring Boot Actuator? Important endpoints?
+182. How do you implement custom health checks?
+183. How do you implement custom metrics and monitoring?
+
+---
+
+# 1️⃣2️⃣ Custom Auto Configuration
+
+180. How do you create custom auto-configuration?
+181. What is `@ConditionalOnProperty`, `@ConditionalOnClass`?
+
+---
+
+# 1️⃣3️⃣ Spring AOP (Aspect Oriented Programming)
+
+187. What is AOP and how is it implemented in Spring Boot?
+188. Explain `@Before`, `@After`, `@Around`, `@AfterReturning`, `@AfterThrowing` advices.
+189. What is a Pointcut and how do you define it?
+190. What is a JoinPoint and what data can it provide?
+191. How do you create custom annotations and intercept them using AOP?
+192. Real-world use cases of AOP (logging, auditing, security, caching).
+
+---
+
+# 1️⃣4️⃣ Advanced JPA & Database
+
+193. What is the N+1 select problem in JPA? How to fix it?
+194. What are entity graphs and how do they help?
+195. When would you use `@Query` vs derived queries vs Criteria API?
+196. How does optimistic locking work in JPA? (`@Version` annotation)
+197. What is pessimistic locking? When to use it?
+198. How do you handle pagination and sorting in Spring Data JPA?
+199. What are database transactions? ACID properties?
+200. What is connection pooling? HikariCP configuration?
+201. How do you implement database migrations with Flyway/Liquibase?
+202. What is database indexing? Query optimization strategies?
+
+---
+
+# 1️⃣5️⃣ Advanced Spring Security
+
+203. How do you implement OAuth2 and JWT in Spring Boot?
+204. What is a stateless session? How does JWT help?
+205. How do you implement two-factor authentication (2FA)?
+206. How does CSRF protection work in Spring?
+207. What is the difference between pre-auth and post-auth filters?
+208. How does `SecurityFilterChain` work in Spring Boot 3+?
+209. What is `UserDetailsService` and how do you implement it?
+210. How do you implement role-based access control (RBAC)?
+211. How do you implement method-level security?
+212. How do you secure microservices communication?
+213. How to implement OAuth authentication in Spring Boot?
+
+---
+
 
 Microservices Architecture
 214.	What is the difference between monolithic and microservices architecture?
