@@ -1,157 +1,147 @@
 # Core java 
 
-1.	What is the difference between JDK, JRE, and JVM?
-2.	What are the main features of Java (OOP principles)?
-3.	What are primitive data types in Java?
-4.	What is autoboxing and unboxing?
-5.	What are access modifiers in Java (private, protected, public, default)?
-6.	What is a package in Java?
-7.	What is a static keyword? Static variables and methods?
-8.	What is a Constructor in Java? Types of constructors?
-9.	Can we use static methods in a Constructor?
+	What is the difference between JDK, JRE, and JVM?
+	What are the main features of Java (OOP principles)?
+	What are primitive data types in Java?
+	What is autoboxing and unboxing?
+	What are access modifiers in Java (private, protected, public, default)?
+	What is a package in Java?
+	What is a static keyword? Static variables and methods?
+	What is a Constructor in Java? Types of constructors?
+	Can we use static methods in a Constructor?
 
 
 # OOP Concepts
 
-10.	What is inheritance? Types of inheritance in Java?
-11.	What is polymorphism? Give examples
-12.	What is encapsulation and abstraction?
-13.	What is method overloading vs method overriding?
-14.	When to use Interface vs Abstract Class?
-15.	What is a Marker Interface? Why use it?
+	What is inheritance? Types of inheritance in Java?
+	What is polymorphism? Give examples
+	What is encapsulation and abstraction?
+	What is method overloading vs method overriding?
+	When to use Interface vs Abstract Class?
+	What is a Marker Interface? Why use it?
 
-String Handling
+#String Handling
 
-16.	What is the difference between String, StringBuilder, and StringBuffer?
-17.	Difference between creating String with literal and new operator
+	What is the difference between String, StringBuilder, and StringBuffer?
+	Difference between creating String with literal and new operator
+	What is String pool and how does it work?
+	What are the advantages of String pool?
+	Why String is immutable?
 
-18.	What is String pool and how does it work?
-19.	What are the advantages of String pool?
-20.	Why String is immutable?
+#Basic Collections
 
-Basic Collections
+	What is a Collection in Java?
+	Difference between Array and ArrayList?
+	What is the difference between ArrayList and LinkedList?
+	What is a HashMap? Basic operations?
+	What is the difference between HashSet and TreeSet?
+	What is an Iterator?
+	What is the difference between List and Set?
+	Array vs List
+	Set vs List
 
-21.	What is a Collection in Java?
-22.	Difference between Array and ArrayList?
-23.	What is the difference between ArrayList and LinkedList?
-24.	What is a HashMap? Basic operations?
-25.	What is the difference between HashSet and TreeSet?
-26.	What is an Iterator?
-27.	What is the difference between List and Set?
-28.	Array vs List
-29.	Set vs List
+#Exception Handling
 
-Exception Handling
+	What is an Exception? Types of exceptions?
+	What is the difference between checked and unchecked exceptions?
+	What is try-catch-finally block?
+	Can we use try without catch?
+	What is throw vs throws?
+	What are the use cases of creating user-defined exceptions?
+	How to handle user-defined exception?
+	What is a NullPointerException & how to prevent it?
+	What is a ClassCastException?
+	What is Error vs Exception?
 
-30.	What is an Exception? Types of exceptions?
-31.	What is the difference between checked and unchecked exceptions?
-32.	What is try-catch-finally block?
-33.	Can we use try without catch?
-34.	What is throw vs throws?
-35.	What are the use cases of creating user-defined exceptions?
-36.	How to handle user-defined exception?
-37.	What is a NullPointerException & how to prevent it?
-38.	What is a ClassCastException?
-39.	What is Error vs Exception?
+#Basic Control Structures
+	Explain the difference between break and continue statements
+	What is the difference between == and .equals()?
 
-Basic Control Structures
+#Collections Deep Dive
 
-40.	Explain the difference between break and continue statements
-41.	What is the difference between == and .equals()?
+	Contract between hashCode() and equals() methods?
+	Explain the internal working of HashMap in Java
+	What happens on a HashMap collision?
+	What is the load factor in HashMap?
+	Difference between HashMap, LinkedHashMap, and TreeMap?
+	Difference between HashMap, LinkedHashMap, and ConcurrentHashMap
+	How can you convert a HashMap into an ArrayList?
+	What are the differences between Comparable and Comparator?
+	What is a ConcurrentHashMap? How does it work?
+	What's the difference between Hashtable and ConcurrentHashMap?
+	What is the difference between Vector and ArrayList?
+	HashMap vs HashTable
+	ArrayList vs LinkedList
 
+#Java 8 Features
+	What is a Functional Interface?
+	Explain Java 8 features (Lambdas, Streams, Optional)
+	Difference between map() vs flatMap() in Java 8?
+	What is Stream API and its advantages?
+	What is Stream pipeline?
+	Difference between intermediate and terminal operators in Stream API
+	Using Stream API, find the 2nd highest salary from employee objects list
+	Use of Stream API in projects
+	Lambda expressions vs Anonymous classes
 
-Advanced Core Java
-Collections Deep Dive
+#Advanced OOP
 
-58.	Contract between hashCode() and equals() methods?
-59.	Explain the internal working of HashMap in Java
-60.	What happens on a HashMap collision?
-61.	What is the load factor in HashMap?
-62.	Difference between HashMap, LinkedHashMap, and TreeMap?
-63.	Difference between HashMap, LinkedHashMap, and ConcurrentHashMap
-64.	How can you convert a HashMap into an ArrayList?
-65.	What are the differences between Comparable and Comparator?
-66.	What is a ConcurrentHashMap? How does it work?
-67.	What's the difference between Hashtable and ConcurrentHashMap?
-68.	What is the difference between Vector and ArrayList?
-69.	HashMap vs HashTable
-70.	ArrayList vs LinkedList
+	What is a Functional Interface?
+	What are Sealed Classes (Java 17)?
+	What is Fail-Fast Iteration & how to handle it?
+	What is ConcurrentModificationException? Fail safe and fail fast iterators?
+	Final, finally and finalize()?
+	Autoboxing vs Unboxing
+	What is Cloneable? Deep clones vs shallow clones
+	Shallow Copy vs Deep Copy Memory Management
+	Explain Java memory management
+	What is garbage collection in Java? Types of GC?
+	What is the finalize() method?
+	Stack vs Heap Memory Allocation
+	How to handle OutOfMemoryException?
 
-Java 8 Features
-71.	What is a Functional Interface?
-72.	Explain Java 8 features (Lambdas, Streams, Optional)
-73.	Difference between map() vs flatMap() in Java 8?
-74.	What is Stream API and its advantages?
-75.	What is Stream pipeline?
-76.	Difference between intermediate and terminal operators in Stream API
-77.	Using Stream API, find the 2nd highest salary from employee objects list
+#Multithreading Basics
+	What is multithreading in Java? Thread lifecycle?
+	What is synchronization in Java? synchronized keyword?
+	What is the difference between wait() and sleep()?
+	What is the volatile keyword?
+	What is ThreadLocal?
+	What is a deadlock in Java? How can it be avoided?
+	Thread vs Runnable
+	What is the difference between Runnable and Callable?
+	Synchronized methods vs Synchronized blocks
 
-78.	Use of Stream API in projects
-79.	Lambda expressions vs Anonymous classes
+#JVM Internals & Performance
+	How does the JVM work internally? (Class loader, memory areas, GC)
+	What are the different types of class loaders in Java?
+	What are strong, weak, soft, and phantom references in Java?
+	How does Java handle memory leaks despite having garbage collector?
+	What are different GC algorithms? When to use which?
+	How do you tune JVM performance?
+	What is JIT compilation?
+	What are JVM memory areas (Heap, Stack, Method Area, PC Register)?
+	What is metaspace in Java 8+?
+	How do you analyze heap dumps and thread dumps?
 
-Advanced OOP
-
-80.	What is a Functional Interface?
-81.	What are Sealed Classes (Java 17)?
-82.	What is Fail-Fast Iteration & how to handle it?
-83.	What is ConcurrentModificationException? Fail safe and fail fast iterators?
-84.	Final, finally and finalize()?
-85.	Autoboxing vs Unboxing
-86.	What is Cloneable? Deep clones vs shallow clones
-87.	Shallow Copy vs Deep Copy Memory Management
-88.	Explain Java memory management
-89.	What is garbage collection in Java? Types of GC?
-90.	What is the finalize() method?
-91.	Stack vs Heap Memory Allocation
-92.	How to handle OutOfMemoryException?
-
-Multithreading Basics
-
-93.	What is multithreading in Java? Thread lifecycle?
-94.	What is synchronization in Java? synchronized keyword?
-95.	What is the difference between wait() and sleep()?
-96.	What is the volatile keyword?
-97.	What is ThreadLocal?
-98.	What is a deadlock in Java? How can it be avoided?
-99.	Thread vs Runnable
-100.	What is the difference between Runnable and Callable?
-101.	Synchronized methods vs Synchronized blocks
-
-
-
-
-JVM Internals & Performance
-147.	How does the JVM work internally? (Class loader, memory areas, GC)
-148.	What are the different types of class loaders in Java?
-149.	What are strong, weak, soft, and phantom references in Java?
-150.	How does Java handle memory leaks despite having garbage collector?
-151.	What are different GC algorithms? When to use which?
-152.	How do you tune JVM performance?
-153.	What is JIT compilation?
-154.	What are JVM memory areas (Heap, Stack, Method Area, PC Register)?
-155.	What is metaspace in Java 8+?
-156.	How do you analyze heap dumps and thread dumps?
-
-Advanced Concurrency
-157.	What is the Executor framework in Java?
-158.	What is a Future in Java?
-159.	What is a ThreadPool and why should you use it?
-160.	What are the real differences between ReentrantLock and synchronized?
-161.	How does volatile differ from synchronized?
-162.	What's the difference between thread safety and atomicity?
-163.	When would you use CountDownLatch vs CyclicBarrier?
-164.	What is the difference between busy-waiting vs blocking vs non-blocking calls?
-165.	How does CompletableFuture work internally?
-166.	How do you avoid thread starvation?
-167.	How would you write a thread-safe singleton?
-168.	What is the Producer-Consumer pattern? Implement with BlockingQueue?
-169.	What is ForkJoinPool and how it differs from regular thread pools?
-
-170.	How do Java Stream operations work internally (parallel vs sequential)?
-171.	What is a live-lock and how is it different from deadlock?
-172.	What is the Java Memory Model (JMM)?
-173.	How does a Semaphore work? Real-life examples?
-174.	What is a BlockingQueue? Types and use cases?
+#Advanced Concurrency
+	What is the Executor framework in Java?
+	What is a Future in Java?
+	What is a ThreadPool and why should you use it?
+	What are the real differences between ReentrantLock and synchronized?
+	How does volatile differ from synchronized?
+	What's the difference between thread safety and atomicity?
+	When would you use CountDownLatch vs CyclicBarrier?
+	What is the difference between busy-waiting vs blocking vs non-blocking calls?
+	How does CompletableFuture work internally?
+	How do you avoid thread starvation?
+	How would you write a thread-safe singleton?
+	What is the Producer-Consumer pattern? Implement with BlockingQueue?
+	What is ForkJoinPool and how it differs from regular thread pools?
+	How do Java Stream operations work internally (parallel vs sequential)?
+	What is a live-lock and how is it different from deadlock?
+	What is the Java Memory Model (JMM)?
+	How does a Semaphore work? Real-life examples?
+	What is a BlockingQueue? Types and use cases?
 --------------------------------------------------------------------------------------------------
 
 
@@ -181,11 +171,7 @@ REST API Basics
 54.	What is REST API?
 55.	What is JSON?
 56.	What is @RestControIIer vs @ControIIer?
-he process of creating a REST API (with example)?
-
-
-
-LEVEL 2: INTERMEDIATE (2-4 Years Experience)
+    The process of creating a REST API (with example)?
 
 
 Spring Boot Intermediate
