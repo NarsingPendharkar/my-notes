@@ -8,25 +8,20 @@ Good approach 👍 For experienced Java interviews, organizing questions by **co
 
 # 1️⃣ Java Basics
 
-````markdown
-# 1️⃣ Java Basics
-
----
-
 ## 1. What is the difference between JDK, JRE, and JVM?
 
-| Component | Purpose |
-|---|---|
-| **JDK (Java Development Kit)** | Used to develop Java applications |
+| Component                          | Purpose                                           |
+| ---------------------------------- | ------------------------------------------------- |
+| **JDK (Java Development Kit)**     | Used to develop Java applications                 |
 | **JRE (Java Runtime Environment)** | Provides runtime environment to run Java programs |
-| **JVM (Java Virtual Machine)** | Executes Java bytecode |
+| **JVM (Java Virtual Machine)**     | Executes Java bytecode                            |
 
-### Relationship
+````mermaid
 
-```mermaid
 flowchart LR
     A[JDK] --> B[JRE]
     B --> C[JVM]
+
 ````
 
 ### Key Points
@@ -83,7 +78,7 @@ Java has **8 primitive data types**.
 | char    | 2 bytes | char c = 'A'        |
 | boolean | 1 bit   | boolean flag = true |
 
-### Interview Tip
+##### Interview Tip
 
 Primitive types **store actual values**, not object references.
 
@@ -322,61 +317,1454 @@ Output
 ```
 ```
 
----
-
 # 2️⃣ OOP Concepts
 
-1. What is inheritance? Types of inheritance in Java?
-2. What is polymorphism? Give examples.
-3. What is encapsulation and abstraction?
-4. What is method overloading vs method overriding?
-5. When to use Interface vs Abstract Class?
-6. What is a Marker Interface? Why use it?
+Object-Oriented Programming helps in **code reusability, maintainability, and scalability**.  Java mainly uses **4 pillars of OOP**: Encapsulation, Inheritance, Polymorphism, Abstraction.
+
+---
+
+# 1. What is Inheritance? Types of inheritance in Java?
+
+### Definition
+**Inheritance** allows a class (child) to acquire properties and behavior of another class (parent).
+
+👉 Achieved using `extends` keyword.
+
+### Benefits
+- Code reusability
+- Method overriding
+- Hierarchical class design
+
+```java
+class Animal {
+    void eat() {
+        System.out.println("Animal eats");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Dog barks");
+    }
+}
+```
+
+Usage
+
+```java
+Dog d = new Dog();
+d.eat();
+d.bark();
+```
+
+------
+
+### Types of Inheritance in Java
+
+```mermaid
+classDiagram
+Animal <|-- Dog
+Animal <|-- Cat
+Dog <|-- Puppy
+```
+
+| Type         | Supported in Java |
+| ------------ | ----------------- |
+| Single       | ✅                 |
+| Multilevel   | ✅                 |
+| Hierarchical | ✅                 |
+| Multiple     | ❌ (Using classes) |
+| Hybrid       | ❌ (Using classes) |
+
+⚠ Multiple inheritance is supported **using Interfaces only**.
+
+------
+
+# 2. What is Polymorphism? Give examples.
+
+### Definition
+
+**Polymorphism means "many forms".** A single method behaves differently based on context.
+
+### Types
+
+| Type         | When resolved      |
+| ------------ | ------------------ |
+| Compile-time | Method Overloading |
+| Runtime      | Method Overriding  |
+
+------
+
+### Compile-Time Polymorphism (Overloading)
+
+```java
+class Calculator {
+
+    int add(int a, int b){
+        return a+b;
+    }
+
+    int add(int a, int b, int c){
+        return a+b+c;
+    }
+}
+```
+
+------
+
+### Runtime Polymorphism (Overriding)
+
+```java
+class Animal {
+    void sound(){
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal{
+    void sound(){
+        System.out.println("Dog barks");
+    }
+}
+```
+
+------
+
+### Example
+
+```java
+Animal a = new Dog();
+a.sound();
+```
+
+Output
+
+```
+Dog barks
+```
+
+------
+
+# 3. What is Encapsulation and Abstraction?
+
+## Encapsulation
+
+### Definition
+
+Wrapping **data + methods together** and restricting direct access.
+
+👉 Achieved using **private variables + getters/setters**
+
+### Example
+
+```java
+class Employee {
+
+    private int salary;
+
+    public int getSalary(){
+        return salary;
+    }
+
+    public void setSalary(int salary){
+        this.salary = salary;
+    }
+}
+```
+
+### Benefits
+
+- Data hiding
+- Better security
+- Controlled access
+
+------
+
+## Abstraction
+
+### Definition
+
+Hiding **implementation details** and showing only functionality.
+
+👉 Achieved using
+
+- **Abstract classes**
+- **Interfaces**
+
+### Example
+
+```java
+abstract class Vehicle {
+
+    abstract void start();
+}
+
+class Car extends Vehicle {
+
+    void start(){
+        System.out.println("Car starts with key");
+    }
+}
+```
+
+------
+
+### Real Life Example
+
+```
+ATM Machine
+
+User sees → withdraw(), deposit()
+Hidden → internal banking logic
+```
+
+------
+
+# 4. What is Method Overloading vs Method Overriding?
+
+| Feature              | Method Overloading                         | Method Overriding        |
+| -------------------- | ------------------------------------------ | ------------------------ |
+| Definition           | Same method name with different parameters | Redefining parent method |
+| Polymorphism Type    | Compile-time                               | Runtime                  |
+| Inheritance Required | ❌                                          | ✅                        |
+| Method Signature     | Must differ                                | Must be same             |
+
+------
+
+### Overloading Example
+
+```java
+void print(int a)
+void print(String s)
+```
+
+------
+
+### Overriding Example
+
+```java
+class Parent{
+    void display(){
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent{
+    void display(){
+        System.out.println("Child");
+    }
+}
+```
+
+------
+
+# 5. When to use Interface vs Abstract Class?
+
+| Feature              | Interface           | Abstract Class               |
+| -------------------- | ------------------- | ---------------------------- |
+| Methods              | Abstract by default | Can have abstract + concrete |
+| Multiple inheritance | ✅ Supported         | ❌ Not supported              |
+| Variables            | public static final | Any type                     |
+| Constructor          | ❌ Not allowed       | ✅ Allowed                    |
+
+------
+
+### Interface Example
+
+```java
+interface Payment {
+
+    void pay();
+}
+
+class CreditCard implements Payment {
+
+    public void pay(){
+        System.out.println("Paid using card");
+    }
+}
+```
+
+------
+
+### Abstract Class Example
+
+```java
+abstract class Vehicle {
+
+    void fuel(){
+        System.out.println("Fuel needed");
+    }
+
+    abstract void start();
+}
+```
+
+------
+
+### Interview Tip
+
+Use **Interface when behavior is common across unrelated classes**.
+
+Example
+
+```
+Payment → UPI, Card, NetBanking
+```
+
+Use **Abstract class when classes share common base functionality**.
+
+Example
+
+```
+Vehicle → Car, Bike
+```
+
+------
+
+# 6. What is a Marker Interface? Why use it?
+
+### Definition
+
+A **Marker Interface is an empty interface** used to "mark" a class. It provides **metadata information to JVM or frameworks**.
+
+------
+
+### Example Marker Interfaces in Java
+
+| Interface    | Purpose                      |
+| ------------ | ---------------------------- |
+| Serializable | Allows object serialization  |
+| Cloneable    | Allows object cloning        |
+| RandomAccess | Indicates fast random access |
+
+------
+
+### Example
+
+```java
+class Employee implements Serializable {
+    int id;
+    String name;
+}
+```
+
+------
+
+### How it works internally
+
+```mermaid
+flowchart LR
+A[Object] --> B{Implements Serializable?}
+B -->|Yes| C[Allow Serialization]
+B -->|No| D[Throw Exception]
+```
+
+------
+
+### Interview Tip
+
+Marker interfaces are often replaced today with **Annotations**, but still used internally in Java.
+
+Example
+
+```
+Serializable
+Cloneable
+RandomAccess
+```
+
+
 
 ---
 
 # 3️⃣ String Handling
 
-1. What is the difference between `String`, `StringBuilder`, and `StringBuffer`?
-2. Difference between creating String with literal and `new` operator.
-3. What is String pool and how does it work?
-4. What are the advantages of String pool?
-5. Why is String immutable?
+Strings are one of the **most frequently asked topics in Java interviews** because they involve **memory management, performance, and JVM internals**.
+
+---
+
+## 1. What is the difference between `String`, `StringBuilder`, and `StringBuffer`?
+
+| Feature         | String                 | StringBuilder     | StringBuffer        |
+| --------------- | ---------------------- | ----------------- | ------------------- |
+| Mutability      | Immutable              | Mutable           | Mutable             |
+| Thread Safety   | ❌ Not thread-safe      | ❌ Not thread-safe | ✅ Thread-safe       |
+| Performance     | Slow for modifications | Fast              | Slower than Builder |
+| Synchronization | ❌                      | ❌                 | ✅                   |
+
+### Key Idea
+- **String → immutable**
+- **StringBuilder → mutable (single thread)**
+- **StringBuffer → mutable (multi-thread)**
+
+---
+
+### Example
+
+```java
+String s = "Java";
+s.concat(" Programming");
+
+System.out.println(s);
+```
+
+Output
+
+```
+Java
+```
+
+Reason: **String is immutable**
+
+------
+
+### StringBuilder Example
+
+```java
+StringBuilder sb = new StringBuilder("Java");
+sb.append(" Programming");
+
+System.out.println(sb);
+```
+
+Output
+
+```
+Java Programming
+```
+
+------
+
+### Performance Tip
+
+Use **StringBuilder** when modifying strings frequently.
+
+Example
+
+```
+Loop concatenation
+Dynamic SQL queries
+JSON building
+```
+
+------
+
+## 2. Difference between creating String with literal and `new` operator
+
+### String Literal
+
+```java
+String s1 = "Java";
+String s2 = "Java";
+```
+
+- Stored in **String Pool**
+- Both references point to **same object**
+
+------
+
+### String using `new`
+
+```java
+String s1 = new String("Java");
+String s2 = new String("Java");
+```
+
+- Stored in **Heap memory**
+- Creates **two separate objects**
+
+------
+
+### Memory Diagram
+
+```mermaid
+flowchart LR
+A[String Pool] --> B["Java"]
+C[s1] --> B
+D[s2] --> B
+```
+
+Using `new`
+
+```mermaid
+flowchart LR
+A[Heap] --> B[String Object]
+A --> C[String Object]
+```
+
+------
+
+### Interview Tip
+
+Literal creation is **memory efficient** because of **string pooling**.
+
+------
+
+## 3. What is String Pool and how does it work?
+
+### Definition
+
+The **String Pool** is a special memory area inside the **Heap** where JVM stores **unique String literals**. If a string already exists, JVM returns the **existing reference instead of creating a new object**.
+
+------
+
+### Example
+
+```java
+String a = "Java";
+String b = "Java";
+```
+
+Both refer to the **same memory location**.
+
+------
+
+### Diagram
+
+```mermaid
+flowchart LR
+A[String Pool] --> B["Java"]
+C[a] --> B
+D[b] --> B
+```
+
+------
+
+### Example with `new`
+
+```java
+String a = new String("Java");
+String b = new String("Java");
+```
+
+Now JVM creates **separate objects in heap**.
+
+------
+
+## 4. What are the advantages of String Pool?
+
+### 1️⃣ Memory Optimization
+
+Only **one copy of identical string** stored.
+
+Example
+
+```
+1000 "Java" strings → only 1 object
+```
+
+------
+
+### 2️⃣ Performance Improvement
+
+Less object creation → **faster memory access**
+
+------
+
+### 3️⃣ Faster Comparisons
+
+Since references can be reused.
+
+```
+s1 == s2 may return true
+```
+
+------
+
+### 4️⃣ JVM Optimization
+
+Used heavily in
+
+- class names
+- method names
+- configuration strings
+
+------
+
+## 5. Why is String immutable?
+
+### Definition
+
+Once a String object is created, **its value cannot be changed**.
+
+------
+
+### Example
+
+```java
+String s = "Java";
+s.concat("8");
+```
+
+Output
+
+```
+Java
+```
+
+Reason: JVM creates **new object instead of modifying existing one**.
+
+------
+
+### Internal Working
+
+```mermaid
+flowchart LR
+A["Java"] --> B["Java8"]
+```
+
+Original object remains unchanged.
+
+------
+
+### Reasons for Immutability
+
+#### 1️⃣ String Pool Security
+
+If mutable, changing one reference could affect many variables.
+
+Example
+
+```
+String a = "admin"
+String b = "admin"
+```
+
+Changing `a` would affect `b`.
+
+------
+
+#### 2️⃣ Security
+
+Used in
+
+```
+URL
+Database credentials
+File paths
+Class loaders
+```
+
+Immutable prevents malicious modification.
+
+------
+
+#### 3️⃣ Thread Safety
+
+Strings can be shared safely across threads.
+
+------
+
+#### 4️⃣ HashMap Performance
+
+Strings are commonly used as **HashMap keys**.
+
+If mutable → hashCode would change → data corruption.
+
+------
+
+### Interview Tip
+
+The **main reasons** String is immutable:
+
+```
+Security
+String Pool optimization
+Thread safety
+HashMap key stability
+```
 
 ---
 
 # 4️⃣ Java Collections (Basic)
 
-1. What is a Collection in Java?
-2. Difference between Array and ArrayList?
-3. What is the difference between ArrayList and LinkedList?
-4. What is a HashMap? Basic operations?
-5. What is the difference between HashSet and TreeSet?
-6. What is an Iterator?
-7. What is the difference between List and Set?
-8. Array vs List
-9. Set vs List
+The **Java Collection Framework (JCF)** provides classes and interfaces to store and manipulate groups of objects dynamically.
 
 ---
 
+## 1. What is a Collection in Java?
+
+### Definition
+A **Collection** is a framework that provides **architecture to store and manipulate groups of objects dynamically**.
+
+It includes:
+
+- Interfaces
+- Implementations
+- Algorithms
+
+---
+
+### Core Interfaces
+
+```mermaid
+flowchart TD
+Collection
+Collection --> List
+Collection --> Set
+Collection --> Queue
+Map
+```
+
+⚠ **Map is part of the collection framework but does not extend `Collection` interface.**
+
+------
+
+### Common Implementations
+
+| Interface | Classes                         |
+| --------- | ------------------------------- |
+| List      | ArrayList, LinkedList, Vector   |
+| Set       | HashSet, LinkedHashSet, TreeSet |
+| Queue     | PriorityQueue, ArrayDeque       |
+| Map       | HashMap, LinkedHashMap, TreeMap |
+
+------
+
+## 2. Difference between Array and ArrayList
+
+| Feature     | Array               | ArrayList            |
+| ----------- | ------------------- | -------------------- |
+| Size        | Fixed               | Dynamic              |
+| Type        | Primitive & Objects | Objects only         |
+| Part of     | Java Language       | Collection Framework |
+| Performance | Faster              | Slightly slower      |
+| Methods     | Limited             | Rich API             |
+
+------
+
+### Example
+
+#### Array
+
+```java
+int arr[] = new int[3];
+arr[0] = 10;
+```
+
+------
+
+#### ArrayList
+
+```java
+List<Integer> list = new ArrayList<>();
+list.add(10);
+list.add(20);
+```
+
+------
+
+### Interview Tip
+
+Use **ArrayList when size is dynamic**.
+
+------
+
+## 3. What is the difference between ArrayList and LinkedList?
+
+Both implement the **List interface**.
+
+------
+
+### Internal Structure
+
+```mermaid
+flowchart LR
+ArrayList --> Array
+LinkedList --> Node1 --> Node2 --> Node3
+```
+
+------
+
+### Comparison
+
+| Feature       | ArrayList     | LinkedList            |
+| ------------- | ------------- | --------------------- |
+| Structure     | Dynamic array | Doubly linked list    |
+| Access Time   | Fast O(1)     | Slow O(n)             |
+| Insert/Delete | Slow          | Fast                  |
+| Memory        | Less          | More (extra pointers) |
+
+------
+
+### Example
+
+```java
+List<Integer> list = new ArrayList<>();
+list.add(10);
+list.add(20);
+```
+
+------
+
+### Interview Tip
+
+Use:
+
+- **ArrayList → frequent reads**
+- **LinkedList → frequent inserts/deletes**
+
+------
+
+## 4. What is a HashMap? Basic operations?
+
+### Definition
+
+`HashMap` is a **key-value data structure** that stores data using **hashing**.
+
+------
+
+### Characteristics
+
+- Stores **key-value pairs**
+- **No duplicate keys**
+- Allows **one null key**
+- Not thread-safe 
+- Unordered
+
+------
+
+### Basic Operations
+
+```java
+Map<Integer,String> map = new HashMap<>();
+
+map.put(1,"Java");
+map.put(2,"Spring");
+
+map.get(1);
+map.remove(2);
+```
+
+------
+
+### Internal Structure
+
+```mermaid
+flowchart TD
+Key --> HashFunction
+HashFunction --> Bucket
+Bucket --> Node
+```
+
+Steps:
+
+1. Key hashCode calculated
+2. Bucket index determined
+3. Entry stored in bucket
+
+------
+
+## 5. What is the difference between HashSet and TreeSet?
+
+Both implement **Set interface**.
+
+------
+
+### Comparison
+
+| Feature        | HashSet    | TreeSet        |
+| -------------- | ---------- | -------------- |
+| Ordering       | Unordered  | Sorted         |
+| Data Structure | Hash table | Red-Black Tree |
+| Performance    | O(1)       | O(log n)       |
+| Null allowed   | One null   | Not allowed    |
+
+------
+
+### Example
+
+```java
+Set<Integer> set = new HashSet<>();
+set.add(10);
+set.add(20);
+```
+
+TreeSet
+
+```java
+Set<Integer> set = new TreeSet<>();
+set.add(30);
+set.add(10);
+set.add(20);
+```
+
+Output
+
+```
+10 20 30
+```
+
+------
+
+## 6. What is an Iterator?
+
+### Definition
+
+`Iterator` is used to **traverse elements of a collection sequentially**.
+
+------
+
+### Important Methods
+
+| Method    | Purpose              |
+| --------- | -------------------- |
+| hasNext() | Checks next element  |
+| next()    | Returns next element |
+| remove()  | Removes element      |
+
+------
+
+### Example
+
+```java
+List<String> list = new ArrayList<>();
+list.add("Java");
+list.add("Spring");
+
+Iterator<String> it = list.iterator();
+
+while(it.hasNext()){
+    System.out.println(it.next());
+}
+```
+
+------
+
+### Interview Tip
+
+Iterator prevents **ConcurrentModificationException when removing elements during iteration**.
+
+------
+
+## 7. What is the difference between List and Set?
+
+| Feature    | List       | Set            |
+| ---------- | ---------- | -------------- |
+| Duplicates | Allowed    | Not allowed    |
+| Order      | Maintained | Not guaranteed |
+| Index      | Available  | Not available  |
+
+------
+
+### Example
+
+```java
+List<Integer> list = new ArrayList<>();
+list.add(10);
+list.add(10);
+```
+
+Output
+
+```
+10 10
+```
+
+------
+
+### Set Example
+
+```java
+Set<Integer> set = new HashSet<>();
+set.add(10);
+set.add(10);
+```
+
+Output
+
+```
+10
+```
+
+------
+
+## 8. Array vs List
+
+| Feature     | Array             | List                 |
+| ----------- | ----------------- | -------------------- |
+| Size        | Fixed             | Dynamic              |
+| Type Safety | Primitive allowed | Objects only         |
+| Framework   | Core Java         | Collection Framework |
+| Flexibility | Low               | High                 |
+
+------
+
+### Example
+
+Array
+
+```java
+int arr[] = {1,2,3};
+```
+
+List
+
+```java
+List<Integer> list = new ArrayList<>();
+```
+
+------
+
+------
+
 # 5️⃣ Java Collections (Advanced)
 
-1. Contract between `hashCode()` and `equals()` methods?
-2. Explain the internal working of HashMap in Java.
-3. What happens on a HashMap collision?
-4. What is the load factor in HashMap?
-5. Difference between HashMap, LinkedHashMap, and TreeMap?
-6. Difference between HashMap, LinkedHashMap, and ConcurrentHashMap.
-7. How can you convert a HashMap into an ArrayList?
-8. What are the differences between Comparable and Comparator?
-9. What is a ConcurrentHashMap? How does it work?
-10. What's the difference between Hashtable and ConcurrentHashMap?
-11. What is the difference between Vector and ArrayList?
-12. HashMap vs Hashtable
-13. ArrayList vs LinkedList
-14. What is Fail-Fast iteration?
-15. What is ConcurrentModificationException?
-16. Fail-fast vs Fail-safe iterators
+
+
+## 1. Contract between `hashCode()` and `equals()` methods
+
+### Rule (Very Important for Interviews)
+
+1️⃣ If **two objects are equal using `equals()`**, then **their `hashCode()` must be equal**.
+
+2️⃣ If **two objects have same hashCode**, they **may or may not be equal**.
+
+3️⃣ If **equals() is overridden**, you **must override hashCode()**.
+
+---
+
+### Example
+
+```java
+class Employee {
+
+    int id;
+
+    public boolean equals(Object o){
+        Employee e = (Employee)o;
+        return this.id == e.id;
+    }
+
+    public int hashCode(){
+        return id;
+    }
+}
+```
+
+### Why Important?
+
+Used internally in:
+
+```
+HashMap
+HashSet
+Hashtable
+```
+
+------
+
+## 2. Explain the internal working of HashMap in Java
+
+HashMap stores data in **key-value pairs**.
+
+### Internal Structure
+
+```mermaid
+flowchart TD
+Key --> HashCode
+HashCode --> BucketIndex
+BucketIndex --> Bucket
+Bucket --> Node
+```
+
+------
+
+### Steps
+
+1️⃣ Key object's **hashCode()** is calculated.
+
+2️⃣ Hash is converted to **bucket index**.
+
+```
+index = hash & (capacity - 1)
+```
+
+3️⃣ Entry stored in **bucket**.
+
+4️⃣ If bucket already contains elements → **collision handling**.
+
+------
+
+### Java 8 Optimization
+
+If **bucket size > 8**
+
+```
+LinkedList → Red Black Tree
+```
+
+------
+
+## 3. What happens on a HashMap collision?
+
+### Collision
+
+When **two keys produce the same bucket index**.
+
+------
+
+### Handling Mechanism
+
+Java uses **Separate Chaining**.
+
+```mermaid
+flowchart LR
+Bucket --> Node1 --> Node2 --> Node3
+```
+
+Elements stored in:
+
+```
+LinkedList (before Java 8)
+Red-Black Tree (after threshold)
+```
+
+------
+
+### Why Tree?
+
+To improve performance.
+
+```
+LinkedList → O(n)
+Tree → O(log n)
+```
+
+------
+
+## 4. What is the load factor in HashMap?
+
+### Definition
+
+Load Factor determines **when HashMap should resize**.
+
+```
+LoadFactor = number_of_entries / capacity
+```
+
+------
+
+### Default Value
+
+```
+0.75
+```
+
+Meaning:
+
+If **75% capacity filled → HashMap resizes**
+
+------
+
+### Example
+
+```
+Capacity = 16
+Threshold = 16 × 0.75 = 12
+```
+
+When entries > 12 → **rehashing occurs**.
+
+------
+
+## 5. Difference between HashMap, LinkedHashMap, and TreeMap
+
+| Feature        | HashMap    | LinkedHashMap            | TreeMap        |
+| -------------- | ---------- | ------------------------ | -------------- |
+| Order          | No order   | Insertion order          | Sorted         |
+| Data structure | Hash table | Hash table + Linked list | Red-Black Tree |
+| Performance    | O(1)       | O(1)                     | O(log n)       |
+| Null key       | 1 allowed  | 1 allowed                | Not allowed    |
+
+------
+
+### LinkedHashMap Structure
+
+```mermaid
+flowchart LR
+Node1 <--> Node2 <--> Node3
+```
+
+Maintains **insertion order**.
+
+------
+
+## 6. Difference between HashMap, LinkedHashMap, and ConcurrentHashMap
+
+| Feature     | HashMap | LinkedHashMap | ConcurrentHashMap |
+| ----------- | ------- | ------------- | ----------------- |
+| Thread Safe | ❌       | ❌             | ✅                 |
+| Order       | No      | Yes           | No                |
+| Locking     | None    | None          | Segment based     |
+| Null Keys   | Allowed | Allowed       | Not allowed       |
+
+------
+
+### Interview Tip
+
+```
+ConcurrentHashMap used in multi-threading environments
+```
+
+------
+
+## 7. How can you convert a HashMap into an ArrayList?
+
+### Convert keys
+
+```java
+Map<Integer,String> map = new HashMap<>();
+
+List<Integer> keys = new ArrayList<>(map.keySet());
+```
+
+------
+
+### Convert values
+
+```java
+List<String> values = new ArrayList<>(map.values());
+```
+
+------
+
+### Convert entries
+
+```java
+List<Map.Entry<Integer,String>> entries =
+        new ArrayList<>(map.entrySet());
+```
+
+------
+
+## 8. What are the differences between Comparable and Comparator?
+
+| Feature      | Comparable        | Comparator     |
+| ------------ | ----------------- | -------------- |
+| Package      | java.lang         | java.util      |
+| Method       | compareTo()       | compare()      |
+| Sorting      | Natural order     | Custom order   |
+| Modification | Class must change | Separate class |
+
+------
+
+### Comparable Example
+
+```java
+class Employee implements Comparable<Employee>{
+
+    int salary;
+
+    public int compareTo(Employee e){
+        return this.salary - e.salary;
+    }
+}
+```
+
+------
+
+### Comparator Example
+
+```java
+class SalaryComparator implements Comparator<Employee>{
+
+    public int compare(Employee e1, Employee e2){
+        return e1.salary - e2.salary;
+    }
+}
+```
+
+------
+
+## 9. What is a ConcurrentHashMap? How does it work?
+
+### Definition
+
+Thread-safe version of HashMap used in **multi-threaded environments**.
+
+------
+
+### Key Features
+
+- High concurrency
+- No global lock
+- Better performance than Hashtable
+
+------
+
+### Internal Mechanism
+
+Java 7
+
+```
+Segment based locking
+```
+
+Java 8
+
+```
+CAS + synchronized blocks
+```
+
+------
+
+### Structure
+
+```mermaid
+flowchart TD
+Map --> Segment1
+Map --> Segment2
+Map --> Segment3
+```
+
+Each segment can be **locked independently**.
+
+------
+
+## 10. Difference between Hashtable and ConcurrentHashMap
+
+| Feature       | Hashtable         | ConcurrentHashMap |
+| ------------- | ----------------- | ----------------- |
+| Thread Safety | Yes               | Yes               |
+| Locking       | Entire map locked | Partial locking   |
+| Performance   | Slow              | Faster            |
+| Null keys     | Not allowed       | Not allowed       |
+
+------
+
+### Interview Tip
+
+```
+ConcurrentHashMap preferred in modern Java
+```
+
+------
+
+## 11. Difference between Vector and ArrayList
+
+| Feature     | Vector | ArrayList |
+| ----------- | ------ | --------- |
+| Thread Safe | Yes    | No        |
+| Performance | Slow   | Faster    |
+| Legacy      | Yes    | Modern    |
+
+------
+
+### Interview Tip
+
+Vector is rarely used today.
+
+------
+
+## 12. HashMap vs Hashtable
+
+| Feature     | HashMap  | Hashtable   |
+| ----------- | -------- | ----------- |
+| Thread Safe | No       | Yes         |
+| Performance | Faster   | Slower      |
+| Null Keys   | Allowed  | Not allowed |
+| Introduced  | Java 1.2 | Java 1.0    |
+
+------
+
+## 13. ArrayList vs LinkedList
+
+| Feature       | ArrayList     | LinkedList         |
+| ------------- | ------------- | ------------------ |
+| Structure     | Dynamic array | Doubly linked list |
+| Access        | Fast          | Slow               |
+| Insert/Delete | Slow          | Fast               |
+
+------
+
+### Complexity
+
+| Operation | ArrayList | LinkedList |
+| --------- | --------- | ---------- |
+| Get       | O(1)      | O(n)       |
+| Insert    | O(n)      | O(1)       |
+
+------
+
+## 14. What is Fail-Fast iteration?
+
+Fail-Fast iterators **throw exception if collection modified during iteration**.
+
+**Example collections:**
+
+- ArrayList
+- HashMap
+- HashSet
+
+------
+
+### Example
+
+```java
+List<Integer> list = new ArrayList<>();
+
+for(Integer i : list){
+    list.remove(i);
+}
+```
+
+This causes:
+
+```
+ConcurrentModificationException
+```
+
+------
+
+## 15. What is ConcurrentModificationException?
+
+Exception thrown when **collection is modified while iterating**.
+
+------
+
+### Example
+
+```java
+Iterator<Integer> it = list.iterator();
+
+while(it.hasNext()){
+    list.remove(1);
+}
+```
+
+------
+
+### Solution
+
+Use **Iterator remove()**
+
+```java
+it.remove();
+```
+
+------
+
+## 16. Fail-Fast vs Fail-Safe Iterators
+
+| Feature           | Fail-Fast           | Fail-Safe         |
+| ----------------- | ------------------- | ----------------- |
+| Exception         | Yes                 | No                |
+| Iterator works on | Original collection | Copy              |
+| Examples          | ArrayList, HashMap  | ConcurrentHashMap |
+
+------
+
+### Fail-Safe Example
+
+```java
+ConcurrentHashMap<Integer,String> map = new ConcurrentHashMap<>();
+```
+
+Iteration does **not throw exception**.
+
+
 
 ---
 
@@ -821,32 +2209,507 @@ I grouped your remaining questions into **clear architecture and platform concep
 
 ---
 
+Below are **concise interview-ready notes in Markdown**. I’ve kept them **short, structured, and practical** so they are easy to revise quickly before interviews.
+
+------
+
 # 1️⃣1️⃣ Scenario-Based Production Issues
 
-### Performance Issues
+------
 
-307. Your Spring Boot application takes 45 seconds to start in production but 5 seconds locally. How do you investigate?
-308. After deploying to production, your REST APIs respond in 5+ seconds. What's your debugging approach?
-309. Your application works with 100 users but crashes with OutOfMemoryError with 1000 users. How do you solve this?
-310. Your microservice occasionally returns 503 Service Unavailable during peak traffic. What could cause this?
+## Performance Issues
 
-### Security Scenarios
+## 307. Spring Boot app starts in 45s in production but 5s locally — Investigation
 
-311. Users get logged out every 30 minutes despite JWT tokens being valid for 24 hours. What's happening?
-312. Your API receives 10,000 requests per second from the same IP. How do you implement rate limiting?
-313. You need to implement SSO for 20 applications. How do you design this?
+### Possible Causes
 
-### Database Issues
+- Database connection delay
+- External service calls during startup
+- Heavy bean initialization
+- Slow container / VM resources
+- Large classpath scanning
+- Docker / Kubernetes resource limits
 
-314. Your e-commerce app takes 30 seconds to load a catalog with 10,000 products. How do you optimize?
-315. You're getting `LazyInitializationException` in production but not tests. Why and how do you fix it?
-316. Two users update the same product simultaneously. How do you handle this?
+### Debugging Approach
 
-### Microservices Challenges
+1. Enable **Spring Boot startup logs**
 
-317. You need to migrate a monolithic app with 2 million users to microservices. What's your strategy?
-318. Service A → B → C dependency chain, and C is down. How do you prevent cascade failures?
-319. An order touches 5 microservices; one fails after others succeed. How do you handle it?
+```properties
+spring.main.log-startup-info=true
+```
+
+1. Use **Application Startup Actuator**
+
+```properties
+management.endpoint.startup.enabled=true
+```
+
+1. Check:
+
+- DB connection latency
+- DNS resolution
+- Bean initialization time
+- Classpath scanning
+- External API calls
+- Container CPU / memory
+
+### Useful Tools
+
+- Spring Boot Actuator
+- JVM profiler
+- Docker resource monitoring
+
+------
+
+## 308. REST APIs respond in 5+ seconds in production
+
+### Debugging Strategy
+
+#### 1️⃣ Identify bottleneck layer
+
+```
+Client
+  ↓
+API Gateway
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Database
+```
+
+### Steps
+
+1. Check **API logs**
+2. Measure **response time per layer**
+3. Check **DB queries**
+
+```sql
+EXPLAIN ANALYZE
+```
+
+1. Inspect:
+
+- Slow queries
+- Missing indexes
+- Thread pool exhaustion
+- Network latency
+- External API calls
+
+### Tools
+
+- APM (New Relic, Datadog)
+- Prometheus + Grafana
+- Spring Actuator metrics
+
+------
+
+## 309. Application crashes with `OutOfMemoryError` with 1000 users
+
+### Possible Causes
+
+- Memory leaks
+- Large object creation
+- Improper caching
+- Large collections
+- Thread leaks
+
+### Debugging Steps
+
+1. Capture **heap dump**
+
+```bash
+jmap -dump:format=b,file=heap.hprof <pid>
+```
+
+1. Analyze using
+
+- Eclipse MAT
+- VisualVM
+
+1. Check for:
+
+- Large objects
+- Growing collections
+- Unclosed resources
+
+### Solutions
+
+- Increase JVM memory
+
+```
+-Xms2G -Xmx4G
+```
+
+- Fix memory leaks
+- Optimize caching
+- Use streaming for large data
+
+------
+
+## 310. Microservice returns `503 Service Unavailable` during peak traffic
+
+### Possible Causes
+
+- Thread pool exhaustion
+- Database connection pool exhaustion
+- Service dependency failure
+- Circuit breaker triggered
+- Load balancer limits
+
+### Architecture Example
+
+```mermaid
+graph TD
+
+Client --> API_Gateway
+API_Gateway --> Service_A
+Service_A --> Service_B
+Service_B --> Database
+```
+
+### Fixes
+
+- Increase **connection pool**
+- Implement **rate limiting**
+- Add **circuit breaker**
+- Enable **autoscaling**
+
+Tools:
+
+- Resilience4j
+- Kubernetes HPA
+
+------
+
+# Security Scenarios
+
+------
+
+## 311. Users logged out every 30 minutes despite JWT validity of 24 hours
+
+### Possible Reasons
+
+- **Session timeout**
+- **Token stored in server session**
+- **Refresh token misconfiguration**
+- **Reverse proxy timeout**
+
+### Fix
+
+Ensure **stateless authentication**
+
+```java
+.sessionManagement()
+.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+```
+
+### Check
+
+- Load balancer session timeout
+- Cookie expiration
+- JWT expiration vs refresh token logic
+
+------
+
+## 312. API receives 10,000 requests/sec from same IP — Rate limiting
+
+### Solution Approaches
+
+1️⃣ **API Gateway Rate Limiting**
+
+- Nginx
+- Kong
+- Spring Cloud Gateway
+
+2️⃣ **Token Bucket Algorithm**
+
+```mermaid
+graph LR
+Request --> RateLimiter
+RateLimiter --> Allow
+RateLimiter --> Reject
+```
+
+3️⃣ **Redis-based distributed limiter**
+
+Example:
+
+```
+100 requests per minute per IP
+```
+
+### Libraries
+
+- Bucket4j
+- Resilience4j
+- Redis rate limiter
+
+------
+
+## 313. Implement SSO for 20 applications
+
+### Architecture
+
+Use **Central Identity Provider**
+
+Examples
+
+- OAuth2
+- OpenID Connect
+- SAML
+
+```mermaid
+graph TD
+
+User --> IdentityProvider
+IdentityProvider --> App1
+IdentityProvider --> App2
+IdentityProvider --> App3
+IdentityProvider --> App20
+```
+
+### Flow
+
+1. User logs into **Identity Provider**
+2. IdP issues **Access Token**
+3. Apps validate token
+
+### Tools
+
+- Keycloak
+- Okta
+- Auth0
+
+------
+
+# Database Issues
+
+------
+
+## 314. E-commerce catalog (10k products) loads in 30 seconds
+
+### Problems
+
+- Large queries
+- No indexing
+- N+1 query problem
+- Large payload
+
+### Optimization
+
+1️⃣ **Add DB indexes**
+
+```sql
+CREATE INDEX idx_product_category ON product(category_id);
+```
+
+2️⃣ **Pagination**
+
+```sql
+LIMIT 50 OFFSET 0
+```
+
+3️⃣ **Caching**
+
+- Redis
+- CDN
+
+4️⃣ **Avoid N+1 queries**
+
+Use **JOIN fetch**
+
+```java
+@Query("SELECT p FROM Product p JOIN FETCH p.category")
+```
+
+------
+
+## 315. `LazyInitializationException` in production but not tests
+
+### Cause
+
+Lazy-loaded entity accessed **outside transaction**
+
+```java
+entity.getOrders();
+```
+
+but session is already closed.
+
+### Fixes
+
+1️⃣ Use **Fetch Join**
+
+```java
+SELECT u FROM User u JOIN FETCH u.orders
+```
+
+2️⃣ Use **DTO projection**
+
+3️⃣ Use `@Transactional`
+
+------
+
+## 316. Two users update the same product simultaneously
+
+### Solution
+
+Use **Optimistic Locking**
+
+```java
+@Version
+private Long version;
+```
+
+### Flow
+
+```mermaid
+sequenceDiagram
+
+User1->>DB: Read Product v1
+User2->>DB: Read Product v1
+User1->>DB: Update v2
+User2->>DB: Update fails (version mismatch)
+```
+
+Alternative
+
+- **Pessimistic locking**
+
+```sql
+SELECT ... FOR UPDATE
+```
+
+------
+
+# Microservices Challenges
+
+------
+
+## 317. Migrating Monolith (2M users) → Microservices
+
+### Strategy
+
+1️⃣ Identify **bounded contexts**
+
+Examples
+
+- User service
+- Order service
+- Payment service
+
+```mermaid
+graph TD
+
+Monolith --> UserService
+Monolith --> OrderService
+Monolith --> PaymentService
+```
+
+2️⃣ **Strangler Pattern**
+
+Gradually replace monolith modules.
+
+3️⃣ Introduce
+
+- API Gateway
+- Service discovery
+- Central logging
+
+Tools
+
+- Spring Cloud
+- Kubernetes
+- Kafka
+
+------
+
+## 318. Service A → B → C dependency chain and C is down
+
+### Problem
+
+Cascade failure
+
+```mermaid
+graph LR
+
+A --> B --> C
+C -.DOWN.-> B
+B -.FAIL.-> A
+```
+
+### Solution
+
+1️⃣ Circuit Breaker
+
+```
+Resilience4j
+Hystrix
+```
+
+2️⃣ Fallback methods
+
+3️⃣ Retry with backoff
+
+Example
+
+```java
+@CircuitBreaker(name="serviceC", fallbackMethod="fallback")
+```
+
+------
+
+## 319. Order touches 5 microservices; one fails after others succeed
+
+### Problem
+
+Distributed transaction
+
+### Solution
+
+Use **Saga Pattern**
+
+Two approaches
+
+### 1️⃣ Choreography
+
+Services emit events
+
+```mermaid
+graph LR
+
+Order --> Payment --> Inventory --> Shipping
+```
+
+### 2️⃣ Orchestration
+
+Central saga controller
+
+```mermaid
+graph TD
+
+Saga --> OrderService
+Saga --> PaymentService
+Saga --> InventoryService
+Saga --> ShippingService
+```
+
+### If failure occurs
+
+Compensation actions run:
+
+- Refund payment
+- Restock inventory
+
+Tools
+
+- Kafka
+- Camunda
+- Temporal
+
+
 
 ---
 
