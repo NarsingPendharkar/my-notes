@@ -20,7 +20,7 @@
 	When to use Interface vs Abstract Class?
 	What is a Marker Interface? Why use it?
 
-#String Handling
+# String Handling
 
 	What is the difference between String, StringBuilder, and StringBuffer?
 	Difference between creating String with literal and new operator
@@ -28,7 +28,7 @@
 	What are the advantages of String pool?
 	Why String is immutable?
 
-#Basic Collections
+# Basic Collections
 
 	What is a Collection in Java?
 	Difference between Array and ArrayList?
@@ -40,7 +40,7 @@
 	Array vs List
 	Set vs List
 
-#Exception Handling
+# Exception Handling
 
 	What is an Exception? Types of exceptions?
 	What is the difference between checked and unchecked exceptions?
@@ -53,11 +53,11 @@
 	What is a ClassCastException?
 	What is Error vs Exception?
 
-#Basic Control Structures
+# Basic Control Structures
 	Explain the difference between break and continue statements
 	What is the difference between == and .equals()?
 
-#Collections Deep Dive
+# Collections Deep Dive
 
 	Contract between hashCode() and equals() methods?
 	Explain the internal working of HashMap in Java
@@ -73,7 +73,7 @@
 	HashMap vs HashTable
 	ArrayList vs LinkedList
 
-#Java 8 Features
+# Java 8 Features
 	What is a Functional Interface?
 	Explain Java 8 features (Lambdas, Streams, Optional)
 	Difference between map() vs flatMap() in Java 8?
@@ -84,7 +84,7 @@
 	Use of Stream API in projects
 	Lambda expressions vs Anonymous classes
 
-#Advanced OOP
+# Advanced OOP
 
 	What is a Functional Interface?
 	What are Sealed Classes (Java 17)?
@@ -100,7 +100,7 @@
 	Stack vs Heap Memory Allocation
 	How to handle OutOfMemoryException?
 
-#Multithreading Basics
+# Multithreading Basics
 	What is multithreading in Java? Thread lifecycle?
 	What is synchronization in Java? synchronized keyword?
 	What is the difference between wait() and sleep()?
@@ -111,7 +111,7 @@
 	What is the difference between Runnable and Callable?
 	Synchronized methods vs Synchronized blocks
 
-#JVM Internals & Performance
+# JVM Internals & Performance
 	How does the JVM work internally? (Class loader, memory areas, GC)
 	What are the different types of class loaders in Java?
 	What are strong, weak, soft, and phantom references in Java?
@@ -123,7 +123,7 @@
 	What is metaspace in Java 8+?
 	How do you analyze heap dumps and thread dumps?
 
-#Advanced Concurrency
+# Advanced Concurrency
 	What is the Executor framework in Java?
 	What is a Future in Java?
 	What is a ThreadPool and why should you use it?
