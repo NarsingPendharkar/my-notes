@@ -801,8 +801,15 @@ public class Example2 {
 
 ### What is the difference between == and .equals() in objects?
 
-- == checks reference equality (same memory address).
-- .equals() checks weather both strings have same characters.
+### ✅ `==`
+
+- Compares **memory reference (address)**
+- Checks: *Are both variables pointing to the same object?*
+
+### ✅ `.equals()`
+
+- Compares **actual content (value inside string)**
+- Checks: *Do both strings have the same characters?*
 
 ```java
 String s1 = new String("Narsing");
@@ -811,6 +818,72 @@ String s2 = new String("Narsing");
 System.out.println(s1 == s2);       // false → compares memory addresses
 System.out.println(s1.equals(s2));  // true  → compares con
 ```
+
+---
+
+In Java, comparing strings can be confusing because **`==`** and **`.equals()`** behave very differently. Let’s break it down clearly with **all important scenarios**, especially when using `+` (concatenation).
+
+##### Case A: String literals (stored in String Pool)
+
+```java
+String s1 = "hello";
+String s2 = "hello";
+```
+
+- `s1 == s2` → ✅ true (same pool reference)
+- `s1.equals(s2)` → ✅ true
+
+------
+
+##### Case B: Using `new` keyword (Heap memory)
+
+```java
+String s1 = new String("hello");
+String s2 = new String("hello");
+```
+
+- `s1 == s2` → ❌ false (different objects)
+- `s1.equals(s2)` → ✅ true
+
+##### Case C: Compile-time concatenation
+
+```java
+String s1 = "hello" + "world";
+String s2 = "helloworld";
+```
+
+- Happens at compile time → stored in pool
+- `s1 == s2` → ✅ true
+- `s1.equals(s2)` → ✅ true
+
+------
+
+##### Case D: Runtime concatenation (using variables)
+
+```java
+String a = "hello";
+String b = "world";
+String s1 = a + b;
+String s2 = "helloworld";
+```
+
+- Happens at runtime → new object created in heap
+- `s1 == s2` → ❌ false
+- `s1.equals(s2)` → ✅ true
+
+------
+
+##### Case E: Mixed (literal + variable)
+
+```java
+String a = "world";
+String s1 = "hello" + a;
+String s2 = "helloworld";
+```
+
+- Runtime concatenation
+- `s1 == s2` → ❌ false
+- `s1.equals(s2)` → ✅ true
 
 ---
 
