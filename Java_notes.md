@@ -703,8 +703,6 @@ flowchart TD
 <div align="center">
     <h1>🧵 String in Java</h1>
 </div>
-
-
 ### What is a String in Java?
 
 - String is the sequence of the characters.
@@ -723,13 +721,13 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 - Strings are immutable for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
-- Immutable means we cannot make changes once declared.
+- Immutable means we **cannot make changes once declared.**
 
-- Security : all the credentials and confidential data like username, passwords are stored in String if its is mutable then these parameters can be easily changed by attackers.
+- **Security** : all the credentials and confidential data like username, passwords are stored in String if its is mutable then these parameters can be easily changed by attackers.
   
-- JVM reuses the strings that help to save memory.
+- JVM reuses the strings that help to **save memory**.
 
-- Thread safe -- as String is immutable multiple threads can access it at a time.
+- **Thread safe** -- as String is immutable multiple threads can access it at a time.
 
 ### StringBuilder vs StringBuffer vs String
 
