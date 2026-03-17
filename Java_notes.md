@@ -607,19 +607,6 @@ Explanation
 - Object `Student` → stored in **Heap**
 - Reference `s` → stored in **Stack**
 
-Memory idea
-
-```mermaid
-flowchart LR
-    A[Stack Reference s] --> B[Student Object in Heap]
-```
-
-Easy memory trick
-
-```text
-Heap = Object House
-```
-
 ------
 
 #### 2. Stack Memory(methods)
@@ -635,12 +622,6 @@ int a = 10;
 `a` is stored in **Stack**.
 
 Each thread has **its own stack**.
-
-Easy memory trick
-
-```text
-Stack = Method execution area
-```
 
 ------
 
@@ -658,12 +639,6 @@ Example
 
 ```java
 static int count = 10;
-```
-
-Easy memory trick
-
-```text
-Method Area = Class information storage
 ```
 
 ------
