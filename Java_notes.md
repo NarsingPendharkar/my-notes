@@ -917,68 +917,6 @@ String s2 = "helloworld";
 
 15. **matches()** -- check if string matched the given regex
 
-```java
-public class StringMethods {
-
-    public static void main(String[] args) {
-
-    String name="Narsing";
-
-    String fname="narsing";
-
-    String sentence=" abc1def2ghi3a ";
-
-    String reg="\\d";
-
-    String test=" ";
-
-    System.out.println("Length of String :"+ name.length());
-
-    System.out.println("Get charector at index : "+ name.charAt(0));
-
-    System.out.println("Get part of String from start index:"+name.substring(3));
-
-    System.out.println("Substring of start and end index:"+name.substring(0, 3));
-
-    System.out.println("Compare Two Strings :"+name.equals(fname));
-
-    System.out.println("Compare Two Strings with igonring case:"+ name.equalsIgnoreCase(fname));
-
-    System.out.println("Check char present or not in string : "+name.contains("Nar"));
-
-    System.out.println("Change case of String "+name.toLowerCase());
-
-    System.out.println("Change case of String "+name.toUpperCase());
-
-    System.out.println("Replace string char"+name.replace("N", "P"));
-
-    System.out.println("Replace All in string :"+sentence.replaceAll("1", "#"));
-
-    System.out.println("Start with string:" +name.startsWith("N"));
-
-    System.out.println("Start with string:" +name.endsWith("g"));
-
-    System.out.println("first Index of String:"+sentence.indexOf("a"));
-
-    System.out.println("Last Index of String:"+sentence.lastIndexOf("a"));
-
-    System.out.println("Trim string:"+sentence.trim());
-
-    System.out.println("Check empty String:"+test.isEmpty());
-
-    System.out.println("Check empty String:"+test.isBlank());
-
-    System.out.println("Matches to regex:"+sentence.matches(reg));
-
-    String arr[]=sentence.split(reg);
-
-    for(String s:arr) {
-
-    System.err.println(s);
-
-}}}
-```
-
 ---
 
 <div align="center"><h1>This & Static Keyword</h1></div>
@@ -1082,7 +1020,7 @@ public class Example {
 
 The static keyword is used to define class-level members (variables, methods, blocks, and nested classes). Static members belong to the class rather than individual objects.
 
-**Features of static**
+### **Features of static**
 
 1.  Shared among all objects (No separate copies).
 
@@ -1425,89 +1363,60 @@ Languages like **C++** require manual memory deallocation (`delete`).
 <div align="center">
     <h1>Exception</h1>
 </div>
+Here’s a clear explanation of **Exceptions in Java** along with a **Mermaid diagram (hierarchy)** you can use in Markdown 👇
 
-### What is an Exception?
+------
 
-Exception is an unexpected event that occurs during program execution and interrupts the normal flow of the program.
+# 🔹 What is an Exception in Java?
 
-Examples:
+An **exception** is an event that **disrupts normal program flow** during execution.
 
-dividing by zero
-
-accessing null object
-
-file not found
-
-If not handled, the program terminates abnormally.
 Example:
 
 ```java
-int a = 10;
-int b = 0;
-int c = a / b; // ArithmeticException
-```
----
-
-### Types of Exceptions in Java
-
-Mainly 3 types
-
-#### 1️⃣ Checked Exceptions
-
-Checked at compile time.
-
-**Examples:**
-
-IOException
-
-SQLException
-
-FileNotFoundException
-
-
-Example
-
-```java
-FileReader file = new FileReader("test.txt");
-
-Must handle using try-catch or throws
+int a = 10 / 0; // ArithmeticException
 ```
 
+------
 
----
+#### 🔹 Types of Exceptions
 
-#### 2️⃣ Unchecked Exceptions
+##### 1. Checked Exceptions (Compile-time)
 
-Occur at runtime.
+- Checked at compile time
+- Must handle using `try-catch` or `throws`
 
-**Examples**
+Examples:
 
-NullPointerException
+- `IOException`
+- `SQLException`
 
-ArithmeticException
+------
 
-ArrayIndexOutOfBoundsException
+##### 2. Unchecked Exceptions (Runtime)
 
+- Occur during runtime
+- Not mandatory to handle
 
-Example
+Examples:
 
-```java
-String s = null;
-System.out.println(s.length()); // NullPointerException
-```
----
+- `NullPointerException`
+- `ArithmeticException`
+- `ArrayIndexOutOfBoundsException`
 
-####  3️⃣ Errors
+------
 
-Serious problems that application should not handle.
+##### 3. Errors
 
-Examples
+- Serious problems (not handled)
+- Related to JVM/system
 
-`OutOfMemoryError`
+Examples:
 
-`StackOverflowError`
+- `OutOfMemoryError`
+- `StackOverflowError`
 
----
+***
 
 ### Difference Between Checked vs Unchecked Exception
 
@@ -1516,17 +1425,6 @@ Examples
 | Checked at         | Compile time      | Runtime             |
 | Handling mandatory | Yes               | No                  |
 | Parent class       | Exception         | RuntimeException    |
-
-
-Example
-
-```java
-// Checked
-FileReader file = new FileReader("a.txt");
-
-// Unchecked
-int x = 10/0;
-```
 
 ---
 
@@ -1544,16 +1442,6 @@ try {
 // always executes
 }
 ```
-Example
-```java
-try {
-int a = 10/0;
-} catch (ArithmeticException e) {
-System.out.println("Cannot divide by zero");
-} finally {
-System.out.println("Always executed");
-}
-```
 finally block always runs used for closing resources (DB, files)
 
 ---
@@ -1562,7 +1450,7 @@ finally block always runs used for closing resources (DB, files)
 
 ✅ Yes, but only with finally
 
-Example
+**Example**
 
 ```java
 try {
@@ -1572,7 +1460,7 @@ System.out.println("Cleanup code");
 }
 ```
 
-❌ Not allowed
+❌ **Not allowed**
 
     try {
     }
@@ -1684,7 +1572,7 @@ name.length(); // NullPointerException
 
 ##### How to Prevent It
 
-✔ Null check
+**✔ Null check**
 
 ```java
 if(name != null){
@@ -1692,11 +1580,11 @@ name.length();
 }
 
 ```
-✔ Use Optional
+**✔ Use Optional**
 
     Optional<String> name = Optional.ofNullable(null);
 
-✔ Initialize objects
+**✔ Initialize objects**
 
 
 ---
@@ -1722,7 +1610,7 @@ String s = (String) obj;
 
 ---
 
-Error vs Exception
+#### **Error vs Exception**
 
 Feature|Exception|Error
 --------|-----------|-------
@@ -1749,7 +1637,7 @@ int[] arr = new int[999999999];
 - An **object** represents a real-world entity and contains **data (variables)** and **behavior (methods)**.
 - OOP helps to make programs **modular, reusable, and easy to maintain**.
 
-##### Core Principles of OOP
+#### Core Principles of OOP
 
 ```mermaid
 graph TD
