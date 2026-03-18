@@ -3,6 +3,8 @@
 </div>
 
 
+
+
 ### 💻 Is Java Platform Independent? If yes, how?
 Yes! When we execute Java code, the **compiler** converts it into **bytecode**. This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
 
@@ -2639,7 +2641,7 @@ names.forEach(name -> System.out.println(name));
 
 | Interface          | Description                      | Method Signature    |
 | ------------------ | -------------------------------- | ------------------- |
-| **Predicate<T>**   | Returns a boolean value          | `boolean test(T t)` |
+| **Predicate<T>**   | Returns a Boolean value          | `boolean test(T t)` |
 | **Function<T, R>** | Converts input `T` to output `R` | `R apply(T t)`      |
 | **Consumer<T>**    | Accepts input, returns nothing   | `void accept(T t)`  |
 | **Supplier<T>**    | Returns a result, no input       | `T get()`           |
@@ -2663,7 +2665,7 @@ interface MathOperation {
 
 ---
 
-### Common Stream Methods
+##### Common Stream Methods
 
 | Method        | Description                             |
 | ------------- | --------------------------------------- |
@@ -2675,7 +2677,7 @@ interface MathOperation {
 
 ---
 
-### Example
+##### Example
 
 ```java
 List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
@@ -2686,6 +2688,30 @@ List<String> filteredNames = names.stream()
 
 System.out.println(filteredNames); // [Mike]
 ```
+
+---
+
+##### **Parallel Streams (Faster Processing)**
+
+- Use **`.parallelStream()`** to process elements in parallel.  
+- Ideal for **large datasets** that benefit from multi-threading.  
+- Avoid overuse — may cause **performance overhead** for small collections.
+
+---
+
+✅ **Example:**
+
+```java
+List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice", "Mark");
+
+long count = names.parallelStream()
+                  .filter(n -> n.startsWith("M"))
+                  .count();
+
+System.out.println(count); // Output: 2
+```
+
+---
 
 #### Sequential Stream vs Parallel Stream
 
@@ -2734,253 +2760,285 @@ Output
 4
 ```
 
-#### 
+## Stream Operations
 
-#### Stream Operations
+#### Intermediate Operations (Return Stream)
 
----
-
-##### **Intermediate Operations**
-These return a **new stream** and allow chaining of multiple operations.  They are **lazy**, meaning they don't execute until a **terminal operation** is invoked.
-
-| Method         | Description                                      |
-| -------------- | ------------------------------------------------ |
-| **filter()**   | Filters elements based on a condition.           |
-| **map()**      | Transforms elements.                             |
-| **sorted()**   | Sorts elements.                                  |
-| **distinct()** | Removes duplicates.                              |
-| **limit()**    | Limits the number of elements.                   |
-| **peek()**     | Performs an action without modifying the stream. |
+Intermediate operations are **lazy** and return a new stream.
 
 ---
 
-#### **Terminal Operations**
-These produce a **result** (collection, value, or void) and **trigger** stream processing.
+##### 1. `filter(Predicate<T> predicate)`
 
-| Method                                  | Description                             |
-| --------------------------------------- | --------------------------------------- |
-| **collect()**                           | Converts stream into a collection.      |
-| **forEach()**                           | Iterates over elements.                 |
-| **reduce()**                            | Combines elements into a single result. |
-| **count()**                             | Counts the number of elements.          |
-| **anyMatch(), allMatch(), noneMatch()** | Check matching conditions.              |
+**Definition:** Filters elements based on a condition.
 
----
-
-#### **Parallel Streams (Faster Processing)**
-- Use **`.parallelStream()`** to process elements in parallel.  
-- Ideal for **large datasets** that benefit from multi-threading.  
-- Avoid overuse — may cause **performance overhead** for small collections.
-
----
-
-✅ **Example:**
-
+**Example:**
 ```java
-List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice", "Mark");
+List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
 
-long count = names.parallelStream()
-                  .filter(n -> n.startsWith("M"))
-                  .count();
+List<String> filteredNames = names.stream()
+    .filter(n -> n.contains("M"))
+    .collect(Collectors.toList());
 
-System.out.println(count); // Output: 2
+System.out.println(filteredNames); // [Mike]
 ```
 
-#### **Intermediate Operations with Examples**
+------
 
-- ##### **filter(Predicate<T> predicate)**
+##### 2. `map(Function<T, R> mapper)`
 
-**Definition:** Filters out elements that do not match a given predicate.
-
- **Example:**
-
-```java
-List<String> names = Arrays.asList("John", "Jane", "Mike","Alice");
-List<String>filternaes =names.stream().filter(n->n.contains("M")).collect(Collectors.toList());
-System.out.println(filternaes); // Mike
-```
-
-- **map(Function<T, R> mapper)**
-
-> **Definition:** Transforms each element in the stream, returning a new stream of the transformed elements.
-
- **Example:**
-
-```java
-List<String> words = Arrays.asList( "java ",  "stream ",  "api ");
-
-List <Integer > lengths = words.stream().map(w- >w.length()).collect(Collectors.toList());
-
-System.out.println(lengths); // Output:  [4, 6, 3 ]
-```
-
-- **sorted() and sorted(Comparator <? super T > comparator)**
-
-**Definition:** Returns a stream with the elements sorted in natura order or via a provided comparator.
+**Definition:** Transforms each element into another form.
 
 **Example:**
 
 ```java
-List <Integer > numbers = Arrays.asList(5, 3, 1, 4, 2);
+List<String> words = Arrays.asList("java", "stream", "api");
 
-List <Integer > sortedNumbers =
-numbers.stream().sorted.collect(Collectors.toList());
+List<Integer> lengths = words.stream()
+    .map(w -> w.length())
+    .collect(Collectors.toList());
 
-System.out.println(sortedNumbers); // Output:  [1, 2, 3, 4, 5 ]
+System.out.println(lengths); // [4, 6, 3]
 ```
 
-- **distinct()**
+------
 
-**Definition:** Removes duplicate elements from the stream.
+##### 3. `sorted() / sorted(Comparator)`
+
+**Definition:** Sorts elements in natural or custom order.
 
 **Example:**
 
 ```java
-List <Integer > numbers = Arrays.asList(5, 4,5,3, 1, 4, 2);
+List<Integer> numbers = Arrays.asList(5, 3, 1, 4, 2);
 
-List <Integer > distinctList = numbers.stream().distinct().toList();
+List<Integer> sortedNumbers = numbers.stream()
+    .sorted()
+    .collect(Collectors.toList());
 
-System.out.println(distinctList); // Output:  [1, 2, 3, 4, 5 ]
+System.out.println(sortedNumbers); // [1, 2, 3, 4, 5]
 ```
 
-- **limit(long maxSize)**
+------
 
-**Definition:** Returns a stream containing no more than the given number of elements. 
+##### 4. `distinct()`
+
+**Definition:** Removes duplicate elements.
 
 **Example:**
 
 ```java
-List <String > names = Arrays.asList( "Alice ",  "Bob ",  "Charlie ", "David ");
-List <String > limitedNames = names.stream().limit(2).collect(Collectors.toList());
-System.out.println(limitedNames); // Output:  [Alice, Bob ]
+List<Integer> numbers = Arrays.asList(5, 4, 5, 3, 1, 4, 2);
+
+List<Integer> distinctList = numbers.stream()
+    .distinct()
+    .collect(Collectors.toList());
+
+System.out.println(distinctList); // [5, 4, 3, 1, 2]
 ```
 
-- **skip(long n)**
+------
 
-**Definition:** Skips the first *n* elements and returns a stream o the remaining elements. **Example:**
+##### 5. `limit(long maxSize)`
 
-```java
-List <String > [words] = Arrays.asList( "java ",  "stream ","api ");
-
-List <String >skipedList=words.stream().skip(1).collect(Collectors.toList());
-
-System.out.println(skipedList); // output :  [stream,api ]
-```
-
-- **flatMap(Function <T, Stream <R > > mapper)**
-
-**Definition:** Transforms each element into a stream and then
-flattens these streams into a single stream.
+**Definition:** Limits the number of elements.
 
 **Example:**
 
 ```java
-List <List <Integer > > listOfLists = Arrays.asList(Arrays.asList(1, 2),Arrays.asList(3, 4),Arrays.asList(5, 6));
-List <Integer > flattenedList = listOfLists.stream().flatMap(List::stream).collect(Collectors.toList());
-System.out.println(flattenedList); // Output:  [1, 2, 3, 4, 5, 6 ]
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+
+List<String> limitedNames = names.stream()
+    .limit(2)
+    .collect(Collectors.toList());
+
+System.out.println(limitedNames); // [Alice, Bob]
 ```
 
-### **Terminal Operations with Examples**
+------
 
-- **forEach(Consumer <T > action)**
+##### 6. `skip(long n)`
 
-**Definition:** Performs an action for each element of the stream.
+**Definition:** Skips first `n` elements.
 
 **Example:**
 
 ```java
-names.stream().forEach(n- >System.out.print(n.toUpperCase()+ "  ")); // output : JOHN JANE MIKE ALICE
+List<String> words = Arrays.asList("java", "stream", "api");
+
+List<String> skippedList = words.stream()
+    .skip(1)
+    .collect(Collectors.toList());
+
+System.out.println(skippedList); // [stream, api]
 ```
 
-- **collect(Collector <T, A, R > collector)**
+------
 
-**Definition:** Collects the stream 's elements into a collection or another type of result.
+##### 7. `flatMap(Function<T, Stream<R>> mapper)`
+
+**Definition:** Flattens nested structures into a single stream.
 
 **Example:**
 
 ```java
-List <String > namelist=names.stream().filter(n- >n.contains( "J ")).collect(Collectors.toList());
-System.out.println(namelist); //output :  [John, Jane ]
+List<List<Integer>> listOfLists = Arrays.asList(
+    Arrays.asList(1, 2),
+    Arrays.asList(3, 4),
+    Arrays.asList(5, 6)
+);
+
+List<Integer> flattenedList = listOfLists.stream()
+    .flatMap(List::stream)
+    .collect(Collectors.toList());
+
+System.out.println(flattenedList); // [1, 2, 3, 4, 5, 6]
 ```
 
-- **reduce(BinaryOperator <T > accumulator)**
+------
 
-**Definition:** Reduces the stream to a single value by repeatedly applying an accumulator function.
+## 🔹 Terminal Operations (End Stream)
+
+Terminal operations **produce a result** and close the stream.
+
+------
+
+##### 1. `forEach(Consumer<T> action)`
+
+**Definition:** Performs action on each element.
 
 **Example:**
 
 ```java
-List <Integer > num = Arrays.asList(2,4,5,6,7);
+List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
 
-Integer total=num.stream().reduce((a,b)- >a+b).orElse(0);
+names.stream()
+    .forEach(n -> System.out.print(n.toUpperCase() + " "));
 
-System.out.println( total);
+// Output: JOHN JANE MIKE ALICE
 ```
 
-- **count()**
+------
 
-**Definition:** Returns the number of elements in the stream.
+##### 2. `collect(Collector<T, A, R> collector)`
+
+**Definition:** Converts stream into a collection or result.
 
 **Example:**
 
 ```java
-List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
+List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
+
+List<String> nameList = names.stream()
+    .filter(n -> n.contains("J"))
+    .collect(Collectors.toList());
+
+System.out.println(nameList); // [John, Jane]
+```
+
+------
+
+##### 3. `reduce(BinaryOperator<T> accumulator)`
+
+**Definition:** Reduces elements to a single value.
+
+**Example:**
+
+```java
+List<Integer> nums = Arrays.asList(2, 4, 5, 6, 7);
+
+int total = nums.stream()
+    .reduce((a, b) -> a + b)
+    .orElse(0);
+
+System.out.println(total);
+```
+
+------
+
+##### 4. `count()`
+
+**Definition:** Counts elements.
+
+**Example:**
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 
 long count = numbers.stream().count();
 
-System.out.println(count); // Output: 5
+System.out.println(count); // 5
 ```
 
-- **findFirst() and findAny()**
+------
 
-**Definition:** Returns an Optional describing the first or any element of the stream, respectively.
+##### 5. `findFirst()` and `findAny()`
+
+**Definition:** Returns first or any element as Optional.
 
 **Example:**
 
 ```java
-List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-long first = numbers.stream().findFirst().orElse(0);
+int first = numbers.stream().findFirst().orElse(0);
+int any = numbers.stream().findAny().orElse(0);
 
-long any = numbers.stream().findAny().orElse(0);
-
-System.out.println(first); // Output: 1
-
-System.out.println(any); // Output: 1
+System.out.println(first); // 1
+System.out.println(any);   // 1
 ```
 
-- **min(Comparator <? super T > comparator) and max(Comparator <? super
-  T > comparator)**
+------
 
-**Definition:** Returns an Optional containing the minimum or maximum element according to the specified comparator.
+##### 6. `min()` and `max()`
+
+**Definition:** Finds minimum or maximum element.
 
 **Example:**
 
 ```java
-List <Integer > numbers = Arrays.asList(1, 2, 3, 4, 5);
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 
-long min = numbers.stream().min((a,b)- >a.compareTo(b)).orElse(0);
+int min = numbers.stream()
+    .min(Integer::compareTo)
+    .orElse(0);
 
-long max = numbers.stream().max((a,b)- >a.compareTo(b)).orElse(0);
+int max = numbers.stream()
+    .max(Integer::compareTo)
+    .orElse(0);
 
-System.out.println(min); // Output: 1
-
-System.out.println(max); // Output: 5
+System.out.println(min); // 1
+System.out.println(max); // 5
 ```
 
-- **allMatch(Predicate <? super T > predicate), anyMatch(Predicate <?
-  super T > predicate), noneMatch(Predicate <? super T > predicate)**
+------
 
-**Definition**: Evaluate whether the stream elements satisfy the given predicate.
+##### 7. `allMatch()`, `anyMatch()`, `noneMatch()`
+
+**Definition:** Checks conditions on elements.
 
 **Example:**
 
 ```java
-List <Integer > num2 = Arrays.asList(2, 4, 6, 8);
-boolean allEven = num2.stream().allMatch(n - > n % 2 == 0);
-System.out.println(allEven); // Output: true
+List<Integer> nums = Arrays.asList(2, 4, 6, 8);
+
+boolean allEven = nums.stream()
+    .allMatch(n -> n % 2 == 0);
+
+System.out.println(allEven); // true
 ```
 
+------
+
+##### 🔹 Summary
+
+- Intermediate → lazy, return stream
+- Terminal → produce result, end stream
+- Streams improve **readability + performance**
+
+---
+
+![](./media/media/break.png){ width=10% }
 
 ###  Default & Static Methods in Interfaces
 
@@ -2996,8 +3054,12 @@ Example:
 interface Vehicle {
 default void start() {
 System.out.println("Vehicle is starting");
-}}
+}
 ```
+
+
+
+
 
 ### Default Methods in Interface
 
