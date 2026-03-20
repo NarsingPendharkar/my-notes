@@ -305,17 +305,25 @@ Service Discovery Types
 
 #### API Gateway
 
-🔹 Definition
+**🔹 Definition**
 
 API Gateway is a single-entry point for all client requests in a microservices architecture.It routes, filters, secures, and manages all incoming requests to the appropriate microservice.
 
-🔹 Purpose
+```mermaid
+flowchart LR
+    A[Client / User] --> B[API Gateway]
+    B --> C[User Service]
+    B --> D[Order Service]
+    B --> E[Product Service]
+```
+
+**🔹 Purpose**
 
 1. Acts as a front door for all microservices.
 2. Receives client requests → forwards to correct microservice →
    returns response to the client.
 
-🔹 Key Functions
+**🔹 Key Functions**
 
 1.  Routing: Directs requests to the right microservice.
 
@@ -331,7 +339,7 @@ API Gateway is a single-entry point for all client requests in a microservices a
 5.  Monitoring: Logs and tracks API calls for analytics and
     debugging.
 
-🔹 Example (Spring Cloud Gateway)
+**🔹 Example (Spring Cloud Gateway)**
 
 ```yaml
 spring:
@@ -351,10 +359,10 @@ predicates:
 - Path=/students/
 ```
 
-📘 Explanation:
+**📘 Explanation:**
 Any request to /students/ will be routed to the Student Service   running on port 8081.
 
-🔹 Real-Life Example
+**🔹 Real-Life Example**
 
 API Gateway works like a reception desk in a company:
 
@@ -362,6 +370,10 @@ API Gateway works like a reception desk in a company:
 
 - The receptionist (gateway) sends them to the correct department
   (microservice).
+
+An **API Gateway** is a key component in **microservices architecture**—it acts as a **single entry point** for all client requests.
+
+
 
 ---
 
