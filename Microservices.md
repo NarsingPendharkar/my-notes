@@ -66,7 +66,66 @@ It is an architectural design pattern
 
 ------
 
-### Monolith vs Microservices
+Nice—let’s turn your base diagram into **two clear architectures**: **Monolithic** vs **Microservices** so you can compare them visually.
+
+------
+
+# 🏢 Monolithic Architecture
+
+All components are tightly coupled and run as a single application.
+
+```mermaid
+architecture-beta
+    group app(cloud)[Monolithic App]
+
+    service server(server)[Application Server] in app
+    service db(database)[Database] in app
+ 
+
+    server:R -- L:db
+
+```
+
+### 🧠 Key Idea:
+
+- One **single server** handles everything
+- One **shared database**
+- Simple but harder to scale
+
+------
+
+# ⚙️ Microservices Architecture
+
+Each service is independent and communicates via APIs.
+
+```mermaid
+architecture-beta
+    group api(cloud)[API Layer]
+
+    service gateway(server)[API Gateway] in api
+
+    group services(cloud)[Microservices]
+
+    service userSvc(server)[User Service] in services
+    service orderSvc(server)[Order Service] in services
+    service productSvc(server)[Product Service] in services
+
+    service userDB(database)[User DB] in services
+    service orderDB(database)[Order DB] in services
+    service productDB(database)[Product DB] in services
+
+    gateway:B -- T:userSvc
+    gateway:B -- T:orderSvc
+    gateway:B -- T:productSvc
+
+    userSvc:R -- L:userDB
+    orderSvc:R -- L:orderDB
+    productSvc:R -- L:productDB
+
+
+```
+
+### ⚖️Monolith vs Microservices
 
 | Aspect        | Monolithic Architecture          | Microservices Architecture                   |
 | ------------- | -------------------------------- | -------------------------------------------- |
@@ -328,8 +387,8 @@ Load Balancing is the process of distributing incoming network requests across m
 🔹 How It Works
 
 1. When multiple instances of a service (e.g., *Student-Service*) are
-  running,
-  the Load Balancer decides which instance should handle the request.
+    running,
+    the Load Balancer decides which instance should handle the request.
 
 2. It can use different algorithms like:
 
