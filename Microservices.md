@@ -238,20 +238,19 @@ There is no fixed architecture for micro services development. We can customize 
 
 #### 🔹 Service Discovery
 
-It's the mechanism to automatically detect network locations (IP &
-Port) of services.
+It's the mechanism to automatically detect network locations (IP & Port) of services.
 
 🧠 *Example:*
 When Course-Service wants to call Student-Service, itasks the Discovery Server for the address instead of hardcoding it.
 
-🔹 Service Registry
+**🔹 Service Registry**
 
 It's the database (or directory) where all microservices register their IP and port when they start.
 👉 Discovery Service uses this registry to help other services find each other.
 
 🧠 *Think of it as a phonebook for microservices.*
 
-🔹 How It Works
+**🔹 How It Works**
 
 1.  Each microservice starts → registers itself with the Discovery Server.
     
@@ -261,7 +260,7 @@ It's the database (or directory) where all microservices register their IP and p
     
 4.  If multiple instances exist → Load Balancer chooses one.
 
-Why We Need Service Discovery
+**Why We Need Service Discovery**
 
 - In Microservices, each service (Address, Student, Course, etc.) runs on different IPs and ports.
   
@@ -269,7 +268,7 @@ Why We Need Service Discovery
 
 - Solution → Service Discovery & Service Registry (provided by Spring Cloud).
 
-Service Discovery Types
+**Service Discovery Types**
 
 | Type                  | Description                                                  | Example                           |
 | --------------------- | ------------------------------------------------------------ | --------------------------------- |
