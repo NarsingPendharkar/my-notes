@@ -1,4 +1,4 @@
-Spring Boot Microservices
+# **Spring Boot Microservices**
 
 ### What is Monolithic Architecture?
 
@@ -64,13 +64,9 @@ It is an architectural design pattern
   
 - In microservice architecture we might not get chance to work with all apis in the application.
 
-------
+---
 
-Nice—let’s turn your base diagram into **two clear architectures**: **Monolithic** vs **Microservices** so you can compare them visually.
-
-------
-
-# 🏢 Monolithic Architecture
+## 🏢 Monolithic Architecture
 
 All components are tightly coupled and run as a single application.
 
@@ -86,15 +82,9 @@ architecture-beta
 
 ```
 
-### 🧠 Key Idea:
-
-- One **single server** handles everything
-- One **shared database**
-- Simple but harder to scale
-
 ------
 
-# ⚙️ Microservices Architecture
+## ⚙️ Microservices Architecture
 
 Each service is independent and communicates via APIs.
 
@@ -125,7 +115,7 @@ architecture-beta
 
 ```
 
-### ⚖️Monolith vs Microservices
+## ⚖️Monolith vs Microservices
 
 | Aspect        | Monolithic Architecture          | Microservices Architecture                   |
 | ------------- | -------------------------------- | -------------------------------------------- |
@@ -135,7 +125,7 @@ architecture-beta
 | Deployment    | One deployment for all features  | Independent deployment per service           |
 | Change Impact | One bug can impact the whole app | Failures are isolated to individual services |
 
-#### When to Use Microservices
+### When to Use Microservices
 
 - Large and complex applications
 
@@ -147,9 +137,9 @@ architecture-beta
 
 - Support for different technologies (polyglot architecture)
 
-Pros and Cons :
+**Pros and Cons :**
 
-Pros:
+**Pros:**
 
 - Independent development & deployment
 
@@ -159,7 +149,7 @@ Pros:
 
 - Fault isolation improves system resilience
 
-Cons:
+**Cons:**
 
 - Higher operational complexity
 
@@ -171,7 +161,7 @@ Cons:
 
 ---
 
-### What are the key benefits of microservices?
+## What are the key benefits of microservices?
 
 - Scalability: Independent services can scale separately.
 
@@ -186,7 +176,7 @@ Cons:
 
 ---
 
-### What are the challenges of microservices?
+## What are the challenges of microservices?
 
 - Service Discovery & Communication (Eureka, Consul)
 
@@ -200,7 +190,7 @@ Cons:
 
 ---
 
-### Microservices Architecture & Key Components
+## Microservices Architecture & Key Components
 
 #### Core Components
 
@@ -216,7 +206,7 @@ Cons:
 
 ---
 
-### Communication Patterns
+## Communication Patterns
 
 | Type         | Description                                                  | Example / Tools                            |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------ |
@@ -225,7 +215,7 @@ Cons:
 
 ---
 
-### Common Design Patterns in Microservices
+## Common Design Patterns in Microservices
 
 | Pattern                                         | Purpose                                                      | Example Tool / Concept               |
 | ----------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
@@ -236,7 +226,7 @@ Cons:
 
 ---
 
-### Microservices Architecture
+## Microservices Architecture
 
 There is no fixed architecture for micro services development. We can customize micro services architecture according to our project requirement.
 
@@ -244,7 +234,7 @@ There is no fixed architecture for micro services development. We can customize 
 > incorrect.](./media/media/image5.jpeg){width="4.7230391513560805in"
 > height="1.9015594925634296in"}
 
-### Service Discovery & Service Registry:
+## Service Discovery & Service Registry:
 
 #### 🔹 Service Discovery
 
@@ -303,7 +293,7 @@ Service Discovery Types
 
 ---
 
-#### API Gateway
+## API Gateway
 
 **🔹 Definition**
 
@@ -377,7 +367,7 @@ An **API Gateway** is a key component in **microservices architecture**—it act
 
 ---
 
-### ⚖️ Load Balancing in Spring Boot Microservices
+## ⚖️ Load Balancing in Spring Boot Microservices
 
 🔹 Definition
 
@@ -523,7 +513,7 @@ height="1.3125in"}
 
 ----
 
-### 🔄 Communication Patterns Microservices
+## 🔄 Communication Patterns Microservices
 
 🔹 Introduction
 
@@ -1280,480 +1270,332 @@ optimization.
 
 - Reads: Elasticsearch for fast querying
 
----
 
 
+------
 
-### Steps to create Microservice application 
+# ✅Steps to Create Microservices Application
 
-1.  ##### Create spring boot application for student
+------
 
-```java
-@Entity
+## 🔷 Step 1: Create Eureka Server (Service Registry)
 
-@Table(name = "address")
+👉 This is the heart of service discovery
 
-public class Address {
-
-@Id
-
-@GeneratedValue(strategy = GenerationType.*IDENTITY*)
-
-@Column(name = "id")
-
-private Long id;
-
-@Column(name = "street")
-
-private String street;
-
-@Column(name = "city")
-
-private String city;}
-```
-
-```java
-@Repository
-
-public interface AddressRepository extends
-JpaRepository<Address, Long> {
-
-Optional<Address> findById(long id);
-
-}
-```
-
-```java
-@Service
-
-public class AddressService {
-
-Logger logger=LoggerFactory.getLogger(AddressService.class);
-
-@Autowired AddressRepository addressRepository;
-
-public Address saveAddress(Address newaAddress) {
-
-return addressRepository.save(newaAddress);
-
-}
-
-public Address findAddressById(long id) {
-
-logger.info("called method ");
-
-return addressRepository.findById(id).orElse(null);
-
-}
-
-}
-```
-
-```java
-@RestController
-
-@RequestMapping("/api/address")
-
-public class AddressController {
-
-@Autowired AddressService addressService;
-
-@GetMapping("/getbyId/{id}")
-
-public Address getAddress(@PathVariable long id) {
-
-return addressService.findAddressById(id);
-
-}
-
-@PostMapping("/create")
-
-public Address getAddress(@RequestBody Address address) {
-
-return addressService.saveAddress(address);
-
-}
-
-}
-```
-
-```properties
-spring.application.name=address-service
-
-server.port=8281
-
-spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
-
-spring.datasource.url=jdbc:mysql://localhost:3306/micro
-
-spring.datasource.username=root
-
-spring.datasource.password=root
-
-spring.jpa.hibernate.ddl-auto=update
-
-spring.jpa.show-sql=true
-
-server.servlet.session.timeout=1800
-
-spring.jpa.properties.hibernate.format_sql=true
-
-spring.cache.type=simple
-
-eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
-
-eureka.instance.instance-id=${spring.application.name}:${server.port}
-```
-
-**Add dependency to call instance in Eureka server**
-
-```xml
-<dependency>
-
-<groupId>org.springframework.cloud</groupId>
-
-<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-
-<version>4.2.1</version>
-
-</dependency>
-```
-
-
-
-2.  ##### Create spring boot application for Address
-
-```java
-@Entity
-
-@Table(name = "student")
-
-public class Student {
-
-@Id
-
-@GeneratedValue(strategy = GenerationType.*IDENTITY*)
-
-@Column(name = "id")
-
-private Long id;
-
-@Column(name = "first_name")
-
-private String firstName;
-
-@Column(name = "last_name")
-
-private String lastName;
-
-@Column(name = "email")
-
-private String email;
-
-@Column(name = "address_id")
-
-private long addressId;}
-```
-
-```java
-@Repository
-
-public interface StudentRepository extends
-JpaRepository<Student, Long>{
-
-Optional<Student> findById(long id);
-
-}
-```
-
-```java
-@Service
-
-public class StudentService {
-
-@Autowired StudentRepository studentRepository;
-
-@Autowired WebClient webClient;
-
-public Student saveStudent(Student newStudent) {
-
-return studentRepository.save(newStudent);
-
-}
-
-public Student findAddressById(long id) {
-
-return studentRepository.findById(id).orElse(null);
-
-}
-
-public AddressDTO findstudentAddress(long id) {
-
-Mono<AddressDTO> stdAddress=
-webClient.get().uri("/getbyId/"+id).retrieve().bodyToMono(AddressDTO.class);
-
-return stdAddress.block();
-
-}
-
-}
-```
-
-```java
-public class AddressDTO {
-
-private long id;
-
-private String street;
-
-private String city;
-
-public class StudentDTO {
-
-private Long id;
-
-private String firstName;
-
-private String lastName;
-
-private String email;
-private AddressDTO studentAddress;}
-```
-
-
-
-```java
-@Configuration
-
-public class StudentConfig {
-
-@Value("${address.service.url}")
-
-private String addressServiceURL;
-
-@Bean
-
-public WebClient webClient() {
-
-return WebClient.builder()
-
-.baseUrl(addressServiceURL)
-
-.defaultHeader(HttpHeaders.*CONTENT_TYPE*,
-MediaType.*APPLICATION_JSON_VALUE*)
-
-.build();
-
-}
-
-}
-```
-
-```java
-@Component
-
-// below used when we are not using [eureka] server
-
-//@FeignClient([url]="${address.service.feignclienturl}", path = "/[api]/address" , value ="address-feignclient")
-
-// use this with [eureka] server
-
-@FeignClient(value = "ADDRESS-SERVICE", path = "/api/address")
-
-public interface AddressFeignClient {
-
-    @GetMapping("/getbyId/{id}")
-
-    public Optional<AddressDTO>getAddressUsingFeignClient(@PathVariable long id);
-
-}
-```
-
-```properties
-spring.application.name=student-services
-
-server.port=8285
-
-spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
-
-spring.datasource.url=jdbc:mysql://localhost:3306/micro
-
-spring.datasource.username=root
-
-spring.datasource.password=root
-
-spring.jpa.hibernate.ddl-auto=update
-
-spring.jpa.show-sql=true
-
-server.servlet.session.timeout=1800
-
-spring.jpa.properties.hibernate.format_sql=true
-
-spring.cache.type=simple
-
-address.service.url=http://localhost:8283/api/address/
-
-address.service.feignclienturl=http://localhost:8283
-#eureka server
-
-eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
-
-eureka.instance.instance-id=${spring.application.name}:${server.port}
-```
-
-#### 3. Call address application url in student application using webclient or resttemplate
-
-#### 4. Also we can user feigncinet
-
-#### 5. Also use eureka server for automatic url calling
+### Main Class
 
 ```java
 @SpringBootApplication
-
 @EnableEurekaServer
-
 public class EurekaServerApplication {
-
-public static void main(String[] args) {
-
-SpringApplication.run(EurekaServerApplication.class, args);
-
-}
-
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
 }
 ```
 
+### application.properties
+
 ```properties
-#Application.properties
-
 spring.application.name=eureka-server
-
 server.port=8761
 
 eureka.client.register-with-eureka=false
-
 eureka.client.fetch-registry=false
 ```
 
+------
 
+## 🔷 Step 2: Create Address Microservice
 
-# Step-by-Step Microservices Creation (Spring Boot + Eureka)
+👉 This service manages address data
 
-This is a typical flow for building microservices using:
-- Spring Boot
-- Eureka (Service Discovery)
-- Feign/WebClient (Service Communication)
+### 1. Entity
 
-```mermaid
-graph TD;
+```java
+@Entity
+@Table(name = "address")
+public class Address {
 
-    %% Step 1
-    Step1[1️⃣ Create Eureka Server<br/>@EnableEurekaServer<br/>Port: 8761]
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    %% Step 2
-    Step2[2️⃣ Create Address Service<br/>Register with Eureka]
-
-    %% Step 3
-    Step3[3️⃣ Create Student Service<br/>Call Address Service]
-
-    %% Step 4
-    Step4[4️⃣ Use DTOs<br/>StudentDTO + AddressDTO]
-
-    %% Step 5
-    Step5[5️⃣ Enable Feign Clients<br/>@EnableFeignClients]
-
-    %% Step 6
-    Step6[6️⃣ Choose Communication<br/>WebClient / Feign / RestTemplate]
-
-    %% Step 7
-    Step7[7️⃣ Test Locally<br/>Different Ports]
-
-    %% Step 8
-    Step8[8️⃣ Optional: Add API Gateway<br/>Routing & Load Balancing]
-
-    %% Flow
-    Step1 --> Step2
-    Step2 --> Step3
-    Step3 --> Step4
-    Step4 --> Step5
-    Step5 --> Step6
-    Step6 --> Step7
-    Step7 --> Step8
-
-    %% Styling
-    style Step1 fill:#ffd580,stroke:#333,stroke-width:2px
-    style Step2 fill:#bfb,stroke:#333,stroke-width:1px
-    style Step3 fill:#bfb,stroke:#333,stroke-width:1px
-    style Step4 fill:#bbf,stroke:#333,stroke-width:1px
-    style Step5 fill:#bbf,stroke:#333,stroke-width:1px
-    style Step6 fill:#f9f,stroke:#333,stroke-width:1px
-    style Step7 fill:#d5f5e3,stroke:#333,stroke-width:1px
-    style Step8 fill:#f7dc6f,stroke:#333,stroke-width:2px
+    private String street;
+    private String city;
+}
 ```
 
----
+------
 
-| Step | Description                                                  | Interview Important Points                                   |
-| ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 1️⃣    | **Create Eureka Server** → Add dependency, use `@EnableEurekaServer`, set `server.port=8761` | Central registry where services register themselves          |
-| 2️⃣    | **Create Address Service** → Register with Eureka using `spring.application.name=address-service` | Must add `@EnableDiscoveryClient` (if required) and Eureka client dependency |
-| 3️⃣    | **Create Student Service** → Call Address Service using WebClient or FeignClient | Demonstrates service-to-service communication                |
-| 4️⃣    | **Use DTOs** → `StudentDTO` + `AddressDTO` for response objects | Avoid exposing entity classes directly                       |
-| 5️⃣    | **Enable Feign Clients** → Add `@EnableFeignClients` in main class | Required to activate Feign interface scanning                |
-| 6️⃣    | **Communication Options** → WebClient, RestTemplate, or Feign | Prefer Feign (clean code) or WebClient (reactive)            |
-| 7️⃣    | **Test Locally** → Run Eureka, Address, Student services on different ports | Example: 8761 (Eureka), 8081 (Address), 8082 (Student)       |
-| 8️⃣    | **(Optional) Add Spring Cloud Gateway** → Centralized routing and load balancing | Acts as API Gateway for security, routing, rate limiting     |
+### 2. Repository
 
----
-
-# Basic Flow Architecture
-
-
-
-```mermaid
-graph TD;
-
-    %% Client Layer
-    Client[👤 Client]
-
-    %% Gateway Layer
-    Gateway[🚪 API Gateway]
-
-    %% Service Layer
-    subgraph Microservices
-        StudentService[🎓 Student Service]
-        AddressService[📍 Address Service]
-    end
-
-    %% Service Discovery
-    Eureka[(🗂 Eureka Server)]
-
-    %% Flow
-    Client --> Gateway
-    Gateway --> StudentService
-    StudentService --> AddressService
-
-    %% Service Registration
-    StudentService --> Eureka
-    AddressService --> Eureka
-    Gateway --> Eureka
-
-    %% Styling
-    style Client fill:#f9f,stroke:#333,stroke-width:1px
-    style Gateway fill:#bbf,stroke:#333,stroke-width:1px
-    style StudentService fill:#bfb,stroke:#333,stroke-width:1px
-    style AddressService fill:#bfb,stroke:#333,stroke-width:1px
-    style Eureka fill:#ffd580,stroke:#333,stroke-width:2px
+```java
+@Repository
+public interface AddressRepository extends JpaRepository<Address, Long> {
+}
 ```
 
-##### Description
+------
 
-- **Client** sends request.
-- **Gateway (Optional)** handles routing, security, and load balancing.
-- **Student Service** processes request and calls Address Service.
-- **Address Service** returns address data.
-- All services **register with Eureka Server** for service discovery.
+### 3. Service
+
+```java
+@Service
+public class AddressService {
+
+    @Autowired
+    private AddressRepository repository;
+
+    public Address save(Address address) {
+        return repository.save(address);
+    }
+
+    public Address getById(long id) {
+        return repository.findById(id).orElse(null);
+    }
+}
+```
+
+------
+
+### 4. Controller
+
+```java
+@RestController
+@RequestMapping("/api/address")
+public class AddressController {
+
+    @Autowired
+    private AddressService service;
+
+    @GetMapping("/{id}")
+    public Address get(@PathVariable long id) {
+        return service.getById(id);
+    }
+
+    @PostMapping
+    public Address create(@RequestBody Address address) {
+        return service.save(address);
+    }
+}
+```
+
+------
+
+### 5. application.properties
+
+```properties
+spring.application.name=ADDRESS-SERVICE
+server.port=8281
+
+spring.datasource.url=jdbc:mysql://localhost:3306/micro
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+```
+
+------
+
+## 🔷 Step 3: Create Student Microservice
+
+👉 This service calls Address service
+
+------
+
+### 1. Entity
+
+```java
+@Entity
+@Table(name = "student")
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String firstName;
+    private String lastName;
+    private String email;
+
+    private long addressId;
+}
+```
+
+------
+
+### 2. Repository
+
+```java
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Long> {
+}
+```
+
+------
+
+### 3. DTO Classes
+
+```java
+public class AddressDTO {
+    private long id;
+    private String street;
+    private String city;
+}
+
+public class StudentDTO {
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private AddressDTO address;
+}
+```
+
+------
+
+### 4. Feign Client (Recommended ✅)
+
+```java
+@FeignClient(name = "ADDRESS-SERVICE", path = "/api/address")
+public interface AddressFeignClient {
+
+    @GetMapping("/{id}")
+    AddressDTO getAddress(@PathVariable long id);
+}
+```
+
+------
+
+### 5. Service
+
+```java
+@Service
+public class StudentService {
+
+    @Autowired
+    private StudentRepository repository;
+
+    @Autowired
+    private AddressFeignClient feignClient;
+
+    public Student save(Student student) {
+        return repository.save(student);
+    }
+
+    public StudentDTO getStudent(long id) {
+        Student student = repository.findById(id).orElse(null);
+
+        AddressDTO address = feignClient.getAddress(student.getAddressId());
+
+        StudentDTO dto = new StudentDTO();
+        dto.setId(student.getId());
+        dto.setFirstName(student.getFirstName());
+        dto.setLastName(student.getLastName());
+        dto.setEmail(student.getEmail());
+        dto.setAddress(address);
+
+        return dto;
+    }
+}
+```
+
+------
+
+### 6. Controller
+
+```java
+@RestController
+@RequestMapping("/api/student")
+public class StudentController {
+
+    @Autowired
+    private StudentService service;
+
+    @GetMapping("/{id}")
+    public StudentDTO getStudent(@PathVariable long id) {
+        return service.getStudent(id);
+    }
+}
+```
+
+------
+
+### 7. Main Class
+
+```java
+@SpringBootApplication
+@EnableFeignClients
+public class StudentApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(StudentApplication.class, args);
+    }
+}
+```
+
+------
+
+### 8. application.properties
+
+```properties
+spring.application.name=STUDENT-SERVICE
+server.port=8285
+
+spring.datasource.url=jdbc:mysql://localhost:3306/micro
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=update
+
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+```
+
+------
+
+## 🔷 Step 4: Add Required Dependencies
+
+### Eureka Client
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+```
+
+### Feign Client
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+</dependency>
+```
+
+------
+
+## 🔷 Step 5: Run Order
+
+1. Start Eureka Server
+2. Start Address Service
+3. Start Student Service
+
+------
+
+## 🔁 Final Architecture Flow
+
+```mermaid
+flowchart LR
+    A[Client] --> B[Eureka Server]
+    A --> C[Student Service]
+    C --> D[Address Service]
+    D --> DB[(Database)]
+    C --> DB2[(Database)]
+```
 
 ----
 
