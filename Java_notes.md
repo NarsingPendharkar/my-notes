@@ -16,19 +16,18 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ##### 🌟 Top Java Features
 
-| Feature                  | Description                                                  |
-| :----------------------- | :----------------------------------------------------------- |
-| **Simple**               | Easy to learn and use                                        |
-| **Platform Independent** | Same code can run on any machine having JVM                  |
+| Feature                  | Description                                                          |
+| :----------------------- | :------------------------------------------------------------------- |
+| **Simple**               | Easy to learn and use                                                |
+| **Platform Independent** | Same code can run on any machine having JVM                          |
 | **Object-Oriented**      | Supports OOPs concepts like Class, Object, Inheritance, Polymorphism |
-| **Secure**               | Provides runtime security and bytecode verification          |
-| **Robust**               | Strong memory management and exception handling              |
-| **Garbage Collection**   | Automatic memory cleanup                                     |
-| **Multithreading**       | Allows concurrent execution of multiple threads              |
-| **High Performance**     | Uses JIT (Just-In-Time) compiler for optimized execution     |
+| **Secure**               | Provides runtime security and bytecode verification                  |
+| **Robust**               | Strong memory management and exception handling                      |
+| **Garbage Collection**   | Automatic memory cleanup                                             |
+| **Multithreading**       | Allows concurrent execution of multiple threads                      |
+| **High Performance**     | Uses JIT (Just-In-Time) compiler for optimized execution             |
 
 ---
-
 ### ⚙️ What is JVM?
 
 - **JVM** stands for **Java Virtual Machine**.  
@@ -378,6 +377,8 @@ Car(Car c) { this.brand = c.brand; }
 ![](./media/media/image18.png){width="3.208581583552056in"
 height="2.438779527559055in"}
 
+---
+
 ### What happens if a class doesn't have a constructor?
 
 - JVM provides a default constructor automatically.
@@ -690,16 +691,22 @@ class Test {
 Memory allocation
 
 ```mermaid
-flowchart TD
-    A[Method Area]
-    A --> B[Static variable x]
+flowchart TB
+    A["Method Area"] --> B["Static variable x"]
+    C(["Stack"]) --> D["a = 5"] & E["Reference s"]
+    F["Heap"] --> G["Student Object"]
 
-    C[Stack]
-    C --> D[a = 5]
-    C --> E[Reference s]
-
-    F[Heap]
-    F --> G[Student Object]
+    A@{ shape: rounded}
+    F@{ shape: cyl}
+     A:::Pine
+    classDef Aqua stroke-width:1px, stroke-dasharray:none, stroke:#46EDC8, fill:#DEFFF8, color:#378E7A
+    classDef Pine stroke-width:1px, stroke-dasharray:none, stroke:#254336, fill:#27654A, color:#FFFFFF
+    style A fill:#FF6D00,color:#ffffff
+    style B fill:#E1BEE7
+    style C fill:#00C853,color:#ffffff
+    style D fill:#C8E6C9
+    style E fill:#C8E6C9
+    style F fill:#FFD600,color:#ffffff
 ```
 
 ------
