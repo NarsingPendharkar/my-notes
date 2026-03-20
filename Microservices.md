@@ -275,12 +275,12 @@ It's the database (or directory) where all microservices register their IP and p
 | Client-Side Discovery | Client queries the registry and selects an instance.         | Netflix Eureka, Zookeeper, Consul |
 | Server-Side Discovery | Client sends request to a load balancer, which selects the service instance. | NGINX, AWS ELB                    |
 
-🔹 Real-Life example
+**🔹 Real-Life example**
 
 📞 Service Registry = Phonebook
 📲 Service Discovery = Calling someone using that phonebook
 
-🔹 In Spring Boot
+**🔹 In Spring Boot**
 
 ✅ Use Spring Cloud Netflix Eureka
 
