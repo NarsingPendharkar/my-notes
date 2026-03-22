@@ -3292,16 +3292,16 @@ The volatile keyword ensures that a **variable's value is always read from main 
 ```java
 class VolatileExample {
 
-private static volatile boolean running = true;
+    private static volatile boolean running = true;
 
-public static void main(String[] args) throws InterruptedException {
-Thread t1 = new Thread(() -> {
-while (running) {} // Busy wait
-System.out.println("Thread Stopped"); });
-t1.start();
-Thread.sleep(1000);
-running = false; // Stops the thread
-}
+    public static void main(String[] args) throws InterruptedException {
+        Thread t1 = new Thread(() -> {
+            while (running) {} // Busy wait
+            System.out.println("Thread Stopped"); });
+        t1.start();
+        Thread.sleep(1000);
+        running = false; // Stops the thread
+    }
 ```
 
 ---
