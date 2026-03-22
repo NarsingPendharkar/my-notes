@@ -1,10 +1,6 @@
 # Spring Framework
 
-[TOC]
-
-
-
-# **Spring**
+# Spring
 
 ### **What are the key features of the Spring Framework?**
 
@@ -4817,16 +4813,6 @@ Reactive manages this automatically.
 - Streaming data
 - Microservices architecture
 - Real-time updates
-
----
-
-Here are your **clean, structured Markdown notes** for JWT Authentication in Spring Boot — ready for revision, interviews, or documentation 👇
-
-------
-
-Perfect 👍 — now I’ll give you **complete JWT notes + your exact code snippets (cleaned & structured)** in **proper Markdown format**.
-
-This is **perfect for revision + interview + documentation** 🚀
 
 ------
 
