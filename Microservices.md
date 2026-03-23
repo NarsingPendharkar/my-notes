@@ -188,11 +188,11 @@ There is no fixed architecture for microservices development. We can customize m
 
 ---
 
-Here are your notes rewritten in a **clean, structured, interview-ready format** like above 👇
 
-------
 
-# Discovery & Service Registry 
+
+
+<div align="center"><h1 >◆◆◆ Discovery & Service Registry  ◆◆◆</h1></div>
 
 #### 📌 What is Service Discovery?
 
