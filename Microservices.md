@@ -16,23 +16,23 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 
 ### What are Microservices?
 
-Definition:
+**Definition:**
 Microservices is an architectural style where an application is divided into small, independent services that communicate via APIs (usually REST). Each service focuses on a specific business capability and can be developed, deployed, and scaled independently.
 
-Simplified Definition:
+**Simplified Definition:**
 "Microservices are small services that work together."
 
-Key Characteristics:
+**Key Characteristics:**
 
 - Small, independently deployable units
 - Each service owns its own data and logic
 - Communicate using lightweight protocols (HTTP/REST, messaging)
 - Designed for autonomy and resilience
 
-Analogy:
+**Analogy:**
 Each microservice is like a specialized shop in a mall the mall (system) still functions even if one shop closes.
 
-Key Points:
+**Key Points:**
 
 Microservices is not:
 
@@ -65,55 +65,6 @@ It is an architectural design pattern
 - In microservice architecture we might not get chance to work with all apis in the application.
 
 ---
-
-## 🏢 Monolithic Architecture
-
-All components are tightly coupled and run as a single application.
-
-```mermaid
-architecture-beta
-    group app(cloud)[Monolithic App]
-
-    service server(server)[Application Server] in app
-    service db(database)[Database] in app
- 
-
-    server:R -- L:db
-
-```
-
-------
-
-## ⚙️ Microservices Architecture
-
-Each service is independent and communicates via APIs.
-
-```mermaid
-architecture-beta
-    group api(cloud)[API Layer]
-
-    service gateway(server)[API Gateway] in api
-
-    group services(cloud)[Microservices]
-
-    service userSvc(server)[User Service] in services
-    service orderSvc(server)[Order Service] in services
-    service productSvc(server)[Product Service] in services
-
-    service userDB(database)[User DB] in services
-    service orderDB(database)[Order DB] in services
-    service productDB(database)[Product DB] in services
-
-    gateway:B -- T:userSvc
-    gateway:B -- T:orderSvc
-    gateway:B -- T:productSvc
-
-    userSvc:R -- L:userDB
-    orderSvc:R -- L:orderDB
-    productSvc:R -- L:productDB
-
-
-```
 
 ## ⚖️Monolith vs Microservices
 
@@ -163,16 +114,15 @@ architecture-beta
 
 ## What are the key benefits of microservices?
 
-- Scalability: Independent services can scale separately.
+- **Scalability:** Independent services can scale separately.
 
-- Resilience: Failure in one service doesn't bring down the entire
-  system.
+- **Resilience:** Failure in one service doesn't bring down the entire system.
+  
+- **Faster Development:** Teams can work on separate services.
 
-- Faster Development: Teams can work on separate services.
+- **Technology Agnostic:** Each service can use different tech stacks.
 
-- Technology Agnostic: Each service can use different tech stacks.
-
-- Deployment Independence: Services can be deployed separately.
+- **Deployment Independence:** Services can be deployed separately.
 
 ---
 
@@ -228,67 +178,109 @@ architecture-beta
 
 ## Microservices Architecture
 
-There is no fixed architecture for micro services development. We can customize micro services architecture according to our project requirement.
+There is no fixed architecture for microservices development. We can customize micro services architecture according to our project requirement.
 
 > ![A diagram of a service AI-generated content may be
 > incorrect.](./media/media/image5.jpeg){width="4.7230391513560805in"
 > height="1.9015594925634296in"}
 
-## Service Discovery & Service Registry:
+---
 
-#### 🔹 Service Discovery
+Here are your notes rewritten in a **clean, structured, interview-ready format** like above 👇
 
-It's the mechanism to automatically detect network locations (IP & Port) of services.
+------
 
-🧠 *Example:*
-When Course-Service wants to call Student-Service, itasks the Discovery Server for the address instead of hardcoding it.
+# 🔹 Service Discovery & Service Registry
 
-**🔹 Service Registry**
+#### 📌 What is Service Discovery?
 
-It's the database (or directory) where all microservices register their IP and port when they start.
-👉 Discovery Service uses this registry to help other services find each other.
+**Service Discovery** is a mechanism that helps microservices **automatically find the network location (IP & Port)** of other services.
 
-🧠 *Think of it as a phonebook for microservices.*
+🧠 **Example:** When *Course-Service* wants to call *Student-Service*, it **does NOT hardcode the URL**. Instead, it asks the discovery server → *“Where is Student-Service?”*
 
-**🔹 How It Works**
+#### 📌 What is Service Registry?
 
-1.  Each microservice starts → registers itself with the Discovery Server.
-    
-2.  Discovery Server keeps all active service details (name, IP, port).
+**Service Registry** is a **central database (directory)** where all microservices register themselves.
 
-3.  When one service wants another → it queries the Discovery Server.
-    
-4.  If multiple instances exist → Load Balancer chooses one.
+👉 It stores:
 
-**Why We Need Service Discovery**
+- Service Name
+- IP Address
+- Port
 
-- In Microservices, each service (Address, Student, Course, etc.) runs on different IPs and ports.
-  
-- Managing and finding these addresses manually is difficult.
+🧠 **Think of it as a phonebook for microservices 📞**
 
-- Solution → Service Discovery & Service Registry (provided by Spring Cloud).
+------
 
-**Service Discovery Types**
+##### ⚙️ How It Works (Step-by-Step)
 
-| Type                  | Description                                                  | Example                           |
-| --------------------- | ------------------------------------------------------------ | --------------------------------- |
-| Client-Side Discovery | Client queries the registry and selects an instance.         | Netflix Eureka, Zookeeper, Consul |
-| Server-Side Discovery | Client sends request to a load balancer, which selects the service instance. | NGINX, AWS ELB                    |
+1. Each microservice starts → **Registers itself** with the Discovery Server
+2. Discovery Server stores → *(Service Name, IP, Port)*
+3. Another service wants to call → **Queries the Discovery Server**
+4. If multiple instances exist → **Load Balancer selects one instance**
 
-**🔹 Real-Life example**
+------
 
-📞 Service Registry = Phonebook
-📲 Service Discovery = Calling someone using that phonebook
+#### ❓ Why Do We Need Service Discovery?
 
-**🔹 In Spring Boot**
+In Microservices:
 
-✅ Use Spring Cloud Netflix Eureka
+- Each service runs on **different IPs & Ports**
+- Services can **scale dynamically** (instances increase/decrease)
+- Hardcoding URLs becomes **difficult & unreliable**
 
-- Eureka Server → Discovery Server
+👉 **Solution:** Use Service Discovery + Service Registry
 
-- Eureka Client → Microservices registering themselves
+------
 
+## 🔹 Types of Service Discovery
 
+#### 1. Client-Side Discovery (client will decide)
+
+👉 Client asks registry and decides where to go
+
+##### 📊 Flow:
+
+1. Client → asks registry: *“Give me Student-Service instances”*
+2. Registry → returns list (IP1, IP2, IP3)
+3. Client → picks one (load balancing)
+4. Client → calls that service
+
+📌 **How it works:**
+
+- Client directly queries the registry
+- Gets all instances
+- Selects one (load balancing)
+
+✅ **Examples:**
+
+- Netflix Eureka
+- Apache ZooKeeper
+- Consul
+
+------
+
+#### 2. Server-Side Discovery (System will decide)
+
+👉 Client just sends request, system handles the rest
+
+##### 📊 Flow:
+
+1. Client → sends request to Load Balancer
+2. Load Balancer → asks registry
+3. Load Balancer → picks instance
+4. Request forwarded to service
+
+📌 **How it works:**
+
+- Client sends request to **Load Balancer**
+- Load Balancer queries registry
+- Forwards request to a service instance
+
+✅ **Examples:**
+
+- NGINX
+- AWS Elastic Load Balancer
 
 ---
 
@@ -296,7 +288,7 @@ It's the database (or directory) where all microservices register their IP and p
 
 **🔹 Definition**
 
-API Gateway is a single-entry point for all client requests in a microservices architecture.It routes, filters, secures, and manages all incoming requests to the appropriate microservice.
+API Gateway is a single-entry point for all client requests in a microservices architecture. It routes, filters, secures, and manages all incoming requests to the appropriate microservice.
 
 ```mermaid
 flowchart LR
@@ -309,24 +301,19 @@ flowchart LR
 **🔹 Purpose**
 
 1. Acts as a front door for all microservices.
-2. Receives client requests → forwards to correct microservice →
-   returns response to the client.
+2. Receives client requests → forwards to correct microservice → returns response to the client.
 
 **🔹 Key Functions**
 
-1.  Routing: Directs requests to the right microservice.
+1.  **Routing**: Directs requests to the right microservice.
 
-2.  Security: Manages authentication & authorization (e.g., JWT,
-    OAuth2).
-
-3.  Load Balancing: Distributes traffic evenly between service
-    instances.
-
-4.  Aggregation: Combines data from multiple services into one
-    response.
-
-5.  Monitoring: Logs and tracks API calls for analytics and
-    debugging.
+2.  **Security**: Manages authentication & authorization (e.g., JWT, OAuth2).
+    
+3.  **Load Balancing**: Distributes traffic evenly between service instances.
+    
+4.  **Aggregation**: Combines data from multiple services into one response.
+    
+5.  **Monitoring**: Logs and tracks API calls for analytics and debugging.
 
 **🔹 Example (Spring Cloud Gateway)**
 
@@ -349,7 +336,7 @@ predicates:
 ```
 
 **📘 Explanation:**
-Any request to /students/ will be routed to the Student Service   running on port 8081.
+Any request to /students/ will be routed to the Student Service running on port 8081.
 
 **🔹 Real-Life Example**
 
@@ -357,18 +344,15 @@ API Gateway works like a reception desk in a company:
 
 - All visitors (clients) enter through one desk.
 
-- The receptionist (gateway) sends them to the correct department
-  (microservice).
+- The receptionist (gateway) sends them to the correct department (microservice).
 
 An **API Gateway** is a key component in **microservices architecture**—it acts as a **single entry point** for all client requests.
-
-
 
 ---
 
 ## ⚖️ Load Balancing in Spring Boot Microservices
 
-🔹 Definition
+##### **🔹 Definition**
 
 Load Balancing is the process of distributing incoming network requests across multiple instances of the same microservice to ensure high availability, performance, and reliability.
 
@@ -377,7 +361,7 @@ Load Balancing is the process of distributing incoming network requests across m
 > ✅ Load Balancer = Traffic manager for microservices → distributes requests evenly for better performance and reliability.
 >
 
-🔹 Purpose
+##### 🔹 Purpose
 
 1. Prevents any single service instance from being overloaded.
 
@@ -385,19 +369,18 @@ Load Balancing is the process of distributing incoming network requests across m
 
 3. Ensures even traffic distribution among service instances.
 
-🔹 How It Works
+##### 🔹 How It Works
 
-1. When multiple instances of a service (e.g., *Student-Service*) are
-    running,
-    the Load Balancer decides which instance should handle the request.
-
+1. When multiple instances of a service (e.g., *Student-Service*) are running, the Load Balancer decides which instance should handle the request.
+    
 2. It can use different algorithms like:
 
-  Round Robin (default)
+-   Round Robin (default)
 
-  Random
+-   Random
 
-  Weighted Distribution
+-   Weighted Distribution
+
 
 #### 🔹 Types of Load Balancing
 
