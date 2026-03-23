@@ -495,17 +495,15 @@ height="1.3125in"}
 
 ----
 
-## 🔄 Communication Patterns Microservices
+<div align="center"><h1 style="color:red; text-shadow: 2px 2px 5px rgba(0,0,0,0.5);">🔄 Communication Patterns Microservices</h1></div>
 
-🔹 Introduction
+### **🔹 Introduction**
 
 In Microservices, communication happens between multiple independent services. There are two main types of communication patterns:
 
-- Synchronous (Direct & Real-time) : Direct API calls (waits for
-  response)
-
-- Asynchronous (Event-driven & Message-based) : Message-based (does
-  not wait, better scalability)
+- Synchronous (Direct & Real-time) : Direct API calls (waits for response)
+  
+- Asynchronous (Event-driven & Message-based) : Message-based (does not wait, better scalability)
 
 #### 1. Synchronous Communication in Spring Boot
 
