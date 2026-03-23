@@ -1263,7 +1263,7 @@ optimization.
 
 ------
 
-# ## Resilience Patterns (Microservices)
+# Resilience Patterns
 
 These patterns help build **fault-tolerant, stable, and scalable systems**—very important in fintech / banking systems.
 
@@ -1271,25 +1271,25 @@ These patterns help build **fault-tolerant, stable, and scalable systems**—ver
 
 # 🔹 1. Circuit Breaker Pattern
 
-## 🔸 Definition
+##### 🔸 Definition
 
 Circuit Breaker is a **fault tolerance pattern** that prevents repeated calls to a failing service by temporarily blocking requests.
 
 ------
 
-## 🔸 States of Circuit Breaker
+##### 🔸 States of Circuit Breaker
 
-### 1. Closed State (Normal)
+##### 1. Closed State (Normal)
 
 - Requests flow normally
 - Failures are monitored
 
-### 2. Open State (Failure)
+##### 2. Open State (Failure)
 
 - Too many failures → circuit opens
 - Requests are blocked immediately
 
-### 3. Half-Open State (Recovery)
+##### 3. Half-Open State (Recovery)
 
 - After timeout, limited requests allowed
 - Success → Closed
@@ -1297,7 +1297,7 @@ Circuit Breaker is a **fault tolerance pattern** that prevents repeated calls to
 
 ------
 
-## 🔸 Flow Diagram
+##### 🔸 Flow Diagram
 
 ```mermaid
 flowchart LR
@@ -1318,7 +1318,7 @@ flowchart LR
 
 ------
 
-## 🔸 Key Points
+#### 🔸 Key Points
 
 - Prevents cascading failures
 - Provides fallback responses
@@ -1326,7 +1326,7 @@ flowchart LR
 
 ------
 
-## 🔸 Real Example
+##### 🔸 Real Example
 
 Payment service is down:
 
@@ -1337,20 +1337,20 @@ Payment service is down:
 
 # 🔹 2. Bulkhead Pattern
 
-## 🔸 Definition
+##### 🔸 Definition
 
 Bulkhead pattern divides system into **independent isolated compartments**, so failure in one doesn’t affect others.
 
 ------
 
-## 🔸 Concept
+##### 🔸 Concept
 
 - Separate thread pools / resources
 - No shared overload
 
 ------
 
-## 🔸 Flow Diagram
+##### 🔸 Flow Diagram
 
 ```mermaid
 flowchart TD
@@ -1368,7 +1368,7 @@ flowchart TD
 
 ------
 
-## 🔸 Key Points
+##### 🔸 Key Points
 
 - Fault isolation
 - Better resource control
@@ -1376,7 +1376,7 @@ flowchart TD
 
 ------
 
-## 🔸 Real Example
+##### 🔸 Real Example
 
 - Payment service overloaded ❌
 - User & Order services continue working ✅
@@ -1385,13 +1385,13 @@ flowchart TD
 
 # 🔹 3. Retry Pattern
 
-## 🔸 Definition
+##### 🔸 Definition
 
 Retry pattern automatically **retries failed operations** to handle temporary failures.
 
 ------
 
-## 🔸 Flow Diagram
+##### 🔸 Flow Diagram
 
 ```mermaid
 flowchart LR
@@ -1407,7 +1407,7 @@ flowchart LR
 
 ------
 
-## 🔸 Key Points
+##### 🔸 Key Points
 
 - Handles transient failures
 - Should not retry indefinitely
@@ -1415,7 +1415,7 @@ flowchart LR
 
 ------
 
-## 🔸 Real Example
+#### 🔸 Real Example
 
 - Network glitch → retry → success
 
@@ -1423,20 +1423,20 @@ flowchart LR
 
 # 🔹 4. Backoff Pattern
 
-## 🔸 Definition
+##### 🔸 Definition
 
 Backoff pattern introduces **delay between retries**, increasing wait time after each failure.
 
 ------
 
-## 🔸 Types
+##### 🔸 Types
 
 - Fixed Delay
 - Exponential Backoff (recommended)
 
 ------
 
-## 🔸 Flow Diagram
+##### 🔸 Flow Diagram
 
 ```mermaid
 flowchart LR
@@ -1455,7 +1455,7 @@ flowchart LR
 
 ------
 
-## 🔸 Example (Exponential Backoff)
+##### 🔸 Example
 
 ```text
 Retry 1 → wait 1 sec  
@@ -1466,7 +1466,7 @@ Retry 4 → wait 8 sec
 
 ------
 
-## 🔸 Key Points
+##### 🔸 Key Points
 
 - Prevents system overload
 - Gives system time to recover
