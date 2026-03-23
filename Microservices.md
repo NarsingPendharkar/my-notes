@@ -1,4 +1,6 @@
-# **Spring Boot Microservices**
+# 
+
+<div align="center"><h1 >◆◆◆ Microservices ◆◆◆</h1></div>
 
 ### What is Monolithic Architecture?
 
@@ -190,7 +192,7 @@ Here are your notes rewritten in a **clean, structured, interview-ready format**
 
 ------
 
-# 🔹 Service Discovery & Service Registry
+# Discovery & Service Registry 
 
 #### 📌 What is Service Discovery?
 
@@ -495,7 +497,7 @@ height="1.3125in"}
 
 ----
 
-<div align="center"><h1 style="color:red; text-shadow: 2px 2px 5px rgba(0,0,0,0.5);">🔄 Communication Patterns Microservices</h1></div>
+<div align="center"><h1 >◆◆◆ Communication Patterns in Microservices ◆◆◆</h1></div>
 
 ### **🔹 Introduction**
 
@@ -662,8 +664,7 @@ public ResponseEntity<UserDTO> getUserById(@PathVariable long id) {
 public WebClient webClient() {
     return WebClient.builder()
             .baseUrl("http://localhost:8383/")
-            .defaultHeader(HttpHeaders.CONTENT_TYPE,
-                           MediaType.APPLICATION_JSON_VALUE)
+            .defaultHeader(HttpHeaders.CONTENT_TYPE,MediaType.APPLICATION_JSON_VALUE)
             .build();
 }
 ```
