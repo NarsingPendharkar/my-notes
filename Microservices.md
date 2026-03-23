@@ -443,57 +443,10 @@ public class AppConfig {
 }
 ```
 
-📘 Explanation:
+**📘 Explanation:**
 @LoadBalanced makes RestTemplate use Spring Cloud LoadBalancer, which automatically picks one instance of COURSE-SERVICE from Eureka Registry.
 
-### Admin Server
 
-- It is used to monitor and manage all the apis at one place.
-
-- It provides beautiful user interface to access all apis actuator
-  endpoints at one place.
-
-### Zipkin Server
-
-- It is used for distributed tracing of our requests
-
-- It provides beautiful user interface to access apis execution details.
-
-### Config Server
-
-- It is used to separate application code and application properties.
-
-- It is used to externalize config props of our application.
-
-- It makes our application loosely coupled with properties file or yml
-  file.
-
-### Feign Client
-
-- It is used for interservice communication
-
-- If one api communicate with another api with in the same application
-  then it is called as Inter service communication.
-
-### Kafka Server
-
-- It is used as message broker
-
-- Distributed streaming platform
-
-- It works based on pub-sub model
-
-### Redis Server
-
-- Redis is a cache server
-
-- Redis represents data in key-value format
-
-- Redis is used to reduce no.of db calls
-
-![A table with text and numbers AI-generated content may be
-incorrect.](./media/media/image7.jpeg){width="2.7744192913385826in"
-height="1.3125in"}
 
 ----
 
