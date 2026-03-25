@@ -512,7 +512,7 @@ public class MainApplicationToRun
 | @Service       | Specifically for business logic/service layer              |
 | @Repository    | Used in the DAO layer and integrates exception translation |
 
-### **What is the difference between @Bean and @Component?**
+## **What is the difference between @Bean and @Component?**
 
 |  |  |  |
 | --- | --- | --- |
@@ -549,6 +549,50 @@ class AppConfig {
 * Powerful configuration.
 * It uses all features of spring core.
 * It is flexible, easy to test and much features.
+
+---
+
+```mermaid
+flowchart LR
+    %% Define Styles
+    classDef browser fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef core fill:#00d2ff,stroke:#007bff,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef logic fill:#99ff99,stroke:#28a745,stroke-width:2px;
+    classDef view fill:#ffff99,stroke:#ffc107,stroke-width:2px;
+
+    %% Diagram Nodes
+    User([fa:fa-user User]) --- Browser(fa:fa-globe Browser)
+    
+    subgraph Spring_Core [Spring MVC Engine]
+        DS{Dispatcher<br/>Servlet}
+    end
+
+    subgraph App_Logic [Your Code]
+        CTRL[Controller]
+        Model[(Model Data)]
+    end
+
+    subgraph Rendering [Output]
+        VR[View Resolver]
+        Page[Final HTML/JSON]
+    end
+
+    %% Flow Connections
+    Browser -- "1. Request" --> DS
+    DS -- "2. Process" --> CTRL
+    CTRL -- "3. Data" --> Model
+    Model -.-> DS
+    DS -- "4. Find Page" --> VR
+    VR -- "5. Render" --> Page
+    Page -- "6. Response" --> Browser
+
+    %% Apply Styles
+    class Browser browser;
+    class DS core;
+    class CTRL,Model logic;
+    class VR,Page view;
+
+```
 
 ### **Explain the flow of a Spring MVC application.**
 
@@ -590,7 +634,7 @@ class AppConfig {
 </servlet-mapping>
 ```
 
-![](data,image/png;base64...)
+---
 
 ### **Explain InternalViewResolver in Spring MVC.**
 
