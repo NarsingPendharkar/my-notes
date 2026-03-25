@@ -2531,8 +2531,7 @@ Output
 ---
 
 ### Why TreeSet does not allow null?
-TreeSet does not allow null because it uses sorting (Comparable / Comparator) internally. It compares elements using:
-`compareTo()` If null is inserted, Java cannot compare: `null.compareTo()` This causes NullPointerException.
+TreeSet does not allow null because it uses sorting (Comparable / Comparator) internally. It compares elements using: `compareTo()` If null is inserted, Java cannot compare: `null.compareTo()` This causes NullPointerException.
 
 **Example**
 
