@@ -1376,8 +1376,6 @@ Languages like **C++** require manual memory deallocation (`delete`).
 <div align="center">
     <h1>Exception</h1>
 </div>
-Here’s a clear explanation of **Exceptions in Java** along with a **Mermaid diagram (hierarchy)** you can use in Markdown 👇
-
 ------
 
 # 🔹 What is an Exception in Java?
@@ -2204,7 +2202,7 @@ The **Collection Framework** is a set of **classes and interfaces** that impleme
 | ------------------- | ------------------------- | ---------------------------------------------------- | ---------------------------------------- |
 | **Order**           | Maintains insertion order | No order guaranteed (except some like LinkedHashSet) | Keys are unique, values can be duplicate |
 | **Duplicates**      | Allows duplicates         | Does not allow duplicates                            | Keys are unique, values can repeat       |
-| **Implementations** | ArrayList, LinkedList     | HashSet, LinkedHashSet, TreeSet                      | HashMap,  , TreeMap                      |
+| **Implementations** | ArrayList, LinkedList     | HashSet, LinkedHashSet, TreeSet                      | HashMap, LinkedHashMap  , TreeMap        |
 
 ---
 
