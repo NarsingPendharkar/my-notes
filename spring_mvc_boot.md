@@ -1,7 +1,9 @@
 
 
 <div align="center">
-  <h1 style="font-size:30px;font-family:monospace">Spring Framework</h1>
+  <h1 style="font-weight:900; text-shadow:2px 2px 5px gray;">
+    Spring Framework
+  </h1>
 </div>
 
 # Spring
