@@ -666,8 +666,7 @@ Model model = new Model();
 model.addAttribute("msg", “hello “));
 ```
 
-1. **ModelMap** : it is similar to model only difference is that it provides map functionalities.
-   Methods , addAttribute(), get(),put()
+1. **ModelMap** : it is similar to model only difference is that it provides map functionalities. Methods , addAttribute(), get(),put()
 2. **ModelAndView** : If you want to return model and view in same object then we can use **ModelAndView** class object.
 
 ```java
@@ -684,7 +683,18 @@ public ModelAndView showWelcomePage() {
 }
 ```
 
-What are @RequestMapping and its variants?
+---
+
+| Feature         | Model                         | ModelMap                             | ModelAndView                      |
+| :-------------- | :---------------------------- | :----------------------------------- | :-------------------------------- |
+| **Type**        | Interface                     | Class                                | Class                             |
+| **Data Holder** | Map-like structure            | Implementation of `Map`              | Holder for model + view           |
+| **View Name**   | Returned as a separate String | Returned as a separate String        | Included within the object        |
+| **Primary Use** | Modern, lightweight standard  | When you need `Map` specific methods | When returning both in one object |
+
+---
+
+### What are @RequestMapping and its variants?
 
 * `@RequestMapping("/path")` → General mapping
 * `@GetMapping("/path")` → Maps HTTP GET request
@@ -4861,6 +4871,117 @@ Reactive manages this automatically.
 - Streaming data
 - Microservices architecture
 - Real-time updates
+
+------
+
+### HTTP Idempotency
+
+Idempotency is a property of HTTP methods ensuring that making the same request multiple times has the same effect on the server as making it once. It is a core principle of **RESTful API design** and **system reliability**.
+
+------
+
+#### 1. Core Definition
+
+An operation is **idempotent** if:
+`f(x) = f(f(x))`
+In web terms: **Result of 1 Request == Result of N Identical Requests.**
+
+**Note:** Idempotency refers to the **state of the resource** on the server, not the HTTP response code (e.g., the first DELETE might return `204 No Content`, while the second returns `404 Not Found`, but the server state remains "deleted").
+
+------
+
+#### 2. Method Classification
+
+| Method      | Idempotent | Safe? | Description                                              |
+| :---------- | :--------- | :---- | :------------------------------------------------------- |
+| **GET**     | **Yes**    | Yes   | Only retrieves data; no state change.                    |
+| **OPTIONS** | **Yes**    | Yes   | Retrieves communication options.                         |
+| **PUT**     | **Yes**    | No    | Replaces the entire resource.                            |
+| **DELETE**  | **Yes**    | No    | Removes the resource.                                    |
+| **POST**    | **No**     | No    | Usually creates a new resource (N calls = N resources).  |
+| **PATCH**   | **No***    | No    | Partial updates (can be idempotent, but not guaranteed). |
+
+> **Warning:** **Safe** methods are always idempotent, but **Idempotent** methods are not always safe (e.g., `PUT` changes data, so it isn't "safe").
+
+------
+
+## 3. Visualizing Idempotency (Mermaid)
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Client
+    participant Server
+
+    Note over Client, Server: Scenario A: Non-Idempotent (POST)
+    Client->>Server: POST /orders (Create Order)
+    Server-->>Client: 201 Created (Order #1)
+    Client->>Server: POST /orders (Retry due to timeout)
+    Server-->>Client: 201 Created (Order #2 - DUPLICATE!)
+
+    Note over Client, Server: Scenario B: Idempotent (PUT)
+    Client->>Server: PUT /users/10 (Set Age=30)
+    Server-->>Client: 200 OK (Age is 30)
+    Client->>Server: PUT /users/10 (Retry)
+    Server-->>Client: 200 OK (Age is STILL 30 - NO CHANGE)
+```
+
+------
+
+## 4. Implementation Example (Spring Boot)
+
+## **Non-Idempotent (POST)**
+
+Every call creates a new record.
+
+```java
+@PostMapping("/payments")
+public ResponseEntity<String> processPayment(@RequestBody PaymentRequest req) {
+    // Logic to withdraw money
+    return ResponseEntity.ok("Payment Processed"); 
+}
+```
+
+## **Idempotent (PUT)**
+
+Multiple calls result in the same update.
+
+```java
+@PutMapping("/accounts/{id}/status")
+public ResponseEntity<String> updateStatus(@PathVariable String id) {
+    // Logic: set status = 'ACTIVE'
+    // No matter how many times called, status stays 'ACTIVE'
+    return ResponseEntity.ok("Account Activated");
+}
+```
+
+------
+
+## 5. Interview-Relevant Concepts
+
+## **How to make POST idempotent?**
+
+To prevent duplicate orders/payments, use an **Idempotency Key**.
+
+1. Client sends a unique UUID in the header (`Idempotency-Key: 123-abc`).
+2. Server saves the key and the response in a cache (e.g., Redis).
+3. If the same key arrives again, the server returns the **cached response** without re-processing.
+
+## **Is PATCH idempotent?**
+
+- **Idempotent PATCH:** `{"status": "active"}` — setting a value.
+- **Non-Idempotent PATCH:** `{"increment": 1}` — if called twice, the value increases by 2.
+
+> **Tip:** In interviews, emphasize that **DELETE** is idempotent because once the resource is gone, it stays gone, even if the status code changes from `200` to `404`.
+
+------
+
+## 6. Quick Revision Summary
+
+- **GET/PUT/DELETE**: Idempotent (Safe to retry).
+- **POST**: Not Idempotent (Dangerous to retry).
+- **Goal**: Ensure system consistency during network failures or timeouts.
+- **Solution for POST**: Use Idempotency Keys (unique tokens).
 
 ------
 
