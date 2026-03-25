@@ -398,7 +398,7 @@ public class Singleton {
         if (instance == null) {
             instance = new Singleton();
         }
-        return instance;
+        return instance; 
     }
     public static void main(String[] args) {
         Singleton sig=new Singleton();
@@ -493,8 +493,9 @@ public record Immutable (int id,String name) {
 ---
 
 <div align="center">
-    <h1>Methods & Object</h1>
+    <h1>✦✦ Methods & Object ✦✦</h1>
 </div>
+
 
 
 ### What is the difference between a method and a constructor?
@@ -561,9 +562,9 @@ There are four types: 
 **Example:** 
 
 ```java
-Car car1 = new Car(); // Shallow Copy – both references point to the same object
-Car car2 = car1; // Deep Copy – creates a new object with copied data
-Car car2 = new Car(car1);
+Car car1 = new Car(); 
+Car car2 = car1; // Shallow Copy – both references point to the same object
+Car car2 = new Car(car1); // Deep Copy – creates a new object with copied data
 ```
 
 ---
@@ -712,8 +713,9 @@ flowchart TB
 ------
 
 <div align="center">
-    <h1>🧵 String in Java</h1>
+    <h1>✦🧵 String in Java ✦</h1>
 </div>
+
 ### What is a String in Java?
 
 - String is the sequence of the characters.
@@ -728,9 +730,9 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 ---
 
-### Why is String immutable?
+### Why is String immutable 🔒?
 
-- Strings are immutable for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
+- Strings are immutable  for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
 - Immutable means we **cannot make changes once declared.**
 
@@ -740,14 +742,14 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 - **Thread safe** -- as String is immutable multiple threads can access it at a time.
 
-### StringBuilder vs StringBuffer vs String
+### Difference between String vs StringBuilder vs StringBuffer
 
-- String Buffer and StringBuilder are the classes of java used to create immutable strings.
+- String Buffer and StringBuilder are the classes of java used to create Mutable strings.
   
   | Feature      | String | StringBuilder | StringBuffer              |
   | ------------ | ------ | ------------- | ------------------------- |
-  | Mutable?     | No     | Yes           | Yes                       |
-  | Thread-safe? | Yes    | No            | Yes (Synchronized)        |
+  | Mutable?     | No ❌   | Yes ✅         | Yes ✅                     |
+  | Thread-safe? | Yes ✅  | No ❌          | Yes (Synchronized) ✅      |
   | Performance  | slow   | Fast          | Slower than StringBuilder |
 
 ---
@@ -808,14 +810,14 @@ public class Example2 {
 
 ---
 
-### What is the difference between == and .equals() in objects?
+### What is the difference between == and .equals() ⚖️ in objects?
 
 ### ✅ `==`
 
 - Compares **memory reference (address)**
 - Checks: *Are both variables pointing to the same object?*
 
-### ✅ `.equals()`
+### ✅ `.equals()` 
 
 - Compares **actual content (value inside string)**
 - Checks: *Do both strings have the same characters?*
@@ -2152,9 +2154,7 @@ Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction**
 
 ### 💡 What is the Collection Framework?
 
-The **Collection Framework** in Java is a **unified architecture** that provides **ready-made data structures** and **algorithms** to store, retrieve, and manipulate groups of objects efficiently.
-
-It is part of the **`java.util` package** and helps developers avoid writing custom data structures like arrays, linked lists, or hash tables from scratch.
+The **Collection Framework** in Java is a **unified architecture** that provides **ready-made data structures** and **algorithms** to store, retrieve, and manipulate groups of objects efficiently. It is part of the **`java.util` package** and helps developers avoid writing custom data structures like arrays, linked lists, or hash tables from scratch.
 
 ##### 🧠 Definition :
 
@@ -2181,21 +2181,7 @@ The **Collection Framework** is a set of **classes and interfaces** that impleme
 | **Queue**     | Follows **FIFO (First-In-First-Out)** order. Example: `PriorityQueue`, `LinkedList`. |
 | **Map**       | Stores elements in **key–value pairs** where keys are unique. Example: `HashMap`, `LinkedHashMap`, `TreeMap`. |
 
-##### 🧾 Example
-
-```java
-import java.util.*;
-
-public class CollectionExample {
-    public static void main(String[] args) {
-        List<String> names = new ArrayList<>();
-        names.add("Java");
-        names.add("Spring");
-        names.add("Hibernate");        
-        System.out.println("List Elements: " + names);
-    }
-}
-```
+---
 
 ### What is the difference between Collection and Collections in Java?
 
