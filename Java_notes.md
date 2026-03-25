@@ -3030,8 +3030,6 @@ System.out.println(allEven); // true
 
 ---
 
-![](./media/media/break.png){ width=10% }
-
 ###  Default & Static Methods in Interfaces
 
 - Java 8 allows default method implementations in interfaces.
