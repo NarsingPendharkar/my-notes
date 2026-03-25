@@ -3049,7 +3049,7 @@ System.out.println("Vehicle is starting");
 
 
 
-
+----
 
 ### Default Methods in Interface
 
@@ -3901,11 +3901,9 @@ executor.shutdown();
 ##### Non-Blocking Example
 
 ```java
-CompletableFuture<Integer> future =
-        CompletableFuture.supplyAsync(() -> 10);
+CompletableFuture<Integer> future =CompletableFuture.supplyAsync(() -> 10);
 
-future.thenAccept(result ->
-        System.out.println("Result: " + result));
+future.thenAccept(result ->System.out.println("Result: " + result));
 
 System.out.println("Main thread is free");
 ```
