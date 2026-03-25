@@ -74,14 +74,14 @@ Dependency Injection is a design pattern where the dependencies of a class are i
 
 > [!NOTE]
 >
-> without DI Here is dependecy between employee and address because employee forced to use same add object
+> without DI Here is dependency between employee and address because employee forced to use same add object
 
 ```java
 public  class  Employee {
-Address address;
-Employee(){
-Address  add = new  Address(); // creating instance
-}
+    Address address;
+    Employee(){
+        Address  add = new  Address(); // creating instance
+    }
 }
 ```
 
