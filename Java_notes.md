@@ -3995,18 +3995,16 @@ System.out.println(combined.join()); // 30
 
 - Serialized object can be saved into database , file or can be shared over a network.
 
-> [!WARNING]
->
-> Points to remember:
+> [!NOTE]
 >
 > 1.  If a parent class has implemented Serializable interface then child class doesn't need to implement it but vice-versa is not true.
->     
+>
 > 2.  Only non-static data members are saved via Serialization process.
->
-> 3.  Static data members and transient data members are not saved via Serialization process.
 >     
-> 4.  If you mark a field **transient**, it won't be serialized.
+> 3.  Static data members and transient data members are not saved via Serialization process.
 >
+> 4.  If you mark a field **transient**, it won't be serialized.
+>     
 > `private transient int age; // age won't be saved`
 
 ![serialize-deserialize-java](./media/media/image22.png){width="4.756472003499563in"
