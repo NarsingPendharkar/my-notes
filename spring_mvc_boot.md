@@ -602,7 +602,7 @@ flowchart LR
 4. **ViewResolver** → Selects the appropriate view (JSP, Thymeleaf, etc.)
 5. **View (JSP/Thymeleaf)** → Data and view merged as sent as response
 
-![Spring DispatcherServlet](data,image/png;base64...)
+---
 
 ### **Explain Dispatcher Servlet in Spring MVC.**
 
