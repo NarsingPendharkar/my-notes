@@ -4905,7 +4905,7 @@ In web terms: **Result of 1 Request == Result of N Identical Requests.**
 
 ------
 
-## 3. Visualizing Idempotency (Mermaid)
+#### 3. Visualizing Idempotency (Mermaid)
 
 ```mermaid
 sequenceDiagram
@@ -4928,9 +4928,9 @@ sequenceDiagram
 
 ------
 
-## 4. Implementation Example (Spring Boot)
+#### 4. Implementation Example (Spring Boot)
 
-## **Non-Idempotent (POST)**
+##### **Non-Idempotent (POST)**
 
 Every call creates a new record.
 
@@ -4942,7 +4942,7 @@ public ResponseEntity<String> processPayment(@RequestBody PaymentRequest req) {
 }
 ```
 
-## **Idempotent (PUT)**
+##### **Idempotent (PUT)**
 
 Multiple calls result in the same update.
 
@@ -4957,9 +4957,9 @@ public ResponseEntity<String> updateStatus(@PathVariable String id) {
 
 ------
 
-## 5. Interview-Relevant Concepts
+#### 5. Interview-Relevant Concepts
 
-## **How to make POST idempotent?**
+##### **How to make POST idempotent?**
 
 To prevent duplicate orders/payments, use an **Idempotency Key**.
 
@@ -4967,12 +4967,12 @@ To prevent duplicate orders/payments, use an **Idempotency Key**.
 2. Server saves the key and the response in a cache (e.g., Redis).
 3. If the same key arrives again, the server returns the **cached response** without re-processing.
 
-## **Is PATCH idempotent?**
+##### **Is PATCH idempotent?**
 
 - **Idempotent PATCH:** `{"status": "active"}` — setting a value.
 - **Non-Idempotent PATCH:** `{"increment": 1}` — if called twice, the value increases by 2.
 
-> **Tip:** In interviews, emphasize that **DELETE** is idempotent because once the resource is gone, it stays gone, even if the status code changes from `200` to `404`.
+**Tip:** In interviews, emphasize that **DELETE** is idempotent because once the resource is gone, it stays gone, even if the status code changes from `200` to `404`.
 
 ------
 
