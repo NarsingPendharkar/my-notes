@@ -4471,7 +4471,7 @@ graph LR
 
 #### 3. Implementation Essentials
 
-### Primary Classes
+##### Primary Classes
 
 1. **`ObjectOutputStream`**: Uses `writeObject(Object obj)` to serialize.
 2. **`ObjectInputStream`**: Uses `readObject()` to deserialize.
@@ -4505,7 +4505,7 @@ class User implements Serializable {
 
 #### 5. Advanced Customization
 
-#### Callback Methods
+##### Callback Methods
 
 You can define private methods in your class to customize the serialization logic (e.g., for encryption):
 
@@ -4554,9 +4554,9 @@ You can define private methods in your class to customize the serialization logi
 
 ---
 
-## Java File Handling
+# Java File Handling
 
-**File Handling Classes & Their Uses**
+### **File Handling Classes & Their Uses**
 
 | Class            | Purpose                                          |
 | ---------------- | ------------------------------------------------ |
@@ -5222,7 +5222,7 @@ The Observer design pattern is used to define a one-to-many relationship between
 
 # Regular Expression
 
-## What is a Regular Expression?
+### What is a Regular Expression?
 
 **Answer:** A regular expression (regex) is a special sequence of characters that helps you **match, find, or manage text**.
 
