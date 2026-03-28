@@ -3201,7 +3201,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 <div align="center"><h1>✦✦ Multithreading ✦✦</h1></div>
 
-### 📌**What is Threads ?**
+## 📌**What is Threads ?**
 
 - Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
@@ -3211,7 +3211,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - Multithreading enables you to perform multiple tasks at a time
 
-### 📌**What is Multithreading in Java?**
+## 📌**What is Multithreading in Java?**
 
 - Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
@@ -3239,7 +3239,7 @@ A thread goes through several states:
 
 4.  **Terminated:** Thread execution completed or stopped.
 
-### 📌What are the Different Ways to Create a Thread?
+## 📌What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -3252,32 +3252,32 @@ A thread goes through several states:
 ```java
 public class Threading implements Runnable{
 
-public void run() {
+    public void run() {
 
-System.out.println("run method used to run thread :"+Thread.currentThread().getName());
+        System.out.println("run method used to run thread :"+Thread.currentThread().getName());
 
-}
+    }
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
-Threading thd=new Threading();
+        Threading thd=new Threading();
 
-Thread th=new Thread(thd);
+        Thread th=new Thread(thd);
 
-th.start();
+        th.start();
 
-}
+    }
 
 }
 ```
 
-### 📌Why Prefer Runnable Over Thread?
+## 📌Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
 - Separation of **task (Runnable) and thread execution (Thread)**.
 
-### 📌What is the Difference Between start() and run()?
+## 📌What is the Difference Between start() and run()?
 
 **Answer:**
 
@@ -3290,7 +3290,7 @@ th.start();
 
 ------
 
-### 📌**Java Thread Methods and Their Uses**
+## 📌**Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
 
@@ -3312,7 +3312,7 @@ th.start();
 | `isInterrupted()      `     | Checks if the thread has been interrupted.                   |
 | `yield()              `     | Temporarily pauses the execution of the current  thread to allow other threads to execute. |
 | `wait()               `     | Causes the current thread to wait until another thread calls notify() or notifyAll(). Used in synchronization. |
-| `notify()             `     | Wakes up a single thread that is waiting on an   object's monitor. |
+| `notify()             `     | Wakes up a single thread that is waiting on an  object's monitor. |
 | `notifyAll()          `     | Wakes up all threads waiting on an object's monitor.         |
 | `stop() (Deprecated)  `     | Forcefully stops a thread (unsafe and not recommended for use). |
 
