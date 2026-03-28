@@ -318,10 +318,10 @@ public class Main {
 | Example    | Car class            | Car carObj=new Car(); |
 
 <hr>
-
 <div align="center">
-    <h1>Constructors</h1>
+    <h1>✦✦ Constructors ✦✦</h1>
 </div>
+
 
 ###  What is a constructor?
 
