@@ -3199,9 +3199,9 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 ---
 
-<div align="center"><h1>Multithreading</h1></div>
+<div align="center"><h1>✦✦ Multithreading ✦✦</h1></div>
 
-### **What is Threads ?**
+### 📌**What is Threads ?**
 
 - Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
@@ -3211,7 +3211,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - Multithreading enables you to perform multiple tasks at a time
 
-### **What is Multithreading in Java?**
+### 📌**What is Multithreading in Java?**
 
 - Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
@@ -3219,15 +3219,13 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - When various multiple threads are executed at a time this process is called multi-threadeding.
 
-> [!IMPORTANT]
->
-> **Benefits:**
->
-> 1.  Better resource utilization
->
-> 2.  Improved application responsiveness
->
-> 3.  Simplified modelling of asynchronous or parallel tasks
+**Benefits:**
+
+1.  Better resource utilization
+
+2.  Improved application responsiveness
+
+3.  Simplified modelling of asynchronous or parallel tasks
 
 #### Thread Life Cycle and States
 
@@ -3241,7 +3239,7 @@ A thread goes through several states:
 
 4.  **Terminated:** Thread execution completed or stopped.
 
-### What are the Different Ways to Create a Thread?
+### 📌What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -3273,13 +3271,13 @@ th.start();
 }
 ```
 
-### Why Prefer Runnable Over Thread?
+### 📌Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
 - Separation of **task (Runnable) and thread execution (Thread)**.
 
-### What is the Difference Between start() and run()?
+### 📌What is the Difference Between start() and run()?
 
 **Answer:**
 
@@ -3292,7 +3290,7 @@ th.start();
 
 ------
 
-### **Java Thread Methods and Their Uses**
+### 📌**Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
 
@@ -3320,13 +3318,13 @@ th.start();
 
 ---
 
-### When would you use the wait and notify methods in your Java application ?
+### 📌When would you use the wait and notify methods in your Java application ?
 
 The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
 
 ---
 
-### **Difference Between Callable and Runnable**
+### 📌**Difference Between Callable and Runnable**
 
 | Feature           | Runnable    | Callable   |
 | ----------------- | ----------- | ---------- |
@@ -3338,7 +3336,7 @@ The "wait" and "notify" methods in Java are used to coordinate the execution of 
 
 ---
 
-### What is volatile Keyword?
+### 📌What is volatile Keyword?
 
 The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "volatile" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
 
@@ -3361,7 +3359,7 @@ class VolatileExample {
 
 ---
 
-### What is Thread Synchronization?
+### 📌What is Thread Synchronization?
 
 Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time. In Java, the "**synchronized**" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
 
@@ -3469,7 +3467,7 @@ public static void main(String[] args) throws InterruptedException {
 
 ----
 
-### 🧵 What is a Thread Pool?
+### 📌 What is a Thread Pool?
 
 👉 A **thread pool** = **group of worker threads** ready to perform tasks. it assign the task to the worker threads
 
@@ -3837,80 +3835,35 @@ CompletableFuture.supplyAsync(() -> {
 
 ------
 
-Here’s a **clear, detailed, beginner-friendly explanation** of **Locks vs `synchronized` in Java**, with important notes 👇
+
+
+### 📌 **Locks in Java (`synchronized` vs `ReentrantLock`)**
 
 ------
 
-## 📌 15. Locks vs `synchronized`
+#### 🔹 **1. `synchronized` (Basic Locking)**
 
-In Java, both **`synchronized`** and **locks (like `ReentrantLock`)** are used for **thread synchronization** — ensuring that **only one thread accesses critical code at a time**.
+##### ✅ **Advantages**
 
-------
-
-### 🔹 1. `synchronized` (Built-in Lock)
-
-### ✅ What it is:
-
-- A **keyword in Java**
-- Used to lock a method or block
-- Uses **intrinsic lock (monitor lock)**
+- ✔ **No need to manually release lock**
+- ✔ **Automatic lock management**
+- ✔ **Less chance of mistakes**
+- ✔ Simple and easy to use
 
 ------
 
-## 🔸 Example
+##### ❌ **Disadvantages**
 
-```java
-class Counter {
-    private int count = 0;
-
-    public synchronized void increment() {
-        count++;
-    }
-}
-```
-
-OR
-
-```java
-public void increment() {
-    synchronized(this) {
-        count++;
-    }
-}
-```
+- ❌ **No flexibility**
+- ❌ Cannot try lock without blocking
+- ❌ No timeout support
+- ❌ No fairness control
 
 ------
 
-## 🔹 How it works:
+#### 🔹 **2. `ReentrantLock` (Advanced Locking)**
 
-- When a thread enters a `synchronized` block:
-  - It **acquires the lock**
-- Other threads must **wait**
-- When execution finishes:
-  - Lock is **automatically released**
-
-------
-
-## ✅ Advantages
-
-✔ Simple to use
-✔ No need to manually release lock
-✔ Less chance of mistakes
-
-------
-
-## ❌ Disadvantages
-
-❌ No flexibility
-❌ Cannot try lock without blocking
-❌ No timeout support
-❌ No fairness control
-
-------
-
-### 🔹 2. `ReentrantLock` (Advanced Lock)
-
-From package:
+##### 📦 **Package**
 
 ```java
 import java.util.concurrent.locks.ReentrantLock;
@@ -3918,21 +3871,24 @@ import java.util.concurrent.locks.ReentrantLock;
 
 ------
 
-## 🔸 Example
+#### 🔸 **Example**
 
 ```java
 import java.util.concurrent.locks.ReentrantLock;
 
 class Counter {
+
     private int count = 0;
     private ReentrantLock lock = new ReentrantLock();
 
     public void increment() {
-        lock.lock();  // acquire lock
+
+        lock.lock(); // acquire lock
+
         try {
             count++;
         } finally {
-            lock.unlock();  // MUST release lock
+            lock.unlock(); // MUST release lock
         }
     }
 }
@@ -3940,23 +3896,21 @@ class Counter {
 
 ------
 
-## 🔹 How it works:
+#### 🔹 **How It Works**
 
-- You **manually acquire and release** lock
-- More powerful than `synchronized`
-
-------
-
-#### ⭐ Key Features of `ReentrantLock`
+- Lock is **manually acquired and released**
+- Provides **more control than `synchronized`**
 
 ------
 
-##### 🔸 1. ✔ More Control
+#### ⭐ **Key Features of `ReentrantLock`**
 
-You can:
+------
 
-- Lock and unlock manually
-- Lock in different methods
+##### 🔸 1. ✔ **More Control**
+
+- Manual lock/unlock
+- Can lock/unlock in different methods
 
 ```java
 lock.lock();
@@ -3966,9 +3920,9 @@ lock.unlock();
 
 ------
 
-##### 🔸 2. ✔ `tryLock()` (Non-blocking)
+##### 🔸 2. ✔ **`tryLock()` (Non-blocking Lock)**
 
-- Attempts to get lock **without waiting**
+- Attempts to acquire lock **without waiting**
 
 ```java
 if (lock.tryLock()) {
@@ -3982,39 +3936,35 @@ if (lock.tryLock()) {
 }
 ```
 
-👉 Useful for:
+###### 💡 **Use Cases**
 
 - Avoiding deadlocks
 - Improving performance
+- Conditional execution
 
 ------
 
-##### 🔸 3. ✔ Fairness
-
-You can create a **fair lock**:
+##### 🔸 3. ✔ **Fairness**
 
 ```java
 ReentrantLock lock = new ReentrantLock(true);
 ```
 
-##### 🔹 What is fairness?
+###### 🔹 **What is Fairness?**
 
 - Threads get lock in **FIFO order (First Come First Serve)**
 
-👉 Without fairness:
+###### 🔹 **Behavior**
 
-- Some threads may **starve** (never get lock)
-
-👉 With fairness:
-
-- Each thread gets a **fair chance**
+- ❌ Without fairness → Thread starvation possible
+- ✅ With fairness → Equal chance for all threads
 
 ------
 
-##### 🔸 4. ✔ Timeout Support
+##### 🔸 4. ✔ **Timeout Support**
 
 ```java
-if (lock.tryLock(2, TimeUnit.SECONDS)) {
+if (lock.tryLock(2, java.util.concurrent.TimeUnit.SECONDS)) {
     try {
         // critical section
     } finally {
@@ -4023,323 +3973,563 @@ if (lock.tryLock(2, TimeUnit.SECONDS)) {
 }
 ```
 
-👉 Thread waits for limited time only
+###### 🔹 **Behavior**
+
+- Thread waits only for a **limited time**
+- Prevents infinite blocking
 
 ------
 
-##### 🔸 5. ✔ Interruptible Lock
+##### 🔸 5. ✔ **Interruptible Lock**
 
 ```java
 lock.lockInterruptibly();
 ```
 
-👉 Thread can be interrupted while waiting
+###### 🔹 **Behavior**
+
+- Thread can be **interrupted while waiting for lock**
 
 ------
 
-### 🔥 Difference between synchronized vs ReentrantLock
+#### 🔥 **Difference: `synchronized` vs `ReentrantLock`**
 
-| Feature       | synchronized | ReentrantLock           |
-| ------------- | ------------ | ----------------------- |
-| Type          | Keyword      | Class                   |
-| Lock handling | Automatic    | Manual                  |
-| Flexibility   | Low          | High                    |
-| tryLock()     | ❌ No         | ✔ Yes                   |
-| Timeout       | ❌ No         | ✔ Yes                   |
-| Fairness      | ❌ No         | ✔ Yes                   |
-| Interruptible | ❌ No         | ✔ Yes                   |
-| Performance   | Good         | Better in complex cases |
+| Feature           | `synchronized` | `ReentrantLock`        |
+| ----------------- | -------------- | ---------------------- |
+| **Type**          | Keyword        | Class                  |
+| **Lock Handling** | Automatic      | Manual                 |
+| **Flexibility**   | Low            | High                   |
+| **tryLock()**     | ❌ No           | ✔ Yes                  |
+| **Timeout**       | ❌ No           | ✔ Yes                  |
+| **Fairness**      | ❌ No           | ✔ Yes                  |
+| **Interruptible** | ❌ No           | ✔ Yes                  |
+| **Performance**   | Good           | Better (complex cases) |
 
 ------
 
-#### 🎯 When to Use What?
+#### 🎯 **When to Use What?**
 
-##### 👉 Use `synchronized` when:
+------
 
-- Simple locking needed
-- Less complex logic
+##### 👉 **Use `synchronized` when:**
 
-##### 👉 Use `ReentrantLock` when:
+- Simple locking is required
+- Code is less complex
+- No advanced features needed
 
-- Need advanced features (`tryLock`, timeout)
-- Want fairness
-- Avoid deadlocks
+------
 
-----
+##### 👉 **Use `ReentrantLock` when:**
+
+- Need **advanced control**
+- Require **tryLock / timeout**
+- Want **fairness**
+- Need to **avoid deadlocks**
+
+------
+
+#### 🧠 **Quick Summary**
+
+- `synchronized` → **Simple & automatic**
+- `ReentrantLock` → **Flexible & powerful**
+
+**Tip:**
+Use `synchronized` by default, switch to `ReentrantLock` only when advanced features are required.
+
+------
 
 ### 📌 Atomic Classes
 
-- **Definition of Atomic Classes**
-  
-  - **Atomic Classes** are a set of classes in Java that provide a way to perform operations on single variables atomically.
-  - They are part of the **java.util.concurrent.atomic** package.
-  - Designed for use in multithreaded programming to ensure thread safety without using traditional synchronization.
-  
-- **Key Features**
-  - Allow for **lock-free thread-safe** programming.
-  - Provide methods for atomic operations, such as incrementing or updating values.
-  - Help avoid **race conditions** by ensuring that operations on variables are done in a single, indivisible step.
+#### 🔹 Definition
 
-- **Common Atomic Classes**
-  - **AtomicBoolean**
-    - Represents a boolean value that may be updated atomically.
-    - Example Methods:
-      - `get()`: Returns the current value.
-      - `set(boolean newValue)`: Sets the value.
-      - `compareAndSet(boolean expect, boolean update)`: Atomically sets the value to the given updated value if the current value equals the expected value.
-  
-  - **AtomicInteger**
-    - Represents an integer value that can be updated atomically.
-    - Example Methods:
-      - `get()`: Returns the current integer value.
-      - `set(int newValue)`: Sets the integer to a new value.
-      - `incrementAndGet()`: Atomically increments by one and returns the updated value.
-      - `decrementAndGet()`: Atomically decrements by one and returns the updated value.
-      - `addAndGet(int delta)`: Atomically adds the given value and returns the updated value.
+**Atomic Classes** are classes in Java that allow **thread-safe operations on single variables without using locks**.
 
-  - **AtomicLong**
-    - Similar to **AtomicInteger**, but for long values.
-    - Example Methods:
-      - `get()`: Returns the current long value.
-      - `set(long newValue)`: Sets the long to a new value.
-      - `incrementAndGet()`: Atomically increments by one.
-      - `decrementAndGet()`: Atomically decrements by one.
+- Located in package: `java.util.concurrent.atomic`
+- Designed for **high-performance concurrent programming**
 
-  - **AtomicReference<V>**
-    - Allows for atomic operations on object references.
-    - Example Methods:
-      - `get()`: Returns the current reference.
-      - `set(V newValue)`: Sets the reference to the new object.
-      - `compareAndSet(V expect, V update)`: Atomically sets the reference to the updated value if it currently holds the expected value.
+> **Key Idea:**
+> Operations happen in a **single atomic (indivisible) step**, preventing race conditions.
 
-- **Example Usage**
-  - **AtomicInteger Example**
-    ```java
-    import java.util.concurrent.atomic.AtomicInteger;
-    
-    public class AtomicIntegerExample {
-        public static void main(String[] args) {
-            AtomicInteger atomicInt = new AtomicInteger(0);
-    
-            // Incrementing the value atomically
-            int newValue = atomicInt.incrementAndGet();
-            System.out.println("New Value after Increment: " + newValue);
-        }
+------
+
+#### 🔹 Why Use Atomic Classes?
+
+##### ❌ Problem (Without Atomic Classes)
+
+- Multiple threads updating same variable
+- Leads to **race conditions**
+- Requires heavy synchronization (`synchronized`)
+
+##### ✅ Solution
+
+- Atomic classes provide:
+  - Lock-free thread safety
+  - Better performance
+  - Simpler code
+
+------
+
+##### 🔹 Key Features
+
+- ✔ Lock-free thread safety
+- ✔ High performance
+- ✔ Atomic operations (no partial updates)
+- ✔ Avoids race conditions
+
+------
+
+#### 🔹 Common Atomic Classes
+
+##### 🔸 1. AtomicBoolean
+
+- Used for atomic boolean values
+
+**Important Methods:**
+
+- `get()`
+- `set(boolean value)`
+- `compareAndSet(expected, newValue)`
+
+------
+
+##### 🔸 2. AtomicInteger
+
+- Used for atomic integer operations
+
+**Important Methods:**
+
+- `get()`
+- `set(int value)`
+- `incrementAndGet()`
+- `decrementAndGet()`
+- `addAndGet(int delta)`
+
+------
+
+##### 🔸 3. AtomicLong
+
+- Same as `AtomicInteger` but for `long`
+
+------
+
+##### 🔸 4. AtomicReference
+
+- Works with **objects instead of primitives**
+
+**Important Methods:**
+
+- `get()`
+- `set(T value)`
+- `compareAndSet(expected, newValue)`
+
+##### ✅ AtomicInteger Example
+
+```java
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class AtomicIntegerExample {
+    public static void main(String[] args) {
+
+        AtomicInteger counter = new AtomicInteger(0);
+
+        int newValue = counter.incrementAndGet();
+
+        System.out.println("New Value: " + newValue);
     }
-    ```
+}
+```
 
-  - **AtomicBoolean Example**
-    ```java
-    import java.util.concurrent.atomic.AtomicBoolean;
-    
-    public class AtomicBooleanExample {
-        public static void main(String[] args) {
-            AtomicBoolean atomicBool = new AtomicBoolean(true);
-    
-            // Using compareAndSet
-            boolean wasSet = atomicBool.compareAndSet(true, false);
-            System.out.println("Was the value set? " + wasSet);
-            System.out.println("Current Value: " + atomicBool.get());
-        }
+------
+
+##### ✅ AtomicBoolean Example
+
+```java
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class AtomicBooleanExample {
+    public static void main(String[] args) {
+
+        AtomicBoolean flag = new AtomicBoolean(true);
+
+        boolean updated = flag.compareAndSet(true, false);
+
+        System.out.println("Updated: " + updated);
+        System.out.println("Current Value: " + flag.get());
     }
-    ```
+}
+```
 
-- **Advantages of Using Atomic Classes**
-  - Simplified coding for thread-safe operations.
-  - Reduced overhead compared to synchronization blocks.
-  - Improved performance in high-concurrency scenarios.
+------
 
-- **Considerations**
-  - Atomic classes only support single variable operations. For compound actions, additional synchronization may be necessary.
-  - They do not provide a mechanism for atomicity across multiple variables.
+##### 🔹 Advantages
 
-- **Conclusion**
-  - **Atomic Classes** are essential in Java for managing shared variables in concurrent environments effectively.
-  - They provide a simple and efficient way to ensure that operations on variables are performed atomically, thus enhancing application performance while maintaining data integrity.
-  
-  ---
+- ✔ No locks → better performance
+- ✔ Simple to use
+- ✔ Ideal for counters & flags
+
+------
+
+##### ⚠️ Limitations
+
+⚠️ Works only on **single variables**
+
+⚠️ Not suitable for **multiple variable operations**
+
+------
 
 ### 📌Concurrent Collections
 
-- **Definition**: 
-  - **Concurrent Collections** are data structures designed for use in concurrent programming, allowing multiple threads to operate on them simultaneously without corrupting the data.
+##### 🔹 Definition
 
-- **Purpose**: 
-  - Enhance **performance** and **scalability** in multi-threaded environments.
-  - Reduce the need for complex synchronization mechanisms.
+**Concurrent Collections** are thread-safe data structures that allow **multiple threads to read/write simultaneously**.
 
-- **Key Characteristics**:
-  
-  - **Thread-safe**: Automatically manages concurrent access.
-  - Allows for **high throughput** and **low latency** operations.
-  - Designed to minimize contention among threads.
-  
-- **Common Types of Concurrent Collections**:
-  - **ConcurrentHashMap**: 
-    - A thread-safe version of the standard `HashMap`.
-    - Supports concurrent reads and updates.
-    - Divides the data into segments to allow multiple threads to access different segments simultaneously.
-    
-  - **CopyOnWriteArrayList**: 
-    - A thread-safe variant of `ArrayList`.
-    - Suitable for cases where reads are more frequent than writes.
-    - On each modification, it creates a new copy of the underlying array.
-    
-  - **BlockingQueue**: 
-    - An interface that includes different implementations like `ArrayBlockingQueue` and `LinkedBlockingQueue`.
-    - Provides methods for thread-safe operations that block when the queue is full or empty.
-    
-  - **ConcurrentSkipListMap**: 
-    - A scalable concurrent `NavigableMap` implementation.
-    - Offers sorted map functionality while maintaining thread safety.
+------
 
-- **Example**: 
-  - **Using ConcurrentHashMap**:
-    - **Scenario**: Tracking user sessions in a web application.
-    - Code snippet:
-      ```java
-      ConcurrentHashMap<String, Session> sessions = new ConcurrentHashMap<>();
-      
-      // Adding a session
-      sessions.put("user123", new Session());
-      
-      // Accessing a session
-      Session userSession = sessions.get("user123");
-      
-      // Removing a session
-      sessions.remove("user123");
-      ```
-    - **Advantages**:
-      - Multiple threads can add, update, or remove sessions without locking the entire map.
-      - High performance due to its segmented approach.
+##### 🔹 Why Use Them?
 
-- **Advantages of Using Concurrent Collections**:
-  - **Ease of Use**: Simplifies code by removing the need for explicit synchronization.
-  - **Performance**: Optimized for concurrent access, reducing bottlenecks.
-  - **Atomic Operations**: Many concurrent collections provide atomic methods for common operations.
+##### ❌ Problem
 
-- **Considerations**:
-  - Not all collections are suitable for all workloads; choose based on read/write patterns.
-  - Overhead may occur with frequent writes in collections like `CopyOnWriteArrayList`.
+- Normal collections (`HashMap`, `ArrayList`) are **not thread-safe**
 
-- **Use Cases**:
-  - Ideal for applications such as:
-    - Web servers handling multiple concurrent user requests.
-    - Real-time data processing systems.
-    - Applications requiring high availability and low contention.
+##### ✅ Solution
 
-- **Conclusion**:
-  - Concurrent collections play a crucial role in modern concurrent programming.
-  - Understanding their properties and use cases can significantly improve application performance and reliability.
+- Concurrent collections:
+  - Handle synchronization internally
+  - Provide better performance
 
----
+------
 
-### 📌ForkJoinPool with Example
+##### 🔹 Key Characteristics
 
-- **ForkJoinPool**:
-  - A specialized implementation of the **ExecutorService** in Java.
-  - Designed to take advantage of multiple processors for parallel programming.
-  - Based on the **Fork/Join** framework introduced in Java 7.
-  - Allows tasks to be broken down into smaller, manageable subtasks.
+- ✔ Thread-safe
+- ✔ High performance
+- ✔ Reduced locking
+- ✔ Scalable
 
-- **Key Concepts**:
-  - **Work-Stealing**: 
-    - Threads can "steal" tasks from other threads that are busy, optimizing CPU usage.
-    - Helps in balancing the workload across threads.
-  - **RecursiveTask**: 
-    - A type of task that returns a result, used when the task has a return value.
-  - **RecursiveAction**: 
-    - A type of task that does not return a result, suitable for tasks that perform actions only.
+------
 
-- **Creating a ForkJoinPool**:
-  - Use the constructor `ForkJoinPool()` to create a new instance.
-  - Optionally, specify the number of threads via `ForkJoinPool(int parallelism)`.
+#### 🔹 Common Concurrent Collections
 
-- **Example Usage**:
-  - Define a task by extending `RecursiveTask<T>` or `RecursiveAction`:
-    ```java
-    import java.util.concurrent.RecursiveTask;
-    import java.util.concurrent.ForkJoinPool;
-    
-    public class SumTask extends RecursiveTask<Integer> {
-        private final int[] numbers;
-        private final int start;
-        private final int end;
-    
-        public SumTask(int[] numbers, int start, int end) {
-            this.numbers = numbers;
-            this.start = start;
-            this.end = end;
-        }
-    
-        @Override
-        protected Integer compute() {
-            if (end - start <= 10) { // Base case
-                int sum = 0;
-                for (int i = start; i < end; i++) {
-                    sum += numbers[i];
-                }
-                return sum;
-            } else {
-                int mid = (start + end) / 2;
-                SumTask leftTask = new SumTask(numbers, start, mid);
-                SumTask rightTask = new SumTask(numbers, mid, end);
-                
-                leftTask.fork(); // Fork the left task
-                int rightResult = rightTask.compute(); // Compute the right task
-                int leftResult = leftTask.join(); // Join the left task result
-                
-                return leftResult + rightResult; // Combine results
+#### 🔸 1. ConcurrentHashMap
+
+- Thread-safe version of `HashMap`
+- Allows **concurrent reads & writes**
+
+```java
+ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+
+map.put("user1", "active");
+String status = map.get("user1");
+map.remove("user1");
+```
+
+> **Tip:**
+> Does not lock entire map → better performance
+
+------
+
+#### 🔸 2. CopyOnWriteArrayList
+
+- Creates a **new copy on every write**
+- Best for **read-heavy applications**
+
+------
+
+#### 🔸 3. BlockingQueue
+
+- Used for producer-consumer problems
+- Blocks when:
+  - Queue is full (producer)
+  - Queue is empty (consumer)
+
+------
+
+#### 🔸 4. ConcurrentSkipListMap
+
+- Thread-safe **sorted map**
+
+------
+
+##### 🔹 Advantages
+
+- ✔ No manual synchronization
+- ✔ Better performance than synchronized collections
+- ✔ Scalable for multi-threading
+
+------
+
+##### ⚠️ Considerations
+
+> ⚠️ Choose based on **read/write pattern**
+
+> ⚠️ CopyOnWrite is expensive for frequent writes
+
+------
+
+##### 🔹 Use Cases
+
+- Web applications
+- Real-time systems
+- Multi-threaded data processing
+
+------
+
+##### ✅ Summary
+
+- Improves performance in concurrent environments
+- Reduces complexity of thread-safe coding
+
+------
+
+### 📌 ForkJoinPool
+
+##### 🔹 Definition
+
+**ForkJoinPool** is a special thread pool for **parallel processing**.
+
+- Part of `ExecutorService`
+- Introduced in Java 7
+- Based on **divide and conquer**
+
+------
+
+##### 🔹 Key Concept
+
+##### 🔸 Fork & Join
+
+1. **Fork** → Split task into smaller tasks
+2. **Join** → Combine results
+
+------
+
+##### 🔸 Work-Stealing
+
+- Idle threads **steal tasks** from busy threads
+- Improves CPU utilization
+
+------
+
+##### 🔹 Important Classes
+
+- `RecursiveTask<T>` → returns result
+- `RecursiveAction` → no return
+
+------
+
+##### 🔹 Example
+
+##### ✅ Task Implementation
+
+```java
+import java.util.concurrent.RecursiveTask;
+
+class SumTask extends RecursiveTask<Integer> {
+
+    private int[] arr;
+    private int start, end;
+
+    public SumTask(int[] arr, int start, int end) {
+        this.arr = arr;
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    protected Integer compute() {
+
+        if (end - start <= 5) {
+            int sum = 0;
+            for (int i = start; i < end; i++) {
+                sum += arr[i];
             }
+            return sum;
         }
+
+        int mid = (start + end) / 2;
+
+        SumTask left = new SumTask(arr, start, mid);
+        SumTask right = new SumTask(arr, mid, end);
+
+        left.fork();
+
+        int rightResult = right.compute();
+        int leftResult = left.join();
+
+        return leftResult + rightResult;
     }
-    ```
+}
+```
 
-- **Executing the Task**:
-  - Create a `ForkJoinPool` instance and invoke the task:
-    ```java
-    public class Main {
-        public static void main(String[] args) {
-            int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
-                             11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-            ForkJoinPool pool = new ForkJoinPool();
-            SumTask task = new SumTask(numbers, 0, numbers.length);
-            int result = pool.invoke(task); // Invoke tasks
-            System.out.println("Total Sum: " + result);
-        }
+------
+
+##### ✅ Execution
+
+```java
+import java.util.concurrent.ForkJoinPool;
+
+public class Main {
+    public static void main(String[] args) {
+
+        int[] arr = {1,2,3,4,5,6,7,8};
+
+        ForkJoinPool pool = new ForkJoinPool();
+
+        int result = pool.invoke(new SumTask(arr, 0, arr.length));
+
+        System.out.println("Sum: " + result);
     }
-    ```
+}
+```
 
-- **Key Benefits**:
-  - Efficiently utilizes multiple CPU cores.
-  - Simplifies parallel programming by handling task splitting and joining.
-  - Automatically manages thread lifecycle and workload distribution.
+------
 
-- **Considerations**:
-  - Ideal for tasks that can be broken down recursively.
-  - Overhead of task management may not be worthwhile for small tasks.
-  - Effective for large datasets or computationally intensive operations.
+##### 🔹 Advantages
 
-- **Common Use Cases**:
-  - Data processing applications involving large arrays or collections.
-  - Computational tasks like sorting, searching, or mathematical computations.
-  - Implementing parallel algorithms in a straightforward manner.
+- ✔ Uses multiple CPU cores
+- ✔ Efficient parallel processing
+- ✔ Automatic load balancing
 
-- **Performance Tips**:
-  - Tune the parallelism level based on the application's workload.
-  - Avoid excessive task creation to minimize overhead.
-  - Consider using **ForkJoinTask** methods like `fork()` and `join()` for efficient task management.
+------
 
-- **Conclusion**:
-  - The **ForkJoinPool** is a powerful tool for parallel processing in Java.
-  - It simplifies the implementation of complex parallel algorithms.
-  - Understanding its core concepts and usage patterns can greatly enhance performance in multi-core environments. 
+##### ⚠️ Considerations
 
-These notes summarize the essential aspects of the **ForkJoinPool** and provide a clear example of its usage in Java for parallel programming.
+> ⚠️ Not suitable for small tasks
 
+> ⚠️ Overhead of splitting tasks
 
+------
 
----
+##### 🔹 Use Cases
+
+- Large data processing
+- Parallel algorithms
+- CPU-intensive tasks
+
+------
+
+### 📌 **Virtual Threads**
+
+------
+
+#### 🔹 **Definition**
+
+**Virtual Threads** are lightweight threads introduced in **Java 21 (Project Loom)**.
+
+**Key Idea:** Many virtual threads run on **a small number of OS (platform) threads**
+
+------
+
+#### 🔹 **Problems with Platform Threads**
+
+##### ❌ **Limitations**
+
+- **Heavyweight**
+  - Each thread is managed by OS
+  - High memory consumption (~1MB per thread)
+- **Limited Scalability**
+  - Cannot create large number of threads
+  - Leads to resource exhaustion
+- **Blocking Issues**
+  - Threads remain blocked during I/O
+  - Wastes system resources
+
+------
+
+#### 🔹 **Benefits of Virtual Threads**
+
+##### ✅ **Advantages**
+
+- **Lightweight**
+  - Requires very less memory
+- **Massive Scalability**
+  - Supports **millions of threads**
+- **Efficient Blocking**
+  - Blocking does **not block OS thread**
+- **Simplified Code**
+  - No need for complex async programming
+
+------
+
+#### 🔹 **How Virtual Threads Work**
+
+##### 🧠 **Internal Flow**
+
+```
+Virtual Threads 
+      ↓
+JVM Scheduler 
+      ↓
+Few OS (Carrier) Threads 
+      ↓
+CPU Execution
+```
+
+##### 🔍 **Explanation**
+
+- Virtual threads are managed by **JVM**
+- JVM schedules them on **carrier threads (OS threads)**
+- When a virtual thread blocks → it is **suspended**
+- OS thread is reused for another task
+
+------
+
+#### 🔹 **Creating Virtual Threads**
+
+##### ✅ **Using Thread API**
+
+```
+Thread.startVirtualThread(() -> {
+    System.out.println("Hello Virtual Thread");
+});
+```
+
+------
+
+##### ✅ **Using Executor Service (Recommended)**
+
+```
+try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {
+
+    executor.submit(() -> {
+        System.out.println("Task running in: " + Thread.currentThread());
+    });
+}
+```
+
+------
+
+#### 🔹 **When to Use Virtual Threads**
+
+##### ✅ **Best Use Cases**
+
+- **I/O operations**
+  - File handling
+  - Network calls
+- **Web Servers**
+  - Handling multiple requests
+- **Database Calls**
+  - Blocking DB queries
+
+------
+
+##### ❌ **Avoid Using For**
+
+- **CPU-intensive tasks**
+  - Heavy calculations
+- **Tight loops**
+  - Continuous processing without blocking
+
+------
+
+#### 🔹 **Virtual Threads vs Platform Threads**
+
+| Feature         | Virtual Threads | Platform Threads |
+| --------------- | --------------- | ---------------- |
+| **Weight**      | Lightweight     | Heavyweight      |
+| **Managed By**  | JVM             | OS               |
+| **Scalability** | Very High       | Limited          |
+| **Blocking**    | Cheap           | Expensive        |
+| **Use Case**    | I/O Tasks       | CPU Tasks        |
 
 <div align="center"><h1>Serialization </h1></div>
 
@@ -5587,327 +5777,4 @@ class Order {
 ```
 
 ------
-
-# Servlet & JSP
-
-## What is a Servlet?
-
-A **Servlet** is a Java class that runs on a server, processes client requests (usually HTTP), and generates responses (HTML/JSON).
-
----
-
-## Types of Servlets
-
-- **GenericServlet**
-  - Protocol independent
-  - Implement only required methods
-
-- **HttpServlet**
-  - HTTP specific
-  - Supports `doGet()`, `doPost()`, etc.
-
----
-
-## Servlet Lifecycle Methods
-
-- **init()** – Called once when servlet is loaded  
-- **service()** – Handles client requests  
-- **destroy()** – Called before servlet removal  
-
----
-
-## Difference between doGet() and doPost()
-
-| Feature     | doGet()              | doPost()          |
-| ----------- | -------------------- | ----------------- |
-| Data in URL | Yes                  | No (request body) |
-| Security    | Less secure          | More secure       |
-| Cacheable   | Yes                  | No                |
-| Data Size   | Limited (URL length) | Unlimited         |
-
----
-
-## How does Servlet handle multiple requests?
-
-Servlets are **multithreaded**:
-
-- One servlet instance
-- Multiple threads handle concurrent requests
-
----
-
-## RequestDispatcher
-
-Used to forward/include another resource (Servlet/JSP/HTML).
-
-- **forward()** – Server-side, URL unchanged
-- **include()** – Includes content, response combined
-
-```java
-RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-rd.forward(request, response);
-```
-
-------
-
-## sendRedirect()
-
-Redirects client to another resource.
-
-```java
-response.sendRedirect("welcome.jsp");
-```
-
-### forward() vs sendRedirect()
-
-| forward()        | sendRedirect()           |
-| ---------------- | ------------------------ |
-| Same application | Cross application/domain |
-| Server-side      | Client-side              |
-| URL unchanged    | URL changes              |
-
-------
-
-## Session Management Techniques
-
-- Cookies
-- HttpSession
-- URL Rewriting
-- Hidden Form Fields
-
-------
-
-## HttpSession
-
-Stores user data across requests.
-
-```java
-HttpSession session = request.getSession();
-session.setAttribute("username", "narsing");
-```
-
-------
-
-## Filters in Servlets
-
-Filters intercept requests/responses.
-
-```java
-public class MyFilter implements Filter {
-
-    public void doFilter(ServletRequest req, ServletResponse res,
-                         FilterChain chain)
-            throws IOException, ServletException {
-
-        System.out.println("Filter before servlet");
-        chain.doFilter(req, res);
-    }
-}
-```
-
-------
-
-### ServletContext vs ServletConfig
-
-| Feature  | ServletContext                    | ServletConfig      |
-| -------- | --------------------------------- | ------------------ |
-| Scope    | Application-wide                  | Servlet-specific   |
-| Used For | Global parameters                 | Servlet parameters |
-| Methods  | getInitParameter(), getRealPath() | getInitParameter() |
-
-------
-
-### JSP vs Servlet
-
-| Feature     | JSP             | Servlet           |
-| ----------- | --------------- | ----------------- |
-| Type        | HTML + Java     | Pure Java         |
-| Performance | Slightly slower | Faster (compiled) |
-| Use Case    | UI / View layer | Business logic    |
-
-------
-
-# JSP (Java Server Pages)
-
-### JSP Lifecycle
-
-- **jspInit()**
-- **jspService()**
-- **jspDestroy()**
-
-------
-
-### JSP Expression Language (EL)
-
-Simplifies attribute access.
-
-```jsp
-${sessionScope.username}
-```
-
-Equivalent:
-
-```java
-session.getAttribute("username");
-```
-
-------
-
-### JSP Directives
-
-- `<%@ page %>`
-- `<%@ include %>`
-- `<%@ taglib %>`
-
-```jsp
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-```
-
-------
-
-## Prevent Concurrent Session Modification
-
-```java
-synchronized(session) {
-    session.setAttribute("balance", newBalance);
-}
-```
-
-### Invalidate Session
-
-```java
-session.invalidate();
-```
-
-------
-
-## File Upload in Servlet/JSP
-
-Using Apache Commons FileUpload:
-
-```java
-DiskFileItemFactory factory = new DiskFileItemFactory();
-ServletFileUpload upload = new ServletFileUpload(factory);
-List<FileItem> items = upload.parseRequest(request);
-```
-
-------
-
-# JSTL (JavaServer Pages Standard Tag Library)
-
-## Core Tags
-
-### c:out
-
-```jsp
-<c:out value="Hello JSTL" />
-```
-
-### c:set
-
-```jsp
-<c:set var="name" value="Narsing" />
-```
-
-### c:if
-
-```jsp
-<c:if test="${10 > 5}">
-    <p>10 is greater than 5</p>
-</c:if>
-```
-
-### c:choose
-
-```jsp
-<c:choose>
-    <c:when test="${marks >= 90}">A Grade</c:when>
-    <c:otherwise>Fail</c:otherwise>
-</c:choose>
-```
-
-------
-
-## c:forEach
-
-```jsp
-<c:forEach var="item" items="${items}">
-    <li>${item}</li>
-</c:forEach>
-```
-
-------
-
-## c:url
-
-```jsp
-<a href="<c:url value='/home' />">Home</a>
-```
-
-------
-
-## c:catch
-
-```jsp
-<c:catch var="error">
-    <%= 10 / 0 %>
-</c:catch>
-
-<p>Error: ${error}</p>
-```
-
-------
-
-## c:import
-
-```jsp
-<c:import url="header.jsp" />
-```
-
-Equivalent:
-
-```jsp
-<jsp:include page="header.jsp" />
-```
-
-------
-
-## Servlet → JSP Example
-
-### Servlet
-
-```java
-@WebServlet("/")
-public class HelloServlet extends HttpServlet {
-
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response)
-            throws ServletException, IOException {
-
-        request.setAttribute("message", "Welcome to JSP & JSTL!");
-        request.getRequestDispatcher("hello.jsp")
-               .forward(request, response);
-    }
-}
-```
-
-### JSP
-
-```jsp
-<h1>${message}</h1>
-```
-
-------
-
-
-
-#### JSP vs JSTL: When to Use What?
-
-| Feature            | JSP (Old Way)                     | JSTL (Best Practice)                                      |
-| ------------------ | --------------------------------- | --------------------------------------------------------- |
-| Print a Variable   | `<%= name %>`                     | `<c:out value="${name}" />`                               |
-| Conditional        | `<% if (x > 10) { %> ... <% } %>` | `<c:if test="${x > 10}"> ... </c:if>`                     |
-| Looping            | `<% for (...) { %> ... <% } %>`   | `<c:forEach var="item" items="${list}"> ... </c:forEach>` |
-| Exception Handling | `try { ... } catch { ... }`       | `<c:catch var="error"> ... </c:catch>`                    |
 
