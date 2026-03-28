@@ -3450,8 +3450,6 @@ public static void main(String[] args) throws InterruptedException {
 | `notifyAll()          `     | Wakes up all threads waiting on an object's monitor.         |
 | `stop() (Deprecated)  `     | Forcefully stops a thread (unsafe and not recommended for use). |
 
-### 
-
 ---
 
 ### When would you use the wait and notify methods in your Java application ?
@@ -3776,228 +3774,7 @@ executor.shutdown(); // output : 42
 - Use **Callable** when you need a return value or want to throw
   exceptions.
 
-###  **What is ExecutorService?**
-
-- Part of java.util.concurrent package.
-
-- Provides a high-level API to manage and execute asynchronous tasks.
-
-- Avoids manual thread management.
-
-- Supports submitting Runnable and Callable tasks.
-
-**▶️ Types of ExecutorService**
-
--------------------------------------------------------------------
-
-| Type                      | Description                                        |
-| ------------------------- | -------------------------------------------------- |
-| newFixedThreadPool(n)     | Fixed number of threads in the pool.               |
-| newCachedThreadPool()     | Dynamically grows as needed, reuses  idle threads. |
-| newSingleThreadExecutor() | Exactly 1 thread in the pool.                      |
-| newScheduledThreadPool(n) | Allows scheduling tasks to run periodically.       |
-
--------------------------------------------------------------------
-
-**▶️ Example: Fixed Thread Pool (2 Threads)**
-
->// Create thread pool with 2 threads at a time two thread will run
-
-```java
-ExecutorService executor = Executors.newFixedThreadPool(2);
-
-for (int i = 1; i <= 5; i++) {
-
-int taskId = i;
-
-executor.submit(() -> {
-
-System.out.println("Task " + taskId + " is running in thread:" + Thread.currentThread().getName());
-try {
-Thread.sleep(2000); // Simulate work
-} catch (InterruptedException e) {
-e.printStackTrace();
-}
-System.out.println("Task " + taskId + " completed.");
-});
-}
-executor.shutdown();
-```
-
-**3️⃣ Example Behavior**
-
-```java
-ExecutorService service = Executors.newFixedThreadPool(1); // Using 2 threads
-
-// Submit Runnable Task 1
-
-service.submit(() -> {
-
-System.out.println("Thread one is running!");
-
-try {
-
-Thread.sleep(2000); // Shortened for demonstration
-
-} catch (InterruptedException e) {
-
-e.printStackTrace();
-
-}
-
-System.out.println("Thread one completed!");
-
-});
-
-
-// Submit Runnable Task 2
-
-service.submit(() -> {
-
-System.out.println("Thread two is running!");
-
-});
-
-// Shutdown executor service
-
-service.shutdown();
-```
-
-- Only **1 thread** is available.
-
-- Task 1 executes first, Task 2 waits until Task 1 finishes, then runs.
-
-**▶️ Why Use ExecutorService?**
-
-✅ Simplifies thread management.
-✅ Improves performance via thread reuse.
-✅ Handles task queuing automatically.
-✅ Supports Callable → Future to get results.
-✅ Allows controlled shutdown.
-
 ---
-
-### Future & Completable Future : 
-
-#### 1️⃣ Future (Basic Async Result)
-
-##### Key Points
-
-- Introduced in **Java 5**
-- Represents a **result of an async task**
-- **Blocking** (`get()` waits)
-- No chaining, no callbacks
-
-##### Example (Future)
-
-```java
-ExecutorService executor = Executors.newSingleThreadExecutor();
-
-Future<Integer> future = executor.submit(() -> {
-    Thread.sleep(1000);
-    return 10;
-});
-
-System.out.println("Doing other work...");
-
-Integer result = future.get(); // BLOCKS
-System.out.println("Result: " + result);
-
-executor.shutdown();
-```
-
-📌 Problem:
-
-- Thread blocks
-- Cannot combine tasks
-- Hard to handle errors
-
-------
-
-#### 2️⃣ CompletableFuture (Modern Async)
-
-##### Key Points
-
-- Introduced in **Java 8**
-- **Non-blocking**
-- Supports **chaining**, **callbacks**, **combining tasks**
-- Better exception handling
-
-------
-
-##### 3️⃣ CompletableFuture Example
-
-##### Non-Blocking Example
-
-```java
-CompletableFuture<Integer> future =CompletableFuture.supplyAsync(() -> 10);
-
-future.thenAccept(result ->System.out.println("Result: " + result));
-
-System.out.println("Main thread is free");
-```
-
-📌 Output order is **non-deterministic**
-
-------
-
-##### 4️⃣ Chaining Example (Very Important 🔥)
-
-```java
-CompletableFuture<Integer> future =
-        CompletableFuture.supplyAsync(() -> 10)
-                .thenApply(result -> result * 2)
-                .thenApply(result -> result + 5);
-
-System.out.println(future.join()); // 25
-```
-
-✔ Clean
- ✔ Readable
- ✔ No blocking till end
-
-------
-
-##### 5️⃣ Exception Handling
-
-##### Future (Bad)
-
-```java
-try {
-    future.get();
-} catch (ExecutionException e) {
-    e.getCause();
-}
-```
-
-##### CompletableFuture (Good)
-
-```java
-CompletableFuture<Integer> future =
-        CompletableFuture.supplyAsync(() -> {
-            throw new RuntimeException("Error");
-        }).exceptionally(ex -> {
-            System.out.println(ex.getMessage());
-            return 0;
-        });
-```
-
-------
-
-##### 6️⃣ Combining Multiple Tasks (🔥 Interview Favorite)
-
-```java
-CompletableFuture<Integer> f1 =
-        CompletableFuture.supplyAsync(() -> 10);
-
-CompletableFuture<Integer> f2 =
-        CompletableFuture.supplyAsync(() -> 20);
-
-CompletableFuture<Integer> combined =
-        f1.thenCombine(f2, Integer::sum);
-
-System.out.println(combined.join()); // 30
-```
 
 | Feature            | Future | CompletableFuture |
 | ------------------ | ------ | ----------------- |
@@ -4008,7 +3785,287 @@ System.out.println(combined.join()); // 30
 | Exception handling | Poor   | Excellent         |
 | Java version       | Java 5 | Java 8            |
 
----
+------
+
+## ExecutorService vs Future vs CompletableFuture
+
+------
+
+### 📌 1. ExecutorService
+
+#### 🔹 What is ExecutorService?
+
+`ExecutorService` is a **thread pool manager** introduced in Java 5 that helps execute tasks asynchronously without manually creating threads.
+
+------
+
+##### 🔹 Key Responsibilities
+
+- Manage **thread pool**
+- Execute tasks asynchronously
+- Control lifecycle (start, shutdown)
+
+------
+
+##### 🔹 Why Use It?
+
+❌ Without ExecutorService
+
+- Manual thread creation → inefficient
+
+✅ With ExecutorService
+
+- Reuse threads
+- Better performance
+- Controlled execution
+
+------
+
+##### 🔹 Common Factory Methods
+
+```java
+ExecutorService fixed = Executors.newFixedThreadPool(5);
+ExecutorService cached = Executors.newCachedThreadPool();
+ExecutorService single = Executors.newSingleThreadExecutor();
+```
+
+------
+
+##### 🔹 Example
+
+```java
+import java.util.concurrent.*;
+
+public class ExecutorExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        for (int i = 0; i < 5; i++) {
+            executor.submit(() -> {
+                System.out.println(Thread.currentThread().getName());
+            });
+        }
+
+        executor.shutdown();
+    }
+}
+```
+
+------
+
+##### 🔹 Important Methods
+
+| Method          | Description          |
+| --------------- | -------------------- |
+| `submit()`      | Submit task          |
+| `execute()`     | Run task (no return) |
+| `shutdown()`    | Graceful shutdown    |
+| `shutdownNow()` | Force stop           |
+
+------
+
+### 📌 2. Future
+
+##### 🔹 What is Future?
+
+`Future` represents the **result of an asynchronous computation**.
+
+👉 Returned by `ExecutorService.submit()`
+
+------
+
+##### 🔹 Problem It Solves
+
+- Get result later (async)
+- Check if task is complete
+
+------
+
+##### 🔹 Example
+
+```java
+import java.util.concurrent.*;
+
+public class FutureExample {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        Future<Integer> future = executor.submit(() -> {
+            return 10 + 20;
+        });
+
+        System.out.println("Doing other work...");
+
+        Integer result = future.get(); // BLOCKING
+        System.out.println("Result: " + result);
+
+        executor.shutdown();
+    }
+}
+```
+
+------
+
+##### 🔹 Important Methods
+
+| Method     | Description                  |
+| ---------- | ---------------------------- |
+| `get()`    | Wait & get result (blocking) |
+| `isDone()` | Check completion             |
+| `cancel()` | Cancel task                  |
+
+------
+
+##### 🔴 Limitations of Future
+
+❌ Blocking (`get()`)
+❌ No chaining
+❌ No proper error handling
+❌ Cannot combine multiple tasks
+
+------
+
+### 📌 3. CompletableFuture (Java 8+)
+
+##### 🔹 What is CompletableFuture?
+
+`CompletableFuture` is an advanced version of Future that supports:
+
+✅ Non-blocking
+✅ Chaining
+✅ Combining tasks
+✅ Exception handling
+
+------
+
+##### 🔹 Creating CompletableFuture
+
+```java
+CompletableFuture<String> future =
+    CompletableFuture.supplyAsync(() -> "Hello");
+```
+
+------
+
+🔹 **Example**
+
+```java
+import java.util.concurrent.*;
+
+public class CompletableFutureExample {
+    public static void main(String[] args) {
+        CompletableFuture<String> future =
+            CompletableFuture.supplyAsync(() -> "Hello World");
+
+        future.thenAccept(System.out::println);
+    }
+}
+```
+
+------
+
+#### 🔗 4. Chaining Tasks
+
+```java
+CompletableFuture.supplyAsync(() -> "Task1")
+    .thenApply(res -> res + " -> Task2")
+    .thenApply(res -> res + " -> Task3")
+    .thenAccept(System.out::println);
+```
+
+👉 Output:
+`Task1 -> Task2 -> Task3`
+
+------
+
+#### 🔀 5. Combining Multiple Futures
+
+```java
+CompletableFuture<Integer> f1 = CompletableFuture.supplyAsync(() -> 10);
+CompletableFuture<Integer> f2 = CompletableFuture.supplyAsync(() -> 20);
+
+f1.thenCombine(f2, (a, b) -> a + b)
+  .thenAccept(System.out::println);
+```
+
+------
+
+#### ⚠️ 6. Error Handling
+
+```java
+CompletableFuture.supplyAsync(() -> {
+    if (true) throw new RuntimeException("Error!");
+    return "Success";
+})
+.exceptionally(ex -> "Fallback")
+.thenAccept(System.out::println);
+```
+
+------
+
+#### 🔹 Methods for Error Handling
+
+| Method            | Use                |
+| ----------------- | ------------------ |
+| `exceptionally()` | Handle error       |
+| `handle()`        | Result + exception |
+| `whenComplete()`  | Final callback     |
+
+------
+
+#### ⏱️ 7. Timeout Handling
+
+```java
+CompletableFuture.supplyAsync(() -> {
+    try { Thread.sleep(5000); } catch (Exception e) {}
+    return "Done";
+})
+.orTimeout(2, TimeUnit.SECONDS)
+.exceptionally(ex -> "Timeout!")
+.thenAccept(System.out::println);
+```
+
+------
+
+#### 🔄 8. ExecutorService vs Future vs CompletableFuture
+
+| Feature           | ExecutorService | Future      | CompletableFuture |
+| ----------------- | --------------- | ----------- | ----------------- |
+| Thread Management | ✅ Yes           | ❌ No        | ❌ No              |
+| Async Execution   | ✅ Yes           | ✅ Yes       | ✅ Yes             |
+| Return Result     | ❌               | ✅           | ✅                 |
+| Blocking          | ❌               | ✅ (`get()`) | ❌                 |
+| Chaining          | ❌               | ❌           | ✅                 |
+| Combine Tasks     | ❌               | ❌           | ✅                 |
+| Error Handling    | ❌               | ❌           | ✅                 |
+| Timeout           | ❌               | Limited     | ✅                 |
+
+------
+
+#### 🎯 When to Use What?
+
+##### ✅ Use ExecutorService
+
+- When you need **thread pool control**
+- Running multiple independent tasks
+
+------
+
+##### ✅ Use Future
+
+- When you only need **simple async result**
+
+------
+
+##### ✅ Use CompletableFuture
+
+- When you need:
+  - Non-blocking
+  - Task chaining
+  - Combining results
+  - Error handling
+
+👉 **Best choice for modern Java apps**
 
 
 
@@ -5478,12 +5535,6 @@ public class HelloServlet extends HttpServlet {
 | Conditional        | `<% if (x > 10) { %> ... <% } %>` | `<c:if test="${x > 10}"> ... </c:if>`                     |
 | Looping            | `<% for (...) { %> ... <% } %>`   | `<c:forEach var="item" items="${list}"> ... </c:forEach>` |
 | Exception Handling | `try { ... } catch { ... }`       | `<c:catch var="error"> ... </c:catch>`                    |
-
----
-
-------
-
-This is a solid collection of technical concepts. To make them "study-ready," I have cleaned up the hierarchy, standardized the formatting, and grouped related concepts (Object Methods, Java Language Features, and Design Principles) into a cohesive structure.
 
 
 
