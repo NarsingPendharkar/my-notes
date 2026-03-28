@@ -5484,6 +5484,110 @@ The Optional class in Java 8 is used to represent a value that may or may not be
 
 ------
 
+
+
+# Core Concepts & Design Principles
+
+---
+
+## 1. Object Equality: `equals()` and `hashCode()`
+
+### A. The `equals()` Method
+*   **Purpose:** Used to compare the **logical content** of two objects.
+*   **Source:** Defined in the `Object` class.
+*   **Default Behavior:** Compares memory addresses (same as `==`).
+*   **When to Override:** When you need to compare actual data (e.g., matching a Student ID).
+
+```java
+@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true; // Reference check
+    if (!(obj instanceof Student)) return false; // Type check
+
+    Student s = (Student) obj;
+    return this.id == s.id && Objects.equals(this.name, s.name);
+}
+```
+
+## B. The `hashCode()` Method
+
+- **Purpose:** Returns an integer representation of the object for use in **hashing-based collections** (HashMap, HashSet).
+- **The Golden Rule:** If `a.equals(b)` is true, then `a.hashCode()` **must** equal `b.hashCode()`.
+
+## C. Role in Collections (HashMap/HashSet)
+
+To locate an object, Java follows a two-step process:
+
+1. **`hashCode()`**: Identifies the correct **Bucket** (The Drawer).
+2. **`equals()`**: Identifies the **Exact Match** inside that bucket (The File).
+
+| Scenario | `hashCode()` & `equals()` Overridden?           | Result (e.g., adding 2 identical objects) |
+| :------- | :---------------------------------------------- | :---------------------------------------- |
+| **No**   | Different hashes → Different buckets            | Duplicates allowed (Size = 2) ❌           |
+| **Yes**  | Same hash → Same bucket → `equals` returns true | Duplicate prevented (Size = 1) ✅          |
+
+------
+
+## 2. Java Language Features: Effectively Final
+
+## Definition
+
+A variable is **effectively final** if its value is assigned exactly once and never modified, even if the `final` keyword is omitted.
+
+## Why does it matter?
+
+Java requires local variables used inside **Lambdas** or **Anonymous Inner Classes** to be final or effectively final to ensure **thread safety and consistency**.
+
+```mermaid
+flowchart TD
+    A[Variable Declared] --> B{Value Changed?}
+    B -- No --> C[Effectively Final ✅]
+    C --> D[Allowed in Lambda / Inner Class]
+    B -- Yes --> E[Not Effectively Final ❌]
+    E --> F[Compilation Error in Lambda]
+```
+
+**Example:**
+
+```java
+int limit = 10; 
+// limit = 20; <--- If uncommented, the line below fails
+Runnable r = () -> System.out.println(limit); 
+```
+
+------
+
+## 3. SOLID Design Principles
+
+Guidelines for building maintainable, scalable, and robust software.
+
+| Principle                     | Key Concept                                     | Goal                             |
+| :---------------------------- | :---------------------------------------------- | :------------------------------- |
+| **S** - Single Responsibility | One class = One job.                            | Easier maintenance.              |
+| **O** - Open/Closed           | Open for Extension, Closed for Modification.    | Use Interfaces/Inheritance.      |
+| **L** - Liskov Substitution   | Subtypes must be substitutable for base types.  | Avoid breaking parent logic.     |
+| **I** - Interface Segregation | Many specific interfaces > One "Fat" interface. | Clients only see what they need. |
+| **D** - Dependency Inversion  | Depend on abstractions, not concretions.        | Decouples code via DI.           |
+
+## Dependency Inversion Example
+
+Instead of a class creating its own dependencies, they are "injected" via an interface.
+
+```java
+interface Payment { void pay(); }
+
+class Order {
+    private Payment payment;
+    
+    // Constructor Injection (Dependency Inversion)
+    public Order(Payment payment) {
+        this.payment = payment;
+    }
+}
+```
+
+------
+
 # Servlet & JSP
 
 ## What is a Servlet?
@@ -5526,6 +5630,7 @@ A **Servlet** is a Java class that runs on a server, processes client requests (
 ## How does Servlet handle multiple requests?
 
 Servlets are **multithreaded**:
+
 - One servlet instance
 - Multiple threads handle concurrent requests
 
@@ -5805,110 +5910,4 @@ public class HelloServlet extends HttpServlet {
 | Conditional        | `<% if (x > 10) { %> ... <% } %>` | `<c:if test="${x > 10}"> ... </c:if>`                     |
 | Looping            | `<% for (...) { %> ... <% } %>`   | `<c:forEach var="item" items="${list}"> ... </c:forEach>` |
 | Exception Handling | `try { ... } catch { ... }`       | `<c:catch var="error"> ... </c:catch>`                    |
-
-
-
----
-
-# Core Concepts & Design Principles
-
----
-
-## 1. Object Equality: `equals()` and `hashCode()`
-
-### A. The `equals()` Method
-*   **Purpose:** Used to compare the **logical content** of two objects.
-*   **Source:** Defined in the `Object` class.
-*   **Default Behavior:** Compares memory addresses (same as `==`).
-*   **When to Override:** When you need to compare actual data (e.g., matching a Student ID).
-
-```java
-@Override
-public boolean equals(Object obj) {
-    if (this == obj) return true; // Reference check
-    if (!(obj instanceof Student)) return false; // Type check
-
-    Student s = (Student) obj;
-    return this.id == s.id && Objects.equals(this.name, s.name);
-}
-```
-
-## B. The `hashCode()` Method
-
-- **Purpose:** Returns an integer representation of the object for use in **hashing-based collections** (HashMap, HashSet).
-- **The Golden Rule:** If `a.equals(b)` is true, then `a.hashCode()` **must** equal `b.hashCode()`.
-
-## C. Role in Collections (HashMap/HashSet)
-
-To locate an object, Java follows a two-step process:
-
-1. **`hashCode()`**: Identifies the correct **Bucket** (The Drawer).
-2. **`equals()`**: Identifies the **Exact Match** inside that bucket (The File).
-
-| Scenario | `hashCode()` & `equals()` Overridden?           | Result (e.g., adding 2 identical objects) |
-| :------- | :---------------------------------------------- | :---------------------------------------- |
-| **No**   | Different hashes → Different buckets            | Duplicates allowed (Size = 2) ❌           |
-| **Yes**  | Same hash → Same bucket → `equals` returns true | Duplicate prevented (Size = 1) ✅          |
-
-------
-
-## 2. Java Language Features: Effectively Final
-
-## Definition
-
-A variable is **effectively final** if its value is assigned exactly once and never modified, even if the `final` keyword is omitted.
-
-## Why does it matter?
-
-Java requires local variables used inside **Lambdas** or **Anonymous Inner Classes** to be final or effectively final to ensure **thread safety and consistency**.
-
-```mermaid
-flowchart TD
-    A[Variable Declared] --> B{Value Changed?}
-    B -- No --> C[Effectively Final ✅]
-    C --> D[Allowed in Lambda / Inner Class]
-    B -- Yes --> E[Not Effectively Final ❌]
-    E --> F[Compilation Error in Lambda]
-```
-
-**Example:**
-
-```java
-int limit = 10; 
-// limit = 20; <--- If uncommented, the line below fails
-Runnable r = () -> System.out.println(limit); 
-```
-
-------
-
-## 3. SOLID Design Principles
-
-Guidelines for building maintainable, scalable, and robust software.
-
-| Principle                     | Key Concept                                     | Goal                             |
-| :---------------------------- | :---------------------------------------------- | :------------------------------- |
-| **S** - Single Responsibility | One class = One job.                            | Easier maintenance.              |
-| **O** - Open/Closed           | Open for Extension, Closed for Modification.    | Use Interfaces/Inheritance.      |
-| **L** - Liskov Substitution   | Subtypes must be substitutable for base types.  | Avoid breaking parent logic.     |
-| **I** - Interface Segregation | Many specific interfaces > One "Fat" interface. | Clients only see what they need. |
-| **D** - Dependency Inversion  | Depend on abstractions, not concretions.        | Decouples code via DI.           |
-
-## Dependency Inversion Example
-
-Instead of a class creating its own dependencies, they are "injected" via an interface.
-
-```java
-interface Payment { void pay(); }
-
-class Order {
-    private Payment payment;
-    
-    // Constructor Injection (Dependency Inversion)
-    public Order(Payment payment) {
-        this.payment = payment;
-    }
-}
-```
-
-------
 
