@@ -3338,7 +3338,7 @@ The "wait" and "notify" methods in Java are used to coordinate the execution of 
 
 ### 📌What is volatile Keyword?
 
-The volatile keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "volatile" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
+The `volatile` keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "`volatile`" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
 
 **Example: Using volatile**
 
