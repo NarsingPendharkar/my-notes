@@ -3559,8 +3559,6 @@ public class ThreadPoolExample {
 
 ### 📌 1. ExecutorService
 
-#### 🔹 What is ExecutorService?
-
 `ExecutorService` is a **thread pool manager** introduced in Java 5 that helps execute tasks asynchronously without manually creating threads.
 
 ------
