@@ -5483,629 +5483,111 @@ public class HelloServlet extends HttpServlet {
 
 ------
 
-## 🔹 1. Purpose of `equals()` in Java
+This is a solid collection of technical concepts. To make them "study-ready," I have cleaned up the hierarchy, standardized the formatting, and grouped related concepts (Object Methods, Java Language Features, and Design Principles) into a cohesive structure.
 
-- Defined in `Object` class.
-- Used to **compare content (logical equality)** of two objects.
 
-### ✅ Default behavior:
 
-- Compares **memory addresses** (same as `==`).
+---
 
-### ✅ We override it:
+# Core Concepts & Design Principles
 
-- To compare **actual data inside objects**.
+---
 
-### 📌 Example:
+## 1. Object Equality: `equals()` and `hashCode()`
 
-```java
-class Student {
-    int id;
-    String name;
-
-    Student(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Student)) return false;
-
-        Student s = (Student) obj;
-        return this.id == s.id && this.name.equals(s.name);
-    }
-}
-Student s1 = new Student(1, "John");
-Student s2 = new Student(1, "John");
-
-System.out.println(s1.equals(s2)); // true ✅
-```
-
-------
-
-## 🔹 2. Purpose of `hashCode()`
-
-- Returns an **integer hash value** for the object.
-- Used for **fast lookup in hashing-based collections**.
-
-### ✅ Rule:
-
-- If two objects are equal → **their hashCode must be same**
-- If hashCode is same → objects may or may not be equal
-
-### 📌 Example:
+### A. The `equals()` Method
+*   **Purpose:** Used to compare the **logical content** of two objects.
+*   **Source:** Defined in the `Object` class.
+*   **Default Behavior:** Compares memory addresses (same as `==`).
+*   **When to Override:** When you need to compare actual data (e.g., matching a Student ID).
 
 ```java
 @Override
-public int hashCode() {
-    return id + name.hashCode();
+public boolean equals(Object obj) {
+    if (this == obj) return true; // Reference check
+    if (!(obj instanceof Student)) return false; // Type check
+
+    Student s = (Student) obj;
+    return this.id == s.id && Objects.equals(this.name, s.name);
 }
 ```
 
-------
+## B. The `hashCode()` Method
 
-## 🔹 3. Role in HashMap & HashSet
+- **Purpose:** Returns an integer representation of the object for use in **hashing-based collections** (HashMap, HashSet).
+- **The Golden Rule:** If `a.equals(b)` is true, then `a.hashCode()` **must** equal `b.hashCode()`.
 
-### ⚡ Internal Working:
+## C. Role in Collections (HashMap/HashSet)
 
-Both `HashMap` and `HashSet` use:
+To locate an object, Java follows a two-step process:
 
-1. `hashCode()` → to find **bucket**
-2. `equals()` → to find **exact match inside bucket**
+1. **`hashCode()`**: Identifies the correct **Bucket** (The Drawer).
+2. **`equals()`**: Identifies the **Exact Match** inside that bucket (The File).
 
-------
-
-## 🔸 A. In HashMap
-
-### 📌 Example:
-
-```java
-Map<Student, String> map = new HashMap<>();
-
-Student s1 = new Student(1, "John");
-Student s2 = new Student(1, "John");
-
-map.put(s1, "Data1");
-map.put(s2, "Data2");
-
-System.out.println(map.size());
-```
-
-### 👉 Case 1: Without overriding
-
-- `hashCode()` different → stored in different buckets
-- Result: `size = 2 ❌`
-
-### 👉 Case 2: With proper override
-
-- Same hashCode + equals true
-- Second value replaces first
-- Result: `size = 1 ✅`
+| Scenario | `hashCode()` & `equals()` Overridden?           | Result (e.g., adding 2 identical objects) |
+| :------- | :---------------------------------------------- | :---------------------------------------- |
+| **No**   | Different hashes → Different buckets            | Duplicates allowed (Size = 2) ❌           |
+| **Yes**  | Same hash → Same bucket → `equals` returns true | Duplicate prevented (Size = 1) ✅          |
 
 ------
 
-## 🔸 B. In HashSet
+## 2. Java Language Features: Effectively Final
 
-### 📌 Example:
+## Definition
 
-```java
-Set<Student> set = new HashSet<>();
+A variable is **effectively final** if its value is assigned exactly once and never modified, even if the `final` keyword is omitted.
 
-set.add(new Student(1, "John"));
-set.add(new Student(1, "John"));
+## Why does it matter?
 
-System.out.println(set.size());
-```
-
-### 👉 Without override:
-
-- Duplicates allowed ❌ → size = 2
-
-### 👉 With override:
-
-- Duplicate prevented ✅ → size = 1
-
-------
-
-## 🔥 Key Interview Points
-
-- `equals()` → checks **logical equality**
-- `hashCode()` → helps in **fast searching**
-- Both must be overridden **together**
-- Used heavily in:
-  - `HashMap`
-  - `HashSet`
-  - `Hashtable`
-
-------
-
-## 🧠 Simple Analogy
-
-- `hashCode()` = **bucket number (like drawer)**
-- `equals()` = **checking exact file inside drawer**
-
-------
-
-Here’s a **clear + visual explanation** 👇
-
-------
-
-## 🧩 What is an *Effectively Final* Variable?
-
-👉 A variable is **effectively final** if:
-
-- Its value is **assigned only once**
-- It is **not changed later**
-- Even without `final` keyword, Java treats it as `final`
-
-------
-
-## ✅ Example (Effectively Final)
-
-```java
-int x = 10;  // assigned once
-
-Runnable r = () -> {
-    System.out.println(x); // ✅ allowed
-};
-```
-
-✔ `x` is **effectively final**
-✔ Used inside **lambda**
-
-------
-
-## ❌ Not Effectively Final
-
-```java
-int x = 10;
-x = 20;  // changed ❌
-
-Runnable r = () -> {
-    System.out.println(x); // ❌ error
-};
-```
-
-❌ Compilation error
-👉 Because `x` is modified
-
-------
-
-## 🔄 Flow Diagram (Easy Understanding)
+Java requires local variables used inside **Lambdas** or **Anonymous Inner Classes** to be final or effectively final to ensure **thread safety and consistency**.
 
 ```mermaid
 flowchart TD
     A[Variable Declared] --> B{Value Changed?}
-
     B -- No --> C[Effectively Final ✅]
-    C --> D[Can be used in Lambda / Inner Class]
-
+    C --> D[Allowed in Lambda / Inner Class]
     B -- Yes --> E[Not Effectively Final ❌]
-    E --> F[Cannot be used in Lambda]
+    E --> F[Compilation Error in Lambda]
 ```
 
-------
-
-## 🎯 Where It Is Used
-
-### 1. Lambda Expressions
+**Example:**
 
 ```java
-int a = 5;
-() -> System.out.println(a); // works
+int limit = 10; 
+// limit = 20; <--- If uncommented, the line below fails
+Runnable r = () -> System.out.println(limit); 
 ```
 
-### 2. Anonymous Classes
+------
+
+## 3. SOLID Design Principles
+
+Guidelines for building maintainable, scalable, and robust software.
+
+| Principle                     | Key Concept                                     | Goal                             |
+| :---------------------------- | :---------------------------------------------- | :------------------------------- |
+| **S** - Single Responsibility | One class = One job.                            | Easier maintenance.              |
+| **O** - Open/Closed           | Open for Extension, Closed for Modification.    | Use Interfaces/Inheritance.      |
+| **L** - Liskov Substitution   | Subtypes must be substitutable for base types.  | Avoid breaking parent logic.     |
+| **I** - Interface Segregation | Many specific interfaces > One "Fat" interface. | Clients only see what they need. |
+| **D** - Dependency Inversion  | Depend on abstractions, not concretions.        | Decouples code via DI.           |
+
+## Dependency Inversion Example
+
+Instead of a class creating its own dependencies, they are "injected" via an interface.
 
 ```java
-int b = 10;
-new Thread() {
-    public void run() {
-        System.out.println(b); // works
-    }
-};
-```
-
-------
-
-## 🔥 Why Java Requires This?
-
-👉 For **thread safety + consistency**
-
-- Lambda captures **value**, not variable
-- Prevents unexpected changes
-
-------
-
-
-
-------
-
-## ⚡ One Line Answer (Interview)
-
-> An effectively final variable is a local variable whose value is assigned only once and not modified later, allowing it to be used inside lambda expressions and anonymous classes without explicitly declaring it as final.
-
-
-
-------
-
-
-
-------
-
-## ⚡ Interview One-Liner
-
-> The `final` keyword is used to restrict modification by making variables constant, preventing method overriding, and stopping class inheritance.
-
-------
-
-Here’s a **clear, interview-ready explanation** 👇
-
-------
-
-## 🧩 What is a Mutable Class?
-
-👉 A **mutable class** is a class whose **state (data) can be changed after object creation**
-
-------
-
-## ✅ How to Create a Mutable Class
-
-### 🔑 Steps
-
-1. Do **NOT** make fields `final`
-2. Keep fields **private** (encapsulation)
-3. Provide **setters (modify methods)**
-4. Allow changes to internal state
-
-------
-
-## ✅ Example
-
-```java
-class User {
-    private String name;
-    private int age;
-
-    // Constructor
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    // Getters
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    // Setters (make it mutable)
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-}
-```
-
-------
-
-## 🔄 Flow (How Mutability Works)
-
-```mermaid
-flowchart TD
-    A[Object Created] --> B[Initial State]
-
-    B --> C[Setter Called]
-    C --> D[State Changed ✅]
-
-    D --> C
-```
-
-------
-
-## 🎯 Key Points
-
-- Object **state changes over time**
-- Uses **setters**
-- Common in:
-  - DTOs
-  - Entities (JPA)
-  - Forms
-
-------
-
-## ⚠️ Disadvantages
-
-- ❌ Not thread-safe
-- ❌ Harder to debug
-- ❌ Side effects possible
-
-------
-
-## 🔥 Quick Comparison
-
-| Feature     | Mutable     | Immutable     |
-| ----------- | ----------- | ------------- |
-| Change      | ✅ Allowed   | ❌ Not allowed |
-| Thread-safe | ❌ No        | ✅ Yes         |
-| Example     | `ArrayList` | `String`      |
-
-------
-
-## ⚡ Interview One-Liner
-
-> A mutable class is created by allowing its fields to be modified after object creation, typically by providing setter methods and avoiding the use of `final` fields.
-
-------
-
-If you want, I can also show **how to convert mutable → immutable (very important interview topic)** 😎
-
-
-
-Here’s a **clean, interview-focused answer** 👇
-
-------
-
-## 🧩 Best Way to Implement Code Following Design Principles
-
-👉 The best way is to follow **SOLID principles + clean coding practices**
-
-------
-
-## 🔑 1. Follow SOLID Principles
-
-### ✔ S — Single Responsibility
-
-- One class → one responsibility
-  👉 Easier to maintain
-
-------
-
-### ✔ O — Open/Closed
-
-- Open for extension, closed for modification
-  👉 Use interfaces
-
-------
-
-### ✔ L — Liskov Substitution
-
-- Subclass should behave like parent
-  👉 Avoid breaking behavior
-
-------
-
-### ✔ I — Interface Segregation
-
-- Many small interfaces > one big interface
-
-------
-
-### ✔ D — Dependency Inversion
-
-- Depend on **abstractions, not concrete classes**
-
-```java
-interface Payment {
-    void pay();
-}
-
-class CardPayment implements Payment {
-    public void pay() {}
-}
+interface Payment { void pay(); }
 
 class Order {
     private Payment payment;
-
-    public Order(Payment payment) { // DI
+    
+    // Constructor Injection (Dependency Inversion)
+    public Order(Payment payment) {
         this.payment = payment;
     }
 }
 ```
 
 ------
-
-## 🔄 Design Flow
-
-```mermaid
-flowchart TD
-    A[Start Designing Class] --> B[Apply SRP]
-    B --> C[Use Interfaces]
-    C --> D[Apply DI]
-    D --> E[Loose Coupling]
-    E --> F[High Cohesion]
-    F --> G[Maintainable Code ✅]
-```
-
-------
-
-## 🔥 2. Use Best Practices
-
-### ✅ Use Dependency Injection
-
-- Avoid `new` keyword inside class
-
-### ✅ Prefer Composition over Inheritance
-
-- More flexible
-
-### ✅ Encapsulation
-
-- Keep fields private
-
-### ✅ Write Small Methods
-
-- Improves readability
-
-------
-
-## 🧪 3. Make Code Testable
-
-- Use interfaces
-- Avoid static methods
-- Inject dependencies
-
-------
-
-## 🎯 4. Use Design Patterns
-
-- Factory → object creation
-- Strategy → dynamic behavior
-- Singleton → one instance
-
-------
-
-## ⚡ Interview One-Liner
-
-> The best way to implement code following design principles is by applying SOLID principles, using dependency injection, ensuring loose coupling and high cohesion, and leveraging appropriate design patterns.
-
-------
-
-If you want, I can give you a **bad vs good code comparison (very useful for interviews)** 😎
-
-Here’s a **clear, interview-ready answer** 👇
-
-------
-
-## 🧩 How Design Patterns Make a Class More Testable
-
-👉 Goal:
-Make code **loosely coupled, replaceable, and easy to mock**
-
-------
-
-## 🔑 1. Dependency Injection (MOST IMPORTANT)
-
-👉 Inject dependencies instead of creating them
-
-### ❌ Bad (Hard to test)
-
-```java
-class OrderService {
-    private PaymentService payment = new PaymentService(); // tightly coupled
-}
-```
-
-### ✅ Good (Testable)
-
-```java
-class OrderService {
-    private PaymentService payment;
-
-    public OrderService(PaymentService payment) {
-        this.payment = payment;
-    }
-}
-```
-
-✔ Now you can pass **mock object** in test
-
-------
-
-## 🔄 Flow
-
-```mermaid
-flowchart TD
-    A[Class] --> B[Dependency Injection]
-    B --> C[Loose Coupling]
-    C --> D[Mocking Possible]
-    D --> E[Easy Testing ✅]
-```
-
-------
-
-## 🔑 2. Strategy Pattern
-
-👉 Replace behavior at runtime
-
-```java
-interface PaymentStrategy {
-    void pay();
-}
-
-class CardPayment implements PaymentStrategy {}
-class UpiPayment implements PaymentStrategy {}
-```
-
-✔ In test → pass mock strategy
-
-------
-
-## 🔑 3. Factory Pattern
-
-👉 Centralize object creation
-
-```java
-class PaymentFactory {
-    static PaymentStrategy getPayment(String type) {
-        // return object
-    }
-}
-```
-
-✔ Helps replace real objects in test
-
-------
-
-## 🔑 4. Repository Pattern
-
-👉 Separate database logic
-
-```java
-interface UserRepository {
-    User findById(int id);
-}
-```
-
-✔ In test → use fake repository (no DB needed)
-
-------
-
-## 🔑 5. Adapter Pattern
-
-👉 Wrap external APIs
-
-✔ Helps mock external systems (like payment gateway)
-
-------
-
-## 🔑 6. Builder Pattern
-
-👉 Helps create test objects easily
-
-```java
-User user = User.builder()
-                .name("test")
-                .age(25)
-                .build();
-```
-
-------
-
-## 🔥 Key Benefits
-
-- ✔ Loose coupling
-- ✔ Easy mocking
-- ✔ No real DB/API needed
-- ✔ Faster unit tests
-
-------
-
-## ⚡ Interview One-Liner
-
-> Design patterns like Dependency Injection, Strategy, Factory, and Repository improve testability by reducing coupling, enabling mocking, and separating concerns.
-
-------
-
-## 🧠 Pro Tip
-
-👉 Most important pattern for testing = **Dependency Injection**
 
