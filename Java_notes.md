@@ -4529,9 +4529,9 @@ try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecut
 | **Blocking**    | Cheap           | Expensive        |
 | **Use Case**    | I/O Tasks       | CPU Tasks        |
 
-<div align="center"><h1>Serialization </h1></div>
+<div align="center"><h1>✦✦ Serialization ✦✦ </h1></div>
 
-### What is Serialization & Deserialization?
+### 📌 What is Serialization & Deserialization?
 
 - Serialization is the process of converting java object into byte stream.
   
@@ -4742,7 +4742,7 @@ You can define private methods in your class to customize the serialization logi
 
 ---
 
-# Java File Handling
+# ✦✦ Java File Handling ✦✦
 
 ### **File Handling Classes & Their Uses**
 
@@ -4757,24 +4757,11 @@ You can define private methods in your class to customize the serialization logi
 | FileOutputStream | Writes binary data to a file                     |
 | RandomAccessFile | Reads and writes at specific positions in a file |
 
-Perfect! I can clean all of this into **fully structured, GitHub/NotebookLM-ready Markdown**. I’ll:
-
-- Fix **headings and subheadings**
-- Format all **code blocks properly**
-- Format all **tables cleanly**
-- Highlight **notes, tips, and best practices**
-- Separate **File Handling** and **Design Patterns** sections
-
-Here’s your **clean Markdown version**:
-
 ------
 
-~~~markdown
-# Java File Handling
+### Common File Handling Operations
 
-## Common File Handling Operations
-
-### Create a File
+#### Create a File
 ```java
 public void createFile() throws IOException {
     if (file.exists()) {
@@ -4784,9 +4771,9 @@ public void createFile() throws IOException {
         System.out.println("File created at path: " + file.getAbsolutePath());
     }
 }
-~~~
+```
 
-### Write to a File Using FileWriter
+#### Write to a File Using FileWriter
 
 ```java
 public void updateFile() throws IOException {
