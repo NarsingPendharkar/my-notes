@@ -684,7 +684,22 @@ You can say:
 > Yes, I implemented a scheduled batch job in the notification preference module. When a user's pause notification period expires, the job identifies those records, moves them to a history table for audit purposes, and deletes them from the active preferences table to keep the main table optimized.
 
 
+SBI (NBC) Application is a core banking management system supporting 24,000+ branches and 200,000+ users worldwide
 
+Built using a modern Java-based architecture, replacing legacy banking systems
+
+Designed for high scalability, performance, and reliability in large-scale banking operations
+
+Enables bank tellers, loan officers, and customer service representatives to perform daily tasks efficiently
+
+Supports key functionalities like banking transactions, account management, and customer interactions
+
+Improves operational efficiency and ensures a seamless banking experience across branches
+
+Provides a centralized platform for handling core banking activities in real time
+
+
+If you want, I can also convert this into resume bullet points with impact (using action verbs + metrics) 👍
 # Spring Boot with Spring Batch
 
 Spring Batch is a lightweight yet robust framework designed for batch processing, the automated execution of large data tasks without human intervention. It provides reusable components for logging, transaction management, job scheduling, retries and error handling.
