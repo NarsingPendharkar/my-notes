@@ -4899,7 +4899,7 @@ In web terms: **Result of 1 Request == Result of N Identical Requests.**
 | **PUT**     | **Yes**    | No    | Replaces the entire resource.                            |
 | **DELETE**  | **Yes**    | No    | Removes the resource.                                    |
 | **POST**    | **No**     | No    | Usually creates a new resource (N calls = N resources).  |
-| **PATCH**   | **No***    | No    | Partial updates (can be idempotent, but not guaranteed). |
+| **PATCH**   | **No**     | No    | Partial updates (can be idempotent, but not guaranteed). |
 
 > **Warning:** **Safe** methods are always idempotent, but **Idempotent** methods are not always safe (e.g., `PUT` changes data, so it isn't "safe").
 

@@ -781,3 +781,209 @@ SELECT * FROM account
 FOR UPDATE;
 ```
 
+# 📌 20. Window Functions (SQL)
+
+## 🧠 Definition
+Window Functions perform calculations across a set of rows related to the current row without collapsing the result set (unlike GROUP BY).
+
+✔ Each row retains its identity  
+✔ Used for ranking, running totals, analytics  
+
+---
+
+## 🚀 Basic Syntax
+
+```sql
+FUNCTION_NAME(column) OVER (
+    PARTITION BY column
+    ORDER BY column
+)
+```
+
+------
+
+## 📌 Key Concepts
+
+| Concept      | Description                            |
+| ------------ | -------------------------------------- |
+| PARTITION BY | Divides result into groups             |
+| ORDER BY     | Defines order within partition         |
+| WINDOW FRAME | Defines subset of rows for calculation |
+| OVER()       | Mandatory clause for window functions  |
+
+------
+
+## 🔹 Types of Window Functions
+
+### 1. Aggregate Window Functions
+
+- SUM()
+- AVG()
+- COUNT()
+- MIN()
+- MAX()
+
+### Example: Running Total
+
+```sql
+SELECT 
+    name,
+    salary,
+    SUM(salary) OVER (ORDER BY salary) AS running_total
+FROM employees;
+```
+
+------
+
+### 2. Ranking Functions
+
+| Function     | Description                 |
+| ------------ | --------------------------- |
+| ROW_NUMBER() | Unique rank (no duplicates) |
+| RANK()       | Same rank, skips numbers    |
+| DENSE_RANK() | Same rank, no gaps          |
+
+------
+
+### Example: Ranking Employees
+
+```sql
+SELECT 
+    name,
+    salary,
+    RANK() OVER (ORDER BY salary DESC) AS rank
+FROM employees;
+```
+
+------
+
+### Difference Between Ranking Functions
+
+| Function   | Example Output |
+| ---------- | -------------- |
+| ROW_NUMBER | 1, 2, 3, 4     |
+| RANK       | 1, 2, 2, 4     |
+| DENSE_RANK | 1, 2, 2, 3     |
+
+------
+
+### 3. Value Functions
+
+| Function      | Description              |
+| ------------- | ------------------------ |
+| LAG()         | Previous row value       |
+| LEAD()        | Next row value           |
+| FIRST_VALUE() | First value in partition |
+| LAST_VALUE()  | Last value in partition  |
+
+------
+
+### Example: LAG & LEAD
+
+```sql
+SELECT 
+    name,
+    salary,
+    LAG(salary) OVER (ORDER BY salary) AS prev_salary,
+    LEAD(salary) OVER (ORDER BY salary) AS next_salary
+FROM employees;
+```
+
+------
+
+## 📌 PARTITION BY Example
+
+```sql
+SELECT 
+    department,
+    name,
+    salary,
+    AVG(salary) OVER (PARTITION BY department) AS dept_avg
+FROM employees;
+```
+
+✔ Calculates average salary per department
+✔ Without grouping rows
+
+------
+
+## 📌 Window Frame (Advanced)
+
+```sql
+ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+```
+
+### Example
+
+```sql
+SELECT 
+    name,
+    salary,
+    SUM(salary) OVER (
+        ORDER BY salary
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM employees;
+```
+
+------
+
+## ⚠️ Important Points
+
+- Window functions do NOT reduce rows
+- Cannot use directly in WHERE clause
+- Use subquery/CTE if filtering needed
+- ORDER BY is critical for ranking
+
+------
+
+## 💡 Tips
+
+- Use ROW_NUMBER() for pagination
+- Use LAG() for comparing previous records
+- Use PARTITION BY for group-level analytics
+
+------
+
+## 🔁 Flow Diagram
+
+```mermaid
+flowchart TD
+    A[Input Table] --> B[Partition Data]
+    B --> C[Order Rows]
+    C --> D[Apply Window Function]
+    D --> E[Return Result Without Grouping]
+```
+
+------
+
+## 🆚 Window Function vs GROUP BY
+
+| Feature        | Window Function | GROUP BY      |
+| -------------- | --------------- | ------------- |
+| Rows Reduced   | ❌ No            | ✅ Yes         |
+| Aggregation    | ✅ Yes           | ✅ Yes         |
+| Row-level Data | ✅ Preserved     | ❌ Lost        |
+| Use Case       | Analytics       | Summarization |
+
+------
+
+## 🧪 Real Interview Example
+
+### Find Highest Salary per Department
+
+```sql
+SELECT *
+FROM (
+    SELECT 
+        name,
+        department,
+        salary,
+        RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rnk
+    FROM employees
+) t
+WHERE rnk = 1;
+```
+
+------
+
