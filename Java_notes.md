@@ -3108,7 +3108,7 @@ System.out.println(sj);
 
 ------
 
-#### **Key Improvements**
+**Key Improvements**
 
 - Avoids mutable issues (old Date API)
 - Better timezone handling
