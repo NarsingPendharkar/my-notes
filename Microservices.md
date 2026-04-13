@@ -66,7 +66,7 @@ It is an architectural design pattern
 
 ---
 
-#### ⚖️Monolith vs sMicroservices
+#### ⚖️Monolith vs Microservices
 
 | Aspect        | Monolithic Architecture          | Microservices Architecture                   |
 | ------------- | -------------------------------- | -------------------------------------------- |
