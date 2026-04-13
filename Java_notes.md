@@ -3484,11 +3484,11 @@ public class ThreadPoolExample {
 
 ------
 
-## ExecutorService vs Future vs CompletableFuture
+### ExecutorService vs Future vs CompletableFuture
 
 ------
 
-### 📌 1. ExecutorService
+#### 📌 1. ExecutorService
 
 `ExecutorService` is a **thread pool manager** introduced in Java 5 that helps execute tasks asynchronously without manually creating threads.
 
@@ -3559,7 +3559,7 @@ public class ExecutorExample {
 
 ------
 
-### 📌 2. Future
+#### 📌 2. Future
 
 ##### 🔹 What is Future?
 
@@ -3620,7 +3620,7 @@ public class FutureExample {
 
 ------
 
-### 📌 3. CompletableFuture (Java 8+)
+#### 📌 3. CompletableFuture (Java 8+)
 
 ##### 🔹 What is CompletableFuture?
 
