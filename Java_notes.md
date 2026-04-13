@@ -3130,9 +3130,9 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 ---
 
-<div align="center"><h1>✦✦ Multithreading ✦✦</h1></div>
+<div align="center"><h3>✦✦ Multithreading ✦✦</h3></div>
 
-## 📌**What is Threads ?**
+#### 📌**What is Threads ?**
 
 - Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
@@ -3142,7 +3142,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - Multithreading enables you to perform multiple tasks at a time
 
-## 📌**What is Multithreading in Java?**
+#### 📌**What is Multithreading in Java?**
 
 - Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
@@ -3158,7 +3158,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 3.  Simplified modelling of asynchronous or parallel tasks
 
-#### Thread Life Cycle and States
+##### Thread Life Cycle and States
 
 A thread goes through several states:
 
@@ -3170,7 +3170,9 @@ A thread goes through several states:
 
 4.  **Terminated:** Thread execution completed or stopped.
 
-## 📌What are the Different Ways to Create a Thread?
+---
+
+#### 📌What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -3202,13 +3204,15 @@ public class Threading implements Runnable{
 }
 ```
 
-## 📌Why Prefer Runnable Over Thread?
+#### 📌Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
 - Separation of **task (Runnable) and thread execution (Thread)**.
 
-## 📌What is the Difference Between start() and run()?
+---
+
+#### 📌What is the Difference Between start() and run()?
 
 **Answer:**
 
@@ -3221,7 +3225,7 @@ public class Threading implements Runnable{
 
 ------
 
-## 📌**Java Thread Methods and Their Uses**
+##### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
 
@@ -3249,13 +3253,13 @@ public class Threading implements Runnable{
 
 ---
 
-### 📌When would you use the wait and notify methods in your Java application ?
+#### 📌When would you use the wait and notify methods in your Java application ?
 
 The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
 
 ---
 
-### 📌**Difference Between Callable and Runnable**
+#### 📌**Difference Between Callable and Runnable**
 
 | Feature           | Runnable    | Callable   |
 | ----------------- | ----------- | ---------- |
@@ -3267,7 +3271,7 @@ The "wait" and "notify" methods in Java are used to coordinate the execution of 
 
 ---
 
-### 📌What is volatile Keyword?
+#### 📌What is volatile Keyword?
 
 The `volatile` keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "`volatile`" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
 
@@ -3290,7 +3294,7 @@ class VolatileExample {
 
 ---
 
-### 📌What is Thread Synchronization?
+#### 📌What is Thread Synchronization?
 
 Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time. In Java, the "**synchronized**" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
 
@@ -3398,7 +3402,7 @@ public static void main(String[] args) throws InterruptedException {
 
 ----
 
-### 📌 What is a Thread Pool?
+#### 📌 What is a Thread Pool?
 
 👉 A **thread pool** = **group of worker threads** ready to perform tasks. it assign the task to the worker threads
 
@@ -3448,10 +3452,6 @@ flowchart TD
 - Better performance
 - Controlled concurrency
 - Avoid system crash
-
-------
-
-##### 🧪 Example in Java
 
 ```java
 import java.util.concurrent.*;
