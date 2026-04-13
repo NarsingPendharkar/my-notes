@@ -2,7 +2,7 @@
 
 ##### 📌 What is Monolithic Architecture?
 
-If we develop all the functionalities in single application, then it is called Monolithic Application.
+If we develop all the functionalities in single application, then it is called Monolithic Application.Monolithic Architecture is a software design pattern where the entire application is built as a single, unified unit. All components (UI, business logic, database access) are tightly coupled and deployed together.
 
 ![A diagram of a diagram of a diagram AI-generated content may be
 incorrect.](./media/media/image3.jpeg){width="4.611989282589676in"
