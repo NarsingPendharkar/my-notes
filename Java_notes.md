@@ -20,7 +20,7 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 | **High Performance**     | Uses JIT (Just-In-Time) compiler for optimized execution             |
 
 ---
-##### 📌What is JVM?
+##### 📌 What is JVM?
 
 - **JVM** stands for **Java Virtual Machine**.  
 - It is responsible for converting **bytecode** into **machine code**.  
@@ -31,7 +31,7 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-##### 📌 What is JIT?
+##### 📌  What is JIT?
 
 - **JIT** stands for **Just-In-Time Compiler**.  
 - It is a part of **JVM** that improves performance by compiling bytecode into **native machine code** at runtime.  
@@ -39,14 +39,14 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-##### 📌 What is a Class Loader?
+##### 📌  What is a Class Loader?
 
 - It is a part of **JRE** which **loads classes and interfaces dynamically** into the **JVM** at runtime.  
 - It helps in loading bytecode when required, ensuring memory efficiency.
 
 ---
 
-##### 📌 Difference Between JVM, JRE, and JDK
+##### 📌  Difference Between JVM, JRE, and JDK
 
 | Component | Description |
 |------------|--------------|
@@ -56,7 +56,7 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-##### 📌 Differences Between Java and C++
+##### 📌  Differences Between Java and C++
 
 | **Basis** | **C++** | **Java** |
 |------------|----------|-----------|
@@ -68,13 +68,13 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-##### 📌 What will happen if we declare don't declare the main as static?
+##### 📌  What will happen if we declare don't declare the main as static?
 
 - We can declare the main method without using static and without getting any errors. But, the main method will not be treated as the entry point to the application or the program.
 
 ---
 
-##### 📌 What is Autoboxing and Unboxing ?
+##### 📌  What is Autoboxing and Unboxing ?
 
 Autoboxing is the automatic conversion of a primitive type into its corresponding wrapper class object, for example converting int to Integer. Unboxing is the reverse process where a wrapper object is converted back to its primitive type. This feature was introduced in Java 5 to simplify working with collections.
 
@@ -140,7 +140,7 @@ Output
 
 ------
 
-##### 📌 What is the Wrapper class in Java ?
+##### 📌  What is the Wrapper class in Java ?
 
 Primitive types have corresponding **wrapper classes**.
 
@@ -161,7 +161,7 @@ Primitive types have corresponding **wrapper classes**.
 
 ---
 
-##### 📌 Why do we need wrapper classes?
+##### 📌  Why do we need wrapper classes?
 
 The wrapper class is an object class that encapsulates the primitive data types, and we need them for the following reasons:
 
@@ -177,7 +177,7 @@ _________________
     <h4>Class & Object </h4>
 </div>
 
-##### 📌 What is a class?
+##### 📌  What is a class?
 
 - A class is a blueprint/template for creating objects. It defines attributes (fields/variables) and behavior's (methods).
 
@@ -198,7 +198,7 @@ height="4.107638888888889in"}
 
 ---
 
-##### 📌 What is an object?
+##### 📌  What is an object?
 
 - An object is an instance of a class. It has state (values of fields) and behavior (methods it can perform).
 
@@ -217,7 +217,7 @@ public class Main {
 
 ---
 
-##### 📌 How do you create an object ?
+##### 📌  How do you create an object ?
 
 - **Using new keyword**
 
@@ -270,7 +270,7 @@ public class Main {
 
 ---
 
-##### 📌 **What is the difference between a class and an object?**
+##### 📌  **What is the difference between a class and an object?**
 
 | Feature    | Class                | Object                |
 | ---------- | -------------------- | --------------------- |
@@ -305,7 +305,7 @@ class Car {
 
 
 
-##### 📌 What are the types of constructors ?
+##### 📌  What are the types of constructors ?
 
 - **Default Constructor (No parameters)**
 
@@ -333,11 +333,11 @@ height="2.438779527559055in"}
 
 ---
 
-##### 📌 What happens if a class doesn't have a constructor?
+##### 📌  What happens if a class doesn't have a constructor?
 
 - JVM provides a default constructor automatically.
 
-##### 📌 Can a constructor be private?
+##### 📌  Can a constructor be private?
 
 - Yes, it is used in the Singleton pattern:
 
@@ -364,7 +364,7 @@ public class Singleton {
 
 ---
 
-##### 📌 How do you design an immutable class in Java? What rules should you follow?
+##### 📌  How do you design an immutable class in Java? What rules should you follow?
 
 An **immutable class** is a class whose objects cannot be modified once created.
 
@@ -382,7 +382,7 @@ To design an immutable class in Java, follow these rules :
     
 6.  **Return copies instead of references** in getter methods if fields are mutable.
 
-##### 📌 **Classic Immutable Class**
+##### 📌  **Classic Immutable Class**
 
 ```java
 public final class Immutable {
@@ -450,7 +450,7 @@ public record Immutable (int id,String name) {
 </div>
 
 
-##### 📌 What is the difference between a method and a constructor?
+##### 📌  What is the difference between a method and a constructor?
 
 | **Feature**     | **Constructor**                                | **Method**                        |
 | --------------- | ---------------------------------------------- | --------------------------------- |
@@ -459,7 +459,7 @@ public record Immutable (int id,String name) {
 | **Return Type** | No return type (not even `void`)               | Can have a return type            |
 | **Call**        | Called automatically when an object is created | Called explicitly                 |
 
-##### 📌 **What are Access modifiers ?**
+##### 📌  **What are Access modifiers ?**
 
 Access modifiers in Java control the visibility of classes, methods, and variables. 
 
@@ -482,7 +482,7 @@ There are four types: 
 
 ------
 
-##### 📌 Access Modifier Visibility Table
+##### 📌  Access Modifier Visibility Table
 
 | Modifier  | Same Class🏠 | Same Package🏢 | Subclass | Other Package |
 | --------- | ----------- | ------------- | -------- | ------------- |
@@ -493,7 +493,7 @@ There are four types: 
 
 ---
 
-##### 📌 What is the difference between an instance variable and a local variable?
+##### 📌  What is the difference between an instance variable and a local variable?
 
 | Feature | Instance Variable             | Local Variable               |
 | ------- | ----------------------------- | ---------------------------- |
@@ -519,7 +519,7 @@ Car car2 = new Car(car1); // Deep Copy – creates a new object with copied data
 
 ---
 
-##### 📌 Java Memory Model (JVM Memory)
+##### 📌  Java Memory Model (JVM Memory)
 
 Java memory is divided into different areas used by the **JVM (Java Virtual Machine)**. JVM memory is divided into Heap, Stack, Method Area, PC Register, and Native Method Stack. Heap stores objects and is managed by garbage collection, Stack stores method calls and local variables for each thread, and Method Area stores class metadata and static variables.
 
@@ -533,7 +533,7 @@ Main memory areas:
 
 ------
 
-##### 📌 JVM Memory Architecture
+##### 📌  JVM Memory Architecture
 
 ```mermaid
 flowchart TD
@@ -667,7 +667,7 @@ flowchart TB
 </div>
 
 
-##### 📌 What is a String in Java?
+##### 📌  What is a String in Java?
 
 - String is the sequence of the characters.
 
@@ -675,13 +675,13 @@ flowchart TB
 
 ----
 
-##### 📌 What is Java String Pool?
+##### 📌  What is Java String Pool?
 
 A Java String Pool is a place in heap memory where all the strings defined in the program are stored. JVM checks for the presence of the object in the String pool, If String is available in the pool, the same object reference is shared with the variable, else a new object is created.
 
 ---
 
-##### 📌 Why is String immutable ?
+##### 📌  Why is String immutable ?
 
 - Strings are immutable  for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
@@ -693,7 +693,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 - **Thread safe** -- as String is immutable multiple threads can access it at a time.
 
-##### 📌 Difference between String vs StringBuilder vs StringBuffer
+##### 📌  Difference between String vs StringBuilder vs StringBuffer
 
 - String Buffer and StringBuilder are the classes of java used to create Mutable strings.
   
@@ -705,7 +705,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 ---
 
-##### 📌 What is String interning?
+##### 📌  What is String interning?
 
 - `String.intern()` moves a string to the String Pool if it isn\'t already there.
 
@@ -722,7 +722,7 @@ System.out.println(s2 == s3); // true (both refer to the same object in the Stri
 ```
 ---
 
-##### 📌 What is String pool and how does it work and its advantages ?
+##### 📌  What is String pool and how does it work and its advantages ?
 
 The Java String Pool (also called the String Intern Pool) is a special memory area inside the heap that stores string literals. When the JVM encounters a string literal:
 
@@ -761,14 +761,14 @@ public class Example2 {
 
 ---
 
-##### 📌What is the difference between == and .equals() ⚖️ in objects?
+##### 📌 What is the difference between == and .equals() ⚖️ in objects?
 
-##### 📌✅ `==`
+##### 📌 ✅ `==`
 
 - Compares **memory reference (address)**
 - Checks: *Are both variables pointing to the same object?*
 
-##### 📌✅ `.equals()` 
+##### 📌 ✅ `.equals()` 
 
 - Compares **actual content (value inside string)**
 - Checks: *Do both strings have the same characters?*
@@ -849,7 +849,7 @@ String s2 = "helloworld";
 
 ---
 
-##### 📌**String Methods :**
+##### 📌 **String Methods :**
 
 1.  **Length() --** Return length of String
 
@@ -891,7 +891,7 @@ String s2 = "helloworld";
 
 The `this` keyword refers to the **current instance of a class**.
 
-##### 📌🔑 Key Uses
+##### 📌 🔑 Key Uses
 
 - Differentiate **instance variables vs local variables**
 - Call **constructors**
@@ -900,7 +900,7 @@ The `this` keyword refers to the **current instance of a class**.
 
 ------
 
-##### 📌1️⃣ Referring to Instance Variables
+##### 📌 1️⃣ Referring to Instance Variables
 
 When local and instance variables have the same name:
 
@@ -925,7 +925,7 @@ public class Car {
 
 ------
 
-##### 📌2️⃣ Calling Another Constructor (`this()`)
+##### 📌 2️⃣ Calling Another Constructor (`this()`)
 
 Used to invoke another constructor in the same class.
 
@@ -950,7 +950,7 @@ public class Car {
 
 ------
 
-##### 📌3️⃣ Returning Current Object (Method Chaining)
+##### 📌 3️⃣ Returning Current Object (Method Chaining)
 
 ```java
 public class Builder {
@@ -971,7 +971,7 @@ public class Builder {
 
 ------
 
-##### 📌4️⃣ Passing Current Object
+##### 📌 4️⃣ Passing Current Object
 
 ```java
 public class Example {
@@ -1001,15 +1001,15 @@ The `static` keyword defines **class-level members**.
 
 ## 📌 Static Members
 
-##### 📌1️⃣ Static Variable
+##### 📌 1️⃣ Static Variable
 
 - Shared among all instances
 
-##### 📌2️⃣ Static Method
+##### 📌 2️⃣ Static Method
 
 - Belongs to class
 
-##### 📌3️⃣ Static Block
+##### 📌 3️⃣ Static Block
 
 - Executes **when class loads**
 
@@ -1027,7 +1027,7 @@ public class Example {
 
 ------
 
-##### 📌❓ Static Method in Constructor
+##### 📌 ❓ Static Method in Constructor
 
 ✅ **Yes, allowed**
 
@@ -1045,7 +1045,7 @@ class Test {
 
 ------
 
-##### 📌❌ Can We Override Static Methods?
+##### 📌 ❌ Can We Override Static Methods?
 
 No → only **method hiding**
 
@@ -1074,7 +1074,7 @@ public class Test {
 
 ------
 
-##### 📌 this vs static
+##### 📌  this vs static
 
 | Feature         | `this`                   | `static`                            |
 | --------------- | ------------------------ | ----------------------------------- |
@@ -1090,7 +1090,7 @@ public class Test {
 
 👉 `final` is used to **restrict modification**
 
-##### 📌🔑 3 Main Uses
+##### 📌 🔑 3 Main Uses
 
 ##### 1️⃣ Final Variable (Constant)
 
@@ -1132,7 +1132,7 @@ class B extends A {} // ❌ Error
 
 ------
 
-##### 📌🎯 Why Use `final`?
+##### 📌 🎯 Why Use `final`?
 
 - Prevent accidental changes
 - Improve security
@@ -1142,10 +1142,11 @@ class B extends A {} // ❌ Error
 ---
 
 <div align="center">
-    <h1>◆◆◆ Garbage Collection ◆◆◆</h1>
+    <h3>◆◆◆ Garbage Collection ◆◆◆</h3>
 </div>
 
-##### 📌1. Overview
+
+##### 📌 1. Overview
 - Garbage collection in Java is an automatic memory management process that helps Java programs run efficiently.
 - it is an automatic process that removes unused objects from heap.
 - Garbage Collection (GC) in Java is an automatic memory management process that removes unused objects from the heap, so you don’t have to manually free memory like in C/C++.
@@ -1157,7 +1158,7 @@ class B extends A {} // ❌ Error
 
 ---
 
-##### 📌⚙️ How Garbage Collection Works
+##### 📌 ⚙️ How Garbage Collection Works
 
 ##### 1. Object Creation
 
@@ -1195,7 +1196,7 @@ Now the object has no reference → eligible for GC.
 
 ------
 
-##### 📌📊 Generational Garbage Collection
+##### 📌 📊 Generational Garbage Collection
 
 Java divides heap into generations:
 
@@ -1222,7 +1223,7 @@ Java divides heap into generations:
 
 ------
 
-##### 📌🔁 Types of Garbage Collection (Process)
+##### 📌 🔁 Types of Garbage Collection (Process)
 
 ##### 1. Minor GC (Young GC)
 
@@ -1245,7 +1246,7 @@ Java divides heap into generations:
 
 ------
 
-##### 📌🧩 Types of Garbage Collectors (JVM Algorithms/engines)
+##### 📌 🧩 Types of Garbage Collectors (JVM Algorithms/engines)
 
 A **Garbage Collector** is the specific implementation or algorithm used by the JVM to perform the collection process. 
 
@@ -1317,7 +1318,7 @@ A **Garbage Collector** is the specific implementation or algorithm used by the 
 
 ------
 
-##### 📌🧪 When Object Becomes Eligible for GC
+##### 📌 🧪 When Object Becomes Eligible for GC
 
 ✔ Reference set to null
 ✔ Object reassigned
@@ -1348,17 +1349,20 @@ Yes, possible if:
 - Objects are referenced but not used
 - Static collections holding objects
 
-▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬🟌▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+---
 
+##### 📌 How does Java handle garbage collection, and what are some strategies for optimizing garbage collection performance?
 
+In Java, garbage collection is the process of automatically freeing memory that is no longer being used by an application. Java uses a mark-and-sweep algorithm for garbage collection, which works by marking all objects that are still being used and then sweeping away any objects that are not marked. To optimize garbage collection performance, you can use strategies such as minimizing object creation, minimizing object retention, and tuning the garbage collector settings. Minimizing object creation involves reusing objects rather than creating new ones, while minimizing object retention involves releasing objects as soon as they are no longer needed
 
 <div align="center">
-    <h1>✦✦ Exception ✦✦</h1>
+    <h3>✦✦ Exception ✦✦</h3>
 </div>
+
 
 ------
 
-##### 📌🔹 What is an Exception in Java?
+##### 📌 What is an Exception in Java?
 
 An **exception** is an event that **disrupts normal program flow** during execution.
 
@@ -1370,7 +1374,7 @@ int a = 10 / 0; // ArithmeticException
 
 ------
 
-##### 📌🔹 Types of Exceptions
+##### 📌 Types of Exceptions
 
 ##### 1. Checked Exceptions (Compile-time)
 
@@ -1409,7 +1413,7 @@ Examples:
 
 ***
 
-##### 📌Difference Between Checked vs Unchecked Exception
+##### 📌 Difference Between Checked vs Unchecked Exception
 
 | Feature              | Checked Exception              | Unchecked Exception            |
 |---------------------|--------------------------------|-------------------------------|
@@ -1420,7 +1424,7 @@ Examples:
 
 ---
 
-##### 📌What is try-catch-finally?
+##### 📌  What is try-catch-finally?
 
 Used to handle exceptions and avoid program crash.
 **Structure**
@@ -1438,7 +1442,7 @@ finally block always runs used for closing resources (DB, files)
 
 ---
 
-##### 📌Can we use try without catch?
+##### 📌  Can we use try without catch?
 
 ✅ Yes, but only with finally
 
@@ -1462,7 +1466,7 @@ Must have catch or finally
 
 ---
 
-##### 📌throw vs throws
+##### 📌  throw vs throws
 
 | Feature  |  throw |  throws |
 | ------------ | ------------ | ------------ |
@@ -1491,7 +1495,7 @@ FileReader f = new FileReader("test.txt");
 
 ---
 
-##### 📌Use Cases of User Defined Exceptions
+##### 📌 Use Cases of User Defined Exceptions
 
 We create custom exceptions for business rules.
 
@@ -1511,7 +1515,7 @@ throw new InsufficientBalanceException("Low balance");
 ```
 ---
 
-##### 📌How to Create User Defined Exception
+##### 📌 How to Create User Defined Exception
 
 **Step 1: Create class**
 
@@ -1546,63 +1550,10 @@ System.out.println(e.getMessage());
 
 ```
 
----
-
-##### 📌What is NullPointerException?
-
-Occurs when calling method or accessing variable on null object.
-
-Example
-
-```java
-String name = null;
-name.length(); // NullPointerException
-```
-
 
 ---
 
-##### How to Prevent It
-
-**✔ Null check**
-
-```java
-if(name != null){
-name.length();
-}
-
-```
-**✔ Use Optional**
-
-    Optional<String> name = Optional.ofNullable(null);
-
-**✔ Initialize objects**
-
-
----
-
-##### 📌What is ClassCastException?
-
-Occurs when object is cast to an incompatible type.
-
-Example
-
-    Object obj = "Hello";
-    Integer num = (Integer) obj; // ClassCastException
-
-Correct way
-
-```java
-Object obj = "Hello";
-if(obj instanceof String){
-String s = (String) obj;
-}
-```
-
-
----
-
-##### 📌**Error vs Exception**
+##### 📌 **Error vs Exception**
 
 Feature|Exception|Error
 --------|-----------|-------
@@ -1610,7 +1561,7 @@ Type|Recoverable|Not recoverable
 Handled|Yes|Usually no
 Example|IOException|OutOfMemoryError
 
-Example
+**Example**
 
 ```java
 // Exception
@@ -1629,7 +1580,7 @@ int[] arr = new int[999999999];
 - An **object** represents a real-world entity and contains **data (variables)** and **behavior (methods)**.
 - OOP helps to make programs **modular, reusable, and easy to maintain**.
 
-##### 📌Core Principles of OOP
+##### 📌 Core Principles of OOP
 
 ```mermaid
 graph TD
@@ -1639,7 +1590,7 @@ OOP --> Polymorphism
 OOP --> Abstraction
 ```
 
-##### 📌What are the four main principles of OOP?
+##### 📌 What are the four main principles of OOP?
 
 The four pillars of Object-Oriented Programming (OOP) in are:
 
@@ -1788,7 +1739,7 @@ Dog is barking
 
 ------
 
-##### 📌What are the Types of Inheritance?
+##### 📌 What are the Types of Inheritance?
 
 Java supports different types of inheritance except **multiple inheritance with classes** to avoid ambiguity (Diamond Problem).
 
@@ -1926,7 +1877,7 @@ class C implements A, B {
 
 ------
 
-##### 📌Why Java does not support multiple inheritance with classes?
+##### 📌 Why Java does not support multiple inheritance with classes?
 
 **Answer:** To avoid the **Diamond Problem**, where a child class may inherit the same method from multiple parent classes causing ambiguity.
 
@@ -1937,14 +1888,14 @@ class C implements A, B {
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
 
-##### 📌🔹 Types of Polymorphism
+##### 📌 🔹 Types of Polymorphism
 
 - **Compile-time Polymorphism (Method Overloading)**
 - **Runtime Polymorphism (Method Overriding)**
 
 ---
 
-##### 📌What is Method Overloading?
+##### 📌 What is Method Overloading?
 
 - When multiple methods have the **same name** but **different parameters** (type or number of arguments).  
 - It is an example of **compile-time polymorphism**.
@@ -1975,7 +1926,7 @@ public class Main {
 
 
 
-##### 📌What is Method Overriding?
+##### 📌 What is Method Overriding?
 
 When the same method (same name, parameters, and return type) is present in both parent and child classes, and the method in the child class overrides the one in the parent class.
 
@@ -2021,7 +1972,7 @@ It allows developers to define a common structure for related objects and enforc
 
 ---
 
-##### 📌What is an Abstract Class?
+##### 📌 What is an Abstract Class?
 
 An **abstract class** in Java is declared using the `abstract` keyword.  It is a special kind of class that cannot be instantiated directly — meaning you **cannot create an object** of an abstract class.
 
@@ -2060,7 +2011,7 @@ public class Main {
 }
 ```
 
-##### 📌What is an Interface in Java?
+##### 📌 What is an Interface in Java?
 
 An **interface** in Java is a special type of class that contains only **abstract methods** (methods without a body)..It is used to achieve **100% abstraction** and **multiple inheritance** in Java.
 
@@ -2100,7 +2051,7 @@ class Dog implements Animal {
 }
 ```
 
-##### 📌What is the Difference Between Abstract Class and Interface?
+##### 📌 What is the Difference Between Abstract Class and Interface?
 
 Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction** in Java,but they differ in structure, purpose, and how they are implemented.
 
@@ -2131,7 +2082,7 @@ Both **Abstract Classes** and **Interfaces** are used to achieve **abstraction**
 
 <div align="center"><h1>🧱 Collection Framework</h1></div>
 
-##### 📌💡 What is the Collection Framework?
+##### 📌 💡 What is the Collection Framework?
 
 The **Collection Framework** in Java is a **unified architecture** that provides **ready-made data structures** and **algorithms** to store, retrieve, and manipulate groups of objects efficiently. It is part of the **`java.util` package** and helps developers avoid writing custom data structures like arrays, linked lists, or hash tables from scratch.
 
@@ -2162,7 +2113,7 @@ The **Collection Framework** is a set of **classes and interfaces** that impleme
 
 ---
 
-##### 📌What is the difference between Collection and Collections in Java?
+##### 📌 What is the difference between Collection and Collections in Java?
 
 - **Collection**: It is the root interface of all collections in Java. It provides methods for adding, removing, and checking the size of a collection.
   
@@ -2175,7 +2126,7 @@ The **Collection Framework** is a set of **classes and interfaces** that impleme
 | **Example**    | `List<String> list = new ArrayList<>();`         | `Collections.sort(list);`                                    |
 | **Methods**    | `add()`, `remove()`, `size()`, `contains()`      | `sort()`, `reverse()`, `shuffle()`, `min()`, `max()`, `synchronizedList()` |
 
-##### 📌What is the difference between List, Set, and Map?
+##### 📌 What is the difference between List, Set, and Map?
 
 ---
 
@@ -2206,7 +2157,7 @@ public class CollectionExample {
 }
 ```
 
-##### 📌What are the differences between ArrayList and LinkedList
+##### 📌 What are the differences between ArrayList and LinkedList
 
 | Feature            | ArrayList                                   | LinkedList                    |
 | ------------------ | ------------------------------------------- | ----------------------------- |
@@ -2224,7 +2175,7 @@ public class CollectionExample {
 
 ---
 
-##### 📌What is the difference between HashSet, LinkedHashSet, and TreeSet?
+##### 📌 What is the difference between HashSet, LinkedHashSet, and TreeSet?
 
 | Feature         | HashSet         | LinkedHashSet             | TreeSet                  |
 | --------------- | --------------- | ------------------------- | ------------------------ |
@@ -2234,7 +2185,7 @@ public class CollectionExample {
 
 ---
 
-##### 📌🧠 Example
+##### 📌 🧠 Example
 
 ```java
 import java.util.*;
@@ -2257,7 +2208,7 @@ public class SetExamples {
 }
 ```
 
-##### 📌What is the difference between HashMap, LinkedHashMap, and TreeMap?
+##### 📌 What is the difference between HashMap, LinkedHashMap, and TreeMap?
 
 | Feature         | HashMap             | LinkedHashMap             | TreeMap                  |
 | --------------- | ------------------- | ------------------------- | ------------------------ |
@@ -2294,7 +2245,7 @@ public class MapExample {
 }
 ```
 
-##### 📌What is the difference between Vector and ArrayList?
+##### 📌 What is the difference between Vector and ArrayList?
 
 | Feature             | ArrayList                      | Vector                     |
 | ------------------- | ------------------------------ | -------------------------- |
@@ -2309,7 +2260,7 @@ Use **ArrayList** unless **thread safety** is specifically required.
 
 ---
 
-##### 📌What is ConcurrentHashMap and how is it different from HashMap?
+##### 📌 What is ConcurrentHashMap and how is it different from HashMap?
 
 | Feature           | HashMap                | ConcurrentHashMap                   |
 | ----------------- | ---------------------- | ----------------------------------- |
@@ -2319,7 +2270,7 @@ Use **ArrayList** unless **thread safety** is specifically required.
 
 ✅ **Use `ConcurrentHashMap`** for **multi-threaded applications** to avoid synchronization issues that occur with `HashMap`.
 
-##### 📌Difference between Iterator and ListIterator
+##### 📌 Difference between Iterator and ListIterator
 
 Feature|	Iterator	|ListIterator
 ----------|--------------|----------------
@@ -2361,7 +2312,7 @@ while(it.hasPrevious()) {
 ---
 
 
-##### 📌What is the difference between Fail-Fast and Fail-Safe Iterators?
+##### 📌 What is the difference between Fail-Fast and Fail-Safe Iterators?
 
 | Feature      | Fail-Fast                                                    | Fail-Safe                                                   |
 | ------------ | ------------------------------------------------------------ | ----------------------------------------------------------- |
@@ -2375,7 +2326,7 @@ while(it.hasPrevious()) {
 
 ---
 
-##### 📌How do you sort a List in Java?
+##### 📌 How do you sort a List in Java?
 
 - **Using Collections.sort()**
 
@@ -2403,7 +2354,7 @@ Collections.sort(numbers, (a, b) -> b - a); // Sort in descending order
 System.out.println(numbers); // Output: [8, 5, 4, 2]
 ```
 
-##### 📌Difference Between List, Set, Map, and Queue in Java
+##### 📌 Difference Between List, Set, Map, and Queue in Java
 
 | Feature                    | List                           | Set                                  | Map                              | Queue                                          |
 | -------------------------- | ------------------------------ | ------------------------------------ | -------------------------------- | ---------------------------------------------- |
@@ -2413,7 +2364,7 @@ System.out.println(numbers); // Output: [8, 5, 4, 2]
 | **Key Methods**            | add(), get(), remove(), set()  | add(), remove(), contains()          | put(), get(), remove(), keySet() | offer() – insert, poll(), peek() – return head |
 | **Implementation Classes** | ArrayList, LinkedList          | HashSet, TreeSet, LinkedHashSet      | HashMap, TreeMap, LinkedHashMap  | PriorityQueue, ArrayDeque, LinkedList          |
 
-##### 📌List (Ordered, Allows Duplicates)
+##### 📌 List (Ordered, Allows Duplicates)
 
 - Maintains **insertion order**.
 - Can contain **duplicate elements**.
@@ -2430,21 +2381,21 @@ list.add("A"); // Duplicate allowed
 System.out.println(list); // Output: [A, B, A]
 ```
 
-##### 📌Set (Unique Elements, No Duplicates)
+##### 📌 Set (Unique Elements, No Duplicates)
 
 - Does **NOT** allow duplicate elements.
 - No guaranteed order (**HashSet**), but **TreeSet** sorts elements.
 
 ---
 
-##### 📌Map (Key-Value Pairs, Unique Keys)
+##### 📌 Map (Key-Value Pairs, Unique Keys)
 
 - Stores **key-value pairs** (`key -> value`).
 - **Keys** must be unique, **values** can be duplicate.
 
 ---
 
-##### 📌Queue (FIFO - First In, First Out)
+##### 📌 Queue (FIFO - First In, First Out)
 
 - Elements are processed in the order they arrive.
 - Supports **PriorityQueue** (elements sorted by priority).
@@ -2474,7 +2425,7 @@ numLine.remove();
 System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
 ```
 
-##### 📌When to Use What?
+##### 📌 When to Use What?
 
 | Use Case                           | Best Choice                           |
 | ---------------------------------- | ------------------------------------- |
@@ -2485,7 +2436,7 @@ System.out.println(numLine); // Remove from first [5, 7, 3, 10, 8]
 
 ---
 
-##### 📌Why HashMap allows one null key?
+##### 📌 Why HashMap allows one null key?
 
 **Answer**
 
@@ -2511,7 +2462,7 @@ Output
 
 ---
 
-##### 📌Why TreeSet does not allow null?
+##### 📌 Why TreeSet does not allow null?
 TreeSet does not allow null because it uses sorting (Comparable / Comparator) internally. It compares elements using: `compareTo()` If null is inserted, Java cannot compare: `null.compareTo()` This causes NullPointerException.
 
 **Example**
@@ -2526,7 +2477,7 @@ set.add(null);   // throws exception
 
 ---
 
-##### 📌How HashMap works internally?
+##### 📌 How HashMap works internally?
 
 HashMap uses: Hashing + Bucket + LinkedList / Red Black Tree
 
@@ -2568,7 +2519,7 @@ flowchart TD
 
 <div align="center"><h1>Java 8 Features</h1></div>
 
-##### 📌**1) Lambda Expressions**
+##### 📌 **1) Lambda Expressions**
 
 - Introduced in **Java 8** for functional programming.
 - Acts as an **anonymous function** — no method name, return type, or access modifiers.
@@ -2618,7 +2569,7 @@ Runnable r = () -> System.out.println("Running...");
 
 ---
 
-##### 📌**Syntax**
+##### 📌 **Syntax**
 
 ```java
 (parameter) -> expression
@@ -2645,7 +2596,7 @@ names.forEach(name -> System.out.println(name));
 
 ------
 
-##### 📌**2) Functional Interfaces**
+##### 📌 **2) Functional Interfaces**
 
 - An interface with only **one abstract method**.
 - Annotated with **@FunctionalInterface** to indicate it's a functional interface.
@@ -2653,7 +2604,7 @@ names.forEach(name -> System.out.println(name));
 
 ------
 
-##### 📌**Common Functional Interfaces**
+##### 📌 **Common Functional Interfaces**
 
 | Interface          | Description                      | Method Signature    |
 | ------------------ | -------------------------------- | ------------------- |
@@ -2689,7 +2640,7 @@ interface MathOperation {
 
 ------
 
-##### 📌**3) Streams API**
+##### 📌 **3) Streams API**
 
 - Introduced in **Java 8** for **functional-style operations** on collections.
 - Used to **process collections of objects** efficiently and concisely.
@@ -2731,7 +2682,7 @@ System.out.println(filteredNames); // [Mike]
 
 ------
 
-##### 📌**Example**
+##### 📌 **Example**
 
 ```java
 List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice", "Mark");
@@ -2745,7 +2696,7 @@ System.out.println(count); // Output: 2
 
 ------
 
-##### 📌**Sequential Stream vs Parallel Stream**
+##### 📌 **Sequential Stream vs Parallel Stream**
 
 | Sequential Stream                | Parallel Stream             |
 | -------------------------------- | --------------------------- |
@@ -2756,7 +2707,7 @@ System.out.println(count); // Output: 2
 
 ------
 
-##### 📌**map() vs flatMap()**
+##### 📌 **map() vs flatMap()**
 
 | map()                     | flatMap()                       |
 | ------------------------- | ------------------------------- |
@@ -2766,7 +2717,7 @@ System.out.println(count); // Output: 2
 
 ------
 
-##### 📌**Example**
+##### 📌 **Example**
 
 ```java
 List<List<Integer>> list = Arrays.asList(
@@ -2781,11 +2732,11 @@ list.stream()
 
 ------
 
-##### 📌**4) Stream Operations**
+##### 📌 **4) Stream Operations**
 
 ------
 
-##### 📌**Intermediate Operations (Return Stream)**
+##### 📌 **Intermediate Operations (Return Stream)**
 
 Intermediate operations are **lazy** and return a new stream.
 
@@ -2892,7 +2843,7 @@ List<Integer> flattenedList = listOfLists.stream()
 
 ------
 
-##### 📌**Terminal Operations (End Stream)**
+##### 📌 **Terminal Operations (End Stream)**
 
 Terminal operations **produce a result** and close the stream.
 
@@ -2955,7 +2906,7 @@ boolean allEven = nums.stream().allMatch(n -> n % 2 == 0);
 
 ------
 
-##### 📌**5) Default & Static Methods in Interfaces**
+##### 📌 **5) Default & Static Methods in Interfaces**
 
 - Java 8 allows **default method implementations** in interfaces.
 - Static methods can also be added.
@@ -2963,7 +2914,7 @@ boolean allEven = nums.stream().allMatch(n -> n % 2 == 0);
 
 ------
 
-##### 📌**Default Method Example**
+##### 📌 **Default Method Example**
 
 ```java
 interface Vehicle {
@@ -2975,7 +2926,7 @@ interface Vehicle {
 
 ------
 
-##### 📌**Static Method Example**
+##### 📌 **Static Method Example**
 
 ```java
 interface MathUtil {
@@ -2987,15 +2938,15 @@ interface MathUtil {
 
 ------
 
-##### 📌**6) Optional Class**
+##### 📌 **6) Optional Class**
 
-##### 📌**Definition**
+##### 📌 **Definition**
 
 `Optional` is a container object used to represent **nullable values safely**.
 
 ------
 
-##### 📌**Why Use?**
+##### 📌 **Why Use?**
 
 - Avoids `NullPointerException`
 - Improves readability
@@ -3003,7 +2954,7 @@ interface MathUtil {
 
 ------
 
-##### 📌**Creation Methods**
+##### 📌 **Creation Methods**
 
 ```java
 Optional<String> opt1 = Optional.of("Java");
@@ -3013,7 +2964,7 @@ Optional<String> opt3 = Optional.empty();
 
 ------
 
-##### 📌**Common Methods**
+##### 📌 **Common Methods**
 
 | Method        | Description                    |
 | ------------- | ------------------------------ |
@@ -3024,7 +2975,7 @@ Optional<String> opt3 = Optional.empty();
 
 ------
 
-##### 📌**Example**
+##### 📌 **Example**
 
 ```java
 Optional<String> name = Optional.ofNullable(null);
@@ -3035,13 +2986,13 @@ System.out.println(result);
 
 ------
 
-##### 📌**7) StringJoiner**
+##### 📌 **7) StringJoiner**
 
 - Used to **join multiple strings** with delimiter, prefix, suffix.
 
 ------
 
-##### 📌**Example**
+##### 📌 **Example**
 
 ```java
 StringJoiner sj = new StringJoiner(",");
@@ -3051,7 +3002,7 @@ System.out.println(sj);
 
 ------
 
-##### 📌**8) New Date & Time API**
+##### 📌 **8) New Date & Time API**
 
 - Introduced in Java 8 (`LocalDate`, `LocalTime`, `LocalDateTime`)
 - Immutable and thread-safe
@@ -3084,7 +3035,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 <div align="center"><h3>✦✦ Multithreading ✦✦</h3></div>
 
-##### 📌📌**What is Threads ?**
+##### 📌 📌**What is Threads ?**
 
 - Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
@@ -3094,7 +3045,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - Multithreading enables you to perform multiple tasks at a time
 
-##### 📌📌**What is Multithreading in Java?**
+##### 📌 📌**What is Multithreading in Java?**
 
 - Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
@@ -3124,7 +3075,7 @@ A thread goes through several states:
 
 ---
 
-##### 📌📌What are the Different Ways to Create a Thread?
+##### 📌 📌What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -3156,7 +3107,7 @@ public class Threading implements Runnable{
 }
 ```
 
-##### 📌📌Why Prefer Runnable Over Thread?
+##### 📌 📌Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
@@ -3164,7 +3115,7 @@ public class Threading implements Runnable{
 
 ---
 
-##### 📌📌What is the Difference Between start() and run()?
+##### 📌 📌What is the Difference Between start() and run()?
 
 **Answer:**
 
@@ -3205,13 +3156,13 @@ public class Threading implements Runnable{
 
 ---
 
-##### 📌📌When would you use the wait and notify methods in your Java application ?
+##### 📌 📌When would you use the wait and notify methods in your Java application ?
 
 The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
 
 ---
 
-##### 📌📌**Difference Between Callable and Runnable**
+##### 📌 📌**Difference Between Callable and Runnable**
 
 | Feature           | Runnable    | Callable   |
 | ----------------- | ----------- | ---------- |
@@ -3223,7 +3174,7 @@ The "wait" and "notify" methods in Java are used to coordinate the execution of 
 
 ---
 
-##### 📌📌What is volatile Keyword?
+##### 📌 📌What is volatile Keyword?
 
 The `volatile` keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "`volatile`" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
 
@@ -3246,7 +3197,7 @@ class VolatileExample {
 
 ---
 
-##### 📌📌What is Thread Synchronization?
+##### 📌 📌What is Thread Synchronization?
 
 Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time. In Java, the "**synchronized**" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
 
@@ -3354,7 +3305,7 @@ public static void main(String[] args) throws InterruptedException {
 
 ----
 
-##### 📌📌 What is a Thread Pool?
+##### 📌 📌 What is a Thread Pool?
 
 👉 A **thread pool** = **group of worker threads** ready to perform tasks. it assign the task to the worker threads
 
@@ -3390,7 +3341,7 @@ flowchart TD
 
 ------
 
-##### 📌📌 Why Thread Pool is Important
+##### 📌 📌 Why Thread Pool is Important
 
 ##### ❌ Without Thread Pool
 
@@ -3436,11 +3387,11 @@ public class ThreadPoolExample {
 
 ------
 
-##### 📌ExecutorService vs Future vs CompletableFuture
+##### 📌 ExecutorService vs Future vs CompletableFuture
 
 ------
 
-##### 📌📌 1. ExecutorService
+##### 📌 📌 1. ExecutorService
 
 `ExecutorService` is a **thread pool manager** introduced in Java 5 that helps execute tasks asynchronously without manually creating threads.
 
@@ -3511,7 +3462,7 @@ public class ExecutorExample {
 
 ------
 
-##### 📌📌 2. Future
+##### 📌 📌 2. Future
 
 ##### 🔹 What is Future?
 
@@ -3572,7 +3523,7 @@ public class FutureExample {
 
 ------
 
-##### 📌📌 3. CompletableFuture (Java 8+)
+##### 📌 📌 3. CompletableFuture (Java 8+)
 
 ##### 🔹 What is CompletableFuture?
 
@@ -3611,7 +3562,7 @@ public class CompletableFutureExample {
 
 ------
 
-##### 📌🔗 4. Chaining Tasks
+##### 📌 🔗 4. Chaining Tasks
 
 ```java
 CompletableFuture.supplyAsync(() -> "Task1")
@@ -3625,7 +3576,7 @@ CompletableFuture.supplyAsync(() -> "Task1")
 
 ------
 
-##### 📌🔀 5. Combining Multiple Futures
+##### 📌 🔀 5. Combining Multiple Futures
 
 ```java
 CompletableFuture<Integer> f1 = CompletableFuture.supplyAsync(() -> 10);
@@ -3637,7 +3588,7 @@ f1.thenCombine(f2, (a, b) -> a + b)
 
 ------
 
-##### 📌⚠️ 6. Error Handling
+##### 📌 ⚠️ 6. Error Handling
 
 ```java
 CompletableFuture.supplyAsync(() -> {
@@ -3650,7 +3601,7 @@ CompletableFuture.supplyAsync(() -> {
 
 ------
 
-##### 📌🔹 Methods for Error Handling
+##### 📌 🔹 Methods for Error Handling
 
 | Method            | Use                |
 | ----------------- | ------------------ |
@@ -3660,7 +3611,7 @@ CompletableFuture.supplyAsync(() -> {
 
 ------
 
-##### 📌⏱️ 7. Timeout Handling
+##### 📌 ⏱️ 7. Timeout Handling
 
 ```java
 CompletableFuture.supplyAsync(() -> {
@@ -3674,7 +3625,7 @@ CompletableFuture.supplyAsync(() -> {
 
 ------
 
-##### 📌🔄 8. ExecutorService vs Future vs CompletableFuture
+##### 📌 🔄 8. ExecutorService vs Future vs CompletableFuture
 
 | Feature           | ExecutorService | Future      | CompletableFuture |
 | ----------------- | --------------- | ----------- | ----------------- |
@@ -3689,7 +3640,7 @@ CompletableFuture.supplyAsync(() -> {
 
 ------
 
-##### 📌🎯 When to Use What?
+##### 📌 🎯 When to Use What?
 
 ##### ✅ Use ExecutorService
 
@@ -3718,11 +3669,11 @@ CompletableFuture.supplyAsync(() -> {
 
 
 
-##### 📌📌 **Locks in Java (`synchronized` vs `ReentrantLock`)**
+##### 📌 📌 **Locks in Java (`synchronized` vs `ReentrantLock`)**
 
 ------
 
-##### 📌🔹 **1. `synchronized` (Basic Locking)**
+##### 📌 🔹 **1. `synchronized` (Basic Locking)**
 
 ##### ✅ **Advantages**
 
@@ -3742,7 +3693,7 @@ CompletableFuture.supplyAsync(() -> {
 
 ------
 
-##### 📌🔹 **2. `ReentrantLock` (Advanced Locking)**
+##### 📌 🔹 **2. `ReentrantLock` (Advanced Locking)**
 
 ##### 📦 **Package**
 
@@ -3752,7 +3703,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 ------
 
-##### 📌🔸 **Example**
+##### 📌 🔸 **Example**
 
 ```java
 import java.util.concurrent.locks.ReentrantLock;
@@ -3777,14 +3728,14 @@ class Counter {
 
 ------
 
-##### 📌🔹 **How It Works**
+##### 📌 🔹 **How It Works**
 
 - Lock is **manually acquired and released**
 - Provides **more control than `synchronized`**
 
 ------
 
-##### 📌⭐ **Key Features of `ReentrantLock`**
+##### 📌 ⭐ **Key Features of `ReentrantLock`**
 
 ------
 
@@ -3873,7 +3824,7 @@ lock.lockInterruptibly();
 
 ------
 
-##### 📌🔥 **Difference: `synchronized` vs `ReentrantLock`**
+##### 📌 🔥 **Difference: `synchronized` vs `ReentrantLock`**
 
 | Feature           | `synchronized` | `ReentrantLock`        |
 | ----------------- | -------------- | ---------------------- |
@@ -3888,7 +3839,7 @@ lock.lockInterruptibly();
 
 ------
 
-##### 📌🎯 **When to Use What?**
+##### 📌 🎯 **When to Use What?**
 
 ------
 
@@ -3909,7 +3860,7 @@ lock.lockInterruptibly();
 
 ------
 
-##### 📌🧠 **Quick Summary**
+##### 📌 🧠 **Quick Summary**
 
 - `synchronized` → **Simple & automatic**
 - `ReentrantLock` → **Flexible & powerful**
@@ -3919,7 +3870,7 @@ Use `synchronized` by default, switch to `ReentrantLock` only when advanced feat
 
 ------
 
-##### 📌📌 Atomic Classes
+##### 📌 📌 Atomic Classes
 
 **Atomic Classes** are classes in Java that allow **thread-safe operations on single variables without using locks**.
 
@@ -3931,7 +3882,7 @@ Use `synchronized` by default, switch to `ReentrantLock` only when advanced feat
 
 ------
 
-##### 📌🔹 Why Use Atomic Classes?
+##### 📌 🔹 Why Use Atomic Classes?
 
 ##### ❌ Problem (Without Atomic Classes)
 
@@ -3957,7 +3908,7 @@ Use `synchronized` by default, switch to `ReentrantLock` only when advanced feat
 
 ------
 
-##### 📌🔹 Common Atomic Classes
+##### 📌 🔹 Common Atomic Classes
 
 ##### 🔸 1. AtomicBoolean
 
@@ -4056,7 +4007,7 @@ public class AtomicBooleanExample {
 
 ------
 
-##### 📌📌Concurrent Collections
+##### 📌 📌Concurrent Collections
 
 ##### 🔹 Definition
 
@@ -4087,9 +4038,9 @@ public class AtomicBooleanExample {
 
 ------
 
-##### 📌🔹 Common Concurrent Collections
+##### 📌 🔹 Common Concurrent Collections
 
-##### 📌🔸 1. ConcurrentHashMap
+##### 📌 🔸 1. ConcurrentHashMap
 
 - Thread-safe version of `HashMap`
 - Allows **concurrent reads & writes**
@@ -4107,14 +4058,14 @@ map.remove("user1");
 
 ------
 
-##### 📌🔸 2. CopyOnWriteArrayList
+##### 📌 🔸 2. CopyOnWriteArrayList
 
 - Creates a **new copy on every write**
 - Best for **read-heavy applications**
 
 ------
 
-##### 📌🔸 3. BlockingQueue
+##### 📌 🔸 3. BlockingQueue
 
 - Used for producer-consumer problems
 - Blocks when:
@@ -4123,7 +4074,7 @@ map.remove("user1");
 
 ------
 
-##### 📌🔸 4. ConcurrentSkipListMap
+##### 📌 🔸 4. ConcurrentSkipListMap
 
 - Thread-safe **sorted map**
 
@@ -4155,7 +4106,7 @@ map.remove("user1");
 
 ------
 
-##### 📌📌 ForkJoinPool
+##### 📌 📌 ForkJoinPool
 
 ##### 🔹 Definition
 
@@ -4281,11 +4232,11 @@ public class Main {
 
 ------
 
-##### 📌📌 **Virtual Threads**
+##### 📌 📌 **Virtual Threads**
 
 ------
 
-##### 📌🔹 **Definition**
+##### 📌 🔹 **Definition**
 
 **Virtual Threads** are lightweight threads introduced in **Java 21 (Project Loom)**.
 
@@ -4293,7 +4244,7 @@ public class Main {
 
 ------
 
-##### 📌🔹 **Problems with Platform Threads**
+##### 📌 🔹 **Problems with Platform Threads**
 
 ##### ❌ **Limitations**
 
@@ -4309,7 +4260,7 @@ public class Main {
 
 ------
 
-##### 📌🔹 **Benefits of Virtual Threads**
+##### 📌 🔹 **Benefits of Virtual Threads**
 
 ##### ✅ **Advantages**
 
@@ -4324,7 +4275,7 @@ public class Main {
 
 ------
 
-##### 📌🔹 **How Virtual Threads Work**
+##### 📌 🔹 **How Virtual Threads Work**
 
 ##### 🧠 **Internal Flow**
 
@@ -4347,7 +4298,7 @@ CPU Execution
 
 ------
 
-##### 📌🔹 **Creating Virtual Threads**
+##### 📌 🔹 **Creating Virtual Threads**
 
 ##### ✅ **Using Thread API**
 
@@ -4372,7 +4323,7 @@ try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecut
 
 ------
 
-##### 📌🔹 **When to Use Virtual Threads**
+##### 📌 🔹 **When to Use Virtual Threads**
 
 ##### ✅ **Best Use Cases**
 
@@ -4395,7 +4346,7 @@ try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecut
 
 ------
 
-##### 📌🔹 **Virtual Threads vs Platform Threads**
+##### 📌 🔹 **Virtual Threads vs Platform Threads**
 
 | Feature         | Virtual Threads | Platform Threads |
 | --------------- | --------------- | ---------------- |
@@ -4407,7 +4358,7 @@ try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecut
 
 <div align="center"><h1>✦✦ Serialization ✦✦ </h1></div>
 
-##### 📌📌 What is Serialization & Deserialization?
+##### 📌 📌 What is Serialization & Deserialization?
 
 - Serialization is the process of converting java object into byte stream.
   
@@ -4511,7 +4462,7 @@ e.printStackTrace();
 }
 ```
 
-##### 📌1. Core Concepts & Definitions
+##### 📌 1. Core Concepts & Definitions
 
 - **Serialization:** Converting an object to a byte stream using `ObjectOutputStream`.
 - **Deserialization:** Reconstituting an object from a byte stream using `ObjectInputStream`.
@@ -4520,7 +4471,7 @@ e.printStackTrace();
 
 ------
 
-##### 📌2. Process Workflow
+##### 📌 2. Process Workflow
 
 ```mermaid
 graph LR
@@ -4533,7 +4484,7 @@ graph LR
 
 ------
 
-##### 📌3. Implementation Essentials
+##### 📌 3. Implementation Essentials
 
 ##### Primary Classes
 
@@ -4559,7 +4510,7 @@ class User implements Serializable {
 
 ------
 
-##### 📌4. Key Keywords & Visibility
+##### 📌 4. Key Keywords & Visibility
 
 - **`transient`**: Variables marked as `transient` are skipped during serialization. They return to default values (e.g., `null` or `0`) upon deserialization.
 - **`static`**: These belong to the class, not the object instance, and are **never serialized**.
@@ -4567,7 +4518,7 @@ class User implements Serializable {
 
 ------
 
-##### 📌5. Advanced Customization
+##### 📌 5. Advanced Customization
 
 ##### Callback Methods
 
@@ -4582,7 +4533,7 @@ You can define private methods in your class to customize the serialization logi
 
 ------
 
-##### 📌6. Comparison: Serializable vs. Externalizable
+##### 📌 6. Comparison: Serializable vs. Externalizable
 
 | Feature            | `Serializable`                    | `Externalizable`                              |
 | ------------------ | --------------------------------- | --------------------------------------------- |
@@ -4593,7 +4544,7 @@ You can define private methods in your class to customize the serialization logi
 
 ------
 
-##### 📌7. Security & Vulnerabilities
+##### 📌 7. Security & Vulnerabilities
 
 **Warning:** Deserializing untrusted data is **inherently dangerous**. The incoming stream determines which objects are created, allowing attackers to execute malicious code.
 
@@ -4605,7 +4556,7 @@ You can define private methods in your class to customize the serialization logi
 
 ------
 
-##### 📌8. Interview Tips & Pitfalls
+##### 📌 8. Interview Tips & Pitfalls
 
 - **Is the constructor called during deserialization?**
   - For `Serializable`: **No**.
@@ -4624,10 +4575,10 @@ You can define private methods in your class to customize the serialization logi
 
 ## ✦ What is File Handling?
 
-##### 📌➤ Definition
+##### 📌 ➤ Definition
 File handling in Java is the process of **creating, reading, writing, updating, and deleting files** using classes from `java.io` and `java.nio` packages.
 
-##### 📌➤ Why It is Required?
+##### 📌 ➤ Why It is Required?
 - 🧠 Store data permanently
 - 🔄 Read/write data between program executions
 - 📂 Manage files and directories
@@ -4652,7 +4603,7 @@ File handling in Java is the process of **creating, reading, writing, updating, 
 
 ## ✦ Common File Handling Operations
 
-##### 📌➤ Create a File
+##### 📌 ➤ Create a File
 
 ```java
 public void createFile() throws IOException {
@@ -4667,7 +4618,7 @@ public void createFile() throws IOException {
 
 ------
 
-##### 📌➤ Write to a File Using FileWriter
+##### 📌 ➤ Write to a File Using FileWriter
 
 ```java
 public void updateFile() throws IOException {
@@ -4680,7 +4631,7 @@ public void updateFile() throws IOException {
 
 ------
 
-##### 📌➤ Write Using BufferedWriter (Efficient Way)
+##### 📌 ➤ Write Using BufferedWriter (Efficient Way)
 
 ```java
 FileWriter fw = new FileWriter(file);
@@ -4694,7 +4645,7 @@ System.out.println("Data written!");
 
 ------
 
-##### 📌➤ Read Using FileReader
+##### 📌 ➤ Read Using FileReader
 
 ```java
 FileReader frd = new FileReader(file);
@@ -4707,7 +4658,7 @@ frd.close();
 
 ------
 
-##### 📌➤ Read Using BufferedReader (Efficient Way)
+##### 📌 ➤ Read Using BufferedReader (Efficient Way)
 
 ```java
 BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -4720,7 +4671,7 @@ reader.close();
 
 ------
 
-##### 📌➤ Read Using Scanner
+##### 📌 ➤ Read Using Scanner
 
 ```java
 public void readFile() throws IOException {
@@ -4733,7 +4684,7 @@ public void readFile() throws IOException {
 
 ------
 
-##### 📌➤ Delete a File
+##### 📌 ➤ Delete a File
 
 ```java
 if (file.exists() && file.delete()) {
@@ -4743,7 +4694,7 @@ if (file.exists() && file.delete()) {
 
 ------
 
-##### 📌➤ File Properties
+##### 📌 ➤ File Properties
 
 ```java
 if (file.exists()) {
@@ -4759,7 +4710,7 @@ if (file.exists()) {
 
 ## ✦ Working with Binary Files
 
-##### 📌➤ Read Binary Data
+##### 📌 ➤ Read Binary Data
 
 ```java
 FileInputStream fis = new FileInputStream("image.jpg");
@@ -4772,7 +4723,7 @@ fis.close();
 
 ------
 
-##### 📌➤ Write Binary Data
+##### 📌 ➤ Write Binary Data
 
 ```java
 FileOutputStream fos = new FileOutputStream("output.txt");
@@ -4784,7 +4735,7 @@ fos.close();
 
 ## ✦ Important Concepts
 
-##### 📌➤ FileReader vs FileInputStream
+##### 📌 ➤ FileReader vs FileInputStream
 
 | Feature    | FileReader     | FileInputStream      |
 | ---------- | -------------- | -------------------- |
@@ -4793,7 +4744,7 @@ fos.close();
 
 ------
 
-##### 📌➤ FileWriter vs BufferedWriter
+##### 📌 ➤ FileWriter vs BufferedWriter
 
 | Feature     | FileWriter | BufferedWriter |
 | ----------- | ---------- | -------------- |
@@ -4802,7 +4753,7 @@ fos.close();
 
 ------
 
-##### 📌➤ RandomAccessFile
+##### 📌 ➤ RandomAccessFile
 
 ```java
 RandomAccessFile file = new RandomAccessFile("test.txt", "rw");
@@ -4815,7 +4766,7 @@ file.close();
 
 ------
 
-##### 📌➤ Append Data to File
+##### 📌 ➤ Append Data to File
 
 ```java
 FileWriter writer = new FileWriter("test.txt", true);
@@ -4825,7 +4776,7 @@ writer.close();
 
 ------
 
-##### 📌➤ List Files in Directory
+##### 📌 ➤ List Files in Directory
 
 ```java
 File folder = new File("C:/Users/Documents");
@@ -4837,7 +4788,7 @@ for (String file : files) {
 
 ------
 
-##### 📌➤ Read Large File Efficiently
+##### 📌 ➤ Read Large File Efficiently
 
 ```java
 BufferedReader reader = new BufferedReader(new FileReader("largefile.txt"));
@@ -4852,7 +4803,7 @@ reader.close();
 
 ## ✦ Exception Handling & Best Practices
 
-##### 📌➤ Try-With-Resources (Recommended)
+##### 📌 ➤ Try-With-Resources (Recommended)
 
 ```java
 try (FileReader reader = new FileReader("test.txt")) {
@@ -4901,7 +4852,7 @@ try (FileReader reader = new FileReader("test.txt")) {
 
 ## 🚀 Summary
 
-##### 📌➤ Key Takeaways
+##### 📌 ➤ Key Takeaways
 
 - 📌 File handling is essential for persistent data storage
 - ⚡ Use BufferedReader/Writer for performance
@@ -4925,7 +4876,7 @@ try (FileReader reader = new FileReader("test.txt")) {
 
 ----
 
-##### 📌1.**Singleton Design Pattern:**
+##### 📌 1.**Singleton Design Pattern:**
 
 - There are multiple scenarios where we want single instance of class should be created and used throughout the application.
   
@@ -4988,7 +4939,7 @@ System.out.println(obj1.equals(obj2));
 }
 ```
 
-##### 📌2.**Factory Design Pattern:**
+##### 📌 2.**Factory Design Pattern:**
 
 - The Factory design pattern is used to create objects without exposing the object creation logic to the client.
   
@@ -5076,7 +5027,7 @@ return new Bike();
 
 }
 ```
-##### 📌3. Builder Design Pattern
+##### 📌 3. Builder Design Pattern
 
 **Purpose:** Build complex objects step by step.
  **Real-life example:** Building a custom PC or a complex meal.
@@ -5098,7 +5049,7 @@ class Meal {
 
 ------
 
-##### 📌4. Prototype Design Pattern
+##### 📌 4. Prototype Design Pattern
 
 **Purpose:** Clone objects instead of creating new ones.
  **Real-life example:** Copying documents or cloning shapes in a drawing app.
@@ -5112,7 +5063,7 @@ class Shape implements Cloneable {
 
 ------
 
-##### 📌5. Abstract Factory Pattern
+##### 📌 5. Abstract Factory Pattern
 
 **Purpose:** Provide an interface to create families of related objects.
  **Real-life example:** UI toolkit creating Buttons and TextFields for Windows/Mac.
@@ -5127,7 +5078,7 @@ class MacFactory implements GUIFactory { /* return MacButton/TextField */ }
 
 ## Structural Patterns
 
-##### 📌1. Adapter Pattern
+##### 📌 1. Adapter Pattern
 
 **Purpose:** Convert one interface into another expected by client.
  **Real-life example:** Power plug adapter.
@@ -5140,7 +5091,7 @@ class MediaAdapter implements MediaPlayer { /* adapts different formats */ }
 
 ------
 
-##### 📌2. Decorator Pattern
+##### 📌 2. Decorator Pattern
 
 **Purpose:** Add behavior to objects dynamically.
  **Real-life example:** Adding toppings to a pizza.
@@ -5153,7 +5104,7 @@ class MilkDecorator implements Coffee { Coffee c; public MilkDecorator(Coffee c)
 
 ------
 
-##### 📌3. Proxy Pattern
+##### 📌 3. Proxy Pattern
 
 **Purpose:** Control access to an object.
  **Real-life example:** Virtual proxy for image loading.
@@ -5166,7 +5117,7 @@ class ProxyImage implements Image { RealImage real; public void display(){if(rea
 
 ------
 
-##### 📌4. Facade Pattern
+##### 📌 4. Facade Pattern
 
 **Purpose:** Provide a unified interface to a set of interfaces.
  **Real-life example:** Home theater system controlling multiple devices.
@@ -5180,7 +5131,7 @@ class HomeTheaterFacade {
 
 ------
 
-##### 📌5. Composite Pattern
+##### 📌 5. Composite Pattern
 
 **Purpose:** Treat a group of objects like a single object.
  **Real-life example:** File system (folders containing files/folders).
@@ -5197,7 +5148,7 @@ class Composite implements Component {
 
 ------
 
-##### 📌6. Bridge Pattern
+##### 📌 6. Bridge Pattern
 
 **Purpose:** Decouple abstraction from implementation.
  **Real-life example:** Different remote controls controlling different devices.
@@ -5212,7 +5163,7 @@ class AdvancedRemote { Remote remote; void press(){remote.pressButton();} }
 
 ## Behavioral Patterns
 
-##### 📌1. Observer Pattern
+##### 📌 1. Observer Pattern
 
 **Purpose:** One-to-many dependency; notify observers on state change.
  **Real-life example:** Social media notifications.
@@ -5228,7 +5179,7 @@ class Subject {
 
 ------
 
-##### 📌2. Strategy Pattern
+##### 📌 2. Strategy Pattern
 
 **Purpose:** Define a family of algorithms and make them interchangeable.
  **Real-life example:** Payment method selection (Credit Card, PayPal, UPI).
@@ -5241,7 +5192,7 @@ class PayPal implements PaymentStrategy { public void pay(int amt){System.out.pr
 
 ------
 
-##### 📌3. Command Pattern
+##### 📌 3. Command Pattern
 
 **Purpose:** Encapsulate a request as an object.
  **Real-life example:** Remote control commands (Turn On, Turn Off).
@@ -5254,7 +5205,7 @@ class LightOnCommand implements Command { Light light; public LightOnCommand(Lig
 
 ------
 
-##### 📌4. Iterator Pattern
+##### 📌 4. Iterator Pattern
 
 **Purpose:** Access elements of a collection sequentially without exposing its structure.
  **Real-life example:** Traversing a list of songs in a playlist.
@@ -5270,7 +5221,7 @@ class NameRepository {
 
 ------
 
-##### 📌5. Template Method Pattern
+##### 📌 5. Template Method Pattern
 
 **Purpose:** Define skeleton of algorithm, letting subclasses redefine steps.
  **Real-life example:** Cooking recipe steps.
@@ -5283,7 +5234,7 @@ class Football extends Game { void initialize(){System.out.println("Football ini
 
 ------
 
-##### 📌6. State Pattern
+##### 📌 6. State Pattern
 
 **Purpose:** Alter behavior when object state changes.
  **Real-life example:** Traffic light changing behavior (Red, Green, Yellow).
@@ -5296,7 +5247,7 @@ class StartState implements State { public void doAction(Context context){System
 
 ------
 
-##### 📌7. Mediator Pattern
+##### 📌 7. Mediator Pattern
 
 **Purpose:** Reduce communication complexity between multiple objects.
  **Real-life example:** Air traffic control coordinating airplanes.
@@ -5310,19 +5261,19 @@ abstract class Colleague { Mediator mediator; Colleague(Mediator m){mediator=m;}
 
 ---
 
-##### 📌What is the Singleton design pattern, and why would you use it in your Java application?
+##### 📌 What is the Singleton design pattern, and why would you use it in your Java application?
 
 The Singleton design pattern is used to ensure that a class has only one instance and provides a global point of access to that instance. It is used when you want to limit the number of instances of a class and ensure that all clients use the same instance.
 
-##### 📌When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
+##### 📌 When would you choose to use the Factory design pattern in your Java application, and what are its benefits?
 
 The Factory design pattern is used to create objects without exposing the object creation logic to the client. It provides a way to encapsulate object creation and allows for flexible object creation without changing the code that uses it.
 
-##### 📌What is the Builder design pattern, and how does it differ from the Factory pattern?
+##### 📌 What is the Builder design pattern, and how does it differ from the Factory pattern?
 
  The Builder design pattern is used to create complex objects step by step. It differs from the Factory pattern in that it allows for greater control over the creation process and provides a way to create objects with different configurations.
 
-##### 📌How does the Observer design pattern work, and when would you use it in your Java code?
+##### 📌 How does the Observer design pattern work, and when would you use it in your Java code?
 
 The Observer design pattern is used to define a one-to-many relationship between objects so that when one object changes state, all its dependents are notified and updated automatically.
 
@@ -5334,7 +5285,7 @@ The Observer design pattern is used to define a one-to-many relationship between
 
 # Regular Expression
 
-##### 📌What is a Regular Expression?
+##### 📌 What is a Regular Expression?
 
 **Answer:** A regular expression (regex) is a special sequence of characters that helps you **match, find, or manage text**.
 
@@ -5452,7 +5403,7 @@ The Observer design pattern is used to define a one-to-many relationship between
 
 
 
-##### 📌Why Use the Comparable Interface in Java?
+##### 📌 Why Use the Comparable Interface in Java?
 
 The **Comparable** interface is used to define the **natural ordering** of objects in a class.  It provides a way to **compare two objects of the same type** to determine their relative order.
 
@@ -5498,11 +5449,11 @@ public class ComparableExample {
 
 ```
 
-##### 📌Difference Between Comparable and Comparator in Java
+##### 📌 Difference Between Comparable and Comparator in Java
 
 Both `Comparable` and `Comparator` are used to **sort custom objects**, but they differ in **how** and **where** the comparison logic is defined.
 
-##### 📌Comparable vs Comparator
+##### 📌 Comparable vs Comparator
 
 | Feature      | Comparable    | Comparator     |
 | ------------ | ------------- | -------------- |
@@ -5551,21 +5502,19 @@ public class ComparatorLambdaExample {
 ```
 ---
 
-##### 📌When would you use a Queue data structure in Java, and what are its advantages over other data structures?
+##### 📌 When would you use a Queue data structure in Java, and what are its advantages over other data structures?
 
 A Queue data structure is used to store elements in a FIFO (First In, First Out) order. It is useful when you need to process elements in the order in which they were added, such as in a message queue.
 
-##### 📌What is a Stack data structure, and how is it implemented in Java?
+##### 📌 What is a Stack data structure, and how is it implemented in Java?
 
 A Stack data structure is used to store elements in a LIFO (Last In, First Out) order. It is useful when you need to keep track of the order in which elements were added, such as in a history list.
 
-##### 📌How do you create Custom Exceptions in Java, and when would you use them in your code?
+##### 📌 How do you create Custom Exceptions in Java, and when would you use them in your code?
 
 In Java, you can create custom exceptions by extending the Exception class or one of its subclasses. When creating a custom exception, you should provide a descriptive name and an appropriate constructor that takes a message describing the exception. You can also add additional fields and methods as needed to provide more context about the exception. Custom exceptions are typically used when there is a specific error condition that occurs frequently in your application and that cannot be adequately described by the built-in exception classes. By creating a custom exception, you can provide more detailed information about the error condition and make it easier for developers to understand and handle the exception.
 
-##### 📌How does Java handle garbage collection, and what are some strategies for optimizing garbage collection performance?
 
-In Java, garbage collection is the process of automatically freeing memory that is no longer being used by an application. Java uses a mark-and-sweep algorithm for garbage collection, which works by marking all objects that are still being used and then sweeping away any objects that are not marked. To optimize garbage collection performance, you can use strategies such as minimizing object creation, minimizing object retention, and tuning the garbage collector settings. Minimizing object creation involves reusing objects rather than creating new ones, while minimizing object retention involves releasing objects as soon as they are no longer needed
 
 ---
 
@@ -5573,7 +5522,7 @@ In Java, garbage collection is the process of automatically freeing memory that 
 
 ---
 
-##### 📌**1. Object Equality: `equals()` and `hashCode()`**
+##### 📌 **1. Object Equality: `equals()` and `hashCode()`**
 
 #####  🔹 **A. The `equals()` Method**
 
@@ -5612,7 +5561,7 @@ To locate an object, Java follows a two-step process:
 
 ------
 
-##### 📌**2. Java Language Features: Effectively Final**
+##### 📌 **2. Java Language Features: Effectively Final**
 
 **Definition**
 
@@ -5645,7 +5594,7 @@ Runnable r = () -> System.out.println(limit);
 
 ------
 
-##### 📌**1️⃣ S — Single Responsibility Principle (SRP)**
+##### 📌 **1️⃣ S — Single Responsibility Principle (SRP)**
 
 > **"A class should have only ONE reason to change"**
 
@@ -5677,7 +5626,7 @@ class EmployeeReport {
 
 ------
 
-##### 📌**2️⃣ O — Open/Closed Principle (OCP)**
+##### 📌 **2️⃣ O — Open/Closed Principle (OCP)**
 
 > **"Open for extension, Closed for modification"**
 
@@ -5714,7 +5663,7 @@ class Rectangle extends Shape {
 
 ------
 
-##### 📌**3️⃣ L — Liskov Substitution Principle (LSP)**
+##### 📌 **3️⃣ L — Liskov Substitution Principle (LSP)**
 
 > **"Subclass should be replaceable by its parent class"**
 
@@ -5754,7 +5703,7 @@ class Penguin extends Bird {
 
 ------
 
-##### 📌**4️⃣ I — Interface Segregation Principle (ISP)**
+##### 📌 **4️⃣ I — Interface Segregation Principle (ISP)**
 
 > **"Don't force a class to implement methods it doesn't need"**
 
@@ -5796,7 +5745,7 @@ class Eagle implements Eatable, Flyable {
 
 ------
 
-##### 📌**5️⃣ D — Dependency Inversion Principle (DIP)**
+##### 📌 **5️⃣ D — Dependency Inversion Principle (DIP)**
 
 > **"Depend on abstractions, not on concrete classes"**
 
@@ -5842,7 +5791,7 @@ class Notification {
 
 ------
 
-##### 📌**Summary Table**
+##### 📌 **Summary Table**
 
 | Principle                     | Key Concept                                     | Goal                             |
 | ----------------------------- | ----------------------------------------------- | -------------------------------- |
