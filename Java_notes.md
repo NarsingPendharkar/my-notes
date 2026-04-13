@@ -1411,11 +1411,12 @@ Examples:
 
 ##### 📌Difference Between Checked vs Unchecked Exception
 
-| Feature            | Checked Exception | Unchecked Exception |
-| ------------------ | ----------------- | ------------------- |
-| Checked at         | Compile time      | Runtime             |
-| Handling mandatory | Yes               | No                  |
-| Parent class       | Exception         | RuntimeException    |
+| Feature              | Checked Exception              | Unchecked Exception            |
+|---------------------|--------------------------------|-------------------------------|
+| Checked Time        | Compile-time                   | Runtime                       |
+| Handling Required   | Yes                            | No                            |
+| Cause               | External issues                | Programming mistakes          |
+| Example             | IOException                    | NullPointerException          |
 
 ---
 
@@ -5558,17 +5559,6 @@ A Queue data structure is used to store elements in a FIFO (First In, First Out)
 
 A Stack data structure is used to store elements in a LIFO (Last In, First Out) order. It is useful when you need to keep track of the order in which elements were added, such as in a history list.
 
-##### 📌What is the difference between Checked and Unchecked Exceptions in Java, and when would you use each one?
-
-In Java, exceptions are used to handle error conditions that occur during program execution. Checked exceptions are exceptions that must be declared in a method's throws clause, and are checked at compile-time. This means that the code will not compile unless the exception is handled or declared to be thrown. Checked exceptions are typically used for error conditions that the application can reasonably be expected to recover from, such as file I/O errors or network connection errors. On the other hand, unchecked exceptions are exceptions that are not checked at compile-time, and do not need to be declared in a method's throws clause. Unchecked exceptions are typically used for errors that are caused by programming mistakes, such as null pointer exceptions or array index out-of-bounds exceptions.
-
-##### 📌How do you handle Exceptions in Java using the try-catch-finally block, and what are some best practices for using it?
- In Java, exceptions are handled using the try-catch-finally block. The try block contains the code that may throw an exception, and the catch block contains the code that handles the exception. The finally block contains code that is executed regardless of whether or not an exception is thrown. The finally block is typically used to clean up any resources that were opened in the try block. When using the try-catch-finally block, it's important to catch specific exceptions rather than catching a generic Exception. This helps to ensure that the code is handling only the specific exceptions that it is designed to handle, rather than catching and handling all exceptions indiscriminately. It's also important to avoid catching exceptions that cannot be handled properly, as this can lead to unpredictable behavior.4
-
-##### 📌What is the purpose of the throws keyword in Java, and how can it be used to propagate Exceptions?
-
-In Java, the throws keyword is used to declare that a method may throw a specific exception. This allows the method to pass the responsibility of handling the exception up the call stack to the method that called it. When a method declares that it throws an exception, any method that calls it must either handle the exception or declare that it too throws the exception. By using the throws keyword to propagate exceptions up the call stack, you can ensure that exceptions are handled by the appropriate code, rather than being caught and handled in the wrong place.
-
 ##### 📌How do you create Custom Exceptions in Java, and when would you use them in your code?
 
 In Java, you can create custom exceptions by extending the Exception class or one of its subclasses. When creating a custom exception, you should provide a descriptive name and an appropriate constructor that takes a message describing the exception. You can also add additional fields and methods as needed to provide more context about the exception. Custom exceptions are typically used when there is a specific error condition that occurs frequently in your application and that cannot be adequately described by the built-in exception classes. By creating a custom exception, you can provide more detailed information about the error condition and make it easier for developers to understand and handle the exception.
@@ -5585,7 +5575,7 @@ In Java, garbage collection is the process of automatically freeing memory that 
 
 ##### 📌**1. Object Equality: `equals()` and `hashCode()`**
 
-##### 📌**A. The `equals()` Method**
+#####  🔹 **A. The `equals()` Method**
 
 *   **Purpose:** Used to compare the **logical content** of two objects.
 *   **Source:** Defined in the `Object` class.
@@ -5603,12 +5593,12 @@ public boolean equals(Object obj) {
 }
 ```
 
-##### 📌**B. The `hashCode()` Method**
+##### 🔹**B. The `hashCode()` Method**
 
 - **Purpose:** Returns an integer representation of the object for use in **hashing-based collections** (HashMap, HashSet).
 - **The Golden Rule:** If `a.equals(b)` is true, then `a.hashCode()` **must** equal `b.hashCode()`.
 
-##### 📌**C. Role in Collections (HashMap/HashSet)**
+##### 🔹**C. Role in Collections (HashMap/HashSet)**
 
 To locate an object, Java follows a two-step process:
 
@@ -5624,11 +5614,11 @@ To locate an object, Java follows a two-step process:
 
 ##### 📌**2. Java Language Features: Effectively Final**
 
-##### 📌**Definition**
+**Definition**
 
 A variable is **effectively final** if its value is assigned exactly once and never modified, even if the `final` keyword is omitted.
 
-##### 📌**Why does it matter?**
+**Why does it matter?**
 
 Java requires local variables used inside **Lambdas** or **Anonymous Inner Classes** to be final or effectively final to ensure **thread safety and consistency**.
 
@@ -5651,7 +5641,7 @@ Runnable r = () -> System.out.println(limit);
 
 ------
 
-##### 📌**🏗️ SOLID Principles in Java**
+#### **🏗️ SOLID Principles in Java**
 
 ------
 
