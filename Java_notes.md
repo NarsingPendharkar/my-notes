@@ -2622,6 +2622,48 @@ flowchart TD
 - Acts as an **anonymous function** — no method name, return type, or access modifiers.
 - Represents a block of code that takes parameters and returns a value.
 
+**🧠 Problem Before Java 8:**
+
+Before Java 8, Java was **not truly functional**, which caused:
+
+- ❌ Too much **boilerplate code**
+- ❌ Need to create **anonymous classes** for simple logic
+- ❌ Hard to pass behavior (functions) as arguments
+- ❌ Poor readability in **Collections & Threads**
+
+------
+
+**Example (Before Java 8)**
+
+```java
+Runnable r = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("Running...");
+    }
+};
+```
+
+**👉 Problems:**
+
+- Verbose
+- Hard to read
+- Repetitive for small tasks
+
+------
+
+**✅ Solution with Lambda**
+
+```
+Runnable r = () -> System.out.println("Running...");
+```
+
+**👉 Benefits:**
+
+- ✔ Less code
+- ✔ More readable
+- ✔ Functional style
+
 ---
 
 #### **Syntax**
@@ -2670,7 +2712,21 @@ names.forEach(name -> System.out.println(name));
 
 ------
 
-#### **Example**
+##### **Do We Need `@FunctionalInterface` Annotation?**
+
+❌ **No, it is NOT mandatory**
+
+Java will still treat an interface with **one abstract method** as a functional interface **without annotation**
+
+------
+
+**✅ Why Use It Then?**
+
+- ✔ Provides **compile-time safety**
+- ✔ Prevents adding more than one abstract method accidentally
+- ✔ Improves **code readability & intent**
+
+**Example**
 
 ```java
 @FunctionalInterface
