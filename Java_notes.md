@@ -3969,8 +3969,6 @@ Use `synchronized` by default, switch to `ReentrantLock` only when advanced feat
 
 ### 📌 Atomic Classes
 
-#### 🔹 Definition
-
 **Atomic Classes** are classes in Java that allow **thread-safe operations on single variables without using locks**.
 
 - Located in package: `java.util.concurrent.atomic`
