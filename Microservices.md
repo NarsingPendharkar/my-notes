@@ -1,6 +1,6 @@
 <div align="center"><h1 >◆◆◆ Microservices ◆◆◆</h1></div>
 
-### What is Monolithic Architecture?
+##### 📌 What is Monolithic Architecture?
 
 If we develop all the functionalities in single application, then it is called Monolithic Application.
 
@@ -14,7 +14,7 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 > incorrect.](./media/media/image4.jpeg){width="4.972439851268591in"
 > height="2.7625in"}
 
-### What are Microservices?
+##### 📌 What are Microservices?
 
 **Definition:**
 Microservices is an architectural style where an application is divided into small, independent services that communicate via APIs (usually REST). Each service focuses on a specific business capability and can be developed, deployed, and scaled independently.
@@ -51,7 +51,7 @@ It is an architectural design pattern
 
 ---
 
-### Challenges with Microservices
+##### 📌 Challenges with Microservices
 
 1. Bounded Context
 2. Repeated configurations
@@ -66,7 +66,7 @@ It is an architectural design pattern
 
 ---
 
-## ⚖️Monolith vs Microservices
+#### ⚖️Monolith vs sMicroservices
 
 | Aspect        | Monolithic Architecture          | Microservices Architecture                   |
 | ------------- | -------------------------------- | -------------------------------------------- |
@@ -76,7 +76,7 @@ It is an architectural design pattern
 | Deployment    | One deployment for all features  | Independent deployment per service           |
 | Change Impact | One bug can impact the whole app | Failures are isolated to individual services |
 
-### When to Use Microservices
+##### 📌 When to Use Microservices
 
 - Large and complex applications
 
@@ -112,7 +112,7 @@ It is an architectural design pattern
 
 ---
 
-## What are the key benefits of microservices?
+##### What are the key benefits of microservices?
 
 - **Scalability:** Independent services can scale separately.
 
@@ -126,7 +126,7 @@ It is an architectural design pattern
 
 ---
 
-## What are the challenges of microservices?
+##### What are the challenges of microservices?
 
 - Service Discovery & Communication (Eureka, Consul)
 
@@ -140,9 +140,9 @@ It is an architectural design pattern
 
 ---
 
-## Microservices Architecture & Key Components
+#### Microservices Architecture & Key Components
 
-#### Core Components
+##### Core Components
 
 | Component            | Description                                                  | Example / Tools                                         |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
@@ -156,7 +156,7 @@ It is an architectural design pattern
 
 ---
 
-## Communication Patterns
+#### Communication Patterns
 
 | Type         | Description                                                  | Example / Tools                            |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------ |
@@ -165,7 +165,7 @@ It is an architectural design pattern
 
 ---
 
-## Common Design Patterns in Microservices
+#### Common Design Patterns in Microservices
 
 | Pattern                                         | Purpose                                                      | Example Tool / Concept               |
 | ----------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
@@ -176,29 +176,15 @@ It is an architectural design pattern
 
 ---
 
-## Microservices Architecture
+### ◆◆◆ Discovery & Service Registry  ◆◆◆
 
-There is no fixed architecture for microservices development. We can customize micro services architecture according to our project requirement.
-
-> ![A diagram of a service AI-generated content may be
-> incorrect.](./media/media/image5.jpeg){width="4.7230391513560805in"
-> height="1.9015594925634296in"}
-
----
-
-
-
-
-
-<div align="center"><h1 >◆◆◆ Discovery & Service Registry  ◆◆◆</h1></div>
-
-#### 📌 What is Service Discovery?
+##### 📌 What is Service Discovery?
 
 **Service Discovery** is a mechanism that helps microservices **automatically find the network location (IP & Port)** of other services.
 
 🧠 **Example:** When *Course-Service* wants to call *Student-Service*, it **does NOT hardcode the URL**. Instead, it asks the discovery server → *“Where is Student-Service?”*
 
-#### 📌 What is Service Registry?
+##### 📌 What is Service Registry?
 
 **Service Registry** is a **central database (directory)** where all microservices register themselves.
 
@@ -407,7 +393,7 @@ API Gateway = **Reception Desk**
 
 ---
 
-## ⚖️ Load Balancing in Spring Boot Microservices
+### ⚖️ Load Balancing in Spring Boot Microservices
 
 ##### **🔹 Definition**
 
@@ -507,7 +493,7 @@ public class AppConfig {
 
 <div align="center"><h1 >◆◆◆ Communication Patterns in Microservices ◆◆◆</h1></div>
 
-### **🔹 Introduction**
+##### 📌 **🔹 Introduction**
 
 In Microservices, communication happens between multiple independent services. There are two main types of communication patterns:
 
@@ -874,7 +860,7 @@ public void sendStudentEvent(Student studentData) {
 
 ---
 
-### Stateful vs Stateless Microservices :
+##### 📌 Stateful vs Stateless Microservices :
 
 Type Description
 
@@ -885,7 +871,7 @@ Stateless Microservice: A service that does not store client data between reques
 ![](./media/media/image8.png){width="6.730496500437446in"
 height="2.588652668416448in"}
 
-### What is a circuit breaker in microservices? 
+##### 📌 What is a circuit breaker in microservices? 
 
 A circuit breaker prevents cascading failures by stopping calls to a failing service.
 
@@ -915,7 +901,7 @@ public class FallbackController {
 
 ## Distributed Transactions in Microservices
 
-### 1. Introduction
+##### 📌 1. Introduction
 
 In microservices architecture, each service has its own database (Database-per-Service pattern).
 
@@ -925,7 +911,7 @@ Because of this:
 
 ---
 
-### 2. Common Approaches
+##### 📌 2. Common Approaches
 
 #### 1️⃣ SAGA Pattern (Recommended)
 
@@ -1111,7 +1097,7 @@ Distributed Tracing solves this by tracking the complete request flow across ser
 
 ---
 
-### Spring Cloud Sleuth
+##### 📌 Spring Cloud Sleuth
 
 Spring Cloud Sleuth is a distributed tracing tool for Spring Boot microservices.
 
@@ -1147,7 +1133,7 @@ You track the same `traceId` across all services.
 
 ---
 
-### Sleuth + Zipkin Integration
+##### 📌 Sleuth + Zipkin Integration
 
 Sleuth works with Zipkin for visualization.
 
@@ -1213,7 +1199,7 @@ spring:
 
 ---
 
-### How do you deploy microservices?
+##### 📌 How do you deploy microservices?
 
 - Docker (Containerization)
 
@@ -1223,7 +1209,7 @@ spring:
 
 - CI/CD Pipelines (Jenkins, GitHub Actions)
 
-### How do you secure microservices?
+##### 📌 How do you secure microservices?
 
 - OAuth2 & JWT (Token-Based Authentication)
 
@@ -1231,7 +1217,7 @@ spring:
 
 - API Gateway (Central authentication)
 
-### How do you monitor microservices?
+##### 📌 How do you monitor microservices?
 
 - Logging: ELK (Elasticsearch, Logstash, Kibana)
 
@@ -1239,7 +1225,7 @@ spring:
 
 - Metrics: Prometheus + Grafana
 
-### What is service mesh in microservices? A service mesh (Istio, Linkerd) handles service-to-service communication with:
+##### 📌 What is service mesh in microservices? A service mesh (Istio, Linkerd) handles service-to-service communication with:
 
 1.  Traffic Control
 
@@ -1247,7 +1233,7 @@ spring:
 
 3.  Observability
 
-### What is CQRS in microservices?
+##### 📌 What is CQRS in microservices?
 
 **Answer:**
 CQRS (Command Query Responsibility Segregation) separates read (Query Service) and write (Command Service) operations for performance
@@ -1510,7 +1496,7 @@ flowchart LR
 
 👉 This is the heart of service discovery
 
-### Main Class
+##### 📌 Main Class
 
 ```java
 @SpringBootApplication
@@ -1522,7 +1508,7 @@ public class EurekaServerApplication {
 }
 ```
 
-### application.properties
+##### 📌 application.properties
 
 ```properties
 spring.application.name=eureka-server
@@ -1538,7 +1524,7 @@ eureka.client.fetch-registry=false
 
 👉 This service manages address data
 
-### 1. Entity
+##### 📌 1. Entity
 
 ```java
 @Entity
@@ -1556,7 +1542,7 @@ public class Address {
 
 ------
 
-### 2. Repository
+##### 📌 2. Repository
 
 ```java
 @Repository
@@ -1566,7 +1552,7 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
 ------
 
-### 3. Service
+##### 📌 3. Service
 
 ```java
 @Service
@@ -1587,7 +1573,7 @@ public class AddressService {
 
 ------
 
-### 4. Controller
+##### 📌 4. Controller
 
 ```java
 @RestController
@@ -1611,7 +1597,7 @@ public class AddressController {
 
 ------
 
-### 5. application.properties
+##### 📌 5. application.properties
 
 ```properties
 spring.application.name=ADDRESS-SERVICE
@@ -1635,7 +1621,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
 ------
 
-### 1. Entity
+##### 📌 1. Entity
 
 ```java
 @Entity
@@ -1656,7 +1642,7 @@ public class Student {
 
 ------
 
-### 2. Repository
+##### 📌 2. Repository
 
 ```java
 @Repository
@@ -1666,7 +1652,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
 ------
 
-### 3. DTO Classes
+##### 📌 3. DTO Classes
 
 ```java
 public class AddressDTO {
@@ -1686,7 +1672,7 @@ public class StudentDTO {
 
 ------
 
-### 4. Feign Client (Recommended ✅)
+##### 📌 4. Feign Client (Recommended ✅)
 
 ```java
 @FeignClient(name = "ADDRESS-SERVICE", path = "/api/address")
@@ -1699,7 +1685,7 @@ public interface AddressFeignClient {
 
 ------
 
-### 5. Service
+##### 📌 5. Service
 
 ```java
 @Service
@@ -1734,7 +1720,7 @@ public class StudentService {
 
 ------
 
-### 6. Controller
+##### 📌 6. Controller
 
 ```java
 @RestController
@@ -1753,7 +1739,7 @@ public class StudentController {
 
 ------
 
-### 7. Main Class
+##### 📌 7. Main Class
 
 ```java
 @SpringBootApplication
@@ -1767,7 +1753,7 @@ public class StudentApplication {
 
 ------
 
-### 8. application.properties
+##### 📌 8. application.properties
 
 ```properties
 spring.application.name=STUDENT-SERVICE
@@ -1786,7 +1772,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
 ## 🔷 Step 4: Add Required Dependencies
 
-### Eureka Client
+##### 📌 Eureka Client
 
 ```xml
 <dependency>
@@ -1795,7 +1781,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 </dependency>
 ```
 
-### Feign Client
+##### 📌 Feign Client
 
 ```xml
 <dependency>
@@ -1831,13 +1817,13 @@ flowchart LR
 
 # SWAGGER
 
-### What is swagger ?
+##### 📌 What is swagger ?
 
 - Swagger is an open-source framework for designing, building, and documenting RESTful APIs.
   
 - It provides a simple, easy-to-use interface for developers to define API endpoints, parameters, responses, and other details.
 
-### Why Swagger in Spring Boot?
+##### 📌 Why Swagger in Spring Boot?
 
 1.  API Documentation: Swagger generates API documentation automatically, making it easier for developers to understand and use
     the API.
