@@ -628,7 +628,7 @@ Native methods interact with OS libraries.
 
 ------
 
-**Example Memory Flow**
+**Example**
 
 ```java
 class Test {
@@ -640,7 +640,7 @@ class Test {
 }
 ```
 
-Memory allocation
+**Memory allocation**
 
 ```mermaid
 flowchart TB
@@ -682,7 +682,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 ---
 
-### 📌 Why is String immutable ?
+##### 📌 Why is String immutable ?
 
 - Strings are immutable  for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
@@ -694,7 +694,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 - **Thread safe** -- as String is immutable multiple threads can access it at a time.
 
-### Difference between String vs StringBuilder vs StringBuffer
+##### 📌 Difference between String vs StringBuilder vs StringBuffer
 
 - String Buffer and StringBuilder are the classes of java used to create Mutable strings.
   
