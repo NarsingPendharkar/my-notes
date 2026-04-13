@@ -1574,7 +1574,7 @@ int[] arr = new int[999999999];
 
 
 
-<div align="center"><h1>OOPs (Object-Oriented Programming) </h1></div>
+<div align="center"><h3>🔴🟠🟢 OOPs (Object-Oriented Programming) 🔴🟠🟢 </h3></div>
 
 - **OOP (Object-Oriented Programming)** is a programming approach where programs are designed using **objects and classes** that contain **data (variables) and behavior (methods)**.
 - An **object** represents a real-world entity and contains **data (variables)** and **behavior (methods)**.
@@ -1602,14 +1602,9 @@ The four pillars of Object-Oriented Programming (OOP) in are:
 
 - **Abstraction** → Hiding implementation details from users.
 
-![](./media/media/image20.png){width="1.873470034995625in"
-height="1.25in"}
-
-
-
 ------
 
-## What is Encapsulation?
+##### 📌 What is Encapsulation?
 
 **Encapsulation** is an **OOP principle** that means **wrapping data (variables) and code (methods) together into a single unit (class)** and restricting direct access to the data.
 
@@ -1620,7 +1615,7 @@ A user can withdraw money or check balance without knowing the internal implemen
 
 ------
 
-##### How Encapsulation is Achieved
+**How Encapsulation is Achieved**
 
 1. Declare variables as **private**
 2. Provide **public getter and setter methods** to access and update data.
@@ -1687,15 +1682,13 @@ class BankAccount{
 
 ---
 
-## What is Inheritance in Java?
+##### 📌  What is Inheritance in Java?
 
 **Inheritance** is an **Object-Oriented Programming (OOP)** concept where one class **acquires the properties and behaviors (fields and methods)** of another class.
 
 It helps in **code reusability**, **method overriding**, and creating a **parent–child relationship** between classes.
 
-------
-
-##### Example
+**Example**
 
 ```java
 class Animal {
