@@ -78,24 +78,18 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 Autoboxing is the automatic conversion of a primitive type into its corresponding wrapper class object, for example converting int to Integer. Unboxing is the reverse process where a wrapper object is converted back to its primitive type. This feature was introduced in Java 5 to simplify working with collections.
 
-1. Autoboxing
+**Autoboxing** : Autoboxing is the **automatic conversion of a primitive type into its corresponding wrapper class object**.
 
-**Autoboxing** is the **automatic conversion of a primitive type into its corresponding wrapper class object**.
-
+```
 Primitive → Object
-
-Example
-`int` → `Integer`
+```
 
 ##### Example
 
 ```java
 int a = 10;
-
 Integer obj = a;   // Autoboxing
 ```
-
-Equivalent to
 
 ```java
 Integer obj = Integer.valueOf(a);
@@ -103,17 +97,14 @@ Integer obj = Integer.valueOf(a);
 
 ------
 
-**Why Autoboxing is Needed**
+**Why Autoboxing is Needed  ?**
 
 Collections in Java (like `List`, `Set`, `Map`) store **objects, not primitives**.
 
 ```java
 List<Integer> list = new ArrayList<>();
-
 list.add(10);   // Autoboxing
 ```
-
-here
 
 ```text
 int → Integer
@@ -121,28 +112,10 @@ int → Integer
 
 ------
 
-#### 2. Unboxing
+2. **Unboxing** : Unboxing is the **automatic conversion of a wrapper object into a primitive type**.
+   `Integer` → `int`
 
-**Unboxing** is the **automatic conversion of a wrapper object into a primitive type**.
-`Integer` → `int`
-
-##### Example
-
-```java
-Integer obj = 20;
-
-int num = obj;   // Unboxing
-```
-
-Equivalent to
-
-```java
-int num = obj.intValue();
-```
-
-------
-
-##### Example Program
+**Example**
 
 ```java
 public class Test {
@@ -167,7 +140,7 @@ Output
 
 ------
 
-### What is the Wrapper class in Java ?
+##### 📌 What is the Wrapper class in Java ?
 
 Primitive types have corresponding **wrapper classes**.
 
@@ -188,12 +161,12 @@ Primitive types have corresponding **wrapper classes**.
 
 ---
 
-### Why do we need wrapper classes?
+##### 📌 Why do we need wrapper classes?
 
 The wrapper class is an object class that encapsulates the primitive data types, and we need them for the following reasons:
 
 1. Wrapper classes are final and immutable
-2. Provides methods like valueOf(), parseInt(), etc.
+2. Provides methods like `valueOf(), parseInt()`, etc.
 3. It provides the feature of autoboxing and unboxing.
 
 _________________
@@ -201,10 +174,10 @@ _________________
 
 
 <div align="center">
-    <h1>Class & Object </h1>
+    <h4>Class & Object </h4>
 </div>
 
-### What is a class?
+##### 📌 What is a class?
 
 - A class is a blueprint/template for creating objects. It defines attributes (fields/variables) and behavior's (methods).
 
@@ -225,7 +198,7 @@ height="4.107638888888889in"}
 
 ---
 
-### What is an object?
+##### 📌 What is an object?
 
 - An object is an instance of a class. It has state (values of fields) and behavior (methods it can perform).
 
@@ -244,7 +217,7 @@ public class Main {
 
 ---
 
-### How do you create an object ?
+##### 📌 How do you create an object ?
 
 - **Using new keyword**
 
@@ -297,7 +270,7 @@ public class Main {
 
 ---
 
-### **What is the difference between a class and an object?**
+##### 📌 **What is the difference between a class and an object?**
 
 | Feature    | Class                | Object                |
 | ---------- | -------------------- | --------------------- |
@@ -307,11 +280,10 @@ public class Main {
 
 <hr>
 <div align="center">
-    <h1>✦✦ Constructors ✦✦</h1>
+    <h4>✦✦ Constructors ✦✦</h4>
 </div>
 
-
-###  What is a constructor?
+#####  📌 What is a constructor?
 
 - A constructor is a special method used to initialize objects.
 
@@ -333,28 +305,22 @@ class Car {
 
 
 
-### What are the types of constructors ?
+##### 📌 What are the types of constructors ?
 
 - **Default Constructor (No parameters)**
 
-> ```java
-> class Car {
-> 
-> Car( { System.out.println("Car created!");
-> }
-> 
-> }
-> ```
->
-> 
+```java
+class Car {
+    Car( { System.out.println("Car created!");
+      }
+   }
+```
 
 - **Parameterized Constructor (Takes parameters)**
 
-> ```java
-> Car(String brand) { this.brand = brand; }
-> ```
->
-> 
+```java
+Car(String brand) { this.brand = brand; }
+```
 
 - **Copy Constructor (Copies values from another object)**
 
@@ -367,11 +333,11 @@ height="2.438779527559055in"}
 
 ---
 
-### What happens if a class doesn't have a constructor?
+##### 📌 What happens if a class doesn't have a constructor?
 
 - JVM provides a default constructor automatically.
 
-### Can a constructor be private?
+##### 📌 Can a constructor be private?
 
 - Yes, it is used in the Singleton pattern:
 
@@ -391,7 +357,6 @@ public class Singleton {
     public static void main(String[] args) {
         Singleton sig=new Singleton();
         getInstance();
-
     }
 
 }
@@ -399,7 +364,7 @@ public class Singleton {
 
 ---
 
-### How do you design an immutable class in Java? What rules should you follow?
+##### 📌 How do you design an immutable class in Java? What rules should you follow?
 
 An **immutable class** is a class whose objects cannot be modified once created.
 
@@ -417,7 +382,7 @@ To design an immutable class in Java, follow these rules :
     
 6.  **Return copies instead of references** in getter methods if fields are mutable.
 
-##### **Classic Immutable Class**
+##### 📌 **Classic Immutable Class**
 
 ```java
 public final class Immutable {
@@ -456,7 +421,7 @@ public final class Immutable {
 ✅ Class is final
 ➡️ Hence, **Immutable**
 
-**Modern Approach (Using record in Java 16+)**
+📌 **Modern Approach (Using record in Java 16+)**
 
 ```java
 public record Immutable (int id,String name) {
@@ -486,7 +451,7 @@ public record Immutable (int id,String name) {
 
 
 
-### What is the difference between a method and a constructor?
+##### 📌 What is the difference between a method and a constructor?
 
 | **Feature**     | **Constructor**                                | **Method**                        |
 | --------------- | ---------------------------------------------- | --------------------------------- |
@@ -495,7 +460,7 @@ public record Immutable (int id,String name) {
 | **Return Type** | No return type (not even `void`)               | Can have a return type            |
 | **Call**        | Called automatically when an object is created | Called explicitly                 |
 
-### **What are Access modifiers ?**
+##### 📌 **What are Access modifiers ?**
 
 Access modifiers in Java control the visibility of classes, methods, and variables. 
 
@@ -518,7 +483,7 @@ There are four types: 
 
 ------
 
-##### Access Modifier Visibility Table
+##### 📌 Access Modifier Visibility Table
 
 | Modifier  | Same Class🏠 | Same Package🏢 | Subclass | Other Package |
 | --------- | ----------- | ------------- | -------- | ------------- |
@@ -527,11 +492,9 @@ There are four types: 
 | protected | ✔           | ✔             | ✔        | ✖             |
 | public    | ✔           | ✔             | ✔        | ✔             |
 
-------
+---
 
-
-
-### What is the difference between an instance variable and a local variable?
+##### 📌 What is the difference between an instance variable and a local variable?
 
 | Feature | Instance Variable             | Local Variable               |
 | ------- | ----------------------------- | ---------------------------- |
@@ -540,7 +503,7 @@ There are four types: 
 | Default | Gets default value            | No default value             |
 | Value   | null                          | 0                            |
 
-###  What is the difference between shallow copy and deep copy?
+#####  📌 What is the difference between shallow copy and deep copy?
 
 | **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
 | -------------- | ------------------------------------- | ----------------------------------- |
@@ -557,7 +520,7 @@ Car car2 = new Car(car1); // Deep Copy – creates a new object with copied data
 
 ---
 
-### 💾 Java Memory Model (JVM Memory)
+##### 📌 Java Memory Model (JVM Memory)
 
 Java memory is divided into different areas used by the **JVM (Java Virtual Machine)**. JVM memory is divided into Heap, Stack, Method Area, PC Register, and Native Method Stack. Heap stores objects and is managed by garbage collection, Stack stores method calls and local variables for each thread, and Method Area stores class metadata and static variables.
 
