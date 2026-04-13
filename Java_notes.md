@@ -2616,7 +2616,7 @@ flowchart TD
 
 <div align="center"><h1>Java 8 Features</h1></div>
 
-#### 1) Lambda Expressions
+### **1) Lambda Expressions**
 
 - Introduced in **Java 8** for functional programming.
 - Acts as an **anonymous function** — no method name, return type, or access modifiers.
@@ -2624,7 +2624,7 @@ flowchart TD
 
 ---
 
-### Syntax
+#### **Syntax**
 
 ```java
 (parameter) -> expression
@@ -2647,29 +2647,30 @@ interface MathOperation {
 
 List<String> names = Arrays.asList("John", "Paul", "George", "Ringo");
 names.forEach(name -> System.out.println(name));
-
 ```
 
-#### 2) Functional Interfaces
+------
+
+### **2) Functional Interfaces**
 
 - An interface with only **one abstract method**.
 - Annotated with **@FunctionalInterface** to indicate it's a functional interface.
 - Can have **default** and **static** methods in addition to the single abstract one.
 
----
+------
 
-#### Common Functional Interfaces
+#### **Common Functional Interfaces**
 
 | Interface          | Description                      | Method Signature    |
 | ------------------ | -------------------------------- | ------------------- |
-| **Predicate<T>**   | Returns a Boolean value          | `boolean test(T t)` |
+| **Predicate**      | Returns a Boolean value          | `boolean test(T t)` |
 | **Function<T, R>** | Converts input `T` to output `R` | `R apply(T t)`      |
-| **Consumer<T>**    | Accepts input, returns nothing   | `void accept(T t)`  |
-| **Supplier<T>**    | Returns a result, no input       | `T get()`           |
+| **Consumer**       | Accepts input, returns nothing   | `void accept(T t)`  |
+| **Supplier**       | Returns a result, no input       | `T get()`           |
 
----
+------
 
-### Example
+#### **Example**
 
 ```java
 @FunctionalInterface
@@ -2678,15 +2679,17 @@ interface MathOperation {
 }
 ```
 
-## 3) Streams API
+------
+
+### **3) Streams API**
 
 - Introduced in **Java 8** for **functional-style operations** on collections.
 - Used to **process collections of objects** efficiently and concisely.
 - Supports operations like **filtering**, **mapping**, **sorting**, **reducing**, and **collecting**.
 
----
+------
 
-##### Common Stream Methods
+##### **Common Stream Methods**
 
 | Method        | Description                             |
 | ------------- | --------------------------------------- |
@@ -2696,9 +2699,9 @@ interface MathOperation {
 | **reduce()**  | Combines elements into a single result. |
 | **collect()** | Converts stream back to a collection.   |
 
----
+------
 
-##### Example
+##### **Example**
 
 ```java
 List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
@@ -2710,17 +2713,17 @@ List<String> filteredNames = names.stream()
 System.out.println(filteredNames); // [Mike]
 ```
 
----
+------
 
 ##### **Parallel Streams (Faster Processing)**
 
-- Use **`.parallelStream()`** to process elements in parallel.  
-- Ideal for **large datasets** that benefit from multi-threading.  
+- Use **`.parallelStream()`** to process elements in parallel.
+- Ideal for **large datasets** that benefit from multi-threading.
 - Avoid overuse — may cause **performance overhead** for small collections.
 
----
+------
 
-✅ **Example:**
+#### **Example**
 
 ```java
 List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice", "Mark");
@@ -2732,9 +2735,9 @@ long count = names.parallelStream()
 System.out.println(count); // Output: 2
 ```
 
----
+------
 
-#### Sequential Stream vs Parallel Stream
+#### **Sequential Stream vs Parallel Stream**
 
 | Sequential Stream                | Parallel Stream             |
 | -------------------------------- | --------------------------- |
@@ -2743,15 +2746,9 @@ System.out.println(count); // Output: 2
 | Order maintained                 | Order may not be maintained |
 | Processing slower for large data | Faster for large datasets   |
 
-Example
-
-```java
-list.parallelStream().forEach(System.out::println);
-```
-
 ------
 
-#### map() vs flatMap()
+#### **map() vs flatMap()**
 
 | map()                     | flatMap()                       |
 | ------------------------- | ------------------------------- |
@@ -2759,7 +2756,9 @@ list.parallelStream().forEach(System.out::println);
 | One-to-one mapping        | One-to-many mapping             |
 | Produces stream of values | Produces flattened stream       |
 
-Example
+------
+
+#### **Example**
 
 ```java
 List<List<Integer>> list = Arrays.asList(
@@ -2772,45 +2771,35 @@ list.stream()
     .forEach(System.out::println);
 ```
 
-Output
+------
 
-```java
-1
-2
-3
-4
-```
+### **4) Stream Operations**
 
-## Stream Operations
+------
 
-#### Intermediate Operations (Return Stream)
+#### **Intermediate Operations (Return Stream)**
 
 Intermediate operations are **lazy** and return a new stream.
 
----
+------
 
-##### 1. `filter(Predicate<T> predicate)`
+##### **1. `filter(Predicate<T> predicate)`**
 
 **Definition:** Filters elements based on a condition.
 
-**Example:**
 ```java
 List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
 
 List<String> filteredNames = names.stream()
     .filter(n -> n.contains("M"))
     .collect(Collectors.toList());
-
-System.out.println(filteredNames); // [Mike]
 ```
 
 ------
 
-##### 2. `map(Function<T, R> mapper)`
+##### **2. `map(Function<T, R> mapper)`**
 
 **Definition:** Transforms each element into another form.
-
-**Example:**
 
 ```java
 List<String> words = Arrays.asList("java", "stream", "api");
@@ -2818,17 +2807,13 @@ List<String> words = Arrays.asList("java", "stream", "api");
 List<Integer> lengths = words.stream()
     .map(w -> w.length())
     .collect(Collectors.toList());
-
-System.out.println(lengths); // [4, 6, 3]
 ```
 
 ------
 
-##### 3. `sorted() / sorted(Comparator)`
+##### **3. `sorted()`**
 
 **Definition:** Sorts elements in natural or custom order.
-
-**Example:**
 
 ```java
 List<Integer> numbers = Arrays.asList(5, 3, 1, 4, 2);
@@ -2836,17 +2821,13 @@ List<Integer> numbers = Arrays.asList(5, 3, 1, 4, 2);
 List<Integer> sortedNumbers = numbers.stream()
     .sorted()
     .collect(Collectors.toList());
-
-System.out.println(sortedNumbers); // [1, 2, 3, 4, 5]
 ```
 
 ------
 
-##### 4. `distinct()`
+##### **4. `distinct()`**
 
 **Definition:** Removes duplicate elements.
-
-**Example:**
 
 ```java
 List<Integer> numbers = Arrays.asList(5, 4, 5, 3, 1, 4, 2);
@@ -2854,17 +2835,13 @@ List<Integer> numbers = Arrays.asList(5, 4, 5, 3, 1, 4, 2);
 List<Integer> distinctList = numbers.stream()
     .distinct()
     .collect(Collectors.toList());
-
-System.out.println(distinctList); // [5, 4, 3, 1, 2]
 ```
 
 ------
 
-##### 5. `limit(long maxSize)`
+##### **5. `limit(long maxSize)`**
 
 **Definition:** Limits the number of elements.
-
-**Example:**
 
 ```java
 List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
@@ -2872,17 +2849,13 @@ List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
 List<String> limitedNames = names.stream()
     .limit(2)
     .collect(Collectors.toList());
-
-System.out.println(limitedNames); // [Alice, Bob]
 ```
 
 ------
 
-##### 6. `skip(long n)`
+##### **6. `skip(long n)`**
 
 **Definition:** Skips first `n` elements.
-
-**Example:**
 
 ```java
 List<String> words = Arrays.asList("java", "stream", "api");
@@ -2890,264 +2863,147 @@ List<String> words = Arrays.asList("java", "stream", "api");
 List<String> skippedList = words.stream()
     .skip(1)
     .collect(Collectors.toList());
-
-System.out.println(skippedList); // [stream, api]
 ```
 
 ------
 
-##### 7. `flatMap(Function<T, Stream<R>> mapper)`
+##### **7. `flatMap(Function<T, Stream<R>> mapper)`**
 
 **Definition:** Flattens nested structures into a single stream.
-
-**Example:**
 
 ```java
 List<List<Integer>> listOfLists = Arrays.asList(
     Arrays.asList(1, 2),
-    Arrays.asList(3, 4),
-    Arrays.asList(5, 6)
+    Arrays.asList(3, 4)
 );
 
 List<Integer> flattenedList = listOfLists.stream()
     .flatMap(List::stream)
     .collect(Collectors.toList());
-
-System.out.println(flattenedList); // [1, 2, 3, 4, 5, 6]
 ```
 
 ------
 
-## 🔹 Terminal Operations (End Stream)
+#### **Terminal Operations (End Stream)**
 
 Terminal operations **produce a result** and close the stream.
 
 ------
 
-##### 1. `forEach(Consumer<T> action)`
-
-**Definition:** Performs action on each element.
-
-**Example:**
+##### **1. `forEach(Consumer<T> action)`**
 
 ```java
-List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
-
-names.stream()
-    .forEach(n -> System.out.print(n.toUpperCase() + " "));
-
-// Output: JOHN JANE MIKE ALICE
+names.stream().forEach(n -> System.out.print(n + " "));
 ```
 
 ------
 
-##### 2. `collect(Collector<T, A, R> collector)`
-
-**Definition:** Converts stream into a collection or result.
-
-**Example:**
+##### **2. `collect()`**
 
 ```java
-List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice");
-
-List<String> nameList = names.stream()
-    .filter(n -> n.contains("J"))
+List<String> list = names.stream()
     .collect(Collectors.toList());
-
-System.out.println(nameList); // [John, Jane]
 ```
 
 ------
 
-##### 3. `reduce(BinaryOperator<T> accumulator)`
-
-**Definition:** Reduces elements to a single value.
-
-**Example:**
+##### **3. `reduce()`**
 
 ```java
-List<Integer> nums = Arrays.asList(2, 4, 5, 6, 7);
-
-int total = nums.stream()
-    .reduce((a, b) -> a + b)
-    .orElse(0);
-
-System.out.println(total);
+int sum = nums.stream().reduce((a, b) -> a + b).orElse(0);
 ```
 
 ------
 
-##### 4. `count()`
-
-**Definition:** Counts elements.
-
-**Example:**
+##### **4. `count()`**
 
 ```java
-List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-
 long count = numbers.stream().count();
-
-System.out.println(count); // 5
 ```
 
 ------
 
-##### 5. `findFirst()` and `findAny()`
-
-**Definition:** Returns first or any element as Optional.
-
-**Example:**
+##### **5. `findFirst()` / `findAny()`**
 
 ```java
-List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-
 int first = numbers.stream().findFirst().orElse(0);
-int any = numbers.stream().findAny().orElse(0);
-
-System.out.println(first); // 1
-System.out.println(any);   // 1
 ```
 
 ------
 
-##### 6. `min()` and `max()`
-
-**Definition:** Finds minimum or maximum element.
-
-**Example:**
+##### **6. `min()` / `max()`**
 
 ```java
-List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
-
-int min = numbers.stream()
-    .min(Integer::compareTo)
-    .orElse(0);
-
-int max = numbers.stream()
-    .max(Integer::compareTo)
-    .orElse(0);
-
-System.out.println(min); // 1
-System.out.println(max); // 5
+int min = numbers.stream().min(Integer::compareTo).orElse(0);
 ```
 
 ------
 
-##### 7. `allMatch()`, `anyMatch()`, `noneMatch()`
-
-**Definition:** Checks conditions on elements.
-
-**Example:**
+##### **7. `allMatch()` / `anyMatch()`**
 
 ```java
-List<Integer> nums = Arrays.asList(2, 4, 6, 8);
-
-boolean allEven = nums.stream()
-    .allMatch(n -> n % 2 == 0);
-
-System.out.println(allEven); // true
+boolean allEven = nums.stream().allMatch(n -> n % 2 == 0);
 ```
 
 ------
 
-##### 🔹 Summary
+### **5) Default & Static Methods in Interfaces**
 
-- Intermediate → lazy, return stream
-- Terminal → produce result, end stream
-- Streams improve **readability + performance**
+- Java 8 allows **default method implementations** in interfaces.
+- Static methods can also be added.
+- Helps in **backward compatibility**.
 
----
+------
 
-###  Default & Static Methods in Interfaces
-
-- Java 8 allows default method implementations in interfaces.
-
-- static methods can be added as well.
-
-- Default allows interfaces to have method with implementation
-
-Example:
+#### **Default Method Example**
 
 ```java
 interface Vehicle {
-default void start() {
-System.out.println("Vehicle is starting");
-}
-```
-
-
-
-----
-
-### Default Methods in Interface
-
-Default methods were introduced in Java 8 to **allow adding new methods to an interface without breaking existing implementation classes**. If a new method is added to an interface normally, all implementing classes must implement it. Default methods solve this by providing a **method implementation inside the interface**, so existing classes continue working without modification.
-
-##### Example
-
-```java
-interface Vehicle {
-
     default void start() {
-        System.out.println("Vehicle Starting");
-    }
-}
-
-class Car implements Vehicle {}
-
-public class Test {
-    public static void main(String[] args) {
-        Car c = new Car();
-        c.start();
+        System.out.println("Vehicle is starting");
     }
 }
 ```
 
-### Static Methods in Interface
+------
 
-Static methods in interfaces are used to provide **common utility functionality related to that interface**. These methods belong to the interface itself and are **called using the interface name**, not by objects.
-
-##### Example
+#### **Static Method Example**
 
 ```java
 interface MathUtil {
-
     static int add(int a, int b) {
         return a + b;
     }
 }
-
-public class Test {
-    public static void main(String[] args) {
-
-        int result = MathUtil.add(5, 10);
-        System.out.println(result);
-    }
-}
 ```
 
----
+------
 
-### Optional Class
+### **6) Optional Class**
 
 #### **Definition**
 
 `Optional` is a container object used to represent **nullable values safely**.
 
+------
+
 #### **Why Use?**
 
 - Avoids `NullPointerException`
-- Makes code more expressive
+- Improves readability
 - Forces handling of missing values
+
+------
 
 #### **Creation Methods**
 
-```
-Optional<String> opt1 = Optional.of("Java");      // non-null
+```java
+Optional<String> opt1 = Optional.of("Java");
 Optional<String> opt2 = Optional.ofNullable(null);
 Optional<String> opt3 = Optional.empty();
 ```
+
+------
 
 #### **Common Methods**
 
@@ -3156,74 +3012,51 @@ Optional<String> opt3 = Optional.empty();
 | `isPresent()` | Checks value exists            |
 | `get()`       | Returns value (avoid directly) |
 | `orElse()`    | Default value if empty         |
-| `orElseGet()` | Lazy default value             |
 | `ifPresent()` | Executes if value exists       |
+
+------
 
 #### **Example**
 
-```
+```java
 Optional<String> name = Optional.ofNullable(null);
 
-// Avoid
-// name.get(); ❌
-
-// Safe usage
 String result = name.orElse("Default Name");
 System.out.println(result);
 ```
 
-#### **Advantages Over Null**
+------
 
-| Aspect         | Null ❌    | Optional ✅    |
-| -------------- | --------- | ------------- |
-| Safety         | Risky     | Safe handling |
-| Readability    | Low       | High          |
-| Intent Clarity | Not clear | Explicit      |
+### **7) StringJoiner**
 
----
+- Used to **join multiple strings** with delimiter, prefix, suffix.
 
-### StringJoiner
+------
 
-`StringJoiner` is a final class present in `java.util` package. It is used to **join multiple strings using a delimiter, prefix, and suffix**.
-
-### Example
+#### **Example**
 
 ```java
-import java.util.StringJoiner;
-
-public class Test {
-    public static void main(String[] args) {
-
-        StringJoiner sj = new StringJoiner(",");
-
-        sj.add("Java");
-        sj.add("Spring");
-        sj.add("Kafka");
-
-        System.out.println(sj);
-    }
-}
+StringJoiner sj = new StringJoiner(",");
+sj.add("Java").add("Spring").add("Kafka");
+System.out.println(sj);
 ```
 
-Output
+------
 
-```java
-Java,Spring,Kafka
-```
+### **8) New Date & Time API**
 
-#### New Date & Time API
+- Introduced in Java 8 (`LocalDate`, `LocalTime`, `LocalDateTime`)
+- Immutable and thread-safe
+- Simplifies date-time handling
+- Problems before java 8 : **mutable , leading unexpected behaviour in multithreaded app and time zone handling complex.**
 
-- 8 introduced LocalDate, LocalTime, LocalDateTime, and Duration.
+------
 
-- Immutable and thread safe
+#### **Key Improvements**
 
-- Easy to use
-
-- Easy to handle time zone
-
-- Problems before java 8 : mutable , leading unexpected behaviour in multithreaded app and time zone handling complex.
-
-**Example:**
+- Avoids mutable issues (old Date API)
+- Better timezone handling
+- Cleaner API
 
 ```java
 LocalDate date = LocalDate.now();
