@@ -534,7 +534,7 @@ Main memory areas:
 
 ------
 
-#### JVM Memory Architecture
+##### 📌 JVM Memory Architecture
 
 ```mermaid
 flowchart TD
@@ -549,7 +549,7 @@ flowchart TD
 
 ------
 
-#### 1. Heap Memory (Objects)
+**1. Heap Memory (Objects)**
 
 **Role:** Stores **objects and instance variables**.
 
@@ -566,7 +566,7 @@ Explanation
 
 ------
 
-#### 2. Stack Memory(methods)
+**2. Stack Memory(methods)**
 
 **Role:** Stores **method calls and local variables**.
 
@@ -582,7 +582,7 @@ Each thread has **its own stack**.
 
 ------
 
-#### 3. Method Area(class data)
+**3. Method Area(class data)**
 
 **Role:** Stores **class level information**.
 
@@ -600,7 +600,7 @@ static int count = 10;
 
 ------
 
-#### 4. PC Register
+**4. PC Register**
 
 PC = **Program Counter**
 
@@ -614,7 +614,7 @@ Thread → PC Register → current instruction
 
 ------
 
-#### 5. Native Method Stack
+##### 5. Native Method Stack
 
 Used when Java calls **native methods written in C/C++**.
 
@@ -664,10 +664,11 @@ flowchart TB
 ------
 
 <div align="center">
-    <h1>✦🧵 String in Java ✦</h1>
+    <h3>✦🧵 String in Java ✦</h3>
 </div>
 
-### What is a String in Java?
+
+##### 📌 What is a String in Java?
 
 - String is the sequence of the characters.
 
@@ -675,13 +676,13 @@ flowchart TB
 
 ----
 
-### What is Java String Pool?
+##### 📌 What is Java String Pool?
 
 A Java String Pool is a place in heap memory where all the strings defined in the program are stored. JVM checks for the presence of the object in the String pool, If String is available in the pool, the same object reference is shared with the variable, else a new object is created.
 
 ---
 
-### Why is String immutable 🔒?
+### 📌 Why is String immutable ?
 
 - Strings are immutable  for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
