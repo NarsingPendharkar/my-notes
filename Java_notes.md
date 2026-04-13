@@ -4199,12 +4199,7 @@ map.remove("user1");
 - Real-time systems
 - Multi-threaded data processing
 
-------
 
-##### ✅ Summary
-
-- Improves performance in concurrent environments
-- Reduces complexity of thread-safe coding
 
 ------
 
