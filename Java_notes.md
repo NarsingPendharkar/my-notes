@@ -446,9 +446,8 @@ public record Immutable (int id,String name) {
 ---
 
 <div align="center">
-    <h1>✦✦ Methods & Object ✦✦</h1>
+    <h3>✦✦ Methods & Object ✦✦</h3>
 </div>
-
 
 
 ##### 📌 What is the difference between a method and a constructor?
@@ -706,7 +705,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 ---
 
-### What is String interning?
+##### 📌 What is String interning?
 
 - `String.intern()` moves a string to the String Pool if it isn\'t already there.
 
@@ -723,7 +722,7 @@ System.out.println(s2 == s3); // true (both refer to the same object in the Stri
 ```
 ---
 
-### What is String pool and how does it work and its advantages ?
+##### 📌 What is String pool and how does it work and its advantages ?
 
 The Java String Pool (also called the String Intern Pool) is a special memory area inside the heap that stores string literals. When the JVM encounters a string literal:
 
