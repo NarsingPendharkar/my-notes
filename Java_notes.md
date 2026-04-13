@@ -1,20 +1,12 @@
 <div align="center">
-  <h1 style="font-size:50px;">☕ JAVA</h1>
+  <h3 style="font-size:50px;">☕JAVA</h3>
 </div>
 
+##### **📌 Is Java Platform Independent? If yes, how?**
 
-
-
-### 💻 Is Java Platform Independent? If yes, how?
 Yes! When we execute Java code, the **compiler** converts it into **bytecode**. This bytecode is **platform independent**, meaning it can run on any system that has a **JVM (Java Virtual Machine)** installed.
 
-> [!NOTE]
->
-> 🔹 **Key Point:** Bytecode runs on JVM, not directly on the OS — that’s what makes Java platform independent.
-
----
-
-##### 🌟 Top Java Features
+🔹 **Key Point:** Bytecode runs on JVM, not directly on the OS — that’s what makes Java platform independent.
 
 | Feature                  | Description                                                          |
 | :----------------------- | :------------------------------------------------------------------- |
@@ -28,7 +20,7 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 | **High Performance**     | Uses JIT (Just-In-Time) compiler for optimized execution             |
 
 ---
-### ⚙️ What is JVM?
+##### 📌What is JVM?
 
 - **JVM** stands for **Java Virtual Machine**.  
 - It is responsible for converting **bytecode** into **machine code**.  
@@ -39,7 +31,7 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-### 🚀 What is JIT?
+##### 📌 What is JIT?
 
 - **JIT** stands for **Just-In-Time Compiler**.  
 - It is a part of **JVM** that improves performance by compiling bytecode into **native machine code** at runtime.  
@@ -47,14 +39,14 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-### 📦 What is a Class Loader?
+##### 📌 What is a Class Loader?
 
 - It is a part of **JRE** which **loads classes and interfaces dynamically** into the **JVM** at runtime.  
 - It helps in loading bytecode when required, ensuring memory efficiency.
 
 ---
 
-### 🔁 Difference Between JVM, JRE, and JDK
+##### 📌 Difference Between JVM, JRE, and JDK
 
 | Component | Description |
 |------------|--------------|
@@ -64,7 +56,7 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
-### 🆚 Differences Between Java and C++
+##### 📌 Differences Between Java and C++
 
 | **Basis** | **C++** | **Java** |
 |------------|----------|-----------|
@@ -74,23 +66,19 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 | **Global Scope** | Supports **global and namespace scope** | Does **not support** global scope |
 | **Feature Support** | Supports **goto, pointers, call by reference** (not in Java) | Supports **threads, documentation comments** (not in C++) |
 
-> 🧠 **Summary:**  
->- Java simplifies development by managing memory and platform differences internally.  
-> - C++ offers more hardware control but requires manual memory management.
-
 ---
 
-### What will happen if we declare don't declare the main as static?
+##### 📌 What will happen if we declare don't declare the main as static?
 
 - We can declare the main method without using static and without getting any errors. But, the main method will not be treated as the entry point to the application or the program.
 
 ---
 
-### What is Autoboxing and Unboxing ?
+##### 📌 What is Autoboxing and Unboxing ?
 
 Autoboxing is the automatic conversion of a primitive type into its corresponding wrapper class object, for example converting int to Integer. Unboxing is the reverse process where a wrapper object is converted back to its primitive type. This feature was introduced in Java 5 to simplify working with collections.
 
-#### 1. Autoboxing
+1. Autoboxing
 
 **Autoboxing** is the **automatic conversion of a primitive type into its corresponding wrapper class object**.
 
@@ -115,7 +103,7 @@ Integer obj = Integer.valueOf(a);
 
 ------
 
-#### Why Autoboxing is Needed
+**Why Autoboxing is Needed**
 
 Collections in Java (like `List`, `Set`, `Map`) store **objects, not primitives**.
 
