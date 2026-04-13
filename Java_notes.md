@@ -3127,18 +3127,60 @@ public class Test {
 }
 ```
 
-#### Optional Class:
+---
 
-**Definition:** Optional class is used to handle null values securely.
+### Optional Class
 
-**Example:**
+#### **Definition**
 
-```java
-Optional<String> optional = Optional.ofNullable("Hello");
-optional.ifPresent(System.out::println);
+`Optional` is a container object used to represent **nullable values safely**.
+
+#### **Why Use?**
+
+- Avoids `NullPointerException`
+- Makes code more expressive
+- Forces handling of missing values
+
+#### **Creation Methods**
+
+```
+Optional<String> opt1 = Optional.of("Java");      // non-null
+Optional<String> opt2 = Optional.ofNullable(null);
+Optional<String> opt3 = Optional.empty();
 ```
 
-**Common Methods:** `of(), ofNullable(), isPresent(), ifPresent(), get(), orElse()`
+#### **Common Methods**
+
+| Method        | Description                    |
+| ------------- | ------------------------------ |
+| `isPresent()` | Checks value exists            |
+| `get()`       | Returns value (avoid directly) |
+| `orElse()`    | Default value if empty         |
+| `orElseGet()` | Lazy default value             |
+| `ifPresent()` | Executes if value exists       |
+
+#### **Example**
+
+```
+Optional<String> name = Optional.ofNullable(null);
+
+// Avoid
+// name.get(); ❌
+
+// Safe usage
+String result = name.orElse("Default Name");
+System.out.println(result);
+```
+
+#### **Advantages Over Null**
+
+| Aspect         | Null ❌    | Optional ✅    |
+| -------------- | --------- | ------------- |
+| Safety         | Risky     | Safe handling |
+| Readability    | Low       | High          |
+| Intent Clarity | Not clear | Explicit      |
+
+---
 
 ### StringJoiner
 
@@ -5702,33 +5744,16 @@ In Java, you can create custom exceptions by extending the Exception class or on
 
 In Java, garbage collection is the process of automatically freeing memory that is no longer being used by an application. Java uses a mark-and-sweep algorithm for garbage collection, which works by marking all objects that are still being used and then sweeping away any objects that are not marked. To optimize garbage collection performance, you can use strategies such as minimizing object creation, minimizing object retention, and tuning the garbage collector settings. Minimizing object creation involves reusing objects rather than creating new ones, while minimizing object retention involves releasing objects as soon as they are no longer needed
 
-### Why would you use lambda expressions in your Java 8 application, and how do they work?
- Lambda expressions are used in Java 8 to provide a concise way of writing anonymous functions. They work by allowing you to define a function inline, without having to write a separate class that implements an interface. This can make your code more readable and easier to maintain, especially when you need to pass functions as arguments or use them in streams.
+---
 
-### When would you use the Stream API in your Java 8 code, and what are its benefits over traditional iteration?
-
-The Stream API in Java 8 is used to perform operations on a sequence of elements, such as filtering, mapping, and reducing. It provides benefits over traditional iteration by allowing you to write more concise and expressive code, and by enabling parallel processing of the data. Streams also support lazy evaluation, which means that operations are only performed when needed, leading to better performance and memory
-usage.
-
-### What are the default methods in Java 8, and why were they introduced to the language?
-
-Default methods in Java 8 are methods that have an implementation in an interface. They were introduced to the language to provide a way to add new methods to existing interfaces without breaking the existing code that implements those interfaces. Default methods can also provide a default implementation for a method, which can be overridden by a class that implements the interface.
-
-### How would you use the Optional class in your Java 8 code, and what are its advantages over null references?
-
-The Optional class in Java 8 is used to represent a value that may or may not be present. It provides advantages over null references by making it clear that a value is optional, and by providing methods to handle the case where the value is absent. To use the Optional class,you can wrap a value in an Optional object using the of() method, or create an empty Optional using the empty() method. You can then use methods like isPresent() and get() to check if the value ispresent and retrieve it, respectively.
-
-------
-
-
-
-# Core Concepts & Design Principles
+### **Core Concepts & Design Principles**
 
 ---
 
-## 1. Object Equality: `equals()` and `hashCode()`
+### **1. Object Equality: `equals()` and `hashCode()`**
 
-### A. The `equals()` Method
+#### **A. The `equals()` Method**
+
 *   **Purpose:** Used to compare the **logical content** of two objects.
 *   **Source:** Defined in the `Object` class.
 *   **Default Behavior:** Compares memory addresses (same as `==`).
@@ -5745,12 +5770,12 @@ public boolean equals(Object obj) {
 }
 ```
 
-## B. The `hashCode()` Method
+#### **B. The `hashCode()` Method**
 
 - **Purpose:** Returns an integer representation of the object for use in **hashing-based collections** (HashMap, HashSet).
 - **The Golden Rule:** If `a.equals(b)` is true, then `a.hashCode()` **must** equal `b.hashCode()`.
 
-## C. Role in Collections (HashMap/HashSet)
+#### **C. Role in Collections (HashMap/HashSet)**
 
 To locate an object, Java follows a two-step process:
 
@@ -5758,19 +5783,19 @@ To locate an object, Java follows a two-step process:
 2. **`equals()`**: Identifies the **Exact Match** inside that bucket (The File).
 
 | Scenario | `hashCode()` & `equals()` Overridden?           | Result (e.g., adding 2 identical objects) |
-| :------- | :---------------------------------------------- | :---------------------------------------- |
+| -------- | ----------------------------------------------- | ----------------------------------------- |
 | **No**   | Different hashes → Different buckets            | Duplicates allowed (Size = 2) ❌           |
 | **Yes**  | Same hash → Same bucket → `equals` returns true | Duplicate prevented (Size = 1) ✅          |
 
 ------
 
-## 2. Java Language Features: Effectively Final
+### **2. Java Language Features: Effectively Final**
 
-## Definition
+#### **Definition**
 
 A variable is **effectively final** if its value is assigned exactly once and never modified, even if the `final` keyword is omitted.
 
-## Why does it matter?
+#### **Why does it matter?**
 
 Java requires local variables used inside **Lambdas** or **Anonymous Inner Classes** to be final or effectively final to ensure **thread safety and consistency**.
 
@@ -5793,34 +5818,215 @@ Runnable r = () -> System.out.println(limit);
 
 ------
 
-## 3. SOLID Design Principles
+### **🏗️ SOLID Principles in Java**
 
-Guidelines for building maintainable, scalable, and robust software.
+------
+
+### **1️⃣ S — Single Responsibility Principle (SRP)**
+
+> **"A class should have only ONE reason to change"**
+
+❌ **Bad Example:**
+
+```java
+class Employee {
+    public void calculateSalary() { ... }
+    public void saveToDatabase() { ... }  // ❌ DB logic here too!
+    public void generateReport() { ... }  // ❌ Report logic here too!
+}
+```
+
+✅ **Good Example:**
+
+```java
+class Employee {
+    public void calculateSalary() { ... }
+}
+
+class EmployeeRepository {
+    public void saveToDatabase(Employee e) { ... }
+}
+
+class EmployeeReport {
+    public void generateReport(Employee e) { ... }
+}
+```
+
+------
+
+### **2️⃣ O — Open/Closed Principle (OCP)**
+
+> **"Open for extension, Closed for modification"**
+
+❌ **Bad Example:**
+
+```java
+class Shape {
+    String type;
+    public double area() {
+        if (type.equals("circle")) return Math.PI * 5 * 5;
+        if (type.equals("rect")) return 4 * 6;  // ❌ modify every time
+        return 0;
+    }
+}
+```
+
+✅ **Good Example:**
+
+```java
+abstract class Shape {
+    public abstract double area();
+}
+
+class Circle extends Shape {
+    double radius;
+    public double area() { return Math.PI * radius * radius; }
+}
+
+class Rectangle extends Shape {
+    double width, height;
+    public double area() { return width * height; }
+}
+```
+
+------
+
+### **3️⃣ L — Liskov Substitution Principle (LSP)**
+
+> **"Subclass should be replaceable by its parent class"**
+
+❌ **Bad Example:**
+
+```java
+class Bird {
+    public void fly() { ... }
+}
+
+class Penguin extends Bird {
+    public void fly() {
+        throw new UnsupportedOperationException(); // ❌ Penguin can't fly!
+    }
+}
+```
+
+✅ **Good Example:**
+
+```java
+class Bird {
+    public void eat() { ... }
+}
+
+interface Flyable {
+    void fly();
+}
+
+class Sparrow extends Bird implements Flyable {
+    public void fly() { System.out.println("Sparrow flying!"); }
+}
+
+class Penguin extends Bird {
+    // No fly() — that's fine! ✅
+}
+```
+
+------
+
+### **4️⃣ I — Interface Segregation Principle (ISP)**
+
+> **"Don't force a class to implement methods it doesn't need"**
+
+❌ **Bad Example:**
+
+```java
+interface Animal {
+    void eat();
+    void fly();   // ❌ Dog can't fly!
+    void swim();  // ❌ Eagle can't swim!
+}
+```
+
+✅ **Good Example:**
+
+```java
+interface Eatable {
+    void eat();
+}
+
+interface Flyable {
+    void fly();
+}
+
+interface Swimmable {
+    void swim();
+}
+
+class Dog implements Eatable, Swimmable {
+    public void eat() { ... }
+    public void swim() { ... }
+}
+
+class Eagle implements Eatable, Flyable {
+    public void eat() { ... }
+    public void fly() { ... }
+}
+```
+
+------
+
+### **5️⃣ D — Dependency Inversion Principle (DIP)**
+
+> **"Depend on abstractions, not on concrete classes"**
+
+❌ **Bad Example:**
+
+```java
+class EmailService {
+    public void sendEmail() { ... }
+}
+
+class Notification {
+    EmailService emailService = new EmailService(); // ❌ tightly coupled
+    public void send() { emailService.sendEmail(); }
+}
+```
+
+✅ **Good Example:**
+
+```java
+interface MessageService {
+    void sendMessage();
+}
+
+class EmailService implements MessageService {
+    public void sendMessage() { System.out.println("Email sent!"); }
+}
+
+class SMSService implements MessageService {
+    public void sendMessage() { System.out.println("SMS sent!"); }
+}
+
+class Notification {
+    private MessageService service;
+
+    // ✅ Injecting dependency
+    public Notification(MessageService service) {
+        this.service = service;
+    }
+
+    public void send() { service.sendMessage(); }
+}
+```
+
+------
+
+### **Summary Table**
 
 | Principle                     | Key Concept                                     | Goal                             |
-| :---------------------------- | :---------------------------------------------- | :------------------------------- |
+| ----------------------------- | ----------------------------------------------- | -------------------------------- |
 | **S** - Single Responsibility | One class = One job.                            | Easier maintenance.              |
 | **O** - Open/Closed           | Open for Extension, Closed for Modification.    | Use Interfaces/Inheritance.      |
 | **L** - Liskov Substitution   | Subtypes must be substitutable for base types.  | Avoid breaking parent logic.     |
 | **I** - Interface Segregation | Many specific interfaces > One "Fat" interface. | Clients only see what they need. |
 | **D** - Dependency Inversion  | Depend on abstractions, not concretions.        | Decouples code via DI.           |
 
-## Dependency Inversion Example
-
-Instead of a class creating its own dependencies, they are "injected" via an interface.
-
-```java
-interface Payment { void pay(); }
-
-class Order {
-    private Payment payment;
-    
-    // Constructor Injection (Dependency Inversion)
-    public Order(Payment payment) {
-        this.payment = payment;
-    }
-}
-```
-
-------
-
+---

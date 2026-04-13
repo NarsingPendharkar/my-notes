@@ -253,9 +253,9 @@ public class OrderService {
 
 #### **Bean Life Cycle**
 
-1. Bean is instantiated
+1. Bean is created
 2. Dependency is injected
-3. Bean Initializations
+3. Bean Initialized
 4. Bean used
 5. Bean destroyed
 
@@ -2817,7 +2817,7 @@ Example :
 
 ```java
 @Aspect
-
+ 
 @Component
 
 public class LoggingAspect {
@@ -4894,7 +4894,7 @@ When building REST APIs in Java (Spring Boot, Micronaut, Jakarta EE), you must r
 
 | **Method**  | **Idempotent** | **Safe?** | **Description**                                              |
 | ----------- | -------------- | --------- | ------------------------------------------------------------ |
-| **GET**     | **Yes**        | Yes       | Only retrieves data; shouldn't change server state.          |
+| **GET**     | **Yes**        | Yes       | Only retr ieves data; shouldn't change server state.         |
 | **OPTIONS** | **Yes**        | Yes       | Retrieves communication options.                             |
 | **PUT**     | **Yes**        | No        | Replaces the resource. Sending the same "Update" twice results in the same state. |
 | **DELETE**  | **Yes**        | No        | Deleting a resource twice results in the resource being gone both times. |
@@ -4999,9 +4999,3 @@ In distributed systems using Kafka or RabbitMQ, "exactly-once" delivery is hard.
 
 ------
 
-### 7. Best Practices Summary
-
-- **Always use UUIDs** for idempotency keys to avoid collisions.
-- **Set a TTL (Time-to-Live):** Don't store idempotency keys forever. 24 to 48 hours is usually sufficient for retries.
-- **Isolate Side Effects:** Ensure that non-database actions (like sending an email) only happen if the idempotency check passes.
-- **Return Consistent Status Codes:** If a request is retried, return the same status code (e.g., **201 Created**) as the original successful request to avoid confusing the client.
