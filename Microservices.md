@@ -1,8 +1,21 @@
-<div align="center"><h1 >◆◆◆ Microservices ◆◆◆</h1></div>
+<div align="center"><h4 >◆◆◆ Microservices ◆◆◆</h4></div>
 
 ##### 📌 What is Monolithic Architecture?
 
-If we develop all the functionalities in single application, then it is called Monolithic Application.Monolithic Architecture is a software design pattern where the entire application is built as a single, unified unit. All components (UI, business logic, database access) are tightly coupled and deployed together.
+If we develop all the functionalities in single application, then it is called **Monolithic** Application. Monolithic Architecture is a software design pattern where the entire application is built as a single, unified unit. All components (UI, business logic, database access) are tightly coupled and deployed together.
+
+- **Advantages:**
+  - **Simplicity**: Easier to develop, test, and deploy due to a unified codebase.
+  - **Performance**: Reduced latency and improved performance as all components are closely integrated.
+  - **Easier Scaling**: Scaling is straightforward; the entire application can be scaled together.
+  - **Consistent Environment**: A single environment for development and production reduces compatibility issues.
+  - **Lower Overhead**: Less operational overhead compared to managing multiple services or components.
+- **Disadvantages:**
+  - **Tight Coupling**: Components are interdependent, making updates and maintenance challenging.
+  - **Limited Flexibility**: Difficult to adopt new technologies or frameworks; entire application must be rewritten for significant changes.
+  - **Scalability Issues**: Scaling can become problematic as the application grows, leading to performance bottlenecks.
+  - **Long Deployment Times**: A change in one part necessitates redeployment of the entire application, increasing downtime.
+  - **Complex Development**: As the application expands, complexity increases, making it harder for teams to manage and understand the codebase.
 
 ![A diagram of a diagram of a diagram AI-generated content may be
 incorrect.](./media/media/image3.jpeg){width="4.611989282589676in"
@@ -10,9 +23,11 @@ height="2.5375in"}
 
 To overcome problems of Monolith Architecture, we will use Microservices Architecture.
 
-> ![A diagram of a user interface AI-generated content may be
-> incorrect.](./media/media/image4.jpeg){width="4.972439851268591in"
-> height="2.7625in"}
+![A diagram of a user interface AI-generated content may be
+incorrect.](./media/media/image4.jpeg){width="4.972439851268591in"
+height="2.7625in"}
+
+---
 
 ##### 📌 What are Microservices?
 
@@ -41,7 +56,7 @@ Microservices is not:
 - ❌ A framework
 - ❌ An API
 
-It is an architectural design pattern
+*It is an architectural design pattern*
 
 - Used to build distributed and independent services.
 
@@ -53,16 +68,10 @@ It is an architectural design pattern
 
 ##### 📌 Challenges with Microservices
 
-1. Bounded Context
-2. Repeated configurations
+1. Bounded Context : Bounded context means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
+2. Repeated configurations :In Several micro services we need to write same configurations like data source, smtp, kafka, redis etc.
 
-3. Visibility
-
-- Bounded context means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
-  
-- In Several micro services we need to write same configurations like data source, smtp, kafka, redis etc.
-  
-- In microservice architecture we might not get chance to work with all apis in the application.
+3. Visibility :In microservice architecture we might not get chance to work with all apis in the application.
 
 ---
 
@@ -112,7 +121,7 @@ It is an architectural design pattern
 
 ---
 
-##### What are the key benefits of microservices?
+##### 📌 What are the key benefits of microservices?
 
 - **Scalability:** Independent services can scale separately.
 
@@ -126,7 +135,7 @@ It is an architectural design pattern
 
 ---
 
-##### What are the challenges of microservices?
+##### 📌 What are the challenges of microservices?
 
 - Service Discovery & Communication (Eureka, Consul)
 
@@ -140,9 +149,9 @@ It is an architectural design pattern
 
 ---
 
-#### Microservices Architecture & Key Components
+#### Microservices Key Components
 
-##### Core Components
+**Core Components**
 
 | Component            | Description                                                  | Example / Tools                                         |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------- |
@@ -176,7 +185,9 @@ It is an architectural design pattern
 
 ---
 
-### ◆◆◆ Discovery & Service Registry  ◆◆◆
+#### ◆◆◆ **Discovery & Service Registry**  ◆◆◆
+
+---
 
 ##### 📌 What is Service Discovery?
 
@@ -207,7 +218,7 @@ It is an architectural design pattern
 
 ------
 
-#### ❓ Why Do We Need Service Discovery?
+##### 📌 Why Do We Need Service Discovery?
 
 In Microservices:
 
@@ -219,9 +230,9 @@ In Microservices:
 
 ------
 
-## 🔹 Types of Service Discovery
+#### 🔹 Types of Service Discovery
 
-#### 1. Client-Side Discovery (client will decide)
+**1. Client-Side Discovery (client will decide)**
 
 👉 Client asks registry and decides where to go
 
@@ -246,7 +257,7 @@ In Microservices:
 
 ------
 
-#### 2. Server-Side Discovery (System will decide)
+**2. Server-Side Discovery (System will decide)**
 
 👉 Client just sends request, system handles the rest
 
@@ -270,13 +281,9 @@ In Microservices:
 
 ------
 
-<div align="center"><h1 >◆◆◆ API Gateway ◆◆◆</h1></div>
-
-##### 🔹 Definition
+#### ◆◆◆ API Gateway ◆◆◆
 
 API Gateway is a **centralized entry point** that sits between clients and backend services. It acts as a **reverse proxy**, receiving all requests, processing them (security, routing, etc.), and forwarding them to the correct service.
-
-------
 
 ##### 🔹 Architecture Overview
 
@@ -288,7 +295,7 @@ flowchart LR
     B --> E[Product Service]
 ```
 
-------
+
 
 ##### 🔹 Purpose
 
@@ -312,7 +319,7 @@ flowchart LR
 
 ------
 
-##### 🔹 Key Responsibilities
+**🔹 Key Responsibilities**
 
 - **Routing** → Sends request to correct service
 - **Authentication & Authorization** → Validates user (JWT, OAuth)
@@ -325,7 +332,7 @@ flowchart LR
 
 ------
 
-##### 🔹 Example (Spring Cloud Gateway)
+**🔹 Example (Spring Cloud Gateway)**
 
 ```yaml
 spring:
@@ -342,7 +349,7 @@ spring:
 
 ------
 
-##### 🔹 Real-Life Analogy
+**🔹 Real-Life Analogy**
 
 API Gateway = **Reception Desk**
 
@@ -354,7 +361,7 @@ API Gateway = **Reception Desk**
 
 ------
 
-##### 🔹 Benefits
+**🔹 Benefits**
 
 - Single entry point
 - Improved security
@@ -364,7 +371,7 @@ API Gateway = **Reception Desk**
 
 ------
 
-##### 🔹 Challenges
+**🔹 Challenges**
 
 - Single point of failure
 - Adds latency
@@ -373,7 +380,7 @@ API Gateway = **Reception Desk**
 
 ------
 
-##### 🔹 Best Practices
+**🔹 Best Practices**
 
 - Use **HTTPS (SSL/TLS)**
 - Implement **JWT/OAuth security**
@@ -383,7 +390,7 @@ API Gateway = **Reception Desk**
 
 ------
 
-##### 🔹 Popular Tools
+**🔹 Popular Tools**
 
 - Amazon API Gateway
 - Apigee
@@ -393,9 +400,7 @@ API Gateway = **Reception Desk**
 
 ---
 
-### ⚖️ Load Balancing in Spring Boot Microservices
-
-##### **🔹 Definition**
+#### ⚖️ Load Balancing
 
 Load Balancing is the process of distributing incoming network requests across multiple instances of the same microservice to ensure high availability, performance, and reliability.
 
@@ -442,46 +447,27 @@ Load Balancing is the process of distributing incoming network requests across m
     - Client sends requests to the load balancer, which forwards them to
       service instances.
 
-🔹 Example (Client-Side Load Balancing in Spring Boot)
+🔹 **Example** (Client-Side Load Balancing in Spring Boot)
 
 ```java
-@RestController
-
-public class StudentController {
-
-    @Autowired
-
-    private RestTemplate restTemplate;
-
-    @GetMapping("/get-courses")
-
-    public String getCourses() {
-
-        String response =
-            restTemplate.getForObject("http://COURSE-SERVICE/courses",
-                                      String.class);
-
-        return response;
-
-    }
-
-}
-
-@Configuration
-
-public class AppConfig {
-
-    @Bean
-
-    @LoadBalanced
-
-    public RestTemplate restTemplate() {
-
-        return new RestTemplate();
-
-    }
-
-}
+ 	@RestController
+ 	public class StudentController {
+ 		@Autowired
+ 		private RestTemplate restTemplate;
+ 		@GetMapping("/get-courses")
+ 		public String getCourses() {
+ 			String response = restTemplate.getForObject("http://COURSE-SERVICE/courses", String.class);
+ 			return response;
+ 		}
+ 	}
+ 	@Configuration
+ 	public class AppConfig {
+ 		@Bean
+ 		@LoadBalanced
+ 		public RestTemplate restTemplate() {
+ 			return new RestTemplate();
+ 		}
+ 	}
 ```
 
 **📘 Explanation:**
