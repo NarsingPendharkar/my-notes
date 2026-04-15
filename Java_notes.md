@@ -115,7 +115,7 @@ int → Integer
 2. **Unboxing** : Unboxing is the **automatic conversion of a wrapper object into a primitive type**.
    `Integer` → `int`
 
-**Example**
+   **Example**
 
 ```java
 public class Test {
@@ -448,8 +448,6 @@ public record Immutable (int id,String name) {
 <div align="center">
     <h3>✦✦ Methods & Object ✦✦</h3>
 </div>
-
-
 ##### 📌  What is the difference between a method and a constructor?
 
 | **Feature**     | **Constructor**                                | **Method**                        |
@@ -501,6 +499,324 @@ There are four types: 
 | Storage | Stored in heap memory         | Stored in stack memory       |
 | Default | Gets default value            | No default value             |
 | Value   | null                          | 0                            |
+
+##### 📌What is Copy by Value vs Copy by Reference (Java)
+
+ **Copy by Value (Primitive Types)**
+
+- when a method is called & a variable is passed as an argument, the value of that variable is actually copied into a new variable inside the method. This means that any changes made to the variable inside the method do not affect the original variable outside the method. This is known as pass by value.
+- Used with **primitive data types** (`int`, `float`, `boolean`, etc.)
+- Changes made to copied variable **do NOT affect original**
+
+**Example**
+
+```java
+public class PassByValueExample {
+    public static void main(String[] args) {
+        int num = 10;
+        System.out.println("Before method call: " + num); // Output: 10
+        
+        changeValue(num);
+        System.out.println("After method call: " + num); // Output: 10
+    }
+    
+    public static void changeValue(int x) {
+        x = 20;
+    }
+}
+
+/*In this example, we have a variable `num` with an initial value of 10. We pass `num` to the `changeValue` method, which attempts to change its value to 20. However, when we print the value of `num` after the method call, we see that it remains unchanged at 10. This is because a copy of the value was passed to the method, & any changes made inside the method affected only the copy, not the original variable.*/
+```
+
+------
+
+**Copy by Reference (Object Behavior)**
+
+- In some programming languages, like C++, there is a concept called pass by reference. When a variable is passed by reference, the method receives a direct reference to the original variable, not just a copy of its value. This means that any changes made to the variable inside the method will affect the original variable outside the method.
+
+  However, Java does not support pass by reference for variables. In Java, only pass by value is used. This means that when an object reference is passed to a method, the method receives a copy of the reference, not a direct reference to the original object. 
+
+  It's important to note that while Java doesn't support pass by reference for variables, it does allow you to achieve a similar effect when working with objects.
+
+- Both variables point to **same object in heap**
+
+**Example**
+
+```java
+import java.util.ArrayList;
+
+public class Test {
+    public static void main(String[] args) {
+        ArrayList<String> list1 = new ArrayList<>();
+        list1.add("Hello");
+
+        ArrayList<String> list2 = list1; // reference copy
+        list2.add("World");
+
+        System.out.println(list1); // [Hello, World]
+    }
+}
+```
+
+```java
+public class PassByReferenceExample {
+    public static void main(String[] args) {
+        Person person = new Person("Rahul", 25);
+        System.out.println("Before method call: " + person.getName()); // Output: Rahul
+        
+        changePersonName(person);
+        System.out.println("After method call: " + person.getName()); // Output: Harsh
+    }
+    
+    public static void changePersonName(Person p) {
+        p.setName("Harsh");
+    }
+}
+
+class Person {
+    private String name;
+    private int age;
+    
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
+/*
+In this example, we have a `Person` class with a `name` & `age` property. We create an instance of `Person` called `person` with the name "Rahul" & age 25. We pass the `person` object to the `changePersonName` method, which changes the name property to "Harsh".
+
+When we print the name of the `person` object after the method call, we see that it has indeed changed to "Harsh". This is because the `changePersonName` method received a copy of the reference to the `person` object, & any changes made to the object inside the method affected the original object.
+
+So, while Java doesn't support pass by reference directly, it allows you to modify the state of an object passed to a method, giving you a similar effect.
+*/
+```
+
+------
+
+##### 📌 Shallow Copy vs Deep Copy (Java)
+
+```mermaid
+flowchart LR
+    A[Original Object] --> B[Address Object]
+    C[Shallow Copy] --> B
+
+    A2[Original Object] --> B2[Address Object]
+    D[Deep Copy] --> E[New Address Object]
+
+    style A fill:#C8E6C9
+    style C fill:#FFF9C4
+    style D fill:#BBDEFB
+```
+
+------
+
+**📌 Shallow Copy**
+
+- Only **top-level object is copied**
+- Inner objects are **shared**
+
+💻 **Example**
+
+```java
+class Address {
+    String city;
+}
+
+class Student implements Cloneable {
+    String name;
+    Address address;
+
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone(); // shallow copy
+    }
+}
+
+public class Test {
+    public static void main(String[] args) throws Exception {
+        Address addr = new Address();
+        addr.city = "Pune";
+
+        Student s1 = new Student();
+        s1.name = "Narsing";
+        s1.address = addr;
+
+        Student s2 = (Student) s1.clone();
+
+        s2.address.city = "Mumbai";
+
+        System.out.println(s1.address.city); // Mumbai ❗
+    }
+}
+```
+
+**⚠️ Problem**
+
+- Changing nested object affects **original**
+- Not safe for mutable objects
+
+------
+
+##### 📌 Deep Copy
+
+- Copies **entire object graph**
+- No shared references
+
+💻 Example
+
+```java
+class Address {
+    String city;
+}
+
+class Student implements Cloneable {
+    String name;
+    Address address;
+
+    protected Object clone() throws CloneNotSupportedException {
+        Student s = (Student) super.clone();
+        s.address = new Address(); // new object
+        s.address.city = this.address.city;
+        return s;
+    }
+}
+
+public class Test {
+    public static void main(String[] args) throws Exception {
+        Address addr = new Address();
+        addr.city = "Pune";
+
+        Student s1 = new Student();
+        s1.name = "Narsing";
+        s1.address = addr;
+
+        Student s2 = (Student) s1.clone();
+
+        s2.address.city = "Mumbai";
+
+        System.out.println(s1.address.city); // Pune ✅
+    }
+}
+```
+
+| Feature           | Shallow Copy                                                 | Deep Copy                                                    |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Object Creation   | New object                                                   | New object                                                   |
+| Nested Objects    | Shared                                                       | Fully copied                                                 |
+| Independence      | ❌ No                                                         | ✅ Yes                                                        |
+| Performance       | Faster                                                       | Slower                                                       |
+| Memory Usage      | Less                                                         | More                                                         |
+| Safe for Mutable? | ❌ No                                                         | ✅ Yes                                                        |
+| Use case          | You want to create a copy but do not need independent copies of nested objects. | You need full independence between the original and the copy, especially in mutable objects. |
+
+------
+
+##### 📌 What is Shallow Copy 
+
+A **shallow copy** creates a new instance of the object but copies the field values exactly as they are. 
+
+- **Behavior**: Primitive fields are copied by value, but **reference fields** (like objects or arrays) still point to the same memory locations as the original. 
+
+- **Side Effects**: Modifying a nested object in the copy will also change it in the original. 
+
+- **Implementation**: This is the default behavior of the  method. 
+
+- **Example**: 
+
+  ```java
+  class Address {
+      String city;
+  }
+  
+  class Student implements Cloneable {
+      String name;
+      Address address;
+  
+      protected Object clone() throws CloneNotSupportedException {
+          return super.clone(); // shallow copy
+      }
+  }
+  
+  public class Test {
+      public static void main(String[] args) throws Exception {
+          Address addr = new Address();
+          addr.city = "Pune";
+  
+          Student s1 = new Student();
+          s1.name = "Narsing";
+          s1.address = addr;
+  
+          Student s2 = (Student) s1.clone();
+  
+          s2.address.city = "Mumbai";
+  
+          System.out.println(s1.address.city); // Mumbai ❗
+      }
+  }
+  ```
+
+  
+
+##### 📌 What is Deep Copy 
+
+A **deep copy** creates a new instance of the object and **recursively clones** all nested objects within it. 
+
+- **Behavior**: Every nested object is duplicated into a new memory location, making the copy entirely independent of the original. 
+- **Side Effects**: Changes made to the nested objects in the copy do **not** affect the original. 
+- **Implementation**: There is no built-in "deep copy" method in Java; it must be implemented manually by overriding  or using a **Copy Constructor**. 
+- **Example**: 
+
+
+
+| Feature            | Shallow Copy                     | Deep Copy                        |
+| ------------------ | -------------------------------- | -------------------------------- |
+| **Nested Objects** | Shared between original and copy | Fully independent duplicates     |
+| **Performance**    | Faster and memory-efficient      | Slower due to recursive creation |
+| **Complexity**     | Simple (default behavior)        | Complex (requires custom logic)  |
+| **Independence**   | Not 100% disjoint                | 100% disjoint and independent    |
+
+**Alternative Methods** 
+
+- **Copy Constructor**: A constructor that takes an instance of the same class and manually copies all fields. 
+
+- **Serialization**: Converting an object to a byte stream and back creates a deep copy automatically, though it is slower. 
+
+- **Libraries**: For complex objects, libraries like  
+
+  Apache Commons Lang (SerializationUtils) 
+
+   or  
+
+  Gson 
+
+   can be used to perform deep copies without manual recursive logic. 
+
+*AI responses may include mistakes.*
+
+##### 📌 What is the difference between shallow copy and deep copy?
+
+| Feature          | Copy by Value | Copy by Reference (Behavior) |
+| ---------------- | ------------- | ---------------------------- |
+| Data Passed      | Actual value  | Reference (address value)    |
+| Memory           | Separate      | Shared object                |
+| Change Reflected | ❌ No          | ✅ Yes                        |
+| Java Support     | ✅ Yes         | ❌ Not true (only behavior)   |
+| Used With        | Primitives    | Objects & Arrays             |
 
 #####  📌 What is the difference between shallow copy and deep copy?
 
@@ -1207,7 +1523,7 @@ Java divides heap into generations:
   - Eden Space
   - Survivor Spaces (S0, S1)
 
-👉 Most objects die here quickly.
+  👉 Most objects die here quickly.
 
 ------
 
@@ -3656,7 +3972,7 @@ CompletableFuture.supplyAsync(() -> {
   - Combining results
   - Error handling
 
-👉 **Best choice for modern Java apps**
+  👉 **Best choice for modern Java apps**
 
 ------
 
