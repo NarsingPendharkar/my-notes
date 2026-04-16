@@ -781,6 +781,41 @@ A **deep copy** creates a new instance of the object and **recursively clones** 
 - **Implementation**: There is no built-in "deep copy" method in Java; it must be implemented manually by overriding  or using a **Copy Constructor**. 
 - **Example**: 
 
+```java
+class Address {
+    String city;
+}
+
+class Student implements Cloneable {
+    String name;
+    Address address;
+
+    protected Object clone() throws CloneNotSupportedException {
+        Student s = (Student) super.clone();
+        s.address = new Address(); // new object
+        s.address.city = this.address.city;
+        return s;
+    }
+}
+
+public class Test {
+    public static void main(String[] args) throws Exception {
+        Address addr = new Address();
+        addr.city = "Pune";
+
+        Student s1 = new Student();
+        s1.name = "Narsing";
+        s1.address = addr;
+
+        Student s2 = (Student) s1.clone();
+
+        s2.address.city = "Mumbai";
+
+        System.out.println(s1.address.city); // Pune ✅
+    }
+}
+```
+
 
 
 | Feature            | Shallow Copy                     | Deep Copy                        |
@@ -6111,3 +6146,174 @@ class Notification {
 | **D** - Dependency Inversion  | Depend on abstractions, not concretions.        | Decouples code via DI.           |
 
 ---
+
+#### 📌 LRU Cache Implementation in Java
+
+**LRU (Least Recently Used) Cache** is a caching mechanism that removes the **least recently accessed item** when the cache reaches its capacity.
+
+- Stores data in **memory** for faster access ⚡
+- Avoids expensive **database calls**
+- Works on **eviction policy → LRU**
+
+---
+
+### 🔹 What is Caching?
+
+Caching stores frequently accessed data in memory to improve performance.
+
+### 🔹 Flow
+
+```mermaid
+flowchart LR
+    A[User Request] --> B{Cache Hit?}
+    B -- Yes --> C[Return from Cache]
+    B -- No --> D[Fetch from DB]
+    D --> E[Store in Cache]
+    E --> C
+```
+
+### 📌 Key Terms
+
+| Term       | Meaning                              |
+| ---------- | ------------------------------------ |
+| Cache Hit  | Data found in cache                  |
+| Cache Miss | Data not found → fetch from DB       |
+| Eviction   | Removing old data when cache is full |
+
+------
+
+## ⚠️ Problem with Cache
+
+- Cache size is **limited**
+- Cannot store all data
+- Need **replacement strategy**
+
+👉 Solution → **LRU Algorithm**
+
+------
+
+## 🚀 LRU Cache Concept
+
+- Maintains **access order**
+- Most recently used → Top
+- Least recently used → Bottom
+- When full → remove **least recently used**
+
+------
+
+## 🧩 Data Structures Used
+
+| Data Structure                  | Purpose               |
+| ------------------------------- | --------------------- |
+| HashMap                         | Fast lookup (O(1))    |
+| LinkedList / Doubly Linked List | Maintain access order |
+
+------
+
+## ⚙️ Operations
+
+### 1️⃣ `put(key, value)`
+
+#### Case 1: Cache NOT Full
+
+- Add to HashMap
+- Move item to **top (recently used)**
+
+#### Case 2: Cache FULL
+
+- Remove **least recently used (tail)**
+- Remove from HashMap
+- Insert new item at top
+
+```mermaid
+flowchart TD
+    A[Put Operation] --> B{Cache Full?}
+    B -- No --> C[Add to Cache]
+    B -- Yes --> D[Remove LRU]
+    D --> E[Add New Entry]
+```
+
+------
+
+### 2️⃣ `get(key)`
+
+- If key exists:
+  - Return value ✅
+  - Move item to **top (recently used)**
+- Else:
+  - Return `null` ❌
+
+```mermaid
+flowchart TD
+    A[Get Operation] --> B{Key Exists?}
+    B -- Yes --> C[Return Value + Move to Top]
+    B -- No --> D[Return Null]
+```
+
+------
+
+## 💻 Java Implementation (Using LinkedHashMap)
+
+### 📌 Best & Simplest Approach
+
+```java
+import java.util.*;
+
+class LRUCache<K, V> extends LinkedHashMap<K, V> {
+
+    private final int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true); // accessOrder = true
+        this.capacity = capacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        return size() > capacity;
+    }
+
+    public static void main(String[] args) {
+        LRUCache<Integer, String> cache = new LRUCache<>(3);
+
+        cache.put(1, "A");
+        cache.put(2, "B");
+        cache.put(3, "C");
+
+        cache.get(1); // Access 1 → becomes recent
+
+        cache.put(4, "D"); // Removes key 2 (LRU)
+
+        System.out.println(cache);
+    }
+}
+```
+
+------
+
+🔍 How LinkedHashMap Helps
+
+- Maintains **insertion/access order**
+
+- `accessOrder = true` → enables LRU behavior
+
+- Automatically removes oldest entry using:
+
+  ```java
+  removeEldestEntry()
+  ```
+
+------
+
+🆚 Custom vs LinkedHashMap
+
+| Feature       | Custom (HashMap + DLL) | LinkedHashMap |
+| ------------- | ---------------------- | ------------- |
+| Complexity    | High                   | Low ✅         |
+| Control       | Full                   | Limited       |
+| Interview Use | Preferred              | Good shortcut |
+| Code Length   | Large                  | Small ✅       |
+
+
+
+------
