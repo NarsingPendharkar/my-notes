@@ -6147,7 +6147,7 @@ class Notification {
 
 ---
 
-#### 📌 LRU Cache Implementation in Java
+##### 📌 LRU Cache Implementation in Java
 
 **LRU (Least Recently Used) Cache** is a caching mechanism that removes the **least recently accessed item** when the cache reaches its capacity.
 
@@ -6155,34 +6155,9 @@ class Notification {
 - Avoids expensive **database calls**
 - Works on **eviction policy → LRU**
 
----
-
-### 🔹 What is Caching?
-
-Caching stores frequently accessed data in memory to improve performance.
-
-### 🔹 Flow
-
-```mermaid
-flowchart LR
-    A[User Request] --> B{Cache Hit?}
-    B -- Yes --> C[Return from Cache]
-    B -- No --> D[Fetch from DB]
-    D --> E[Store in Cache]
-    E --> C
-```
-
-### 📌 Key Terms
-
-| Term       | Meaning                              |
-| ---------- | ------------------------------------ |
-| Cache Hit  | Data found in cache                  |
-| Cache Miss | Data not found → fetch from DB       |
-| Eviction   | Removing old data when cache is full |
-
 ------
 
-## ⚠️ Problem with Cache
+##### ⚠️ Problem with Cache
 
 - Cache size is **limited**
 - Cannot store all data
@@ -6192,7 +6167,7 @@ flowchart LR
 
 ------
 
-## 🚀 LRU Cache Concept
+##### 🚀 LRU Cache Concept
 
 - Maintains **access order**
 - Most recently used → Top
@@ -6201,7 +6176,7 @@ flowchart LR
 
 ------
 
-## 🧩 Data Structures Used
+##### 🧩 Data Structures Used
 
 | Data Structure                  | Purpose               |
 | ------------------------------- | --------------------- |
@@ -6210,16 +6185,16 @@ flowchart LR
 
 ------
 
-## ⚙️ Operations
+##### ⚙️ Operations
 
-### 1️⃣ `put(key, value)`
+##### 1️⃣ `put(key, value)`
 
-#### Case 1: Cache NOT Full
+##### Case 1: Cache NOT Full
 
 - Add to HashMap
 - Move item to **top (recently used)**
 
-#### Case 2: Cache FULL
+##### Case 2: Cache FULL
 
 - Remove **least recently used (tail)**
 - Remove from HashMap
@@ -6235,7 +6210,7 @@ flowchart TD
 
 ------
 
-### 2️⃣ `get(key)`
+##### 2️⃣ `get(key)`
 
 - If key exists:
   - Return value ✅
@@ -6252,9 +6227,9 @@ flowchart TD
 
 ------
 
-## 💻 Java Implementation (Using LinkedHashMap)
+##### 💻 Java Implementation (Using LinkedHashMap)
 
-### 📌 Best & Simplest Approach
+##### 📌 Best & Simplest Approach
 
 ```java
 import java.util.*;
