@@ -3379,7 +3379,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 <div align="center"><h3>✦✦ Multithreading ✦✦</h3></div>
 
-##### 📌 📌**What is Threads ?**
+#####  📌**What is Threads ?**
 
 - Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
@@ -3389,7 +3389,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - Multithreading enables you to perform multiple tasks at a time
 
-##### 📌 📌**What is Multithreading in Java?**
+#####  📌**What is Multithreading in Java?**
 
 - Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
@@ -3419,7 +3419,7 @@ A thread goes through several states:
 
 ---
 
-##### 📌 📌What are the Different Ways to Create a Thread?
+#####  📌What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -3451,7 +3451,7 @@ public class Threading implements Runnable{
 }
 ```
 
-##### 📌 📌Why Prefer Runnable Over Thread?
+#####  📌Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
@@ -3459,7 +3459,7 @@ public class Threading implements Runnable{
 
 ---
 
-##### 📌 📌What is the Difference Between start() and run()?
+#####  📌What is the Difference Between start() and run()?
 
 **Answer:**
 
@@ -3500,13 +3500,40 @@ public class Threading implements Runnable{
 
 ---
 
-##### 📌 📌When would you use the wait and notify methods in your Java application ?
+##### 📌 When would you use the wait and notify methods in your Java application ?
 
 The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
 
 ---
 
-##### 📌 📌**Difference Between Callable and Runnable**
+#### **Runnable** &**Callable**
+
+In Java, **Runnable** and **Callable** are functional interfaces used to define tasks that can be executed concurrently by another thread. While they serve a similar purpose, **Callable** is an improved version of **Runnable** designed to handle more complex scenarios like returning results or throwing errors. 
+
+------
+
+##### 1. Runnable Interface
+
+The **Runnable** interface is the traditional way to execute a task in a separate thread. It is best for "fire-and-forget" tasks where you don't need a result back from the execution. 
+
+- **How it works**: You implement the `run()` method with your logic.
+- **Limitation**: It cannot return a value or propagate checked exceptions. Any exceptions must be handled within the `run()` method using a try-catch block.
+- **Example**: Simple background logging or UI updates. 
+
+##### 2. Callable Interface
+
+The **Callable** interface was introduced to overcome the limitations of Runnable. It is designed for tasks that perform a calculation or fetch data and need to return that result to the main thread. 
+
+- **How it works**: You implement the `call()` method, which returns a value (e.g., `Callable<String>` returns a `String`).
+- **Returning Results**: When you submit a `Callable` to an `ExecutorService`, it returns a **Future** object. You can use `future.get()` to retrieve the actual result once the task finishes.
+- **Error Handling**: It allows you to throw checked exceptions (like `IOException`), which can then be handled by the caller who retrieves the result. 
+
+##### When to Use Which?
+
+- **Use Runnable** for simple background tasks that don't need to report anything back to your main application.
+- **Use Callable** when you need a result from your parallel task (e.g., fetching data from a database or calculating a sum) or when you need robust error propagation. 
+
+##### 📌 **Difference Between Callable and Runnable**
 
 | Feature           | Runnable    | Callable   |
 | ----------------- | ----------- | ---------- |
@@ -3518,7 +3545,7 @@ The "wait" and "notify" methods in Java are used to coordinate the execution of 
 
 ---
 
-##### 📌 📌What is volatile Keyword?
+#####  📌What is volatile Keyword?
 
 The `volatile` keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "`volatile`" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
 
@@ -3541,7 +3568,7 @@ class VolatileExample {
 
 ---
 
-##### 📌 📌What is Thread Synchronization?
+#####  📌What is Thread Synchronization?
 
 Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time. In Java, the "**synchronized**" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
 
@@ -3649,7 +3676,7 @@ public static void main(String[] args) throws InterruptedException {
 
 ----
 
-##### 📌 📌 What is a Thread Pool?
+#####  📌 What is a Thread Pool?
 
 👉 A **thread pool** = **group of worker threads** ready to perform tasks. it assign the task to the worker threads
 
@@ -3685,7 +3712,7 @@ flowchart TD
 
 ------
 
-##### 📌 📌 Why Thread Pool is Important
+#####  📌 Why Thread Pool is Important
 
 ##### ❌ Without Thread Pool
 
@@ -3735,7 +3762,7 @@ public class ThreadPoolExample {
 
 ------
 
-##### 📌 📌 1. ExecutorService
+#####  📌 1. ExecutorService
 
 `ExecutorService` is a **thread pool manager** introduced in Java 5 that helps execute tasks asynchronously without manually creating threads.
 
@@ -3806,7 +3833,7 @@ public class ExecutorExample {
 
 ------
 
-##### 📌 📌 2. Future
+#####  📌 2. Future
 
 ##### 🔹 What is Future?
 
@@ -3867,7 +3894,7 @@ public class FutureExample {
 
 ------
 
-##### 📌 📌 3. CompletableFuture (Java 8+)
+#####  📌 3. CompletableFuture (Java 8+)
 
 ##### 🔹 What is CompletableFuture?
 
@@ -4013,7 +4040,7 @@ CompletableFuture.supplyAsync(() -> {
 
 
 
-##### 📌 📌 **Locks in Java (`synchronized` vs `ReentrantLock`)**
+#####  📌 **Locks in Java (`synchronized` vs `ReentrantLock`)**
 
 ------
 
@@ -4214,7 +4241,7 @@ Use `synchronized` by default, switch to `ReentrantLock` only when advanced feat
 
 ------
 
-##### 📌 📌 Atomic Classes
+#####  📌 Atomic Classes
 
 **Atomic Classes** are classes in Java that allow **thread-safe operations on single variables without using locks**.
 
@@ -4351,7 +4378,7 @@ public class AtomicBooleanExample {
 
 ------
 
-##### 📌 📌Concurrent Collections
+#####  📌Concurrent Collections
 
 ##### 🔹 Definition
 
@@ -4450,7 +4477,7 @@ map.remove("user1");
 
 ------
 
-##### 📌 📌 ForkJoinPool
+#####  📌 ForkJoinPool
 
 ##### 🔹 Definition
 
@@ -4576,7 +4603,7 @@ public class Main {
 
 ------
 
-##### 📌 📌 **Virtual Threads**
+#####  📌 **Virtual Threads**
 
 ------
 
@@ -4702,7 +4729,7 @@ try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecut
 
 <div align="center"><h1>✦✦ Serialization ✦✦ </h1></div>
 
-##### 📌 📌 What is Serialization & Deserialization?
+#####  📌 What is Serialization & Deserialization?
 
 - Serialization is the process of converting java object into byte stream.
   
