@@ -1227,7 +1227,7 @@ flowchart LR
 
 ------
 
-#### 🔸 Key Points
+##### 🔸 Key Points
 
 - Prevents cascading failures
 - Provides fallback responses
@@ -1244,7 +1244,7 @@ Payment service is down:
 
 ------
 
-#### 🔹 2. Bulkhead Pattern
+####  2. Bulkhead Pattern
 
 ##### 🔸 Definition
 
@@ -1292,7 +1292,7 @@ flowchart TD
 
 ------
 
-# 🔹 3. Retry Pattern
+#### 3. Retry Pattern
 
 ##### 🔸 Definition
 
@@ -1330,7 +1330,7 @@ flowchart LR
 
 ------
 
-# 🔹 4. Backoff Pattern
+#### 4. Backoff Pattern
 
 ##### 🔸 Definition
 
