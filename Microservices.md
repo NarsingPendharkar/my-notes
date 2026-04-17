@@ -1382,7 +1382,7 @@ Retry 4 → wait 8 sec
 
 ------
 
-# ## 🔹 Retry + Backoff Combined Flow
+####  Retry + Backoff Combined Flow
 
 ```mermaid
 flowchart LR
@@ -1411,11 +1411,11 @@ flowchart LR
 
 ---
 
-# ✅Steps to Create Microservices Application
+### ✅Steps to Create Microservices Application
 
 ------
 
-## 🔷 Step 1: Create Eureka Server (Service Registry)
+#### 🔷 Step 1: Create Eureka Server (Service Registry)
 
 👉 This is the heart of service discovery
 
