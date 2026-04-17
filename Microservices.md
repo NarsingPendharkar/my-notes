@@ -1169,13 +1169,11 @@ optimization.
 
 - Reads: Elasticsearch for fast querying
 
-
-
 ------
 
 ### Resilience Patterns (failures handling)
 
-#### 1. Circuit Breaker Pattern
+#### 1. What is Circuit Breaker Pattern
 
 - **Circuit Breaker** in microservices is a design pattern used to improve the stability of applications.
   
@@ -1207,8 +1205,6 @@ optimization.
   - **Fallback**: An alternative solution provided when the primary service fails.
 
 - In summary, a **circuit breaker** is essential for managing service failures in microservices and ensuring applications remain functional and efficient.
-
-
 
 ##### 🔸 Flow Diagram
 
