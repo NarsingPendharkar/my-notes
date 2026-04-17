@@ -1,3 +1,5 @@
+
+
 <div align="center"><h4 >◆◆◆ Microservices ◆◆◆</h4></div>
 
 ##### 📌 What is Monolithic Architecture?
@@ -257,12 +259,6 @@ flowchart LR
 
 
 
-##### 🔹 Purpose
-
-- Simplifies client interaction
-- Hides internal system complexity
-- Provides centralized control (security, monitoring, routing)
-
 ------
 
 ##### 🔹 How It Works
@@ -338,26 +334,6 @@ API Gateway = **Reception Desk**
 - Complex configuration
 - Needs proper scaling
 
-------
-
-**🔹 Best Practices**
-
-- Use **HTTPS (SSL/TLS)**
-- Implement **JWT/OAuth security**
-- Enable **rate limiting & caching**
-- Maintain **logging & monitoring**
-- Use **API versioning**
-
-------
-
-**🔹 Popular Tools**
-
-- Amazon API Gateway
-- Apigee
-- Kong
-- Azure API Management
-- Apache APISIX
-
 ---
 
 #### ⚖️ Load Balancing
@@ -431,15 +407,15 @@ Load Balancing is the process of distributing incoming network requests across m
 ```
 
 **📘 Explanation:**
-@LoadBalanced makes RestTemplate use Spring Cloud LoadBalancer, which automatically picks one instance of COURSE-SERVICE from Eureka Registry.
+`@LoadBalanced` makes `RestTemplate` use Spring Cloud LoadBalancer, which automatically picks one instance of COURSE-SERVICE from Eureka Registry.
 
 
 
 ----
 
-<div align="center"><h1 >◆◆◆ Communication Patterns in Microservices ◆◆◆</h1></div>
+### ◆◆◆ Communication Patterns in Microservices ◆◆◆
 
-##### 📌 **🔹 Introduction**
+##### **🔹 Introduction**
 
 In Microservices, communication happens between multiple independent services. There are two main types of communication patterns:
 
@@ -682,6 +658,8 @@ public List<UserDTO> getUser(@PathVariable long id) {
 - In modern Spring Boot applications → Prefer `WebClient`.
 - In microservices with service-to-service calls → Feign is commonly used.
 - In high-load banking systems → WebClient improves scalability.
+
+---
 
 #### 2. Asynchronous Communication in Spring Boot
 
@@ -1195,39 +1173,42 @@ optimization.
 
 ------
 
-# Resilience Patterns
+### Resilience Patterns (failures handling)
 
-These patterns help build **fault-tolerant, stable, and scalable systems**—very important in fintech / banking systems.
+#### 1. Circuit Breaker Pattern
 
-------
+- **Circuit Breaker** in microservices is a design pattern used to improve the stability of applications.
+  
+- It helps to prevent a system from repeatedly trying to execute an operation that is likely to fail.
 
-# 🔹 1. Circuit Breaker Pattern
+- The concept is similar to an electrical circuit breaker that stops the flow of electricity to prevent damage.
 
-##### 🔸 Definition
+- **Key Functions of a Circuit Breaker**:
+  - **Monitoring**: Tracks the success and failure of requests to a service.
+  - **Trip**: If failures reach a certain threshold, the circuit breaker "trips" and stops requests to the failing service.
+  - **Fallback**: Provides an alternative response or action when the circuit is open, ensuring the application continues to function.
 
-Circuit Breaker is a **fault tolerance pattern** that prevents repeated calls to a failing service by temporarily blocking requests.
+- **States of a Circuit Breaker**:
+  - **Closed**: All requests are allowed through. The circuit breaker monitors for failures.
+  - **Open**: The circuit is broken. Requests are blocked, and failures are not sent to the service. A timeout period starts.
+  - **Half-Open**: After a timeout, the circuit breaker allows a limited number of requests to test if the service is working again.
 
-------
+- **Benefits of Using Circuit Breakers**:
+  - **Increased Resilience**: Helps the application withstand failures in microservices.
+  - **Improved Performance**: Reduces the load on failing services by stopping unnecessary requests.
+  - **Better User Experience**: Users receive faster responses or alternative options instead of waiting for failed services.
 
-##### 🔸 States of Circuit Breaker
+- **Common Libraries and Frameworks**:
+  - Libraries like **Hystrix** and **Resilience4j** are commonly used to implement circuit breaker patterns in applications.
 
-##### 1. Closed State (Normal)
+- **Key Vocabulary**:
+  - **Microservices**: A software architecture style where applications are built as a collection of small services.
+  - **Resilience**: The ability of a system to recover from failures.
+  - **Fallback**: An alternative solution provided when the primary service fails.
 
-- Requests flow normally
-- Failures are monitored
+- In summary, a **circuit breaker** is essential for managing service failures in microservices and ensuring applications remain functional and efficient.
 
-##### 2. Open State (Failure)
 
-- Too many failures → circuit opens
-- Requests are blocked immediately
-
-##### 3. Half-Open State (Recovery)
-
-- After timeout, limited requests allowed
-- Success → Closed
-- Failure → Open
-
-------
 
 ##### 🔸 Flow Diagram
 
@@ -1267,7 +1248,7 @@ Payment service is down:
 
 ------
 
-# 🔹 2. Bulkhead Pattern
+#### 🔹 2. Bulkhead Pattern
 
 ##### 🔸 Definition
 
