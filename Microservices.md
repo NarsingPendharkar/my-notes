@@ -1002,7 +1002,7 @@ graph TD;
 
 ---
 
-## Distributed Tracing
+### Distributed Tracing
 
 ##### 1. Definition / Introduction
 
@@ -1411,11 +1411,11 @@ flowchart LR
 
 ---
 
-### ✅Steps to Create Microservices Application
+#### ✅Steps to Create Microservices Application
 
 ------
 
-#### 🔷 Step 1: Create Eureka Server (Service Registry)
+##### 🔷 Step 1: Create Eureka Server (Service Registry)
 
 👉 This is the heart of service discovery
 
@@ -1443,7 +1443,7 @@ eureka.client.fetch-registry=false
 
 ------
 
-## 🔷 Step 2: Create Address Microservice
+##### 🔷 Step 2: Create Address Microservice
 
 👉 This service manages address data
 
@@ -1538,7 +1538,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
 ------
 
-## 🔷 Step 3: Create Student Microservice
+##### 🔷 Step 3: Create Student Microservice
 
 👉 This service calls Address service
 
@@ -1693,7 +1693,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
 ------
 
-## 🔷 Step 4: Add Required Dependencies
+##### 🔷 Step 4: Add Required Dependencies
 
 ##### 📌 Eureka Client
 
@@ -1715,7 +1715,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
 ------
 
-## 🔷 Step 5: Run Order
+##### 🔷 Step 5: Run Order
 
 1. Start Eureka Server
 2. Start Address Service
@@ -1723,7 +1723,7 @@ eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
 
 ------
 
-## 🔁 Final Architecture Flow
+##### 🔁 Final Architecture Flow
 
 ```mermaid
 flowchart LR
@@ -1738,7 +1738,7 @@ flowchart LR
 
 
 
-# SWAGGER
+#### SWAGGER
 
 ##### 📌 What is swagger ?
 
