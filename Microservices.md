@@ -4,28 +4,25 @@
 
 If we develop all the functionalities in single application, then it is called **Monolithic** Application. Monolithic Architecture is a software design pattern where the entire application is built as a single, unified unit. All components (UI, business logic, database access) are tightly coupled and deployed together.
 
-- **Advantages:**
-  - **Simplicity**: Easier to develop, test, and deploy due to a unified codebase.
-  - **Performance**: Reduced latency and improved performance as all components are closely integrated.
-  - **Easier Scaling**: Scaling is straightforward; the entire application can be scaled together.
-  - **Consistent Environment**: A single environment for development and production reduces compatibility issues.
-  - **Lower Overhead**: Less operational overhead compared to managing multiple services or components.
-- **Disadvantages:**
-  - **Tight Coupling**: Components are interdependent, making updates and maintenance challenging.
-  - **Limited Flexibility**: Difficult to adopt new technologies or frameworks; entire application must be rewritten for significant changes.
-  - **Scalability Issues**: Scaling can become problematic as the application grows, leading to performance bottlenecks.
-  - **Long Deployment Times**: A change in one part necessitates redeployment of the entire application, increasing downtime.
-  - **Complex Development**: As the application expands, complexity increases, making it harder for teams to manage and understand the codebase.
+##### Advantages and Disadvantages of Monolithic Architecture
 
-![A diagram of a diagram of a diagram AI-generated content may be
-incorrect.](./media/media/image3.jpeg){width="4.611989282589676in"
-height="2.5375in"}
+##### ➤Advantages:
+- **Simplicity**: Easier to develop and manage since all components are in a single codebase.
+- **Performance**: Faster communication between components because they are all within the same application.
+- **Easier Deployment**: Can be deployed as a single unit, making it straightforward to manage updates and releases.
+- **Less Overhead**: Requires fewer resources compared to microservices, which need more infrastructure.
+- **Better for Small Projects**: Ideal for small teams or projects with limited scope due to easier maintenance.
+- **Testing**: Simpler to test since everything is in one place, allowing for quicker debugging.
+
+##### ➤Disadvantages:
+- **Scalability Issues**: Harder to scale as the entire application needs to be scaled instead of just parts of it.
+- **Tight Coupling**: Components are closely connected, making it difficult to update one part without affecting others.
+- **Longer Development Time**: As the application grows, it can take longer to add new features due to complexity.
+- **Risk of Failure**: If one part fails, it can cause the whole application to crash, leading to downtime.
+- **Difficult to Adopt New Technologies**: Challenging to integrate new technologies since everything is tightly integrated.
+- **Team Coordination**: Larger teams may struggle with coordination as multiple developers work on the same codebase.
 
 To overcome problems of Monolith Architecture, we will use Microservices Architecture.
-
-![A diagram of a user interface AI-generated content may be
-incorrect.](./media/media/image4.jpeg){width="4.972439851268591in"
-height="2.7625in"}
 
 ---
 
@@ -34,48 +31,60 @@ height="2.7625in"}
 **Definition:**
 Microservices is an architectural style where an application is divided into small, independent services that communicate via APIs (usually REST). Each service focuses on a specific business capability and can be developed, deployed, and scaled independently.
 
-**Simplified Definition:**
-"Microservices are small services that work together."
 
-**Key Characteristics:**
 
-- Small, independently deployable units
-- Each service owns its own data and logic
-- Communicate using lightweight protocols (HTTP/REST, messaging)
-- Designed for autonomy and resilience
+```mermaid
+flowchart TD
+    UI[UI]
 
-**Analogy:**
-Each microservice is like a specialized shop in a mall the mall (system) still functions even if one shop closes.
+    UI --> S1[Service 1]
+    UI --> S2[Service 2]
+    UI --> S3[Service 3]
 
-**Key Points:**
+    S1 --> DB1[(DB)]
+    S2 --> DB2[(DB)]
+    S3 --> DB3[(DB)]
+```
 
-Microservices is not:
-
-- ❌ A technology
-- ❌ A programming language
-- ❌ A framework
-- ❌ An API
-
-*It is an architectural design pattern*
-
-- Used to build distributed and independent services.
-
-- Each service performs a specific business function.
-
-- Services communicate through APIs (usually REST or messaging).
+**Analogy:** Each microservice is like a specialized shop in a mall the mall (system) still functions even if one shop closes.
 
 ---
 
-##### 📌 Challenges with Microservices
+##### 📌 Advantages and Disadvantages of Microservices 
 
-1. Bounded Context : Bounded context means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
-2. Repeated configurations :In Several micro services we need to write same configurations like data source, smtp, kafka, redis etc.
+##### ➤ Advantages:
+- **Scalability**: Microservices can be scaled independently, allowing specific components to handle increased loads without affecting the entire system.
+  
+- **Flexibility in Technology Stack**:  Different **programming languages** and **databases** can be used for different services, enabling teams to choose the best tools for each task.
+  
+- **Improved Fault Isolation**: Failures in one microservice do not necessarily impact others, enhancing system stability and reliability.
+  
+- **Faster Time to Market**: Smaller, independent teams can develop, test, and deploy microservices simultaneously, accelerating the overall development process.
+  
+- **Easier Maintenance and Updates**: Individual microservices can be updated without redeploying the entire application, facilitating continuous integration and deployment.
+  
+- **Enhanced Collaboration**: Teams can work on different services concurrently, promoting cross-functional collaboration and reducing bottlenecks.
+  
+- **Better Resource Utilization**: Microservices can be deployed in containers, optimizing resource use and enabling more efficient scaling and management.
 
-3. Visibility :In microservice architecture we might not get chance to work with all apis in the application.
+##### ➤ Disadvantages:
+- **Complexity in Management**: Managing a microservices architecture can be challenging due to the increased number of services and interactions between them.
+  
+- **Data Consistency Issues**: Maintaining **data consistency** across multiple microservices can be complex, often requiring eventual consistency models.
+  
+- **Increased Latency**: Communication between microservices can introduce additional latency, particularly if not optimized properly.
+  
+- **Difficulties in Testing**: Testing individual microservices and their interactions can be more complicated compared to monolithic applications.
+  
+- **Deployment Overhead**: Each microservice may require separate deployment pipelines, increasing the overhead and complexity of deployment processes.
+  
+- **Monitoring and Debugging Challenges**: Monitoring performance and debugging issues across multiple services can be more difficult, requiring advanced tools and strategies.
+  
+- **Potential for Service Overlaps**: Overlapping functions between microservices can lead to redundancy and complicate the overall architecture.
 
 ---
 
-#### ⚖️Monolith vs Microservices
+##### ⚖️Monolith vs Microservices
 
 | Aspect        | Monolithic Architecture          | Microservices Architecture                   |
 | ------------- | -------------------------------- | -------------------------------------------- |
@@ -85,66 +94,17 @@ Microservices is not:
 | Deployment    | One deployment for all features  | Independent deployment per service           |
 | Change Impact | One bug can impact the whole app | Failures are isolated to individual services |
 
-##### 📌 When to Use Microservices
-
-- Large and complex applications
-
-- Large or distributed teams
-
-- Need for independent scaling
-
-- Frequent releases and continuous deployment
-
-- Support for different technologies (polyglot architecture)
-
-**Pros and Cons :**
-
-**Pros:**
-
-- Independent development & deployment
-
-- Focused, maintainable codebases
-
-- Targeted scaling of specific services
-
-- Fault isolation improves system resilience
-
-**Cons:**
-
-- Higher operational complexity
-
-- Difficult distributed debugging & tracing
-
-- Eventual consistency (data may not sync instantly)
-
-- Requires robust DevOps and monitoring setup
-
----
-
-##### 📌 What are the key benefits of microservices?
-
-- **Scalability:** Independent services can scale separately.
-
-- **Resilience:** Failure in one service doesn't bring down the entire system.
-  
-- **Faster Development:** Teams can work on separate services.
-
-- **Technology Agnostic:** Each service can use different tech stacks.
-
-- **Deployment Independence:** Services can be deployed separately.
-
 ---
 
 ##### 📌 What are the challenges of microservices?
 
+- **Bounded Context** : Bounded context means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
+- **Repeated configurations** :In Several micro services we need to write same configurations like data source, smtp, kafka, redis etc.
+- **Visibility** :In microservice architecture we might not get chance to work with all apis in the application.
 - Service Discovery & Communication (Eureka, Consul)
-
 - Data Consistency (Distributed transactions are hard)
-
 - Security (OAuth2, JWT, API Gateway)
-
 - Monitoring & Logging (Distributed tracing with Zipkin, ELK)
-
 - Latency (Inter-service network calls add delays)
 
 ---
