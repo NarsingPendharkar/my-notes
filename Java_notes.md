@@ -221,52 +221,50 @@ public class Main {
 
 - **Using new keyword**
 
-> ```java
-> Car myCar = new Car();
-> ```
->
+```java
+Car myCar = new Car();
+```
 
 - **Using Reflection (`newInstance()`)**
 
-> ```java
-> class Student {
-> 
->     void show() {
->         System.out.println("Object created using reflection");
->     }
-> }
-> 
-> public class Test {
-> 
->     public static void main(String[] args) throws Exception {
-> 
->         Student s = Student.class.newInstance();
->         s.show();
->     }
-> }
-> ```
+```java
+class Student {
+
+ void show() {
+     System.out.println("Object created using reflection");
+ }
+}
+
+public class Test {
+
+ public static void main(String[] args) throws Exception {
+
+     Student s = Student.class.newInstance();
+     s.show();
+ }
+}
+```
 
 - **Using clone method (clone()):**
 
-> ```java
-> class Student implements Cloneable {
-> 
->     int id = 10;
-> 
->     public Object clone() throws CloneNotSupportedException {
->         return super.clone();
->     }
-> }
-> ```
+```java
+class Student implements Cloneable {
+
+ int id = 10;
+
+ public Object clone() throws CloneNotSupportedException {
+     return super.clone();
+ }
+}
+```
 
 - **Using deserialization (ObjectInputStream):**
 
-> ```java
-> ObjectInputStream in = new ObjectInputStream(new FileInputStream("object.ser"));
-> 
-> Student s = (Student) in.readObject();
-> ```
->
+```java
+ObjectInputStream in = new ObjectInputStream(new FileInputStream("object.ser"));
+
+Student s = (Student) in.readObject();
+```
 
 ---
 

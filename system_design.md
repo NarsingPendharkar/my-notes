@@ -1,6 +1,36 @@
-##### **SYSTEM DESIGN INTERVIEW HANDBOOK**
+## **SYSTEM DESIGN INTERVIEW HANDBOOK**
+
+### System Design Notes
+
+- **System Design**: System Design is the process of designing the architecture, components, and interfaces for a system so that it meets the end-user requirements.
+- **Key Concepts**:
+  - **Architecture**: The overall structure of the system, including how different parts interact.
+  - **Components**: Individual parts of a system that work together to perform specific functions.
+  - **Modules**: Smaller sections of a system that can be developed independently but work together as a whole.
+  - **Interfaces**: Points of interaction between components or systems, allowing them to communicate.
+- **Importance of System Design**:
+  - Ensures that systems are efficient, scalable, and maintainable.
+  - Helps in understanding user requirements and translating them into technical specifications.
+- **Steps in System Design**:
+  1. **Requirements Gathering**: Collecting information about what users need from the system.
+  2. **System Specification**: Documenting the requirements in detail.
+  3. **Design**: Creating models and diagrams to represent the system structure and behavior.
+  4. **Implementation**: Actual building of the system based on the design.
+  5. **Testing**: Checking the system for errors and ensuring it meets requirements.
+  6. **Deployment**: Releasing the system for use.
+  7. **Maintenance**: Ongoing support and updates to keep the system functioning well.
+- **Types of System Design**:
+  - **High-Level Design (HLD)**: Focuses on the system architecture and how components interact.
+  - **Low-Level Design (LLD)**: Details how each component will be implemented, including algorithms and data structures.
+- **Challenges in System Design**:
+  - Balancing functionality with performance and cost.
+  - Adapting to changing user needs and technology advancements.
+  - Ensuring security and data protection.
+
+
 
 ##### **SCALABILITY**
+
 Scalability is the ability of a system to handle increasing load by adding resources.
 
 ##### **AVAILABILITY**
