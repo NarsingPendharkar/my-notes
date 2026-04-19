@@ -326,9 +326,6 @@ Car(String brand) { this.brand = brand; }
 Car(Car c) { this.brand = c.brand; }
 ```
 
-![](./media/media/image18.png){width="3.208581583552056in"
-height="2.438779527559055in"}
-
 ---
 
 ##### 📌  What happens if a class doesn't have a constructor?
