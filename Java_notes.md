@@ -5242,6 +5242,8 @@ try (FileReader reader = new FileReader("test.txt")) {
 
 ----
 
+#### Creational Patterns :
+
 ##### 📌 1.**Singleton Design Pattern:**
 
 - There are multiple scenarios where we want single instance of class should be created and used throughout the application.
@@ -5265,42 +5267,42 @@ Example :
 ``` java
 public class Singleton {
 
-// private constructor to avoid object instantiation from external
-resource
+    // private constructor to avoid object instantiation from external
+    resource
 
-// create private static object variable
+        // create private static object variable
 
-// create public static method that return object if object is null
+        // create public static method that return object if object is null
 
-private static Singleton obj;
+        private static Singleton obj;
 
-private Singleton() {
+    private Singleton() {
 
-System.out.println("Created Object !");
+        System.out.println("Created Object !");
 
-};
+    };
 
-public static Singleton getSingleObject() {
+    public static Singleton getSingleObject() {
 
-if(obj==null) {
+        if(obj==null) {
 
-obj=new Singleton();
+            obj=new Singleton();
 
-}
+        }
 
-return obj;
+        return obj;
 
-}
+    }
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
 
-Singleton obj1=Singleton.getSingleObject();
+        Singleton obj1=Singleton.getSingleObject();
 
-Singleton obj2=Singleton.getSingleObject();
+        Singleton obj2=Singleton.getSingleObject();
 
-System.out.println(obj1.equals(obj2));
+        System.out.println(obj1.equals(obj2));
 
-}
+    }
 
 }
 ```
@@ -5442,7 +5444,7 @@ class MacFactory implements GUIFactory { /* return MacButton/TextField */ }
 
 ------
 
-## Structural Patterns
+#### Structural Patterns
 
 ##### 📌 1. Adapter Pattern
 
@@ -5527,7 +5529,7 @@ class AdvancedRemote { Remote remote; void press(){remote.pressButton();} }
 
 ------
 
-## Behavioral Patterns
+#### Behavioral Patterns
 
 ##### 📌 1. Observer Pattern
 
@@ -5643,7 +5645,7 @@ The Factory design pattern is used to create objects without exposing the object
 
 The Observer design pattern is used to define a one-to-many relationship between objects so that when one object changes state, all its dependents are notified and updated automatically.
 
- ### When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
+ ##### 📌 When would you use the Template Method design pattern, and how does it differ from the Strategy pattern?
 
  The Template Method design pattern is used to define the skeleton of an algorithm in a superclass, with specific steps left to be implemented by subclasses. It differs from the Strategy pattern in that the steps of the algorithm are fixed and cannot be changed by subclasses.
 
