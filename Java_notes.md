@@ -710,96 +710,6 @@ flowchart LR
     style D fill:#BBDEFB
 ```
 
-------
-
-**📌 Shallow Copy**
-
-- Only **top-level object is copied**
-- Inner objects are **shared**
-
-💻 **Example**
-
-```java
-class Address {
-    String city;
-}
-
-class Student implements Cloneable {
-    String name;
-    Address address;
-
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone(); // shallow copy
-    }
-}
-
-public class Test {
-    public static void main(String[] args) throws Exception {
-        Address addr = new Address();
-        addr.city = "Pune";
-
-        Student s1 = new Student();
-        s1.name = "Narsing";
-        s1.address = addr;
-
-        Student s2 = (Student) s1.clone();
-
-        s2.address.city = "Mumbai";
-
-        System.out.println(s1.address.city); // Mumbai ❗
-    }
-}
-```
-
-**⚠️ Problem**
-
-- Changing nested object affects **original**
-- Not safe for mutable objects
-
-------
-
-##### 📌 Deep Copy
-
-- Copies **entire object graph**
-- No shared references
-
-💻 Example
-
-```java
-class Address {
-    String city;
-}
-
-class Student implements Cloneable {
-    String name;
-    Address address;
-
-    protected Object clone() throws CloneNotSupportedException {
-        Student s = (Student) super.clone();
-        s.address = new Address(); // new object
-        s.address.city = this.address.city;
-        return s;
-    }
-}
-
-public class Test {
-    public static void main(String[] args) throws Exception {
-        Address addr = new Address();
-        addr.city = "Pune";
-
-        Student s1 = new Student();
-        s1.name = "Narsing";
-        s1.address = addr;
-
-        Student s2 = (Student) s1.clone();
-
-        s2.address.city = "Mumbai";
-
-        System.out.println(s1.address.city); // Pune ✅
-    }
-}
-```
-
 | Feature           | Shallow Copy                                                 | Deep Copy                                                    |
 | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | Object Creation   | New object                                                   | New object                                                   |
@@ -902,14 +812,7 @@ public class Test {
 }
 ```
 
-
-
-| Feature            | Shallow Copy                     | Deep Copy                        |
-| ------------------ | -------------------------------- | -------------------------------- |
-| **Nested Objects** | Shared between original and copy | Fully independent duplicates     |
-| **Performance**    | Faster and memory-efficient      | Slower due to recursive creation |
-| **Complexity**     | Simple (default behavior)        | Complex (requires custom logic)  |
-| **Independence**   | Not 100% disjoint                | 100% disjoint and independent    |
+---
 
 **Alternative Methods** 
 
@@ -917,17 +820,7 @@ public class Test {
 
 - **Serialization**: Converting an object to a byte stream and back creates a deep copy automatically, though it is slower. 
 
-- **Libraries**: For complex objects, libraries like  
-
-  Apache Commons Lang (SerializationUtils) 
-
-   or  
-
-  Gson 
-
-   can be used to perform deep copies without manual recursive logic. 
-
-*AI responses may include mistakes.*
+- **Libraries**: For complex objects, libraries like  Apache Commons Lang (SerializationUtils)  or  Gson can be used to perform deep copies without manual recursive logic. 
 
 ##### 📌 What is the difference between shallow copy and deep copy?
 
