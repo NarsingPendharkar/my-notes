@@ -287,11 +287,6 @@ public class Home{
 }
 ```
 
-
-
-![](./media/media/image17.png){width="7.268055555555556in"
-height="4.107638888888889in"}
-
 ---
 
 ##### 📌  What is an object?
