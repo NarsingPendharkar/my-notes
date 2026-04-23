@@ -74,6 +74,104 @@ Yes! When we execute Java code, the **compiler** converts it into **bytecode**. 
 
 ---
 
+### 📘 Java Data Types
+
+Java Data Types define the **type of data a variable can store** and the **operations that can be performed** on it.
+
+------
+
+```mermaid
+flowchart TD
+    A[Java Data Types] --> B[Primitive]
+    A --> C[Non-Primitive]
+```
+
+------
+
+#### 🔹 Primitive Data Types
+
+- Store **actual values**
+- Predefined by Java
+- Fixed memory size
+- Stored in **stack memory**
+
+------
+
+**📊 Primitive Types Table**
+
+| Type      | Size          | Range                    | Default  | Example             |
+| --------- | ------------- | ------------------------ | -------- | ------------------- |
+| `byte`    | 1 byte        | -128 to 127              | 0        | `byte b = 10;`      |
+| `short`   | 2 bytes       | -32,768 to 32,767        | 0        | `short s = 100;`    |
+| `int`     | 4 bytes       | -2³¹ to 2³¹-1            | 0        | `int i = 1000;`     |
+| `long`    | 8 bytes       | Large integers           | 0L       | `long l = 10000L;`  |
+| `float`   | 4 bytes       | Decimal                  | 0.0f     | `float f = 10.5f;`  |
+| `double`  | 8 bytes       | Decimal (high precision) | 0.0d     | `double d = 20.5;`  |
+| `char`    | 2 bytes       | Unicode characters       | '\u0000' | `char c = 'A';`     |
+| `boolean` | JVM dependent | true/false               | false    | `boolean b = true;` |
+
+------
+
+#### 🔹 Non-Primitive Data Types
+
+- Store **reference (memory address)**
+- Created by user or Java
+- Stored in **heap memory**
+- Can call methods
+
+------
+
+**📊 Types**
+
+- `String`
+- Arrays
+- Classes
+- Interfaces
+- Objects
+
+```java
+String name = "Narsing";
+int[] arr = {1, 2, 3};
+
+class Student {
+    int id;
+    String name;
+}
+```
+
+------
+
+##### 🔁 Primitive vs Non-Primitive
+
+| Feature | Primitive        | Non-Primitive     |
+| ------- | ---------------- | ----------------- |
+| Storage | Value            | Reference         |
+| Memory  | Stack            | Heap              |
+| Size    | Fixed            | Dynamic           |
+| Methods | Not available    | Available         |
+| Example | `int`, `boolean` | `String`, `Array` |
+
+------
+
+### Type Casting
+
+**Type Casting**: Converting a variable from one data type to another.
+
+##### 1. **Implicit Casting (Widening)**
+
+- Automatically converts a smaller data type to a larger one.
+- Example: **int** to **double** (no data loss).
+- **Note**: Safe and does not require explicit instructions.
+
+##### 2. **Explicit Casting (Narrowing)**
+
+- Manually converts a larger data type to a smaller one.
+- Example: **double** to **int** (possible data loss).
+- **Syntax**: Use parentheses to specify the target type.
+- Example: `int myInt = (int) myDouble;`
+
+---
+
 ##### 📌  What is Autoboxing and Unboxing ?
 
 Autoboxing is the automatic conversion of a primitive type into its corresponding wrapper class object, for example converting int to Integer. Unboxing is the reverse process where a wrapper object is converted back to its primitive type. This feature was introduced in Java 5 to simplify working with collections.
@@ -6342,3 +6440,48 @@ class LRUCache<K, V> extends LinkedHashMap<K, V> {
 | **Java 23**            | 2024           | String Templates (Preview), Scoped values                    |
 | **Java 24** *(Latest)* | 2025           | Performance improvements, ongoing preview feature stabilization |
 
+**🚀 Java Evolution Timeline **
+
+```mermaid
+timeline
+    title ☕ Java Version Evolution (Quick Revision)
+
+    2004 : Java 5
+         : Generics, Autoboxing, Enums
+
+    2006 : Java 6
+         : Performance Improvements, JDBC 4.0
+
+    2011 : Java 7
+         : Try-with-resources, Diamond Operator, NIO.2
+
+    2014 : Java 8 ⭐
+         : Lambda, Streams API, Functional Programming
+
+    2017 : Java 9
+         : Module System (JPMS), JShell
+
+    2018 : Java 10
+         : var (Type Inference)
+
+    2018 : Java 11 ⭐ (LTS)
+         : HTTP Client, String APIs
+
+    2019 : Java 12–13
+         : Switch Expressions, Text Blocks (Preview)
+
+    2020 : Java 14–15
+         : Records (Preview), Text Blocks
+
+    2021 : Java 16–17 ⭐ (LTS)
+         : Records, Sealed Classes
+
+    2022 : Java 18–19
+         : Simple Web Server, Virtual Threads (Preview)
+
+    2023 : Java 20–21 ⭐ (LTS)
+         : Virtual Threads (Stable), Pattern Matching
+
+    2024+ : Java 22–24
+          : Foreign Memory API, String Templates, Performance
+```
