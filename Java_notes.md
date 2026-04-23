@@ -6316,3 +6316,29 @@ class LRUCache<K, V> extends LinkedHashMap<K, V> {
 
 
 ------
+
+##### 📊 Java Versions vs Features 
+
+| ☕ Java Version         | 📅 Release Year | 🚀 Key Features                                               |
+| ---------------------- | -------------- | ------------------------------------------------------------ |
+| **Java 5**             | 2004           | Generics, Enhanced for-loop, Autoboxing/Unboxing, Enums, Varargs |
+| **Java 6**             | 2006           | Performance improvements, JDBC 4.0, Scripting support        |
+| **Java 7**             | 2011           | Try-with-resources, Diamond operator (`<>`), Multi-catch, NIO.2 (File API) |
+| **Java 8** ⭐           | 2014           | Lambda Expressions, Functional Interfaces, Streams API, Default & Static methods, Date-Time API |
+| **Java 9**             | 2017           | Module System (JPMS), JShell, Private methods in interfaces  |
+| **Java 10**            | 2018           | `var` (Local variable type inference)                        |
+| **Java 11 (LTS)** ⭐    | 2018           | HTTP Client API, String methods (`isBlank()`, `lines()`), `var` in lambda |
+| **Java 12**            | 2019           | Switch expressions (Preview), JVM improvements               |
+| **Java 13**            | 2019           | Text Blocks (Preview), Switch improvements                   |
+| **Java 14**            | 2020           | Switch expressions (Standard), Records (Preview), Helpful NullPointerExceptions |
+| **Java 15**            | 2020           | Text Blocks (Standard), Sealed Classes (Preview)             |
+| **Java 16**            | 2021           | Records (Standard), Pattern Matching for `instanceof`        |
+| **Java 17 (LTS)** ⭐    | 2021           | Sealed Classes, Pattern Matching improvements, Strong encapsulation |
+| **Java 18**            | 2022           | Simple Web Server, UTF-8 by default                          |
+| **Java 19**            | 2022           | Virtual Threads (Preview), Structured Concurrency (Incubator) |
+| **Java 20**            | 2023           | Virtual Threads (2nd Preview), Pattern Matching enhancements |
+| **Java 21 (LTS)** ⭐    | 2023           | Virtual Threads (Stable), Record Patterns, Pattern Matching for switch |
+| **Java 22**            | 2024           | Foreign Function & Memory API (Preview), Unnamed variables   |
+| **Java 23**            | 2024           | String Templates (Preview), Scoped values                    |
+| **Java 24** *(Latest)* | 2025           | Performance improvements, ongoing preview feature stabilization |
+
