@@ -269,8 +269,6 @@ The wrapper class is an object class that encapsulates the primitive data types,
 
 _________________
 
-
-
 <div align="center">
     <h4>Class & Object </h4>
 </div>
