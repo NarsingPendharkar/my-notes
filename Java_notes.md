@@ -2202,9 +2202,138 @@ class C implements A, B {
 
 **Answer:** To avoid the **Diamond Problem**, where a child class may inherit the same method from multiple parent classes causing ambiguity.
 
----
+----
 
-## What is Polymorphism?
+# 💎 Diamond Problem in Java – Complete Notes
+
+------
+
+## 🧠 Definition
+
+The **Diamond Problem** occurs in **multiple inheritance** when a class inherits from two classes that have a **common parent**, causing ambiguity about **which method to use**.
+
+------
+
+## 🔷 Problem Visualization
+
+```mermaid
+classDiagram
+    A <|-- B
+    A <|-- C
+    B <|-- D
+    C <|-- D
+
+    class A{
+        +show()
+    }
+    class B{
+    }
+    class C{
+    }
+    class D{
+    }
+```
+
+------
+
+## ❗ Problem Explanation
+
+- Class **A** has method `show()`
+- Class **B** and **C** extend **A**
+- Class **D** extends both **B** and **C**
+- Now, if `D.show()` is called → ❓ **Which implementation?**
+
+👉 This creates **ambiguity (confusion)**
+
+------
+
+## ⚠️ Why Java Avoids It
+
+- Java **does NOT support multiple inheritance with classes**
+- This is to **avoid Diamond Problem at compile time**
+
+```java
+// ❌ Not allowed in Java
+class D extends B, C { }
+```
+
+------
+
+# ✅ How Java Solves Diamond Problem
+
+## 🔹 Using Interfaces (Java 8+)
+
+Java allows multiple inheritance via **interfaces**, but provides rules to resolve ambiguity.
+
+------
+
+## 🧪 Example
+
+```java
+interface A {
+    default void show() {
+        System.out.println("A show");
+    }
+}
+
+interface B {
+    default void show() {
+        System.out.println("B show");
+    }
+}
+
+class C implements A, B {
+
+    @Override
+    public void show() {
+        A.super.show(); // explicitly choosing
+    }
+}
+```
+
+------
+
+## 📌 Rules to Resolve Diamond Problem
+
+**1️⃣ Class has higher priority than Interface**
+
+- If a class provides method → it is used
+
+------
+
+**2️⃣ Child must override conflicting methods**
+
+```java
+class C implements A, B {
+    public void show() {
+        System.out.println("Resolved in C");
+    }
+}
+```
+
+------
+
+**3️⃣ Use `InterfaceName.super.method()`**
+
+```java
+A.super.show();
+B.super.show();
+```
+
+------
+
+**🔁 Real-Life Analogy**
+
+- Imagine:
+  - 👨 Father gives advice
+  - 👩 Mother gives advice
+  - 👦 Child gets confused → **which one to follow?**
+
+👉 That confusion = **Diamond Problem**
+
+----
+
+### What is Polymorphism?
 
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
