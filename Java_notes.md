@@ -1217,7 +1217,7 @@ String s2 = "helloworld";
 
 ------
 
-#### This Keyword
+#### 📌 `this` Keyword
 
 The `this` keyword refers to the **current instance of a class**.
 
@@ -1318,7 +1318,7 @@ public class Example {
 
 ------
 
-## Static Keyword
+#### 📌 `Static` Keyword
 
 The `static` keyword defines **class-level members**.
 
@@ -1329,17 +1329,17 @@ The `static` keyword defines **class-level members**.
 
 ------
 
-## 📌 Static Members
+**📌 Static Members**
 
-##### 📌 1️⃣ Static Variable
+#####  1️⃣ Static Variable
 
 - Shared among all instances
 
-##### 📌 2️⃣ Static Method
+#####  2️⃣ Static Method
 
 - Belongs to class
 
-##### 📌 3️⃣ Static Block
+#####  3️⃣ Static Block
 
 - Executes **when class loads**
 
@@ -1416,7 +1416,7 @@ public class Test {
 
 ------
 
-## Final Keyword
+#### `final` Keyword
 
 👉 `final` is used to **restrict modification**
 
@@ -1474,8 +1474,6 @@ class B extends A {} // ❌ Error
 <div align="center">
     <h3>◆◆◆ Garbage Collection ◆◆◆</h3>
 </div>
-
-
 ##### 📌 1. Overview
 - Garbage collection in Java is an automatic memory management process that helps Java programs run efficiently.
 - it is an automatic process that removes unused objects from heap.
