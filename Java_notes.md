@@ -2329,7 +2329,7 @@ B.super.show();
 
 ----
 
-#### What is Polymorphism?
+#### 📌 What is Polymorphism?
 
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
