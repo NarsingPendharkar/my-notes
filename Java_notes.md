@@ -1932,7 +1932,7 @@ The four pillars of Object-Oriented Programming (OOP) in are:
 
 ------
 
-##### 📌 What is Encapsulation?
+#### 📌 What is Encapsulation?
 
 **Encapsulation** is an **OOP principle** that means **wrapping data (variables) and code (methods) together into a single unit (class)** and restricting direct access to the data.
 
@@ -2010,7 +2010,7 @@ class BankAccount{
 
 ---
 
-##### 📌  What is Inheritance in Java?
+#### 📌  What is Inheritance in Java?
 
 **Inheritance** is an **Object-Oriented Programming (OOP)** concept where one class **acquires the properties and behaviors (fields and methods)** of another class.
 
@@ -2329,7 +2329,7 @@ B.super.show();
 
 ----
 
-### What is Polymorphism?
+#### What is Polymorphism?
 
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
@@ -2406,7 +2406,7 @@ public class Main {
 
 ---
 
-## What is Abstraction?
+### What is Abstraction?
 
 Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  It helps reduce complexity by focusing on what an object does rather than how it does it.
 
