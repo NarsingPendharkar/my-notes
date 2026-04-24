@@ -2859,7 +2859,7 @@ System.out.println(list); // Output: [A, B, A]
 
 ```java
 Queue<Integer> numLine = new LinkedList<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 5, 7, 3, 10]
-Queue<Integer> numPriority = new PriorityQueue<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 3, 7, 5, 10]
+Queue<Integer> numPriority = new PriorityQueue<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 3, 7, 5, 10] 
 Queue<Integer> dequeNum = new ArrayDeque<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 5, 7, 3, 10]
 
 System.out.println(numLine); // [1, 5, 7, 3, 10]
@@ -3354,33 +3354,125 @@ boolean allEven = nums.stream().allMatch(n -> n % 2 == 0);
 
 ##### 📌 **5) Default & Static Methods in Interfaces**
 
-- Java 8 allows **default method implementations** in interfaces.
-- Static methods can also be added.
-- Helps in **backward compatibility**.
+Java 8 introduced **default** and **static** methods in interfaces, allowing **concrete method implementations** inside interfaces without breaking existing code.
 
 ------
 
-##### 📌 **Default Method Example**
+##### Default Methods
+
+- Defined with the **`default` keyword**
+- Have a **full method body**
+- **Inherited** by implementing classes
+- **Can be overridden** by implementing classes
+- Used to add new behavior to interfaces **without forcing all implementors to change**
 
 ```java
-interface Vehicle {
-    default void start() {
-        System.out.println("Vehicle is starting");
+interface Greeting {
+    String name();
+
+    default void greet() {
+        System.out.println("Hello, " + name() + "!");
+    }
+}
+
+class Person implements Greeting {
+    private String personName;
+    Person(String name) { this.personName = name; }
+
+    @Override
+    public String name() { return personName; }
+}
+
+Person p = new Person("Alice");
+p.greet(); // Hello, Alice!
+```
+
+------
+
+##### Static Methods
+
+- Defined with the **`static` keyword**
+- Belong to the **interface itself**, not instances
+- **Cannot be inherited or overridden**
+- Called using the interface name: **`InterfaceName.method()`**
+- Used for **utility/helper logic** tied to the interface
+
+```java
+interface MathUtils {
+    static int square(int x) {
+        return x * x;
+    }
+}
+
+int result = MathUtils.square(5); // 25
+```
+
+------
+
+##### Comparison Table
+
+| Feature                  | Default Method    | Static Method       |
+| ------------------------ | ----------------- | ------------------- |
+| Has a body               | ✅                 | ✅                   |
+| Inherited by class       | ✅                 | ❌                   |
+| Can be overridden        | ✅                 | ❌                   |
+| Called on                | instance or class | interface name only |
+| `this` keyword available | ✅                 | ❌                   |
+
+------
+
+##### Diamond Problem
+
+If two interfaces have the **same default method**, the implementing class **must override** it to resolve the conflict.
+
+```java
+interface A {
+    default void hello() { System.out.println("Hello from A"); }
+}
+
+interface B {
+    default void hello() { System.out.println("Hello from B"); }
+}
+
+class C implements A, B {
+    @Override
+    public void hello() {
+        A.super.hello(); // explicitly pick one, or write custom logic
     }
 }
 ```
 
 ------
 
-##### 📌 **Static Method Example**
+##### When to Use
+
+| Method Type   | Use When                                                     |
+| ------------- | ------------------------------------------------------------ |
+| **`default`** | Adding new methods to an existing interface without breaking implementors |
+| **`static`**  | Writing utility/helper methods logically tied to the interface |
+
+------
+
+##### Real-World JDK Examples
 
 ```java
-interface MathUtil {
-    static int add(int a, int b) {
-        return a + b;
-    }
-}
+// Static method — Comparator.comparing()
+List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
+names.sort(Comparator.comparing(String::length));
+// Result: [Bob, Alice, Charlie]
+
+// Default method — Iterable.forEach()
+names.forEach(System.out::println);
 ```
+
+------
+
+##### Key Takeaways
+
+- Default methods solve the **backward compatibility** problem when evolving interfaces
+- Static methods keep **utility logic** encapsulated within the interface
+- If two interfaces conflict on a default method → **must override** in the implementing class
+- Use **`InterfaceName.super.method()`** to explicitly call a specific interface's default method
 
 ------
 
