@@ -3478,13 +3478,9 @@ names.forEach(System.out::println);
 
 ##### 📌 **6) Optional Class**
 
-##### 📌 **Definition**
-
 `Optional` is a container object used to represent **nullable values safely**.
 
-------
-
-##### 📌 **Why Use?**
+**Why Use?**
 
 - Avoids `NullPointerException`
 - Improves readability
@@ -3492,7 +3488,7 @@ names.forEach(System.out::println);
 
 ------
 
-##### 📌 **Creation Methods**
+**Creation Methods**
 
 ```java
 Optional<String> opt1 = Optional.of("Java");
@@ -3502,7 +3498,7 @@ Optional<String> opt3 = Optional.empty();
 
 ------
 
-##### 📌 **Common Methods**
+ **Common Methods**
 
 | Method        | Description                    |
 | ------------- | ------------------------------ |
@@ -3513,7 +3509,7 @@ Optional<String> opt3 = Optional.empty();
 
 ------
 
-##### 📌 **Example**
+ **Example**
 
 ```java
 Optional<String> name = Optional.ofNullable(null);
@@ -4092,7 +4088,7 @@ public class FutureExample {
 
 ##### 🔹 What is CompletableFuture?
 
-`CompletableFuture` is an advanced version of Future that supports:
+`CompletableFuture` is an advanced version of Future that supports. `CompletableFuture` **does not require** an `ExecutorService`. By default it uses the **`ForkJoinPool.commonPool()`** under the hood.
 
 ✅ Non-blocking
 ✅ Chaining
@@ -4236,9 +4232,11 @@ CompletableFuture.supplyAsync(() -> {
 
 #####  📌 **Locks in Java (`synchronized` vs `ReentrantLock`)**
 
+Java provides **two main ways to handle thread synchronization** — the built-in **`synchronized`** keyword and the more flexible **`ReentrantLock`** class from `java.util.concurrent.locks`, both used to prevent **race conditions** in multithreaded code.
+
 ------
 
-##### 📌 🔹 **1. `synchronized` (Basic Locking)**
+#####  🔹 **1. `synchronized` (Basic Locking)**
 
 ##### ✅ **Advantages**
 
@@ -4258,7 +4256,7 @@ CompletableFuture.supplyAsync(() -> {
 
 ------
 
-##### 📌 🔹 **2. `ReentrantLock` (Advanced Locking)**
+#####  🔹 **2. `ReentrantLock` (Advanced Locking)**
 
 ##### 📦 **Package**
 
@@ -4268,7 +4266,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 ------
 
-##### 📌 🔸 **Example**
+##### 🔸 **Example**
 
 ```java
 import java.util.concurrent.locks.ReentrantLock;
@@ -4293,14 +4291,14 @@ class Counter {
 
 ------
 
-##### 📌 🔹 **How It Works**
+#####  🔹 **How It Works**
 
 - Lock is **manually acquired and released**
 - Provides **more control than `synchronized`**
 
 ------
 
-##### 📌 ⭐ **Key Features of `ReentrantLock`**
+#####  ⭐ **Key Features of `ReentrantLock`**
 
 ------
 
