@@ -2406,7 +2406,7 @@ public class Main {
 
 ---
 
-### What is Abstraction?
+#### 📌 What is Abstraction?
 
 Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  It helps reduce complexity by focusing on what an object does rather than how it does it.
 
