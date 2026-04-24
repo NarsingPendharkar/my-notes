@@ -2204,17 +2204,17 @@ class C implements A, B {
 
 ----
 
-# 💎 Diamond Problem in Java – Complete Notes
+#### 💎 Diamond Problem in Java – Complete Notes
 
 ------
 
-## 🧠 Definition
+**🧠 Definition**
 
 The **Diamond Problem** occurs in **multiple inheritance** when a class inherits from two classes that have a **common parent**, causing ambiguity about **which method to use**.
 
 ------
 
-## 🔷 Problem Visualization
+**🔷 Problem Visualization**
 
 ```mermaid
 classDiagram
@@ -2236,7 +2236,7 @@ classDiagram
 
 ------
 
-## ❗ Problem Explanation
+**❗ Problem Explanation**
 
 - Class **A** has method `show()`
 - Class **B** and **C** extend **A**
@@ -2247,7 +2247,7 @@ classDiagram
 
 ------
 
-## ⚠️ Why Java Avoids It
+**⚠️ Why Java Avoids It**
 
 - Java **does NOT support multiple inheritance with classes**
 - This is to **avoid Diamond Problem at compile time**
@@ -2259,15 +2259,11 @@ class D extends B, C { }
 
 ------
 
-# ✅ How Java Solves Diamond Problem
+##### ✅ How Java Solves Diamond Problem
 
-## 🔹 Using Interfaces (Java 8+)
+**🔹 Using Interfaces (Java 8+)**
 
 Java allows multiple inheritance via **interfaces**, but provides rules to resolve ambiguity.
-
-------
-
-## 🧪 Example
 
 ```java
 interface A {
@@ -2293,7 +2289,7 @@ class C implements A, B {
 
 ------
 
-## 📌 Rules to Resolve Diamond Problem
+##### 📌 Rules to Resolve Diamond Problem
 
 **1️⃣ Class has higher priority than Interface**
 
