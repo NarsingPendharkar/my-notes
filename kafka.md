@@ -323,8 +323,7 @@ All consume the **same event independently**.
 
 #### Definition
 
-A **Kafka Cluster** is a **group of multiple Kafka brokers working together** to store and manage data streams.
-It provides **high availability, scalability, and fault tolerance**.
+A **Kafka Cluster** is a **group of multiple Kafka brokers working together** to store and manage data streams. It provides **high availability, scalability, and fault tolerance**.
 
 If one broker fails, another broker in the cluster can continue serving the data.
 

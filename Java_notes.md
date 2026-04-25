@@ -2654,6 +2654,167 @@ public class SetExamples {
 }
 ```
 
+##### 📌 What is the difference between Vector and ArrayList?
+
+| Feature             | ArrayList                      | Vector                     |
+| ------------------- | ------------------------------ | -------------------------- |
+| **Synchronization** | Not synchronized               | Synchronized (Thread-safe) |
+| **Performance**     | Faster                         | Slower                     |
+| **Legacy?**         | Modern (introduced in JDK 1.2) | Legacy (Before JDK 1.2)    |
+
+---
+
+✅ **Key Point:**  
+Use **ArrayList** unless **thread safety** is specifically required.
+
+---
+
+##### 📌 How do you sort a List in Java?
+
+- **Using Collections.sort()**
+
+```java
+List<Integer> numbers = Arrays.asList(4, 2, 8, 5);
+
+Collections.sort(numbers);
+
+System.out.println(numbers); // Output: [2, 4, 5, 8]
+```
+
+- **Using Comparator for custom sorting**
+
+```java
+List<Integer> numbers = Arrays.asList(4, 2, 8, 5);
+
+Collections.sort(numbers, (a, b) -> a - b);
+
+System.out.println(numbers); // Output: [2, 4, 5, 8]
+
+Collections.sort(numbers, (a, b) -> b - a); // Sort in descending order
+
+System.out.println(numbers); // Output: [8, 5, 4, 2]
+```
+
+### Map
+
+- **Definition**: A **Map** is a collection that maps keys to values. It cannot contain duplicate keys, and each key can map to at most one value.
+
+**Key Interfaces in Map**
+
+- **Map**: The main interface.
+- **SortedMap**: A Map that maintains its entries in ascending key order.
+- **NavigableMap**: A SortedMap that provides navigation methods for the keys.
+
+**Common Implementations**
+
+1. **HashMap**
+   - Stores elements in a hash table.
+   - Offers **O(1)** time complexity for basic operations like add, remove, and contains.
+   - Allows one null key and multiple null values.
+
+   ```java
+   HashMap<Integer, String> map = new HashMap<>();
+   map.put(1, "Apple");
+   map.put(2, "Banana");
+   ```
+
+2. **TreeMap**
+   - Implements the **SortedMap** interface.
+   - Stores elements in sorted order (based on the natural ordering of keys).
+   - Offers **O(log n)** time complexity for most operations.
+
+   ```java
+   TreeMap<Integer, String> treeMap = new TreeMap<>();
+   treeMap.put(3, "Cherry");
+   treeMap.put(1, "Apple");
+   ```
+
+3. **LinkedHashMap**
+   - Maintains a linked list of entries to keep the order of insertion.
+   - Provides predictable iteration order.
+
+   ```java
+   LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<>();
+   linkedHashMap.put(1, "Apple");
+   linkedHashMap.put(2, "Banana");
+   ```
+
+**Important Methods**
+
+- **put(key, value)**: Adds a key-value pair to the map.
+- **get(key)**: Retrieves the value associated with the specified key.
+- **remove(key)**: Removes the key and its corresponding value.
+- **containsKey(key)**: Checks if the map contains the specified key.
+- **size()**: Returns the number of key-value pairs in the map.
+- **keySet()**: Returns a Set view of the keys contained in the map.
+- **values()**: Returns a Collection view of the values contained in the map.
+- **entrySet()**: Returns a Set view of the mappings contained in the map.
+
+```java
+import java.util.HashMap;
+
+public class MapExample {
+    public static void main(String[] args) {
+        HashMap<Integer, String> students = new HashMap<>();
+        
+        // Adding elements
+        students.put(101, "Alice");
+        students.put(102, "Bob");
+        
+        // Accessing elements
+        System.out.println("Student 101: " + students.get(101));
+        
+        // Removing an element
+        students.remove(102);
+        
+        // Checking size
+        System.out.println("Total students: " + students.size());
+        
+        // Checking if a key exists
+        if (students.containsKey(101)) {
+            System.out.println("Student 101 is present.");
+        }
+        
+        // Iterating over keys
+        for (Integer key : students.keySet()) {
+            System.out.println("Key: " + key + ", Value: " + students.get(key));
+        }
+    }
+}
+```
+
+##### 📌 Iterating Over Maps
+
+- **Using for-each loop**:
+  ```java
+  for (Map.Entry<Integer, String> entry : map.entrySet()) {
+      System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+  }
+  ```
+
+- **Using Iterator**:
+  ```java
+  Iterator<Map.Entry<Integer, String>> iterator = map.entrySet().iterator();
+  while (iterator.hasNext()) {
+      Map.Entry<Integer, String> entry = iterator.next();
+      System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+  }
+  ```
+
+**Advantages of Using Maps**
+
+- **Fast Access**: Quick retrieval of values based on keys.
+- **Flexible Data Structure**: Can store complex data types as keys or values.
+- **No Duplicates**: Automatically handles duplicates through the key.
+
+**Use Cases**
+
+- **Counting Frequencies**: Useful for counting occurrences of items.
+- **Storing Configuration Values**: Can hold settings or options for applications.
+- **Database Representation**: Maps can represent rows in a database with column names as keys.
+
+---
+
 ##### 📌 What is the difference between HashMap, LinkedHashMap, and TreeMap?
 
 | Feature         | HashMap             | LinkedHashMap             | TreeMap                  |
@@ -2691,20 +2852,7 @@ public class MapExample {
 }
 ```
 
-##### 📌 What is the difference between Vector and ArrayList?
-
-| Feature             | ArrayList                      | Vector                     |
-| ------------------- | ------------------------------ | -------------------------- |
-| **Synchronization** | Not synchronized               | Synchronized (Thread-safe) |
-| **Performance**     | Faster                         | Slower                     |
-| **Legacy?**         | Modern (introduced in JDK 1.2) | Legacy (Before JDK 1.2)    |
-
----
-
-✅ **Key Point:**  
-Use **ArrayList** unless **thread safety** is specifically required.
-
----
+##### 
 
 ##### 📌 What is ConcurrentHashMap and how is it different from HashMap?
 
@@ -2772,34 +2920,6 @@ while(it.hasPrevious()) {
 
 ---
 
-##### 📌 How do you sort a List in Java?
-
-- **Using Collections.sort()**
-
-```java
-List<Integer> numbers = Arrays.asList(4, 2, 8, 5);
-
-Collections.sort(numbers);
-
-System.out.println(numbers); // Output: [2, 4, 5, 8]
-```
-
-
-
-- **Using Comparator for custom sorting**
-
-```java
-List<Integer> numbers = Arrays.asList(4, 2, 8, 5);
-
-Collections.sort(numbers, (a, b) -> a - b);
-
-System.out.println(numbers); // Output: [2, 4, 5, 8]
-
-Collections.sort(numbers, (a, b) -> b - a); // Sort in descending order
-
-System.out.println(numbers); // Output: [8, 5, 4, 2]
-```
-
 ##### 📌 Difference Between List, Set, Map, and Queue in Java
 
 | Feature                    | List                           | Set                                  | Map                              | Queue                                          |
@@ -2809,35 +2929,6 @@ System.out.println(numbers); // Output: [8, 5, 4, 2]
 | **Order Maintained?**      | ✅ Yes (insertion order)        | ❌ No (except LinkedHashSet)          | ❌ No (except LinkedHashMap)      | ✅ Depends (PriorityQueue sorts elements)       |
 | **Key Methods**            | add(), get(), remove(), set()  | add(), remove(), contains()          | put(), get(), remove(), keySet() | offer() – insert, poll(), peek() – return head |
 | **Implementation Classes** | ArrayList, LinkedList          | HashSet, TreeSet, LinkedHashSet      | HashMap, TreeMap, LinkedHashMap  | PriorityQueue, ArrayDeque, LinkedList          |
-
-##### 📌 List (Ordered, Allows Duplicates)
-
-- Maintains **insertion order**.
-- Can contain **duplicate elements**.
-- Provides **indexed access**.
-
-**Example using ArrayList:**
-```java
-List<String> list = new ArrayList<>();
-
-list.add("A");
-list.add("B");
-list.add("A"); // Duplicate allowed
-
-System.out.println(list); // Output: [A, B, A]
-```
-
-##### 📌 Set (Unique Elements, No Duplicates)
-
-- Does **NOT** allow duplicate elements.
-- No guaranteed order (**HashSet**), but **TreeSet** sorts elements.
-
----
-
-##### 📌 Map (Key-Value Pairs, Unique Keys)
-
-- Stores **key-value pairs** (`key -> value`).
-- **Keys** must be unique, **values** can be duplicate.
 
 ---
 
@@ -2855,7 +2946,7 @@ System.out.println(list); // Output: [A, B, A]
 | **PriorityQueue** | Sorted queue (natural order or custom comparator) |
 | **ArrayDeque**    | Double-ended queue (faster than LinkedList)       |
 
-**Example using Queue (FIFO using LinkedList):**
+**Example  (FIFO using LinkedList):**
 
 ```java
 Queue<Integer> numLine = new LinkedList<>(Arrays.asList(1, 5, 7, 3, 10)); // [1, 5, 7, 3, 10]
@@ -4971,58 +5062,7 @@ System.out.println(s.getName()));
 ```
 
 ```java
-public static List<Student> deserializeObject(File f)
-throws IOException, ClassNotFoundException {
 
-FileInputStream fileInput = new FileInputStream(f);
-
-ObjectInputStream [objectInput] = new
-ObjectInputStream(fileInput);
-
-List<Student> savedStudent = [(List<Student>)
-objectInput.readObject()];
-
-// System.out.println(savedStudent);
-
-return savedStudent;
-
-}
-
-public static void serializeObeject(File f) {
-
-try {
-
-if (f.exists()) {
-
-System.out.println("File created " + f.getAbsolutePath());
-
-FileOutputStream fout = new FileOutputStream(f);
-
-ObjectOutputStream objectoutput = new
-ObjectOutputStream(fout);
-
-List<Student> stds = Arrays.asList(new Student("Ram",
-"Delhi", LocalDate.of(1077, 15, 34), 18),
-
-new Student("Rupa", "Pune", LocalDate.of(1992, 07, 14), 25),
-
-new Student("Menar", "Jaipur", LocalDate.of(2034, 5, 9), 1));
-
-objectoutput.writeObject(stds);
-
-System.out.println("Student object Serialized !");
-
-}
-
-} catch (IOException e) {
-
-e.printStackTrace();
-
-}
-
-}
-
-}
 ```
 
 ##### 📌 1. Core Concepts & Definitions
@@ -5055,17 +5095,40 @@ graph LR
 2. **`ObjectInputStream`**: Uses `readObject()` to deserialize.
 
 ```java
-import java.io.*;
+public class SerializeDemo {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
+		File file = new File("Student.txt");
+		serializeObeject(file);
+		deserializeObject(file).stream().forEach(s -> System.out.println(s.getName()));
+	}
 
-class User implements Serializable {
-    private static final long serialVersionUID = 1L; // Recommended
-    String name;
-    transient String password; // Will NOT be serialized
+public static List<Student> deserializeObject(File f)
+	    throws IOException, ClassNotFoundException {
+ 	    FileInputStream fileInput = new FileInputStream(f);
+ 	    ObjectInputStream [objectInput] = new
+	        ObjectInputStream(fileInput);
+ 	    List<Student> savedStudent = [(List<Student>)
+	                                  objectInput.readObject()];
+ 	    // System.out.println(savedStudent);
+ 	    return savedStudent;
+ 	}
 
-    User(String name, String password) {
-        this.name = name;
-        this.password = password;
-    }
+	public static void serializeObeject(File f) {
+		try {
+			if (f.exists()) {
+				System.out.println("File created " + f.getAbsolutePath());
+				FileOutputStream fout = new FileOutputStream(f);
+				ObjectOutputStream objectoutput = new ObjectOutputStream(fout);
+				List<Student> stds = Arrays.asList(new Student("Ram", "Delhi", LocalDate.of(1077, 15, 34), 18),
+						new Student("Rupa", "Pune", LocalDate.of(1992, 07, 14), 25),
+						new Student("Menar", "Jaipur", LocalDate.of(2034, 5, 9), 1));
+				objectoutput.writeObject(stds);
+				System.out.println("Student object Serialized !");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
 ```
 
