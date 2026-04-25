@@ -2864,6 +2864,12 @@ public class MapExample {
 
 ✅ **Use `ConcurrentHashMap`** for **multi-threaded applications** to avoid synchronization issues that occur with `HashMap`.
 
+| Feature     | HashMap | Hashtable | ConcurrentHashMap |
+| ----------- | ------- | --------- | ----------------- |
+| Thread-safe | ❌       | ✅ (slow)  | ✅ (fast)          |
+| Locking     | None    | Full map  | Bucket-level      |
+| Performance | High    | Low       | High              |
+
 ##### 📌 Difference between Iterator and ListIterator
 
 Feature|	Iterator	|ListIterator
