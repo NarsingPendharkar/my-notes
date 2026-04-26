@@ -5584,100 +5584,87 @@ public class Singleton {
 - The Factory design pattern offers valuable advantages in encapsulating object creation.
 
 ```java
-interface Vehical {
-
-public void drive() ;
-
-}
-
-public class [Bike] implements Vehical {
-
- @Override
-
-public void drive() {
-
-System.out.println( "Bike is running ! ");
+public interface Vehical {
+    
+    public void drive();
 
 }
 
-}
+public class Bike implements Vehical {
 
-public class [Car] implements Vehical{
-
- @Override
-
-public void drive() {
-
-System.out.println( "Car is running ! ");
+    @Override
+    public void drive() {
+        System.out.println("Bike is running.....!");
+    }
 
 }
 
-}
+public class Car implements Vehical {
 
-public class [MainFactory] {
-
-public static void main(String [ ] args) {
-
-getVehicle( "car ").drive();
-
-}
-
-public static Vehical getVehicle(String type) {
-
-return type.equalsIgnoreCase( "car ") ? new Car() : new
-Bike();
+    @Override
+    public void drive() {
+        System.out.println("Car is running.....!");
+    }
 
 }
 
-}
+public class Main {
 
-public class MainFactory {
+    public static void main(String[] args) {
+        getVehicalObj("bike").drive();
+    }
 
-public static void main(String [ ] args) {
+    public static Vehical getVehicalObj(String type) {
+        if (type.equalsIgnoreCase("car")){
+            return new Car();
+        }
+        else if (type.equals("bike")){
+            return new Bike();
+        }
+        return new Car();
 
-getVehicle( "sfd ").drive();
-
-}
-
-public static Vehical getVehicle(String type) {
-
-if(type.equalsIgnoreCase( "car ")) {
-
-return new Car();
-
-}else if(type.equalsIgnoreCase( "truck ")) {
-
-return new Truck();
+    }
 
 }
-
-else{
-
-return new Bike();
-
-}
-
-}
-
-}
+// Bike is running.....!
 ```
 ##### 📌 3. Builder Design Pattern
 
-**Purpose:** Build complex objects step by step.
+**Purpose:** The **Builder Design Pattern** is a creational pattern used to build complex objects step-by-step. It is particularly useful when an object has many optional parameters or a complex initialization process, as it avoids the "Telescoping Constructor" anti-pattern (having too many constructor overloads).
  **Real-life example:** Building a custom PC or a complex meal.
 
 ```java
 class Meal {
+
     private String drink;
+
     private String mainCourse;
+
     public static class Builder {
+
         private String drink;
+
         private String mainCourse;
-        public Builder setDrink(String drink){this.drink=drink; return this;}
-        public Builder setMainCourse(String main){this.mainCourse=main; return this;}
-        public Meal build(){return new Meal(this);}
+
+        public Builder setDrink(String drink) {
+            this.drink = drink;
+            return this;
+        }
+
+        public Builder setMainCourse(String main) {
+            this.mainCourse = main;
+            return this;
+        }
+
+        public Meal build() {
+            return new Meal(this);
+        }
     }
-    private Meal(Builder b){drink=b.drink; mainCourse=b.mainCourse;}
+
+    private Meal(Builder b) {
+        drink = b.drink;
+        mainCourse = b.mainCourse;
+    }
 }
 ```
 
