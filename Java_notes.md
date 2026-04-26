@@ -5038,8 +5038,13 @@ try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecut
 >     
 > `private transient int age; // age won't be saved`
 
-![serialize-deserialize-java](./media/media/image22.png){width="4.756472003499563in"
-height="3.153846237970254in"}
+```mermaid
+flowchart LR
+    A[Java Object] -->|Serialization| B[Byte Stream]
+    B -->|Store / Transfer| C[File / Network]
+    C -->|Deserialization| D[Byte Stream]
+    D --> E[Java Object Restored]
+```
 
 Methods for Serializing and Deserializing an Object:
 
