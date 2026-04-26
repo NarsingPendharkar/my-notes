@@ -5016,7 +5016,7 @@ try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecut
 | **Blocking**    | Cheap           | Expensive        |
 | **Use Case**    | I/O Tasks       | CPU Tasks        |
 
-<div align="center"><h1>✦✦ Serialization ✦✦ </h1></div>
+<div align="center"><h3>✦✦ Serialization ✦✦ </h3></div>
 
 #####  📌 What is Serialization & Deserialization?
 
