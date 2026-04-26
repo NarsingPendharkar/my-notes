@@ -5201,16 +5201,14 @@ You can define private methods in your class to customize the serialization logi
 
 ---
 
-<div align="center"><h1>✦✦ Java File Handling ✦✦</h1></div>
+<div align="center"><h3>✦✦ Java File Handling ✦✦</h3></div>
 
-# 📌 File Handling in Java
+#### ✦ What is File Handling?
 
-## ✦ What is File Handling?
-
-##### 📌 ➤ Definition
 File handling in Java is the process of **creating, reading, writing, updating, and deleting files** using classes from `java.io` and `java.nio` packages.
 
-##### 📌 ➤ Why It is Required?
+ ➤ Why It is Required?
+
 - 🧠 Store data permanently
 - 🔄 Read/write data between program executions
 - 📂 Manage files and directories
@@ -5218,7 +5216,7 @@ File handling in Java is the process of **creating, reading, writing, updating, 
 
 ---
 
-## ✦ File Handling Classes & Their Uses
+#### ✦ File Handling Classes & Their Uses
 
 | Class            | Purpose                                          |
 | ---------------- | ------------------------------------------------ |
@@ -5233,7 +5231,7 @@ File handling in Java is the process of **creating, reading, writing, updating, 
 
 ---
 
-## ✦ Common File Handling Operations
+#### ✦ Common File Handling Operations
 
 ##### 📌 ➤ Create a File
 
@@ -5340,7 +5338,7 @@ if (file.exists()) {
 
 ------
 
-## ✦ Working with Binary Files
+#### ✦ Working with Binary Files
 
 ##### 📌 ➤ Read Binary Data
 
@@ -5433,7 +5431,7 @@ reader.close();
 
 ------
 
-## ✦ Exception Handling & Best Practices
+#### ✦ Exception Handling & Best Practices
 
 ##### 📌 ➤ Try-With-Resources (Recommended)
 
