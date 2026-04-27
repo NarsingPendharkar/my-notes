@@ -4768,8 +4768,6 @@ map.remove("user1");
 
 #####  📌 ForkJoinPool
 
-##### 🔹 Definition
-
 **ForkJoinPool** is a special thread pool for **parallel processing**.
 
 - Part of `ExecutorService`
@@ -4892,11 +4890,7 @@ public class Main {
 
 ------
 
-#####  📌 **Virtual Threads**
-
-------
-
-##### 📌 🔹 **Definition**
+####  📌 **Virtual Threads**
 
 **Virtual Threads** are lightweight threads introduced in **Java 21 (Project Loom)**.
 

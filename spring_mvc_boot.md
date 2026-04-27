@@ -364,7 +364,7 @@ public class PersonJavaBasedConfig {
 ```
 ---
 
-3. **Annotation-Based Configuration** (@Component, @Service, @Repository)
+3. **Annotation-Based Configuration** (`@Component, @Service, @Repository`)
 
 * Once **<context:annotation-config/>** is configured, you can start annotating your code to indicate that Spring should automatically wire values into properties, methods, and constructors
 
@@ -512,13 +512,13 @@ public class MainApplicationToRun
 | @Service       | Specifically for business logic/service layer              |
 | @Repository    | Used in the DAO layer and integrates exception translation |
 
-## **What is the difference between @Bean and @Component?**
+### **What is the difference between `@Bean` and `@Component`?**
 
 |  |  |  |
 | --- | --- | --- |
-| **Feature** | @**Bean** | @**Component** |
+| **Feature** | `@Bean` | `@Component` |
 | Usage | Method-Level | Class-Level |
-| Configuration Required | Yes (@Configuration) | No |
+| Configuration Required | Yes (`@Configuration`) | No |
 | Auto-Scanning | No | Yes |
 
 **Example : **
@@ -656,7 +656,7 @@ flowchart LR
 </bean>
 ```
 
-### Explain Model,ModelMap and ModelAndView in Spring MVC.
+### Explain Model, ModelMap and ModelAndView in Spring MVC.
 
 1. **Model** : it is used to pass information from controller to view using model object.
 
@@ -4874,19 +4874,38 @@ Reactive manages this automatically.
 
 ------
 
-## Idempotency
+### What is Idempotency?
 
-Idempotency is the property of certain operations in mathematics and computer science whereby they can be applied multiple times without changing the result beyond the initial application. In Java development, this is your primary defense against "double-action" bugs in distributed systems.
+In computer science and web development, **idempotency** means that an operation can be performed multiple times, but the resulting state of the system will be exactly the same as if it had been performed only once.
+
+Mathematically, it is expressed as $f(f(x)) = f(x)$. Applying the function multiple times doesn't change the end result.
+
+**A simple real-world analogy:**
+
+Think of a crosswalk button or an elevator button. You can press the button to call the elevator once, or you can mash it 50 times in a row out of impatience. The end result is the exact same: the system registers that you want the elevator. Pressing it multiple times doesn't make 50 elevators show up. That button is **idempotent**.
+
+------
+
+### Which HTTP Methods are NOT Idempotent?
+
+In REST APIs, methods that are not idempotent will change the server's state every single time you execute them.
+
+- **`POST` (Not Idempotent):** This is the classic non-idempotent method. If you send a `POST` request to `/orders` to buy a pair of shoes, the server creates a new order. If your phone loses network connection, automatically retries, and sends that exact same `POST` request 5 more times, you will accidentally buy 6 pairs of shoes. The state changes with every request.
+- **`PATCH` (Often Not Idempotent):** `PATCH` is used for partial updates. While it *can* be implemented idempotently, it is not guaranteed to be. For example, if your `PATCH` request tells the server to "increase the user's score by 10", sending that request 5 times will increase the score by 50.
 
 ------
 
-### 1. The Core Concept
+### Which HTTP Methods ARE Idempotent?
 
-- **Definition:** An operation is idempotent if its result stays the same regardless of how many times it is executed.
-- **Mathematical Property:** $f(x) = f(f(x))$
-- **The "Elevator Button" Analogy:** Pressing an elevator call button once turns the light on. Pressing it ten more times doesn't make the elevator arrive any faster or change the state of the light—it's already "Called."
+If a client sends these requests 1 time or 1,000 times, the final state of the database remains exactly the same.
 
-------
+- **`GET`:** Safe and idempotent. Fetching a user's profile 100 times does not change the profile.
+- **`PUT`:** Used to completely replace a resource. If you send a `PUT` request with a payload saying `{"name": "Alice", "age": 30}`, the first request updates the record. The next 99 identical requests just overwrite the record with the exact same data. The final state is still just Alice, age 30.
+- **`DELETE`:** If you send a request to `DELETE /users/123`, the first request deletes the user. If you send it again, the user is already gone. The system's state (User 123 does not exist) remains identical, even if the server replies with a `404 Not Found` instead of a `200 OK` on subsequent attempts.
+
+### Why does this matter?
+
+Networks are unreliable. Mobile phones drop signals, routers restart, and browsers time out. Because of this, clients (like web browsers or mobile apps) will often automatically retry requests that fail to get a response. If you use a non-idempotent method (like `POST`) for something that should be idempotent, those automatic retries will cause duplicate data, double-charged credit cards, and buggy applications.
 
 ### 2. HTTP Methods & Idempotency
 
@@ -4905,97 +4924,52 @@ When building REST APIs in Java (Spring Boot, Micronaut, Jakarta EE), you must r
 
 ------
 
-### 3. Strategy 1: The Idempotency Key (API Level)
+### Handling Idempotency
 
-This is the gold standard for handling `POST` requests in financial or order-based systems.
+### 1. Idempotency Keys (The API Shield)
 
-### How it works:
+This is the best approach for sensitive `POST` requests, like payments. The client and server agree to track a unique ID to prevent double-processing.
 
-1. **Client** generates a unique `Idempotency-Key` (UUID) and sends it in the header.
-2. **Server** checks a cache (like Redis) for that key.
-3. If the key exists, the server returns the **cached response** immediately.
-4. If not, the server processes the request, stores the result in the cache, and returns it.
+- **Client:** Generates a unique ID (UUID) and sends it in the header.
+- **Server:** Checks a fast cache (like Redis) for that ID.
+- **If found:** The server immediately returns the saved response.
+- **If new:** The server processes the request, saves the result in the cache, and replies.
 
-#### Java Implementation Snippet (Spring Boot Interceptor)
+> **Code Summary:** You typically intercept the request. If `redis.get(headerKey)` exists, stop and return it. Otherwise, let the request through.
 
-Java
+------
+
+### 2. Database Constraints (The Ultimate Safety Net)
+
+Your database is the final source of truth. You can force it to reject duplicates at the foundational level.
+
+- **Unique Constraints:** Set specific columns (like `transaction_id`) to be strictly unique.
+- **Upserting:** Tell the database to ignore duplicates rather than crashing.
+
+SQL
 
 ```
-@Component
-public class IdempotencyInterceptor implements HandlerInterceptor {
-    @Autowired
-    private RedisTemplate<String, String> redis;
-
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String key = request.getHeader("X-Idempotency-Key");
-        if (key == null) return true; // Or enforce it for specific endpoints
-
-        String cachedResponse = redis.opsForValue().get(key);
-        if (cachedResponse != null) {
-            response.getWriter().write(cachedResponse);
-            response.setStatus(200);
-            return false; // Stop further processing
-        }
-        return true;
-    }
-}
+-- Example Upsert
+INSERT INTO payments (order_id, amount) VALUES (123, 50.00) 
+ON CONFLICT (order_id) DO NOTHING;
 ```
 
 ------
 
-### 4. Strategy 2: Database Constraints
+### 3. Optimistic Locking (The Traffic Cop)
 
-The database is the ultimate "Source of Truth" for preventing duplicates.
+This prevents data corruption when two users try to update the exact same record at the exact same time.
 
-- **Unique Constraints:** Create a unique index on a business-logic-heavy column (e.g., `transaction_reference`).
-
-- **Upsert Logic:** Use SQL `ON CONFLICT` or `MERGE` statements.
-
-  SQL
-
-  ```
-  INSERT INTO payments (order_id, amount) 
-  VALUES (123, 50.00) 
-  ON CONFLICT (order_id) DO NOTHING;
-  ```
+- Add a `@Version` annotation to your JPA/Hibernate entity.
+- Hibernate automatically tracks this number.
+- If two updates hit the database simultaneously, the first one succeeds (and bumps the version). The second one fails with an `OptimisticLockException` because its version is now outdated.
 
 ------
 
-### 5. Strategy 3: Optimistic Locking (JPA/Hibernate)
+### 4. The Idempotent Consumer (The Message Filter)
 
-Used primarily to handle concurrent updates to the same resource.
+Message brokers like Kafka or RabbitMQ often accidentally deliver the same message twice ("at-least-once" delivery). You handle this using the **Inbox Pattern**.
 
-In your Java Entity, use the `@Version` annotation. Hibernate will automatically check if the version number in the database matches the version number the application has before committing an update.
-
-Java
-
-```
-@Entity
-public class UserAccount {
-    @Id
-    private Long id;
-
-    private BigDecimal balance;
-
-    @Version
-    private Long version; // Managed by Hibernate
-}
-```
-
-If two requests try to update the balance at the same time, the second one will throw an `OptimisticLockException`. You can catch this and safely inform the user or retry the read.
-
-------
-
-### 6. Strategy 4: The Idempotent Consumer (Messaging)
-
-In distributed systems using Kafka or RabbitMQ, "exactly-once" delivery is hard. "At-least-once" is common, leading to duplicate messages.
-
-### The "Inbox" Pattern:
-
-1. Store the ID of every processed message in a table (`processed_messages`).
-2. Wrap your message consumption in a transaction.
-3. Check the table before processing. If the ID exists, acknowledge the message and discard the duplicate.
-
-------
-
+- **Step 1:** Create a database table just to store the IDs of messages you have already processed.
+- **Step 2:** When a new message arrives, check this table first.
+- **Step 3:** If the ID is already there, ignore the message. If it's new, process it and save the ID.
