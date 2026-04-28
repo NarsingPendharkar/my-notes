@@ -3638,8 +3638,7 @@ public class UserService {
 ### How to disable CSRF in Spring Security?
 
 **Answer:**
-**CSRF (Cross-Site Request Forgery)** protection is enabled by default in Spring Security.
-However, for REST APIs, CSRF can be disabled as they don’t use cookies for authentication.
+**CSRF (Cross-Site Request Forgery)** protection is enabled by default in Spring Security. However, for REST APIs, CSRF can be disabled as they don’t use cookies for authentication.
 
 **Example :**  Disabling CSRF in Spring Security
 
@@ -4231,7 +4230,7 @@ spring.jpa.show-sql=true
 ### **3. DataSource Configuration**
 
 **What is DataSource?**
-Represents database connection pool Holds URL, username, password, driver Why @ConfigurationProperties? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
+Represents database connection pool Holds URL, username, password, driver Why `@ConfigurationProperties`? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
 
 ```java
 @Primary
@@ -4244,9 +4243,9 @@ public DataSource primaryDataSource() {
 
 Important Annotations Annotation
 
-- @Bean Creates Spring-managed bean 
-- @ConfigurationProperties Loads DB properties 
-- @Primary Default DataSource if no qualifier is used
+- `@Bean` Creates Spring-managed bean 
+- `@ConfigurationProperties` Loads DB properties 
+- `@Primary` Default DataSource if no qualifier is used
 
 ------------
 

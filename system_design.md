@@ -1,8 +1,7 @@
-## **SYSTEM DESIGN INTERVIEW HANDBOOK**
+## System Design Notes
 
-### System Design Notes
+System Design is the process of designing the architecture, components, and interfaces for a system so that it meets the end-user requirements.
 
-- **System Design**: System Design is the process of designing the architecture, components, and interfaces for a system so that it meets the end-user requirements.
 - **Key Concepts**:
   - **Architecture**: The overall structure of the system, including how different parts interact.
   - **Components**: Individual parts of a system that work together to perform specific functions.
@@ -26,6 +25,54 @@
   - Balancing functionality with performance and cost.
   - Adapting to changing user needs and technology advancements.
   - Ensuring security and data protection.
+
+---
+
+### 🗺️ High-Level Design (HLD)
+
+**HLD** focuses on the "Big Picture." It describes the overall architecture and how major services interact.
+
+- **Goal:** Define the system structure, data flow, and major components.
+- **Target Audience:** Architects, stakeholders, and senior developers.
+- **Key Components:**
+  - **Architecture:** Microservices vs. Monoliths.
+  - **Databases:** Choosing between SQL and NoSQL.
+  - **Communication:** Protocols (HTTP, WebSockets) and Message Queues (Kafka, RabbitMQ).
+  - **Scalability:** Load balancers, Caching (Redis/CDN), and Rate Limiting.
+- **Artifacts:** Architecture diagrams, data flow diagrams, and deployment diagrams.
+
+------
+
+### 🔍 Low-Level Design (LLD)
+
+**LLD** focuses on the "Internal Logic." It provides a detailed blueprint for developers to start coding.
+
+- **Goal:** Convert the HLD into a detailed implementation plan for individual modules.
+- **Target Audience:** Senior developers and programmers.
+- **Key Components:**
+  - **OOP Concepts:** Encapsulation, Inheritance, and Polymorphism.
+  - **Design Patterns:** Implementation of SOLID principles and specific patterns (e.g., Singleton, Strategy).
+  - **Data Structures:** Selecting appropriate structures for logic.
+  - **API Specs:** Precise request/response formats and error handling.
+  - **Database Schema:** Detailed table structures, indexes, and relationships.
+- **Artifacts:** UML Class diagrams, sequence diagrams, and pseudocode.
+
+------
+
+### 🚀 Steps to Approach a Design Problem
+
+1. **Clarify Requirements:** Understand functional (what it does) and non-functional (performance, latency) requirements.
+2. **Define Architecture:** Sketch the high-level flow (HLD).
+3. **Choose Tech Stack:** Select languages, frameworks, and databases based on needs.
+4. **Design Modules:** Break the system into smaller, manageable components (LLD).
+5. **Plan for Scalability:** Identify bottlenecks and add load balancing or sharding.
+6. **Ensure Security:** Implement authentication, encryption, and privacy measures.
+
+---
+
+
+
+
 
 
 

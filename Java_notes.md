@@ -3554,7 +3554,7 @@ class C implements A, B {
 
 ```java
 // Static method — Comparator.comparing()
-List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
+ 
 names.sort(Comparator.comparing(String::length));
 // Result: [Bob, Alice, Charlie]
 
@@ -3747,10 +3747,6 @@ public class Threading implements Runnable{
 ---
 
 #####  📌What is the Difference Between start() and run()?
-
-**Answer:**
-
---------------------------------------------------
 
 | Method      | Description                                         |
 | ----------- | --------------------------------------------------- |
