@@ -333,17 +333,17 @@ Easy updates
 - SQL → ACID
 - NoSQL → BASE
 
----
-
-### 🧠 Database Patterns
+----
 
 ### Sharding and Partitioning in System Design
 
-#### **Introduction**
+##### **Introduction**
 - **Sharding** and **Partitioning** are techniques used in database design to improve performance and manage large datasets.
 - Both methods help in distributing data across multiple servers or locations.
+- Database sharding is a technique for horizontal scaling of databases, where the data is split across multiple database instances, or shards, to improve performance and reduce the impact of large amounts of data on a single database.
 
-#### **Sharding**
+### **Sharding**
+
 - **Definition**: Sharding is the process of breaking a database into smaller, more manageable pieces called **shards**.
 - Each shard contains a subset of the data.
 - **Purpose**: To horizontally scale databases, which means adding more servers to handle increased load.
@@ -351,22 +351,39 @@ Easy updates
   - Data is divided based on a specific criterion (e.g., user ID, geographical location).
   - Each shard operates independently, allowing for faster read and write operations.
   
-#### **Benefits of Sharding**
+  ```mermaid
+  flowchart LR
+      Client --> Router
+      Router --> Shard1
+      Router --> Shard2
+      Router --> Shard3
+  ```
+  
+  
+##### **Benefits of Sharding**
 - **Improved Performance**: Reduces the load on a single database server, allowing for quicker response times.
 - **Scalability**: New shards can be added as data grows, making it easier to manage large amounts of information.
 - **Fault Isolation**: If one shard fails, the others remain operational, enhancing overall system reliability.
 
-#### **Challenges of Sharding**
+##### **Challenges of Sharding**
 - **Complexity**: Managing multiple shards can be complicated, requiring careful planning and execution.
 - **Data Distribution**: Uneven distribution of data across shards can lead to performance issues.
 - **Cross-Shard Queries**: Queries that need data from multiple shards can be slower and more complex to handle.
 
-#### **Partitioning**
+### **Partitioning**
 - **Definition**: Partitioning is the process of dividing a database into smaller, more manageable pieces called **partitions**.
 - Unlike sharding, partitions are typically stored on the same server.
 - **Types of Partitioning**:
   - **Horizontal Partitioning**: Rows of a table are divided into different partitions.
   - **Vertical Partitioning**: Columns of a table are divided into different partitions.
+  
+  ```mermaid
+  flowchart TB
+      Table --> P1["Rows 1-1000"]
+      Table --> P2["Rows 1001-2000"]
+      Table --> P3["Rows 2001-3000"]
+  ```
+  
   
 #### **Benefits of Partitioning**
 - **Efficient Data Management**: Makes it easier to manage large tables by breaking them into smaller sections.
