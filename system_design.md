@@ -177,13 +177,309 @@ sequenceDiagram
 
 ----
 
-**Summary Note:** Modern high-scale systems often use **Stateless Application Servers** combined with a **Stateful Database/Cache** (like Redis) to get the best of both worlds: easy scaling with persistent memory.
+## 🚀 Scalability
 
-##### **SCALABILITY**
+**Scalability** is a system’s ability to handle increasing workloads (users, data, or traffic) without a decline in performance. A scalable system expands resources rather than failing under pressure.
 
-Scalability is the ability of a system to handle increasing load by adding resources.
+- **Goal:** Maintain reliability, efficiency, and dependability during traffic spikes.
+- **Real-World Examples:** [Google](https://www.geeksforgeeks.org/system-design/what-is-scalability/) (search billions of queries), [Netflix](https://www.geeksforgeeks.org/system-design/what-is-scalability/) (streaming to millions via microservices), and [AWS](https://www.geeksforgeeks.org/system-design/what-is-scalability/) (on-demand cloud resources).
+
+#### Types of Scaling
+
+1. **Vertical Scaling (Scaling Up)**:
+   - **Definition:** Increasing the capacity of a single server.
+   - **Example:** Upgrading a server's CPU, RAM, or storage to improve performance.
+   - **Benefits:**
+     - Simplicity: Easy to implement as it involves upgrading existing hardware.
+     - No need for complex architecture changes.
+   - **Limitations:**
+     - Downtime: Often requires downtime during upgrades.
+     - Cost: Can become expensive as high-performance hardware is costly.
+     - Limits: There is a physical limit to how much a single server can be upgraded.
+
+2. **Horizontal Scaling (Scaling Out)**:
+   - Definition: Adding more servers to a system to handle increased load.
+   - Example: Deploying additional web servers behind a load balancer to distribute traffic.
+   - Benefits:
+     - Flexibility: Can easily add or remove servers as needed.
+     - Redundancy: Improved fault tolerance since the system can continue to operate if one server fails.
+     - Cost-Effectiveness: Often cheaper to add multiple lower-performance servers than to upgrade a single high-performance server.
+   - Limitations:
+     - Complexity: Requires more complex architecture and management.
+     - Consistency: Ensuring data consistency across multiple servers can be challenging.
+
+##### Key Concepts
+- **Load Balancer**: A device or software that distributes incoming network traffic across multiple servers.
+- **Fault Tolerance**: The ability of a system to continue functioning even when a component fails.
+- **Redundancy**: The inclusion of extra components that are not strictly necessary to functioning, to provide reliability.
+
+![image-20260428204311069](D:\GITLAB\my-notes\media\media\scalling)
+
+
+
+---
+
+## 📌 Database Design in System Design
+
+---
+
+### 🧠 Definition
+Database design is the process of organizing data to ensure:
+- Efficient storage 📦
+- Fast retrieval ⚡
+- Consistency 🔒
+- Scalability 📈
+
+---
+
+### 🧠 Types of Databases
+
+#### 🔹 Relational (SQL)
+- Tables (rows + columns)
+- Fixed schema
+- Supports relationships
+
+💡 Example: MySQL, PostgreSQL
+
+##### ✅ Use Case
+- Banking, Inventory
+
+---
+
+#### 🔹 Non-Relational (NoSQL)
+- Flexible schema
+- Document / Key-Value / Graph
+
+💡 Example: MongoDB, Cassandra
+
+##### ✅ Use Case
+- Social media, Big data
+
+---
+
+### ⚖️ SQL vs NoSQL
+
+| Feature | SQL | NoSQL |
+|--------|-----|------|
+| Structure | Tables | Flexible |
+| Schema | Fixed | Dynamic |
+| Scaling | Vertical | Horizontal |
+| Use Case | Transactions | Large-scale |
+
+---
+
+### 📌 Importance
+
+#### 🔹 Performance
+Fast queries
+
+#### 🔹 Scalability
+Handles growth
+
+#### 🔹 Data Integrity
+No duplicate/inconsistent data
+
+#### 🔹 Maintainability
+Easy updates
+
+---
+
+### 🧠 CAP Theorem
+
+> Cannot achieve all 3 together:
+- Consistency (C)
+- Availability (A)
+- Partition Tolerance (P)
+
+---
+
+#### 🔹 CP (Consistency + Partition)
+- Accurate data
+- Less availability
+
+💡 Banking systems
+
+---
+
+#### 🔹 AP (Availability + Partition)
+- Always responsive
+- Eventual consistency
+
+💡 Cassandra
+
+---
+
+#### 🔹 CA (Consistency + Availability)
+- No partition tolerance
+- Used in small systems
+
+---
+
+### 🧠 Choosing Database
+
+#### 🔹 Data Structure
+- SQL → Structured
+- NoSQL → Unstructured
+
+#### 🔹 Scalability
+- SQL → Vertical
+- NoSQL → Horizontal
+
+#### 🔹 Consistency vs Availability
+- SQL → Consistency
+- NoSQL → Availability
+
+#### 🔹 Transactions
+- SQL → ACID
+- NoSQL → BASE
+
+---
+
+### 🧠 Database Patterns
+
+### Sharding and Partitioning in System Design
+
+#### **Introduction**
+- **Sharding** and **Partitioning** are techniques used in database design to improve performance and manage large datasets.
+- Both methods help in distributing data across multiple servers or locations.
+
+#### **Sharding**
+- **Definition**: Sharding is the process of breaking a database into smaller, more manageable pieces called **shards**.
+- Each shard contains a subset of the data.
+- **Purpose**: To horizontally scale databases, which means adding more servers to handle increased load.
+- **How it Works**:
+  - Data is divided based on a specific criterion (e.g., user ID, geographical location).
+  - Each shard operates independently, allowing for faster read and write operations.
+  
+#### **Benefits of Sharding**
+- **Improved Performance**: Reduces the load on a single database server, allowing for quicker response times.
+- **Scalability**: New shards can be added as data grows, making it easier to manage large amounts of information.
+- **Fault Isolation**: If one shard fails, the others remain operational, enhancing overall system reliability.
+
+#### **Challenges of Sharding**
+- **Complexity**: Managing multiple shards can be complicated, requiring careful planning and execution.
+- **Data Distribution**: Uneven distribution of data across shards can lead to performance issues.
+- **Cross-Shard Queries**: Queries that need data from multiple shards can be slower and more complex to handle.
+
+#### **Partitioning**
+- **Definition**: Partitioning is the process of dividing a database into smaller, more manageable pieces called **partitions**.
+- Unlike sharding, partitions are typically stored on the same server.
+- **Types of Partitioning**:
+  - **Horizontal Partitioning**: Rows of a table are divided into different partitions.
+  - **Vertical Partitioning**: Columns of a table are divided into different partitions.
+  
+#### **Benefits of Partitioning**
+- **Efficient Data Management**: Makes it easier to manage large tables by breaking them into smaller sections.
+- **Improved Query Performance**: Queries can be faster since they may only need to access a specific partition instead of the entire table.
+- **Simplified Maintenance**: Backups and data migrations can be performed on partitions rather than the whole database.
+
+#### **Challenges of Partitioning**
+- **Complexity in Design**: Deciding how to partition data requires careful consideration of access patterns and data distribution.
+- **Potential for Inefficiency**: If partitions are not well-designed, it can lead to performance bottlenecks.
+
+#### **Key Concepts**
+- **Load Balancing**: Distributing workloads across multiple resources (servers, databases) to avoid overload on any single resource.
+- **Replication**: Creating copies of data across different servers to enhance availability and reliability.
+- **Consistency**: Ensuring that all copies of data are the same, which can be challenging in sharded and partitioned systems.
+- **Data Locality**: Keeping related data together to improve access speed and efficiency.
+
+#### **When to Use Sharding vs. Partitioning**
+- Use **Sharding** when:
+  - The database is too large for a single server.
+  - You need to improve performance for high-traffic applications.
+  - You want to isolate failures to specific shards.
+  
+- Use **Partitioning** when:
+  - You have large tables that need better management.
+  - You want to improve query performance without needing multiple servers.
+  - You need to simplify maintenance tasks like backups.
+
+------
+
+#### 🔹 CQRS
+
+```mermaid
+flowchart LR
+    Client -->|Write| CommandDB
+    Client -->|Read| QueryDB
+```
+
+##### ✅ Benefit
+
+- Separate read/write
+
+------
+
+#### 🔹 Normalization
+
+- Break into smaller tables
+
+##### 💡 Example
+
+```sql
+User(id, name)
+Product(id, name)
+Order(user_id, product_id)
+```
+
+------
+
+### ⚠️ Challenges
+
+#### 🔹 Data Redundancy
+
+💡 Solution: Normalization
+
+#### 🔹 Scalability
+
+💡 Solution: Sharding
+
+#### 🔹 Performance
+
+💡 Solution: Indexing
+
+#### 🔹 Security
+
+💡 Solution: Encryption
+
+------
+
+### 📌 Best Practices
+
+#### 🔹 Plan Design
+
+Identify entities
+
+#### 🔹 Use Normalization
+
+Avoid duplicates
+
+#### 🔹 Indexing
+
+```sql
+CREATE INDEX idx_email ON users(email);
+```
+
+#### 🔹 Use Keys
+
+- Primary
+- Foreign
+
+#### 🔹 Optimize Queries
+
+```sql
+SELECT * FROM orders WHERE user_id = 101;
+```
+
+#### 🔹 Plan Scalability
+
+- Sharding
+- Replication
+
+---
 
 ##### **AVAILABILITY**
+
 Availability = Uptime / (Uptime + Downtime)
 
 ##### **LATENCY VS THROUGHPUT**
