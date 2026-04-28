@@ -59,7 +59,7 @@ System Design is the process of designing the architecture, components, and inte
 
 ------
 
-### 🚀 Steps to Approach a Design Problem
+#### 🚀 Steps to Approach a Design Problem
 
 1. **Clarify Requirements:** Understand functional (what it does) and non-functional (performance, latency) requirements.
 2. **Define Architecture:** Sketch the high-level flow (HLD).
@@ -70,11 +70,114 @@ System Design is the process of designing the architecture, components, and inte
 
 ---
 
+### **Stateless** and **Stateful** systems
+
+------
+
+#### 1. Stateless Systems
+
+In a [stateless system](https://www.geeksforgeeks.org/system-design/stateless-and-stateful-systems-in-system-design/), the server does not store any information about the client session. Every request is treated as a completely new interaction.
+
+- **Key Logic:** The request must contain all the information necessary for the server to process it (e.g., a **JWT token** for authentication).
+- **Pros:** Highly scalable (any server can handle any request) and easy to recover from crashes.
+- **Cons:** Every request carries extra data (overhead), and the server may need to fetch data from a database repeatedly.
+
+**Example:** A **REST API** for a weather service. You send a zip code; the server gives you the temperature. It doesn't need to remember who you are to give that specific answer.
+
+##### Stateless Architecture Diagram
+
+Code snippet
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant LoadBalancer
+    participant Server_A
+    participant Server_B
+
+    Client->>LoadBalancer: Request 1 (Includes Token/Data)
+    LoadBalancer->>Server_A: Routes to Server A
+    Server_A-->>Client: Response 1
+    
+    Note over Client, Server_B: Next request can go anywhere
+    
+    Client->>LoadBalancer: Request 2 (Includes Token/Data)
+    LoadBalancer->>Server_B: Routes to Server B
+    Server_B-->>Client: Response 2
+```
+
+------
+
+#### 2. Stateful Systems
+
+A [stateful system](https://www.geeksforgeeks.org/system-design/stateless-and-stateful-systems-in-system-design/) remembers client data (the "state") from previous interactions.
+
+- **Key Logic:** The server maintains a "session" in its memory or a dedicated local store.
+- **Pros:** Better user experience for complex workflows and reduced data transfer per request (since the server already knows the context).
+- **Cons:** Harder to scale horizontally. If a specific server holds your "cart," you must stay connected to that server (**Sticky Sessions**), or the state must be synchronized across all servers.
+
+**Example:** An **Online Banking System** or a **Shopping Cart**. The server needs to remember that you logged in and what items you added to your cart three clicks ago.
+
+### Stateful Architecture Diagram
+
+Code snippet
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server_A
+    participant Storage
+
+    Client->>Server_A: Request 1 (Login)
+    Server_A->>Storage: Save Session Data
+    Server_A-->>Client: Session ID Created
+    
+    Note right of Server_A: Server A must handle future requests <br/> to access local session state.
+    
+    Client->>Server_A: Request 2 (Add to Cart + Session ID)
+    Server_A->>Storage: Update Session Data
+    Server_A-->>Client: Cart Updated
+```
+
+## 
 
 
 
+### Stateful vs Stateless Architecture
 
+- **Definition**:
+  - **Stateful Architecture**: Maintains the state of the application's data across multiple requests. The server remembers previous interactions with the user.
+  - **Stateless Architecture**: Does not retain any information about user sessions or past interactions. Each request from the client is treated independently.
+- **Key Characteristics**:
+  - **Stateful**:
+    - Requires **session management** to track user states.
+    - More resource-intensive due to storage of session information.
+    - Examples include applications with login sessions, shopping carts, and multiplayer games.
+  - **Stateless**:
+    - Each request contains all information needed to process it.
+    - Scalability is easier since servers do not need to remember user sessions.
+    - Examples include RESTful APIs and web services.
+- **Advantages**:
+  - **Stateful**:
+    - Provides a more personalized user experience as it keeps track of user actions.
+    - Useful in applications that require continuous interaction and data retention.
+  - **Stateless**:
+    - Simplifies server design as no session information needs to be managed.
+    - Easier to scale horizontally since any server can respond to any request.
+- **Disadvantages**:
+  - **Stateful**:
+    - Increased complexity in managing sessions and potential for resource exhaustion.
+    - More prone to issues when scaling, as state information must be synchronized.
+  - **Stateless**:
+    - May require more data to be sent with each request, potentially leading to increased bandwidth usage.
+    - Less capable of maintaining user-specific data without additional mechanisms.
+- **Use Cases**:
+  - **Stateful**: Online banking, social media sites, and applications with user-specific data.
+  - **Stateless**: Public APIs, microservices, and systems where quick response times are critical.
 
+----
+
+**Summary Note:** Modern high-scale systems often use **Stateless Application Servers** combined with a **Stateful Database/Cache** (like Redis) to get the best of both worlds: easy scaling with persistent memory.
 
 ##### **SCALABILITY**
 
