@@ -427,9 +427,7 @@ flowchart LR
 
 ------
 
-#### 🔹 Normalization
-
-- Break into smaller tables
+#### Database Normalization
 
 ##### 💡 Example
 
