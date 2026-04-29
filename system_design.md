@@ -427,15 +427,243 @@ flowchart LR
 
 ------
 
-#### Database Normalization
+#### Database Normalization 
 
-##### 💡 Example
+- **Definition of Database Normalization**: 
+  - The process of organizing data in a database to reduce redundancy and improve data integrity.
+- **Purpose of Normalization**:
+  - To eliminate **duplicate data**.
+  - To ensure data dependencies make sense.
+  - To simplify database structure.
+- **Key Concepts**:
+  - **Redundancy**: Unnecessary repetition of data.
+  - **Data Integrity**: Accuracy and consistency of data.
+  - **Relationships**: How different data entities relate to each other.
+- **Normalization Process**:
+  1. **Identify Data**: Gather all data that needs to be stored.
+  2. **Determine Relationships**: Understand how data elements relate.
+  3. **Apply Normalization Rules**: Follow steps to organize data.
+- **Normal Forms**:
+  - **First Normal Form (1NF)**:
+    - Ensures that each column contains atomic (indivisible) values.
+    - Each record must be unique.
+  - **Second Normal Form (2NF)**:
+    - Achieved when data is in 1NF and all non-key attributes are fully functional dependent on the primary key.
+    - Eliminates partial dependency.
+  - **Third Normal Form (3NF)**:
+    - Achieved when data is in 2NF and all attributes are dependent only on the primary key.
+    - Eliminates transitive dependency.
+- **Advantages of Normalization**:
+  - Reduces data duplication.
+  - Enhances data integrity.
+  - Simplifies data management.
+  - Improves query performance.
+- **Disadvantages of Normalization**:
+  - Can lead to complex queries.
+  - May require more joins, slowing down performance.
+  - Not always necessary for smaller databases.
+- **Common Normalization Techniques**:
+  - **Decomposition**: Breaking down tables into smaller, manageable pieces.
+  - **Projection**: Selecting only necessary columns from tables.
+  - **Dependency Analysis**: Identifying how attributes depend on each other.
+- **Denormalization**:
+  - The process of combining tables to improve read performance.
+  - Used in situations where read speed is prioritized over write speed.
+- **Use Cases for Normalization**:
+  - Ideal for transactional systems where data integrity is crucial.
+  - Commonly used in **Relational Database Management Systems (RDBMS)**.
+- **Normalization vs. Denormalization**:
+  - Normalization focuses on reducing redundancy; denormalization focuses on improving performance.
+- **Common Database Concepts Related to Normalization**:
+  - **Entity**: A thing or object in the database.
+  - **Attribute**: A characteristic or property of an entity.
+  - **Primary Key**: A unique identifier for a record in a table.
+  - **Foreign Key**: A field that links to the primary key of another table.
+- **Steps to Normalize a Database**:
+  1. Analyze the existing database structure.
+  2. Identify the primary keys for each table.
+  3. Remove repeating groups (1NF).
+  4. Eliminate partial dependencies (2NF).
+  5. Remove transitive dependencies (3NF).
 
-```sql
-User(id, name)
-Product(id, name)
-Order(user_id, product_id)
+------
+
+#### 💡 Why Normalization?
+
+| Problem Type   | Description                             |
+| -------------- | --------------------------------------- |
+| ❌ Redundancy   | Duplicate data stored multiple times    |
+| ❌ Update Issue | Need to update same data in many places |
+| ❌ Insert Issue | Cannot insert data without other data   |
+| ❌ Delete Issue | Deleting one record removes useful data |
+
+------
+
+##### 🚀 Example (Before Normalization)
+
+##### ❌ Unnormalized Table (0NF)
+
+| StudentID | StudentName | Course    | Instructor |
+| --------- | ----------- | --------- | ---------- |
+| 1         | Narsing     | Java, SQL | Ravi, Amit |
+| 2         | Rahul       | Python    | Suresh     |
+
+⚠️ Problems:
+
+- Multiple values in one column (Java, SQL)
+- Difficult to query
+- Data duplication
+
+------
+
+##### 📌 First Normal Form (1NF)
+
+Rule:
+
+- Each column must have **atomic (single) values**
+- No repeating groups
+
+##### ✅ Converted Table
+
+| StudentID | StudentName | Course | Instructor |
+| --------- | ----------- | ------ | ---------- |
+| 1         | Narsing     | Java   | Ravi       |
+| 1         | Narsing     | SQL    | Amit       |
+| 2         | Rahul       | Python | Suresh     |
+
+💡 Improvement:
+
+- No multiple values in a single column
+
+------
+
+##### 📌 Second Normal Form (2NF)
+
+Rule:
+
+- Must be in **1NF**
+- Remove **partial dependency**
+- Non-key attributes must depend on **full primary key**
+
+Problem:
+
+- StudentName depends only on StudentID, not on Course
+
+✅ Split Tables
+
+##### Student Table
+
+| StudentID | StudentName |
+| --------- | ----------- |
+| 1         | Narsing     |
+| 2         | Rahul       |
+
+##### Course Table
+
+| Course | Instructor |
+| ------ | ---------- |
+| Java   | Ravi       |
+| SQL    | Amit       |
+| Python | Suresh     |
+
+##### Student_Course Table
+
+| StudentID | Course |
+| --------- | ------ |
+| 1         | Java   |
+| 1         | SQL    |
+| 2         | Python |
+
+💡 Improvement:
+
+- Removed redundancy
+- Better structure
+
+------
+
+##### 📌 Third Normal Form (3NF)
+
+Rule:
+
+- Must be in **2NF**
+- Remove **transitive dependency**
+- Non-key attributes should depend only on primary key
+
+Example Problem:
+
+If Instructor has additional details:
+
+| Course | Instructor | InstructorPhone |
+| ------ | ---------- | --------------- |
+| Java   | Ravi       | 9999999999      |
+
+➡️ InstructorPhone depends on Instructor, not Course ❌
+
+------
+
+##### ✅ Final Tables (3NF)
+
+**Instructor Table**
+
+| Instructor | Phone      |
+| ---------- | ---------- |
+| Ravi       | 9999999999 |
+| Amit       | 8888888888 |
+| Suresh     | 7777777777 |
+
+**Course Table**
+
+| Course | Instructor |
+| ------ | ---------- |
+| Java   | Ravi       |
+| SQL    | Amit       |
+| Python | Suresh     |
+
+💡 Improvement:
+
+- No transitive dependency
+- Fully normalized
+
+------
+
+#### 🔁 Normalization Flow Diagram
+
+```mermaid
+flowchart LR
+    A[Unnormalized Data] --> B[1NF - Atomic Values]
+    B --> C[2NF - Remove Partial Dependency]
+    C --> D[3NF - Remove Transitive Dependency]
 ```
+
+------
+
+#### ⚖️ Summary Table
+
+| Normal Form | Key Rule                 | Goal                      |
+| ----------- | ------------------------ | ------------------------- |
+| 1NF         | Atomic values            | Remove repeating groups   |
+| 2NF         | Full dependency          | Remove partial dependency |
+| 3NF         | No transitive dependency | Clean relationships       |
+
+------
+
+⚠️ Important Points
+
+- Always identify **Primary Key**
+- Avoid storing **duplicate data**
+- Use **separate tables for relationships**
+- Normalization improves **consistency**, but too much can affect performance
+
+------
+
+🚀 Final Summary
+
+- 1NF → Clean structure
+- 2NF → Remove partial dependency
+- 3NF → Remove indirect dependency
+- Result → **Efficient, scalable, maintainable database**
+
+##### 
 
 ------
 
