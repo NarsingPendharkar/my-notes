@@ -6633,3 +6633,543 @@ timeline
     2024+ : Java 22–24
           : Foreign Memory API, String Templates, Performance
 ```
+
+
+
+
+
+# Generics — Complete Study Notes
+
+------
+
+## 1. What are Generics?
+
+Generics allow you to write **type-safe, reusable code** that works with different data types without sacrificing compile-time safety. Instead of writing separate logic for each type, you parameterise the type.
+
+**Without generics** — must write separate methods:
+
+```java
+int max(int a, int b) { ... }
+double max(double a, double b) { ... }
+```
+
+**With generics** — one method, any type:
+
+```java
+<T extends Comparable<T>> T max(T a, T b) { ... }
+```
+
+**Benefits:**
+
+- Compile-time type checking (catch errors early)
+- Eliminates unnecessary casting
+- Enables writing reusable algorithms and data structures
+- Code is more readable and maintainable
+
+------
+
+## 2. Generic Classes & Interfaces
+
+### Basic Generic Class
+
+```java
+class Box<T> {
+    private T value;
+
+    public Box(T value) { this.value = value; }
+    public T get() { return value; }
+}
+
+Box<String>  strBox = new Box<>("hello");
+Box<Integer> intBox = new Box<>(42);
+```
+
+### Multiple Type Parameters
+
+```java
+class Pair<A, B> {
+    public A first;
+    public B second;
+}
+
+Pair<String, Integer> p = new Pair<>();
+p.first = "age";
+p.second = 30;
+```
+
+### Generic Interface
+
+```java
+interface Repository<T, ID> {
+    T findById(ID id);
+    void save(T entity);
+    List<T> findAll();
+}
+
+class UserRepository implements Repository<User, Long> {
+    public User findById(Long id) { ... }
+    public void save(User user) { ... }
+    public List<User> findAll() { ... }
+}
+```
+
+### Naming Conventions
+
+| Letter | Stands for | Common use                   |
+| ------ | ---------- | ---------------------------- |
+| `T`    | Type       | General type parameter       |
+| `E`    | Element    | Collections (e.g. `List<E>`) |
+| `K`    | Key        | Maps (e.g. `Map<K, V>`)      |
+| `V`    | Value      | Maps (e.g. `Map<K, V>`)      |
+| `N`    | Number     | Numeric types                |
+| `R`    | Return     | Function return types        |
+
+------
+
+## 3. Generic Methods
+
+Type parameters are declared **before the return type**.
+
+```java
+// Static generic method
+public static <T> List<T> repeat(T item, int times) {
+    List<T> list = new ArrayList<>();
+    for (int i = 0; i < times; i++) list.add(item);
+    return list;
+}
+
+List<String> words = repeat("hi", 3);  // ["hi", "hi", "hi"]
+List<Integer> nums = repeat(0, 5);     // [0, 0, 0, 0, 0]
+// Generic utility method — swap two elements
+public static <T> void swap(T[] arr, int i, int j) {
+    T temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+```
+
+------
+
+## 4. Bounded Type Parameters
+
+Constraints that restrict what types are valid as type arguments.
+
+### Upper Bound — `extends`
+
+T must be the specified type **or a subtype** of it.
+
+```java
+// T must be Number or a subtype of Number
+<T extends Number> double sum(List<T> list) {
+    return list.stream().mapToDouble(Number::doubleValue).sum();
+}
+
+sum(new ArrayList<Integer>());  // ✓ Integer extends Number
+sum(new ArrayList<Double>());   // ✓ Double extends Number
+sum(new ArrayList<String>());   // ✗ compile error
+```
+
+### Multiple Bounds
+
+T can extend one class and implement multiple interfaces (class must come first).
+
+```java
+// T must extend Comparable AND implement Serializable
+<T extends Comparable<T> & Serializable> T min(T a, T b) {
+    return a.compareTo(b) <= 0 ? a : b;
+}
+```
+
+### Recursive Bound (Self-referential)
+
+```java
+// Used for Comparable — T can compare with itself
+<T extends Comparable<T>> T findMax(List<T> list) {
+    T max = list.get(0);
+    for (T item : list) {
+        if (item.compareTo(max) > 0) max = item;
+    }
+    return max;
+}
+```
+
+------
+
+## 5. Wildcards (`?`)
+
+A wildcard represents an **unknown type**. Used when flexibility about the type is needed.
+
+### Summary Table
+
+| Wildcard      | Syntax              | Accepts          | Read as  | Write?             |
+| ------------- | ------------------- | ---------------- | -------- | ------------------ |
+| Unbounded     | `List<?>`           | Any type         | `Object` | No (null only)     |
+| Upper bounded | `List<? extends T>` | T and subtypes   | `T`      | No                 |
+| Lower bounded | `List<? super T>`   | T and supertypes | `Object` | Yes (T or subtype) |
+
+### Unbounded — `<?>`
+
+Use when the type does not matter at all.
+
+```java
+void printAll(List<?> list) {
+    for (Object item : list) {
+        System.out.println(item);
+    }
+}
+// Works with List<String>, List<Integer>, List<Dog>, etc.
+```
+
+### Upper Bounded — `<? extends T>`
+
+Use when you want to **read** from a structure (producer).
+
+```java
+double sumAll(List<? extends Number> list) {
+    double total = 0;
+    for (Number n : list) total += n.doubleValue();
+    return total;
+}
+// Accepts List<Integer>, List<Double>, List<Float>
+```
+
+### Lower Bounded — `<? super T>`
+
+Use when you want to **write** into a structure (consumer).
+
+```java
+void addNumbers(List<? super Integer> list) {
+    list.add(1);
+    list.add(2);
+}
+// Accepts List<Integer>, List<Number>, List<Object>
+```
+
+### The PECS Principle
+
+> **P**roducer → `extends`  | **C**onsumer → `super`
+
+```java
+// Copy from src (producer) into dest (consumer)
+public static <T> void copy(List<? super T> dest, List<? extends T> src) {
+    for (T item : src) {
+        dest.add(item);
+    }
+}
+```
+
+------
+
+## 6. Type Inference
+
+The compiler can **infer** type arguments from context — you don't always need to specify them.
+
+```java
+// Diamond operator (Java 7+) — compiler infers Integer
+List<Integer> nums = new ArrayList<>();
+
+// Method call inference — compiler infers String
+List<String> words = Collections.emptyList();
+
+// Target typing in lambdas (Java 8+)
+List<String> filtered = list.stream()
+    .filter(s -> s.length() > 3)
+    .collect(Collectors.toList());
+```
+
+------
+
+## 7. Type Erasure
+
+Generics in Java are a **compile-time** feature only. At runtime, type parameters are erased and replaced by their bounds (or `Object` if unbounded).
+
+```java
+// At compile time:
+List<String>  strList = new ArrayList<>();
+List<Integer> intList = new ArrayList<>();
+
+// At runtime (after erasure), both become:
+List rawList = new ArrayList();
+```
+
+### What the compiler does
+
+1. Replaces all type parameters with their bounds (or `Object`)
+2. Inserts casts where necessary
+3. Generates bridge methods to preserve polymorphism
+
+### Consequences of Type Erasure
+
+```java
+// ✗ Cannot use instanceof with parameterised type
+if (list instanceof List<String>) { }  // compile error
+
+// ✗ Cannot create generic arrays
+T[] arr = new T[10];  // compile error
+
+// ✗ Cannot instantiate type parameters
+T obj = new T();  // compile error
+
+// ✗ Static fields cannot use class type parameter
+class Box<T> {
+    static T defaultValue;  // compile error
+}
+
+// ✗ Overloading on generic type alone is illegal
+void process(List<String> list) { }
+void process(List<Integer> list) { }  // same erasure — compile error
+```
+
+> **Note:** Only one `.class` exists for all parameterisations. `List<String>.class` and `List<Integer>.class` are both just `List.class`.
+
+------
+
+## 8. Invariance, Covariance & Contravariance
+
+### The Core Problem — Invariance
+
+Generics are **invariant** by default. Even if `Dog` extends `Animal`, `List<Dog>` is NOT a `List<Animal>`.
+
+```java
+List<Dog> dogs = new ArrayList<>();
+List<Animal> animals = dogs;  // ✗ compile error!
+```
+
+This is intentional. If it were allowed:
+
+```java
+animals.add(new Cat());  // would corrupt the dogs list!
+```
+
+### Arrays vs Generics
+
+Arrays are **covariant** (less safe):
+
+```java
+Dog[] dogs = new Dog[3];
+Animal[] animals = dogs;  // ✓ compiles
+animals[0] = new Cat();   // ✗ ArrayStoreException at runtime!
+```
+
+Generics catch this at **compile time**, which is safer.
+
+### Summary
+
+| Variance      | Meaning                                             | Java syntax              |
+| ------------- | --------------------------------------------------- | ------------------------ |
+| Invariant     | `List<Dog>` is NOT a `List<Animal>`                 | `List<T>`                |
+| Covariant     | Accept `List<Dog>` where `List<Animal>` is expected | `List<? extends Animal>` |
+| Contravariant | Accept `List<Animal>` where `List<Dog>` is expected | `List<? super Dog>`      |
+
+------
+
+## 9. Reifiable vs Non-Reifiable Types
+
+- **Reifiable** types have full type info at runtime: `List`, `List<?>`, `String`, `int[]`
+- **Non-reifiable** types lose info at runtime (erased): `List<String>`, `List<Integer>`, `T`
+
+This is why you cannot use generic types in certain runtime operations like `instanceof` checks or array creation.
+
+------
+
+## 10. Common Generic Utility Methods (Java)
+
+```java
+// Collections utility methods
+Collections.sort(List<T> list)
+Collections.sort(List<T> list, Comparator<? super T> c)
+Collections.min(Collection<? extends T> c)
+Collections.max(Collection<? extends T> c)
+Collections.unmodifiableList(List<? extends T> list)
+Collections.synchronizedList(List<T> list)
+Collections.frequency(Collection<?> c, Object o)
+Collections.disjoint(Collection<?> c1, Collection<?> c2)
+
+// Optional — wraps a possibly-absent value safely
+Optional<T> opt = Optional.of(value);
+Optional<T> empty = Optional.empty();
+opt.map(fn).orElse(defaultValue);
+```
+
+------
+
+## 11. Generics Across Languages
+
+| Language   | Syntax                            | Key notes                                             |
+| ---------- | --------------------------------- | ----------------------------------------------------- |
+| Java       | `List<T>`                         | Type erasure at runtime; wildcards for variance       |
+| Kotlin     | `List<T>`, `out T`, `in T`        | Declaration-site variance; `reified` in inline fns    |
+| C#         | `List<T>`, `out T`, `in T`        | **Reified** generics — type info preserved at runtime |
+| TypeScript | `Array<T>`, structural typing     | Erased at compile → JS; conditional types             |
+| C++        | `template<typename T>`            | Templates; fully instantiated at compile time         |
+| Rust       | `fn foo<T: Trait>()`              | Monomorphisation — separate code generated per type   |
+| Go         | `func Foo[T any](x T)` (Go 1.18+) | Type constraints via interfaces                       |
+
+------
+
+## 12. Advanced Topics
+
+### Generic Singleton Factory Pattern
+
+```java
+// Reuse a single stateless generic instance
+private static final Comparator<Object> EMPTY_COMP = (a, b) -> 0;
+
+@SuppressWarnings("unchecked")
+public static <T> Comparator<T> emptyComparator() {
+    return (Comparator<T>) EMPTY_COMP;
+}
+```
+
+### Recursive Generic Types
+
+```java
+// Builder pattern with generics for fluent API
+abstract class Builder<T, B extends Builder<T, B>> {
+    public B withName(String name) { ... return self(); }
+    protected abstract B self();
+    public abstract T build();
+}
+```
+
+### Bounded Wildcards in APIs — Design Tips
+
+- Use `<? extends T>` in **return types** and **input** when you only read
+- Use `<? super T>` in **parameters** when you write into a collection
+- Don't use wildcards in **public API return types** — forces awkward casting on callers
+- Prefer `List<T>` over `List<Object>` even when T is unknown — it's more type-safe
+
+------
+
+## 13. Quick-Reference Cheat Sheet
+
+### Declaration Forms
+
+```java
+// Generic class
+class Name<T> { }
+class Name<T, U> { }
+
+// Generic interface
+interface Repo<T> { }
+
+// Generic method
+<T> T method(T x) { }
+public static <T> void swap(T[] arr, int i, int j) { }
+
+// Upper bound
+<T extends SomeClass> 
+<T extends Interface1 & Interface2>
+
+// Wildcard — unbounded
+List<?>
+
+// Wildcard — upper bound (read / producer)
+List<? extends T>
+
+// Wildcard — lower bound (write / consumer)
+List<? super T>
+```
+
+### What You CANNOT Do in Java
+
+| Restriction                        | Example (illegal)                                |
+| ---------------------------------- | ------------------------------------------------ |
+| Instantiate type parameter         | `new T()`                                        |
+| Create generic array               | `new T[10]`                                      |
+| Use `instanceof` with generic type | `x instanceof List<String>`                      |
+| Static field with type parameter   | `static T value;`                                |
+| Overload on erased type alone      | `void f(List<String>)` + `void f(List<Integer>)` |
+| Throw or catch generic exception   | `catch (T e)`                                    |
+
+### PECS Quick Reminder
+
+```
+READ  from structure  →  <? extends T>  (producer)
+WRITE into structure  →  <? super T>    (consumer)
+BOTH read and write   →  <T>            (no wildcard)
+```
+
+## Wildcards in Generics
+
+Wildcards (`?`) in generics represent an **unknown type**. They're used when you want flexibility about which specific type a generic can accept.
+
+------
+
+### Types of Wildcards (Java example, but concept applies broadly)
+
+**1. Unbounded Wildcard — `<?>`**
+
+Accepts a collection of *any* type. Use when the type doesn't matter.
+
+```java
+void printList(List<?> list) {
+    for (Object item : list) {
+        System.out.println(item);
+    }
+}
+// Works with List<Integer>, List<String>, List<Dog>, etc.
+```
+
+------
+
+**2. Upper Bounded Wildcard — `<? extends T>`**
+
+Accepts `T` or any **subclass** of `T`. Use when you want to *read* from a structure.
+
+```java
+double sum(List<? extends Number> list) {
+    double total = 0;
+    for (Number n : list) total += n.doubleValue();
+    return total;
+}
+// Accepts List<Integer>, List<Double>, List<Float>
+```
+
+------
+
+**3. Lower Bounded Wildcard — `<? super T>`**
+
+Accepts `T` or any **superclass** of `T`. Use when you want to *write* into a structure.
+
+```java
+void addNumbers(List<? super Integer> list) {
+    list.add(1);
+    list.add(2);
+}
+// Accepts List<Integer>, List<Number>, List<Object>
+```
+
+------
+
+### The PECS Principle
+
+A handy rule for choosing the right wildcard:
+
+> **P**roducer → `extends` | **C**onsumer → `super`
+
+| Scenario         | Wildcard            | You can...                           |
+| ---------------- | ------------------- | ------------------------------------ |
+| Reading data out | `? extends T`       | Read as `T`, but not write           |
+| Writing data in  | `? super T`         | Write `T`, but read only as `Object` |
+| Both or neither  | `<T>` (no wildcard) | Read and write freely                |
+
+------
+
+### Why Use Wildcards?
+
+Without wildcards, generics are **invariant** — `List<Dog>` is *not* a `List<Animal>`, even if `Dog extends Animal`. Wildcards fix this:
+
+```java
+// ❌ Won't compile without wildcard
+void process(List<Animal> animals) { ... }
+process(new ArrayList<Dog>());  // Error!
+
+// ✅ Works with wildcard
+void process(List<? extends Animal> animals) { ... }
+process(new ArrayList<Dog>());  // Fine!
+```
+
+------
+
+Wildcards are most common in **Java** and **Kotlin**, but similar concepts exist in C# (`in`/`out` variance) and TypeScript (conditional types). Want me to show examples in a specific language?
