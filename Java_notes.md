@@ -3274,11 +3274,11 @@ list.stream()
 
 ------
 
-#### 📌 **4) Stream Operations**
+### 📌 **Stream Operations**
 
 ------
 
-##### 📌 **Intermediate Operations (Return Stream)**
+#### 📌 **Intermediate Operations (Return Stream)**
 
 - Intermediate operations are **lazy** and return a new stream.
 - Return another stream
@@ -3391,7 +3391,7 @@ List<Integer> flattenedList = listOfLists.stream()
 
 ------
 
-##### 📌 **Terminal Operations (End Stream)**
+#### 📌 **Terminal Operations (End Stream)**
 
 - Terminal operations **produce a result** and close the stream.
 - Produce final result/value
