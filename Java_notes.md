@@ -3397,6 +3397,7 @@ List<Integer> flattenedList = listOfLists.stream()
 - Produce final result/value
 - Trigger stream processing
 - Close the stream
+- Only one terminal operation can performed after terminal operation stream is closed.
 
 ------
 
