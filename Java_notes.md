@@ -3286,8 +3286,6 @@ list.stream()
 - we can chain multiple intermediate operations
 - Processing doesn't start immediately
 
-
-
 ------
 
 ##### **1. `filter(Predicate<T> predicate)`**
