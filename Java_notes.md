@@ -3216,7 +3216,7 @@ System.out.println(filteredNames); // [Mike]
 
 ------
 
-##### **Parallel Streams (Faster Processing)**
+#### **📌  Parallel Streams (Faster Processing)**
 
 - Use **`.parallelStream()`** to process elements in parallel.
 - Ideal for **large datasets** that benefit from multi-threading.
@@ -3224,7 +3224,7 @@ System.out.println(filteredNames); // [Mike]
 
 ------
 
-##### 📌 **Example**
+##### **Example**
 
 ```java
 List<String> names = Arrays.asList("John", "Jane", "Mike", "Alice", "Mark");
@@ -3238,7 +3238,7 @@ System.out.println(count); // Output: 2
 
 ------
 
-##### 📌 **Sequential Stream vs Parallel Stream**
+#### 📌 **Sequential Stream vs Parallel Stream**
 
 | Sequential Stream                | Parallel Stream             |
 | -------------------------------- | --------------------------- |
@@ -3249,7 +3249,7 @@ System.out.println(count); // Output: 2
 
 ------
 
-##### 📌 **map() vs flatMap()**
+#### 📌 **map() vs flatMap()**
 
 | map()                     | flatMap()                       |
 | ------------------------- | ------------------------------- |
@@ -3274,13 +3274,19 @@ list.stream()
 
 ------
 
-##### 📌 **4) Stream Operations**
+#### 📌 **4) Stream Operations**
 
 ------
 
 ##### 📌 **Intermediate Operations (Return Stream)**
 
-Intermediate operations are **lazy** and return a new stream.
+- Intermediate operations are **lazy** and return a new stream.
+- Return another stream
+- Lazy in nature
+- we can chain multiple intermediate operations
+- Processing doesn't start immediately
+
+
 
 ------
 
@@ -3387,7 +3393,10 @@ List<Integer> flattenedList = listOfLists.stream()
 
 ##### 📌 **Terminal Operations (End Stream)**
 
-Terminal operations **produce a result** and close the stream.
+- Terminal operations **produce a result** and close the stream.
+- Produce final result/value
+- Trigger stream processing
+- Close the stream
 
 ------
 
@@ -3448,7 +3457,7 @@ boolean allEven = nums.stream().allMatch(n -> n % 2 == 0);
 
 ------
 
-##### 📌 **5) Default & Static Methods in Interfaces**
+#### 📌 **5) Default & Static Methods in Interfaces**
 
 Java 8 introduced **default** and **static** methods in interfaces, allowing **concrete method implementations** inside interfaces without breaking existing code.
 
