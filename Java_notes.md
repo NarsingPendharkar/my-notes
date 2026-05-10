@@ -3058,11 +3058,9 @@ flowchart TD
 
 ---
 
-
-
 <div align="center"><h1>Java 8 Features</h1></div>
 
-##### 📌 **1) Lambda Expressions**
+#### 📌 **1) Lambda Expressions**
 
 - Introduced in **Java 8** for functional programming.
 - Acts as an **anonymous function** — no method name, return type, or access modifiers.
@@ -3139,11 +3137,12 @@ names.forEach(name -> System.out.println(name));
 
 ------
 
-##### 📌 **2) Functional Interfaces**
+#### 📌 **2) Functional Interfaces**
 
 - An interface with only **one abstract method**.
 - Annotated with **@FunctionalInterface** to indicate it's a functional interface.
 - Can have **default** and **static** methods in addition to the single abstract one.
+- Functional Interface = **Exactly ONE abstract method** (SAM → Single Abstract Method)
 
 ------
 
