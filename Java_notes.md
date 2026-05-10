@@ -3666,7 +3666,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 <div align="center"><h3>✦✦ Multithreading ✦✦</h3></div>
 
-#####  📌**What is Threads ?**
+####  📌**What is Threads ?**
 
 - Thread in java is a path or direction followed for its execution. Every program has one main thread.
 
@@ -3676,7 +3676,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 - Multithreading enables you to perform multiple tasks at a time
 
-#####  📌**What is Multithreading in Java?**
+####  📌**What is Multithreading in Java?**
 
 - Multithreading is the ability to execute multiple **threads** (lightweight subprocesses) **concurrently** in Java to improve performance.
 
@@ -3692,7 +3692,7 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 3.  Simplified modelling of asynchronous or parallel tasks
 
-##### Thread Life Cycle and States
+#### 📌 Thread Life Cycle and States
 
 A thread goes through several states:
 
@@ -3706,7 +3706,7 @@ A thread goes through several states:
 
 ---
 
-#####  📌What are the Different Ways to Create a Thread?
+####  📌What are the Different Ways to Create a Thread?
 
 - **Extending Thread class**
 
@@ -3738,7 +3738,7 @@ public class Threading implements Runnable{
 }
 ```
 
-#####  📌Why Prefer Runnable Over Thread?
+####  📌Why Prefer Runnable Over Thread?
 
 - Java supports **single inheritance**, so Runnable allows flexibility.
 
@@ -3746,7 +3746,7 @@ public class Threading implements Runnable{
 
 ---
 
-#####  📌What is the Difference Between start() and run()?
+####  📌What is the Difference Between start() and run()?
 
 | Method      | Description                                         |
 | ----------- | --------------------------------------------------- |
@@ -3783,19 +3783,17 @@ public class Threading implements Runnable{
 
 ---
 
-##### 📌 When would you use the wait and notify methods in your Java application ?
+#### 📌 When would you use the wait and notify methods in your Java application ?
 
 The "wait" and "notify" methods in Java are used to coordinate the execution of multiple threads. The "wait" method causes the current thread to wait until another thread calls the "notify" method, which signals that the waiting thread can continue its execution.
 
 ---
 
-#### **Runnable** &**Callable**
-
-In Java, **Runnable** and **Callable** are functional interfaces used to define tasks that can be executed concurrently by another thread. While they serve a similar purpose, **Callable** is an improved version of **Runnable** designed to handle more complex scenarios like returning results or throwing errors. 
+## **Runnable** & **Callable** 
 
 ------
 
-##### 1. Runnable Interface
+#### 📌 1. Runnable Interface
 
 The **Runnable** interface is the traditional way to execute a task in a separate thread. It is best for "fire-and-forget" tasks where you don't need a result back from the execution. 
 
@@ -3803,7 +3801,7 @@ The **Runnable** interface is the traditional way to execute a task in a separat
 - **Limitation**: It cannot return a value or propagate checked exceptions. Any exceptions must be handled within the `run()` method using a try-catch block.
 - **Example**: Simple background logging or UI updates. 
 
-##### 2. Callable Interface
+#### 📌 2. Callable Interface
 
 The **Callable** interface was introduced to overcome the limitations of Runnable. It is designed for tasks that perform a calculation or fetch data and need to return that result to the main thread. 
 
@@ -3816,7 +3814,7 @@ The **Callable** interface was introduced to overcome the limitations of Runnabl
 - **Use Runnable** for simple background tasks that don't need to report anything back to your main application.
 - **Use Callable** when you need a result from your parallel task (e.g., fetching data from a database or calculating a sum) or when you need robust error propagation. 
 
-##### 📌 **Difference Between Callable and Runnable**
+#### 📌 **Difference Between Callable and Runnable**
 
 | Feature           | Runnable    | Callable   |
 | ----------------- | ----------- | ---------- |
@@ -3828,7 +3826,7 @@ The **Callable** interface was introduced to overcome the limitations of Runnabl
 
 ---
 
-#####  📌What is volatile Keyword?
+####  📌What is volatile Keyword?
 
 The `volatile` keyword ensures that a **variable's value is always read from main memory**, avoiding **caching issues**. The "`volatile`" keyword in Java is used to indicate that a variable's value may be modified by multiple threads. It ensures that the value of the variable is always read from and written to the main memory instead of a local cache, which may result in stale values.
 
@@ -3851,7 +3849,66 @@ class VolatileExample {
 
 ---
 
-#####  📌What is Thread Synchronization?
+#### **📌What is Deadlock ?**
+
+- **Deadlock** in Java multithreading refers to a situation where two or more threads are blocked forever, waiting for each other to release resources.
+
+- **Conditions for Deadlock**:
+  - **Mutual Exclusion**: At least one resource must be held in a non-shareable mode.
+  - **Hold and Wait**: A thread holding at least one resource is waiting to acquire additional resources.
+  - **No Preemption**: Resources cannot be forcibly taken from threads holding them.
+  - **Circular Wait**: There exists a set of threads {T1, T2, …, Tn} such that T1 is waiting for a resource held by T2, T2 is waiting for a resource held by T3, and so on, with Tn waiting for a resource held by T1.
+
+- **Example of Deadlock**:
+  - Consider two threads, **Thread A** and **Thread B**.
+    - **Thread A** holds **Resource 1** and waits for **Resource 2**.
+    - **Thread B** holds **Resource 2** and waits for **Resource 1**.
+  - This creates a deadlock since neither thread can proceed.
+
+- **Code Example**:
+  ```java
+  class Resource {
+      public synchronized void method1(Resource resource) {
+          System.out.println(Thread.currentThread().getName() + " acquired " + this);
+          try { Thread.sleep(100); } catch (InterruptedException e) {}
+          resource.method2(this);
+      }
+  
+      public synchronized void method2(Resource resource) {
+          System.out.println(Thread.currentThread().getName() + " acquired " + this);
+      }
+  }
+  
+  public class DeadlockExample {
+      public static void main(String[] args) {
+          final Resource resource1 = new Resource();
+          final Resource resource2 = new Resource();
+  
+          Thread thread1 = new Thread(() -> resource1.method1(resource2), "Thread A");
+          Thread thread2 = new Thread(() -> resource2.method1(resource1), "Thread B");
+  
+          thread1.start();
+          thread2.start();
+      }
+  }
+  ```
+
+- **Prevention Strategies**:
+  - **Avoid Circular Wait**: Impose an order on resource acquisition.
+  - **Use a Timeout**: Allow threads to abort after a certain time.
+  - **Resource Allocation Graph**: Analyze resource allocation and detect cycles.
+
+- **Detection and Recovery**:
+  - Implement algorithms to detect deadlocks and recover by terminating or rolling back threads. 
+
+- **Best Practices**:
+  - Design algorithms to minimize resource contention.
+  - Keep synchronized blocks as short as possible.
+  - Use higher-level concurrency utilities from the **java.util.concurrent** package to avoid explicit lock management.
+
+---
+
+####  📌What is Thread Synchronization?
 
 Thread synchronization ensures that **only one thread** accesses a critical section (shared resource) at a time. In Java, the "**synchronized**" keyword is used to control access to critical sections of code, i.e., sections that should not be accessed by multiple threads simultaneously. This is because if multiple threads access the same piece of code concurrently, it can lead to race conditions and inconsistent behaviour.
 
@@ -3959,19 +4016,19 @@ public static void main(String[] args) throws InterruptedException {
 
 ----
 
-#####  📌 What is a Thread Pool?
+###  📌 What is a Thread Pool?
+
+A **thread pool** is a collection of **pre-created, reusable threads** that sit idle and wait for tasks. Instead of creating a new thread per task, you **submit the task to the pool** — an idle thread picks it up.
 
 👉 A **thread pool** = **group of worker threads** ready to perform tasks. it assign the task to the worker threads
 
-Instead of:
- ❌ Creating a new thread for every task (expensive)
+Instead of: ❌ Creating a new thread for every task (expensive)
 
-We use:
- ✅ A fixed set of threads that **reuse and execute tasks**
+We use: ✅ A fixed set of threads that **reuse and execute tasks**
 
 ------
 
-##### ⚙️ How It Works
+#### ⚙️ How It Works
 
 1. Thread pool is created with a fixed number of threads
 2. Tasks are submitted to a **queue**
@@ -3995,7 +4052,7 @@ flowchart TD
 
 ------
 
-#####  📌 Why Thread Pool is Important
+###  📌 Why Thread Pool is Important
 
 ##### ❌ Without Thread Pool
 
@@ -4028,7 +4085,137 @@ public class ThreadPoolExample {
 }
 ```
 
----
+------
+
+##### Creating Thread Pools — `Executors` Factory
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+```
+
+------
+
+**1. Fixed Thread Pool — most common**
+
+```java
+// always exactly 4 threads running
+ExecutorService pool = Executors.newFixedThreadPool(4);
+
+for (int i = 1; i <= 10; i++) {
+    int taskId = i;
+    pool.submit(() -> {
+        System.out.println("Task " + taskId + " by " + Thread.currentThread().getName());
+    });
+}
+
+pool.shutdown();
+Task 1  by pool-1-thread-1
+Task 2  by pool-1-thread-2
+Task 3  by pool-1-thread-3
+Task 4  by pool-1-thread-4
+Task 5  by pool-1-thread-1   ← thread-1 reused!
+Task 6  by pool-1-thread-2   ← thread-2 reused!
+```
+
+------
+
+**2. Cached Thread Pool — grows as needed**
+
+```java
+// creates threads on demand, reuses idle ones
+ExecutorService pool = Executors.newCachedThreadPool();
+
+// good for many short-lived tasks
+pool.submit(() -> System.out.println("Quick task"));
+pool.shutdown();
+```
+
+------
+
+**3. Single Thread Pool — one thread, sequential**
+
+```java
+// guarantees tasks run one after another in order
+ExecutorService pool = Executors.newSingleThreadExecutor();
+
+pool.submit(() -> System.out.println("Task 1"));
+pool.submit(() -> System.out.println("Task 2")); // always after Task 1
+pool.shutdown();
+```
+
+------
+
+**4. Scheduled Thread Pool — run after delay / repeat**
+
+```java
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+ScheduledExecutorService pool = Executors.newScheduledThreadPool(2);
+
+// run once after 3 seconds
+pool.schedule(() -> System.out.println("Delayed task"), 3, TimeUnit.SECONDS);
+
+// run every 2 seconds
+pool.scheduleAtFixedRate(() -> System.out.println("Repeated task"),
+        0, 2, TimeUnit.SECONDS);
+```
+
+------
+
+##### `submit()` vs `execute()`
+
+```java
+// execute — fire and forget, no return value
+pool.execute(() -> System.out.println("task"));
+
+// submit — returns Future to track result
+Future<Integer> future = pool.submit(() -> {
+    return 42;
+});
+
+int result = future.get(); // blocks until done → 42
+```
+
+------
+
+##### Shutdown — Always Required
+
+```java
+pool.shutdown();          // graceful — waits for running tasks to finish
+pool.shutdownNow();       // forceful — tries to stop all running tasks
+
+// wait max 10 seconds for termination
+pool.awaitTermination(10, TimeUnit.SECONDS);
+```
+
+------
+
+##### Comparison Table
+
+| Pool Type                   | Threads       | Best For                         |
+| --------------------------- | ------------- | -------------------------------- |
+| `newFixedThreadPool(n)`     | Fixed n       | CPU-bound tasks, controlled load |
+| `newCachedThreadPool()`     | Grows/shrinks | Many short-lived tasks           |
+| `newSingleThreadExecutor()` | Always 1      | Sequential ordered tasks         |
+| `newScheduledThreadPool(n)` | Fixed n       | Delayed or repeated tasks        |
+
+------
+
+##### Thread Pool vs Manual Threads
+
+|                 | **Manual Threads**    | **Thread Pool** |
+| --------------- | --------------------- | --------------- |
+| Thread creation | Every task            | Once at startup |
+| Memory usage    | High                  | Controlled      |
+| Performance     | Slow (create/destroy) | Fast (reuse)    |
+| Control         | None                  | Full            |
+| Risk            | 1000s of threads      | Capped          |
+
+------
+
+
 
 | Feature            | Future | CompletableFuture |
 | ------------------ | ------ | ----------------- |
@@ -4526,7 +4713,7 @@ Use `synchronized` by default, switch to `ReentrantLock` only when advanced feat
 
 ------
 
-#####  📌 Atomic Classes
+##  📌 Atomic Classes
 
 **Atomic Classes** are classes in Java that allow **thread-safe operations on single variables without using locks**.
 
