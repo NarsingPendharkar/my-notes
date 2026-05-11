@@ -6908,13 +6908,14 @@ To allow annotations in lambda parameters.
     ```
 
 - **`stripLeading()`**
+  
   - **Purpose**: Removes leading whitespace from a string.
   - **Example**:
     ```java
     String s = " Java ";
     System.out.println(s.stripLeading());
     ```
-
+  
 - **`stripTrailing()`**
   
   - **Purpose**: Removes trailing whitespace from a string.
@@ -6986,18 +6987,27 @@ These enhancements reflect Java's ongoing commitment to improving developer expe
   
 - **Example Usage:**
   ```java
-  HttpClient client = HttpClient.newHttpClient();
   
-  HttpRequest request = HttpRequest.newBuilder()
-          .uri(URI.create("https://example.com"))
-          .build();
+  public class Main {
+      public static void main(String[] args) {
+          // 1. Create the client
+          HttpClient client = HttpClient.newHttpClient();
   
-  HttpResponse<String> response =
-          client.send(request, HttpResponse.BodyHandlers.ofString());
+          // 2. Create the request
+          HttpRequest request = HttpRequest.newBuilder()
+                  .uri(URI.create("https://dummyjson.com/products"))
+                  .GET()
+                  .build();
   
-  System.out.println(response.body());
+          // 3. Send the request asynchronously (or use .send() for synchronous)
+          client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                  .thenApply(HttpResponse::body)
+                  .thenAccept(System.out::println)
+                  .join(); // Wait for completion
+      }
+  }
   ```
-
+  
 - **Flowchart:**
   ```mermaid
   flowchart LR
