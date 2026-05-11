@@ -1318,7 +1318,7 @@ It is located inside: `src/main/resources/application.properties`
 ##### Example:
 
 ~~~properties
-```properties
+
 # Server Configuration
 server.port=9090
 
