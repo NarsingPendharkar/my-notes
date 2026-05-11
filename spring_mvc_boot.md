@@ -1128,9 +1128,9 @@ public class DbInit {
 //The above example will first initialize UserRepository and then run the @PostConstruct method.
 ```
 
+----
 
-
-### **@PreDestroy **
+### **@*PreDestroy* **
 
 - Used to define cleanup operations before a bean is removed from the context.
 - Method annotated with **@PreDestroy** is called just before the bean is destroyed.
@@ -1141,23 +1141,25 @@ public class DbInit {
 - Similar restrictions to **@PostConstruct**:
   - Must be applied to methods.
   - Method must have no parameters and must not throw checked exceptions.
-
 - **Lifecycle of a Spring Bean**
   - **Creation**: Bean is instantiated.
   - **Dependency Injection**: Dependencies are injected into the bean.
   - **Post-Initialization**: Method annotated with **@PostConstruct** is invoked.
   - **Destruction**: Before the bean is destroyed, the method annotated with **@PreDestroy** is executed.
 
-- **Key Considerations**
-  - Both annotations are part of the **javax.annotation** package.
-  - They help manage the lifecycle of beans effectively.
-  - They are particularly useful in applications with complex initialization and cleanup requirements.
+```java
+@Component
+public class UserRepository {
 
-- **Spring Framework Context**
-  - Both annotations are integral to the **Spring Framework**'s management of bean lifecycles.
-  - Support the **Inversion of Control (IoC)** principle by automating initialization and destruction processes.
+    private DbConnection dbConnection;
+    @PreDestroy
+    public void preDestroy() {
+        dbConnection.close();
+    }
+}Copy
+```
 
-  
+The purpose of this method should be to release resources or perform other cleanup tasks, such as closing a database connection, before the bean gets destroyed.
 
 ---
 
