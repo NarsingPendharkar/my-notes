@@ -6830,23 +6830,9 @@ timeline
 
 ----
 
-# Features of Java 11
+### Features of Java 11
 
-### Introduction
-
-Java 11 was released in **September 2018** and is an **LTS (Long Term Support)** version of Java.
-
-Why important?
-
-- Many companies still use Java 11 in production
-- Stable version after Java 8
-- Frequently asked in interviews:
-  - Difference between Java 8 vs Java 11
-  - New features introduced in Java 11
-
-------
-
-### Major Features of Java 11
+##### Major Features of Java 11
 
 | Feature                          | Purpose                |
 | -------------------------------- | ---------------------- |
