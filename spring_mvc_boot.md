@@ -1099,6 +1099,68 @@ return "Login";
 
 ---
 
+### **@PostConstruct **
+
+- Used in **Spring Boot** for method execution after dependency injection.
+- Method annotated with **@PostConstruct** runs once the bean properties have been set.
+- Ensures that the bean is fully initialized and ready for use.
+- Common use cases include:
+  - Initialization tasks (e.g., loading data).
+  - Setting up necessary resources (e.g., opening connections).
+- Can only be applied to methods, not to fields.
+- Method must have no parameters and must not throw checked exceptions.
+- Can be used on **singleton** and **prototype** scoped beans.
+
+```java
+@Component
+public class DbInit {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostConstruct
+    private void postConstruct() {
+        User admin = new User("admin", "admin password");
+        User normalUser = new User("user", "user password");
+        userRepository.save(admin, normalUser);
+    }
+}
+//The above example will first initialize UserRepository and then run the @PostConstruct method.
+```
+
+
+
+### **@PreDestroy **
+
+- Used to define cleanup operations before a bean is removed from the context.
+- Method annotated with **@PreDestroy** is called just before the bean is destroyed.
+- Useful for releasing resources or performing any necessary cleanup tasks.
+- Common use cases include:
+  - Closing connections (e.g., database or network).
+  - Releasing any held resources (e.g., file handles).
+- Similar restrictions to **@PostConstruct**:
+  - Must be applied to methods.
+  - Method must have no parameters and must not throw checked exceptions.
+
+- **Lifecycle of a Spring Bean**
+  - **Creation**: Bean is instantiated.
+  - **Dependency Injection**: Dependencies are injected into the bean.
+  - **Post-Initialization**: Method annotated with **@PostConstruct** is invoked.
+  - **Destruction**: Before the bean is destroyed, the method annotated with **@PreDestroy** is executed.
+
+- **Key Considerations**
+  - Both annotations are part of the **javax.annotation** package.
+  - They help manage the lifecycle of beans effectively.
+  - They are particularly useful in applications with complex initialization and cleanup requirements.
+
+- **Spring Framework Context**
+  - Both annotations are integral to the **Spring Framework**'s management of bean lifecycles.
+  - Support the **Inversion of Control (IoC)** principle by automating initialization and destruction processes.
+
+  
+
+---
+
 ### Spring Framework vs Spring Boot 
 
 | Feature / Aspect              | Spring Framework                                             | Spring Boot                                                  |

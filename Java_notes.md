@@ -6828,9 +6828,1238 @@ timeline
           : Foreign Memory API, String Templates, Performance
 ```
 
+----
+
+# Features of Java 11
+
+### Introduction
+
+Java 11 was released in **September 2018** and is an **LTS (Long Term Support)** version of Java.
+
+Why important?
+
+- Many companies still use Java 11 in production
+- Stable version after Java 8
+- Frequently asked in interviews:
+  - Difference between Java 8 vs Java 11
+  - New features introduced in Java 11
+
+------
+
+### Major Features of Java 11
+
+| Feature                          | Purpose                |
+| -------------------------------- | ---------------------- |
+| `var` in lambda parameters       | Cleaner lambda syntax  |
+| New String methods               | Better string handling |
+| New File methods                 | Easy file read/write   |
+| HTTP Client API                  | Modern HTTP requests   |
+| Running Java without compilation | Quick execution        |
+| Collection enhancements          | Utility methods        |
+| Optional improvements            | Easier null handling   |
+| Removal of Java EE modules       | Cleaner JDK            |
+
+------
+
+# 1. `var` in Lambda Parameters
+
+Before Java 11:
+
+```java
+(a, b) -> a + b
+```
+
+Java 11:
+
+```java
+(var a, var b) -> a + b
+```
+
+Example:
+
+```java
+List<String> names = List.of("A", "B");
+
+names.forEach((var name) -> System.out.println(name));
+```
+
+### Why introduced?
+
+To allow annotations in lambda parameters.
+
+```java
+(@NotNull var name) -> System.out.println(name)
+```
+
+------
+
+# 2. New String Methods
+
+------
+
+### `isBlank()`
+
+Checks whether string is empty or contains only spaces.
+
+```java
+String s = "   ";
+System.out.println(s.isBlank());
+```
+
+Output:
+
+```java
+true
+```
+
+------
+
+### `lines()`
+
+Converts string into stream of lines.
+
+```java
+String text = "Java\nSpring\nKafka";
+
+text.lines().forEach(System.out::println);
+```
+
+------
+
+### `strip()`
+
+Removes leading/trailing whitespace (Unicode aware)
+
+```java
+String s = " Java ";
+System.out.println(s.strip());
+```
+
+------
+
+### `stripLeading()`
+
+```java
+String s = " Java ";
+System.out.println(s.stripLeading());
+```
+
+------
+
+### `stripTrailing()`
+
+```java
+String s = " Java ";
+System.out.println(s.stripTrailing());
+```
+
+------
+
+### `repeat()`
+
+Repeats string multiple times.
+
+```java
+System.out.println("Hi ".repeat(3));
+```
+
+Output:
+
+```java
+Hi Hi Hi
+```
+
+------
+
+# 3. New File Methods
+
+Java 11 introduced easier file handling.
+
+------
+
+### `Files.writeString()`
+
+```java
+Path path = Path.of("test.txt");
+
+Files.writeString(path, "Hello Java 11");
+```
+
+------
+
+### `Files.readString()`
+
+```java
+String data = Files.readString(path);
+System.out.println(data);
+```
+
+------
+
+### Benefits
+
+- Less boilerplate code
+- Easier than `BufferedReader`
+
+------
+
+# 4. HTTP Client API (Standard)
+
+Before Java 11:
+
+Used:
+
+- `HttpURLConnection`
+- Apache HttpClient
+- Third-party libraries
+
+Java 11 introduced built-in:
+
+```java
+java.net.http.HttpClient
+```
+
+Example:
+
+```java
+HttpClient client = HttpClient.newHttpClient();
+
+HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("https://example.com"))
+        .build();
+
+HttpResponse<String> response =
+        client.send(request, HttpResponse.BodyHandlers.ofString());
+
+System.out.println(response.body());
+```
+
+------
+
+### Flow
+
+```mermaid
+flowchart LR
+A[Create Client]
+--> B[Create Request]
+--> C[Send Request]
+--> D[Get Response]
+```
+
+------
+
+# 5. Run Java File Without Compilation
+
+Before:
+
+```bash
+javac Test.java
+java Test
+```
+
+Java 11:
+
+```bash
+java Test.java
+```
+
+Direct execution without manual compilation.
+
+Useful for:
+
+- Scripts
+- Quick testing
+
+------
+
+# 6. Optional Enhancements
+
+### `isEmpty()`
+
+```java
+Optional<String> op = Optional.empty();
+
+System.out.println(op.isEmpty());
+```
+
+Output:
+
+```java
+true
+```
+
+------
+
+# 7. Collection to Array
+
+```java
+List<String> list = List.of("A","B","C");
+
+String[] arr = list.toArray(String[]::new);
+```
+
+Cleaner conversion.
+
+------
+
+# 8. Nest-Based Access Control
+
+Improved access between nested classes.
+
+Before Java 11:
+Compiler created synthetic bridge methods.
+
+Java 11:
+Direct access allowed.
+
+```java
+class Outer {
+    private int x = 10;
+
+    class Inner {
+        void show() {
+            System.out.println(x);
+        }
+    }
+}
+```
+
+Performance improvement.
+
+------
+
+# 9. Removed Modules
+
+Java removed old Java EE modules:
+
+- JAXB
+- JAX-WS
+- CORBA
+
+Reason:
+
+Not commonly used.
+
+Now use external dependencies.
+
+------
+
+# 10. Flight Recorder
+
+Java Flight Recorder became open-source.
+
+Used for:
+
+- Monitoring
+- Performance tuning
+- Production debugging
+
+------
+
+# Java 8 vs Java 11
+
+| Java 8                  | Java 11                 |
+| ----------------------- | ----------------------- |
+| Basic String methods    | Advanced String methods |
+| No built-in HTTP client | Built-in HTTP client    |
+| Manual compile/run      | Direct execution        |
+| Older file handling     | readString/writeString  |
+| No `Optional.isEmpty()` | Available               |
+
+------
+
+# Important Interview Questions
+
+### Why Java 11 is popular?
+
+Because it is LTS and widely used in enterprise projects.
+
+------
+
+### Difference between `trim()` and `strip()`?
+
+```
+trim()
+```
+
+- Removes basic whitespace
+
+```
+strip()
+```
+
+- Unicode-aware whitespace removal
+
+------
+
+### Why HTTP Client API important?
+
+It replaced outdated `HttpURLConnection`.
+
+----
+
+### `instanceof` in Java
+
+#### Definition
+
+`instanceof` is a **Java operator** used to check whether an object belongs to a particular:
+
+- Class
+- Subclass
+- Interface
+
+It returns:
+
+- `true` → object is of that type
+- `false` → object is not of that type
+
+```java
+object instanceof ClassName
+```
+
+------
+
+### Why do we need `instanceof`?
+
+Sometimes we store objects in:
+
+- `Object`
+- Parent class reference
+- Collection of mixed objects
+
+Before type casting, we need to verify the actual object type to avoid runtime errors.
+
+Without checking:
+
+```java
+Object obj = "Hello";
+
+Integer num = (Integer) obj;   // Runtime Exception
+```
+
+Output:
+
+```java
+ClassCastException
+```
+
+Using `instanceof` makes casting safer.
+
+------
+
+### Basic Example
+
+```java
+class Animal {}
+
+class Dog extends Animal {}
+
+public class Test {
+    public static void main(String[] args) {
+
+        Animal a = new Dog();
+
+        System.out.println(a instanceof Dog);      // true
+        System.out.println(a instanceof Animal);   // true
+        System.out.println(a instanceof Object);   // true
+    }
+}
+```
+
+#### Why all are true?
+
+Because:
+
+```mermaid
+flowchart TD
+    Object --> Animal
+    Animal --> Dog
+```
+
+`Dog` object inherits from:
+
+- Dog
+- Animal
+- Object
+
+So JVM returns `true`.
+
+------
+
+### Example where it returns false
+
+```java
+class Animal {}
+class Dog extends Animal {}
+class Cat extends Animal {}
+
+public class Test {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+
+        System.out.println(a instanceof Cat);
+    }
+}
+```
+
+Output:
+
+```java
+false
+```
+
+Because `Dog` is not a `Cat`.
+
+------
 
 
 
+# Features of Java 17
+
+### Introduction
+
+Java 17 was released in **September 2021** and is also an **LTS (Long Term Support)** version.
+
+Why important?
+
+- Successor to Java 11 LTS
+- Many modern Spring Boot projects use Java 17
+- Popular in enterprise applications
+- Frequently asked in interviews:
+  - Java 11 vs Java 17
+  - New features in Java 17
+
+------
+
+## Major Features of Java 17
+
+| Feature                           | Status          |
+| --------------------------------- | --------------- |
+| Sealed Classes                    | Final           |
+| Pattern Matching for `switch`     | Preview (in 17) |
+| Pattern Matching for `instanceof` | Final           |
+| Records                           | Final           |
+| Text Blocks                       | Final           |
+| Enhanced Random Generator         | Final           |
+| Strong Encapsulation              | Final           |
+| Foreign Function API              | Incubator       |
+
+------
+
+## 1. Sealed Classes
+
+Restrict which classes can inherit a parent class.
+
+### Problem Before
+
+Any class could extend parent class.
+
+```java
+class Vehicle {}
+
+class Car extends Vehicle {}
+class Bike extends Vehicle {}
+```
+
+Anyone could create:
+
+```java
+class Truck extends Vehicle {}
+```
+
+------
+
+### Java 17 Solution
+
+```java
+public sealed class Vehicle
+    permits Car, Bike {
+}
+
+final class Car extends Vehicle {}
+final class Bike extends Vehicle {}
+```
+
+### Benefit
+
+- Controlled inheritance
+- Better security
+- Cleaner design
+
+------
+
+### Flow
+
+```mermaid
+flowchart TD
+Vehicle --> Car
+Vehicle --> Bike
+```
+
+------
+
+## 2. Pattern Matching for `instanceof`
+
+Before Java 17:
+
+```java
+if(obj instanceof String){
+    String s = (String)obj;
+    System.out.println(s);
+}
+```
+
+Java 17:
+
+```java
+if(obj instanceof String s){
+    System.out.println(s);
+}
+```
+
+### Benefit
+
+- No manual casting
+- Cleaner code
+
+------
+
+## 3. Records
+
+Used for creating immutable data classes.
+
+Before:
+
+```java
+class Employee {
+    private String name;
+    private int age;
+
+    // constructors
+    // getters
+    // setters
+    // equals
+    // hashCode
+    // toString
+}
+```
+
+Lots of boilerplate code.
+
+------
+
+### Java 17 Record
+
+```java
+record Employee(String name, int age){}
+```
+
+Automatically generates:
+
+- Constructor
+- Getters
+- `equals()`
+- `hashCode()`
+- `toString()`
+
+------
+
+### Example
+
+```java
+Employee e = new Employee("John",25);
+System.out.println(e.name());
+```
+
+------
+
+## 4. Text Blocks
+
+Multi-line strings become easier.
+
+Before:
+
+```java
+String s = "Hello\n" +
+           "Java\n" +
+           "World";
+```
+
+Java 17:
+
+```java
+String s = """
+        Hello
+        Java
+        World
+        """;
+```
+
+### Useful for
+
+- SQL queries
+- JSON
+- XML
+
+------
+
+## 5. Pattern Matching for Switch (Preview)
+
+Before:
+
+```java
+switch(value){
+    case 1:
+}
+```
+
+Java 17:
+
+```java
+switch(obj){
+    case String s -> System.out.println(s);
+    case Integer i -> System.out.println(i);
+    default -> {}
+}
+```
+
+------
+
+## 6. Enhanced Random Generator
+
+New random generator interfaces added.
+
+```java
+RandomGenerator generator =
+        RandomGenerator.getDefault();
+```
+
+Better randomness support.
+
+------
+
+## 7. Strong Encapsulation of JDK Internals
+
+Java blocks unauthorized internal API usage.
+
+Before:
+
+Developers accessed internal APIs.
+
+Java 17 restricts this.
+
+### Benefit
+
+- Better security
+- Cleaner architecture
+
+------
+
+## 8. Foreign Function & Memory API (Incubator)
+
+Allows Java to interact with native code without JNI complexity.
+
+Used for:
+
+- Native libraries
+- Performance-heavy applications
+
+------
+
+# Java 11 vs Java 17
+
+| Java 11            | Java 17          |
+| ------------------ | ---------------- |
+| New String methods | Records          |
+| HTTP Client        | Sealed classes   |
+| File APIs          | Text blocks      |
+| Optional updates   | Pattern matching |
+| Direct execution   | Better security  |
+
+---
+
+# Features of Java 21
+
+### Introduction
+
+Java 21 was released in **September 2023** and is the latest **LTS (Long Term Support)** version after Java 17.
+
+Why important?
+
+- Latest enterprise LTS version
+- Many companies are migrating from Java 11/17 → Java 21
+- Very common interview question:
+  **“What new features are introduced in Java 21?”**
+
+------
+
+## Major Features of Java 21
+
+| Feature                       | Status  |
+| ----------------------------- | ------- |
+| Virtual Threads               | Final   |
+| Pattern Matching for Switch   | Final   |
+| Record Patterns               | Final   |
+| Sequenced Collections         | Final   |
+| String Templates              | Preview |
+| Scoped Values                 | Preview |
+| Structured Concurrency        | Preview |
+| Unnamed Patterns & Variables  | Preview |
+| Foreign Function & Memory API | Final   |
+
+------
+
+# 1. Virtual Threads (Most Important Feature)
+
+### Problem Before
+
+Traditional threads are expensive.
+
+```java
+Thread t = new Thread(() -> {
+    System.out.println("Task");
+});
+t.start();
+```
+
+Issues:
+
+- High memory usage
+- Limited scalability
+- Thread pool management required
+
+------
+
+### Java 21 Solution → Virtual Threads
+
+Lightweight threads managed by JVM.
+
+```java
+Thread.startVirtualThread(() -> {
+    System.out.println("Virtual Thread");
+});
+```
+
+------
+
+### Using Executor
+
+```java
+try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    executor.submit(() -> System.out.println("Task"));
+}
+```
+
+------
+
+### Benefits
+
+- Handles millions of tasks
+- Low memory usage
+- Better for I/O tasks
+- Simplifies concurrency
+
+------
+
+### Flow
+
+```mermaid
+flowchart LR
+Task --> VirtualThread --> CarrierThread --> CPU
+```
+
+------
+
+# 2. Pattern Matching for Switch (Final)
+
+Java 17 → Preview
+Java 21 → Final
+
+```java
+Object obj = "Java";
+
+switch (obj) {
+    case String s -> System.out.println("String: " + s);
+    case Integer i -> System.out.println("Integer: " + i);
+    default -> System.out.println("Unknown");
+}
+```
+
+------
+
+# 3. Record Patterns
+
+Extract values from records easily.
+
+```java
+record Person(String name, int age) {}
+
+Person p = new Person("John", 25);
+
+if (p instanceof Person(String name, int age)) {
+    System.out.println(name);
+}
+```
+
+------
+
+### Benefit
+
+Cleaner destructuring.
+
+------
+
+# 4. Sequenced Collections
+
+New interfaces for ordered collections.
+
+- `SequencedCollection`
+- `SequencedSet`
+- `SequencedMap`
+
+Example:
+
+```java
+LinkedHashSet<String> set = new LinkedHashSet<>();
+
+set.add("A");
+set.add("B");
+
+System.out.println(set.getFirst());
+System.out.println(set.getLast());
+```
+
+------
+
+# 5. String Templates (Preview)
+
+Easier string formatting.
+
+Before:
+
+```java
+String name = "Java";
+String s = "Hello " + name;
+```
+
+Java 21:
+
+```java
+String name = "Java";
+
+String s = STR."Hello \{name}";
+```
+
+------
+
+# 6. Scoped Values (Preview)
+
+Safer alternative to ThreadLocal.
+
+Before:
+
+```java
+ThreadLocal<String> user = new ThreadLocal<>();
+```
+
+Java 21:
+
+```java
+ScopedValue<String> user = ScopedValue.newInstance();
+```
+
+------
+
+### Benefits
+
+- Better readability
+- Better performance
+- Safer with virtual threads
+
+------
+
+# 7. Structured Concurrency (Preview)
+
+Manage multiple concurrent tasks as one unit.
+
+```java
+try(var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+}
+```
+
+### Benefit
+
+Improves concurrent task management.
+
+------
+
+### Flow
+
+```mermaid
+flowchart TD
+ParentTask --> ChildTask1
+ParentTask --> ChildTask2
+ParentTask --> ChildTask3
+```
+
+------
+
+# 8. Foreign Function & Memory API (Final)
+
+Interact with native code without JNI complexity.
+
+Used for:
+
+- C libraries
+- Native memory access
+
+------
+
+# 9. Unnamed Variables and Patterns (Preview)
+
+Use `_` when variable is not needed.
+
+```java
+if(obj instanceof String _) {
+    System.out.println("String found");
+}
+```
+
+------
+
+# Java 17 vs Java 21
+
+| Java 17                  | Java 21                |
+| ------------------------ | ---------------------- |
+| Records                  | Record patterns        |
+| Sealed classes           | Virtual threads        |
+| Text blocks              | Structured concurrency |
+| Pattern matching preview | Finalized              |
+| Basic collections        | Sequenced collections  |
+
+
+
+------
+
+# Summary
+
+### Java 11
+
+- HTTP Client
+- String methods
+
+### Java 17
+
+- Records
+- Sealed classes
+
+### Java 21
+
+- Virtual Threads
+- Structured Concurrency
+- Scoped Values
+
+🚀 Current future-focused version for backend developers.
+
+
+
+### Using `instanceof` before Type Casting
+
+#### Problem without `instanceof`
+
+```java
+Object obj = "Java";
+
+Integer num = (Integer) obj;
+```
+
+Output:
+
+```java
+ClassCastException
+```
+
+------
+
+#### Safe way
+
+```java
+Object obj = "Java";
+
+if(obj instanceof String){
+    String s = (String) obj;
+    System.out.println(s);
+}
+```
+
+### Flow
+
+```mermaid
+flowchart LR
+A[Object] --> B{instanceof check}
+B -->|true| C[Type Casting]
+B -->|false| D[Avoid Exception]
+```
+
+------
+
+### `instanceof` with Interface
+
+```java
+interface Vehicle {}
+
+class Car implements Vehicle {}
+
+public class Test {
+    public static void main(String[] args) {
+        Car c = new Car();
+
+        System.out.println(c instanceof Vehicle);
+    }
+}
+```
+
+Output:
+
+```java
+true
+```
+
+Because `Car` implements `Vehicle`.
+
+------
+
+### `instanceof` with null
+
+```java
+String s = null;
+
+System.out.println(s instanceof String);
+```
+
+Output:
+
+```java
+false
+```
+
+#### Important
+
+`null instanceof Anything` is always false.
+
+------
+
+### Java 16+ Pattern Matching with `instanceof`
+
+Before Java 16:
+
+```java
+if(obj instanceof String){
+    String s = (String)obj;
+    System.out.println(s);
+}
+```
+
+------
+
+After Java 16:
+
+```java
+if(obj instanceof String s){
+    System.out.println(s);
+}
+```
+
+### Benefit
+
+- Cleaner code
+- No explicit casting
+- Better readability
+
+------
+
+### Real-world Example
+
+Suppose list contains multiple object types:
+
+```java
+List<Object> list = List.of("Java", 10, 20.5);
+
+for(Object obj : list){
+
+    if(obj instanceof String){
+        System.out.println("String Found");
+    }
+
+    else if(obj instanceof Integer){
+        System.out.println("Integer Found");
+    }
+
+    else if(obj instanceof Double){
+        System.out.println("Double Found");
+    }
+}
+```
+
+------
+
+### Compile Time Error Case
+
+```java
+String s = "Hello";
+
+System.out.println(s instanceof Integer);
+```
+
+❌ Error because both are unrelated classes.
+
+------
+
+### Interview Questions
+
+#### Is `instanceof` compile-time or runtime?
+
+✅ Runtime
+
+Because JVM checks actual object type during execution.
+
+------
+
+#### Can we use it with parent class?
+
+✅ Yes
+
+```java
+dog instanceof Animal
+```
+
+------
+
+#### Can we use it with interfaces?
+
+✅ Yes
+
+------
+
+#### Can we use it with null?
+
+✅ Yes → but result will always be false
+
+------
+
+### Common Mistake
+
+```java
+if(obj instanceof String){
+    Integer i = (Integer)obj;
+}
+```
+
+⚠️ Wrong casting after correct check.
+
+Always cast to same verified type.
+
+----
 
 # Generics — Complete Study Notes
 
