@@ -7004,6 +7004,9 @@ These enhancements reflect Java's ongoing commitment to improving developer expe
                   .thenApply(HttpResponse::body)
                   .thenAccept(System.out::println)
                   .join(); // Wait for completion
+          //4. synchronous
+          HttpResponse<String> response = client.send(request,HttpResponse.BodyHandlers.ofString());
+          System.out.println(response.body());
       }
   }
   ```
