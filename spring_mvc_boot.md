@@ -1313,9 +1313,7 @@ public class MyApplication {
 - Logging
 - Custom properties
 
-It is located inside:
-
-`src/main/resources/application.properties`
+It is located inside: `src/main/resources/application.properties`
 
 ##### Example:
 
