@@ -6830,7 +6830,7 @@ timeline
 
 ----
 
-### Features of Java 11
+# Features of Java 11
 
 ##### Major Features of Java 11
 
@@ -6847,7 +6847,7 @@ timeline
 
 ------
 
-# 1. `var` in Lambda Parameters
+#### 1. `var` in Lambda Parameters
 
 Before Java 11:
 
@@ -6869,7 +6869,7 @@ List<String> names = List.of("A", "B");
 names.forEach((var name) -> System.out.println(name));
 ```
 
-### Why introduced?
+**Why introduced?**
 
 To allow annotations in lambda parameters.
 
@@ -6879,270 +6879,223 @@ To allow annotations in lambda parameters.
 
 ------
 
-# 2. New String Methods
-
-------
-
-### `isBlank()`
-
-Checks whether string is empty or contains only spaces.
-
-```java
-String s = "   ";
-System.out.println(s.isBlank());
-```
-
-Output:
-
-```java
-true
-```
-
-------
-
-### `lines()`
-
-Converts string into stream of lines.
-
-```java
-String text = "Java\nSpring\nKafka";
-
-text.lines().forEach(System.out::println);
-```
-
-------
-
-### `strip()`
-
-Removes leading/trailing whitespace (Unicode aware)
-
-```java
-String s = " Java ";
-System.out.println(s.strip());
-```
-
-------
-
-### `stripLeading()`
-
-```java
-String s = " Java ";
-System.out.println(s.stripLeading());
-```
-
-------
-
-### `stripTrailing()`
-
-```java
-String s = " Java ";
-System.out.println(s.stripTrailing());
-```
-
-------
-
-### `repeat()`
-
-Repeats string multiple times.
-
-```java
-System.out.println("Hi ".repeat(3));
-```
-
-Output:
-
-```java
-Hi Hi Hi
-```
-
-------
-
-# 3. New File Methods
-
-Java 11 introduced easier file handling.
-
-------
-
-### `Files.writeString()`
-
-```java
-Path path = Path.of("test.txt");
-
-Files.writeString(path, "Hello Java 11");
-```
-
-------
-
-### `Files.readString()`
-
-```java
-String data = Files.readString(path);
-System.out.println(data);
-```
-
-------
-
-### Benefits
-
-- Less boilerplate code
-- Easier than `BufferedReader`
-
-------
-
-# 4. HTTP Client API (Standard)
-
-Before Java 11:
-
-Used:
-
-- `HttpURLConnection`
-- Apache HttpClient
-- Third-party libraries
-
-Java 11 introduced built-in:
-
-```java
-java.net.http.HttpClient
-```
-
-Example:
-
-```java
-HttpClient client = HttpClient.newHttpClient();
-
-HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create("https://example.com"))
-        .build();
-
-HttpResponse<String> response =
-        client.send(request, HttpResponse.BodyHandlers.ofString());
-
-System.out.println(response.body());
-```
-
-------
-
-### Flow
-
-```mermaid
-flowchart LR
-A[Create Client]
---> B[Create Request]
---> C[Send Request]
---> D[Get Response]
-```
-
-------
-
-# 5. Run Java File Without Compilation
-
-Before:
-
-```bash
-javac Test.java
-java Test
-```
-
-Java 11:
-
-```bash
-java Test.java
-```
-
-Direct execution without manual compilation.
-
-Useful for:
-
-- Scripts
-- Quick testing
-
-------
-
-# 6. Optional Enhancements
-
-### `isEmpty()`
-
-```java
-Optional<String> op = Optional.empty();
-
-System.out.println(op.isEmpty());
-```
-
-Output:
-
-```java
-true
-```
-
-------
-
-# 7. Collection to Array
-
-```java
-List<String> list = List.of("A","B","C");
-
-String[] arr = list.toArray(String[]::new);
-```
-
-Cleaner conversion.
-
-------
-
-# 8. Nest-Based Access Control
-
-Improved access between nested classes.
-
-Before Java 11:
-Compiler created synthetic bridge methods.
-
-Java 11:
-Direct access allowed.
-
-```java
-class Outer {
-    private int x = 10;
-
-    class Inner {
-        void show() {
-            System.out.println(x);
-        }
-    }
-}
-```
-
-Performance improvement.
-
-------
-
-# 9. Removed Modules
-
-Java removed old Java EE modules:
-
-- JAXB
-- JAX-WS
-- CORBA
-
-Reason:
-
-Not commonly used.
-
-Now use external dependencies.
-
-------
-
-# 10. Flight Recorder
-
-Java Flight Recorder became open-source.
-
-Used for:
-
-- Monitoring
-- Performance tuning
-- Production debugging
-
-------
-
-# Java 8 vs Java 11
+#### 2. New String Methods
+
+- **`isBlank()`**
+  
+  - **Purpose**: Checks if a string is empty or consists only of spaces.
+  - **Example**:
+    ```java
+    String s = "   ";
+    System.out.println(s.isBlank());
+    ```
+  - **Output**: `true`
+  
+- **`lines()`**
+  - **Purpose**: Converts a string into a stream of lines.
+  - **Example**:
+    ```java
+    String text = "Java\nSpring\nKafka";
+    text.lines().forEach(System.out::println);
+    ```
+
+- **`strip()`**
+  - **Purpose**: Removes leading and trailing whitespace (Unicode aware).
+  - **Example**:
+    ```java
+    String s = " Java ";
+    System.out.println(s.strip());
+    ```
+
+- **`stripLeading()`**
+  - **Purpose**: Removes leading whitespace from a string.
+  - **Example**:
+    ```java
+    String s = " Java ";
+    System.out.println(s.stripLeading());
+    ```
+
+- **`stripTrailing()`**
+  
+  - **Purpose**: Removes trailing whitespace from a string.
+  - **Example**:
+    ```java
+    String s = " Java ";
+    System.out.println(s.stripTrailing());
+    ```
+  
+- **`repeat(int count)`**
+  - **Purpose**: Repeats a string a specified number of times.
+  
+  - **Example**:
+    
+    ```java
+    System.out.println("Hi ".repeat(3));
+    ```
+    
+  - **Output**: `Hi Hi Hi `
+
+---
+
+#### 3. New File Methods
+
+- **Java 11** introduced improved methods for **file handling**, making it more straightforward.
+
+**`Files.writeString()`**
+
+- **Purpose**: Allows writing a string to a file easily.
+- **Syntax**: 
+  
+  ```java
+  Path path = Path.of("test.txt");
+  Files.writeString(path, "Hello Java 11");
+  ```
+- **Key Concept**: Utilizes the **Path** class to define the file location.
+
+**`Files.readString()`**
+
+- **Purpose**: Facilitates reading a string from a file.
+- **Syntax**:
+  ```java
+  String data = Files.readString(path);
+  System.out.println(data);
+  ```
+- **Key Concept**: Simplifies the process of retrieving file content as a string.
+
+##### Benefits of New File Methods
+
+- **Less Boilerplate Code**: 
+  - Reduces the amount of code required for file operations, contributing to cleaner and more maintainable code.
+  
+- **Easier than `BufferedReader`**: 
+  - The new methods eliminate the complexity associated with using a **BufferedReader** for reading and writing text files.
+
+These enhancements reflect Java's ongoing commitment to improving developer experience by streamlining common tasks such as file I/O operations.
+
+---
+
+#### 4. **HTTP Client API (Standard)**
+
+- **Before Java 11:**
+  - Utilized **`HttpURLConnection`**.
+  - Employed **Apache HttpClient** and other third-party libraries.
+  
+- **Java 11 Introduction:**
+  
+  - Introduced built-in **`java.net.http.HttpClient`**.
+  
+- **Example Usage:**
+  ```java
+  HttpClient client = HttpClient.newHttpClient();
+  
+  HttpRequest request = HttpRequest.newBuilder()
+          .uri(URI.create("https://example.com"))
+          .build();
+  
+  HttpResponse<String> response =
+          client.send(request, HttpResponse.BodyHandlers.ofString());
+  
+  System.out.println(response.body());
+  ```
+
+- **Flowchart:**
+  ```mermaid
+  flowchart LR
+  A[Create Client]
+  --> B[Create Request]
+  --> C[Send Request]
+  --> D[Get Response]
+  ```
+
+#### 5. **Run Java File Without Compilation**
+- **Before Java 11:**
+  - Required commands:
+    ```bash
+    javac Test.java
+    java Test
+    ```
+  
+- **Java 11 Improvement:**
+  - Direct execution possible:
+    ```bash
+    java Test.java
+    ```
+  
+- **Use Cases:**
+  - Suitable for **scripts** and **quick testing**.
+
+#### 6. **Optional Enhancements**
+- **`isEmpty()` Method:**
+  
+  - Example:
+  ```java
+  Optional<String> op = Optional.empty();
+  
+  System.out.println(op.isEmpty());
+  ```
+  - **Output:** `true`.
+
+#### 7. **Collection to Array Conversion**
+
+- **Example:**
+  
+  ```java
+  List<String> list = List.of("A","B","C");
+  
+  String[] arr = list.toArray(String[]::new);
+  ```
+- **Advantage:** Cleaner conversion process.
+
+#### 8. **Nest-Based Access Control**
+
+- **Improvement:**
+  
+  - Enhanced access between nested classes.
+  
+- **Before Java 11:**
+  - Compiler created synthetic bridge methods.
+  
+- **Java 11 Change:**
+  
+  - Allows direct access:
+  ```java
+  class Outer {
+      private int x = 10;
+  
+      class Inner {
+          void show() {
+              System.out.println(x);
+          }
+      }
+  }
+  ```
+- **Benefit:** Performance enhancement.
+
+#### 9. **Removed Modules**
+- **Java EE Modules Removed:**
+  - **JAXB**
+  - **JAX-WS**
+  - **CORBA**
+  
+- **Reason:** Not commonly used; now requires external dependencies.
+
+#### 10. **Flight Recorder**
+- **Open Source Status:**
+  - Java Flight Recorder is now open-source.
+  
+- **Usage:**
+  - **Monitoring**
+  - **Performance tuning**
+  - **Production debugging**
+
+#### **Java 8 vs Java 11 Comparison**
+| Feature                 | Java 8                  | Java 11                        |
+| ----------------------- | ----------------------- | ------------------------------ |
+| Basic String methods    | Advanced String methods | Built-in HTTP client           |
+| No built-in HTTP client | Direct execution        | Manual compile/run             |
+| Older file handling     | readString/writeString  | Available `Optional.isEmpty()` |
+
+These notes encapsulate the key features and enhancements introduced in Java 11, emphasizing improvements in APIs, language functionalities, and performance optimizations.
 
 | Java 8                  | Java 11                 |
 | ----------------------- | ----------------------- |
@@ -7154,39 +7107,7 @@ Used for:
 
 ------
 
-# Important Interview Questions
-
-### Why Java 11 is popular?
-
-Because it is LTS and widely used in enterprise projects.
-
-------
-
-### Difference between `trim()` and `strip()`?
-
-```
-trim()
-```
-
-- Removes basic whitespace
-
-```
-strip()
-```
-
-- Unicode-aware whitespace removal
-
-------
-
-### Why HTTP Client API important?
-
-It replaced outdated `HttpURLConnection`.
-
-----
-
 ### `instanceof` in Java
-
-#### Definition
 
 `instanceof` is a **Java operator** used to check whether an object belongs to a particular:
 
@@ -7298,26 +7219,7 @@ Because `Dog` is not a `Cat`.
 
 ------
 
-
-
-# Features of Java 17
-
-### Introduction
-
-Java 17 was released in **September 2021** and is also an **LTS (Long Term Support)** version.
-
-Why important?
-
-- Successor to Java 11 LTS
-- Many modern Spring Boot projects use Java 17
-- Popular in enterprise applications
-- Frequently asked in interviews:
-  - Java 11 vs Java 17
-  - New features in Java 17
-
-------
-
-## Major Features of Java 17
+## Features of Java 17
 
 | Feature                           | Status          |
 | --------------------------------- | --------------- |
@@ -7332,49 +7234,40 @@ Why important?
 
 ------
 
-## 1. Sealed Classes
+#### 1. **Sealed Classes**
 
-Restrict which classes can inherit a parent class.
+- **Definition**: Restricts which classes can inherit a parent class.
+- **Controlled inheritance:** Only specified classes can extend.
+- **Better security:** Reduces chances of misuse.
+- **Cleaner design:** Simplifies class hierarchy.
 
-### Problem Before
+**Problem Before**
 
-Any class could extend parent class.
+- Any class could extend a parent class:
+    ```java
+    class Vehicle {}
+    
+    class Car extends Vehicle {}
+    class Bike extends Vehicle {}
+    ```
+- Example of unregulated inheritance:
+    ```java
+    class Truck extends Vehicle {}
+    ```
 
-```java
-class Vehicle {}
+**Solution**
 
-class Car extends Vehicle {}
-class Bike extends Vehicle {}
-```
+- Implementation of **sealed classes**:
+    ```java
+    public sealed class Vehicle
+        permits Car, Bike {
+    }
+    
+    final class Car extends Vehicle {}
+    final class Bike extends Vehicle {}
+    ```
 
-Anyone could create:
-
-```java
-class Truck extends Vehicle {}
-```
-
-------
-
-### Java 17 Solution
-
-```java
-public sealed class Vehicle
-    permits Car, Bike {
-}
-
-final class Car extends Vehicle {}
-final class Bike extends Vehicle {}
-```
-
-### Benefit
-
-- Controlled inheritance
-- Better security
-- Cleaner design
-
-------
-
-### Flow
+**Flow Diagram**
 
 ```mermaid
 flowchart TD
@@ -7382,204 +7275,180 @@ Vehicle --> Car
 Vehicle --> Bike
 ```
 
-------
+---
 
-## 2. Pattern Matching for `instanceof`
+#### 2. **Pattern Matching for `instanceof`**
 
-Before Java 17:
+**Before Java 17**
 
-```java
-if(obj instanceof String){
-    String s = (String)obj;
-    System.out.println(s);
-}
-```
+- Manual type checking and casting:
+    ```java
+    if(obj instanceof String){
+        String s = (String)obj;
+        System.out.println(s);
+    }
+    ```
 
-Java 17:
+**Java 17 Improvement**
 
-```java
-if(obj instanceof String s){
-    System.out.println(s);
-}
-```
+- Simplified syntax:
+    ```java
+    if(obj instanceof String s){
+        System.out.println(s);
+    }
+    ```
 
-### Benefit
+**Benefits**
 
-- No manual casting
-- Cleaner code
-
-------
-
-## 3. Records
-
-Used for creating immutable data classes.
-
-Before:
-
-```java
-class Employee {
-    private String name;
-    private int age;
-
-    // constructors
-    // getters
-    // setters
-    // equals
-    // hashCode
-    // toString
-}
-```
-
-Lots of boilerplate code.
-
-------
-
-### Java 17 Record
-
-```java
-record Employee(String name, int age){}
-```
-
-Automatically generates:
-
-- Constructor
-- Getters
-- `equals()`
-- `hashCode()`
-- `toString()`
-
-------
-
-### Example
-
-```java
-Employee e = new Employee("John",25);
-System.out.println(e.name());
-```
-
-------
-
-## 4. Text Blocks
-
-Multi-line strings become easier.
-
-Before:
-
-```java
-String s = "Hello\n" +
-           "Java\n" +
-           "World";
-```
-
-Java 17:
-
-```java
-String s = """
-        Hello
-        Java
-        World
-        """;
-```
-
-### Useful for
-
-- SQL queries
-- JSON
-- XML
-
-------
-
-## 5. Pattern Matching for Switch (Preview)
-
-Before:
-
-```java
-switch(value){
-    case 1:
-}
-```
-
-Java 17:
-
-```java
-switch(obj){
-    case String s -> System.out.println(s);
-    case Integer i -> System.out.println(i);
-    default -> {}
-}
-```
-
-------
-
-## 6. Enhanced Random Generator
-
-New random generator interfaces added.
-
-```java
-RandomGenerator generator =
-        RandomGenerator.getDefault();
-```
-
-Better randomness support.
-
-------
-
-## 7. Strong Encapsulation of JDK Internals
-
-Java blocks unauthorized internal API usage.
-
-Before:
-
-Developers accessed internal APIs.
-
-Java 17 restricts this.
-
-### Benefit
-
-- Better security
-- Cleaner architecture
-
-------
-
-## 8. Foreign Function & Memory API (Incubator)
-
-Allows Java to interact with native code without JNI complexity.
-
-Used for:
-
-- Native libraries
-- Performance-heavy applications
-
-------
-
-# Java 11 vs Java 17
-
-| Java 11            | Java 17          |
-| ------------------ | ---------------- |
-| New String methods | Records          |
-| HTTP Client        | Sealed classes   |
-| File APIs          | Text blocks      |
-| Optional updates   | Pattern matching |
-| Direct execution   | Better security  |
+- **No manual casting**: Reduces boilerplate code.
+- **Cleaner code**: Enhances readability.
 
 ---
 
-# Features of Java 21
+#### 3. **Records**
 
-### Introduction
+- **Purpose**: Used for creating **immutable data classes**.
 
-Java 21 was released in **September 2023** and is the latest **LTS (Long Term Support)** version after Java 17.
+**Before Java 17**
 
-Why important?
+- Extensive boilerplate code required:
+    ```java
+    class Employee {
+        private String name;
+        private int age;
+    
+        // constructors
+        // getters
+        // setters
+        // equals
+        // hashCode
+        // toString
+    }
+    ```
 
-- Latest enterprise LTS version
-- Many companies are migrating from Java 11/17 → Java 21
-- Very common interview question:
-  **“What new features are introduced in Java 21?”**
+**Java 17 Record Implementation**
 
-------
+- Streamlined syntax:
+    ```java
+    record Employee(String name, int age){}
+    ```
 
-## Major Features of Java 21
+**Automatically Generated Features**
+
+- **Constructor**: Automatically created.
+- **Getters**: Accessor methods generated.
+- **`equals()`**: Method for equality checking.
+- **`hashCode()`**: Method for hash code generation.
+- **`toString()`**: Method for string representation.
+
+#### Example Usage
+```java
+Employee e = new Employee("John", 25);
+System.out.println(e.name());
+```
+
+---
+
+#### 4. **Text Blocks**
+
+- **Definition**: Simplifies the creation of multi-line strings.
+
+**Before Java 17**
+
+- Concatenation required for multi-line strings:
+    ```java
+    String s = "Hello\n" +
+               "Java\n" +
+               "World";
+    ```
+
+**Java 17 Enhancement**
+
+- New syntax for multi-line strings:
+    ```java
+    String s = """
+            Hello
+            Java
+            World
+            """;
+    ```
+
+**Useful Applications**
+
+- **SQL queries**: Simplifies database queries.
+- **JSON**: Enhances readability for JSON data.
+- **XML**: Facilitates XML string creation.
+
+---
+
+#### 5. **Pattern Matching for Switch (Preview)**
+
+**Before Java 17**
+
+- Traditional switch-case structure:
+    ```java
+    switch(value){
+        case 1:
+    }
+    ```
+
+**Java 17 Enhancement**
+
+- Improved switch-case with pattern matching:
+    ```java
+    switch(obj){
+        case String s -> System.out.println(s);
+        case Integer i -> System.out.println(i);
+        default -> {}
+    }
+    ```
+
+---
+
+#### 6. **Enhanced Random Generator**
+
+- **New Feature**: Introduces new random generator interfaces.
+    ```java
+    RandomGenerator generator =
+            RandomGenerator.getDefault();
+    ```
+
+#### Benefits
+- **Better randomness support**: Improves the quality of random number generation.
+
+---
+
+#### 7. **Strong Encapsulation of JDK Internals**
+
+- **Objective**: Blocks unauthorized access to internal APIs.
+
+Before Java 17
+
+- Developers could access internal APIs without restrictions.
+
+Java 17 Restriction
+
+- Enforces limitations on internal API usage.
+
+Benefits
+
+- **Better security**: Protects against unauthorized access.
+- **Cleaner architecture**: Improves overall system integrity.
+
+---
+
+#### 8. **Foreign Function & Memory API (Incubator)**
+
+- **Purpose**: Allows Java to interact with native code without the complexity of **JNI** (Java Native Interface).
+
+Use Cases
+
+- **Native libraries**: Facilitates the use of libraries written in other languages.
+- **Performance-heavy applications**: Improves performance by leveraging native capabilities.
+
+---
+
+## Features of Java 21
 
 | Feature                       | Status  |
 | ----------------------------- | ------- |
@@ -7595,7 +7464,7 @@ Why important?
 
 ------
 
-# 1. Virtual Threads (Most Important Feature)
+#### 1. Virtual Threads (Most Important Feature)
 
 ### Problem Before
 
@@ -7616,7 +7485,7 @@ Issues:
 
 ------
 
-### Java 21 Solution → Virtual Threads
+##### Java 21 Solution → Virtual Threads
 
 Lightweight threads managed by JVM.
 
@@ -7628,7 +7497,7 @@ Thread.startVirtualThread(() -> {
 
 ------
 
-### Using Executor
+**Using Executor**
 
 ```java
 try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
@@ -7638,7 +7507,7 @@ try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
 
 ------
 
-### Benefits
+**Benefits**
 
 - Handles millions of tasks
 - Low memory usage
@@ -7656,7 +7525,7 @@ Task --> VirtualThread --> CarrierThread --> CPU
 
 ------
 
-# 2. Pattern Matching for Switch (Final)
+#### 2. Pattern Matching for Switch (Final)
 
 Java 17 → Preview
 Java 21 → Final
@@ -7673,7 +7542,7 @@ switch (obj) {
 
 ------
 
-# 3. Record Patterns
+#### 3. Record Patterns
 
 Extract values from records easily.
 
@@ -7689,13 +7558,13 @@ if (p instanceof Person(String name, int age)) {
 
 ------
 
-### Benefit
+**Benefit**
 
 Cleaner destructuring.
 
 ------
 
-# 4. Sequenced Collections
+#### 4. Sequenced Collections
 
 New interfaces for ordered collections.
 
@@ -7717,7 +7586,7 @@ System.out.println(set.getLast());
 
 ------
 
-# 5. String Templates (Preview)
+#### 5. String Templates (Preview)
 
 Easier string formatting.
 
@@ -7738,7 +7607,7 @@ String s = STR."Hello \{name}";
 
 ------
 
-# 6. Scoped Values (Preview)
+#### 6. Scoped Values (Preview)
 
 Safer alternative to ThreadLocal.
 
@@ -7756,7 +7625,7 @@ ScopedValue<String> user = ScopedValue.newInstance();
 
 ------
 
-### Benefits
+**Benefits**
 
 - Better readability
 - Better performance
@@ -7764,7 +7633,7 @@ ScopedValue<String> user = ScopedValue.newInstance();
 
 ------
 
-# 7. Structured Concurrency (Preview)
+#### 7. Structured Concurrency (Preview)
 
 Manage multiple concurrent tasks as one unit.
 
@@ -7790,7 +7659,7 @@ ParentTask --> ChildTask3
 
 ------
 
-# 8. Foreign Function & Memory API (Final)
+#### 8. Foreign Function & Memory API (Final)
 
 Interact with native code without JNI complexity.
 
@@ -7801,7 +7670,7 @@ Used for:
 
 ------
 
-# 9. Unnamed Variables and Patterns (Preview)
+#### 9. Unnamed Variables and Patterns (Preview)
 
 Use `_` when variable is not needed.
 
@@ -7813,8 +7682,6 @@ if(obj instanceof String _) {
 
 ------
 
-# Java 17 vs Java 21
-
 | Java 17                  | Java 21                |
 | ------------------------ | ---------------------- |
 | Records                  | Record patterns        |
@@ -7824,28 +7691,6 @@ if(obj instanceof String _) {
 | Basic collections        | Sequenced collections  |
 
 
-
-------
-
-# Summary
-
-### Java 11
-
-- HTTP Client
-- String methods
-
-### Java 17
-
-- Records
-- Sealed classes
-
-### Java 21
-
-- Virtual Threads
-- Structured Concurrency
-- Scoped Values
-
-🚀 Current future-focused version for backend developers.
 
 
 
@@ -7889,163 +7734,7 @@ B -->|false| D[Avoid Exception]
 
 ------
 
-### `instanceof` with Interface
 
-```java
-interface Vehicle {}
-
-class Car implements Vehicle {}
-
-public class Test {
-    public static void main(String[] args) {
-        Car c = new Car();
-
-        System.out.println(c instanceof Vehicle);
-    }
-}
-```
-
-Output:
-
-```java
-true
-```
-
-Because `Car` implements `Vehicle`.
-
-------
-
-### `instanceof` with null
-
-```java
-String s = null;
-
-System.out.println(s instanceof String);
-```
-
-Output:
-
-```java
-false
-```
-
-#### Important
-
-`null instanceof Anything` is always false.
-
-------
-
-### Java 16+ Pattern Matching with `instanceof`
-
-Before Java 16:
-
-```java
-if(obj instanceof String){
-    String s = (String)obj;
-    System.out.println(s);
-}
-```
-
-------
-
-After Java 16:
-
-```java
-if(obj instanceof String s){
-    System.out.println(s);
-}
-```
-
-### Benefit
-
-- Cleaner code
-- No explicit casting
-- Better readability
-
-------
-
-### Real-world Example
-
-Suppose list contains multiple object types:
-
-```java
-List<Object> list = List.of("Java", 10, 20.5);
-
-for(Object obj : list){
-
-    if(obj instanceof String){
-        System.out.println("String Found");
-    }
-
-    else if(obj instanceof Integer){
-        System.out.println("Integer Found");
-    }
-
-    else if(obj instanceof Double){
-        System.out.println("Double Found");
-    }
-}
-```
-
-------
-
-### Compile Time Error Case
-
-```java
-String s = "Hello";
-
-System.out.println(s instanceof Integer);
-```
-
-❌ Error because both are unrelated classes.
-
-------
-
-### Interview Questions
-
-#### Is `instanceof` compile-time or runtime?
-
-✅ Runtime
-
-Because JVM checks actual object type during execution.
-
-------
-
-#### Can we use it with parent class?
-
-✅ Yes
-
-```java
-dog instanceof Animal
-```
-
-------
-
-#### Can we use it with interfaces?
-
-✅ Yes
-
-------
-
-#### Can we use it with null?
-
-✅ Yes → but result will always be false
-
-------
-
-### Common Mistake
-
-```java
-if(obj instanceof String){
-    Integer i = (Integer)obj;
-}
-```
-
-⚠️ Wrong casting after correct check.
-
-Always cast to same verified type.
-
-----
 
 # Generics — Complete Study Notes
 
