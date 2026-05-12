@@ -3701,49 +3701,95 @@ System.out.println(dateTime); //2025-03-04T19:49:18.331792800
 
 #### 📌 Thread Life Cycle and States
 
-A thread goes through several states:
+Based on the documentation provided, here are the high-level states a thread resides in during its execution:
 
-1.  **New:** New thread is created but not yet started.
+- **New:** This is the state when a thread is created (e.g., `Thread t = new Thread()`) but the `start()` method hasn't been called yet.
+- **Runnable:** Once `start()` is invoked, the thread becomes ready to run. It doesn't necessarily start executing immediately; it waits for the thread scheduler to give it CPU time.
+- **Running:** The processor is actively executing the thread's code.
+- **Waiting:** The thread is in a blocked state, waiting for some external processing or another thread to perform a specific action (like calling `notify()`).
+- **Sleeping:** The thread is forced to pause for a specified period using `Thread.sleep()`.
+- **Blocked:** This occurs during I/O operations or when a thread is waiting to acquire a lock (Synchronization) to enter a protected section of code.
+- **Dead (Terminated):** The thread has finished its execution or was stopped prematurely due to an unhandled exception.
 
-2.  **Runnable:** Thread is ready to run; waiting in the runnable queue.(Note: "Runnable" can mean ready and running because the OS scheduler decides when to run it.)
+---
 
-3.  **Blocked/Waiting/Timed Waiting:** Thread is not eligible to run until a specific condition is met (e.g., waiting for I/O, synchronization, or sleep).
+#### 📌 What is the difference between processes and threads ? 
 
-4.  **Terminated:** Thread execution completed or stopped.
+A process is an execution of a program, while a Thread is a single execution sequence within a process. A process can contain multiple threads. A Thread is sometimes called a lightweight process
 
 ---
 
 ####  📌What are the Different Ways to Create a Thread?
 
-- **Extending Thread class**
+In Java, there are three primary ways to create and manage threads. Choosing the right one depends on whether you need a simple task execution or a robust architecture for a large-scale application.
 
-- **Implementing Runnable interface** (preferred for better design)
+##### 1. Implementing the `Runnable` Interface
 
-- **Using Callable with Future** T**ask** (returns a result)
+This is the **most common and preferred method**. By implementing `Runnable`, you define the task in a `run()` method. This approach is flexible because your class can still extend other classes (since Java doesn't support multiple inheritance).
 
-**Example:**
+- **How it works:** Create a class that implements `Runnable`, then pass an instance of it to a `Thread` object.
 
-```java
-public class Threading implements Runnable{
+- **Example:**
 
-    public void run() {
+  ```java
+  public class Threading implements Runnable{
+  
+      public void run() {
+  
+          System.out.println("run method used to run thread :"+Thread.currentThread().getName());
+  
+      }
+  
+      public static void main(String[] args) {
+  
+          Threading thd=new Threading();
+  
+          Thread th=new Thread(thd);
+  
+          th.start();
+  
+      }
+  
+  }
+  ```
 
-        System.out.println("run method used to run thread :"+Thread.currentThread().getName());
+##### 2. Extending the `Thread` Class
 
-    }
+This is the simplest way to create a thread, but it's less flexible. Because your class must extend the `Thread` class, it cannot inherit from any other class.
 
-    public static void main(String[] args) {
+- **How it works:** Inherit from `Thread` and override the `run()` method.
 
-        Threading thd=new Threading();
+- **Example:**
 
-        Thread th=new Thread(thd);
+  ```java
+  class MyThread extends Thread {
+      public void run() {
+          System.out.println("Thread is running by extending Thread class");
+      }
+  }
+  // Execution
+  MyThread t1 = new MyThread();
+  t1.start();
+  ```
 
-        th.start();
+##### 3. Using the `Executor` Framework (Thread Pools)
 
-    }
+For professional applications (like those using Spring Boot), manual thread management is often discouraged. Instead, you use a **Thread Pool** via the `Executor` framework. This is much more efficient because it reuses existing threads instead of creating and destroying them constantly.
 
-}
-```
+- **How it works:** You submit tasks to an `ExecutorService`, which manages a pool of worker threads.
+- **Why use it:** It prevents the system from being overwhelmed by too many threads and provides better control over execution.
+
+------
+
+#### **Which one should you choose?**
+
+| **Method**       | **Recommendation** | **Why?**                                                     |
+| ---------------- | ------------------ | ------------------------------------------------------------ |
+| **Runnable**     | **High**           | Better object-oriented design; separates the task from the thread runner. |
+| **Thread Class** | **Low**            | Restrictive; you "waste" your one chance at inheritance.     |
+| **Executor**     | **Best for Apps**  | Essential for performance and resource management in complex systems. |
+
+----
 
 ####  📌Why Prefer Runnable Over Thread?
 
@@ -3762,7 +3808,7 @@ public class Threading implements Runnable{
 
 ------
 
-##### **Java Thread Methods and Their Uses**
+#### **Java Thread Methods and Their Uses**
 
 ---------------------------------------------------------------------------
 
@@ -7022,14 +7068,15 @@ These enhancements reflect Java's ongoing commitment to improving developer expe
 
 #### 5. **Run Java File Without Compilation**
 - **Before Java 11:**
-  - Required commands:
+  - Required commands: we have to compile the file first  using javac and then run using java
     ```bash
     javac Test.java
     java Test
     ```
   
 - **Java 11 Improvement:**
-  - Direct execution possible:
+  
+  - Direct execution possible: now we can directly run the class without compilation
     ```bash
     java Test.java
     ```
@@ -7101,12 +7148,7 @@ These enhancements reflect Java's ongoing commitment to improving developer expe
   - **Performance tuning**
   - **Production debugging**
 
-#### **Java 8 vs Java 11 Comparison**
-| Feature                 | Java 8                  | Java 11                        |
-| ----------------------- | ----------------------- | ------------------------------ |
-| Basic String methods    | Advanced String methods | Built-in HTTP client           |
-| No built-in HTTP client | Direct execution        | Manual compile/run             |
-| Older file handling     | readString/writeString  | Available `Optional.isEmpty()` |
+----
 
 These notes encapsulate the key features and enhancements introduced in Java 11, emphasizing improvements in APIs, language functionalities, and performance optimizations.
 
@@ -7118,119 +7160,7 @@ These notes encapsulate the key features and enhancements introduced in Java 11,
 | Older file handling     | readString/writeString  |
 | No `Optional.isEmpty()` | Available               |
 
-------
-
-### `instanceof` in Java
-
-`instanceof` is a **Java operator** used to check whether an object belongs to a particular:
-
-- Class
-- Subclass
-- Interface
-
-It returns:
-
-- `true` → object is of that type
-- `false` → object is not of that type
-
-```java
-object instanceof ClassName
-```
-
-------
-
-### Why do we need `instanceof`?
-
-Sometimes we store objects in:
-
-- `Object`
-- Parent class reference
-- Collection of mixed objects
-
-Before type casting, we need to verify the actual object type to avoid runtime errors.
-
-Without checking:
-
-```java
-Object obj = "Hello";
-
-Integer num = (Integer) obj;   // Runtime Exception
-```
-
-Output:
-
-```java
-ClassCastException
-```
-
-Using `instanceof` makes casting safer.
-
-------
-
-### Basic Example
-
-```java
-class Animal {}
-
-class Dog extends Animal {}
-
-public class Test {
-    public static void main(String[] args) {
-
-        Animal a = new Dog();
-
-        System.out.println(a instanceof Dog);      // true
-        System.out.println(a instanceof Animal);   // true
-        System.out.println(a instanceof Object);   // true
-    }
-}
-```
-
-#### Why all are true?
-
-Because:
-
-```mermaid
-flowchart TD
-    Object --> Animal
-    Animal --> Dog
-```
-
-`Dog` object inherits from:
-
-- Dog
-- Animal
-- Object
-
-So JVM returns `true`.
-
-------
-
-### Example where it returns false
-
-```java
-class Animal {}
-class Dog extends Animal {}
-class Cat extends Animal {}
-
-public class Test {
-    public static void main(String[] args) {
-        Animal a = new Dog();
-
-        System.out.println(a instanceof Cat);
-    }
-}
-```
-
-Output:
-
-```java
-false
-```
-
-Because `Dog` is not a `Cat`.
-
-------
+---
 
 ## Features of Java 17
 
@@ -7354,7 +7284,8 @@ Vehicle --> Bike
 - **`hashCode()`**: Method for hash code generation.
 - **`toString()`**: Method for string representation.
 
-#### Example Usage
+**Example Usage**
+
 ```java
 Employee e = new Employee("John", 25);
 System.out.println(e.name());
