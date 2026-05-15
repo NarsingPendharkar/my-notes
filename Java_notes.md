@@ -6876,20 +6876,18 @@ timeline
 
 ----
 
-# Features of Java 11
+## Features of Java 11
 
-##### Major Features of Java 11
+**Major Features of Java 11**
 
-| Feature                          | Purpose                |
-| -------------------------------- | ---------------------- |
-| `var` in lambda parameters       | Cleaner lambda syntax  |
-| New String methods               | Better string handling |
-| New File methods                 | Easy file read/write   |
-| HTTP Client API                  | Modern HTTP requests   |
-| Running Java without compilation | Quick execution        |
-| Collection enhancements          | Utility methods        |
-| Optional improvements            | Easier null handling   |
-| Removal of Java EE modules       | Cleaner JDK            |
+| **Feature**              | **Category** | **Primary Benefit**                             |
+| ------------------------ | ------------ | ----------------------------------------------- |
+| **`var` in Lambdas**     | Language     | Allows annotations on lambda parameters.        |
+| **`HttpClient`**         | Networking   | Modern, non-blocking API with HTTP/2 support.   |
+| **`Files.readString()`** | I/O          | Quick file reading/writing without boilerplate. |
+| **`String.isBlank()`**   | API          | Simplified string validation.                   |
+| **ZGC**                  | JVM          | Ultra-low latency for large applications.       |
+| **No `javac` needed**    | Tooling      | Faster prototyping for single-file scripts.     |
 
 ------
 
