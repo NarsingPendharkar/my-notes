@@ -7177,43 +7177,99 @@ These notes encapsulate the key features and enhancements introduced in Java 11,
 
 #### 1. **Sealed Classes**
 
-- **Definition**: Restricts which classes can inherit a parent class.
-- **Controlled inheritance:** Only specified classes can extend.
-- **Better security:** Reduces chances of misuse.
-- **Cleaner design:** Simplifies class hierarchy.
+A **sealed class** or interface restricts which other classes or interfaces may extend or implement it. It allows a class to explicitly define its allowed subclasses, giving you complete control over your inheritance hierarchy.
 
-**Problem Before**
+- **Before Java 17:** Any class could extend a non-final class, leading to uncontrolled inheritance.
+- **With Java 17:** The parent class decides exactly *who* its children can be.
 
-- Any class could extend a parent class:
-    ```java
-    class Vehicle {}
-    
-    class Car extends Vehicle {}
-    class Bike extends Vehicle {}
-    ```
-- Example of unregulated inheritance:
-    ```java
-    class Truck extends Vehicle {}
-    ```
+------
 
-**Solution**
+##### Core Syntax & Example
 
-- Implementation of **sealed classes**:
-    ```java
-    public sealed class Vehicle
-        permits Car, Bike {
-    }
-    
-    final class Car extends Vehicle {}
-    final class Bike extends Vehicle {}
-    ```
+You use the `sealed` keyword combined with the `permits` clause to declare the allowed subclasses.
+
+Java
+
+```
+// Parent class specifies its only allowed subclasses
+public sealed class Vehicle permits Car, Bike, Truck {
+    // fields and methods
+}
+```
+
+------
+
+##### Strict Rules for Subclasses
+
+Every single subclass allowed in the `permits` clause **must** explicitly declare how it handles further inheritance. It must use exactly one of these three modifiers:
+
+##### 1. `final`
+
+Stops the inheritance chain completely. No other class can extend it.
+
+Java
+
+```
+public final class Car extends Vehicle { }
+```
+
+##### 2. `sealed`
+
+Continues the restricted inheritance. It must declare its own permitted subclasses.
+
+Java
+
+```
+public sealed class Bike extends Vehicle permits SportsBike { }
+```
+
+##### 3. `non-sealed`
+
+Breaks the restriction and opens the class up for normal, unrestricted inheritance by anyone.
+
+Java
+
+```
+public non-sealed class Truck extends Vehicle { } 
+// Now any class can extend Truck (e.g., class CyberTruck extends Truck)
+```
+
+------
+
+##### Key Constraints
+
+- **Location:** Permitted subclasses must belong to the **same package** (or same module if using named modules).
+- **Interfaces:** Interfaces can also be `sealed`. Since interfaces cannot be `final`, their implementations must be either `sealed` or `non-sealed`.
+
+------
+
+##### Why use them? (The Big Benefit)
+
+Beyond security and architectural control, sealed classes shine when combined with **Pattern Matching for `switch`**:
+
+Java
+
+```java
+public String getVehicleType(Vehicle v) {
+    return switch (v) {
+        case Car c -> "It's a car";
+        case Bike b -> "It's a bike";
+        case Truck t -> "It's a truck";
+        // NO 'default' block needed! The compiler knows these are the only possible types.
+    };
+}
+```
+
+> ⚠️ **Note:** If you add a new permitted subclass to `Vehicle` later, the compiler will instantly flag an error in your `switch` expression, forcing you to handle the new type safely.
 
 **Flow Diagram**
 
 ```mermaid
-flowchart TD
-Vehicle --> Car
-Vehicle --> Bike
+graph TD
+A[Payment Sealed Class] --> B[CreditCard]
+A --> C[UPI]
+A --> D[NetBanking]
+A --> E[Other Class ❌ Not Allowed]
 ```
 
 ---
