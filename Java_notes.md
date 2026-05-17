@@ -7209,7 +7209,7 @@ Stops the inheritance chain completely. No other class can extend it.
 
 Java
 
-```
+```java
 public final class Car extends Vehicle { }
 ```
 
@@ -7219,7 +7219,7 @@ Continues the restricted inheritance. It must declare its own permitted subclass
 
 Java
 
-```
+```java
 public sealed class Bike extends Vehicle permits SportsBike { }
 ```
 
@@ -7229,7 +7229,7 @@ Breaks the restriction and opens the class up for normal, unrestricted inheritan
 
 Java
 
-```
+```java
 public non-sealed class Truck extends Vehicle { } 
 // Now any class can extend Truck (e.g., class CyberTruck extends Truck)
 ```
@@ -7498,8 +7498,68 @@ Thread.startVirtualThread(() -> {
 **Using Executor**
 
 ```java
-try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-    executor.submit(() -> System.out.println("Task"));
+public class VirtualThreadExample {
+
+    // Virtual threads are managed by the JVM and are lightweight.
+    // Traditional threads (platform threads) are expensive to create and consume high memory.
+    public static void main(String[] args) {
+        
+        // =========================================================================
+        // APPROACH 1: Using ExecutorService (Structured Concurrency)
+        // =========================================================================
+        // try-with-resources automatically invokes service.close() at the end, 
+        // forcing the main thread to wait until all submitted virtual threads finish.
+        try (ExecutorService service = Executors.newVirtualThreadPerTaskExecutor()) {
+            Runnable t1 = () -> {
+                System.out.println("Virtual thread started via Executor!");
+            };
+            service.execute(t1);
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+
+        try {
+            // =========================================================================
+            // APPROACH 2: Using Thread.ofVirtual().start() (Immediate Execution)
+            // =========================================================================
+            Thread start = Thread.ofVirtual().start(() -> {
+                System.out.println("Virtual thread created using Thread.ofVirtual() and automatically started.");
+            });
+
+            // =========================================================================
+            // APPROACH 3: Using Thread.ofVirtual().unstarted() (Lazy Execution)
+            // =========================================================================
+            Thread unstarted = Thread.ofVirtual().unstarted(() -> {
+                System.out.println("Virtual thread created using Thread.ofVirtual() and manually started.");
+            });
+            unstarted.start(); // Explicitly starting the unstarted thread
+
+            // =========================================================================
+            // APPROACH 4: Using ThreadFactory (Reusable Blueprint)
+            // =========================================================================
+            // Create a factory that customizes the name format and increments the counter starting at 0
+            ThreadFactory factory = Thread.ofVirtual().name("vthread-", 0).factory();
+
+            // Use the factory to build a new virtual thread instance
+            Thread t = factory.newThread(() -> {
+                System.out.println("Thread name: " + Thread.currentThread().getName());
+            });
+            t.start(); // Start the factory-created thread
+
+            // =========================================================================
+            // CRITICAL: Prevent Premature Main Exit
+            // =========================================================================
+            // Since virtual threads are daemon threads, we must join() them.
+            // Without these joins, the main method ends and the JVM shuts down before they print.
+            start.join();
+            unstarted.join();
+            t.join();
+
+        } catch (InterruptedException e) {
+            System.out.println("Main thread was interrupted while waiting for virtual threads.");
+            Thread.currentThread().interrupt();
+        }
+    }
 }
 ```
 
