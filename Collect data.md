@@ -3487,5 +3487,170 @@ public void updateMembership(int memberId, MembershipStatus membershipStatus) {
         return avg;
     }
  
- 
+ An LRU Cache (Least Recently Used Cache) is a data structure that stores a limited number of items and automatically removes the item that has not been used for the longest time when the cache is full.
+
+It’s commonly used to improve performance by keeping frequently accessed data quickly available.
+
+Simple Example
+
+Imagine a cache with capacity = 3.
+
+Operations:
+
+1. Add A → Cache: [A]
+
+
+2. Add B → Cache: [A, B]
+
+
+3. Add C → Cache: [A, B, C]
+
+
+4. Access A → Cache becomes: [B, C, A]
+
+A is now most recently used
+
+
+
+5. Add D
+
+Cache is full
+
+Remove least recently used item (B)
+
+Cache becomes: [C, A, D]
+
+
+
+
+So:
+
+Most recently used items stay
+
+Least recently used items get evicted first
+
+
+
+---
+
+Where LRU Cache Is Used
+
+Web browsers (cached pages)
+
+Databases
+
+Operating systems
+
+APIs
+
+CDN caching
+
+Image/video loading apps
+
+
+
+---
+
+Time Complexity Goal
+
+A good LRU cache supports:
+
+get(key) → O(1)
+
+put(key, value) → O(1)
+
+
+To achieve this, it usually combines:
+
+1. Hash Map → fast lookup
+
+
+2. Doubly Linked List → track usage order
+
+
+
+
+---
+
+Basic Working
+
+Hash Map
+
+Stores:
+
+key -> node
+
+Doubly Linked List
+
+Maintains order:
+
+Head = most recently used
+
+Tail = least recently used
+
+
+When an item is accessed:
+
+Move it to the front
+
+
+When cache is full:
+
+Remove from the tail
+
+
+
+---
+
+Example in Python
+
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+
+        self.cache[key] = value
+
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+# Example
+lru = LRUCache(3)
+
+lru.put(1, "A")
+lru.put(2, "B")
+lru.put(3, "C")
+
+print(lru.get(1))  # A
+
+lru.put(4, "D")    # Removes key 2
+
+print(lru.cache)
+
+
+---
+
+Key Idea
+
+An LRU cache is useful when:
+
+memory/storage is limited
+
+recently used data is more likely to be used again
+
+
+This follows the principle of temporal locality.
 
