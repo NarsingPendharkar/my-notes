@@ -1,4 +1,4 @@
-circuit breaker in depth :
+# circuit breaker in depth :
 
 In microservices architecture, a **Circuit Breaker** is a design pattern used to prevent a failure in one service from cascading down to other services. Think of it exactly like an electrical circuit breaker in your house: when a fault occurs (like a short circuit), the breaker trips to stop the flow of electricity, protecting the rest of your home.
 
