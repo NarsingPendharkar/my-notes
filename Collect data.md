@@ -270,8 +270,272 @@ public class DatabaseConnector implements BeanNameAware, InitializingBean, Dispo
 
 
 
+# LRU Cache 
+
+An **LRU (Least Recently Used) Cache** is a fixed-size caching strategy that discards the least recently accessed items first when the cache reaches its capacity limit. It operates on the principle of **temporal locality**: if you accessed a piece of data recently, you are highly likely to access it again soon.
+
+To make a cache production-grade, both lookups (`get`) and insertions (`put`) must execute in constant time, or **$O(1)$ time complexity**.
+
+---
+
+## 1. The Core Data Structure: Why One Isn't Enough
+
+To achieve $O(1)$ for both reading and writing, an LRU Cache combined two distinct data structures into one cohesive hybrid: a **Hash Map** and a **Doubly Linked List**.
+
+```
+[ Hash Map ] ──(Lookups)──> [ Doubly Linked List ] ──(Ordering)──> [ Head (Most Recent) / Tail (Least Recent) ]
+
+```
+
+### Why a Doubly Linked List?
+
+A linked list makes it incredibly easy to move elements around. If an item is accessed, we can snip it out of its current position and splice it onto the **Head** (representing the most recently used item) in $O(1)$ time. The **Tail** of the list always represents the oldest, least recently used item. If the cache is full, we simply evict the node at the tail.
+
+### Why a Hash Map?
+
+A linked list alone has $O(n)$ search time because you have to traverse it sequentially. By pairing it with a Hash Map, the map's **keys** point directly to the **nodes** inside the Doubly Linked List. This grants instant $O(1)$ access to any node without searching the entire list.
+
+---
+
+## 2. Deep Dive: How the Operations Work
+
+Imagine an LRU Cache with a capacity of **3**.
+
+### The `put(key, value)` Operation
+
+1. **Case A: Key already exists.** * Update the node's value.
+* Move the node to the **Head** of the doubly linked list (since it was just updated).
 
 
+2. **Case B: Key is new, and cache is NOT full.**
+* Create a new node.
+* Add it to the Hash Map.
+* Insert it at the **Head** of the list.
+
+
+3. **Case C: Key is new, and cache IS full.**
+* Locate the node at the **Tail** of the list.
+* Delete that node's key from the Hash Map.
+* Remove the node from the list (eviction).
+* Insert the brand-new node at the **Head** and add it to the Hash Map.
+
+
+
+### The `get(key)` Operation
+
+1. Look up the key in the Hash Map.
+2. If it doesn't exist, return `-1` or `null`.
+3. If it does exist, the map returns the node pointer. Before returning the value, **move this node to the Head** of the doubly linked list because it just became the most recently used item.
+
+---
+
+## 3. Pure Java Implementation (From Scratch)
+
+While you could cheat in Java by extending `LinkedHashMap` (which has built-in LRU support via its structural access-order flag), interviews and deep architectural reviews require writing the underlying mechanics manually.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class LRUCache {
+
+    // Internal Node structure for the Doubly Linked List
+    private static class Node {
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private final int capacity;
+    private final Map<Integer, Node> map;
+    private final Node head; // Dummy head
+    private final Node tail; // Dummy tail
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.map = new HashMap<>();
+        
+        // Initialize dummy head and tail to avoid null-pointer checks during node splicing
+        this.head = new Node(0, 0);
+        this.tail = new Node(0, 0);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public int get(int key) {
+        if (!map.containsKey(key)) {
+            return -1;
+        }
+        Node node = map.get(key);
+        moveToHead(node); // Refresh item priority
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.value = value; // Update value
+            moveToHead(node);
+        } else {
+            Node newNode = new Node(key, value);
+            map.put(key, newNode);
+            addNode(newNode);
+
+            if (map.size() > capacity) {
+                // Evict the least recently used item from the tail
+                Node tailNode = this.tail.prev;
+                removeNode(tailNode);
+                map.remove(tailNode.key);
+            }
+        }
+    }
+
+    // --- Helper Methods for List Manipulation ---
+    
+    // Always insert right after the dummy head
+    private void addNode(Node node) {
+        node.prev = head;
+        node.next = head.next;
+
+        head.next.prev = node;
+        head.next = node;
+    }
+
+    // Break the links around an existing node
+    private void removeNode(Node node) {
+        Node prevNode = node.prev;
+        Node nextNode = node.next;
+
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+    }
+
+    // Moving a node to the front means removing it from its current spot, then adding it to head
+    private void moveToHead(Node node) {
+        removeNode(node);
+        addNode(node);
+    }
+}
+
+```
+
+---
+
+## 4. Architectural Trade-offs & Limitations
+
+While LRU is incredibly popular (used under the hood in Redis, Memcached, and database buffer pools), it isn't flawless:
+
+* **Concurrency Overhead:** The implementation above is **not thread-safe**. If multiple threads call `get()` or `put()` concurrently, structural links will break. Making it thread-safe requires synchronization lock mechanisms (like `ReentrantReadWriteLock`), which introduces contention and slows down throughput.
+* **The "One-Hit Wonder" Flaw:** LRU is highly vulnerable to sequential scans. If an application suddenly queries 10,000 unique records consecutively that it will never ask for again, an LRU cache will evict its *entire* history of frequently used data to make room for these one-hit wonders.
+* **Alternative Patterns:** To combat this flaw, modern high-throughput applications often turn to variations like **LFU (Least Frequently Used)** or hybrid approaches like **W-TinyLFU** (used by the popular Java caching library Caffeine), which tracks *how many times* an item is called alongside how recently it was called.
+
+
+Using `LinkedHashMap` is the ultimate "cheat code" for implementing an LRU Cache in Java. Instead of manually wiring up a `HashMap` and managing the pointers of a custom `DoublyLinkedList`, Java's built-in `LinkedHashMap` actually provides all of this machinery right out of the box.
+
+Here is an in-depth look at how it works under the hood and how to implement it cleanly.
+
+---
+
+## 1. The Secret Weapon: The Access-Order Flag
+
+By default, a `LinkedHashMap` maintains elements in **insertion-order** (the order in which keys are put into the map). However, it contains a special constructor that lets you flip this behavior to **access-order**:
+
+```java
+public LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)
+
+```
+
+If `accessOrder` is set to `true`, every time you call `.get()` or `.put()` on a key, `LinkedHashMap` automatically detaches that underlying node from its current position and splices it to the end of its internal doubly linked list.
+
+This means:
+
+* **The Head (Start of iteration):** Becomes the Least Recently Used (LRU) element.
+* **The Tail (End of iteration):** Becomes the Most Recently Used (MRU) element.
+
+---
+
+## 2. The Hook: `removeEldestEntry`
+
+To make it a true fixed-size cache, we need a way to evict the oldest entry automatically when the capacity limit is breached. `LinkedHashMap` provides a protected method designed exactly for this hook:
+
+```java
+protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+    return false; // Default behavior: never remove old entries
+}
+
+```
+
+By overriding this method to return `true` when the map size exceeds our maximum capacity, `LinkedHashMap` will automatically evict the head of the list (the least recently accessed item) every time a new item is added.
+
+---
+
+## 3. Implementation Code
+
+Here is how incredibly concise an LRU cache becomes when utilizing `LinkedHashMap`:
+
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LRUCacheLinkedHashMap<K, V> extends LinkedHashMap<K, V> {
+    
+    private final int maxCapacity;
+
+    public LRUCacheLinkedHashMap(int maxCapacity) {
+        // initialCapacity: maxCapacity + 1 to prevent immediate resizing
+        // loadFactor: 0.75f (standard default)
+        // accessOrder: true (this enables the LRU tracking behavior)
+        super(maxCapacity + 1, 0.75f, true);
+        this.maxCapacity = maxCapacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        // Automatically returns true and deletes the eldest item 
+        // when the map outgrows the allowed capacity.
+        return this.size() > maxCapacity;
+    }
+
+    // Optional: Standard helper wrappers if you don't want to expose raw Map methods
+    public V getCache(K key) {
+        return super.getOrDefault(key, null);
+    }
+
+    public void putCache(K key, V value) {
+        super.put(key, value);
+    }
+}
+
+```
+
+---
+
+## 4. Crucial Production Nuances
+
+While using `LinkedHashMap` saves you dozens of lines of code, you must be aware of its architectural limitations in production environments:
+
+### 1. It is NOT Thread-Safe
+
+Just like a standard `HashMap`, `LinkedHashMap` will break structurally if multiple threads attempt to access or modify it concurrently. Worse yet, because `accessOrder=true`, even a seemingly passive **`get()` call is actually a structural modification** (it reorders the internal list pointers).
+
+To use it in a multi-threaded environment, you must wrap it using `Collections.synchronizedMap`:
+
+```java
+Map<String, String> cache = Collections.synchronizedMap(new LRUCacheLinkedHashMap<>(100));
+
+```
+
+### 2. Lock Contention
+
+Even when wrapped in `Collections.synchronizedMap`, the entire map is guarded by a single, monolithic mutual-exclusion lock. This means if Thread A is calling `.get()`, Thread B must wait entirely to call `.get()` or `.put()`.
+
+For high-throughput systems, this becomes a severe bottleneck. This is why advanced frameworks like **Caffeine** or **Guava Cache** do not use synchronized wrappers; instead, they utilize ring buffers and concurrent log-stripping structures to record read/write data access asynchronously without locking execution threads.
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------
