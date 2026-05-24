@@ -124,7 +124,139 @@ resilience4j.circuitbreaker.instances.inventoryService:
 
 ---------------------------------------------------------------------------------------------------------
 
+# Bean Life cycle 
 
+In Spring, a **Bean** is simply an object that is instantiated, assembled, and managed by the Spring IoC (Inversion of Control) Container. The lifecycle of a Spring bean is incredibly robust, allowing you to hook into almost every stage of its existence—from creation to destruction.
+
+Here is an in-depth breakdown of how a Spring Bean moves through the container.
+
+---
+
+## 1. High-Level Phases of the Lifecycle
+
+The bean lifecycle can be broadly divided into four distinct phases:
+
+```
+[ Instantiate ] ──> [ Populate Properties ] ──> [ Initialization Stage ] ──> [ Ready for Use ] ──> [ Destruction Stage ]
+
+```
+
+1. **Instantiation:** The container finds the bean’s definition (via XML, Java config `@Bean`, or component scanning `@Component`) and creates an instance of the bean class using reflection (similar to calling `new MyBean()`).
+2. **Populate Properties (Dependency Injection):** Spring looks at dependencies required by the bean (via `@Autowired`, setter injection, or constructor injection) and injects them.
+3. **Initialization:** A series of post-processors and awareness interfaces run to configure the bean, followed by custom initialization methods.
+4. **Destruction:** When the application context shuts down, the container cleans up resources using custom destruction hooks.
+
+---
+
+## 2. Step-by-Step Execution Flow
+
+If we zoom into the exact sequence of events, especially during the crucial **Initialization** phase, Spring follows a precise internal script:
+
+### Phase A: Awareness Interfaces
+
+Once dependencies are injected, Spring checks if the bean implements any `Aware` interfaces. These interfaces "awaken" the bean to its environment by injecting infrastructure objects:
+
+* **`BeanNameAware`:** Injects the ID/Name of the bean.
+* **`BeanFactoryAware`:** Injects the owning `BeanFactory`.
+* **`ApplicationContextAware`:** Injects the active `ApplicationContext` (giving the bean access to the whole environment, events, and resource loading).
+
+### Phase B: Bean Post-Processors (Pre-Initialization)
+
+Spring invokes the `postProcessBeforeInitialization()` method of all registered **`BeanPostProcessor`** beans.
+
+* *Deep Dive:* This is where Spring's `@PostConstruct` annotation is actually processed behind the scenes by the `CommonAnnotationBeanPostProcessor`.
+
+### Phase C: Initialization Methods
+
+This is where you execute custom setup logic (like opening database connections or starting a thread pool). Spring looks for hooks in this exact order:
+
+1. **`InitializingBean` interface:** Executes the overridden `afterPropertiesSet()` method. *(Not recommended for modern apps as it tightly couples your code to Spring).*
+2. **Custom `initMethod`:** Executes a method defined via `@Bean(initMethod = "customInit")` or XML configuration.
+
+### Phase D: Bean Post-Processors (Post-Initialization)
+
+Spring invokes the `postProcessAfterInitialization()` method of the `BeanPostProcessor` beans.
+
+* *Deep Dive:* This is arguably the most powerful step in Spring. If your bean requires Aspect-Oriented Programming (AOP)—like `@Transactional` or `@Async`—Spring will intercept the bean here and wrap your original object in a **Dynamic Proxy** object.
+
+### Phase E: Destruction Hook
+
+When the `ApplicationContext` closes, Spring gracefully cleans up the bean using these triggers in order:
+
+1. **`@PreDestroy`:** Methods annotated with this are executed first.
+2. **`DisposableBean` interface:** Executes the `destroy()` method.
+3. **Custom `destroyMethod`:** Executes a method defined via `@Bean(destroyMethod = "customDestroy")`.
+
+---
+
+## 3. Code Example: Seeing it in Action
+
+Here is a practical implementation showcasing the modern annotations, legacy interfaces, and custom declarations together:
+
+```java
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DatabaseConnector implements BeanNameAware, InitializingBean, DisposableBean {
+
+    private String beanName;
+
+    public DatabaseConnector() {
+        System.out.println("1. Constructor: Bean Instantiated");
+    }
+
+    // 1. Aware Interface
+    @Override
+    public void setBeanName(String name) {
+        this.beanName = name;
+        System.out.println("2. BeanNameAware: Bean Name set to -> " + name);
+    }
+
+    // 2. PostConstruct Annotation
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("3. @PostConstruct: Executed before initialization interfaces");
+    }
+
+    // 3. InitializingBean Interface
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("4. InitializingBean: afterPropertiesSet executed");
+    }
+
+    // 4. Custom Init Method (If configured via @Bean(initMethod = "customInit"))
+    public void customInit() {
+        System.out.println("5. Custom Init: Executed last in initialization");
+    }
+
+    // -- BEAN IS NOW READY FOR USE --
+
+    // 5. PreDestroy Annotation
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("6. @PreDestroy: Executed before destruction interfaces");
+    }
+
+    // 6. DisposableBean Interface
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("7. DisposableBean: destroy executed");
+    }
+}
+
+```
+
+---
+
+## 4. Crucial Interview/Architecture Gotchas
+
+* **Bean Scopes Matter:** The entire lifecycle applies fully to **Singleton** beans. For **Prototype** beans, Spring instantiates, configures, and initializes the bean, then hands it over to the client. *Spring does not manage the destruction phase of Prototype beans*—you must clean up their resources manually.
+* **Constructor Injection vs. `@PostConstruct`:** Field-level `@Autowired` variables are `null` inside a constructor because dependencies haven't been injected yet. If you need to run setup logic using dependencies right after they are ready, you *must* use `@PostConstruct` (or switch to constructor injection entirely).
 
 
 
