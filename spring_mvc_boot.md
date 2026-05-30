@@ -561,7 +561,7 @@ flowchart LR
     classDef view fill:#ffff99,stroke:#ffc107,stroke-width:2px;
 
     %% Diagram Nodes
-    User([fa:fa-user User]) --- Browser(fa:fa-globe Browser)
+    User([user User]) --- Browser(globe Browser)
     
     subgraph Spring_Core [Spring MVC Engine]
         DS{Dispatcher<br/>Servlet}
@@ -1200,7 +1200,7 @@ It eliminates:
 - Manual dependency setup
 - Server deployment complexity
 
-### Why we use it?
+#### Why we use it?
 
 - Faster development
 - Embedded server (Tomcat/Jetty)
@@ -1225,22 +1225,15 @@ public class MyApplication {
 
 **Answer:**
 
-1. **Auto Configuration**
-    Automatically configures beans based on classpath dependencies.
-2. **Starter Dependencies**
-    Provides ready-to-use dependency bundles.
-3. **Embedded Server**
-    No need to install external server (Tomcat included).
-4. **Production Ready Features**
-    Monitoring using Actuator.
-5. **Minimal Configuration**
-    Mostly annotation-based configuration.
+1. **Auto Configuration** Automatically configures beans based on classpath dependencies.
+2. **Starter Dependencies** Provides ready-to-use dependency bundles.
+3. **Embedded Server **No need to install external server (Tomcat included).
+4. **Production Ready Features **Monitoring using Actuator.
+5. **Minimal Configuration **Mostly annotation-based configuration.
 
 ------
 
 #### 3️⃣ What are Spring Boot Starters?
-
-**Answer:**
 
 Starters are **predefined dependency packages** that simplify build configuration. Instead of adding multiple dependencies manually, we add one starter.
 
@@ -1277,12 +1270,9 @@ The **@SpringBootApplication** annotation is the primary entry point of any Spri
 
 **@SpringBootApplication = @Configuration + @EnableAutoConfiguration + @ComponentScan**
 
-1. `@Configuration`
-    Marks class as configuration class.
-2. `@EnableAutoConfiguration`
-    Enables Spring Boot auto configuration.
-3. `@ComponentScan`
-    Scans components in current package and sub-packages.
+1. `@Configuration` : Marks class as configuration class.
+2. `@EnableAutoConfiguration` : Enables Spring Boot auto configuration.
+3. `@ComponentScan`: Scans components in current package and sub-packages.
 
 ##### Equivalent Code:
 
@@ -1308,6 +1298,7 @@ public class MyApplication {
 **Answer:**
 
 `application.properties` is used to configure:
+
 - Server settings
 - Database connection
 - Logging
@@ -2920,13 +2911,13 @@ public class LoggingAspect {
 **Example :** 
 If a user tries to access /admin, Spring Security will check whether they have the ADMIN role before granting access.
 
-### Spring Security architecture
+---
 
-![Spring Security Architecture](data,image/png;base64...)
+### Spring Security architecture
 
 #### Security filter chain :
 
-* This is used to filter the requests and it also authenticate and authorise the user
+* This is used to filter the requests and it also authenticate and authorize the user
 * Filter run the first in processing order
 * We can add custom filters in applications
 
