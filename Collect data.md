@@ -1,8 +1,544 @@
-Here are clean, structured Markdown notes following your requested format 👇
+# circuit breaker in depth :
+
+In microservices architecture, a **Circuit Breaker** is a design pattern used to prevent a failure in one service from cascading down to other services. Think of it exactly like an electrical circuit breaker in your house: when a fault occurs (like a short circuit), the breaker trips to stop the flow of electricity, protecting the rest of your home.
+
+In Spring Boot, the modern standard for implementing this pattern is **Resilience4j** (which replaced the deprecated Netflix Hystrix).
+
+---
+
+## 1. The Three Core States
+
+A circuit breaker operates as a finite state machine with three main states:
+
+* **CLOSED:** Everything is working normally. Requests flow directly to the downstream service. The circuit breaker monitors the success/failure rate of these calls.
+* **OPEN:** The downstream service is failing, and the error threshold has been breached. The circuit breaker **trips**, meaning it immediately rejects incoming requests and diverts them to a fallback method without hitting the broken service. This gives the service time to recover.
+* **HALF-OPEN:** After a configured wait duration, the circuit breaker enters this state to test if the underlying service has recovered. It permits a limited, configurable number of requests to pass through.
+* If they **succeed**, the circuit closes, and normal operation resumes.
+* If they **fail**, the circuit trips back to **OPEN**.
+
 
 
 ---
 
+## 2. Sliding Windows: How Failure is Calculated
+
+Resilience4j doesn't just look at the *last* request; it uses a **Sliding Window** to evaluate metrics. You can configure this in two ways:
+
+1. **Count-Based Sliding Window:** Evaluates the last `N` requests (e.g., the last 100 calls). If 50% of those 100 calls fail, the circuit opens.
+2. **Time-Based Sliding Window:** Evaluates requests made in the last `N` seconds (e.g., the last 30 seconds).
+
+---
+
+## 3. Implementing Resilience4j in Spring Boot
+
+### Step 1: Add Dependencies
+
+To get started, add the Resilience4j starter along with Spring Boot AOP (required for annotations) to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>io.github.resilience4j</groupId>
+    <groupId>resilience4j-spring-boot3</groupId>
+    <version>2.2.0</version> </dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+
+```
+
+### Step 2: Configure via `application.yml`
+
+This is where the "in-depth" control happens. You fine-tune how and when the circuit trips:
+
+```yaml
+resilience4j:
+  circuitbreaker:
+    instances:
+      inventoryService:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10              # Tracks the last 10 requests
+        failureRateThreshold: 50           # Trips if 50% (5 out of 10) fail
+        slowCallRateThreshold: 70          # Trips if 70% of calls take too long
+        slowCallDurationThreshold: 2000ms  # A call taking > 2s is considered "slow"
+        waitDurationInOpenState: 10000ms   # Waits 10s in OPEN before moving to HALF-OPEN
+        permittedNumberOfCallsInHalfOpenState: 3 # Sends 3 trial requests in HALF-OPEN
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+```
+
+### Step 3: Coding the Circuit Breaker & Fallback
+
+Apply the `@CircuitBreaker` annotation to your service method. You should always supply a `fallbackMethod` to handle the failure gracefully.
+
+```java
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class OrderService {
+
+    private final RestTemplate restTemplate;
+
+    public OrderService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    // "inventoryService" matches the key used in application.yml
+    @CircuitBreaker(name = "inventoryService", fallbackMethod = "getInventoryFallback")
+    public String checkInventory(Long productId) {
+        return restTemplate.getForObject("http://inventory-service/api/products/" + productId, String.class);
+    }
+
+    // The fallback method MUST have the same signature as the core method, 
+    // plus an extra parameter for the Exception caught.
+    public String getInventoryFallback(Long productId, Throwable throwable) {
+        // Log the error and return cached or default data
+        System.out.println("Circuit is OPEN or Service failed. Error: " + throwable.getMessage());
+        return "Inventory status temporarily unavailable (Fallback Data)";
+    }
+}
+
+```
+
+---
+
+## 4. Advanced Production Concepts
+
+When architecting production-grade microservices, keep these core behaviors in mind:
+
+* **Thread Safety:** Resilience4j is built on Top of `Vavr`, utilizing atomic operations and functional data structures. It is completely thread-safe with very low memory overhead.
+* **Exception Handling (Ignore vs. Record):** By default, all exceptions count as failures. However, you don't want a `404 Not Found` (client error) to trip a circuit meant to catch server crashes. You can configure this explicitly:
+```yaml
+resilience4j.circuitbreaker.instances.inventoryService:
+  recordExceptions:
+    - org.springframework.web.client.HttpServerErrorException # Count 5xx
+  ignoreExceptions:
+    - org.springframework.web.client.HttpClientErrorException # Ignore 4xx
+
+```
+
+
+* **Monitoring with Actuator:** You can expose the state of your circuit breakers to monitoring tools like Prometheus and Grafana. By adding `spring-boot-starter-actuator`, you gain access to the `/actuator/circuitbreakers` endpoint to view real-time failure rates and states.
+
+---------------------------------------------------------------------------------------------------------
+
+# Bean Life cycle 
+
+In Spring, a **Bean** is simply an object that is instantiated, assembled, and managed by the Spring IoC (Inversion of Control) Container. The lifecycle of a Spring bean is incredibly robust, allowing you to hook into almost every stage of its existence—from creation to destruction.
+
+Here is an in-depth breakdown of how a Spring Bean moves through the container.
+
+---
+
+## 1. High-Level Phases of the Lifecycle
+
+The bean lifecycle can be broadly divided into four distinct phases:
+
+```
+[ Instantiate ] ──> [ Populate Properties ] ──> [ Initialization Stage ] ──> [ Ready for Use ] ──> [ Destruction Stage ]
+
+```
+
+1. **Instantiation:** The container finds the bean’s definition (via XML, Java config `@Bean`, or component scanning `@Component`) and creates an instance of the bean class using reflection (similar to calling `new MyBean()`).
+2. **Populate Properties (Dependency Injection):** Spring looks at dependencies required by the bean (via `@Autowired`, setter injection, or constructor injection) and injects them.
+3. **Initialization:** A series of post-processors and awareness interfaces run to configure the bean, followed by custom initialization methods.
+4. **Destruction:** When the application context shuts down, the container cleans up resources using custom destruction hooks.
+
+---
+
+## 2. Step-by-Step Execution Flow
+
+If we zoom into the exact sequence of events, especially during the crucial **Initialization** phase, Spring follows a precise internal script:
+
+### Phase A: Awareness Interfaces
+
+Once dependencies are injected, Spring checks if the bean implements any `Aware` interfaces. These interfaces "awaken" the bean to its environment by injecting infrastructure objects:
+
+* **`BeanNameAware`:** Injects the ID/Name of the bean.
+* **`BeanFactoryAware`:** Injects the owning `BeanFactory`.
+* **`ApplicationContextAware`:** Injects the active `ApplicationContext` (giving the bean access to the whole environment, events, and resource loading).
+
+### Phase B: Bean Post-Processors (Pre-Initialization)
+
+Spring invokes the `postProcessBeforeInitialization()` method of all registered **`BeanPostProcessor`** beans.
+
+* *Deep Dive:* This is where Spring's `@PostConstruct` annotation is actually processed behind the scenes by the `CommonAnnotationBeanPostProcessor`.
+
+### Phase C: Initialization Methods
+
+This is where you execute custom setup logic (like opening database connections or starting a thread pool). Spring looks for hooks in this exact order:
+
+1. **`InitializingBean` interface:** Executes the overridden `afterPropertiesSet()` method. *(Not recommended for modern apps as it tightly couples your code to Spring).*
+2. **Custom `initMethod`:** Executes a method defined via `@Bean(initMethod = "customInit")` or XML configuration.
+
+### Phase D: Bean Post-Processors (Post-Initialization)
+
+Spring invokes the `postProcessAfterInitialization()` method of the `BeanPostProcessor` beans.
+
+* *Deep Dive:* This is arguably the most powerful step in Spring. If your bean requires Aspect-Oriented Programming (AOP)—like `@Transactional` or `@Async`—Spring will intercept the bean here and wrap your original object in a **Dynamic Proxy** object.
+
+### Phase E: Destruction Hook
+
+When the `ApplicationContext` closes, Spring gracefully cleans up the bean using these triggers in order:
+
+1. **`@PreDestroy`:** Methods annotated with this are executed first.
+2. **`DisposableBean` interface:** Executes the `destroy()` method.
+3. **Custom `destroyMethod`:** Executes a method defined via `@Bean(destroyMethod = "customDestroy")`.
+
+---
+
+## 3. Code Example: Seeing it in Action
+
+Here is a practical implementation showcasing the modern annotations, legacy interfaces, and custom declarations together:
+
+```java
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DatabaseConnector implements BeanNameAware, InitializingBean, DisposableBean {
+
+    private String beanName;
+
+    public DatabaseConnector() {
+        System.out.println("1. Constructor: Bean Instantiated");
+    }
+
+    // 1. Aware Interface
+    @Override
+    public void setBeanName(String name) {
+        this.beanName = name;
+        System.out.println("2. BeanNameAware: Bean Name set to -> " + name);
+    }
+
+    // 2. PostConstruct Annotation
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("3. @PostConstruct: Executed before initialization interfaces");
+    }
+
+    // 3. InitializingBean Interface
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("4. InitializingBean: afterPropertiesSet executed");
+    }
+
+    // 4. Custom Init Method (If configured via @Bean(initMethod = "customInit"))
+    public void customInit() {
+        System.out.println("5. Custom Init: Executed last in initialization");
+    }
+
+    // -- BEAN IS NOW READY FOR USE --
+
+    // 5. PreDestroy Annotation
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("6. @PreDestroy: Executed before destruction interfaces");
+    }
+
+    // 6. DisposableBean Interface
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("7. DisposableBean: destroy executed");
+    }
+}
+
+```
+
+---
+
+## 4. Crucial Interview/Architecture Gotchas
+
+* **Bean Scopes Matter:** The entire lifecycle applies fully to **Singleton** beans. For **Prototype** beans, Spring instantiates, configures, and initializes the bean, then hands it over to the client. *Spring does not manage the destruction phase of Prototype beans*—you must clean up their resources manually.
+* **Constructor Injection vs. `@PostConstruct`:** Field-level `@Autowired` variables are `null` inside a constructor because dependencies haven't been injected yet. If you need to run setup logic using dependencies right after they are ready, you *must* use `@PostConstruct` (or switch to constructor injection entirely).
+
+
+
+
+
+
+
+
+
+
+
+
+
+# LRU Cache 
+
+An **LRU (Least Recently Used) Cache** is a fixed-size caching strategy that discards the least recently accessed items first when the cache reaches its capacity limit. It operates on the principle of **temporal locality**: if you accessed a piece of data recently, you are highly likely to access it again soon.
+
+To make a cache production-grade, both lookups (`get`) and insertions (`put`) must execute in constant time, or **$O(1)$ time complexity**.
+
+---
+
+## 1. The Core Data Structure: Why One Isn't Enough
+
+To achieve $O(1)$ for both reading and writing, an LRU Cache combined two distinct data structures into one cohesive hybrid: a **Hash Map** and a **Doubly Linked List**.
+
+```
+[ Hash Map ] ──(Lookups)──> [ Doubly Linked List ] ──(Ordering)──> [ Head (Most Recent) / Tail (Least Recent) ]
+
+```
+
+### Why a Doubly Linked List?
+
+A linked list makes it incredibly easy to move elements around. If an item is accessed, we can snip it out of its current position and splice it onto the **Head** (representing the most recently used item) in $O(1)$ time. The **Tail** of the list always represents the oldest, least recently used item. If the cache is full, we simply evict the node at the tail.
+
+### Why a Hash Map?
+
+A linked list alone has $O(n)$ search time because you have to traverse it sequentially. By pairing it with a Hash Map, the map's **keys** point directly to the **nodes** inside the Doubly Linked List. This grants instant $O(1)$ access to any node without searching the entire list.
+
+---
+
+## 2. Deep Dive: How the Operations Work
+
+Imagine an LRU Cache with a capacity of **3**.
+
+### The `put(key, value)` Operation
+
+1. **Case A: Key already exists.** * Update the node's value.
+* Move the node to the **Head** of the doubly linked list (since it was just updated).
+
+
+2. **Case B: Key is new, and cache is NOT full.**
+* Create a new node.
+* Add it to the Hash Map.
+* Insert it at the **Head** of the list.
+
+
+3. **Case C: Key is new, and cache IS full.**
+* Locate the node at the **Tail** of the list.
+* Delete that node's key from the Hash Map.
+* Remove the node from the list (eviction).
+* Insert the brand-new node at the **Head** and add it to the Hash Map.
+
+
+
+### The `get(key)` Operation
+
+1. Look up the key in the Hash Map.
+2. If it doesn't exist, return `-1` or `null`.
+3. If it does exist, the map returns the node pointer. Before returning the value, **move this node to the Head** of the doubly linked list because it just became the most recently used item.
+
+---
+
+## 3. Pure Java Implementation (From Scratch)
+
+While you could cheat in Java by extending `LinkedHashMap` (which has built-in LRU support via its structural access-order flag), interviews and deep architectural reviews require writing the underlying mechanics manually.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class LRUCache {
+
+    // Internal Node structure for the Doubly Linked List
+    private static class Node {
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private final int capacity;
+    private final Map<Integer, Node> map;
+    private final Node head; // Dummy head
+    private final Node tail; // Dummy tail
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.map = new HashMap<>();
+        
+        // Initialize dummy head and tail to avoid null-pointer checks during node splicing
+        this.head = new Node(0, 0);
+        this.tail = new Node(0, 0);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public int get(int key) {
+        if (!map.containsKey(key)) {
+            return -1;
+        }
+        Node node = map.get(key);
+        moveToHead(node); // Refresh item priority
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.value = value; // Update value
+            moveToHead(node);
+        } else {
+            Node newNode = new Node(key, value);
+            map.put(key, newNode);
+            addNode(newNode);
+
+            if (map.size() > capacity) {
+                // Evict the least recently used item from the tail
+                Node tailNode = this.tail.prev;
+                removeNode(tailNode);
+                map.remove(tailNode.key);
+            }
+        }
+    }
+
+    // --- Helper Methods for List Manipulation ---
+    
+    // Always insert right after the dummy head
+    private void addNode(Node node) {
+        node.prev = head;
+        node.next = head.next;
+
+        head.next.prev = node;
+        head.next = node;
+    }
+
+    // Break the links around an existing node
+    private void removeNode(Node node) {
+        Node prevNode = node.prev;
+        Node nextNode = node.next;
+
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+    }
+
+    // Moving a node to the front means removing it from its current spot, then adding it to head
+    private void moveToHead(Node node) {
+        removeNode(node);
+        addNode(node);
+    }
+}
+
+```
+
+---
+
+## 4. Architectural Trade-offs & Limitations
+
+While LRU is incredibly popular (used under the hood in Redis, Memcached, and database buffer pools), it isn't flawless:
+
+* **Concurrency Overhead:** The implementation above is **not thread-safe**. If multiple threads call `get()` or `put()` concurrently, structural links will break. Making it thread-safe requires synchronization lock mechanisms (like `ReentrantReadWriteLock`), which introduces contention and slows down throughput.
+* **The "One-Hit Wonder" Flaw:** LRU is highly vulnerable to sequential scans. If an application suddenly queries 10,000 unique records consecutively that it will never ask for again, an LRU cache will evict its *entire* history of frequently used data to make room for these one-hit wonders.
+* **Alternative Patterns:** To combat this flaw, modern high-throughput applications often turn to variations like **LFU (Least Frequently Used)** or hybrid approaches like **W-TinyLFU** (used by the popular Java caching library Caffeine), which tracks *how many times* an item is called alongside how recently it was called.
+
+
+Using `LinkedHashMap` is the ultimate "cheat code" for implementing an LRU Cache in Java. Instead of manually wiring up a `HashMap` and managing the pointers of a custom `DoublyLinkedList`, Java's built-in `LinkedHashMap` actually provides all of this machinery right out of the box.
+
+Here is an in-depth look at how it works under the hood and how to implement it cleanly.
+
+---
+
+## 1. The Secret Weapon: The Access-Order Flag
+
+By default, a `LinkedHashMap` maintains elements in **insertion-order** (the order in which keys are put into the map). However, it contains a special constructor that lets you flip this behavior to **access-order**:
+
+```java
+public LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)
+
+```
+
+If `accessOrder` is set to `true`, every time you call `.get()` or `.put()` on a key, `LinkedHashMap` automatically detaches that underlying node from its current position and splices it to the end of its internal doubly linked list.
+
+This means:
+
+* **The Head (Start of iteration):** Becomes the Least Recently Used (LRU) element.
+* **The Tail (End of iteration):** Becomes the Most Recently Used (MRU) element.
+
+---
+
+## 2. The Hook: `removeEldestEntry`
+
+To make it a true fixed-size cache, we need a way to evict the oldest entry automatically when the capacity limit is breached. `LinkedHashMap` provides a protected method designed exactly for this hook:
+
+```java
+protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+    return false; // Default behavior: never remove old entries
+}
+
+```
+
+By overriding this method to return `true` when the map size exceeds our maximum capacity, `LinkedHashMap` will automatically evict the head of the list (the least recently accessed item) every time a new item is added.
+
+---
+
+## 3. Implementation Code
+
+Here is how incredibly concise an LRU cache becomes when utilizing `LinkedHashMap`:
+
+```java
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LRUCacheLinkedHashMap<K, V> extends LinkedHashMap<K, V> {
+    
+    private final int maxCapacity;
+
+    public LRUCacheLinkedHashMap(int maxCapacity) {
+        // initialCapacity: maxCapacity + 1 to prevent immediate resizing
+        // loadFactor: 0.75f (standard default)
+        // accessOrder: true (this enables the LRU tracking behavior)
+        super(maxCapacity + 1, 0.75f, true);
+        this.maxCapacity = maxCapacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+        // Automatically returns true and deletes the eldest item 
+        // when the map outgrows the allowed capacity.
+        return this.size() > maxCapacity;
+    }
+
+    // Optional: Standard helper wrappers if you don't want to expose raw Map methods
+    public V getCache(K key) {
+        return super.getOrDefault(key, null);
+    }
+
+    public void putCache(K key, V value) {
+        super.put(key, value);
+    }
+}
+
+```
+
+---
+
+## 4. Crucial Production Nuances
+
+While using `LinkedHashMap` saves you dozens of lines of code, you must be aware of its architectural limitations in production environments:
+
+### 1. It is NOT Thread-Safe
+
+Just like a standard `HashMap`, `LinkedHashMap` will break structurally if multiple threads attempt to access or modify it concurrently. Worse yet, because `accessOrder=true`, even a seemingly passive **`get()` call is actually a structural modification** (it reorders the internal list pointers).
+
+To use it in a multi-threaded environment, you must wrap it using `Collections.synchronizedMap`:
+
+```java
+Map<String, String> cache = Collections.synchronizedMap(new LRUCacheLinkedHashMap<>(100));
+
+```
+
+### 2. Lock Contention
+
+Even when wrapped in `Collections.synchronizedMap`, the entire map is guarded by a single, monolithic mutual-exclusion lock. This means if Thread A is calling `.get()`, Thread B must wait entirely to call `.get()` or `.put()`.
+
+For high-throughput systems, this becomes a severe bottleneck. This is why advanced frameworks like **Caffeine** or **Guava Cache** do not use synchronized wrappers; instead, they utilize ring buffers and concurrent log-stripping structures to record read/write data access asynchronously without locking execution threads.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
 
 
 1. Copy by Value (Pass by Value)
@@ -3487,5 +4023,170 @@ public void updateMembership(int memberId, MembershipStatus membershipStatus) {
         return avg;
     }
  
- 
+ An LRU Cache (Least Recently Used Cache) is a data structure that stores a limited number of items and automatically removes the item that has not been used for the longest time when the cache is full.
+
+It’s commonly used to improve performance by keeping frequently accessed data quickly available.
+
+Simple Example
+
+Imagine a cache with capacity = 3.
+
+Operations:
+
+1. Add A → Cache: [A]
+
+
+2. Add B → Cache: [A, B]
+
+
+3. Add C → Cache: [A, B, C]
+
+
+4. Access A → Cache becomes: [B, C, A]
+
+A is now most recently used
+
+
+
+5. Add D
+
+Cache is full
+
+Remove least recently used item (B)
+
+Cache becomes: [C, A, D]
+
+
+
+
+So:
+
+Most recently used items stay
+
+Least recently used items get evicted first
+
+
+
+---
+
+Where LRU Cache Is Used
+
+Web browsers (cached pages)
+
+Databases
+
+Operating systems
+
+APIs
+
+CDN caching
+
+Image/video loading apps
+
+
+
+---
+
+Time Complexity Goal
+
+A good LRU cache supports:
+
+get(key) → O(1)
+
+put(key, value) → O(1)
+
+
+To achieve this, it usually combines:
+
+1. Hash Map → fast lookup
+
+
+2. Doubly Linked List → track usage order
+
+
+
+
+---
+
+Basic Working
+
+Hash Map
+
+Stores:
+
+key -> node
+
+Doubly Linked List
+
+Maintains order:
+
+Head = most recently used
+
+Tail = least recently used
+
+
+When an item is accessed:
+
+Move it to the front
+
+
+When cache is full:
+
+Remove from the tail
+
+
+
+---
+
+Example in Python
+
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cache = OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+
+        self.cache[key] = value
+
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+
+# Example
+lru = LRUCache(3)
+
+lru.put(1, "A")
+lru.put(2, "B")
+lru.put(3, "C")
+
+print(lru.get(1))  # A
+
+lru.put(4, "D")    # Removes key 2
+
+print(lru.cache)
+
+
+---
+
+Key Idea
+
+An LRU cache is useful when:
+
+memory/storage is limited
+
+recently used data is more likely to be used again
+
+
+This follows the principle of temporal locality.
 
