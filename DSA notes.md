@@ -1,42 +1,34 @@
-### 🧠 Linked List Data Structure (DSA) - Complete Interview Notes
+### 🧠 Linked List Data Structure (DSA)
 
 ---
 
-### 📌 Definition
-
-A **Linked List** is a linear data structure where elements are stored in the form of **nodes**.
-
-Unlike arrays, nodes are **not stored in continuous memory locations**. Each node contains data and a reference to the next node.
+A **Linked List** is a linear data structure where elements are stored in the form of **nodes**. Unlike arrays, nodes are **not stored in continuous memory locations**. Each node contains data and a reference to the next node.
 
 ---
 
-### 🧱 Structure of a Node
+**Structure of a Node**
 
 Each node has two parts:
 
 1. **Data** – Stores the actual value.
 2. **Next Pointer/Reference** – Stores the address of the next node.
 
-```text
-+------------+------------+
-|    Data    |    Next    |
-+------------+------------+
-       |
-       v
-   Next Node
+```mermaid
+flowchart LR
+    A[Head Pointer] --> B[Node 1<br/>Data + Next]
+    B --> C[Node 2<br/>Data + Next]
+    C --> D[Node 3<br/>Data + NULL]
 ```
 
 ---
 
-### 🔗 Linked List Representation
+**🔗 Linked List Representation**
 
-```text
-Head
- |
- v
-+------+-------+     +------+-------+     +------+------+
-| 10   |   o---|---->| 20   |   o---|---->| 30   | NULL |
-+------+-------+     +------+-------+     +------+------+
+```mermaid
+flowchart LR
+    Head --> N1["Node 1<br>Data: 10<br>Next"]
+    N1 --> N2["Node 2<br>Data: 20<br>Next"]
+    N2 --> N3["Node 3<br>Data: 30<br>Next: NULL"]
 ```
 
 ---
@@ -55,9 +47,9 @@ Arrays have some limitations:
 
 ---
 
-## Types of Linked Lists
+### Types of Linked Lists
 
-### 1. Singly Linked List
+#### 1. Singly Linked List
 
 Each node points only to the next node.
 
@@ -67,7 +59,7 @@ Each node points only to the next node.
 
 ---
 
-### 2. Doubly Linked List
+#### 2. Doubly Linked List
 
 Each node has two references:
 
@@ -80,7 +72,7 @@ NULL ← 10 ⇄ 20 ⇄ 30 → NULL
 
 ---
 
-### 3. Circular Linked List
+#### 3. Circular Linked List
 
 The last node points back to the first node.
 
@@ -93,7 +85,7 @@ The last node points back to the first node.
 
 ---
 
-## Node Implementation in Java
+##### Node Implementation in Java
 
 ```java
 class Node {
@@ -110,15 +102,11 @@ class Node {
 
 ---
 
-# Singly Linked List Operations
+### Singly Linked List Operations
 
-## 1. Traversal
-
-### Concept
+#### 1. Traversal
 
 Visit every node from head until `NULL`.
-
-### Flow
 
 ```mermaid
 flowchart LR
@@ -132,8 +120,6 @@ D --> B
 
 B -->|No| E[Stop]
 ```
-
-### Java Code
 
 ```java
 public void display() {
@@ -151,9 +137,7 @@ public void display() {
 
 ---
 
-## 2. Insert at Beginning
-
-### Example
+#### 2. Insert at Beginning
 
 Before:
 
@@ -169,13 +153,13 @@ After:
 5 → 10 → 20 → 30 → NULL
 ```
 
-### Algorithm
+**Algorithm**
 
 1. Create a new node.
 2. Make new node point to current head.
 3. Update head to new node.
 
-### Flow
+
 
 ```mermaid
 flowchart TD
@@ -186,7 +170,7 @@ A[Create New Node]
 --> D[Insertion Complete]
 ```
 
-### Java Code
+
 
 ```java
 public void insertFirst(int data) {
@@ -201,9 +185,7 @@ public void insertFirst(int data) {
 
 ---
 
-## 3. Insert at End
-
-### Flow
+#### 3. Insert at End
 
 ```mermaid
 flowchart TD
@@ -217,7 +199,7 @@ B -->|No| D[Traverse Until Last Node]
 D --> E[Last.next = New Node]
 ```
 
-### Java Code
+
 
 ```java
 public void insertLast(int data) {
@@ -241,11 +223,9 @@ public void insertLast(int data) {
 
 ---
 
-## 4. Delete First Node
+#### 4. Delete First Node
 
-### Logic
-
-Simply move the head to the next node.
+Logic : Simply move the head to the next node.
 
 ```text
 Before:
@@ -256,8 +236,6 @@ Head = head.next
 After:
 20 → 30
 ```
-
-### Java Code
 
 ```java
 public void deleteFirst() {
@@ -271,9 +249,9 @@ public void deleteFirst() {
 
 ---
 
-## 5. Delete Last Node
+#### 5. Delete Last Node
 
-### Flow
+
 
 ```mermaid
 flowchart TD
@@ -283,7 +261,7 @@ A[Start from Head]
 --> C[SecondLast.next = NULL]
 ```
 
-### Java Code
+
 
 ```java
 public void deleteLast() {
@@ -305,13 +283,9 @@ public void deleteLast() {
 
 ---
 
-## 6. Searching
+#### 6. Searching
 
-### Linear Search
-
-Linked List does not support binary search because random access is not possible.
-
-### Java Code
+**Linear Search :** Linked List does not support binary search because random access is not possible.
 
 ```java
 public boolean search(int value) {
@@ -333,7 +307,7 @@ public boolean search(int value) {
 
 ---
 
-## 7. Find Size of Linked List
+#### 7. Find Size of Linked List
 
 ```java
 public int size() {
@@ -354,11 +328,11 @@ public int size() {
 
 ---
 
-# ⭐ Most Important Interview Question
+### ⭐ Most Important Interview Question
 
-# Reverse a Linked List
+#### Reverse a Linked List
 
-## Before
+### Before
 
 ```text
 Head
@@ -367,7 +341,7 @@ Head
 1 → 2 → 3 → 4 → NULL
 ```
 
-## After
+#### After
 
 ```text
 Head
@@ -378,7 +352,7 @@ Head
 
 ---
 
-## Three Pointer Technique
+### Three Pointer Technique
 
 We use:
 
@@ -394,7 +368,7 @@ NULL        1            2
 
 ---
 
-## Reverse Flow
+### Reverse Flow
 
 ```mermaid
 flowchart LR
