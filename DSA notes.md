@@ -1,8 +1,46 @@
-### 🧠 Linked List Data Structure (DSA)
+# 🧠 Linked List Data Structure (DSA)
 
 ---
 
-A **Linked List** is a linear data structure where elements are stored in the form of **nodes**. Unlike arrays, nodes are **not stored in continuous memory locations**. Each node contains data and a reference to the next node.
+### What is a Linked List?
+
+- A **linked list** is a way to store data in a series of connected nodes.
+- Each **node** contains:
+  - **Data**: The value or information it holds.
+  - A **pointer** (or link) to the **next node** in the list.
+- Unlike arrays, linked lists do **not** store data in continuous memory locations.
+
+### Types of Linked Lists
+
+1. **Singly Linked List**
+
+  - Each node points to the **next** node only.
+  - The last node points to **null** (no next node).
+  - You can only move forward through the list.
+
+2. **Doubly Linked List**
+
+  - Each node has **two pointers**:
+    - One to the **next** node.
+    - One to the **previous** node.
+  - You can move both forward and backward.
+
+3. **Circular Linked List**
+
+  - The last node points back to the **first** node.
+  - Can be singly or doubly linked.  
+
+### Why Use Linked Lists?
+
+- **Dynamic size**: You don't need to know the number of items before creating the list.
+- **Easy insertion and deletion**: Adding or removing nodes doesn’t require shifting other elements (like in arrays).
+- Useful when you want to frequently add or remove data.
+
+### How Does a Linked List Work?
+
+- Start with a **head** pointer that points to the first node in the list.
+- Each node stores data and the address of the next node.
+- To access any node, you start from the head and follow the pointers one by one.
 
 ---
 
