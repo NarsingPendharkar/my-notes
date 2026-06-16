@@ -888,7 +888,7 @@ Example
 Student s = new Student();
 ```
 
-Explanation
+Explanationc
 
 - Object `Student` → stored in **Heap**
 - Reference `s` → stored in **Stack**
@@ -2544,7 +2544,7 @@ The **Collection Framework** is a set of **classes and interfaces** that impleme
 - Supports **searching, sorting, insertion, deletion, and iteration**.
 - Ensures **type safety** using **Generics**.
 - Improves **performance** and **code reusability**.
-- Introduces **interfaces** and **concrete classes** for flexible use.
+- Introduces **interfaces** and **concrete classes** for flexible use.  
 
 ---
 
@@ -3480,11 +3480,17 @@ interface Greeting {
 }
 
 class Person implements Greeting {
+    
     private String personName;
-    Person(String name) { this.personName = name; }
+    
+    Person(String name) { 
+        this.personName = name;
+    }
 
     @Override
-    public String name() { return personName; }
+    public String name() {
+        return personName; 
+    }
 }
 
 Person p = new Person("Alice");
