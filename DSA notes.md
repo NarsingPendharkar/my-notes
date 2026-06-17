@@ -395,5 +395,167 @@ public int size() {
 | Cache Performance | Better | Lower |
 | Extra Memory | No | Pointer required |
 
+---
 
+# Stack Data Structure in Java
+
+A **Stack** is a simple linear data structure that works on the **LIFO (Last In, First Out)** principle. This means the last item you add is the first one you get out. Imagine a stack of plates: you place new plates on top and take plates from the top.
+
+---
+
+### 1. Core Stack Operations & Performance
+
+All stack implementations support a set of basic operations that usually run very fast, in constant time — that is, **O(1)** time complexity.
+
+
+| Operation      | What it Does                                                | Time Complexity | Space Complexity |
+| -------------- | ----------------------------------------------------------- | --------------- | ---------------- |
+| `push(E item)` | Adds an item to the top of the stack                        | O(1)            | O(1)             |
+| `pop()`        | Removes and returns the top item. Throws exception if empty | O(1)            | O(1)             |
+| `peek()`       | Shows the top item without removing it                      | O(1)            | O(1)             |
+| `isEmpty()`    | Checks if the stack is empty                                | O(1)            | O(1)             |
+| `size()`       | Returns the number of items in the stack                    | O(1)            | O(1)             |
+
+
+**Key points:**
+
+- These operations are very fast and don’t depend on how big the stack is.
+- `pop()` throws an error if you try to remove an item from an empty stack.  
+- `peek()` lets you see the top element without changing the stack.
+
+---
+
+### 2. Java Stack Implementations: Modern vs Legacy
+
+Java provides different classes to use stacks. It’s important to pick the right one:
+
+##### Legacy: `java.util.Stack`
+
+- Extends the `Vector` class.
+- **Synchronized**: This means it is thread-safe but slower because of performance overhead.
+- Not recommended for new code, especially if your program is single-threaded.
+- It’s considered **legacy code** and best avoided in modern applications.
+
+##### Modern: Using `Deque` with `ArrayDeque`
+
+- `Deque` stands for Double-Ended Queue.
+- `ArrayDeque` implements `Deque` with a resizable array.
+- It is **not synchronized** and much faster than `Stack`.
+- Recommended for use as a stack in modern Java code.
+
+##### Example: Modern vs Legacy Stack Usage
+
+```java
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Stack;
+
+public class JavaStackDemo {
+    public static void main(String[] args) {
+        // Modern recommended stack using ArrayDeque
+        Deque<Integer> modernStack = new ArrayDeque<>();
+        modernStack.push(10);
+        modernStack.push(20);
+        System.out.println("Modern Top: " + modernStack.peek()); // Prints 20
+        System.out.println("Modern Pop: " + modernStack.pop());  // Removes and prints 20
+
+        // Legacy stack (not recommended)
+        Stack<Integer> legacyStack = new Stack<>();
+        legacyStack.push(100);
+        legacyStack.push(200);
+        System.out.println("Legacy Top: " + legacyStack.peek()); // Prints 200
+    }
+}
+```
+
+**Summary:**
+
+- Use `ArrayDeque` when you want a fast and simple stack.
+- Avoid `Stack` unless working with legacy code or synchronization is needed.
+
+---
+
+#### 3. Custom Stack Implementation (Good for Interviews)
+
+Many interviews ask you to build your own stack to show understanding of data structures and memory.
+
+##### Option A: Fixed-Size Array Stack
+
+This implementation uses a simple array and a variable (`top`) that keeps track of the stack’s top index.
+
+##### Important Points:
+
+- `top` starts at -1 to show the stack is empty.
+- `push` adds an element on top and increments `top`.
+- `pop` removes the element at `top` and decrements `top`.
+- You must handle:
+  - **Stack Overflow:** Trying to push when the stack is full.
+  - **Stack Underflow:** Trying to pop when the stack is empty.
+
+##### Partial Example Code:
+
+```java
+class ArrayStack {
+    private int maxSize;
+    private int[] stackArray;
+    private int top;
+
+    public ArrayStack(int size) {
+        this.maxSize = size;
+        this.stackArray = new int[maxSize];
+        this.top = -1; // Stack is empty initially
+    }
+
+    public void push(int value) {
+        if (top == maxSize - 1) {
+            System.out.println("Stack Overflow! Cannot push " + value);
+            return;
+        }
+        stackArray[++top] = value; // Add item and increase top
+    }
+
+    public int pop() {
+        if (top == -1) {
+            System.out.println("Stack Underflow! Cannot pop.");
+            return -1; // or throw exception
+        }
+        return stackArray[top--]; // Return item and decrease top
+    }
+
+    public int peek() {
+        if (top == -1) {
+            System.out.println("Stack is empty.");
+            return -1;
+        }
+        return stackArray[top]; // Show top item without removing
+    }
+
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+
+    public int size() {
+        return top + 1;
+    }
+}
+```
+
+##### Why This Matters:
+
+- Shows clear understanding of pointer/index management.
+- Demonstrates handling edge cases like overflow and underflow.
+- Builds foundational knowledge for linked list-based stacks or dynamic stacks.
+
+---
+
+## Summary of Key Learnings
+
+- **Stack is LIFO:** last in, first out.
+- All common stack operations (`push/pop/peek`) work in **O(1)** time.
+- Use `**ArrayDeque**` with `Deque` interface for stacks in modern Java code — faster and not synchronized.
+- Avoid old `Stack` class unless working with legacy or need synchronization.
+- Practice building your own stack using arrays for interview success — understand boundaries and errors.
+- Stack concepts apply widely in algorithms and applications like undo mechanisms, parsing, backtracking, and more.
+
+---
 
