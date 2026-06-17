@@ -559,3 +559,563 @@ class ArrayStack {
 
 ---
 
+# Queue Data Structure in Java
+
+## 📌 What is a Queue?
+
+A **Queue** is a linear data structure that follows the **FIFO (First In First Out)** principle.
+
+This means:
+- The element inserted first will be removed first.
+- New elements are added from the **Rear (Back)**.
+- Elements are removed from the **Front (Head)**.
+
+### 🧠 Real Life Example
+
+A queue is similar to a line of people waiting at a ticket counter.
+
+Front → 👤 👤 👤 👤 ← Rear
+
+First person enters the queue and gets served first.
+
+```
+---
+
+# FIFO Principle
+```
+
+Enqueue(10)
+Queue: [10]
+
+Enqueue(20)
+Queue: [10, 20]
+
+Enqueue(30)
+Queue: [10, 20, 30]
+
+Dequeue()
+Removed: 10
+
+Queue: [20, 30]
+
+---
+
+# Queue Terminologies
+
+## 1. Front
+
+- The first element of the queue.
+- Deletion always happens from the front.
+
+Example:
+
+Front
+↓
+[10] [20] [30] [40]
+
+---
+
+## 2. Rear
+
+- The last element of the queue.
+- Insertion always happens at the rear.
+
+Example:
+
+Rear
+↓
+[10] [20] [30] [40]
+
+---
+
+## 3. Size
+
+- The total number of elements present in the queue.
+
+Example:
+
+Queue: [10, 20, 30, 40]
+
+Size = 4
+
+---
+
+# Basic Operations of Queue
+
+| Operation | Description | Time Complexity |
+|---|---|---|
+| Enqueue | Insert an element at the rear | O(1) |
+| Dequeue | Remove an element from the front | O(1) |
+| Peek/Front | Get the first element without removing it | O(1) |
+| Rear | Get the last element | O(1) |
+| isEmpty | Check if queue is empty | O(1) |
+| isFull | Check if queue is full (array queue) | O(1) |
+
+---
+
+# Queue Representation
+
+## Before Insertion
+
+Front Rear
+↓ ↓
+[10] [20] [30]
+
+```
+## After Enqueue(40)
+```
+
+Front Rear
+↓ ↓
+[10] [20] [30] [40]
+
+```
+## After Dequeue()
+```
+
+Removed: 10
+
+Front Rear
+↓ ↓
+[20] [30] [40]
+
+---
+
+# Queue Overflow and Underflow
+
+## Queue Overflow
+
+### Definition
+
+Queue Overflow occurs when we try to insert an element into a **full queue**.
+
+Example:
+
+Queue capacity = 3
+
+[10] [20] [30]
+
+```
+Trying:
+```
+
+Enqueue(40)
+
+```
+Result:
+```
+
+Queue Overflow
+
+---
+
+## Queue Underflow
+
+### Definition
+
+Queue Underflow occurs when we try to remove an element from an **empty queue**.
+
+Example:
+
+Queue: []
+
+```
+Trying:
+```
+
+Dequeue()
+
+```
+Result:
+```
+
+Queue Underflow
+
+---
+
+# Types of Queue
+
+There are different types of queues depending on their implementation and behavior.
+
+## 1. Simple Queue (Linear Queue)
+
+### Definition
+
+A simple queue follows the FIFO rule.
+
+Insertion:
+
+Rear → Add element
+
+```
+Deletion:
+```
+
+Remove element ← Front
+
+### Limitation
+
+In an array implementation, after removing elements from the front, empty spaces cannot be reused efficiently.
+
+Example:
+
+Initial Queue:
+
+Front Rear
+↓ ↓
+[10][20][30][40][50]
+
+After removing 10, 20:
+
+```
+  Front  Rear
+    ↓      ↓
+```
+
+[ ] [ ] [30][40][50]
+
+Although there are empty spaces at the beginning, new elements cannot be inserted when the rear reaches the end.
+
+This problem is solved using a Circular Queue.
+
+---
+
+# 2. Circular Queue
+
+## Definition
+
+A Circular Queue connects the last position of the array back to the first position, forming a circle.
+
+### Representation
+   [0]
+  /   \
+[4]   [1]
+ |     |
+[3]---[2]
+### Formula
+
+```java
+rear = (rear + 1) % size;
+front = (front + 1) % size;
+```
+
+### Advantages
+
+- Better memory utilization.
+- Reuses empty spaces.
+- Insertion and deletion are efficient.
+
+------
+
+# 3. Double Ended Queue (Deque)
+
+## Definition
+
+A Deque (Double Ended Queue) allows insertion and deletion from both front and rear.
+
+```
+       Front
+         ↓
+ [10] [20] [30] [40]
+                    ↑
+                   Rear
+```
+
+### Operations
+
+- Insert Front
+- Insert Rear
+- Delete Front
+- Delete Rear
+
+------
+
+# 4. Priority Queue
+
+## Definition
+
+In a Priority Queue, elements are removed based on their priority rather than insertion order.
+
+### Example
+
+Insert:
+
+```
+50, 10, 30, 20
+```
+
+Removal order:
+
+```
+10 → 20 → 30 → 50
+```
+
+### Note
+
+Java's PriorityQueue uses a **Min Heap** by default.
+
+------
+
+# Implementation of Queue
+
+Queue can be implemented using:
+
+1. Array
+2. Circular Array
+3. Linked List
+4. Stack (using two stacks)
+5. Java Collection Framework
+
+------
+
+# Queue Using Array
+
+## Structure
+
+```
+Array Index
+
+0    1    2    3    4
+|----|----|----|----|
+|10  |20  |30  |    |
+|----|----|----|----|
+ ↑              ↑
+Front          Rear
+```
+
+### Advantages
+
+- Easy to implement.
+- Direct access through indexes.
+
+### Disadvantages
+
+- Fixed size.
+- Wastes memory after deletion in linear implementation.
+
+------
+
+# Queue Using Linked List
+
+## Structure
+
+```
+Front                  Rear
+ ↓                       ↓
+[10|*] → [20|*] → [30|null]
+```
+
+### Advantages
+
+- Dynamic size.
+- No memory wastage.
+- Enqueue and Dequeue are efficient.
+
+------
+
+# Queue Using Stack
+
+Queue can also be implemented using two stacks.
+
+## Logic
+
+### Enqueue
+
+- Push element into Stack 1.
+
+### Dequeue
+
+- If Stack 2 is empty:
+  - Move all elements from Stack 1 to Stack 2.
+  - Pop from Stack 2.
+
+Example:
+
+```
+Stack1: [10,20,30]
+
+Transfer
+
+Stack2: [30,20,10]
+
+Pop from Stack2
+
+Result: 10
+```
+
+------
+
+# Time Complexity Comparison
+
+| Implementation | Enqueue | Dequeue | Peek |
+|---|---|---|
+| Simple Array | O(1) | O(n) | O(1) |
+| Circular Queue | O(1) | O(1) | O(1) |
+| Linked List | O(1) | O(1) | O(1) |
+| Two Stacks | O(1) Amortized | O(1) Amortized | O(1) |
+
+------
+
+# Java Queue Interface
+
+Java provides a Queue interface in the `java.util` package.
+
+Common implementations:
+
+- LinkedList
+- ArrayDeque
+- PriorityQueue
+
+Example:
+
+```java
+Queue<Integer> queue = new LinkedList<>();
+
+queue.add(10);
+queue.add(20);
+queue.add(30);
+
+System.out.println(queue.peek()); // 10
+
+queue.remove();
+
+System.out.println(queue.peek()); // 20
+```
+
+------
+
+# Important Queue Methods in Java
+
+| Method    | Description                                      |
+| --------- | ------------------------------------------------ |
+| add(e)    | Inserts an element, throws exception if failed   |
+| offer(e)  | Inserts an element, returns false if failed      |
+| remove()  | Removes front element, throws exception if empty |
+| poll()    | Removes front element, returns null if empty     |
+| element() | Returns front element, throws exception if empty |
+| peek()    | Returns front element, returns null if empty     |
+
+------
+
+# Queue vs Stack
+
+| Feature   | Queue                        | Stack                       |
+| --------- | ---------------------------- | --------------------------- |
+| Principle | FIFO                         | LIFO                        |
+| Insertion | Rear                         | Top                         |
+| Deletion  | Front                        | Top                         |
+| Access    | First inserted element first | Last inserted element first |
+| Example   | Ticket line                  | Stack of plates             |
+
+------
+
+# Advantages of Queue
+
+## ✅ Efficient Processing
+
+Allows tasks to be processed in the order they arrive.
+
+## ✅ Fair Resource Sharing
+
+Every element gets a chance based on arrival order.
+
+## ✅ Useful in Asynchronous Systems
+
+Multiple tasks can wait until they are processed.
+
+------
+
+# Disadvantages of Queue
+
+## ❌ No Random Access
+
+Elements cannot be directly accessed like an array.
+
+## ❌ Fixed Size in Array Implementation
+
+A simple array queue has limited capacity.
+
+## ❌ Searching Takes Time
+
+Finding an element requires traversal.
+
+------
+
+# Applications of Queue
+
+## Operating System
+
+- CPU Scheduling
+- Process Management
+- Disk Scheduling
+
+------
+
+## Computer Networks
+
+- Packet Scheduling
+- Data Buffering
+- Router Management
+
+------
+
+## Algorithms
+
+- Breadth First Search (BFS)
+- Tree Level Order Traversal
+- Shortest Path Algorithms
+
+------
+
+## Software Systems
+
+- Message Queues
+- Task Scheduling
+- Request Handling
+
+------
+
+# Mermaid Diagram – Queue Workflow
+
+```mermaid
+flowchart LR
+
+A[Enqueue 10] --> B[Enqueue 20]
+B --> C[Enqueue 30]
+C --> D[Dequeue 10]
+D --> E[Queue: 20,30]
+```
+
+------
+
+# 🧠 Important Interview Questions
+
+## Basic
+
+1. What is a queue?
+2. Explain FIFO with an example.
+3. What is the difference between a stack and a queue?
+4. What are queue overflow and underflow?
+
+------
+
+## Intermediate
+
+1. Why is a circular queue better than a linear queue?
+2. Explain queue implementation using linked list.
+3. How do you implement a queue using two stacks?
+4. What is the difference between `add()` and `offer()`?
+
+------
+
+## Advanced
+
+1. Why is `ArrayDeque` generally preferred over `LinkedList` for queues in Java?
+2. How does a PriorityQueue work internally?
+3. Explain the time complexity of different queue implementations.
+4. Where is a queue used in real-world systems?
+
+------
+
+
+
