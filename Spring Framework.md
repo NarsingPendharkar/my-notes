@@ -707,7 +707,8 @@ public class PersonAnnotationBasedConfig {
 
 * Execute the main class to verify that Spring loads and manages beans correctly.
 
-Example : 
+**Example**
+
 ```java
 public class MainApplicationToRun
 
@@ -761,7 +762,7 @@ public class MainApplicationToRun
 }
 ```
 
-### **What is the difference between @Component, @Service, and @Repository?**
+### 📌 **What is the difference between @Component, @Service, and @Repository?**
 
 | **Annotation** | **Purpose** |
 | --- | --- |
@@ -769,7 +770,7 @@ public class MainApplicationToRun
 | @Service       | Specifically for business logic/service layer              |
 | @Repository    | Used in the DAO layer and integrates exception translation |
 
-### **What is the difference between `@Bean` and `@Component`?**
+###  📌**What is the difference between `@Bean` and `@Component`?**
 
 |  |  |  |
 | --- | --- | --- |
@@ -797,7 +798,9 @@ class AppConfig {
 ```
 # **Spring MVC**
 
-### **What is Spring MVC and its features.**
+
+
+### 📌**What is Spring MVC and its features.**
 
 * Spring MVC is the sub framework of spring which is used for the development of web applications.
 * Spring MVC follows the MVC pattern which separates the application in three parts i.e Model , View and Controller
@@ -851,7 +854,7 @@ flowchart LR
 
 ```
 
-### **Explain the flow of a Spring MVC application.**
+### 📌**Explain the flow of a Spring MVC application.**
 
 1. **Client Request** → client Sent request to the Dispatcher Servlet
 2. **DispatcherServlet** → receive request from client and request to the appropriate Controller
@@ -859,9 +862,11 @@ flowchart LR
 4. **ViewResolver** → Selects the appropriate view (JSP, Thymeleaf, etc.)
 5. **View (JSP/Thymeleaf)** → Data and view merged as sent as response
 
+
+
 ---
 
-### **Explain Dispatcher Servlet in Spring MVC.**
+### 📌**Explain Dispatcher Servlet in Spring MVC.**
 
 * Dispatcher servlet serve as Front Controller who manage all the request and sent it to respective controller.
 * Dispatcher Servlet is a class which receive all incoming request from client and maps it to appropriate controller, model, and view.
@@ -893,7 +898,7 @@ flowchart LR
 
 ---
 
-### **Explain InternalViewResolver in Spring MVC.**
+### 📌**Explain InternalViewResolver in Spring MVC.**
 
 * It is a class which is used to resolve the internal view in Spring MVC.
 * We can define the properties like prefix and suffix where prefix contains location of view and suffix contains extension of view page.
@@ -913,7 +918,7 @@ flowchart LR
 </bean>
 ```
 
-### Explain Model, ModelMap and ModelAndView in Spring MVC.
+### 📌Explain Model, ModelMap and ModelAndView in Spring MVC.
 
 1. **Model** : it is used to pass information from controller to view using model object.
 
@@ -951,7 +956,7 @@ public ModelAndView showWelcomePage() {
 
 ---
 
-### What are @RequestMapping and its variants?
+### 📌What are @RequestMapping and its variants?
 
 * `@RequestMapping("/path")` → General mapping
 * `@GetMapping("/path")` → Maps HTTP GET request
@@ -961,11 +966,9 @@ public ModelAndView showWelcomePage() {
 
 ---
 
-### What is @ModelAttribute in Spring MVC?
+### 📌What is @ModelAttribute in Spring MVC?
 
 It binds form data to a model object.
-
-Example : 
 
 ```java
 @PostMapping("saveTask")
@@ -1001,7 +1004,7 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 ---
 
-# Core Spring Annotations
+## 📌Core Spring Annotations
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
 
@@ -1128,7 +1131,6 @@ private String appName;
 
 **Defination** :  Defines the scope of a Spring bean (singleton, prototype, request, etc.).
 
-Example : 
 ```java
 @Component
 @Scope("prototype")
@@ -1417,6 +1419,88 @@ public class UserRepository {
 ```
 
 The purpose of this method should be to release resources or perform other cleanup tasks, such as closing a database connection, before the bean gets destroyed.
+
+---
+
+### 🧠 What is Circular Dependency?
+
+A circular dependency occurs when two beans depend on each other.
+
+```java
+@Service
+public class AService {
+
+    @Autowired
+    private BService bService;
+}
+
+@Service
+public class BService {
+
+    @Autowired
+    private AService aService;
+}
+```
+
+##### Problem
+
+```text
+AService → BService → AService
+```
+
+Spring cannot decide which bean to create first.
+
+---
+
+##### ⚠️ Error
+
+```text
+BeanCurrentlyInCreationException
+```
+
+---
+
+#### ✅ How to Solve?
+
+##### 1. Use Constructor Injection + Redesign (Recommended)
+
+Move common logic to another service.
+
+```text
+AService → CommonService
+BService → CommonService
+```
+
+📌 Best solution for interviews.
+
+---
+
+##### 2. Use `@Lazy`
+
+```java
+@Service
+public class AService {
+
+    @Autowired
+    @Lazy
+    private BService bService;
+}
+```
+
+📌 Bean is created only when needed.
+
+---
+
+##### 3. Use Setter Injection
+
+```java
+@Autowired
+public void setBService(BService bService) {
+    this.bService = bService;
+}
+```
+
+📌 Spring injects dependency after bean creation.
 
 ---
 
