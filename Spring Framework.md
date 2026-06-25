@@ -249,9 +249,11 @@ public class OrderService {
 
 ---
 
-## **Spring Bean and Configuration**
+## 📌 **Spring Bean **
 
-#### **Bean Life Cycle**
+A **Spring Bean** is an object created, managed, and destroyed by the Spring Container (IoC Container).
+
+##### **Bean Life Cycle**
 
 1. Bean is created
 2. Dependency is injected
@@ -259,19 +261,274 @@ public class OrderService {
 4. Bean used
 5. Bean destroyed
 
+##### Main Phases of Bean Life Cycle
+
+```mermaid
+flowchart LR
+    A[Bean Creation] --> B[Dependency Injection]
+    B --> C[Initialization]
+    C --> D[Bean Ready For Use]
+    D --> E[Destruction]
+```
+
 ---
 
-### Spring - Bean Scopes
+#### 1️⃣ Bean Creation
 
-| Sr.No. | Scope & Description |
-| --- | --- |
-| 1      | **singleton**  : A single instance per Spring IoC container (default). `@Scope(“singleton”)` |
-| 2      | **prototype** : new instance created each time when bean is requested. `@Scope(“prototype”)` |
-| 3      | **request **:  new instance created each new HTTP request.   |
-| 4      | **session** : New bean created for each new HTTP Session.    |
-| 5      | **global-session** : This scopes a bean definition to a global HTTP session. |
+Spring creates the bean object using the constructor.
 
-### **What are different ways to configure a Spring Bean?**
+```java
+@Component
+public class Student {
+
+    public Student() {
+        System.out.println("Bean Created");
+    }
+}
+```
+
+📌 Object is created but not ready yet.
+
+---
+
+#### 2️⃣ Dependency Injection
+
+Spring injects required dependencies.
+
+```java
+@Service
+public class StudentService {
+
+    private final StudentRepository repository;
+
+    public StudentService(StudentRepository repository) {
+        this.repository = repository;
+    }
+}
+```
+
+📌 Bean gets all required objects.
+
+---
+
+#### 3️⃣ Initialization
+
+Spring performs initialization tasks.
+
+```java
+@PostConstruct
+public void init() {
+    System.out.println("Bean Initialized");
+}
+```
+
+📌 Bean becomes fully ready.
+
+---
+
+#### 4️⃣ Bean Ready For Use
+
+Application starts using the bean.
+
+```java
+studentService.saveStudent();
+```
+
+📌 Business logic executes here.
+
+---
+
+#### 5️⃣ Bean Destruction
+
+When application shuts down, Spring destroys the bean.
+
+```java
+@PreDestroy
+public void destroy() {
+    System.out.println("Bean Destroyed");
+}
+```
+
+📌 Resources are cleaned up.
+
+---
+
+ **Example**
+
+```java
+@Component
+public class Student {
+
+    public Student() {
+        System.out.println("Bean Created");
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Bean Initialized");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Bean Destroyed");
+    }
+}
+```
+
+---
+
+### 📌 Spring - Bean Scopes🌱
+
+**Bean Scope** defines how many bean objects Spring creates and how long they live.
+
+---
+
+##### Bean Scopes Overview
+
+| Scope       | Objects Created               | Lifecycle              |
+| ----------- | ----------------------------- | ---------------------- |
+| Singleton   | One object                    | Entire application     |
+| Prototype   | New object every request      | Until handed to client |
+| Request     | One object per HTTP request   | Single request         |
+| Session     | One object per HTTP session   | User session           |
+| Application | One object per ServletContext | Application lifecycle  |
+
+---
+
+#### 1️⃣ Singleton Scope (Default)
+
+Only **one bean object** is created.
+
+```java
+@Component
+@Scope("singleton")
+public class StudentService {
+}
+```
+
+**Example**
+
+```java
+StudentService s1 = context.getBean(StudentService.class);
+StudentService s2 = context.getBean(StudentService.class);
+
+System.out.println(s1 == s2);
+```
+
+**Output**
+
+```text
+true
+```
+
+📌 Most commonly used scope.
+
+---
+
+#### 2️⃣ Prototype Scope
+
+Spring creates a **new object every time** the bean is requested.
+
+```java
+@Component
+@Scope("prototype")
+public class StudentService {
+}
+```
+
+**Example**
+
+```java
+StudentService s1 = context.getBean(StudentService.class);
+StudentService s2 = context.getBean(StudentService.class);
+
+System.out.println(s1 == s2);
+```
+
+**Output**
+
+```text
+false
+```
+
+📌 New object every request.
+
+---
+
+#### 3️⃣ Request Scope
+
+One bean instance per HTTP request.
+
+```java
+@Component
+@RequestScope
+public class UserRequestBean {
+}
+```
+
+**OR**
+
+```java
+@Component
+@Scope("request")
+public class UserRequestBean {
+}
+```
+
+📌 Used in web applications.
+
+---
+
+#### 4️⃣ Session Scope
+
+One bean instance per user session.
+
+```java
+@Component
+@SessionScope
+public class UserSessionBean {
+}
+```
+
+📌 Data remains available until user logs out or session expires.
+
+---
+
+#### 5️⃣ Application Scope
+
+One bean shared across the entire web application.
+
+```java
+@Component
+@ApplicationScope
+public class AppConfigBean {
+}
+```
+
+📌 Similar to ServletContext attributes.
+
+---
+
+##### Visual Representation
+
+```mermaid
+flowchart TD
+    A[Spring Container]
+    
+    A --> B[Singleton<br>One Object]
+    A --> C[Prototype<br>New Object Every Request]
+    A --> D[Request Scope<br>Per HTTP Request]
+    A --> E[Session Scope<br>Per User Session]
+    A --> F[Application Scope<br>Per Application]
+```
+
+### 📌 Which Bean Scope is Default?
+
+By default @Scope("singleton") is applied automatically.
+
+---
+
+### 📌 **What are different ways to configure a Spring Bean?**
 
 1. **XML Configuration (beans.xml)**
 
