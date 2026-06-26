@@ -1519,7 +1519,7 @@ public void setBService(BService bService) {
 | **CLI Support**               | Not available                                                | Available via Spring Boot CLI                                |
 | **Microservices Development** | Requires manual setup                                        | Designed for microservices architecture                      |
 
-#### What is the difference between Spring MVC and Spring Boot?
+### 📌What is the difference between Spring MVC and Spring Boot?
 
 | Feature         | Spring MVC        | Spring Boot         |
 | --------------- | ----------------- | ------------------- |
@@ -1529,7 +1529,7 @@ public void setBService(BService bService) {
 
 ---
 
-###  What is Spring Boot and why is it used?
+###  📌What is Spring Boot and why is it used?
 
 **Answer:**
 
@@ -1541,7 +1541,7 @@ It eliminates:
 - Manual dependency setup
 - Server deployment complexity
 
-#### Why we use it?
+##### 📌Why we use it?
 
 - Faster development
 - Embedded server (Tomcat/Jetty)
@@ -1562,7 +1562,7 @@ public class MyApplication {
 
 ---
 
-#### 2️⃣ What are the main features of Spring Boot?
+### 📌 What are the main features of Spring Boot?
 
 **Answer:**
 
@@ -1572,9 +1572,7 @@ public class MyApplication {
 4. **Production Ready Features **Monitoring using Actuator.
 5. **Minimal Configuration **Mostly annotation-based configuration.
 
-------
-
-#### 3️⃣ What are Spring Boot Starters?
+### 📌 What are Spring Boot Starters?
 
 Starters are **predefined dependency packages** that simplify build configuration. Instead of adding multiple dependencies manually, we add one starter.
 
@@ -2273,11 +2271,9 @@ public class Tasks {
 
 
 
-# **🚀 Caching in Spring Boot**
+## **🚀 Caching in Spring Boot**
 
----
-
-### 1️⃣ What is Caching?
+#### 1️⃣ What is Caching?
 
 Caching is a technique of storing frequently accessed data in memory to improve application performance.
 
@@ -2296,7 +2292,7 @@ Caching is a technique of storing frequently accessed data in memory to improve 
 
 ---
 
-### 2️⃣ Spring Boot Caching Overview
+#### 2️⃣ Spring Boot Caching Overview
 
 Spring Boot provides caching abstraction using:
 
@@ -2305,7 +2301,7 @@ Spring Boot provides caching abstraction using:
 
 ---
 
-### 3️⃣ Cache Annotations (Very Important)
+#### 3️⃣ Cache Annotations (Very Important)
 
 ##### ✅ 1. @Cacheable
 
@@ -2378,7 +2374,7 @@ Spring provides abstraction only. We configure provider.
 
 ---
 
-### 5️⃣ Redis Caching (Most Asked)
+#### 5️⃣ Redis Caching (Most Asked)
 
 ##### Why Redis?
 
@@ -2405,7 +2401,7 @@ spring.redis.port=6379
 
 ---
 
-### 6️⃣ TTL (Time To Live)
+#### 6️⃣ TTL (Time To Live)
 
 Automatically expires cache after some time.
 
@@ -2418,7 +2414,7 @@ spring.cache.redis.time-to-live=60000
 
 ---
 
-### 7️⃣ Internal Working 
+#### 7️⃣ Internal Working 
 
 When method with @Cacheable is called:
 
@@ -2440,7 +2436,7 @@ Uses proxy-based AOP mechanism.
 
 ---
 
-### Difference between @Cacheable and @CachePut?
+### 📌Difference between @Cacheable and @CachePut?
 
 | @Cacheable                      | @CachePut       |
 | ------------------------------- | --------------- |
@@ -2449,7 +2445,7 @@ Uses proxy-based AOP mechanism.
 
 ---
 
-### What is stale data problem?
+### 📌What is stale data problem?
 
 When DB is updated but cache still has old data.
 
@@ -2466,7 +2462,7 @@ When DB is updated but cache still has old data.
 
 ---
 
-### Why Redis preferred in Microservices?
+### 📌Why Redis preferred in Microservices?
 
 - Local cache works per instance.
 
@@ -2475,7 +2471,7 @@ When DB is updated but cache still has old data.
 
 ---
 
-### What is self-invocation problem?
+### 📌What is self-invocation problem?
 
 If a method inside same class calls @Cacheable method → caching will NOT work.
 
@@ -2496,9 +2492,9 @@ Improves performance for repeated account lookup.
 ---
 
 
-# Spring Data JPA & Transactions
+## Spring Data JPA & Transactions
 
-#### How to Connect Spring Boot with a Database?
+### 📌How to Connect Spring Boot with a Database?
 
 Spring Boot connects to a database using:
 
@@ -2537,7 +2533,7 @@ spring.jpa.show-sql=true
 
 ------
 
-####  What is Spring Data JPA?
+###  📌What is Spring Data JPA?
 
 **Answer:**
 
@@ -2568,9 +2564,9 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-# 📘 JPA Annotations 
+## 📘 JPA Annotations 
 
-#### 1️⃣ Entity & Table Level Annotations
+##### 1️⃣ Entity & Table Level Annotations
 
 | Annotation            | Used On | Purpose                          | Example                                               |
 | --------------------- | ------- | -------------------------------- | ----------------------------------------------------- |
@@ -2586,7 +2582,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-## 2️⃣ Primary Key Strategies
+##### 2️⃣ Primary Key Strategies
 
 | Strategy   | Meaning                | Example                                             |
 | ---------- | ---------------------- | --------------------------------------------------- |
@@ -2597,9 +2593,9 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-## 3️⃣ Relationship Annotations
+##### 3️⃣ Relationship Annotations
 
-### 🔹 One-to-One
+##### 🔹 One-to-One
 
 | Annotation    | Example                              |
 | ------------- | ------------------------------------ |
@@ -2608,7 +2604,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 🔹 One-to-Many
+##### 🔹 One-to-Many
 
 | Annotation   | Example                       |
 | ------------ | ----------------------------- |
@@ -2617,7 +2613,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 🔹 Many-to-One
+##### 🔹 Many-to-One
 
 | Annotation    | Example                              |
 | ------------- | ------------------------------------ |
@@ -2628,7 +2624,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 🔹 Many-to-Many
+##### 🔹 Many-to-Many
 
 | Annotation           | Example                        |
 | -------------------- | ------------------------------ |
@@ -2639,9 +2635,9 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-## 4️⃣ Fetch & Cascade Options
+##### 4️⃣ Fetch & Cascade Options
 
-### Fetch Types
+##### Fetch Types
 
 | Fetch Type | Meaning            |
 | ---------- | ------------------ |
@@ -2652,7 +2648,7 @@ Best Practice: Use LAZY.
 
 ------
 
-### Cascade Types
+##### Cascade Types
 
 | Cascade   | Meaning                  |
 | --------- | ------------------------ |
@@ -2665,7 +2661,7 @@ Best Practice: Use LAZY.
 
 ------
 
-## 5️⃣ Inheritance Mapping
+##### 5️⃣ Inheritance Mapping
 
 | Annotation             | Purpose                | Example                                           |
 | ---------------------- | ---------------------- | ------------------------------------------------- |
@@ -2677,7 +2673,7 @@ Best Practice: Use LAZY.
 
 ------
 
-## 6️⃣ Embedded Objects
+##### 6️⃣ Embedded Objects
 
 | Annotation           | Purpose                  | Example                                                      |
 | -------------------- | ------------------------ | ------------------------------------------------------------ |
@@ -2687,7 +2683,7 @@ Best Practice: Use LAZY.
 
 ------
 
-## 7️⃣ Lifecycle Callbacks
+##### 7️⃣ Lifecycle Callbacks
 
 | Annotation     | Trigger Time      |
 | -------------- | ----------------- |
@@ -2709,7 +2705,7 @@ public void beforeInsert() {
 
 ------
 
-## 8️⃣ Locking & Versioning
+##### 8️⃣ Locking & Versioning
 
 | Annotation | Purpose                           |
 | ---------- | --------------------------------- |
@@ -2727,7 +2723,7 @@ Prevents lost updates.
 
 ------
 
-## 9️⃣ Index & Constraints
+##### 9️⃣ Index & Constraints
 
 | Annotation                                                   | Example                                                      |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -2738,7 +2734,7 @@ Prevents lost updates.
 
 
 
-#### What is `@Entity` Annotation?
+### 📌What is `@Entity` Annotation?
 
 **Answer:**
 
@@ -2770,7 +2766,7 @@ public class User {
 
 ------
 
-####  What is `@Repository` Annotation?
+###  📌What is `@Repository` Annotation?
 
 **Answer:**
 
@@ -2782,7 +2778,7 @@ It:
 - Handles persistence exceptions
 - Converts SQL exceptions into `DataAccessException`
 
-### Example:
+**Example:**
 
 ```java
 @Repository
@@ -2802,7 +2798,7 @@ public class UserDAO {
 
 ------
 
-####  Explain `@Transactional` Annotation in Spring Boot
+###  📌Explain `@Transactional` Annotation in Spring Boot
 
 @**Transactional**
 
@@ -2819,7 +2815,7 @@ public class DemoAppMssqlApplication {
 
 public static void main(String[] args) {
 
-SpringApplication.run(DemoAppMssqlApplication.class, args);
+		SpringApplication.run(DemoAppMssqlApplication.class, args);
 
 }
 ```
@@ -2858,7 +2854,7 @@ It defines **how a method behaves when it is called inside another transaction**
 
 ### ✅ Common Propagation Types (Interview Focus)
 
-#### 1. REQUIRED (Default)
+##### 1. REQUIRED (Default)
 
 👉 If transaction exists → Join it
 👉 If not → Create new transaction
@@ -2925,17 +2921,6 @@ Used when you don’t want transaction overhead.
 
 👉 Should NOT have transaction
 👉 If exists → Exception
-
-------
-
-#### 🔥 Real Example 
-
-```
-placeOrder()  --> REQUIRED
-   |
-   --> paymentService()  --> REQUIRED
-   --> auditService()    --> REQUIRES_NEW
-```
 
 If payment fails:
 
