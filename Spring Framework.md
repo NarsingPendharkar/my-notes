@@ -5188,15 +5188,14 @@ It is supported in Spring Boot using WebFlux.
 
 #### 🏦 Real-Life Example:
 
-In a **banking system**,
-10,000 users checking balance simultaneously:
+In a **banking system**, 10,000 users checking balance simultaneously:
 
 - Traditional MVC → 10,000 threads ❌ (Heavy)
 - Reactive → Few threads handle all requests ✅ (High scalability)
 
 ------
 
-### 🌊 b. What is Spring WebFlux?
+#### 🌊 b. What is Spring WebFlux?
 
 **Spring WebFlux** is the reactive web framework introduced in Spring 5.
 
@@ -5222,7 +5221,7 @@ Dependency:
 
 ------
 
-### 🎯 When to Use WebFlux?
+##### 🎯 When to Use WebFlux?
 
 ✅ Microservices
 ✅ Streaming data
@@ -5293,7 +5292,7 @@ public class AccountController {
 }
 ```
 
-### 🏦 Real-Life:
+**🏦 Real-Life:**
 
 - `/accounts/101` → returns Mono
 - `/accounts` → returns Flux
@@ -5302,7 +5301,7 @@ public class AccountController {
 
 ### 🚨 e. How do you handle exceptions in WebFlux?
 
-#### ✅ 1️⃣ Using @ExceptionHandler
+##### ✅ 1️⃣ Using @ExceptionHandler
 
 ```java
 @RestControllerAdvice
@@ -5319,7 +5318,7 @@ public class GlobalExceptionHandler {
 
 ------
 
-#### ✅ 2️⃣ Using onErrorResume()
+##### ✅ 2️⃣ Using onErrorResume()
 
 ```java
 public Mono<Account> getAccount(String id) {
@@ -5331,7 +5330,7 @@ public Mono<Account> getAccount(String id) {
 
 ------
 
-### 🏦 Real-Life:
+🏦 Real-Life:
 
 If account not found:
 
@@ -5340,7 +5339,7 @@ If account not found:
 
 ------
 
-#### 🎯 MVC vs WebFlux 
+##### 🎯 MVC vs WebFlux 
 
 | Feature           | Spring MVC             | WebFlux              |
 | ----------------- | ---------------------- | -------------------- |
@@ -5355,7 +5354,7 @@ This is a **very common 3–5 year experience interview question**.
 
 ------
 
-#### 🔹 1️⃣ What is CompletableFuture?
+##### 🔹 1️⃣ What is CompletableFuture?
 
 `CompletableFuture` is a class introduced in Java 8 (from Oracle Corporation Java platform) to perform **asynchronous, non-blocking tasks**.
 
@@ -5376,7 +5375,7 @@ future.thenAccept(result -> System.out.println(result));
 
 ------
 
-#### 🔹 2️⃣ What is Reactive (WebFlux)?
+##### 🔹 2️⃣ What is Reactive (WebFlux)?
 
 Reactive uses **Mono and Flux** from Project Reactor inside Spring WebFlux.
 
@@ -5387,7 +5386,7 @@ It follows:
 - Backpressure support
 - Stream processing
 
-#### ✅ Example
+✅ Example
 
 ```java
 Mono<String> mono = Mono.just("Account Details");
@@ -5405,7 +5404,7 @@ mono.subscribe(System.out::println);
 | Scalability  | Medium             | High                             |
 | Best For     | Simple async tasks | High-concurrency apps            |
 
-### 🧾 Scenario:
+🧾 Scenario:
 
 User dashboard loads:
 
@@ -5415,7 +5414,7 @@ User dashboard loads:
 
 ------
 
-### 🔹 Using CompletableFuture
+##### 🔹 Using CompletableFuture
 
 ```
 CompletableFuture<Account> account = getAccount();
@@ -5432,7 +5431,7 @@ CompletableFuture.allOf(account, txns).join();
 
 ------
 
-### 🔹 Using Reactive (WebFlux)
+##### 🔹 Using Reactive (WebFlux)
 
 ```
 Mono<Account> account = accountService.getAccount();
@@ -5441,7 +5440,7 @@ Flux<Transaction> txns = transactionService.getTransactions();
 return Mono.zip(account, txns.collectList());
 ```
 
-✅ Efficient
+ ✅ Efficient
  ✅ Handles thousands of users
  ✅ Better for microservices
 
@@ -5450,11 +5449,7 @@ return Mono.zip(account, txns.collectList());
 #### What is Backpressure?
 
 It controls data flow when:
- Producer → Faster
- Consumer → Slower
-
-Reactive supports this.
- CompletableFuture does NOT.
+ Producer → Faster Consumer → Slower Reactive supports this. CompletableFuture does NOT.
 
 Example:
  Transaction stream generating 10,000 records
@@ -5466,13 +5461,13 @@ Reactive manages this automatically.
 
 ### 🎯 When to Use What?
 
-#### ✅ Use CompletableFuture When:
+##### ✅ Use CompletableFuture When:
 
 - Calling 2–3 external APIs
 - Simple parallel execution
 - Not building reactive system
 
-#### ✅ Use Reactive When:
+##### ✅ Use Reactive When:
 
 - High traffic system
 - Streaming data
