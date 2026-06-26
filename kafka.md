@@ -4,8 +4,6 @@
 
 ### What is Event Streaming?
 
-#### Definition
-
 **Event streaming** is the process of **capturing, storing, processing, and delivering data events in real time**.
 
 An **event** means something that happened in a system.
@@ -207,6 +205,8 @@ Inventory Payment Email
 Consumer  Consumer Consumer
 ```
 
+-----
+
 ### Why use Kafka?
 
 Kafka is popular because it offers:
@@ -403,8 +403,6 @@ All consume the **same event independently**.
 ## Apache Kafka Core Components 
 
 ### Kafka Cluster
-
-#### Definition
 
 A **Kafka Cluster** is a **group of multiple Kafka brokers working together** to store and manage data streams. It provides **high availability, scalability, and fault tolerance**.
 
