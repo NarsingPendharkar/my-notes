@@ -3079,7 +3079,11 @@ Best choice:
 
 ### Connection Pooling (HikariCP)
 
-Spring Boot uses HikariCP as the default connection pool for better performance.
+- **Connection pooling** means reusing database connections to save time.
+- Spring Boot uses libraries like **HikariCP** for default connection pool for better performance.
+- Pools keep a set number of **open connections** ready.
+- Benefits: faster app, less resource use.
+- Configure in `application.properties` with pool size and timeout.
 
 **Default Settings (optional to override)** 
 
@@ -3095,98 +3099,482 @@ spring.datasource.hikari.pool-name=SpringBootHikariCP
 
 ---
 
+## 📌Spring Security in Spring Boot
+
+### What is Spring Security?
+
+* Spring Security is a powerful authentication and authorization framework for Java applications, primarily used in Spring-based projects.
+* It provides built-in security features like,
+
+1. Authentication (Who are you?)
+2. Authorization (What can you do?)
+3. Protection against security threats like CSRF, XSS, session fixation, clickjacking, etc.
+4. Integration with OAuth2, JWT, LDAP, and custom authentication mechanisms
+
+**Example :** 
+If a user tries to access /admin, Spring Security will check whether they have the ADMIN role before granting access.
+
+---
+
+### Spring Security architecture
+
+#### Security filter chain :
+
+* Acts as the entry point for all incoming HTTP requests in Spring Security
+* This is used to filter the requests and it also authenticate and authorize the user
+* Handles authentication, authorization, CSRF protection, and session management
+* Filter run the first in processing order
+* We can add custom filters in applications
+
+#### Authentication :
+
+* Core component responsible for handling user authentication
+* When user submit login form
+* AuthenticationManager receive the request
+* It used DaoAuthenticationProvider object to fetch user details by using userservicedetails
+* And also, user password encoder to compare password
+* If authentication is successful, it returns authentication manager object
+
+#### Authorisation :
+
+* Once authentication is successful , system will check the roles of user and according to that resource access is granted
+* If not, then system give exception.
+
+```mermaid
+flowchart TD
+
+A[Client Request]
+
+A --> B[SecurityFilterChain]
+
+B --> C[Authentication Filter]
+
+C --> D[AuthenticationManager]
+
+D --> E[AuthenticationProvider]
+
+E --> F[UserDetailsService]
+
+F --> G[Database]
+
+G --> H[Authentication Success]
+
+H --> I[Authorization Check]
+
+I --> J[Controller]
+
+J --> K[Response]
+```
 
 
-### Spring Security Questions
 
-#### How do you secure a Spring Boot application?
+---
 
-* Use Spring Security (spring-boot-starter-security)
-* Configure authentication (UserDetailsService)
-* Implement JWT (JSON Web Token)
+# 🔐 Spring Security Annotations
 
-Example : 
+### 📌 What are Spring Security Annotations?
+
+Spring Security annotations are used to **restrict access** to classes or methods based on:
+- User Roles
+- Permissions (Authorities)
+- Authentication Status
+- Custom Conditions
+
+Instead of writing security rules in configuration, you can secure individual methods directly.
+
+---
+
+##### 🏗 Enable Method Security
+
+Before using method-level security annotations, enable it.
 
 ```java
 @Configuration
-
-@EnableWebSecurity
-
+@EnableMethodSecurity
 public class SecurityConfig {
+}
+```
 
-    @Bean
+📌 Without `@EnableMethodSecurity`, annotations like `@PreAuthorize` won't work.
 
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+---
 
-        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+##### 1️⃣ @EnableWebSecurity
 
-            .formLogin();
+##### 
 
-        return http.build();
+Enables Spring Security configuration.
 
-    }
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+}
+```
+
+💡 Note
+
+- In modern Spring Boot (3.x), adding `spring-boot-starter-security` is often enough.
+- `@EnableWebSecurity` is optional unless you need advanced customization.
+
+---
+
+##### 2️⃣ @EnableMethodSecurity
+
+Enables security annotations on methods.
+
+```java
+@Configuration
+@EnableMethodSecurity
+public class SecurityConfig {
+}
+```
+
+Enables:
+
+- `@PreAuthorize`
+- `@PostAuthorize`
+- `@Secured`
+- `@RolesAllowed`
+- `@PreFilter`
+- `@PostFilter`
+
+---
+
+# 3️⃣ @PreAuthorize ⭐ (Most Asked)
+
+## 
+
+Checks permission **before** executing the method.
+
+```java
+@PreAuthorize("hasRole('ADMIN')")
+public void deleteUser() {
 
 }
 ```
 
-# Spring Security Annotations
+Flow:
 
-Used for authentication and authorization.
+```
+Method Call
 
-### @**EnableWebSecurity**
+↓
 
-* **Defination** :  Enables Spring Security in the application.
+Check Role
 
-Example : 
+↓
 
-```java
- @EnableWebSecurity
+Allowed?
 
-public class SecurityConfig extends WebSecurityConfigurerAdapter {}
+↓
 
-
+Execute Method
 ```
 
 ---
 
-### @**PreAuthorize**
-
-**Defination** :  Restricts access to a method based on roles.
-
-Example:
-
-`@PreAuthorize("hasRole('ADMIN')")`
-
-`public void adminOnly() {}`
-
-# Microservices & Cloud Questions
-
-#### What is Spring Cloud?
-
-Spring Cloud is used for developing distributed microservices-based applications. It provides features like,
-
-* Service Discovery (Eureka)
-* API Gateway (Zuul / Spring Cloud Gateway)
-* Load Balancing (Ribbon)
-* Circuit Breaker (Resilience4J)
-
-#### What is @FeignClient in Spring Cloud?
-
-Feign is a REST client that simplifies HTTP calls in microservices. Example : 
+## Multiple Roles
 
 ```java
-@FeignClient(name = "user-service")
-
-public interface UserClient {
-
-    @GetMapping("/users/{id}")
-
-    User getUserById(@PathVariable Long id);
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
+public void updateEmployee() {
 
 }
 ```
 
+---
 
+## Authority Example
+
+```java
+@PreAuthorize("hasAuthority('READ')")
+public List<User> getUsers() {
+
+}
+```
+
+---
+
+## Authenticated User
+
+```java
+@PreAuthorize("isAuthenticated()")
+```
+
+Only logged-in users can access.
+
+---
+
+## Permit Everyone
+
+```java
+@PreAuthorize("permitAll()")
+```
+
+---
+
+## Deny Everyone
+
+```java
+@PreAuthorize("denyAll()")
+```
+
+---
+
+# 4️⃣ @PostAuthorize
+
+## 
+
+Checks authorization **after** method execution.
+
+```java
+@PostAuthorize("returnObject.username == authentication.name")
+public User getProfile() {
+
+}
+```
+
+Flow:
+
+```
+Execute Method
+
+↓
+
+Return Object
+
+↓
+
+Security Check
+
+↓
+
+Return Response
+```
+
+📌 Used when the decision depends on the returned object.
+
+---
+
+# 5️⃣ @Secured
+
+## 
+
+Restricts access using roles only.
+
+```java
+@Secured("ROLE_ADMIN")
+public void deleteProduct() {
+
+}
+```
+
+### Multiple Roles
+
+```java
+@Secured({
+    "ROLE_ADMIN",
+    "ROLE_MANAGER"
+})
+```
+
+⚠️ `@Secured` does **not** support SpEL (Spring Expression Language).
+
+---
+
+# 6️⃣ @RolesAllowed
+
+## 
+
+Java standard annotation (JSR-250).
+
+```java
+@RolesAllowed("ADMIN")
+public void addStudent() {
+
+}
+```
+
+Multiple roles:
+
+```java
+@RolesAllowed({
+    "ADMIN",
+    "MANAGER"
+})
+```
+
+---
+
+# 7️⃣ @PreFilter
+
+## 
+
+Filters method input **before** execution.
+
+```java
+@PreFilter("filterObject.owner == authentication.name")
+public void saveDocuments(List<Document> docs) {
+
+}
+```
+
+Example:
+
+Input
+
+```
+Doc1 → Rahul
+
+Doc2 → Amit
+
+Logged User → Rahul
+```
+
+After filter
+
+```
+Doc1
+```
+
+Only Rahul's document remains.
+
+---
+
+# 8️⃣ @PostFilter
+
+## 
+
+Filters collection **after** method execution.
+
+```java
+@PostFilter("filterObject.owner == authentication.name")
+public List<Document> getDocuments() {
+
+}
+```
+
+Flow:
+
+```
+Method Executes
+
+↓
+
+Returns List
+
+↓
+
+Security Filters List
+
+↓
+
+User Receives Filtered Data
+```
+
+---
+
+# 9️⃣ @AuthenticationPrincipal
+
+## 
+
+Gets the currently logged-in user.
+
+```java
+@GetMapping("/profile")
+public String profile(
+    @AuthenticationPrincipal UserDetails user
+) {
+
+    return user.getUsername();
+}
+```
+
+---
+
+# 🔟 @CurrentSecurityContext
+
+## 
+
+Access the complete `SecurityContext`.
+
+```java
+@GetMapping("/user")
+public String user(
+    @CurrentSecurityContext(expression = "authentication")
+    Authentication auth
+) {
+
+    return auth.getName();
+}
+```
+
+---
+
+##### Difference Between Annotations
+
+| Annotation       | Checks            | When?  | Supports SpEL? |
+| ---------------- | ----------------- | ------ | -------------- |
+| `@PreAuthorize`  | Before method     | Before | ✅ Yes          |
+| `@PostAuthorize` | After method      | After  | ✅ Yes          |
+| `@Secured`       | Role              | Before | ❌ No           |
+| `@RolesAllowed`  | Role              | Before | ❌ No           |
+| `@PreFilter`     | Method arguments  | Before | ✅ Yes          |
+| `@PostFilter`    | Return collection | After  | ✅ Yes          |
+
+---
+
+Real Project Example
+
+```java
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<User> getUsers() {
+        return service.getUsers();
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('WRITE')")
+    public User save(User user) {
+        return service.save(user);
+    }
+
+    @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
+}
+```
+
+---
+
+### Q8. Difference between `@Secured` and `@PreAuthorize`?
+
+| `@Secured` | `@PreAuthorize`                                              |
+| ---------- | ------------------------------------------------------------ |
+| Only roles | Roles, authorities, authentication status, and custom SpEL expressions |
+| Simple     | More flexible and powerful                                   |
+| No SpEL    | Supports SpEL                                                |
+
+---
+
+- 🔐 `@EnableMethodSecurity` enables method-level security.
+- ⭐ `@PreAuthorize` is the **most commonly used** annotation.
+- 📤 `@PostAuthorize` checks access **after** the method returns.
+- 👥 `@Secured` secures methods using roles only.
+- 📜 `@RolesAllowed` is the Java standard equivalent for role-based access.
+- 🗂 `@PreFilter` filters method arguments.
+- 📦 `@PostFilter` filters returned collections.
+- 👤 `@AuthenticationPrincipal` injects the currently logged-in user.
+- 🛡️ Use **`@PreAuthorize`** in modern Spring Boot projects because it is the most flexible and interview-favored annotation.
+
+---
 
 #### What is Spring AOP?
 
@@ -3222,43 +3610,7 @@ public class LoggingAspect {
 | Write java code | Small java code | Just provide Mapping | Use JPARepository Interface it will take care of everything. |
 | Write Sql Queries | Write SQL Queries | No need to write Query | No need to write Query |
 
-### What is Spring Security?
-
-**Answer:**
-
-* Spring Security is a powerful authentication and authorization framework for Java applications, primarily used in Spring-based projects.
-* It provides built-in security features like,
-
-1. Authentication (Who are you?)
-2. Authorization (What can you do?)
-3. Protection against security threats like CSRF, XSS, session fixation, clickjacking, etc.
-4. Integration with OAuth2, JWT, LDAP, and custom authentication mechanisms
-
-**Example :** 
-If a user tries to access /admin, Spring Security will check whether they have the ADMIN role before granting access.
-
 ---
-
-### Spring Security architecture
-
-#### Security filter chain :
-
-* This is used to filter the requests and it also authenticate and authorize the user
-* Filter run the first in processing order
-* We can add custom filters in applications
-
-#### Authentication :
-
-* When user submit login form
-* AuthenticationManager receive the request
-* It used DaoAuthenticationProvider object to fetch user details by using userservicedetails
-* And also, user password encoder to compare password
-* If authentication is successful, it returns authentication manager object
-
-#### Authorisation :
-
-* Once authentication is successful , system will check the roles of user and according to that resource access is granted
-* If not, then system give exception.
 
 ### Why use Spring Security?
 
