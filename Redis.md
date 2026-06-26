@@ -692,7 +692,7 @@ String name = (String) redisTemplate.opsForValue().get("name");
 
 ------
 
-# 📌 Spring Cache with Redis
+### 📌 Spring Cache with Redis
 
 Enable Caching
 
@@ -732,7 +732,7 @@ public User update(User user) {
 
 ------
 
-# ⚠️ Common Redis Use Cases
+### ⚠️ Common Redis Use Cases
 
 - ✅ API response caching
 - ✅ Session storage
@@ -770,6 +770,944 @@ public User update(User user) {
 18. What happens if Redis goes down?
 19. What is pipelining in Redis?
 20. Explain replication and failover in Redis.
+
+---
+
+# Redis Interview Questions & Answers (ELI10 + Interview Ready)
+
+------
+
+# 1. What is Redis?
+
+## 🧠 ELI10
+
+Imagine you have a huge library.
+
+Every time someone asks for a book, you walk all the way to the shelf.
+
+That's slow.
+
+Now imagine you keep the **most popular books on your desk**.
+
+Finding them takes only a second.
+
+**Redis is that desk.**
+
+It stores frequently used data in **RAM (memory)** so applications can access it extremely fast.
+
+### 📌 Interview Answer
+
+Redis is an **in-memory NoSQL key-value database** used for **caching, session storage, real-time analytics, messaging, and fast data retrieval**. Since it stores data in RAM instead of disk, it provides sub-millisecond response times.
+
+------
+
+# 2. Why is Redis faster than a relational database?
+
+## 🧠 ELI10
+
+Imagine finding a toy.
+
+### Database
+
+```
+Go to basement
+
+↓
+
+Open box
+
+↓
+
+Find toy
+```
+
+Time = Slow
+
+### Redis
+
+```
+Toy is already on your table
+
+↓
+
+Pick it
+```
+
+Time = Very Fast
+
+### Why?
+
+✅ Stores data in RAM
+
+❌ Doesn't read from disk every time
+
+✅ Single-threaded (no locking)
+
+✅ Optimized data structures
+
+### 📌 Interview Answer
+
+Redis is faster because it stores data in **memory**, avoids disk I/O, uses efficient data structures, and processes commands using a single-threaded event loop.
+
+------
+
+# 3. What are Redis data types?
+
+Redis isn't just key-value.
+
+| Data Type   | Used For           |
+| ----------- | ------------------ |
+| String      | Text, numbers, OTP |
+| Hash        | Java Object        |
+| List        | Queue, Tasks       |
+| Set         | Unique values      |
+| Sorted Set  | Leaderboard        |
+| Streams     | Event streaming    |
+| Bitmap      | Attendance         |
+| HyperLogLog | Count unique users |
+| Geo         | Nearby locations   |
+
+### 🧠 Easy Example
+
+```
+String
+
+name = Narsing
+
+----------------
+
+Hash
+
+User
+
+name
+age
+city
+
+----------------
+
+List
+
+Task1
+Task2
+Task3
+
+----------------
+
+Set
+
+Java
+Spring
+Kafka
+
+(No duplicates)
+
+----------------
+
+Sorted Set
+
+John = 100
+
+Alice = 200
+
+Bob =150
+
+----------------
+
+Streams
+
+Producer
+
+↓
+
+Consumer
+```
+
+------
+
+# 4. What is TTL?
+
+TTL means
+
+> **Time To Live**
+
+It tells Redis
+
+> "Delete this data after some time."
+
+Example
+
+```
+OTP = 456789
+
+Expire after 60 seconds
+```
+
+After one minute
+
+```
+OTP disappears automatically.
+```
+
+### Why?
+
+Perfect for
+
+- OTP
+- Session
+- Temporary data
+
+### 📌 Interview Answer
+
+TTL is the expiration time of a Redis key. Once the specified time is over, Redis automatically removes the key.
+
+------
+
+# 5. Explain the Cache Aside Pattern.
+
+This is the **most common caching strategy.**
+
+Suppose user asks
+
+```
+Get User 101
+```
+
+Flow
+
+```
+Client
+
+↓
+
+Spring Boot
+
+↓
+
+Redis
+
+↓
+
+Found?
+
+YES
+
+↓
+
+Return Data
+
+------------------
+
+NO
+
+↓
+
+Database
+
+↓
+
+Store in Redis
+
+↓
+
+Return Data
+```
+
+### Real Example
+
+First request
+
+```
+Redis ❌
+
+↓
+
+Database ✅
+
+↓
+
+Redis Save
+
+↓
+
+Return
+```
+
+Second request
+
+```
+Redis ✅
+
+↓
+
+Return
+
+(No database call)
+```
+
+### 📌 Interview Answer
+
+In the Cache Aside pattern, the application first checks Redis. If the data exists, it is returned immediately. Otherwise, the application fetches it from the database, stores it in Redis, and then returns it.
+
+------
+
+# 6. What is cache eviction?
+
+Suppose Redis memory becomes full.
+
+It cannot keep everything.
+
+So Redis removes some keys.
+
+This is called
+
+**Cache Eviction**
+
+Example
+
+Memory
+
+```
+User1
+
+User2
+
+User3
+
+User4
+
+Memory Full
+```
+
+Redis removes
+
+```
+Least Recently Used
+```
+
+to create space.
+
+### Popular policies
+
+```
+LRU
+
+LFU
+
+Random
+
+TTL
+```
+
+### 📌 Interview Answer
+
+Cache eviction is the process of removing keys from Redis when memory is full based on configured eviction policies.
+
+------
+
+# 7. Difference between RDB and AOF?
+
+## RDB
+
+Imagine taking a photo.
+
+```
+Memory
+
+↓
+
+Photo
+
+↓
+
+Save
+```
+
+If crash happens
+
+You lose data after last photo.
+
+------
+
+## AOF
+
+Imagine writing every action in a notebook.
+
+```
+SET name John
+
+SET age 24
+
+DELETE age
+```
+
+Nothing is missed.
+
+------
+
+| RDB          | AOF             |
+| ------------ | --------------- |
+| Snapshot     | Every command   |
+| Faster       | Slightly slower |
+| Small file   | Large file      |
+| Less durable | More durable    |
+
+### 📌 Interview Answer
+
+RDB stores periodic snapshots, while AOF logs every write command. RDB is faster and smaller; AOF offers better durability with minimal data loss.
+
+------
+
+# 8. What is Redis Pub/Sub?
+
+Imagine
+
+Teacher speaks.
+
+```
+Teacher
+
+↓
+
+Students
+```
+
+Students only hear messages while sitting in class.
+
+If absent
+
+Message is gone.
+
+Redis Pub/Sub works exactly like this.
+
+Publisher
+
+```
+Publish
+
+↓
+
+Channel
+
+↓
+
+Subscribers
+```
+
+No message storage.
+
+### 📌 Interview Answer
+
+Redis Pub/Sub is a messaging mechanism where publishers send messages to channels and subscribers receive them in real time. Messages are not stored.
+
+------
+
+# 9. What are Redis Streams?
+
+Streams are like WhatsApp.
+
+```
+Friend sends message.
+
+↓
+
+Stored.
+
+↓
+
+You read later.
+```
+
+Unlike Pub/Sub
+
+Messages remain.
+
+```
+Producer
+
+↓
+
+Redis Stream
+
+↓
+
+Consumers
+```
+
+Supports
+
+- Replay
+- Acknowledgement
+- Consumer Groups
+
+### 📌 Interview Answer
+
+Redis Streams are a persistent messaging feature that stores events, allowing multiple consumers to process messages reliably.
+
+------
+
+# 10. Difference between Pub/Sub and Streams?
+
+| Pub/Sub           | Streams         |
+| ----------------- | --------------- |
+| Live only         | Stored          |
+| Lost if offline   | Read later      |
+| No history        | Has history     |
+| No acknowledgment | Acknowledgment  |
+| Broadcast         | Consumer groups |
+
+### Easy Example
+
+Pub/Sub
+
+```
+TV Live
+
+Missed?
+
+Gone forever.
+```
+
+Streams
+
+```
+Netflix
+
+Watch later.
+```
+
+------
+
+# 11. What is Redis Sentinel?
+
+Suppose
+
+```
+Master
+
+↓
+
+Crash
+```
+
+Who creates new master?
+
+Sentinel.
+
+It watches Redis all the time.
+
+If master fails
+
+```
+Replica
+
+↓
+
+New Master
+```
+
+Automatically.
+
+### 📌 Interview Answer
+
+Redis Sentinel monitors Redis servers, detects failures, and automatically promotes a replica to master during failover.
+
+------
+
+# 12. What is Redis Cluster?
+
+Suppose one Redis server becomes full.
+
+Instead of buying a huge computer,
+
+Split data.
+
+```
+Node1
+
+Node2
+
+Node3
+
+Node4
+```
+
+Each stores some keys.
+
+Benefits
+
+- High Availability
+- Scalability
+- Fault Tolerance
+
+### 📌 Interview Answer
+
+Redis Cluster distributes data across multiple Redis nodes using sharding, providing scalability and high availability.
+
+------
+
+# 13. Difference between Redis and Kafka?
+
+| Redis        | Kafka             |
+| ------------ | ----------------- |
+| Cache        | Event Streaming   |
+| RAM          | Disk              |
+| Super Fast   | Highly Durable    |
+| Small events | Huge events       |
+| Temporary    | Long-term storage |
+
+### Easy Example
+
+Redis
+
+```
+Notebook on Desk
+```
+
+Kafka
+
+```
+Library Archive
+```
+
+### 📌 Interview Answer
+
+Redis is mainly used for caching and lightweight messaging, whereas Kafka is designed for large-scale, durable event streaming.
+
+------
+
+# 14. How do you integrate Redis with Spring Boot?
+
+### Step 1
+
+Dependency
+
+```xml
+spring-boot-starter-data-redis
+```
+
+Step 2
+
+application.properties
+
+```properties
+spring.data.redis.host=localhost
+spring.data.redis.port=6379
+```
+
+Step 3
+
+Use
+
+```java
+RedisTemplate
+```
+
+or
+
+```java
+@Cacheable
+```
+
+### 📌 Interview Answer
+
+Spring Boot integrates Redis using `spring-boot-starter-data-redis`, Redis configuration, and APIs like `RedisTemplate` or Spring Cache annotations.
+
+------
+
+# 15. What is RedisTemplate?
+
+Think of it as
+
+```
+Java
+
+↓
+
+Translator
+
+↓
+
+Redis
+```
+
+Instead of writing Redis commands,
+
+You call Java methods.
+
+Example
+
+```java
+redisTemplate.opsForValue().set("name","Narsing");
+```
+
+Read
+
+```java
+redisTemplate.opsForValue().get("name");
+```
+
+### 📌 Interview Answer
+
+`RedisTemplate` is the main Spring Data Redis class that provides convenient methods for performing Redis operations from Java code.
+
+------
+
+# 16. What are `@Cacheable`, `@CachePut`, and `@CacheEvict`?
+
+## @Cacheable
+
+```
+Already cached?
+
+YES
+
+↓
+
+Don't call database.
+```
+
+------
+
+## @CachePut
+
+```
+Database Updated
+
+↓
+
+Cache Updated
+```
+
+------
+
+## @CacheEvict
+
+```
+Delete User
+
+↓
+
+Delete Cache
+```
+
+### Summary
+
+| Annotation  | Purpose                      |
+| ----------- | ---------------------------- |
+| @Cacheable  | Read from cache if available |
+| @CachePut   | Update cache                 |
+| @CacheEvict | Remove cache                 |
+
+------
+
+# 17. How do you handle cache invalidation?
+
+Imagine
+
+Database
+
+```
+Name
+
+↓
+
+John
+```
+
+Redis
+
+```
+John
+```
+
+Database updated
+
+```
+John
+
+↓
+
+David
+```
+
+Redis still has
+
+```
+John
+```
+
+Wrong!
+
+Solutions
+
+✅ TTL
+
+✅ @CacheEvict
+
+✅ @CachePut
+
+### 📌 Interview Answer
+
+Cache invalidation ensures cached data remains consistent with the database. Common approaches include using TTL, evicting stale entries, or updating the cache after database changes.
+
+------
+
+# 18. What happens if Redis goes down?
+
+Application
+
+```
+↓
+
+Redis ❌
+
+↓
+
+Database ✅
+
+↓
+
+Return
+```
+
+Application becomes slower
+
+but should still work.
+
+Good systems
+
+```
+Redis Down
+
+↓
+
+Fallback
+
+↓
+
+Database
+```
+
+### 📌 Interview Answer
+
+If Redis is unavailable, the application should fall back to the database. Performance decreases, but functionality should continue if proper error handling is implemented.
+
+------
+
+# 19. What is pipelining in Redis?
+
+Without Pipeline
+
+```
+SET A
+
+(wait)
+
+SET B
+
+(wait)
+
+SET C
+```
+
+Three network trips.
+
+With Pipeline
+
+```
+SET A
+
+SET B
+
+SET C
+
+↓
+
+Send together
+```
+
+Only one trip.
+
+Much faster.
+
+### 📌 Interview Answer
+
+Pipelining sends multiple Redis commands together in one network request, reducing latency and improving performance.
+
+------
+
+# 20. Explain replication and failover in Redis.
+
+Replication
+
+```
+Master
+
+↓
+
+Replica1
+
+↓
+
+Replica2
+```
+
+Master
+
+- Write
+
+Replica
+
+- Read
+
+If Master crashes
+
+```
+Replica1
+
+↓
+
+New Master
+```
+
+This automatic switching is called
+
+**Failover**
+
+Usually handled by
+
+**Redis Sentinel**
+
+### 📌 Interview Answer
+
+Replication creates copies of data from the master to one or more replicas for improved read scalability and redundancy. During a master failure, Redis Sentinel automatically promotes a replica to become the new master, ensuring high availability.
+
+------
+
+# 🎯 One-Line Revision (Interview)
+
+| Question                | One-Line Answer                                              |
+| ----------------------- | ------------------------------------------------------------ |
+| Redis                   | In-memory NoSQL key-value store for ultra-fast access.       |
+| Why Fast?               | Stores data in RAM with efficient data structures.           |
+| Data Types              | String, Hash, List, Set, Sorted Set, Streams, Bitmap, HyperLogLog, Geo. |
+| TTL                     | Automatic expiration time for a key.                         |
+| Cache Aside             | Check cache → DB on miss → Save back to cache.               |
+| Cache Eviction          | Removing keys when memory is full.                           |
+| RDB vs AOF              | Snapshot vs command logging.                                 |
+| Pub/Sub                 | Live messaging without persistence.                          |
+| Streams                 | Persistent messaging with replay support.                    |
+| Sentinel                | Monitors Redis and performs automatic failover.              |
+| Cluster                 | Distributes data across multiple nodes.                      |
+| Redis vs Kafka          | Cache/lightweight messaging vs durable event streaming.      |
+| Spring Boot Integration | Use `spring-boot-starter-data-redis` with `RedisTemplate` or cache annotations. |
+| RedisTemplate           | Spring class for interacting with Redis.                     |
+| Cache Annotations       | `@Cacheable` reads, `@CachePut` updates, `@CacheEvict` removes cache. |
+| Cache Invalidation      | Keep cache in sync using TTL or cache updates/evictions.     |
+| Redis Down              | Fall back to the database; performance decreases.            |
+| Pipelining              | Send multiple commands in one network request.               |
+| Replication & Failover  | Replicas copy data; Sentinel promotes a replica if the master fails. |
 
 ------
 
