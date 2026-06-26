@@ -4914,13 +4914,13 @@ public boolean deleteFile(Long id) {
 
 ## Two Database Configuration in Spring Boot
 
-### **1. Why Multiple Databases in Spring Boot?**
+##### **1. Why Multiple Databases in Spring Boot?**
 
 In real-world applications (banking, audit, reporting): One database for core business data Another database for audit / logs / reports Sometimes read & write databases are separated Spring Boot supports multiple DataSources, but we must configure them manually.
 
 ------------
 
-### **2. Application Properties Configuration**
+##### **2. Application Properties Configuration**
 
 Define connection details for each database Each database is identified using a custom prefix
 
@@ -4958,7 +4958,7 @@ spring.jpa.show-sql=true
 
 ------------
 
-### **3. DataSource Configuration**
+##### **3. DataSource Configuration**
 
 **What is DataSource?**
 Represents database connection pool Holds URL, username, password, driver Why `@ConfigurationProperties`? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
@@ -4980,7 +4980,7 @@ Important Annotations Annotation
 
 ------------
 
-### **4. EntityManagerFactory Configuration**
+##### **4. EntityManagerFactory Configuration**
 
 **What is EntityManagerFactory?**
 
@@ -5015,7 +5015,7 @@ packages() → tells where entity classes are persistenceUnit() → logical name
 
 ------------
 
-### **5. TransactionManager Configuration**
+##### **5. TransactionManager Configuration**
 
 **Why TransactionManager?**
 Handles:
@@ -5041,7 +5041,7 @@ Multiple EntityManagerFactory beans exist Spring needs to know which one to inje
 
 ------------
 
-### **6. @EnableJpaRepositories Configuration Why Required?**
+##### **6. @EnableJpaRepositories Configuration Why Required?**
 
 When multiple databases exist: Spring cannot auto-detect repositories We must explicitly define: Repository package EntityManagerFactory TransactionManager Configuration
 
@@ -5060,7 +5060,7 @@ What happens if this is not configured? 👉 Spring throws No qualifying bean or
 
 ------------
 
-### **7. Complete Primary DB Configuration Class**
+##### **7. Complete Primary DB Configuration Class**
 
 
 ```java
@@ -5105,7 +5105,7 @@ public class UserDbConfig {
 
 ------------
 
-### **8. Secondary Database Configuration**
+##### **8. Secondary Database Configuration**
 
 Key Differences No @Primary Different: Property prefix Entity package Repository package Persistence unit
 
@@ -5148,7 +5148,7 @@ public class AddressDbConfig {
 
 ------------
 
-### **9. Package Structure (Best Practice)**
+##### **9. Package Structure (Best Practice)**
 
 com.example.twodb
  ├── primary
@@ -5164,7 +5164,7 @@ com.example.twodb
 
 ---
 
-# ⚡ Reactive Programming with Spring Boot 
+## ⚡ Reactive Programming with Spring Boot 
 
 ------
 
