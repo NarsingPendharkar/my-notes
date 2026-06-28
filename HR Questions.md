@@ -4,39 +4,65 @@
 
 ### Q. Tell me about yourself.
 
-Good morning,
+Good morning.
 
-My name is xyz, and I’m from ---, Maharashtra. Currently, I’m residing in Pune. I have completed my graduation in Electrical Engineering from Nagpur University.
 
-Presently, I’m working at TCS as a Java Developer. Throughout my career, I have been responsible for designing, developing, and maintaining enterprise-level applications, primarily in the Banking and Finance domain.
 
-Regarding my project experience, I have developed two major banking applications: NBC and YONO 2.0 for SBI. In these projects, I worked extensively with:
+My name is XYZ, and I'm from \*\*\[Your Hometown]\*\*, Maharashtra. Currently, I'm based in Pune. I completed my Bachelor's degree in Electrical Engineering from Nagpur University.
 
-**Backend**: Java, Spring Boot, Microservices
 
-**Frontend**: Angular for web and Flutter for mobile applications
 
-**Databases**: MySQL, Microsoft SQL Server, and PostgreSQL
+I have around \*\*X years of experience\*\* as a Java Developer, primarily working on enterprise applications in the Banking and Financial Services domain.
 
-**Version Control**: GIT
 
-My Key Roles and Responsibilities:
 
-Analyzing business requirements and transforming them into technical solutions
+I recently joined \*\*Persistent Systems\*\*, and I'm currently available for a new client engagement. Before this, I worked at \*\*Tata Consultancy Services (TCS)\*\*, where I was involved in designing, developing, and maintaining large-scale banking applications.
 
-Writing, debugging, and testing high-quality code
 
-Designing and developing RESTful APIs
 
-Participating in daily standup meetings, code reviews, and debugging sessions
+During my tenure at TCS, I worked on two major banking projects: \*\*NBC\*\* and \*\*YONO 2.0 for SBI\*\*.
 
-Creating technical documentation for end users
 
-Providing guidance and mentorship to junior developers
 
-Collaborating with cross-functional teams such as QA, DevOps, and Clients
+My technical expertise includes:
 
-I’m passionate about clean code, problem-solving, and continuously learning to improve software performance and architecture. I look forward to contributing to my expertise and growing further in this industry.
+
+
+\* \*\*Backend:\*\* Java, Spring Boot, Spring MVC, Microservices, REST APIs
+
+\* \*\*Frontend:\*\* Angular and Flutter
+
+\* \*\*Databases:\*\* MySQL, Microsoft SQL Server, and PostgreSQL
+
+\* \*\*Version Control:\*\* Git
+
+
+
+My key responsibilities included:
+
+
+
+\* Understanding business requirements and converting them into technical solutions.
+
+\* Designing and developing RESTful APIs and backend services.
+
+\* Writing clean, maintainable, and efficient code.
+
+\* Debugging, testing, and optimizing application performance.
+
+\* Participating in Agile ceremonies such as sprint planning, daily stand-ups, code reviews, and retrospectives.
+
+\* Collaborating closely with QA, DevOps, business analysts, and client teams to ensure successful project delivery.
+
+\* Preparing technical documentation and mentoring junior developers whenever required.
+
+
+
+I enjoy solving complex technical problems, writing clean and scalable code, and continuously learning new technologies and best practices. I'm excited about the opportunity to contribute my technical skills and collaborate with your team while continuing to grow as a software engineer.
+
+
+
+Thank you.
 
 ### Q. Why do you want to work with our company?
 
