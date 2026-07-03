@@ -1,3 +1,566 @@
+# DSA
+
+
+
+1. **Basics of DSA & Complexity Analysis**
+   - Time & Space Complexity
+   - Big-O, Big-Theta, Big-Omega
+2. **Arrays**
+   - Operations (insert, delete, search)
+   - Sorting (Insertion, Bubble, Selection, Merge, Quick)
+   - Searching (Linear, Binary)
+3. **Strings**
+   - Manipulation, Palindrome, Anagrams
+   - Pattern Matching
+4. **Linked Lists**
+   - Singly, Doubly, Circular
+   - Operations (insert, delete, reverse)
+5. **Stacks & Queues**
+   - Implementation using arrays & linked lists
+   - Variants: Circular Queue, Priority Queue, Deque
+6. **Recursion**
+   - Factorial, Fibonacci, Tower of Hanoi
+7. **Trees**
+   - Binary Trees, Binary Search Trees
+   - Traversals (Inorder, Preorder, Postorder)
+   - Advanced: AVL Trees, Heaps
+8. **Graphs**
+   - Representation (Adjacency Matrix/List)
+   - BFS, DFS
+   - Shortest Path (Dijkstra, Bellman-Ford)
+9. **Hashing**
+   - Hash Tables, Collision Handling
+10. **Advanced Algorithms**
+    - Dynamic Programming (Knapsack, LCS)
+    - Greedy Algorithms (Activity Selection, Huffman Coding)
+
+---
+
+
+
+## Basics of DSA & Complexity Analysis
+
+### 📌 What is DSA?
+
+- **DSA** stands for **Data Structures and Algorithms**.
+- It is a way to organize data and write step-by-step instructions (algorithms) to solve problems efficiently.
+- Learning DSA helps you write faster and better computer programs.
+
+##### Common Data Structures
+
+| Data Structure | Use Case               |
+| -------------- | ---------------------- |
+| Array          | Store sequential data  |
+| Linked List    | Frequent insert/delete |
+| Stack          | Undo, recursion        |
+| Queue          | Scheduling             |
+| HashMap        | Fast lookup            |
+| Tree           | Hierarchical data      |
+| Heap           | Priority Queue         |
+| Graph          | Networks               |
+
+------
+
+### 📌 What is an Algorithm?
+
+An algorithm is a finite sequence of steps to solve a problem.
+
+**Example**
+
+Find maximum number in an array.
+
+```java
+int max = arr[0];
+
+for(int num : arr){
+    if(num > max)
+        max = num;
+}
+
+System.out.println(max);
+```
+
+------
+
+#####  Characteristics of a Good Algorithm
+
+- Correct
+- Efficient
+- Finite
+- Clear
+- Reusable
+
+---
+
+### 📌  Time & Space Complexity
+
+##### Understanding Time & Space Complexity
+
+- When we write an algorithm, we want to know how much time it takes and how much memory it uses.
+- **Time Complexity** tells us **how long** an algorithm takes to run based on the input size.
+- **Space Complexity** tells us **how much memory** an algorithm needs based on the input size.
+- Input size is often shown by **n** (like number of items to sort).
+
+##### Why do we care about complexity?
+
+- It helps us know if the algorithm is fast enough.
+- It shows if the algorithm uses too much memory.
+- It helps us compare different solutions to pick the best one.
+
+---
+
+### 📌  These are ways to describe the complexity of algorithms.
+
+##### Big-O Notation (O)
+
+- **Big-O** shows the **worst-case** time or space an algorithm needs.
+- It gives an upper limit on the running time.
+- For example, if an algorithm is O(n), its running time grows linearly with the input size.
+- Big-O helps us understand the slowest the algorithm can be.
+
+##### Big-Theta Notation (Θ)
+
+- **Big-Theta** gives a **tight bound**, meaning it shows both the upper and lower limits.
+- It tells us the exact growth rate of the algorithm’s time or space.
+- If an algorithm is Θ(n), then it grows linearly no matter what.
+
+##### Big-Omega Notation (Ω)
+
+- **Big-Omega** shows the **best-case** time or space required by an algorithm.
+- It gives a lower bound on the running time.
+- For example, Ω(1) means the algorithm takes at least constant time regardless of input size.
+
+##### Examples to Understand
+
+- Searching an item in a list:
+  - Worst case: O(n) — you might have to check every item.
+  - Best case: Ω(1) — the item might be the first one.
+  - Average case: Θ(n) — generally, about half the items checked.
+
+##### Summary
+
+- **Time complexity** and **space complexity** measure how efficient algorithms are.
+- **Big-O** tells us the worst-case scenario.
+- **Big-Theta** tells us the exact behavior.
+- **Big-Omega** tells us the best-case scenario.
+- Using these concepts helps programmers choose the fastest and most efficient solutions.
+
+
+
+------
+
+### 📌 Complexity Analysis
+
+Complexity analysis measures how efficient an algorithm is.
+
+There are two types:
+
+1. Time Complexity
+2. Space Complexity
+
+------
+
+#### ⏱ Time Complexity
+
+Measures how execution time grows as input size increases.
+
+Input Size = **N**
+
+------
+
+**Common Time Complexities**
+
+| Complexity | Name        | Example                          |
+| ---------- | ----------- | -------------------------------- |
+| O(1)       | Constant    | Array index access               |
+| O(log n)   | Logarithmic | Binary Search                    |
+| O(n)       | Linear      | Linear Search                    |
+| O(n log n) | Linear Log  | Merge Sort                       |
+| O(n²)      | Quadratic   | Bubble Sort                      |
+| O(2ⁿ)      | Exponential | Recursive Fibonacci              |
+| O(n!)      | Factorial   | Traveling Salesman (Brute Force) |
+
+------
+
+##### 📌 O(1) Constant Time
+
+Execution never changes.
+
+```java
+int first = arr[0];
+N=10 → 1 operation
+N=1000 → 1 operation
+```
+
+------
+
+##### 📌 O(n) Linear Time
+
+Runs once for every element.
+
+```java
+for(int num : arr){
+    System.out.println(num);
+}
+N=5 → 5 operations
+
+N=1000 → 1000 operations
+```
+
+------
+
+##### 📌 O(n²) Quadratic
+
+Nested loops.
+
+```java
+for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+        System.out.println(i+" "+j);
+    }
+}
+N=5
+
+5 × 5 = 25 operations
+```
+
+------
+
+##### 📌 O(log n)
+
+Input size halves every iteration.
+
+**Example:**
+
+```java
+while(low <= high){
+    int mid = (low + high)/2;
+
+    if(arr[mid] == target)
+        return mid;
+    else if(arr[mid] < target)
+        low = mid + 1;
+    else
+        high = mid - 1;
+}
+```
+
+**Example:**
+
+```
+1000
+↓
+500
+↓
+250
+↓
+125
+↓
+62
+↓
+31
+...
+```
+
+------
+
+##### 📌 O(n log n)
+
+Combination of linear traversal and logarithmic division.
+
+Examples
+
+- Merge Sort
+- Heap Sort
+- Quick Sort (Average)
+
+------
+
+### 📌 Space Complexity
+
+Measures extra memory used by an algorithm.
+
+------
+
+**Example 1**
+
+```java
+int sum = 0;
+```
+
+Extra memory = constant
+
+```
+O(1)
+```
+
+------
+
+**Example 2**
+
+```java
+int[] temp = new int[n];
+```
+
+Extra memory depends on input size.
+
+```
+O(n)
+```
+
+##### 📌 Complexity Comparison
+
+| Notation | Meaning       |
+| -------- | ------------- |
+| O()      | Worst Case    |
+| Θ()      | Average/Exact |
+| Ω()      | Best Case     |
+
+------
+
+### 📌 Rules for Calculating Time Complexity
+
+##### Rule 1: Ignore Constants
+
+```java
+for(int i=0;i<n;i++)
+100n
+
+↓
+
+O(n)
+```
+
+------
+
+##### Rule 2: Drop Smaller Terms
+
+```
+n² + n + 100
+
+↓
+
+O(n²)
+```
+
+------
+
+##### Rule 3: Sequential Loops Add
+
+```java
+for(...)
+for(...)
+O(n) + O(n)
+
+↓
+
+O(n)
+```
+
+------
+
+##### Rule 4: Nested Loops Multiply
+
+```java
+for(...)
+   for(...)
+O(n × n)
+
+↓
+
+O(n²)
+```
+
+------
+
+##### Time Complexity Examples
+
+**Example 1**
+
+```java
+for(int i=0;i<n;i++)
+    System.out.println(i);
+O(n)
+```
+
+------
+
+**Example 2**
+
+```java
+for(int i=0;i<n;i++)
+    for(int j=0;j<n;j++)
+        System.out.println(i+j);
+O(n²)
+```
+
+------
+
+**Example 3**
+
+```java
+for(int i=1;i<n;i*=2)
+    System.out.println(i);
+O(log n)
+```
+
+------
+
+**Example 4**
+
+```java
+for(int i=0;i<n;i++){
+    for(int j=1;j<n;j*=2){
+        System.out.println(i+j);
+    }
+}
+O(n log n)
+```
+
+------
+
+#### Time Complexity Cheat Sheet
+
+| Code Pattern                 | Complexity |
+| ---------------------------- | ---------- |
+| Single statement             | O(1)       |
+| Single loop                  | O(n)       |
+| Nested loops                 | O(n²)      |
+| Triple nested loops          | O(n³)      |
+| Loop dividing by 2           | O(log n)   |
+| Loop doubling each iteration | O(log n)   |
+| Divide & Conquer             | O(n log n) |
+| Two independent loops        | O(n)       |
+| Recursion (depends)          | Varies     |
+
+------
+
+
+
+# 1. Arrays
+
+Arrays are one of the most important data structures in Java and programming in general. They help us store multiple values of the same type in a single variable. An array is a collection of items of the same variable type that are stored at contiguous memory locations. 
+
+---
+
+### What is an Array?
+
+- An **array** is a collection of items stored at **contiguous memory locations**.
+- All items in an array are of the **same data type** (for example, all integers or all strings).
+- Arrays help store **multiple elements** using a single variable name.
+- Each element in the array can be accessed by its **index**.
+- Indexes start from **0** in Java. That means the first element is at position 0, the second at 1, and so on.
+
+---
+
+### Declaring and Initializing Arrays
+
+To use an array, you first need to declare it, then create or initialize it. Here's how you do that in Java:
+
+### Declaring an Array
+
+```java
+int[] numbers;  // declaring an array of integers
+String[] names; // declaring an array of strings
+```
+
+### Initializing an Array
+
+- You create the array with a fixed size using the `new` keyword:
+
+```java
+numbers = new int[5]; // an array to hold 5 integers
+```
+
+- You can also declare and initialize the array at the same time:
+
+```java
+int[] numbers = new int[5];
+```
+
+- To add values immediately, you can use this:
+
+```java
+int[] numbers = {10, 20, 30, 40, 50};
+```
+
+---
+
+## Accessing and Modifying Array Elements
+
+- Use the **index** to get or change values:
+
+```java
+int firstNumber = numbers[0]; // gets the first element (10)
+numbers[2] = 100;             // changes the third element to 100
+```
+
+- Remember, trying to access an index outside the array size causes an **ArrayIndexOutOfBoundsException**.
+
+---
+
+## Important Properties of Arrays
+
+- **Fixed size:** The size of an array cannot be changed after creation.
+- **Same data type:** Arrays store elements of the same type.
+- **Indexes start at 0:** The first element is always at index 0.
+- **Access speed:** Accessing elements by index is very fast (constant time, O(1)).
+
+---
+
+## Example: Working with Arrays in Java
+
+```java
+public class ArrayExample {
+    public static void main(String[] args) {
+        // Declare and initialize an array
+        int[] ages = {12, 15, 20, 30, 25};
+
+        // Print all elements using a loop
+        for (int i = 0; i < ages.length; i++) {
+            System.out.println("Age at index " + i + ": " + ages[i]);
+        }
+
+        // Change the second element
+        ages[1] = 16;
+        System.out.println("Updated age at index 1: " + ages[1]);
+    }
+}
+```
+
+---
+
+## Using Arrays in Data Structures and Algorithms
+
+- Arrays are basic building blocks for many algorithms.
+- Used in sorting algorithms like Bubble Sort, Selection Sort, etc.
+- Help store data for searching algorithms like Linear Search and Binary Search.
+- Important when implementing other data structures like stacks, queues, and matrices.
+
+---
+
+## Key Points to Remember
+
+- Arrays are simple and very useful for storing multiple values.
+- Size of an array is fixed and must be decided when the array is created.
+- Use **loops** to work with arrays efficiently.
+- Always check array boundaries to avoid errors.
+- Arrays provide fast access to their elements using indexes.
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 🧠 Linked List Data Structure (DSA)
 
 ---

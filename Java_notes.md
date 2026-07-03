@@ -472,34 +472,49 @@ To design an immutable class in Java, follow these rules :
 
 ```java
 public final class Immutable {
-
     private final String name;
-
     private final int id;
+    private final int[] scores;            // mutable array
+    private final List<String> tags;      // list of immutable strings
 
-    public Immutable(String name, int id) {
-
-        super();
-
+    public Immutable(String name, int id, int[] scores, List<String> tags) {
         this.name = name;
-
         this.id = id;
-
+        this.scores = (scores == null) ? null : Arrays.copyOf(scores, scores.length);
+        this.tags = (tags == null) ? List.of() : List.copyOf(tags); // defensive copy + unmodifiable
     }
 
-    public String getName() {
+    public String getName() { return name; }
 
-        return name;
+    public int getId() { return id; }
 
+    // return a copy so caller cannot mutate internal array
+    public int[] getScores() {
+        return (scores == null) ? null : Arrays.copyOf(scores, scores.length);
     }
 
-    public int getId() {
+    // safe to return directly because tags is an unmodifiable copy
+    public List<String> getTags() { return tags; }
 
-        return id;
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Immutable)) return false;
+        Immutable that = (Immutable) o;
+        return id == that.id &&
+               Objects.equals(name, that.name) &&
+               Arrays.equals(scores, that.scores) &&
+               Objects.equals(tags, that.tags);
     }
 
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(name, id, tags);
+        result = 31 * result + Arrays.hashCode(scores);
+        return result;
+    }
 }
+
 ```
 
 ✅ No setters
@@ -822,7 +837,7 @@ public class Test {
 
 - **Libraries**: For complex objects, libraries like  Apache Commons Lang (SerializationUtils)  or  Gson can be used to perform deep copies without manual recursive logic. 
 
-##### 📌 What is the difference between shallow copy and deep copy?
+##### 📌 What is the difference between Copy by Value and Copy by Reference?
 
 | Feature          | Copy by Value | Copy by Reference (Behavior) |
 | ---------------- | ------------- | ---------------------------- |
@@ -1001,7 +1016,7 @@ flowchart TB
 
 - String is the sequence of the characters.
 
-- It is an object of String class.
+- It is an object of String class.n 
 
 ----
 
@@ -1524,9 +1539,81 @@ Now the object has no reference → eligible for GC.
 
 ------
 
-##### 📌 📊 Generational Garbage Collection
+### 📌 📊 Generational Garbage Collection
 
 Java divides heap into generations:
+
+
+
+```mermaid
+flowchart TB
+    subgraph Heap
+        subgraph YoungGeneration
+            E[Eden Space]
+            S0[Survivor Space S0]
+            S1[Survivor Space S1]
+        end
+
+        subgraph OldGeneration
+            O[Tenured Space]
+        end
+
+        subgraph Metaspace
+            M[Class Metadata]
+        end
+    end
+
+    %% Object flow
+    E -->|Minor GC survivors| S0
+    S0 -->|Next Minor GC survivors| S1
+    S1 -->|Survive multiple GCs| O
+
+    %% Dead objects
+    E -.->|Dead objects collected| X[Freed Memory]
+    S0 -.-> X
+    S1 -.-> X
+    O -.->|Major/Full GC| X
+
+```
+
+
+
+##### 🗂 Heap Structure in Java
+
+The JVM heap is divided into **generations**:
+
+1. **Young Generation** → short‑lived objects (most local variables, temporary objects).
+2. **Old Generation (Tenured)** → long‑lived objects (cached data, sessions).
+3. **Metaspace** → class metadata (since Java 8).
+
+##### 🌱 Inside the Young Generation
+
+The Young Generation itself is split into:
+
+- **Eden Space**
+  - Where **new objects are first allocated**.
+  - Most objects die quickly here.
+  - When Eden fills up, a **Minor GC** occurs.
+- **Survivor Spaces (S0 and S1)**
+  - Two equal‑sized areas: **Survivor 0 (S0)** and **Survivor 1 (S1)**.
+  - After a Minor GC, objects that survive are copied from Eden into one of the survivor spaces.
+  - On subsequent GCs, surviving objects are copied back and forth between S0 and S1.
+  - If an object survives multiple GCs (reaches a certain **age threshold**), it is promoted to the **Old Generation**.
+
+**🔄 Example Flow**
+
+1. New object → goes into **Eden**.
+2. Minor GC runs → dead objects cleared, survivors moved to **S0**.
+3. Next Minor GC → survivors copied to **S1**.
+4. After enough cycles → survivors promoted to **Old Generation**.
+
+#### ⚡ Why this design?
+
+- **Efficiency**: Most objects die young, so frequent small collections in Eden are cheap.
+- **Promotion policy**: Only objects that prove to be long‑lived move to Old Generation, reducing overhead.
+- **Copying GC**: Survivor spaces allow fast copying collection instead of complex mark‑sweep.
+
+---
 
 ##### 1. Young Generation
 
@@ -1549,14 +1636,29 @@ Java divides heap into generations:
 
 - Stores class metadata (replaced PermGen).
 
+
+
+```mermaid
+flowchart LR
+    A[Eden Space] -->|Minor GC survivors| B[Survivor Space S0]
+    B -->|Next Minor GC survivors| C[Survivor Space S1]
+    C -->|Survive multiple GCs| D[Old Generation]
+    A -.->|Dead objects| X[Collected / Freed]
+B -.->|Dead objects| X
+C -.->|Dead objects| X
+```
+
 ------
 
-##### 📌 🔁 Types of Garbage Collection (Process)
+##### 📌 📂 Types of Garbage Collection in Java
 
 ##### 1. Minor GC (Young GC)
 
 - Happens in **Young Generation**
 - Fast and frequent
+- Cleans the **Young Generation** (short‑lived objects).
+- Fast, frequent collections.
+- Example: temporary variables, method-local objects.
 
 ------
 
@@ -1564,6 +1666,9 @@ Java divides heap into generations:
 
 - Happens in **Old Generation**
 - Slower than Minor GC
+- Cleans the **Old Generation** (long‑lived objects).
+- Slower, less frequent.
+- Example: cached data, session objects
 
 ------
 
@@ -1574,7 +1679,7 @@ Java divides heap into generations:
 
 ------
 
-##### 📌 🧩 Types of Garbage Collectors (JVM Algorithms/engines)
+### 📌 🧩 Types of Garbage Collectors (JVM Algorithms/engines)
 
 A **Garbage Collector** is the specific implementation or algorithm used by the JVM to perform the collection process. 
 
@@ -1676,6 +1781,44 @@ Yes, possible if:
 
 - Objects are referenced but not used
 - Static collections holding objects
+
+---
+
+### 🧩 What is a Memory Leak?
+
+A **memory leak** occurs when objects are no longer needed but **still referenced**, preventing the Garbage Collector (GC) from reclaiming their memory. Over time, this can cause the heap to fill up, leading to `OutOfMemoryError`.
+
+##### ⚠️ Common Reasons for Memory Leaks
+
+1. **Unreleased references in collections**
+   - Adding objects to a `List`/`Map` but never removing them.
+2. **Static fields holding objects**
+   - Static references live for the entire JVM lifecycle.
+3. **Listeners / callbacks not deregistered**
+   - Event listeners keep references alive.
+4. **Improper use of caches**
+   - Caches that grow indefinitely.
+5. **Inner classes holding outer references**
+   - Anonymous inner classes can unintentionally keep outer objects alive.
+6. **ThreadLocal misuse**
+   - Forgetting to `remove()` values from `ThreadLocal`.
+
+##### ✅ How to Avoid Memory Leaks
+
+- **Remove unused references** from collections.
+- **Use weak references** (`WeakHashMap`, `WeakReference`) for caches or listeners.
+- **Unregister listeners** when no longer needed.
+- **Be careful with static fields** — avoid storing large objects.
+- **Use try-with-resources** to close streams, sockets, DB connections.
+- **Profile with tools** like VisualVM, JProfiler, or Eclipse MAT to detect leaks.
+
+---
+
+#### 🛠 Tools to Detect Leaks
+
+- **VisualVM** (bundled with JDK) → monitor heap usage.
+- **Eclipse MAT** → analyze heap dumps.
+- **JProfiler / YourKit** → advanced profiling.
 
 ---
 
@@ -2695,6 +2838,8 @@ Collections.sort(numbers, (a, b) -> b - a); // Sort in descending order
 System.out.println(numbers); // Output: [8, 5, 4, 2]
 ```
 
+----
+
 ### Map
 
 - **Definition**: A **Map** is a collection that maps keys to values. It cannot contain duplicate keys, and each key can map to at most one value.
@@ -2708,16 +2853,17 @@ System.out.println(numbers); // Output: [8, 5, 4, 2]
 **Common Implementations**
 
 1. **HashMap**
+   
    - Stores elements in a hash table.
    - Offers **O(1)** time complexity for basic operations like add, remove, and contains.
    - Allows one null key and multiple null values.
-
+   
    ```java
    HashMap<Integer, String> map = new HashMap<>();
    map.put(1, "Apple");
    map.put(2, "Banana");
    ```
-
+   
 2. **TreeMap**
    - Implements the **SortedMap** interface.
    - Stores elements in sorted order (based on the natural ordering of keys).

@@ -1286,8 +1286,7 @@ It will create a new row in the table for detached object. | It will throw persi
 
 ### What is Cache?
 
-Cache is a **temporary memory** that stores frequently accessed data to
-reduce database hits and improve application performance.
+Cache is a **temporary memory** that stores frequently accessed data to reduce database hits and improve application performance.
 
 ---
 

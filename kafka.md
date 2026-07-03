@@ -1921,4 +1921,375 @@ Kafka Consumer (@KafkaListener)
       ↓
 Application Processing
 ```
+# Apache Kafka Latest Setup on Windows (Without Docker)
+
+This guide installs **Apache Kafka in KRaft mode** (ZooKeeper is **not required**). This is the recommended setup for the latest Kafka versions.
+
+---
+
+# Step 1: Install Java
+
+Kafka requires **Java 17 or later**.
+
+### Check Java
+
+```cmd
+java -version
+```
+
+Expected output:
+
+```text
+openjdk version "17.x.x"
+```
+
+If Java is not installed:
+
+* Install JDK 17 or JDK 21
+* Set `JAVA_HOME`
+* Add Java `bin` to PATH
+
+Verify:
+
+```cmd
+echo %JAVA_HOME%
+```
+
+---
+
+# Step 2: Download Kafka
+
+Download from the official website:
+
+**[https://kafka.apache.org/downloads](https://kafka.apache.org/downloads)**
+
+Download the latest binary, for example:
+
+```
+kafka_2.13-4.x.x.tgz
+```
+
+or ZIP if available.
+
+---
+
+# Step 3: Extract
+
+Example:
+
+```
+C:\kafka
+```
+
+Folder structure:
+
+```
+C:\kafka
+│
+├── bin
+├── config
+├── libs
+├── logs
+└── ...
+```
+
+---
+
+# Step 4: Open Command Prompt
+
+Go to Kafka folder
+
+```cmd
+cd C:\kafka
+```
+
+---
+
+# Step 5: Generate Cluster ID
+
+Run
+
+```cmd
+bin\windows\kafka-storage.bat random-uuid
+```
+
+Example output
+
+```
+VjM0Y2EyNzMt...
+```
+
+Copy it.
+
+---
+
+# Step 6: Format Storage
+
+Run
+
+```cmd
+bin\windows\kafka-storage.bat format ^
+-t YOUR_CLUSTER_ID ^
+-c config\kraft\server.properties
+```
+
+Example
+
+```cmd
+bin\windows\kafka-storage.bat format ^
+-t VjM0Y2EyNzMtYWFiZi00 ^
+-c config\kraft\server.properties
+```
+
+You should see
+
+```
+Formatting metadata directory...
+```
+
+---
+
+# Step 7: Start Kafka
+
+Run
+
+```cmd
+bin\windows\kafka-server-start.bat config\kraft\server.properties
+```
+
+Wait until you see something like
+
+```
+Kafka Server started
+```
+
+Do **not close this terminal**.
+
+---
+
+# Step 8: Open Another CMD
+
+Create a topic
+
+```cmd
+bin\windows\kafka-topics.bat ^
+--create ^
+--topic orders ^
+--bootstrap-server localhost:9092
+```
+
+List topics
+
+```cmd
+bin\windows\kafka-topics.bat ^
+--list ^
+--bootstrap-server localhost:9092
+```
+
+Output
+
+```
+orders
+```
+
+---
+
+# Step 9: Start Producer
+
+```cmd
+bin\windows\kafka-console-producer.bat ^
+--topic orders ^
+--bootstrap-server localhost:9092
+```
+
+Type
+
+```
+Hello
+```
+
+```
+Kafka
+```
+
+---
+
+# Step 10: Start Consumer
+
+Open another CMD
+
+```cmd
+bin\windows\kafka-console-consumer.bat ^
+--topic orders ^
+--from-beginning ^
+--bootstrap-server localhost:9092
+```
+
+Output
+
+```
+Hello
+Kafka
+```
+
+---
+
+# Useful Commands
+
+## List Topics
+
+```cmd
+bin\windows\kafka-topics.bat ^
+--list ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## Describe Topic
+
+```cmd
+bin\windows\kafka-topics.bat ^
+--describe ^
+--topic orders ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## Delete Topic
+
+```cmd
+bin\windows\kafka-topics.bat ^
+--delete ^
+--topic orders ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## Producer
+
+```cmd
+bin\windows\kafka-console-producer.bat ^
+--topic orders ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## Consumer
+
+```cmd
+bin\windows\kafka-console-consumer.bat ^
+--topic orders ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## Consumer From Beginning
+
+```cmd
+bin\windows\kafka-console-consumer.bat ^
+--topic orders ^
+--from-beginning ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## Consumer Group
+
+```cmd
+bin\windows\kafka-console-consumer.bat ^
+--topic orders ^
+--group group1 ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## List Consumer Groups
+
+```cmd
+bin\windows\kafka-consumer-groups.bat ^
+--list ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+## Describe Consumer Group
+
+```cmd
+bin\windows\kafka-consumer-groups.bat ^
+--describe ^
+--group group1 ^
+--bootstrap-server localhost:9092
+```
+
+---
+
+# Default Ports
+
+| Service            | Port |
+| ------------------ | ---- |
+| Kafka Broker       | 9092 |
+| Controller (KRaft) | 9093 |
+
+---
+
+# Folder You Should Keep
+
+```
+C:\kafka
+│
+├── bin
+├── config
+├── libs
+├── logs
+├── licenses
+└── ...
+```
+
+---
+
+# Daily Startup
+
+Whenever you restart your PC:
+
+Start Kafka:
+
+```cmd
+cd C:\kafka
+bin\windows\kafka-server-start.bat config\kraft\server.properties
+```
+
+Then use producer/consumer commands in new terminal windows.
+
+---
+
+## Next Step: Build a Spring Boot Kafka Lab
+
+Since you're learning Kafka with Spring Boot, I recommend creating a single application that demonstrates all major Kafka concepts in one place, including:
+
+* ✅ Producer & Consumer
+* ✅ Topics and Partitions
+* ✅ Consumer Groups
+* ✅ Message Ordering
+* ✅ Offsets
+* ✅ Manual Acknowledgment
+* ✅ Retries
+* ✅ Dead Letter Queue (DLQ)
+* ✅ JSON Serialization/Deserialization
+* ✅ Idempotent Producer
+* ✅ Transactions
+* ✅ Exactly Once Semantics
+* ✅ Kafka Streams (basic)
+* ✅ Batch Consumption
+* ✅ Error Handling
+* ✅ Monitoring and Metrics
+
+This makes an excellent interview project while covering nearly all important Kafka concepts.
 
