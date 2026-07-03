@@ -1816,9 +1816,26 @@ A **memory leak** occurs when objects are no longer needed but **still reference
 
 #### 🛠 Tools to Detect Leaks
 
-- **VisualVM** (bundled with JDK) → monitor heap usage.
-- **Eclipse MAT** → analyze heap dumps.
-- **JProfiler / YourKit** → advanced profiling.
+1. Monitor heap usage (`jstat`, JMX, application metrics).
+
+2. Generate a heap dump:
+
+   ```
+   jmap -dump:live,format=b,file=heap.hprof <pid>
+   ```
+
+3. Analyze with tools such as:
+
+   - Eclipse Memory Analyzer (MAT)
+   - **VisualVM**
+   - Java Mission Control
+   - YourKit Java Profiler
+
+Look for:
+
+- Objects with unexpectedly large retained sizes.
+- Collections growing continuously.
+- Reference chains preventing garbage collection.
 
 ---
 
@@ -1833,7 +1850,7 @@ In Java, garbage collection is the process of automatically freeing memory that 
 
 ------
 
-##### 📌 What is an Exception in Java?
+### 📌 What is an Exception in Java?
 
 An **exception** is an event that **disrupts normal program flow** during execution.
 
@@ -1845,7 +1862,7 @@ int a = 10 / 0; // ArithmeticException
 
 ------
 
-##### 📌 Types of Exceptions
+### 📌 Types of Exceptions
 
 ##### 1. Checked Exceptions (Compile-time)
 
@@ -1884,7 +1901,7 @@ Examples:
 
 ***
 
-##### 📌 Difference Between Checked vs Unchecked Exception
+### 📌 Difference Between Checked vs Unchecked Exception
 
 | Feature              | Checked Exception              | Unchecked Exception            |
 |---------------------|--------------------------------|-------------------------------|
@@ -1895,10 +1912,9 @@ Examples:
 
 ---
 
-##### 📌  What is try-catch-finally?
+### 📌  What is try-catch-finally?
 
 Used to handle exceptions and avoid program crash.
-**Structure**
 
 ```java
 try {
@@ -1913,7 +1929,7 @@ finally block always runs used for closing resources (DB, files)
 
 ---
 
-##### 📌  Can we use try without catch?
+### 📌  Can we use try without catch?
 
 ✅ Yes, but only with finally
 
@@ -1937,7 +1953,7 @@ Must have catch or finally
 
 ---
 
-##### 📌  throw vs throws
+### 📌  throw vs throws
 
 | Feature  |  throw |  throws |
 | ------------ | ------------ | ------------ |
@@ -1966,7 +1982,7 @@ FileReader f = new FileReader("test.txt");
 
 ---
 
-##### 📌 Use Cases of User Defined Exceptions
+### 📌 Use Cases of User Defined Exceptions
 
 We create custom exceptions for business rules.
 
@@ -1986,7 +2002,7 @@ throw new InsufficientBalanceException("Low balance");
 ```
 ---
 
-##### 📌 How to Create User Defined Exception
+### 📌 How to Create User Defined Exception
 
 **Step 1: Create class**
 
@@ -2024,7 +2040,7 @@ System.out.println(e.getMessage());
 
 ---
 
-##### 📌 **Error vs Exception**
+### 📌 **Error vs Exception**
 
 Feature|Exception|Error
 --------|-----------|-------
@@ -2051,7 +2067,7 @@ int[] arr = new int[999999999];
 - An **object** represents a real-world entity and contains **data (variables)** and **behavior (methods)**.
 - OOP helps to make programs **modular, reusable, and easy to maintain**.
 
-##### 📌 Core Principles of OOP
+### 📌 Core Principles of OOP
 
 ```mermaid
 graph TD
@@ -2061,7 +2077,7 @@ OOP --> Polymorphism
 OOP --> Abstraction
 ```
 
-##### 📌 What are the four main principles of OOP?
+### 📌 What are the four main principles of OOP?
 
 The four pillars of Object-Oriented Programming (OOP) in are:
 
@@ -2075,14 +2091,20 @@ The four pillars of Object-Oriented Programming (OOP) in are:
 
 ------
 
-#### 📌 What is Encapsulation?
+### 📌 What is Encapsulation?
 
-**Encapsulation** is an **OOP principle** that means **wrapping data (variables) and code (methods) together into a single unit (class)** and restricting direct access to the data.
+- **Encapsulation** is an **OOP principle** that means **wrapping data (variables) and code (methods) together into a single unit (class)** and restricting direct access to the data.
 
-Encapsulation is the process of **wrapping data and methods into a single unit (class) and restricting direct access to data using private variables and public getter/setter methods.**
+- Encapsulation is the process of **wrapping data and methods into a single unit (class) and restricting direct access to data using private variables and public getter/setter methods.**
+- Think of it like a capsule: the internal details are hidden, and you only interact with it through a safe interface.
 
-Real-world example: **ATM Machine**
-A user can withdraw money or check balance without knowing the internal implementation.
+#### 🎯 Why Encapsulation?
+
+- **Data hiding** → prevent external code from directly modifying fields.
+- **Controlled access** → validate or enforce rules when changing state.
+- **Flexibility** → internal implementation can change without breaking external code.
+- **Security** → sensitive data is protected.
+- **Maintainability** → cleaner, modular code.
 
 ------
 
@@ -2153,7 +2175,7 @@ class BankAccount{
 
 ---
 
-#### 📌  What is Inheritance in Java?
+### 📌  What is Inheritance in Java?
 
 **Inheritance** is an **Object-Oriented Programming (OOP)** concept where one class **acquires the properties and behaviors (fields and methods)** of another class.
 
@@ -2203,7 +2225,7 @@ Dog is barking
 
 ------
 
-##### 📌 What are the Types of Inheritance?
+### 📌 What are the Types of Inheritance?
 
 Java supports different types of inheritance except **multiple inheritance with classes** to avoid ambiguity (Diamond Problem).
 
@@ -2341,17 +2363,13 @@ class C implements A, B {
 
 ------
 
-##### 📌 Why Java does not support multiple inheritance with classes?
+### 📌 Why Java does not support multiple inheritance with classes?
 
 **Answer:** To avoid the **Diamond Problem**, where a child class may inherit the same method from multiple parent classes causing ambiguity.
 
 ----
 
-#### 💎 Diamond Problem in Java – Complete Notes
-
-------
-
-**🧠 Definition**
+### 💎 Diamond Problem
 
 The **Diamond Problem** occurs in **multiple inheritance** when a class inherits from two classes that have a **common parent**, causing ambiguity about **which method to use**.
 
@@ -2411,28 +2429,37 @@ Java allows multiple inheritance via **interfaces**, but provides rules to resol
 ```java
 interface A {
     default void show() {
-        System.out.println("A show");
+        System.out.println("A's show");
     }
 }
 
 interface B {
     default void show() {
-        System.out.println("B show");
+        System.out.println("B's show");
     }
 }
 
 class C implements A, B {
-
+    // Must override to resolve conflict
     @Override
     public void show() {
-        A.super.show(); // explicitly choosing
+        A.super.show(); // or B.super.show()
+        System.out.println("C's show");
     }
 }
+
+public class Test {
+    public static void main(String[] args) {
+        C obj = new C();
+        obj.show();
+    }
+}
+
 ```
 
 ------
 
-##### 📌 Rules to Resolve Diamond Problem
+### 📌 Rules to Resolve Diamond Problem
 
 **1️⃣ Class has higher priority than Interface**
 
@@ -2472,19 +2499,19 @@ B.super.show();
 
 ----
 
-#### 📌 What is Polymorphism?
+### 📌 What is Polymorphism?
 
 - **Polymorphism** means "many forms".  
 - It allows the **same method, variable, or object** to perform different operations under different conditions.
 
-##### 📌 🔹 Types of Polymorphism
+#### 📌 🔹 Types of Polymorphism
 
 - **Compile-time Polymorphism (Method Overloading)**
 - **Runtime Polymorphism (Method Overriding)**
 
 ---
 
-##### 📌 What is Method Overloading?
+### 📌 What is Method Overloading?
 
 - When multiple methods have the **same name** but **different parameters** (type or number of arguments).  
 - It is an example of **compile-time polymorphism**.
@@ -2513,9 +2540,9 @@ public class Main {
 }
 ```
 
+---
 
-
-##### 📌 What is Method Overriding?
+### 📌 What is Method Overriding?
 
 When the same method (same name, parameters, and return type) is present in both parent and child classes, and the method in the child class overrides the one in the parent class.
 
@@ -2549,7 +2576,7 @@ public class Main {
 
 ---
 
-#### 📌 What is Abstraction?
+### 📌 What is Abstraction?
 
 Abstraction is the process of **hiding implementation details** and showing only the **essential features** of an object.  It helps reduce complexity by focusing on what an object does rather than how it does it.
 
@@ -2561,7 +2588,7 @@ It allows developers to define a common structure for related objects and enforc
 
 ---
 
-##### 📌 What is an Abstract Class?
+### 📌 What is an Abstract Class?
 
 An **abstract class** in Java is declared using the `abstract` keyword.  It is a special kind of class that cannot be instantiated directly — meaning you **cannot create an object** of an abstract class.
 
@@ -2600,7 +2627,9 @@ public class Main {
 }
 ```
 
-##### 📌 What is an Interface in Java?
+---
+
+### 📌 What is an Interface in Java?
 
 An **interface** in Java is a special type of class that contains only **abstract methods** (methods without a body)..It is used to achieve **100% abstraction** and **multiple inheritance** in Java.
 
