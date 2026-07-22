@@ -6611,7 +6611,7 @@ Runnable r = () -> System.out.println(limit);
 
 ------
 
-#### **🏗️ SOLID Principles in Java**
+### **📌 🏗️ SOLID Principles in Java**
 
 ------
 
