@@ -1,3 +1,216 @@
+
+### Java 21 
+(released as an **LTS - Long Term Support** version) introduced several important features focused on **concurrency, pattern matching, collections, and developer productivity**.
+
+#### 1. Virtual Threads (Final Feature) ⭐ Most Important
+
+Virtual threads are lightweight threads managed by the JVM. You can create millions of them without exhausting OS resources.
+
+##### Before Java 21
+
+```java
+Thread thread = new Thread(() -> {
+    System.out.println("Processing...");
+});
+thread.start();
+```
+
+##### Java 21
+
+```java
+Thread.startVirtualThread(() -> {
+    System.out.println("Running in virtual thread");
+});
+```
+
+##### Executor Example
+
+```java
+try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    for (int i = 0; i < 10000; i++) {
+        executor.submit(() -> {
+            System.out.println(Thread.currentThread());
+        });
+    }
+}
+```
+
+**Use Case:** Microservices, APIs, database calls, I/O-intensive applications. 
+
+**Q: Why are Virtual Threads important?**
+
+**Answer:**  
+Traditional threads are mapped 1:1 to OS threads and are expensive. Virtual threads are JVM-managed lightweight threads, allowing millions of concurrent tasks with minimal memory consumption. They simplify scalable I/O-bound applications without requiring reactive programming frameworks. 
+
+***
+
+#### 2. Pattern Matching for Switch (Final)
+
+No need for multiple `instanceof` checks.
+
+##### Before
+
+```java
+if (obj instanceof String) {
+    System.out.println(((String) obj).toUpperCase());
+} else if (obj instanceof Integer) {
+    System.out.println(obj);
+}
+```
+
+##### Java 21
+
+```java
+Object obj = "Hello";
+
+switch (obj) {
+    case String s -> System.out.println(s.toUpperCase());
+    case Integer i -> System.out.println(i * 2);
+    default -> System.out.println("Unknown");
+}
+```
+
+More readable and type-safe. [\[baeldung.com\]](https://www.baeldung.com/java-lts-21-new-features), [\[versionlog.com\]](https://versionlog.com/java/21/)
+
+***
+
+#### 3. Record Patterns (Final)
+
+Allows extracting values from records directly.
+
+##### Record
+
+```java
+record Employee(String name, int age) {}
+```
+
+##### Java 21
+
+```java
+Employee emp = new Employee("Narsing", 35);
+
+if (emp instanceof Employee(String name, int age)) {
+    System.out.println(name);
+    System.out.println(age);
+}
+```
+
+No need to write:
+
+```java
+emp.name();
+emp.age();
+```
+
+repeatedly. [\[baeldung.com\]](https://www.baeldung.com/java-lts-21-new-features), [\[geeksforgeeks.org\]](https://www.geeksforgeeks.org/java/java-jdk-21-new-features-of-java-21/)
+
+***
+
+#### 4. Sequenced Collections
+
+Adds support for accessing first and last elements consistently.
+
+```java
+SequencedCollection<String> names = new LinkedList<>();
+
+names.add("A");
+names.add("B");
+names.add("C");
+
+System.out.println(names.getFirst());
+System.out.println(names.getLast());
+```
+
+Useful when working with ordered collections. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[versionlog.com\]](https://versionlog.com/java/21/)
+
+***
+
+#### 5. Unnamed Classes and Instance Main Method (Preview)
+
+Good for beginners and simple programs.
+
+##### Before
+
+```java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello Java");
+    }
+}
+```
+
+##### Java 21
+
+```java
+void main() {
+    System.out.println("Hello Java 21");
+}
+```
+
+Much less boilerplate. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/)
+
+***
+
+#### 6. String Templates (Preview)
+
+Safer and cleaner string interpolation.
+
+```java
+String name = "Narsing";
+
+String message = STR."Hello \{name}";
+```
+
+Output:
+
+```text
+Hello Narsing
+```
+
+Similar to JavaScript template literals. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[geeksforgeeks.org\]](https://www.geeksforgeeks.org/java/java-jdk-21-new-features-of-java-21/)
+
+***
+
+#### 7. Structured Concurrency (Preview)
+
+Helps manage multiple related tasks as a single unit.
+
+```java
+try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+
+    Future<String> user =
+            scope.fork(() -> getUser());
+
+    Future<String> orders =
+            scope.fork(() -> getOrders());
+
+    scope.join();
+    scope.throwIfFailed();
+
+    System.out.println(user.resultNow());
+    System.out.println(orders.resultNow());
+}
+```
+
+Useful for microservices calling multiple downstream services concurrently. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/)
+
+***
+
+#### 8. Generational ZGC
+
+Improves garbage collection performance and memory management for large applications. Particularly useful for low-latency systems and high-throughput enterprise applications. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[versionlog.com\]](https://versionlog.com/java/21/)
+
+***
+
+
+
+
+
+
+
+
+
+
 # circuit breaker in depth :
 
 In microservices architecture, a **Circuit Breaker** is a design pattern used to prevent a failure in one service from cascading down to other services. Think of it exactly like an electrical circuit breaker in your house: when a fault occurs (like a short circuit), the breaker trips to stop the flow of electricity, protecting the rest of your home.
