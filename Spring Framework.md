@@ -8,7 +8,7 @@
 
 ### 📌 What are the key features of the Spring Framework?
 
-**Defination:** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
+Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
 
 * **Lightweight:** doesn't force developer to implement any interface.
 * **Loose coupling:** we can develop loosely coupled applications using DI . loosely coupled means classes and methods are completely independent to each other . means we can make code changes easily.
@@ -58,9 +58,7 @@
 ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
 ```
 
-> [!CAUTION]
->
-> Note : bean file should be in resource folder
+Note : bean file should be in resource folder
 
 ---
 
@@ -143,15 +141,13 @@ public class OrderService {
 }
 ```
 
-> [!IMPORTANT]
->
-> **Why Preferred?**
->
-> ✔ Makes dependency mandatory
->  ✔ Immutable (final field)
->  ✔ Easy for unit testing
->  ✔ Prevents NullPointerException
->  ✔ Recommended for production
+**Why Preferred?**
+
+✔ Makes dependency mandatory
+✔ Immutable (final field)
+✔ Easy for unit testing
+✔ Prevents NullPointerException
+✔ Recommended for production
 
 ------
 
@@ -172,19 +168,15 @@ public class OrderService {
 }
 ```
 
-> [!IMPORTANT]
->
-> **✅ When to Use?**
->
-> ✔ Optional dependencies
->  ✔ When dependency may change
+**✅ When to Use?**
 
-> [!WARNING]
->
-> **❌ Problem**
->
-> Dependency is not mandatory.
->  Object can exist in invalid state.
+✔ Optional dependencies
+✔ When dependency may change
+
+**❌ Problem**
+
+Dependency is not mandatory.
+Object can exist in invalid state.
 
 ------
 
@@ -200,15 +192,13 @@ public class OrderService {
 }
 ```
 
-> [!CAUTION]
->
-> **❌ Why Not Recommended?**
->
-> - Hard to unit test
-> - Cannot make field final
-> - Violates clean code principles
-> - Hidden dependency
-> - Reflection based injection
+**❌ Why Not Recommended?**
+
+- Hard to unit test
+- Cannot make field final
+- Violates clean code principles
+- Hidden dependency
+- Reflection based injection
 
 ---
 
@@ -248,7 +238,7 @@ public class OrderService {
 
 A **Spring Bean** is an object created, managed, and destroyed by the Spring Container (IoC Container).
 
-#### 📌  **Bean Life Cycle**
+#### **Bean Life Cycle**
 
 1. Bean is created
 2. Dependency is injected
@@ -256,7 +246,7 @@ A **Spring Bean** is an object created, managed, and destroyed by the Spring Con
 4. Bean used
 5. Bean destroyed
 
-#### 📌  Main Phases of Bean Life Cycle
+#####  Main Phases of Bean Life Cycle
 
 ```mermaid
 flowchart LR
@@ -282,7 +272,7 @@ public class Student {
 }
 ```
 
-📌 Object is created but not ready yet.
+ Object is created but not ready yet.
 
 ---
 
@@ -302,7 +292,7 @@ public class StudentService {
 }
 ```
 
-📌 Bean gets all required objects.
+ Bean gets all required objects.
 
 ---
 
@@ -317,7 +307,7 @@ public void init() {
 }
 ```
 
-📌 Bean becomes fully ready.
+ Bean becomes fully ready.
 
 ---
 
@@ -329,7 +319,7 @@ Application starts using the bean.
 studentService.saveStudent();
 ```
 
-📌 Business logic executes here.
+ Business logic executes here.
 
 ---
 
@@ -344,7 +334,7 @@ public void destroy() {
 }
 ```
 
-📌 Resources are cleaned up.
+ Resources are cleaned up.
 
 ---
 
