@@ -450,7 +450,7 @@ public class Singleton {
 
 ---
 
-##### 📌  How do you design an immutable class in Java? What rules should you follow?
+### 📌  How do you design an immutable class in Java? What rules should you follow?
 
 An **immutable class** is a class whose objects cannot be modified once created.
 
@@ -468,7 +468,7 @@ To design an immutable class in Java, follow these rules :
     
 6.  **Return copies instead of references** in getter methods if fields are mutable.
 
-##### 📌  **Classic Immutable Class**
+#### 📌  **Classic Immutable Class**
 
 ```java
 public final class Immutable {
@@ -522,7 +522,7 @@ public final class Immutable {
 ✅ Class is final
 ➡️ Hence, **Immutable**
 
-📌 **Modern Approach (Using record in Java 16+)**
+#### 📌 **Modern Approach (Using record in Java 16+)**
 
 ```java
 public record Immutable (int id,String name) {
@@ -549,7 +549,7 @@ public record Immutable (int id,String name) {
 <div align="center">
     <h3>✦✦ Methods & Object ✦✦</h3>
 </div>
-##### 📌  What is the difference between a method and a constructor?
+### 📌  What is the difference between a method and a constructor?
 
 | **Feature**     | **Constructor**                                | **Method**                        |
 | --------------- | ---------------------------------------------- | --------------------------------- |
@@ -558,7 +558,7 @@ public record Immutable (int id,String name) {
 | **Return Type** | No return type (not even `void`)               | Can have a return type            |
 | **Call**        | Called automatically when an object is created | Called explicitly                 |
 
-##### 📌  **What are Access modifiers ?**
+### 📌  **What are Access modifiers ?**
 
 Access modifiers in Java control the visibility of classes, methods, and variables. 
 
@@ -581,7 +581,7 @@ There are four types: 
 
 ------
 
-##### 📌  Access Modifier Visibility Table
+#### 📌  Access Modifier Visibility Table
 
 | Modifier  | Same Class🏠 | Same Package🏢 | Subclass | Other Package |
 | --------- | ----------- | ------------- | -------- | ------------- |
@@ -592,7 +592,7 @@ There are four types: 
 
 ---
 
-##### 📌  What is the difference between an instance variable and a local variable?
+### 📌  What is the difference between an instance variable and a local variable?
 
 | Feature | Instance Variable             | Local Variable               |
 | ------- | ----------------------------- | ---------------------------- |
@@ -601,9 +601,9 @@ There are four types: 
 | Default | Gets default value            | No default value             |
 | Value   | null                          | 0                            |
 
-##### 📌What is Copy by Value vs Copy by Reference (Java)
+### 📌What is Copy by Value vs Copy by Reference (Java)
 
- **Copy by Value (Primitive Types)**
+####  **Copy by Value (Primitive Types)**
 
 - when a method is called & a variable is passed as an argument, the value of that variable is actually copied into a new variable inside the method. This means that any changes made to the variable inside the method do not affect the original variable outside the method. This is known as pass by value.
 - Used with **primitive data types** (`int`, `float`, `boolean`, etc.)
@@ -631,7 +631,7 @@ public class PassByValueExample {
 
 ------
 
-**Copy by Reference (Object Behavior)**
+#### **Copy by Reference (Object Behavior)**
 
 - In some programming languages, like C++, there is a concept called pass by reference. When a variable is passed by reference, the method receives a direct reference to the original variable, not just a copy of its value. This means that any changes made to the variable inside the method will affect the original variable outside the method.
 
@@ -710,7 +710,7 @@ So, while Java doesn't support pass by reference directly, it allows you to modi
 
 ------
 
-##### 📌 Shallow Copy vs Deep Copy (Java)
+### 📌 Shallow Copy vs Deep Copy (Java)
 
 ```mermaid
 flowchart LR
@@ -737,7 +737,7 @@ flowchart LR
 
 ------
 
-##### 📌 What is Shallow Copy 
+### 📌 What is Shallow Copy 
 
 A **shallow copy** creates a new instance of the object but copies the field values exactly as they are. 
 
@@ -783,7 +783,7 @@ A **shallow copy** creates a new instance of the object but copies the field val
 
   
 
-##### 📌 What is Deep Copy 
+### 📌 What is Deep Copy 
 
 A **deep copy** creates a new instance of the object and **recursively clones** all nested objects within it. 
 
@@ -837,7 +837,7 @@ public class Test {
 
 - **Libraries**: For complex objects, libraries like  Apache Commons Lang (SerializationUtils)  or  Gson can be used to perform deep copies without manual recursive logic. 
 
-##### 📌 What is the difference between Copy by Value and Copy by Reference?
+### 📌 What is the difference between Copy by Value and Copy by Reference?
 
 | Feature          | Copy by Value | Copy by Reference (Behavior) |
 | ---------------- | ------------- | ---------------------------- |
@@ -847,7 +847,7 @@ public class Test {
 | Java Support     | ✅ Yes         | ❌ Not true (only behavior)   |
 | Used With        | Primitives    | Objects & Arrays             |
 
-#####  📌 What is the difference between shallow copy and deep copy?
+###  📌 What is the difference between shallow copy and deep copy?
 
 | **Feature**    | **Shallow Copy**                      | **Deep Copy**                       |
 | -------------- | ------------------------------------- | ----------------------------------- |
@@ -864,7 +864,7 @@ Car car2 = new Car(car1); // Deep Copy – creates a new object with copied data
 
 ---
 
-##### 📌  Java Memory Model (JVM Memory)
+### 📌  Java Memory Model (JVM Memory)
 
 Java memory is divided into different areas used by the **JVM (Java Virtual Machine)**. JVM memory is divided into Heap, Stack, Method Area, PC Register, and Native Method Stack. Heap stores objects and is managed by garbage collection, Stack stores method calls and local variables for each thread, and Method Area stores class metadata and static variables.
 
@@ -878,7 +878,7 @@ Main memory areas:
 
 ------
 
-##### 📌  JVM Memory Architecture
+#### 📌  JVM Memory Architecture
 
 ```mermaid
 flowchart TD
@@ -893,7 +893,7 @@ flowchart TD
 
 ------
 
-**1. Heap Memory (Objects)**
+#### **1. Heap Memory (Objects)**
 
 **Role:** Stores **objects and instance variables**.
 
@@ -910,7 +910,7 @@ Explanationc
 
 ------
 
-**2. Stack Memory(methods)**
+#### **2. Stack Memory(methods)**
 
 **Role:** Stores **method calls and local variables**.
 
@@ -926,7 +926,7 @@ Each thread has **its own stack**.
 
 ------
 
-**3. Method Area(class data)**
+#### **3. Method Area(class data)**
 
 **Role:** Stores **class level information**.
 
@@ -944,7 +944,7 @@ static int count = 10;
 
 ------
 
-**4. PC Register**
+#### **4. PC Register**
 
 PC = **Program Counter**
 
@@ -958,7 +958,7 @@ Thread → PC Register → current instruction
 
 ------
 
-##### 5. Native Method Stack
+#### 5. Native Method Stack
 
 Used when Java calls **native methods written in C/C++**.
 
@@ -1008,11 +1008,12 @@ flowchart TB
 ------
 
 <div align="center">
-    <h3>✦🧵 String in Java ✦</h3>
+    <h1>✦🧵 String in Java ✦</h1>
 </div>
 
 
-##### 📌  What is a String in Java?
+
+### 📌  What is a String in Java?
 
 - String is the sequence of the characters.
 
@@ -1020,13 +1021,13 @@ flowchart TB
 
 ----
 
-##### 📌  What is Java String Pool?
+### 📌  What is Java String Pool?
 
 A Java String Pool is a place in heap memory where all the strings defined in the program are stored. JVM checks for the presence of the object in the String pool, If String is available in the pool, the same object reference is shared with the variable, else a new object is created.
 
 ---
 
-##### 📌  Why is String immutable ?
+### 📌  Why is String immutable ?
 
 - Strings are immutable  for security, performance, and thread safety reasons. It prevents unwanted changes and helps optimize memory usage.
   
@@ -1038,7 +1039,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 - **Thread safe** -- as String is immutable multiple threads can access it at a time.
 
-##### 📌  Difference between String vs StringBuilder vs StringBuffer
+### 📌  Difference between String vs StringBuilder vs StringBuffer
 
 - String Buffer and StringBuilder are the classes of java used to create Mutable strings.
   
@@ -1050,7 +1051,7 @@ A Java String Pool is a place in heap memory where all the strings defined in th
 
 ---
 
-##### 📌  What is String interning?
+### 📌  What is String interning?
 
 - `String.intern()` moves a string to the String Pool if it isn\'t already there.
 
@@ -1067,7 +1068,7 @@ System.out.println(s2 == s3); // true (both refer to the same object in the Stri
 ```
 ---
 
-##### 📌  What is String pool and how does it work and its advantages ?
+### 📌  What is String pool and how does it work and its advantages ?
 
 The Java String Pool (also called the String Intern Pool) is a special memory area inside the heap that stores string literals. When the JVM encounters a string literal:
 
@@ -1108,12 +1109,12 @@ public class Example2 {
 
 ##### 📌 What is the difference between == and .equals() ⚖️ in objects?
 
-##### 📌 ✅ `==`
+#####  ✅ `==`
 
 - Compares **memory reference (address)**
 - Checks: *Are both variables pointing to the same object?*
 
-##### 📌 ✅ `.equals()` 
+#####  ✅ `.equals()` 
 
 - Compares **actual content (value inside string)**
 - Checks: *Do both strings have the same characters?*
@@ -1194,7 +1195,7 @@ String s2 = "helloworld";
 
 ---
 
-##### 📌 **String Methods :**
+### 📌 **String Methods :**
 
 1.  **Length() --** Return length of String
 
@@ -1232,7 +1233,7 @@ String s2 = "helloworld";
 
 ------
 
-#### 📌 `this` Keyword
+### 📌 `this` Keyword
 
 The `this` keyword refers to the **current instance of a class**.
 
@@ -1333,7 +1334,7 @@ public class Example {
 
 ------
 
-#### 📌 `Static` Keyword
+### 📌 `Static` Keyword
 
 The `static` keyword defines **class-level members**.
 
@@ -7725,7 +7726,7 @@ System.out.println(names.getFirst());
 System.out.println(names.getLast());
 ```
 
-Useful when working with ordered collections. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[versionlog.com\]](https://versionlog.com/java/21/)
+Useful when working with ordered collections.
 
 ***
 
@@ -7771,7 +7772,7 @@ Output:
 Hello Narsing
 ```
 
-Similar to JavaScript template literals. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[geeksforgeeks.org\]](https://www.geeksforgeeks.org/java/java-jdk-21-new-features-of-java-21/)
+Similar to JavaScript template literals. 
 
 ***
 
