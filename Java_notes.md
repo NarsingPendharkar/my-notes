@@ -1107,6 +1107,60 @@ public class Example2 {
 
 ---
 
+### 📌`equals()`and `hashCode()` in Object 
+
+##### 📌What is `equals()` in Java?
+
+- **equals() method** is used to compare the *contents* of two objects.
+- By default (in `Object` class), it behaves like `==` (compares memory addresses).
+- Classes often **override** it to define logical equality. Example: Two `String` objects with the same characters are considered equal even if stored at different memory locations.
+
+```java
+String a = new String("hello");
+String b = new String("hello");
+System.out.println(a.equals(b)); // true
+System.out.println(a == b);      // false
+```
+
+##### 📌What is `hashCode()` in Java?
+
+- **hashCode() method** returns an integer hash value for the object.
+- It’s used in **hash-based collections** like `HashMap`, `HashSet`, and `Hashtable`.
+- The contract:
+  - If two objects are equal (`equals()` returns true), they **must** have the same hash code.
+  - If two objects are not equal, they *may* still have the same hash code (called a collision).
+
+##### 📌Relationship Between `equals()` and `hashCode()`
+
+- Always override **both** together.
+- If you override `equals()` but not `hashCode()`, collections like `HashMap` may behave incorrectly (e.g., failing to find keys that are logically equal).
+
+**Example**
+
+```
+class Person {
+    String name;
+    int age;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person p = (Person) o;
+        return age == p.age && name.equals(p.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+}
+```
+
+Here, two `Person` objects with the same `name` and `age` are considered equal, and they produce the same hash code.
+
+---
+
 ### 📌  What is the difference between == and .equals() ⚖️ in objects?
 
 #####  ✅ `==`
@@ -6813,7 +6867,7 @@ class Notification {
 
 ------
 
-### 📌  **Summary Table**
+##### 📌  **Summary Table**
 
 | Principle                     | Key Concept                                     | Goal                             |
 | ----------------------------- | ----------------------------------------------- | -------------------------------- |
@@ -6905,9 +6959,7 @@ flowchart TD
 
 ------
 
-##### 💻 Java Implementation (Using LinkedHashMap)
-
-### 📌  Best & Simplest Approach
+### 📌  Best & Simplest Approach Using LinkedHashMap
 
 ```java
 import java.util.*;
