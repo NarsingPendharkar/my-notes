@@ -433,11 +433,9 @@ O(n log n)
 | Two independent loops        | O(n)       |
 | Recursion (depends)          | Varies     |
 
-------
+---
 
-
-
-# 1. Arrays
+## 1. Arrays
 
 Arrays are one of the most important data structures in Java and programming in general. They help us store multiple values of the same type in a single variable. An array is a collection of items of the same variable type that are stored at contiguous memory locations. 
 
@@ -453,18 +451,18 @@ Arrays are one of the most important data structures in Java and programming in 
 
 ---
 
-### Declaring and Initializing Arrays
+##### Declaring and Initializing Arrays
 
 To use an array, you first need to declare it, then create or initialize it. Here's how you do that in Java:
 
-### Declaring an Array
+##### Declaring an Array
 
 ```java
 int[] numbers;  // declaring an array of integers
 String[] names; // declaring an array of strings
 ```
 
-### Initializing an Array
+##### Initializing an Array
 
 - You create the array with a fixed size using the `new` keyword:
 
@@ -486,7 +484,7 @@ int[] numbers = {10, 20, 30, 40, 50};
 
 ---
 
-## Accessing and Modifying Array Elements
+##### Accessing and Modifying Array Elements
 
 - Use the **index** to get or change values:
 
@@ -499,7 +497,7 @@ numbers[2] = 100;             // changes the third element to 100
 
 ---
 
-## Important Properties of Arrays
+##### Important Properties of Arrays
 
 - **Fixed size:** The size of an array cannot be changed after creation.
 - **Same data type:** Arrays store elements of the same type.
@@ -508,7 +506,7 @@ numbers[2] = 100;             // changes the third element to 100
 
 ---
 
-## Example: Working with Arrays in Java
+##### Example: Working with Arrays in Java
 
 ```java
 public class ArrayExample {
@@ -530,7 +528,7 @@ public class ArrayExample {
 
 ---
 
-## Using Arrays in Data Structures and Algorithms
+##### Using Arrays in Data Structures and Algorithms
 
 - Arrays are basic building blocks for many algorithms.
 - Used in sorting algorithms like Bubble Sort, Selection Sort, etc.
@@ -539,7 +537,7 @@ public class ArrayExample {
 
 ---
 
-## Key Points to Remember
+##### Key Points to Remember
 
 - Arrays are simple and very useful for storing multiple values.
 - Size of an array is fixed and must be decided when the array is created.
@@ -549,21 +547,103 @@ public class ArrayExample {
 
 ---
 
+## String Data Structure
 
+##### 📌 Definition
 
+A String in Java is an immutable sequence of characters. It is implemented using the java.lang.String class.
 
+Internally (Java 9+), String stores characters in a byte[] array along with an encoding flag (LATIN1 or UTF16).
 
+##### 🧠 Key Characteristics
 
+| Feature               | Description                      |
+| --------------------- | -------------------------------- |
+| Immutable             | Cannot be changed after creation |
+| Thread-safe           | Safe to share between threads    |
+| Stored in String Pool | Reuses common literals           |
+| Indexed               | Characters accessed by index     |
+| Length fixed          | Size cannot grow or shrink       |
 
+##### 💡 Creating Strings
 
+##### 🧠 String Pool
 
+Java maintains a special memory area called the String Constant Pool.
 
+Why? Both references point to the same pooled object.
 
+##### ⚠️ Immutability
 
+The original string is not modified.
 
-# 🧠 Linked List Data Structure (DSA)
+Correct:
+
+##### 🔑 Important Methods
+
+| Method             | Purpose                     |
+| ------------------ | --------------------------- |
+| length()           | Returns size                |
+| charAt(i)          | Character at index          |
+| substring()        | Extract part                |
+| equals()           | Content comparison          |
+| equalsIgnoreCase() | Case-insensitive comparison |
+| contains()         | Checks substring            |
+| startsWith()       | Prefix check                |
+| endsWith()         | Suffix check                |
+| replace()          | Replace characters/text     |
+| split()            | Convert to array            |
+| trim()             | Remove spaces               |
+| toUpperCase()      | Uppercase                   |
+| toLowerCase()      | Lowercase                   |
+
+**🧪 Example**
+
+##### 📊 Time Complexity
+
+| Operation   | Complexity |
+| ----------- | ---------- |
+| charAt()    | O(1)       |
+| length()    | O(1)       |
+| equals()    | O(n)       |
+| substring() | O(n)       |
+| concat()    | O(n)       |
+| replace()   | O(n)       |
+| split()     | O(n)       |
+
+##### 🔄 String vs StringBuilder vs StringBuffer
+
+| Feature     | String           | StringBuilder           | StringBuffer           |
+| ----------- | ---------------- | ----------------------- | ---------------------- |
+| Mutable     | ❌                | ✅                       | ✅                      |
+| Thread-safe | ✅                | ❌                       | ✅                      |
+| Performance | Slow for changes | Fast                    | Medium                 |
+| Use case    | Read-only text   | Single-threaded updates | Multi-threaded updates |
+
+##### ⚠️ Common Interview Questions
+
+1. ##### Why is String immutable?
+
+Security, thread safety, caching, and String Pool optimization.
+
+2. ##### Difference between == and equals()?
+
+| Operator | Checks             |
+| -------- | ------------------ |
+| ==       | Reference equality |
+| equals() | Content equality   |
+
+3. ##### What is String interning?
+
+Moving/reusing strings in the String Pool.
+
+4. ##### Why use StringBuilder in loops?
+
+Repeated concatenation creates many temporary String objects.
 
 ---
+
+# 🧠 Linked List Data Structure (DSA)
 
 ### What is a Linked List?
 
@@ -581,6 +661,16 @@ public class ArrayExample {
   - The last node points to **null** (no next node).
   - You can only move forward through the list.
 
+```mermaid
+graph LR
+     A["10 | next"]
+    A --> B["20 | next"]
+    B --> C["30 | next"]
+    C --> D["40 | null"]
+```
+
+
+
 2. **Doubly Linked List**
 
   - Each node has **two pointers**:
@@ -588,10 +678,31 @@ public class ArrayExample {
     - One to the **previous** node.
   - You can move both forward and backward.
 
+```mermaid
+graph LR
+     A["prev:null | 10 | next"]
+    A <--> B["20"]
+    B <--> C["30"]
+    C <--> D["40 | next:null"]
+```
+
+
+
 3. **Circular Linked List**
 
   - The last node points back to the **first** node.
   - Can be singly or doubly linked.  
+
+```mermaid
+graph LR
+    A["10"]
+    A --> B["20"]
+    B --> C["30"]
+    C --> D["40"]
+    D --> A
+```
+
+
 
 ### Why Use Linked Lists?
 
@@ -607,7 +718,7 @@ public class ArrayExample {
 
 ---
 
-**Structure of a Node**
+#### **Structure of a Node**
 
 Each node has two parts:
 
@@ -645,61 +756,6 @@ Arrays have some limitations:
 | Fast random access | Sequential access |
 | Insertion/deletion costly | Easy insertion/deletion |
 | Wastes memory when size is unknown | Grows as needed |
-
----
-
-### Types of Linked Lists
-
-#### 1. Singly Linked List
-
-Each node points only to the next node.
-
-```text
-10 → 20 → 30 → NULL
-```
-
----
-
-#### 2. Doubly Linked List
-
-Each node has two references:
-
-- Previous node
-- Next node
-
-```text
-NULL ← 10 ⇄ 20 ⇄ 30 → NULL
-```
-
----
-
-#### 3. Circular Linked List
-
-The last node points back to the first node.
-
-```text
-       +----------------+
-       |                |
-       v                |
-10 → 20 → 30 → 40 ------+
-```
-
----
-
-##### Node Implementation in Java
-
-```java
-class Node {
-
-    int data;
-    Node next;
-
-    Node(int data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-```
 
 ---
 
@@ -947,17 +1003,6 @@ public int size() {
 
 ---
 
-### Array vs Linked List
-
-| Feature | Array | Linked List |
-|---|---|---|
-| Memory | Continuous | Non-continuous |
-| Size | Fixed | Dynamic |
-| Access | O(1) | O(n) |
-| Insert/Delete at beginning | O(n) | O(1) |
-| Cache Performance | Better | Lower |
-| Extra Memory | No | Pointer required |
-
 ---
 
 # Stack Data Structure in Java
@@ -978,7 +1023,6 @@ All stack implementations support a set of basic operations that usually run ver
 | `peek()`       | Shows the top item without removing it                      | O(1)            | O(1)             |
 | `isEmpty()`    | Checks if the stack is empty                                | O(1)            | O(1)             |
 | `size()`       | Returns the number of items in the stack                    | O(1)            | O(1)             |
-
 
 **Key points:**
 
@@ -1111,7 +1155,7 @@ class ArrayStack {
 
 ---
 
-## Summary of Key Learnings
+##### Summary of Key Learnings
 
 - **Stack is LIFO:** last in, first out.
 - All common stack operations (`push/pop/peek`) work in **O(1)** time.
@@ -1122,9 +1166,11 @@ class ArrayStack {
 
 ---
 
-# Queue Data Structure in Java
 
-## 📌 What is a Queue?
+
+## Queue Data Structure in Java
+
+### 📌 What is a Queue?
 
 A **Queue** is a linear data structure that follows the **FIFO (First In First Out)** principle.
 
@@ -1133,7 +1179,7 @@ This means:
 - New elements are added from the **Rear (Back)**.
 - Elements are removed from the **Front (Head)**.
 
-### 🧠 Real Life Example
+##### 🧠 Real Life Example
 
 A queue is similar to a line of people waiting at a ticket counter.
 
@@ -1141,36 +1187,26 @@ Front → 👤 👤 👤 👤 ← Rear
 
 First person enters the queue and gets served first.
 
+```mermaid
+graph LR
+F["Front/Start (Dequeue remove)"] --> A["10"]
+A --> B["20"]
+B --> C["30"]
+C --> R["Rear/Last (Enqueue add)"]
 ```
----
 
-# FIFO Principle
-```
 
-Enqueue(10)
-Queue: [10]
-
-Enqueue(20)
-Queue: [10, 20]
-
-Enqueue(30)
-Queue: [10, 20, 30]
-
-Dequeue()
-Removed: 10
-
-Queue: [20, 30]
 
 ---
 
-# Queue Terminologies
+#### Queue Terminologies
 
-## 1. Front
+##### 1. Front
 
 - The first element of the queue.
 - Deletion always happens from the front.
 
-Example:
+**Example:**
 
 Front
 ↓
@@ -1178,12 +1214,12 @@ Front
 
 ---
 
-## 2. Rear
+##### 2. Rear
 
 - The last element of the queue.
 - Insertion always happens at the rear.
 
-Example:
+**Example:**
 
 Rear
 ↓
@@ -1191,11 +1227,11 @@ Rear
 
 ---
 
-## 3. Size
+##### 3. Size
 
 - The total number of elements present in the queue.
 
-Example:
+**Example:**
 
 Queue: [10, 20, 30, 40]
 
@@ -1203,12 +1239,12 @@ Size = 4
 
 ---
 
-# Basic Operations of Queue
+#### Basic Operations of Queue
 
 | Operation | Description | Time Complexity |
 |---|---|---|
-| Enqueue | Insert an element at the rear | O(1) |
-| Dequeue | Remove an element from the front | O(1) |
+| Enqueue | Insert an element at the rear (last)(back) | O(1) |
+| Dequeue | Remove an element from the front(starting) | O(1) |
 | Peek/Front | Get the first element without removing it | O(1) |
 | Rear | Get the last element | O(1) |
 | isEmpty | Check if queue is empty | O(1) |
@@ -1216,43 +1252,15 @@ Size = 4
 
 ---
 
-# Queue Representation
-
-## Before Insertion
-
-Front Rear
-↓ ↓
-[10] [20] [30]
-
-```
-## After Enqueue(40)
-```
-
-Front Rear
-↓ ↓
-[10] [20] [30] [40]
-
-```
-## After Dequeue()
-```
-
-Removed: 10
-
-Front Rear
-↓ ↓
-[20] [30] [40]
+### Queue Overflow and Underflow
 
 ---
 
-# Queue Overflow and Underflow
-
-## Queue Overflow
-
-### Definition
+##### Queue Overflow
 
 Queue Overflow occurs when we try to insert an element into a **full queue**.
 
-Example:
+**Example:**
 
 Queue capacity = 3
 
@@ -1272,13 +1280,11 @@ Queue Overflow
 
 ---
 
-## Queue Underflow
-
-### Definition
+##### Queue Underflow
 
 Queue Underflow occurs when we try to remove an element from an **empty queue**.
 
-Example:
+**Example:**
 
 Queue: []
 
@@ -1296,13 +1302,11 @@ Queue Underflow
 
 ---
 
-# Types of Queue
+### Types of Queue
 
 There are different types of queues depending on their implementation and behavior.
 
-## 1. Simple Queue (Linear Queue)
-
-### Definition
+#### 1. Simple Queue (Linear Queue)
 
 A simple queue follows the FIFO rule.
 
@@ -1316,7 +1320,7 @@ Deletion:
 
 Remove element ← Front
 
-### Limitation
+**Limitation**
 
 In an array implementation, after removing elements from the front, empty spaces cannot be reused efficiently.
 
@@ -1343,7 +1347,7 @@ This problem is solved using a Circular Queue.
 
 ---
 
-# 2. Circular Queue
+#### 2. Circular Queue
 
 ## Definition
 
@@ -1370,7 +1374,7 @@ front = (front + 1) % size;
 
 ------
 
-# 3. Double Ended Queue (Deque)
+#### 3. Double Ended Queue (Deque)
 
 ## Definition
 
@@ -1393,7 +1397,7 @@ A Deque (Double Ended Queue) allows insertion and deletion from both front and r
 
 ------
 
-# 4. Priority Queue
+#### 4. Priority Queue
 
 ## Definition
 

@@ -2184,7 +2184,7 @@ It helps in **code reusability**, **method overriding**, and creating a **parent
 **Example**
 
 ```java
-class Animal {
+ class Animal {
 
     void eat() {
         System.out.println("Animal is eating");
@@ -5183,7 +5183,7 @@ map.remove("user1");
 
 ------
 
-#####  📌 ForkJoinPool
+###  📌 ForkJoinPool
 
 **ForkJoinPool** is a special thread pool for **parallel processing**.
 
@@ -7973,7 +7973,7 @@ B -->|false| D[Avoid Exception]
 
 #### 1. What are Generics?
 
-Generics allow you to write **type-safe, reusable code** that works with different data types without sacrificing compile-time safety. Instead of writing separate logic for each type, you parameterise the type.
+Generics allow you to write **type-safe, reusable code** that works with different data types without sacrificing compile-time safety. Instead of writing separate logic for each type, you parameterize the type.
 
 **Without generics** — must write separate methods:
 
