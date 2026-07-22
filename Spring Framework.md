@@ -268,7 +268,7 @@ flowchart LR
 
 ---
 
-### 📌# 1️⃣ Bean Creation
+#####  1️⃣ Bean Creation
 
 Spring creates the bean object using the constructor.
 
@@ -286,7 +286,7 @@ public class Student {
 
 ---
 
-### 📌# 2️⃣ Dependency Injection
+#####  2️⃣ Dependency Injection
 
 Spring injects required dependencies.
 
@@ -306,7 +306,7 @@ public class StudentService {
 
 ---
 
-### 📌# 3️⃣ Initialization
+#####  3️⃣ Initialization
 
 Spring performs initialization tasks.
 
@@ -321,7 +321,7 @@ public void init() {
 
 ---
 
-### 📌# 4️⃣ Bean Ready For Use
+#####  4️⃣ Bean Ready For Use
 
 Application starts using the bean.
 
@@ -333,7 +333,7 @@ studentService.saveStudent();
 
 ---
 
-### 📌# 5️⃣ Bean Destruction
+#####  5️⃣ Bean Destruction
 
 When application shuts down, Spring destroys the bean.
 
@@ -372,7 +372,7 @@ public class Student {
 
 ---
 
-### 📌 📌 Spring - Bean Scopes🌱
+### 📌  Spring - Bean Scopes🌱
 
 **Bean Scope** defines how many bean objects Spring creates and how long they live.
 
@@ -390,7 +390,7 @@ public class Student {
 
 ---
 
-### 📌# 1️⃣ Singleton Scope (Default)
+#####  1️⃣ Singleton Scope (Default)
 
 Only **one bean object** is created.
 
@@ -416,11 +416,11 @@ System.out.println(s1 == s2);
 true
 ```
 
-📌 Most commonly used scope.
+ Most commonly used scope.
 
 ---
 
-### 📌# 2️⃣ Prototype Scope
+#####  2️⃣ Prototype Scope
 
 Spring creates a **new object every time** the bean is requested.
 
@@ -446,11 +446,11 @@ System.out.println(s1 == s2);
 false
 ```
 
-📌 New object every request.
+ New object every request.
 
 ---
 
-### 📌# 3️⃣ Request Scope
+#####  3️⃣ Request Scope
 
 One bean instance per HTTP request.
 
@@ -470,11 +470,11 @@ public class UserRequestBean {
 }
 ```
 
-📌 Used in web applications.
+Used in web applications.
 
 ---
 
-### 📌# 4️⃣ Session Scope
+#####  4️⃣ Session Scope
 
 One bean instance per user session.
 
@@ -485,11 +485,11 @@ public class UserSessionBean {
 }
 ```
 
-📌 Data remains available until user logs out or session expires.
+Data remains available until user logs out or session expires.
 
 ---
 
-### 📌# 5️⃣ Application Scope
+##### 5️⃣ Application Scope
 
 One bean shared across the entire web application.
 
@@ -500,7 +500,7 @@ public class AppConfigBean {
 }
 ```
 
-📌 Similar to ServletContext attributes.
+Similar to ServletContext attributes.
 
 ---
 
@@ -517,13 +517,13 @@ flowchart TD
     A --> F[Application Scope<br>Per Application]
 ```
 
-### 📌 📌 Which Bean Scope is Default?
+### 📌  Which Bean Scope is Default?
 
 By default @Scope("singleton") is applied automatically.
 
 ---
 
-### 📌 📌 **What are different ways to configure a Spring Bean?**
+### 📌  **What are different ways to configure a Spring Bean?**
 
 1. **XML Configuration (beans.xml)**
 
@@ -849,7 +849,7 @@ flowchart LR
 
 ```
 
-### 📌 📌**Explain the flow of a Spring MVC application.**
+### 📌 **Explain the flow of a Spring MVC application.**
 
 1. **Client Request** → client Sent request to the Dispatcher Servlet
 2. **DispatcherServlet** → receive request from client and request to the appropriate Controller
@@ -861,7 +861,7 @@ flowchart LR
 
 ---
 
-### 📌 📌**Explain Dispatcher Servlet in Spring MVC.**
+### 📌 **Explain Dispatcher Servlet in Spring MVC.**
 
 * Dispatcher servlet serve as Front Controller who manage all the request and sent it to respective controller.
 * Dispatcher Servlet is a class which receive all incoming request from client and maps it to appropriate controller, model, and view.
@@ -893,7 +893,7 @@ flowchart LR
 
 ---
 
-### 📌 📌**Explain InternalViewResolver in Spring MVC.**
+### 📌 **Explain InternalViewResolver in Spring MVC.**
 
 * It is a class which is used to resolve the internal view in Spring MVC.
 * We can define the properties like prefix and suffix where prefix contains location of view and suffix contains extension of view page.
@@ -913,7 +913,7 @@ flowchart LR
 </bean>
 ```
 
-### 📌 📌Explain Model, ModelMap and ModelAndView in Spring MVC.
+### 📌 Explain Model, ModelMap and ModelAndView in Spring MVC.
 
 1. **Model** : it is used to pass information from controller to view using model object.
 
@@ -951,7 +951,7 @@ public ModelAndView showWelcomePage() {
 
 ---
 
-### 📌 📌What are @RequestMapping and its variants?
+### 📌 What are @RequestMapping and its variants?
 
 * `@RequestMapping("/path")` → General mapping
 * `@GetMapping("/path")` → Maps HTTP GET request
@@ -961,7 +961,7 @@ public ModelAndView showWelcomePage() {
 
 ---
 
-### 📌 📌What is @ModelAttribute in Spring MVC?
+### 📌 What is @ModelAttribute in Spring MVC?
 
 It binds form data to a model object.
 
@@ -1144,7 +1144,7 @@ By default, Spring creates all singleton beans at startup (Eager initialization 
 
 ---
 
-### 📌# 🔹 Example 1 – Lazy Bean
+### 📌  🔹 Example 1 – Lazy Bean
 
 ```java
 @Component
@@ -1161,7 +1161,7 @@ Now this bean will be created only when required.
 
 ------
 
-### 📌# 🔹 Example 2 – Lazy Injection
+### 📌  🔹 Example 2 – Lazy Injection
 
 ```java
 @Service
@@ -1179,7 +1179,7 @@ Here, `PaymentService` will be created only when used.
 
 ------
 
-### 📌# ✅ Why Use `@Lazy`?
+### 📌  ✅ Why Use `@Lazy`?
 
 1. Improves startup time
 2. Avoids unnecessary bean creation
@@ -1187,7 +1187,7 @@ Here, `PaymentService` will be created only when used.
 
 ---
 
-### 📌# 🎯 Difference Between `@Primary` and `@Qualifier`
+### 📌  🎯 Difference Between `@Primary` and `@Qualifier`
 
 | Feature     | @Primary       | @Qualifier              |
 | ----------- | -------------- | ----------------------- |
@@ -1455,7 +1455,7 @@ BeanCurrentlyInCreationException
 
 ---
 
-### 📌# ✅ How to Solve?
+### 📌  ✅ How to Solve?
 
 #### 📌  1. Use Constructor Injection + Redesign (Recommended)
 
@@ -1514,7 +1514,7 @@ public void setBService(BService bService) {
 | **CLI Support**               | Not available                                                | Available via Spring Boot CLI                                |
 | **Microservices Development** | Requires manual setup                                        | Designed for microservices architecture                      |
 
-### 📌 📌What is the difference between Spring MVC and Spring Boot?
+### 📌 What is the difference between Spring MVC and Spring Boot?
 
 | Feature         | Spring MVC        | Spring Boot         |
 | --------------- | ----------------- | ------------------- |
@@ -1557,7 +1557,7 @@ public class MyApplication {
 
 ---
 
-### 📌 📌 What are the main features of Spring Boot?
+### 📌  What are the main features of Spring Boot?
 
 **Answer:**
 
@@ -1567,7 +1567,7 @@ public class MyApplication {
 4. **Production Ready Features **Monitoring using Actuator.
 5. **Minimal Configuration **Mostly annotation-based configuration.
 
-### 📌 📌 What are Spring Boot Starters?
+### 📌  What are Spring Boot Starters?
 
 Starters are **predefined dependency packages** that simplify build configuration. Instead of adding multiple dependencies manually, we add one starter.
 
@@ -1596,7 +1596,7 @@ Starters are **predefined dependency packages** that simplify build configuratio
 
 ------
 
-### 📌# 4️⃣ Explain @SpringBootApplication
+### 📌  4️⃣ Explain @SpringBootApplication
 
 **Answer:**
 
@@ -1627,7 +1627,7 @@ public class MyApplication {
 
 ---
 
-### 📌# 1️⃣ How to configure Spring Boot using application.properties?
+### 📌  1️⃣ How to configure Spring Boot using application.properties?
 
 **Answer:**
 
@@ -1669,7 +1669,7 @@ private String appName;
 
 ------
 
-### 📌# 2️⃣ Difference between application.properties and application.yml
+### 📌  2️⃣ Difference between application.properties and application.yml
 
 | application.properties | application.yml            |
 | ---------------------- | -------------------------- |
@@ -1704,7 +1704,7 @@ spring:
 
 ------
 
-### 📌# 3️⃣ How to externalize configuration in Spring Boot?
+### 📌  3️⃣ How to externalize configuration in Spring Boot?
 
 Externalizing configuration means keeping configuration **outside the application code**, especially for different environments.
 
@@ -1786,7 +1786,7 @@ private String appName;
 
 ------
 
-### 📌# 5️⃣ What are Spring Profiles and how do they work?
+### 📌  5️⃣ What are Spring Profiles and how do they work?
 
 **Answer:**
 
@@ -1868,7 +1868,7 @@ public ResponseEntity<User> getUser(@PathVariable Long id)
 
 
 
-### 📌# 1️⃣ What is @RestController in Spring Boot?
+### 📌  1️⃣ What is @RestController in Spring Boot?
 
 **Answer:**
 
@@ -1987,7 +1987,7 @@ public class UserController {
 
 ------
 
-### 📌# 4️⃣ What is @RequestBody and @ResponseBody?
+### 📌  4️⃣ What is @RequestBody and @ResponseBody?
 
 #### 📌  @RequestBody
 
@@ -2026,7 +2026,7 @@ public User getUser() {
 
 ------
 
-### 📌# 5️⃣ How to handle query parameters in Spring Boot?
+### 📌  5️⃣ How to handle query parameters in Spring Boot?
 
 We use `@RequestParam`.
 
@@ -2071,7 +2071,7 @@ public String search(@RequestParam(defaultValue = "Guest") String name) {
 
 ------
 
-### 📌# Difference between @PathVariable and @RequestParam?
+### 📌  Difference between @PathVariable and @RequestParam?
 
 - `@PathVariable` → Value from URL path
    Example: `/users/10`
@@ -2082,7 +2082,7 @@ public String search(@RequestParam(defaultValue = "Guest") String name) {
 
 ---
 
-### 📌# How do you Package a Spring Boot Application as a WAR?
+### 📌  How do you Package a Spring Boot Application as a WAR?
 
 **Answer:**
 
@@ -2268,7 +2268,7 @@ public class Tasks {
 
 ## **🚀 Caching in Spring Boot**
 
-### 📌# 1️⃣ What is Caching?
+### 📌  1️⃣ What is Caching?
 
 Caching is a technique of storing frequently accessed data in memory to improve application performance.
 
@@ -2287,7 +2287,7 @@ Caching is a technique of storing frequently accessed data in memory to improve 
 
 ---
 
-### 📌# 2️⃣ Spring Boot Caching Overview
+### 📌  2️⃣ Spring Boot Caching Overview
 
 Spring Boot provides caching abstraction using:
 
@@ -2296,7 +2296,7 @@ Spring Boot provides caching abstraction using:
 
 ---
 
-### 📌# 3️⃣ Cache Annotations (Very Important)
+### 📌  3️⃣ Cache Annotations (Very Important)
 
 #### 📌  ✅ 1. @Cacheable
 
@@ -2353,7 +2353,7 @@ public User updateUser(User user) {
 
 ---
 
-### 📌# 4️⃣ Cache Providers (Interview Important)
+### 📌  4️⃣ Cache Providers (Interview Important)
 
 Spring provides abstraction only. We configure provider.
 
@@ -2369,7 +2369,7 @@ Spring provides abstraction only. We configure provider.
 
 ---
 
-### 📌# 5️⃣ Redis Caching (Most Asked)
+###  5️⃣ Redis Caching (Most Asked)
 
 #### 📌  Why Redis?
 
@@ -2396,7 +2396,7 @@ spring.redis.port=6379
 
 ---
 
-### 📌# 6️⃣ TTL (Time To Live)
+###  6️⃣ TTL (Time To Live)
 
 Automatically expires cache after some time.
 
@@ -2409,7 +2409,7 @@ spring.cache.redis.time-to-live=60000
 
 ---
 
-### 📌# 7️⃣ Internal Working 
+###  7️⃣ Internal Working 
 
 When method with @Cacheable is called:
 
@@ -2431,7 +2431,7 @@ Uses proxy-based AOP mechanism.
 
 ---
 
-### 📌 📌Difference between @Cacheable and @CachePut?
+### 📌 Difference between @Cacheable and @CachePut?
 
 | @Cacheable                      | @CachePut       |
 | ------------------------------- | --------------- |
@@ -2440,7 +2440,7 @@ Uses proxy-based AOP mechanism.
 
 ---
 
-### 📌 📌What is stale data problem?
+### 📌 What is stale data problem?
 
 When DB is updated but cache still has old data.
 
@@ -2457,7 +2457,7 @@ When DB is updated but cache still has old data.
 
 ---
 
-### 📌 📌Why Redis preferred in Microservices?
+### 📌 Why Redis preferred in Microservices?
 
 - Local cache works per instance.
 
@@ -2466,7 +2466,7 @@ When DB is updated but cache still has old data.
 
 ---
 
-### 📌 📌What is self-invocation problem?
+### 📌 What is self-invocation problem?
 
 If a method inside same class calls @Cacheable method → caching will NOT work.
 
@@ -2489,7 +2489,7 @@ Improves performance for repeated account lookup.
 
 ## Spring Data JPA & Transactions
 
-### 📌 📌How to Connect Spring Boot with a Database?
+### 📌 How to Connect Spring Boot with a Database?
 
 Spring Boot connects to a database using:
 
@@ -2500,7 +2500,7 @@ Spring Boot connects to a database using:
 
 It automatically configures `DataSource`, `EntityManager`, and `TransactionManager`.
 
-#### 📌  Example:
+**Example:**
 
 **Step 1: Add Dependencies**
 
@@ -2528,7 +2528,7 @@ spring.jpa.show-sql=true
 
 ------
 
-### 📌  📌What is Spring Data JPA?
+### 📌What is Spring Data JPA?
 
 **Answer:**
 
@@ -2547,7 +2547,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 ---
 
-### 📌# Benefits of Using Spring Data JPA
+### 📌Benefits of Using Spring Data JPA
 
 Here are some of the key benefits of using Spring Data JPA:
 
@@ -2729,13 +2729,13 @@ Prevents lost updates.
 
 
 
-### 📌 📌What is `@Entity` Annotation?
+### 📌 What is `@Entity` Annotation?
 
 **Answer:**
 
 `@Entity` marks a class as a JPA entity and maps it to a database table.
 
-### 📌 Example:
+**Example:**
 
 ```java
 import jakarta.persistence.*;
@@ -2761,7 +2761,7 @@ public class User {
 
 ------
 
-### 📌  📌What is `@Repository` Annotation?
+### 📌What is `@Repository` Annotation?
 
 **Answer:**
 
@@ -2793,7 +2793,7 @@ public class UserDAO {
 
 ------
 
-### 📌  📌Explain `@Transactional` Annotation in Spring Boot
+### 📌Explain `@Transactional` Annotation in Spring Boot
 
 @**Transactional**
 
@@ -2841,7 +2841,7 @@ If any runtime exception occurs → transaction rolls back.
 
 ---
 
-### 📌 👉 What is Propagation?
+### 📌 What is Propagation?
 
 It defines **how a method behaves when it is called inside another transaction**.
 
@@ -2924,9 +2924,9 @@ If payment fails:
 
 ------
 
-### 📌 🔹 2️⃣ Transaction Isolation Levels
+### 2️⃣ Transaction Isolation Levels
 
-### 📌What is Isolation?
+##### 📌What is Isolation?
 
 It defines **how one transaction sees data of another transaction**.
 
@@ -2999,7 +2999,7 @@ Prevents concurrency problems.
 
 Imagine your banking system:
 
-### 📌# Scenario: Checking Account Balance
+###  Scenario: Checking Account Balance
 
 If isolation is too low:
 Two users may see inconsistent balance.
@@ -4212,7 +4212,7 @@ public class CustomerController {
 
 ---
 
-### 📌# Common Spring Security Annotations
+###  Common Spring Security Annotations
 
 | Annotation | Purpose |
 | --- | --- |
@@ -4328,7 +4328,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 }
 ```
 
-### 📌# What is the difference between @PreAuthorize, @Secured, and @RolesAllowed?
+###  What is the difference between @PreAuthorize, @Secured, and @RolesAllowed?
 
 **Answer:**
 These annotations are used for method-level security in Spring Security.
