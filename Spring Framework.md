@@ -212,13 +212,13 @@ public class OrderService {
 
 ---
 
-### 📌# What is @Autowired?
+### 📌 What is @Autowired?
 
 `@Autowired` is used to inject dependency automatically by Spring IoC container.
 
 ------
 
-### 📌# Which is better and why?
+### 📌Which is better and why?
 
 **Constructor Injection** is better.
 
@@ -233,7 +233,7 @@ public class OrderService {
 
 ---
 
-### 📌# Spring DI Annotations 
+### 📌 Spring DI Annotations 
 
 | Annotation   | Definition / Introduction                                    | Injection Type      | When to Use                                                  | Example Usage                                      | Interview Important Points                                   |
 | ------------ | ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------ |
@@ -248,7 +248,7 @@ public class OrderService {
 
 A **Spring Bean** is an object created, managed, and destroyed by the Spring Container (IoC Container).
 
-### 📌## **Bean Life Cycle**
+#### 📌  **Bean Life Cycle**
 
 1. Bean is created
 2. Dependency is injected
@@ -256,7 +256,7 @@ A **Spring Bean** is an object created, managed, and destroyed by the Spring Con
 4. Bean used
 5. Bean destroyed
 
-### 📌## Main Phases of Bean Life Cycle
+#### 📌  Main Phases of Bean Life Cycle
 
 ```mermaid
 flowchart LR
@@ -378,7 +378,7 @@ public class Student {
 
 ---
 
-### 📌## Bean Scopes Overview
+#### 📌  Bean Scopes Overview
 
 | Scope       | Objects Created               | Lifecycle              |
 | ----------- | ----------------------------- | ---------------------- |
@@ -504,7 +504,7 @@ public class AppConfigBean {
 
 ---
 
-### 📌## Visual Representation
+#### 📌  Visual Representation
 
 ```mermaid
 flowchart TD
@@ -757,7 +757,7 @@ public class MainApplicationToRun
 }
 ```
 
-### 📌 📌 **What is the difference between @Component, @Service, and @Repository?**
+### 📌 **What is the difference between @Component, @Service, and @Repository?**
 
 | **Annotation** | **Purpose** |
 | --- | --- |
@@ -765,7 +765,7 @@ public class MainApplicationToRun
 | @Service       | Specifically for business logic/service layer              |
 | @Repository    | Used in the DAO layer and integrates exception translation |
 
-### 📌  📌**What is the difference between `@Bean` and `@Component`?**
+### 📌 What is the difference between `@Bean` and `@Component`?**
 
 |  |  |  |
 | --- | --- | --- |
@@ -795,7 +795,7 @@ class AppConfig {
 
 
 
-### 📌 📌**What is Spring MVC and its features.**
+### 📌 What is Spring MVC and its features.**
 
 * Spring MVC is the sub framework of spring which is used for the development of web applications.
 * Spring MVC follows the MVC pattern which separates the application in three parts i.e Model , View and Controller
@@ -1417,7 +1417,7 @@ The purpose of this method should be to release resources or perform other clean
 
 ---
 
-### 📌 🧠 What is Circular Dependency?
+### 📌  What is Circular Dependency?
 
 A circular dependency occurs when two beans depend on each other.
 
@@ -1437,7 +1437,7 @@ public class BService {
 }
 ```
 
-### 📌## Problem
+📌Problem
 
 ```text
 AService → BService → AService
@@ -1447,7 +1447,7 @@ Spring cannot decide which bean to create first.
 
 ---
 
-### 📌## ⚠️ Error
+#### 📌  ⚠️ Error
 
 ```text
 BeanCurrentlyInCreationException
@@ -1457,7 +1457,7 @@ BeanCurrentlyInCreationException
 
 ### 📌# ✅ How to Solve?
 
-### 📌## 1. Use Constructor Injection + Redesign (Recommended)
+#### 📌  1. Use Constructor Injection + Redesign (Recommended)
 
 Move common logic to another service.
 
@@ -1470,7 +1470,7 @@ BService → CommonService
 
 ---
 
-### 📌## 2. Use `@Lazy`
+#### 📌  2. Use `@Lazy`
 
 ```java
 @Service
@@ -1486,7 +1486,7 @@ public class AService {
 
 ---
 
-### 📌## 3. Use Setter Injection
+#### 📌  3. Use Setter Injection
 
 ```java
 @Autowired
@@ -1536,7 +1536,7 @@ It eliminates:
 - Manual dependency setup
 - Server deployment complexity
 
-### 📌## 📌Why we use it?
+#### 📌  📌Why we use it?
 
 - Faster development
 - Embedded server (Tomcat/Jetty)
@@ -1571,14 +1571,14 @@ public class MyApplication {
 
 Starters are **predefined dependency packages** that simplify build configuration. Instead of adding multiple dependencies manually, we add one starter.
 
-### 📌## Common Starters:
+#### 📌  Common Starters:
 
 - `spring-boot-starter-web`
 - `spring-boot-starter-data-jpa`
 - `spring-boot-starter-security`
 - `spring-boot-starter-test`
 
-### 📌## Example (Maven):
+#### 📌  Example (Maven):
 
 ```xml
 <dependency>
@@ -1608,7 +1608,7 @@ The **@SpringBootApplication** annotation is the primary entry point of any Spri
 2. `@EnableAutoConfiguration` : Enables Spring Boot auto configuration.
 3. `@ComponentScan`: Scans components in current package and sub-packages.
 
-### 📌## Equivalent Code:
+#### 📌  Equivalent Code:
 
 ```java
 @Configuration
@@ -1640,7 +1640,7 @@ public class MyApplication {
 
 It is located inside: `src/main/resources/application.properties`
 
-### 📌## Example:
+#### 📌  Example:
 
 ~~~properties
 
@@ -1660,7 +1660,7 @@ logging.level.org.springframework=INFO
 app.name=Banking Application
 ~~~
 
-### 📌## Access custom property:
+#### 📌  Access custom property:
 
 ```java
 @Value("${app.name}")
@@ -1680,7 +1680,7 @@ private String appName;
 
 ------
 
-### 📌## Example (Properties)
+#### 📌  Example (Properties)
 
 ```properties
 server.port=8081
@@ -1708,9 +1708,9 @@ spring:
 
 Externalizing configuration means keeping configuration **outside the application code**, especially for different environments.
 
-### 📌## Methods:
+#### 📌  Methods:
 
-### 📌## 1️⃣ Using application-{profile}.properties
+#### 📌  1️⃣ Using application-{profile}.properties
 
 ```
 application-dev.properties
@@ -1719,7 +1719,7 @@ application-prod.properties
 
 ------
 
-### 📌## 2️⃣ Using Environment Variables
+#### 📌  2️⃣ Using Environment Variables
 
 ```bash
 export SERVER_PORT=9090
@@ -1729,7 +1729,7 @@ Spring Boot automatically maps it.
 
 ------
 
-### 📌## 3️⃣ Using Command Line Arguments
+#### 📌  3️⃣ Using Command Line Arguments
 
 ```bash
 java -jar app.jar --server.port=8085
@@ -1737,7 +1737,7 @@ java -jar app.jar --server.port=8085
 
 ------
 
-### 📌## 4️⃣ Using External File
+#### 📌  4️⃣ Using External File
 
 ```bash
 java -jar app.jar --spring.config.location=/path/application.properties
@@ -1745,7 +1745,7 @@ java -jar app.jar --spring.config.location=/path/application.properties
 
 ------
 
-### 📌## Priority Order (High to Low)
+#### 📌  Priority Order (High to Low)
 
 1. Command line arguments
 2. Environment variables
@@ -1754,13 +1754,13 @@ java -jar app.jar --spring.config.location=/path/application.properties
 
 ------
 
-### 📌## 4️⃣ What is @Value used for?
+#### 📌  4️⃣ What is @Value used for?
 
 **Answer:**
 
 `@Value` is used to inject property values into variables.
 
-### 📌## Example:
+#### 📌  Example:
 
 ```properties
 app.version=1.0
@@ -1800,7 +1800,7 @@ Example environments:
 
 ------
 
-### 📌## Step 1: Create profile-specific file
+#### 📌  Step 1: Create profile-specific file
 
 ```
 application-dev.properties
@@ -1809,7 +1809,7 @@ application-prod.properties
 
 ------
 
-### 📌## Step 2: Activate Profile
+#### 📌  Step 2: Activate Profile
 
 In properties:
 
@@ -1827,7 +1827,7 @@ java -jar app.jar --spring.profiles.active=prod
 
 ------
 
-### 📌## Step 3: Use @Profile Annotation
+#### 📌  Step 3: Use @Profile Annotation
 
 ```java
 @Bean
@@ -1879,7 +1879,7 @@ public ResponseEntity<User> getUser(@PathVariable Long id)
 
 It is used to create REST APIs that return **JSON or XML response directly**, not JSP pages.
 
-### 📌## Example:
+#### 📌  Example:
 
 ```java
 @RestController
@@ -1896,7 +1896,7 @@ public class HelloController {
 
 ### 📌 2️⃣ How to create a simple RESTful API using Spring Boot?
 
-### 📌## Step 1: Add Dependency
+#### 📌  Step 1: Add Dependency
 
 ```xml
 <dependency>
@@ -1907,7 +1907,7 @@ public class HelloController {
 
 ------
 
-### 📌## Step 2: Create Model
+#### 📌  Step 2: Create Model
 
 ```java
 public class User {
@@ -1920,7 +1920,7 @@ public class User {
 
 ------
 
-### 📌## Step 3: Create Controller
+#### 📌  Step 3: Create Controller
 
 ```java
 @RestController
@@ -1955,7 +1955,7 @@ Spring Boot provides specific annotations:
 
 ------
 
-### 📌## Example:
+#### 📌  Example:
 
 ```java
 @RestController
@@ -1989,7 +1989,7 @@ public class UserController {
 
 ### 📌# 4️⃣ What is @RequestBody and @ResponseBody?
 
-### 📌## @RequestBody
+#### 📌  @RequestBody
 
 Used to convert JSON request body into Java object.
 
@@ -2008,7 +2008,7 @@ public User save(@RequestBody User user) {
 
 ------
 
-### 📌## @ResponseBody
+#### 📌  @ResponseBody
 
 Converts Java object into JSON response.
 
@@ -2030,7 +2030,7 @@ public User getUser() {
 
 We use `@RequestParam`.
 
-### 📌## Example:
+#### 📌  Example:
 
 URL:
 
@@ -2049,7 +2049,7 @@ public String search(@RequestParam String name) {
 
 ------
 
-### 📌## Optional Query Parameter:
+#### 📌  Optional Query Parameter:
 
 ```java
 @GetMapping("/search")
@@ -2060,7 +2060,7 @@ public String search(@RequestParam(required = false) String name) {
 
 ------
 
-### 📌## With Default Value:
+#### 📌  With Default Value:
 
 ```java
 @GetMapping("/search")
@@ -2092,7 +2092,7 @@ To create a WAR file (for deployment in external Tomcat):
 
 ------
 
-### 📌## Step 1: Change Packaging
+#### 📌  Step 1: Change Packaging
 
 In `pom.xml`:
 
@@ -2102,7 +2102,7 @@ In `pom.xml`:
 
 ------
 
-### 📌## Step 2: Exclude Embedded Tomcat
+#### 📌  Step 2: Exclude Embedded Tomcat
 
 ```xml
 <dependency>
@@ -2114,7 +2114,7 @@ In `pom.xml`:
 
 ------
 
-### 📌## Step 3: Extend SpringBootServletInitializer
+#### 📌  Step 3: Extend SpringBootServletInitializer
 
 ```java
 @SpringBootApplication
@@ -2129,7 +2129,7 @@ public class MyApplication extends SpringBootServletInitializer {
 
 ------
 
-### 📌## Build WAR
+#### 📌  Build WAR
 
 ```cmd
 mvn clean package
@@ -2298,7 +2298,7 @@ Spring Boot provides caching abstraction using:
 
 ### 📌# 3️⃣ Cache Annotations (Very Important)
 
-### 📌## ✅ 1. @Cacheable
+#### 📌  ✅ 1. @Cacheable
 
 Stores method result in cache
 
@@ -2317,7 +2317,7 @@ public User getUserById(Long id) {
 
 ---
 
-### 📌## ✅ 2. @CacheEvict
+#### 📌  ✅ 2. @CacheEvict
 
 Removes data from cache
 
@@ -2334,7 +2334,7 @@ public void deleteUser(Long id) {
 
 ---
 
-### 📌## ✅ 3. @CachePut
+#### 📌  ✅ 3. @CachePut
 
 Always executes method
 
@@ -2371,7 +2371,7 @@ Spring provides abstraction only. We configure provider.
 
 ### 📌# 5️⃣ Redis Caching (Most Asked)
 
-### 📌## Why Redis?
+#### 📌  Why Redis?
 
 - Distributed cache
 
@@ -2500,7 +2500,7 @@ Spring Boot connects to a database using:
 
 It automatically configures `DataSource`, `EntityManager`, and `TransactionManager`.
 
-### 📌## Example:
+#### 📌  Example:
 
 **Step 1: Add Dependencies**
 
@@ -2536,7 +2536,7 @@ Spring Data JPA is part of the larger Spring Data family, providing a repository
 
 Spring Data JPA internally uses JPA, the Java standard for Object-Relational Mapping (ORM). With ORM, Java objects are automatically mapped to database tables, making it easier to interact with the database in an object-oriented way.
 
-### 📌## Example:
+#### 📌  Example:
 
 ```java
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -2561,7 +2561,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ## 📘 JPA Annotations 
 
-### 📌## 1️⃣ Entity & Table Level Annotations
+#### 📌  1️⃣ Entity & Table Level Annotations
 
 | Annotation            | Used On | Purpose                          | Example                                               |
 | --------------------- | ------- | -------------------------------- | ----------------------------------------------------- |
@@ -2577,7 +2577,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 📌## 2️⃣ Primary Key Strategies
+#### 📌  2️⃣ Primary Key Strategies
 
 | Strategy   | Meaning                | Example                                             |
 | ---------- | ---------------------- | --------------------------------------------------- |
@@ -2588,9 +2588,9 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 📌## 3️⃣ Relationship Annotations
+#### 📌  3️⃣ Relationship Annotations
 
-### 📌## 🔹 One-to-One
+#### 📌  🔹 One-to-One
 
 | Annotation    | Example                              |
 | ------------- | ------------------------------------ |
@@ -2599,7 +2599,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 📌## 🔹 One-to-Many
+#### 📌  🔹 One-to-Many
 
 | Annotation   | Example                       |
 | ------------ | ----------------------------- |
@@ -2608,7 +2608,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 📌## 🔹 Many-to-One
+#### 📌  🔹 Many-to-One
 
 | Annotation    | Example                              |
 | ------------- | ------------------------------------ |
@@ -2619,7 +2619,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 📌## 🔹 Many-to-Many
+#### 📌  🔹 Many-to-Many
 
 | Annotation           | Example                        |
 | -------------------- | ------------------------------ |
@@ -2630,9 +2630,9 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-### 📌## 4️⃣ Fetch & Cascade Options
+#### 📌  4️⃣ Fetch & Cascade Options
 
-### 📌## Fetch Types
+#### 📌  Fetch Types
 
 | Fetch Type | Meaning            |
 | ---------- | ------------------ |
@@ -2643,7 +2643,7 @@ Best Practice: Use LAZY.
 
 ------
 
-### 📌## Cascade Types
+#### 📌  Cascade Types
 
 | Cascade   | Meaning                  |
 | --------- | ------------------------ |
@@ -2656,7 +2656,7 @@ Best Practice: Use LAZY.
 
 ------
 
-### 📌## 5️⃣ Inheritance Mapping
+#### 📌  5️⃣ Inheritance Mapping
 
 | Annotation             | Purpose                | Example                                           |
 | ---------------------- | ---------------------- | ------------------------------------------------- |
@@ -2668,7 +2668,7 @@ Best Practice: Use LAZY.
 
 ------
 
-### 📌## 6️⃣ Embedded Objects
+#### 📌  6️⃣ Embedded Objects
 
 | Annotation           | Purpose                  | Example                                                      |
 | -------------------- | ------------------------ | ------------------------------------------------------------ |
@@ -2678,7 +2678,7 @@ Best Practice: Use LAZY.
 
 ------
 
-### 📌## 7️⃣ Lifecycle Callbacks
+#### 📌  7️⃣ Lifecycle Callbacks
 
 | Annotation     | Trigger Time      |
 | -------------- | ----------------- |
@@ -2700,7 +2700,7 @@ public void beforeInsert() {
 
 ------
 
-### 📌## 8️⃣ Locking & Versioning
+#### 📌  8️⃣ Locking & Versioning
 
 | Annotation | Purpose                           |
 | ---------- | --------------------------------- |
@@ -2718,7 +2718,7 @@ Prevents lost updates.
 
 ------
 
-### 📌## 9️⃣ Index & Constraints
+#### 📌  9️⃣ Index & Constraints
 
 | Annotation                                                   | Example                                                      |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -2849,7 +2849,7 @@ It defines **how a method behaves when it is called inside another transaction**
 
 ### 📌 ✅ Common Propagation Types (Interview Focus)
 
-### 📌## 1. REQUIRED (Default)
+#### 📌  1. REQUIRED (Default)
 
 👉 If transaction exists → Join it
 👉 If not → Create new transaction
@@ -2859,7 +2859,7 @@ It defines **how a method behaves when it is called inside another transaction**
 public void placeOrder() { }
 ```
 
-### 📌## 🔎 Use Case
+#### 📌  🔎 Use Case
 
 Service A calls Service B → both run in **same transaction**
 
@@ -2879,7 +2879,7 @@ If B fails → entire transaction rolls back.
 public void saveAuditLog() { }
 ```
 
-### 📌## 🔎 Use Case
+#### 📌  🔎 Use Case
 
 Order service fails but you still want to save audit logs.
 
@@ -3167,7 +3167,7 @@ J --> K[Response]
 
 # 🔐 Spring Security Annotations
 
-### 📌 📌 What are Spring Security Annotations?
+### 📌 What are Spring Security Annotations?
 
 Spring Security annotations are used to **restrict access** to classes or methods based on:
 - User Roles
@@ -3179,7 +3179,7 @@ Instead of writing security rules in configuration, you can secure individual me
 
 ---
 
-### 📌## 🏗 Enable Method Security
+#### 📌  🏗 Enable Method Security
 
 Before using method-level security annotations, enable it.
 
@@ -3194,9 +3194,9 @@ public class SecurityConfig {
 
 ---
 
-### 📌## 1️⃣ @EnableWebSecurity
+#### 📌  1️⃣ @EnableWebSecurity
 
-### 📌## 
+#### 📌  
 
 Enables Spring Security configuration.
 
@@ -3214,7 +3214,7 @@ public class SecurityConfig {
 
 ---
 
-### 📌## 2️⃣ @EnableMethodSecurity
+#### 📌  2️⃣ @EnableMethodSecurity
 
 Enables security annotations on methods.
 
@@ -3507,7 +3507,7 @@ public String user(
 
 ---
 
-### 📌## Difference Between Annotations
+#### 📌  Difference Between Annotations
 
 | Annotation       | Checks            | When?  | Supports SpEL? |
 | ---------------- | ----------------- | ------ | -------------- |
@@ -3614,7 +3614,7 @@ public class LoggingAspect {
 *  Supports integration with OAuth2, JWT, LDAP, etc.
 *  Highly customizable
 
-### 📌## Adding Spring Security to a Spring Boot Project
+#### 📌  Adding Spring Security to a Spring Boot Project
 
 1. Dependencies (Maven) for spring boot,
 
@@ -3920,7 +3920,7 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 
 🔹 Signature – Ensures integrity and authenticity of the token.
 
-### 📌## How JWT Works in Spring Security
+#### 📌  How JWT Works in Spring Security
 
 1. User logs in → Sends username & password to the authentication endpoint.
 2. Spring Security validates credentials using AuthenticationManager.
@@ -3928,7 +3928,7 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 4. Client stores JWT (localStorage/sessionStorage) and includes it in the Authorization header for further requests.
 5. Spring Security filters validate the JWT on every request.
 
-### 📌## Flow to Implement JWT Authentication in Spring Boot
+#### 📌  Flow to Implement JWT Authentication in Spring Boot
 
 Here is a step-by-step guide to creating your JWT Authentication project based on the code you've provided.
 
@@ -4472,6 +4472,673 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 
 ---
 
+---
+
+### Two Database Configuration in Spring Boot
+
+####   **1. Why Multiple Databases in Spring Boot?**
+
+In real-world applications (banking, audit, reporting): One database for core business data Another database for audit / logs / reports Sometimes read & write databases are separated Spring Boot supports multiple DataSources, but we must configure them manually.
+
+------------
+
+####   **2. Application Properties Configuration**
+
+Define connection details for each database Each database is identified using a custom prefix
+
+Key Point :
+👉 When using multiple databases, do NOT use spring.datasource
+👉 Use custom prefixes like datasource.primary, datasource.secondary
+
+Example (`application.properties`)
+
+
+```properties
+spring.application.name=twodb
+server.port=8181
+
+datasource.primary.jdbc-url=jdbc:h2:mem:dbone
+datasource.primary.username=one
+datasource.primary.password=one
+datasource.primary.driverClassName=org.h2.Driver
+
+datasource.secondary.jdbc-url=jdbc:h2:mem:dbtwo
+datasource.secondary.username=two
+datasource.secondary.password=two
+datasource.secondary.driverClassName=org.h2.Driver
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+
+> [!NOTE]
+>
+> `jdbc-url` is mandatory when `DataSourceBuilder` is used `@ConfigurationProperties` binds these values automatically
+
+------------
+
+####   **3. DataSource Configuration**
+
+**What is DataSource?**
+Represents database connection pool Holds URL, username, password, driver Why `@ConfigurationProperties`? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
+
+```java
+@Primary
+@Bean
+@ConfigurationProperties(prefix = "datasource.primary")
+public DataSource primaryDataSource() {
+    return DataSourceBuilder.create().build();
+}
+```
+
+Important Annotations Annotation
+
+- `@Bean` Creates Spring-managed bean 
+- `@ConfigurationProperties` Loads DB properties 
+- `@Primary` Default DataSource if no qualifier is used
+
+------------
+
+#### **4. EntityManagerFactory Configuration**
+
+**What is EntityManagerFactory?**
+
+1. Responsible for:
+2. Managing entities
+3. Creating EntityManager
+4. Handling persistence context
+
+**Why Separate EntityManagerFactory?**
+Each database:
+
+- Has different entities
+- Has different persistence unit
+- Configuration
+
+```java
+@Primary
+@Bean
+public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
+        EntityManagerFactoryBuilder builder) {
+
+    return builder
+            .dataSource(primaryDataSource())
+            .packages("com.example.twodb.primary.entity")
+            .persistenceUnit("primaryPU")
+            .build();
+}
+```
+
+
+packages() → tells where entity classes are persistenceUnit() → logical name for DB One DB = One EntityManagerFactory
+
+------------
+
+####   **5. TransactionManager Configuration**
+
+**Why TransactionManager?**
+Handles:
+
+- Commit
+- Rollback
+- Transaction boundaries
+
+Each database must have:  Its own TransactionManager
+
+```java
+@Primary
+@Bean
+public PlatformTransactionManager primaryTransactionManager(
+        @Qualifier("primaryEntityManagerFactory") EntityManagerFactory emf) {
+
+    return new JpaTransactionManager(emf);
+}
+```
+
+**Why @Qualifier?**
+Multiple EntityManagerFactory beans exist Spring needs to know which one to inject
+
+------------
+
+####  **6. @EnableJpaRepositories Configuration Why Required?**
+
+When multiple databases exist: Spring cannot auto-detect repositories We must explicitly define: Repository package EntityManagerFactory TransactionManager Configuration
+
+
+```java
+@EnableJpaRepositories(
+    basePackages = "com.example.twodb.primary.repo",
+    entityManagerFactoryRef = "primaryEntityManagerFactory",
+    transactionManagerRef = "primaryTransactionManager"
+)
+```
+
+
+Interview Question
+What happens if this is not configured? 👉 Spring throws No qualifying bean or wrong DB mapping errors
+
+------------
+
+####  **7. Complete Primary DB Configuration Class**
+
+
+```java
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+    basePackages = "com.example.twodb.primary.repo",
+    entityManagerFactoryRef = "primaryEntityManagerFactory",
+    transactionManagerRef = "primaryTransactionManager"
+)
+public class UserDbConfig {
+
+    @Primary
+    @Bean
+    @ConfigurationProperties(prefix = "datasource.primary")
+    public DataSource primaryDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Primary
+    @Bean
+    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
+            EntityManagerFactoryBuilder builder) {
+
+        return builder
+                .dataSource(primaryDataSource())
+                .packages("com.example.twodb.primary.entity")
+                .persistenceUnit("primaryPU")
+                .build();
+    }
+
+    @Primary
+    @Bean
+    public PlatformTransactionManager primaryTransactionManager(
+            @Qualifier("primaryEntityManagerFactory") EntityManagerFactory emf) {
+
+        return new JpaTransactionManager(emf);
+    }
+}
+```
+
+
+------------
+
+####  **8. Secondary Database Configuration**
+
+Key Differences No @Primary Different: Property prefix Entity package Repository package Persistence unit
+
+
+```java
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+    basePackages = "com.example.twodb.secondary.repo",
+    entityManagerFactoryRef = "secondaryEntityManagerFactory",
+    transactionManagerRef = "secondaryTransactionManager"
+)
+public class AddressDbConfig {
+
+    @Bean
+    @ConfigurationProperties(prefix = "datasource.secondary")
+    public DataSource secondaryDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean secondaryEntityManagerFactory(
+            EntityManagerFactoryBuilder builder) {
+
+        return builder
+                .dataSource(secondaryDataSource())
+                .packages("com.example.twodb.secondary.entity")
+                .persistenceUnit("secondaryPU")
+                .build();
+    }
+
+    @Bean
+    public PlatformTransactionManager secondaryTransactionManager(
+            @Qualifier("secondaryEntityManagerFactory") EntityManagerFactory emf) {
+
+        return new JpaTransactionManager(emf);
+    }
+}
+```
+
+------------
+
+####  **9. Package Structure (Best Practice)**
+
+com.example.twodb
+ ├── primary
+ │   ├── entity
+ │   ├── repo
+ │   └── config
+ ├── secondary
+ │   ├── entity
+ │   ├── repo
+ │   └── config
+
+
+
+------
+
+### 📌 What is Idempotency?
+
+In computer science and web development, **idempotency** means that an operation can be performed multiple times, but the resulting state of the system will be exactly the same as if it had been performed only once.
+
+Mathematically, it is expressed as $f(f(x)) = f(x)$. Applying the function multiple times doesn't change the end result.
+
+**A simple real-world analogy:**
+
+Think of a crosswalk button or an elevator button. You can press the button to call the elevator once, or you can mash it 50 times in a row out of impatience. The end result is the exact same: the system registers that you want the elevator. Pressing it multiple times doesn't make 50 elevators show up. That button is **idempotent**.
+
+------
+
+### 📌 Which HTTP Methods are NOT Idempotent?
+
+In REST APIs, methods that are not idempotent will change the server's state every single time you execute them.
+
+- **`POST` (Not Idempotent):** This is the classic non-idempotent method. If you send a `POST` request to `/orders` to buy a pair of shoes, the server creates a new order. If your phone loses network connection, automatically retries, and sends that exact same `POST` request 5 more times, you will accidentally buy 6 pairs of shoes. The state changes with every request.
+- **`PATCH` (Often Not Idempotent):** `PATCH` is used for partial updates. While it *can* be implemented idempotently, it is not guaranteed to be. For example, if your `PATCH` request tells the server to "increase the user's score by 10", sending that request 5 times will increase the score by 50.
+
+------
+
+### 📌 Which HTTP Methods ARE Idempotent?
+
+If a client sends these requests 1 time or 1,000 times, the final state of the database remains exactly the same.
+
+- **`GET`:** Safe and idempotent. Fetching a user's profile 100 times does not change the profile.
+- **`PUT`:** Used to completely replace a resource. If you send a `PUT` request with a payload saying `{"name": "Alice", "age": 30}`, the first request updates the record. The next 99 identical requests just overwrite the record with the exact same data. The final state is still just Alice, age 30.
+- **`DELETE`:** If you send a request to `DELETE /users/123`, the first request deletes the user. If you send it again, the user is already gone. The system's state (User 123 does not exist) remains identical, even if the server replies with a `404 Not Found` instead of a `200 OK` on subsequent attempts.
+
+##### 📌 Why does this matter?
+
+Networks are unreliable. Mobile phones drop signals, routers restart, and browsers time out. Because of this, clients (like web browsers or mobile apps) will often automatically retry requests that fail to get a response. If you use a non-idempotent method (like `POST`) for something that should be idempotent, those automatic retries will cause duplicate data, double-charged credit cards, and buggy applications.
+
+### 📌 HTTP Methods & Idempotency
+
+When building REST APIs in Java (Spring Boot, Micronaut, Jakarta EE), you must respect the idempotency of standard HTTP methods.
+
+| **Method**  | **Idempotent** | **Safe?** | **Description**                                              |
+| ----------- | -------------- | --------- | ------------------------------------------------------------ |
+| **GET**     | **Yes**        | Yes       | Only retr ieves data; shouldn't change server state.         |
+| **OPTIONS** | **Yes**        | Yes       | Retrieves communication options.                             |
+| **PUT**     | **Yes**        | No        | Replaces the resource. Sending the same "Update" twice results in the same state. |
+| **DELETE**  | **Yes**        | No        | Deleting a resource twice results in the resource being gone both times. |
+| **POST**    | **No**         | No        | Usually used for creation. Repeating this creates duplicate records. |
+| **PATCH**   | **No***        | No        | Partial updates can be non-idempotent (e.g., `{"increment": 1}`). |
+
+> **Note:** While `DELETE` is idempotent, the HTTP response code might change (e.g., **204 No Content** for the first call, **404 Not Found** for subsequent calls). The *server state*, however, remains the same.
+
+------
+
+### 📌 Handling Idempotency
+
+##### 1. Idempotency Keys (The API Shield)
+
+This is the best approach for sensitive `POST` requests, like payments. The client and server agree to track a unique ID to prevent double-processing.
+
+- **Client:** Generates a unique ID (UUID) and sends it in the header.
+- **Server:** Checks a fast cache (like Redis) for that ID.
+- **If found:** The server immediately returns the saved response.
+- **If new:** The server processes the request, saves the result in the cache, and replies.
+
+> **Code Summary:** You typically intercept the request. If `redis.get(headerKey)` exists, stop and return it. Otherwise, let the request through.
+
+------
+
+#####  2. Database Constraints (The Ultimate Safety Net)
+
+Your database is the final source of truth. You can force it to reject duplicates at the foundational level.
+
+- **Unique Constraints:** Set specific columns (like `transaction_id`) to be strictly unique.
+- **Upserting:** Tell the database to ignore duplicates rather than crashing.
+
+SQL
+
+```
+-- Example Upsert
+INSERT INTO payments (order_id, amount) VALUES (123, 50.00) 
+ON CONFLICT (order_id) DO NOTHING;
+```
+
+------
+
+#####  3. Optimistic Locking (The Traffic Cop)
+
+This prevents data corruption when two users try to update the exact same record at the exact same time.
+
+- Add a `@Version` annotation to your JPA/Hibernate entity.
+- Hibernate automatically tracks this number.
+- If two updates hit the database simultaneously, the first one succeeds (and bumps the version). The second one fails with an `OptimisticLockException` because its version is now outdated.
+
+------
+
+##### 4. The Idempotent Consumer (The Message Filter)
+
+Message brokers like Kafka or RabbitMQ often accidentally deliver the same message twice ("at-least-once" delivery). You handle this using the **Inbox Pattern**.
+
+- **Step 1:** Create a database table just to store the IDs of messages you have already processed.
+- **Step 2:** When a new message arrives, check this table first.
+- **Step 3:** If the ID is already there, ignore the message. If it's new, process it and save the ID.
+
+---
+
+
+
+## ⚡ Reactive Programming with Spring Boot 
+
+------
+
+####  a. What is Reactive Programming in Spring Boot?
+
+Reactive Programming is an **asynchronous, non-blocking** programming model used to build scalable applications.
+
+👉 Instead of:
+
+- One request → One thread (Blocking)
+
+👉 It uses:
+
+- Event-driven model
+- Fewer threads
+- Better resource utilization
+
+It is supported in Spring Boot using WebFlux.
+
+------
+
+##### 📌🏦 Real-Life Example:
+
+In a **banking system**, 10,000 users checking balance simultaneously:
+
+- Traditional MVC → 10,000 threads ❌ (Heavy)
+- Reactive → Few threads handle all requests ✅ (High scalability)
+
+------
+
+#### b. What is Spring WebFlux?
+
+**Spring WebFlux** is the reactive web framework introduced in Spring 5.
+
+It supports:
+
+- Non-blocking APIs
+- Asynchronous processing
+- Reactive streams
+
+Works on:
+
+- Netty (Non-blocking server)
+- Servlet 3.1+ containers
+
+Dependency:
+
+```xml
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-webflux</artifactId>
+</dependency>
+```
+
+------
+
+#####  🎯 When to Use WebFlux?
+
+✅ Microservices
+✅ Streaming data
+✅ High-concurrency systems
+❌ Simple CRUD apps (Spring MVC is enough)
+
+------
+
+### 📌 🔄 c. What are Mono and Flux in Spring WebFlux?
+
+They are reactive types from Project Reactor.
+
+#### 🧩 Mono
+
+- Returns 0 or 1 result
+- Similar to Optional / Single object
+
+```java
+Mono<User> userMono = Mono.just(new User("Narsing"));
+```
+
+Example:
+Get account details → One response
+
+------
+
+#### 🌊 Flux
+
+- Returns 0 to N results
+- Like List / Stream
+
+```java
+Flux<String> names = Flux.just("A", "B", "C");
+```
+
+Example:
+Get transaction history → Multiple records
+
+------
+
+**🔥 Quick Difference**
+
+| Type | Returns | Use Case            |
+| ---- | ------- | ------------------- |
+| Mono | 0 or 1  | Single object       |
+| Flux | 0 to N  | Collection / Stream |
+
+------
+
+#### d. How to use @GetMapping in Spring WebFlux?
+
+Same annotation as MVC, but return type is Mono or Flux.
+
+```java
+@RestController
+@RequestMapping("/accounts")
+public class AccountController {
+
+    @GetMapping("/{id}")
+    public Mono<Account> getAccount(@PathVariable String id) {
+        return accountService.findById(id);
+    }
+
+    @GetMapping
+    public Flux<Account> getAllAccounts() {
+        return accountService.findAll();
+    }
+}
+```
+
+**🏦 Real-Life:**
+
+- `/accounts/101` → returns Mono
+- `/accounts` → returns Flux
+
+------
+
+#### e. How do you handle exceptions in WebFlux?
+
+#####  1️⃣ Using @ExceptionHandler
+
+```java
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public Mono<ResponseEntity<String>> handleException(AccountNotFoundException ex) {
+        return Mono.just(ResponseEntity
+                .badRequest()
+                .body(ex.getMessage()));
+    }
+}
+```
+
+------
+
+##### 2️⃣ Using onErrorResume()
+
+```java
+public Mono<Account> getAccount(String id) {
+    return repository.findById(id)
+            .switchIfEmpty(Mono.error(new AccountNotFoundException("Not Found")))
+            .onErrorResume(e -> Mono.just(new Account("Default")));
+}
+```
+
+------
+
+🏦 Real-Life:
+
+If account not found:
+
+- Return custom error JSON
+- Avoid application crash
+
+------
+
+##### 🎯 MVC vs WebFlux 
+
+| Feature           | Spring MVC             | WebFlux              |
+| ----------------- | ---------------------- | -------------------- |
+| Programming Model | Blocking               | Non-blocking         |
+| Thread Model      | One thread per request | Event-loop           |
+| Scalability       | Moderate               | High                 |
+| Best For          | CRUD apps              | High traffic systems |
+
+### 📌Reactive (WebFlux) vs CompletableFuture
+
+This is a **very common 3–5 year experience interview question**.
+
+------
+
+#### 🔹 1️⃣ What is CompletableFuture?
+
+`CompletableFuture` is a class introduced in Java 8 (from Oracle Corporation Java platform) to perform **asynchronous, non-blocking tasks**.
+
+It runs tasks in a separate thread (usually ForkJoinPool).
+
+**Example**
+
+```java
+CompletableFuture<String> future =
+    CompletableFuture.supplyAsync(() -> {
+        return "Account Details";
+    });
+
+future.thenAccept(result -> System.out.println(result));
+```
+
+👉 Good for simple async operations.
+
+------
+
+#### 🔹 2️⃣ What is Reactive (WebFlux)?
+
+Reactive uses **Mono and Flux** from Project Reactor inside Spring WebFlux.
+
+It follows:
+
+- Event-driven
+- Non-blocking
+- Backpressure support
+- Stream processing
+
+✅ Example
+
+```java
+Mono<String> mono = Mono.just("Account Details");
+mono.subscribe(System.out::println);
+```
+
+| Feature      | CompletableFuture  | Reactive (WebFlux)               |
+| ------------ | ------------------ | -------------------------------- |
+| Model        | Future-based async | Stream-based async               |
+| Data Type    | Single result      | Single (Mono) or Multiple (Flux) |
+| Backpressure | ❌ No               | ✅ Yes                            |
+| Thread Model | Uses thread pool   | Event-loop model                 |
+| Scalability  | Medium             | High                             |
+| Best For     | Simple async tasks | High-concurrency apps            |
+
+🧾 Scenario:
+
+User dashboard loads:
+
+- Account details
+- Loan details
+- Transaction history
+
+------
+
+#### 🔹 Using CompletableFuture
+
+```
+CompletableFuture<Account> account = getAccount();
+CompletableFuture<List<Transaction>> txns = getTransactions();
+
+CompletableFuture.allOf(account, txns).join();
+```
+
+⚠️ Issues:
+
+- No streaming
+- No backpressure
+- More thread usage
+
+------
+
+#### 🔹 Using Reactive (WebFlux)
+
+```
+Mono<Account> account = accountService.getAccount();
+Flux<Transaction> txns = transactionService.getTransactions();
+
+return Mono.zip(account, txns.collectList());
+```
+
+ ✅ Efficient
+ ✅ Handles thousands of users
+ ✅ Better for microservices
+
+---
+
+##### 📌 What is Backpressure?
+
+It controls data flow when:
+ Producer → Faster Consumer → Slower Reactive supports this. CompletableFuture does NOT.
+
+Example:
+ Transaction stream generating 10,000 records
+ UI can only process 100 per second
+
+Reactive manages this automatically.
+
+------
+
+#### 🎯 When to Use What?
+
+##### ✅ Use CompletableFuture When:
+
+- Calling 2–3 external APIs
+- Simple parallel execution
+- Not building reactive system
+
+##### ✅ Use Reactive When:
+
+- High traffic system
+- Streaming data
+- Microservices architecture
+- Real-time updates
+
+---
+
 ## File Handling in Java Spring Framework
 
 **Introduction**
@@ -4479,7 +5146,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 * File handling in Spring allows us to upload, store, retrieve, and download files using Spring Boot, MultipartFile, and FileSystem or Database.
 * Spring provides the MultipartFile interface to handle file uploads.
 
-### 📌## File Handling Approaches in Spring:
+#### 📌  File Handling Approaches in Spring:
 
 There are two common ways to handle files in a Spring application,
 
@@ -4738,6 +5405,7 @@ public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 }
 
 ```
+
 **If storing only the file path**
 
 ```java
@@ -4798,8 +5466,6 @@ public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 3. Returns the file as a Resource with a Content-Disposition header.
 
 ---
-
-
 
 ### 📌 File View in Browser
 
@@ -4906,667 +5572,3 @@ public boolean deleteFile(Long id) {
 ```
 
 ---
-
-## Two Database Configuration in Spring Boot
-
-### 📌## **1. Why Multiple Databases in Spring Boot?**
-
-In real-world applications (banking, audit, reporting): One database for core business data Another database for audit / logs / reports Sometimes read & write databases are separated Spring Boot supports multiple DataSources, but we must configure them manually.
-
-------------
-
-### 📌## **2. Application Properties Configuration**
-
-Define connection details for each database Each database is identified using a custom prefix
-
-Key Point :
-👉 When using multiple databases, do NOT use spring.datasource
-👉 Use custom prefixes like datasource.primary, datasource.secondary
-
-Example (`application.properties`)
-
-
-```properties
-spring.application.name=twodb
-server.port=8181
-
-datasource.primary.jdbc-url=jdbc:h2:mem:dbone
-datasource.primary.username=one
-datasource.primary.password=one
-datasource.primary.driverClassName=org.h2.Driver
-
-datasource.secondary.jdbc-url=jdbc:h2:mem:dbtwo
-datasource.secondary.username=two
-datasource.secondary.password=two
-datasource.secondary.driverClassName=org.h2.Driver
-
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-```
-
-> [!NOTE]
->
-> jdbc-url is mandatory when DataSourceBuilder is used @ConfigurationProperties binds these values automatically
->
-
-------------
-
-### 📌## **3. DataSource Configuration**
-
-**What is DataSource?**
-Represents database connection pool Holds URL, username, password, driver Why `@ConfigurationProperties`? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
-
-```java
-@Primary
-@Bean
-@ConfigurationProperties(prefix = "datasource.primary")
-public DataSource primaryDataSource() {
-    return DataSourceBuilder.create().build();
-}
-```
-
-Important Annotations Annotation
-
-- `@Bean` Creates Spring-managed bean 
-- `@ConfigurationProperties` Loads DB properties 
-- `@Primary` Default DataSource if no qualifier is used
-
-------------
-
-### 📌## **4. EntityManagerFactory Configuration**
-
-**What is EntityManagerFactory?**
-
-1. Responsible for:
-2. Managing entities
-3. Creating EntityManager
-4. Handling persistence context
-
-**Why Separate EntityManagerFactory?**
-Each database:
-
-- Has different entities
-- Has different persistence unit
-- Configuration
-
-```java
-@Primary
-@Bean
-public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
-        EntityManagerFactoryBuilder builder) {
-
-    return builder
-            .dataSource(primaryDataSource())
-            .packages("com.example.twodb.primary.entity")
-            .persistenceUnit("primaryPU")
-            .build();
-}
-```
-
-
-packages() → tells where entity classes are persistenceUnit() → logical name for DB One DB = One EntityManagerFactory
-
-------------
-
-### 📌## **5. TransactionManager Configuration**
-
-**Why TransactionManager?**
-Handles:
-
-- Commit
-- Rollback
-- Transaction boundaries
-
-Each database must have:  Its own TransactionManager
-
-```java
-@Primary
-@Bean
-public PlatformTransactionManager primaryTransactionManager(
-        @Qualifier("primaryEntityManagerFactory") EntityManagerFactory emf) {
-
-    return new JpaTransactionManager(emf);
-}
-```
-
-**Why @Qualifier?**
-Multiple EntityManagerFactory beans exist Spring needs to know which one to inject
-
-------------
-
-### 📌## **6. @EnableJpaRepositories Configuration Why Required?**
-
-When multiple databases exist: Spring cannot auto-detect repositories We must explicitly define: Repository package EntityManagerFactory TransactionManager Configuration
-
-
-```java
-@EnableJpaRepositories(
-    basePackages = "com.example.twodb.primary.repo",
-    entityManagerFactoryRef = "primaryEntityManagerFactory",
-    transactionManagerRef = "primaryTransactionManager"
-)
-```
-
-
-Interview Question
-What happens if this is not configured? 👉 Spring throws No qualifying bean or wrong DB mapping errors
-
-------------
-
-### 📌## **7. Complete Primary DB Configuration Class**
-
-
-```java
-@Configuration
-@EnableTransactionManagement
-@EnableJpaRepositories(
-    basePackages = "com.example.twodb.primary.repo",
-    entityManagerFactoryRef = "primaryEntityManagerFactory",
-    transactionManagerRef = "primaryTransactionManager"
-)
-public class UserDbConfig {
-
-    @Primary
-    @Bean
-    @ConfigurationProperties(prefix = "datasource.primary")
-    public DataSource primaryDataSource() {
-        return DataSourceBuilder.create().build();
-    }
-
-    @Primary
-    @Bean
-    public LocalContainerEntityManagerFactoryBean primaryEntityManagerFactory(
-            EntityManagerFactoryBuilder builder) {
-
-        return builder
-                .dataSource(primaryDataSource())
-                .packages("com.example.twodb.primary.entity")
-                .persistenceUnit("primaryPU")
-                .build();
-    }
-
-    @Primary
-    @Bean
-    public PlatformTransactionManager primaryTransactionManager(
-            @Qualifier("primaryEntityManagerFactory") EntityManagerFactory emf) {
-
-        return new JpaTransactionManager(emf);
-    }
-}
-```
-
-
-------------
-
-### 📌## **8. Secondary Database Configuration**
-
-Key Differences No @Primary Different: Property prefix Entity package Repository package Persistence unit
-
-
-```java
-@Configuration
-@EnableTransactionManagement
-@EnableJpaRepositories(
-    basePackages = "com.example.twodb.secondary.repo",
-    entityManagerFactoryRef = "secondaryEntityManagerFactory",
-    transactionManagerRef = "secondaryTransactionManager"
-)
-public class AddressDbConfig {
-
-    @Bean
-    @ConfigurationProperties(prefix = "datasource.secondary")
-    public DataSource secondaryDataSource() {
-        return DataSourceBuilder.create().build();
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean secondaryEntityManagerFactory(
-            EntityManagerFactoryBuilder builder) {
-
-        return builder
-                .dataSource(secondaryDataSource())
-                .packages("com.example.twodb.secondary.entity")
-                .persistenceUnit("secondaryPU")
-                .build();
-    }
-
-    @Bean
-    public PlatformTransactionManager secondaryTransactionManager(
-            @Qualifier("secondaryEntityManagerFactory") EntityManagerFactory emf) {
-
-        return new JpaTransactionManager(emf);
-    }
-}
-```
-
-------------
-
-### 📌## **9. Package Structure (Best Practice)**
-
-com.example.twodb
- ├── primary
- │   ├── entity
- │   ├── repo
- │   └── config
- ├── secondary
- │   ├── entity
- │   ├── repo
- │   └── config
-
-
-
----
-
-## ⚡ Reactive Programming with Spring Boot 
-
-------
-
-### 📌 🔁 a. What is Reactive Programming in Spring Boot?
-
-Reactive Programming is an **asynchronous, non-blocking** programming model used to build scalable applications.
-
-👉 Instead of:
-
-- One request → One thread (Blocking)
-
-👉 It uses:
-
-- Event-driven model
-- Fewer threads
-- Better resource utilization
-
-It is supported in Spring Boot using WebFlux.
-
-------
-
-### 📌# 🏦 Real-Life Example:
-
-In a **banking system**, 10,000 users checking balance simultaneously:
-
-- Traditional MVC → 10,000 threads ❌ (Heavy)
-- Reactive → Few threads handle all requests ✅ (High scalability)
-
-------
-
-### 📌# 🌊 b. What is Spring WebFlux?
-
-**Spring WebFlux** is the reactive web framework introduced in Spring 5.
-
-It supports:
-
-- Non-blocking APIs
-- Asynchronous processing
-- Reactive streams
-
-Works on:
-
-- Netty (Non-blocking server)
-- Servlet 3.1+ containers
-
-Dependency:
-
-```xml
-<dependency>
-   <groupId>org.springframework.boot</groupId>
-   <artifactId>spring-boot-starter-webflux</artifactId>
-</dependency>
-```
-
-------
-
-### 📌## 🎯 When to Use WebFlux?
-
-✅ Microservices
-✅ Streaming data
-✅ High-concurrency systems
-❌ Simple CRUD apps (Spring MVC is enough)
-
-------
-
-### 📌 🔄 c. What are Mono and Flux in Spring WebFlux?
-
-They are reactive types from Project Reactor.
-
-### 📌 🧩 Mono
-
-- Returns 0 or 1 result
-- Similar to Optional / Single object
-
-```java
-Mono<User> userMono = Mono.just(new User("Narsing"));
-```
-
-📌 Example:
-Get account details → One response
-
-------
-
-### 📌 🌊 Flux
-
-- Returns 0 to N results
-- Like List / Stream
-
-```java
-Flux<String> names = Flux.just("A", "B", "C");
-```
-
-📌 Example:
-Get transaction history → Multiple records
-
-------
-
-**🔥 Quick Difference**
-
-| Type | Returns | Use Case            |
-| ---- | ------- | ------------------- |
-| Mono | 0 or 1  | Single object       |
-| Flux | 0 to N  | Collection / Stream |
-
-------
-
-### 📌 🌐 d. How to use @GetMapping in Spring WebFlux?
-
-Same annotation as MVC, but return type is Mono or Flux.
-
-```java
-@RestController
-@RequestMapping("/accounts")
-public class AccountController {
-
-    @GetMapping("/{id}")
-    public Mono<Account> getAccount(@PathVariable String id) {
-        return accountService.findById(id);
-    }
-
-    @GetMapping
-    public Flux<Account> getAllAccounts() {
-        return accountService.findAll();
-    }
-}
-```
-
-**🏦 Real-Life:**
-
-- `/accounts/101` → returns Mono
-- `/accounts` → returns Flux
-
-------
-
-### 📌 🚨 e. How do you handle exceptions in WebFlux?
-
-### 📌## ✅ 1️⃣ Using @ExceptionHandler
-
-```java
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-
-    @ExceptionHandler(AccountNotFoundException.class)
-    public Mono<ResponseEntity<String>> handleException(AccountNotFoundException ex) {
-        return Mono.just(ResponseEntity
-                .badRequest()
-                .body(ex.getMessage()));
-    }
-}
-```
-
-------
-
-### 📌## ✅ 2️⃣ Using onErrorResume()
-
-```java
-public Mono<Account> getAccount(String id) {
-    return repository.findById(id)
-            .switchIfEmpty(Mono.error(new AccountNotFoundException("Not Found")))
-            .onErrorResume(e -> Mono.just(new Account("Default")));
-}
-```
-
-------
-
-🏦 Real-Life:
-
-If account not found:
-
-- Return custom error JSON
-- Avoid application crash
-
-------
-
-### 📌## 🎯 MVC vs WebFlux 
-
-| Feature           | Spring MVC             | WebFlux              |
-| ----------------- | ---------------------- | -------------------- |
-| Programming Model | Blocking               | Non-blocking         |
-| Thread Model      | One thread per request | Event-loop           |
-| Scalability       | Moderate               | High                 |
-| Best For          | CRUD apps              | High traffic systems |
-
-### 📌 ⚡ Reactive (WebFlux) vs CompletableFuture
-
-This is a **very common 3–5 year experience interview question**.
-
-------
-
-### 📌## 🔹 1️⃣ What is CompletableFuture?
-
-`CompletableFuture` is a class introduced in Java 8 (from Oracle Corporation Java platform) to perform **asynchronous, non-blocking tasks**.
-
-It runs tasks in a separate thread (usually ForkJoinPool).
-
-### 📌# ✅ Example
-
-```java
-CompletableFuture<String> future =
-    CompletableFuture.supplyAsync(() -> {
-        return "Account Details";
-    });
-
-future.thenAccept(result -> System.out.println(result));
-```
-
-👉 Good for simple async operations.
-
-------
-
-### 📌## 🔹 2️⃣ What is Reactive (WebFlux)?
-
-Reactive uses **Mono and Flux** from Project Reactor inside Spring WebFlux.
-
-It follows:
-
-- Event-driven
-- Non-blocking
-- Backpressure support
-- Stream processing
-
-✅ Example
-
-```java
-Mono<String> mono = Mono.just("Account Details");
-mono.subscribe(System.out::println);
-```
-
-
-
-| Feature      | CompletableFuture  | Reactive (WebFlux)               |
-| ------------ | ------------------ | -------------------------------- |
-| Model        | Future-based async | Stream-based async               |
-| Data Type    | Single result      | Single (Mono) or Multiple (Flux) |
-| Backpressure | ❌ No               | ✅ Yes                            |
-| Thread Model | Uses thread pool   | Event-loop model                 |
-| Scalability  | Medium             | High                             |
-| Best For     | Simple async tasks | High-concurrency apps            |
-
-🧾 Scenario:
-
-User dashboard loads:
-
-- Account details
-- Loan details
-- Transaction history
-
-------
-
-### 📌## 🔹 Using CompletableFuture
-
-```
-CompletableFuture<Account> account = getAccount();
-CompletableFuture<List<Transaction>> txns = getTransactions();
-
-CompletableFuture.allOf(account, txns).join();
-```
-
-⚠️ Issues:
-
-- No streaming
-- No backpressure
-- More thread usage
-
-------
-
-### 📌## 🔹 Using Reactive (WebFlux)
-
-```
-Mono<Account> account = accountService.getAccount();
-Flux<Transaction> txns = transactionService.getTransactions();
-
-return Mono.zip(account, txns.collectList());
-```
-
- ✅ Efficient
- ✅ Handles thousands of users
- ✅ Better for microservices
-
----
-
-### 📌# What is Backpressure?
-
-It controls data flow when:
- Producer → Faster Consumer → Slower Reactive supports this. CompletableFuture does NOT.
-
-Example:
- Transaction stream generating 10,000 records
- UI can only process 100 per second
-
-Reactive manages this automatically.
-
-------
-
-### 📌 🎯 When to Use What?
-
-### 📌## ✅ Use CompletableFuture When:
-
-- Calling 2–3 external APIs
-- Simple parallel execution
-- Not building reactive system
-
-### 📌## ✅ Use Reactive When:
-
-- High traffic system
-- Streaming data
-- Microservices architecture
-- Real-time updates
-
-------
-
-### 📌 What is Idempotency?
-
-In computer science and web development, **idempotency** means that an operation can be performed multiple times, but the resulting state of the system will be exactly the same as if it had been performed only once.
-
-Mathematically, it is expressed as $f(f(x)) = f(x)$. Applying the function multiple times doesn't change the end result.
-
-**A simple real-world analogy:**
-
-Think of a crosswalk button or an elevator button. You can press the button to call the elevator once, or you can mash it 50 times in a row out of impatience. The end result is the exact same: the system registers that you want the elevator. Pressing it multiple times doesn't make 50 elevators show up. That button is **idempotent**.
-
-------
-
-### 📌 Which HTTP Methods are NOT Idempotent?
-
-In REST APIs, methods that are not idempotent will change the server's state every single time you execute them.
-
-- **`POST` (Not Idempotent):** This is the classic non-idempotent method. If you send a `POST` request to `/orders` to buy a pair of shoes, the server creates a new order. If your phone loses network connection, automatically retries, and sends that exact same `POST` request 5 more times, you will accidentally buy 6 pairs of shoes. The state changes with every request.
-- **`PATCH` (Often Not Idempotent):** `PATCH` is used for partial updates. While it *can* be implemented idempotently, it is not guaranteed to be. For example, if your `PATCH` request tells the server to "increase the user's score by 10", sending that request 5 times will increase the score by 50.
-
-------
-
-### 📌 Which HTTP Methods ARE Idempotent?
-
-If a client sends these requests 1 time or 1,000 times, the final state of the database remains exactly the same.
-
-- **`GET`:** Safe and idempotent. Fetching a user's profile 100 times does not change the profile.
-- **`PUT`:** Used to completely replace a resource. If you send a `PUT` request with a payload saying `{"name": "Alice", "age": 30}`, the first request updates the record. The next 99 identical requests just overwrite the record with the exact same data. The final state is still just Alice, age 30.
-- **`DELETE`:** If you send a request to `DELETE /users/123`, the first request deletes the user. If you send it again, the user is already gone. The system's state (User 123 does not exist) remains identical, even if the server replies with a `404 Not Found` instead of a `200 OK` on subsequent attempts.
-
-### 📌 Why does this matter?
-
-Networks are unreliable. Mobile phones drop signals, routers restart, and browsers time out. Because of this, clients (like web browsers or mobile apps) will often automatically retry requests that fail to get a response. If you use a non-idempotent method (like `POST`) for something that should be idempotent, those automatic retries will cause duplicate data, double-charged credit cards, and buggy applications.
-
-### 📌 2. HTTP Methods & Idempotency
-
-When building REST APIs in Java (Spring Boot, Micronaut, Jakarta EE), you must respect the idempotency of standard HTTP methods.
-
-| **Method**  | **Idempotent** | **Safe?** | **Description**                                              |
-| ----------- | -------------- | --------- | ------------------------------------------------------------ |
-| **GET**     | **Yes**        | Yes       | Only retr ieves data; shouldn't change server state.         |
-| **OPTIONS** | **Yes**        | Yes       | Retrieves communication options.                             |
-| **PUT**     | **Yes**        | No        | Replaces the resource. Sending the same "Update" twice results in the same state. |
-| **DELETE**  | **Yes**        | No        | Deleting a resource twice results in the resource being gone both times. |
-| **POST**    | **No**         | No        | Usually used for creation. Repeating this creates duplicate records. |
-| **PATCH**   | **No***        | No        | Partial updates can be non-idempotent (e.g., `{"increment": 1}`). |
-
-> **Note:** While `DELETE` is idempotent, the HTTP response code might change (e.g., **204 No Content** for the first call, **404 Not Found** for subsequent calls). The *server state*, however, remains the same.
-
-------
-
-### 📌 Handling Idempotency
-
-### 📌 1. Idempotency Keys (The API Shield)
-
-This is the best approach for sensitive `POST` requests, like payments. The client and server agree to track a unique ID to prevent double-processing.
-
-- **Client:** Generates a unique ID (UUID) and sends it in the header.
-- **Server:** Checks a fast cache (like Redis) for that ID.
-- **If found:** The server immediately returns the saved response.
-- **If new:** The server processes the request, saves the result in the cache, and replies.
-
-> **Code Summary:** You typically intercept the request. If `redis.get(headerKey)` exists, stop and return it. Otherwise, let the request through.
-
-------
-
-### 📌 2. Database Constraints (The Ultimate Safety Net)
-
-Your database is the final source of truth. You can force it to reject duplicates at the foundational level.
-
-- **Unique Constraints:** Set specific columns (like `transaction_id`) to be strictly unique.
-- **Upserting:** Tell the database to ignore duplicates rather than crashing.
-
-SQL
-
-```
--- Example Upsert
-INSERT INTO payments (order_id, amount) VALUES (123, 50.00) 
-ON CONFLICT (order_id) DO NOTHING;
-```
-
-------
-
-### 📌 3. Optimistic Locking (The Traffic Cop)
-
-This prevents data corruption when two users try to update the exact same record at the exact same time.
-
-- Add a `@Version` annotation to your JPA/Hibernate entity.
-- Hibernate automatically tracks this number.
-- If two updates hit the database simultaneously, the first one succeeds (and bumps the version). The second one fails with an `OptimisticLockException` because its version is now outdated.
-
-------
-
-### 📌 4. The Idempotent Consumer (The Message Filter)
-
-Message brokers like Kafka or RabbitMQ often accidentally deliver the same message twice ("at-least-once" delivery). You handle this using the **Inbox Pattern**.
-
-- **Step 1:** Create a database table just to store the IDs of messages you have already processed.
-- **Step 2:** When a new message arrives, check this table first.
-- **Step 3:** If the ID is already there, ignore the message. If it's new, process it and save the ID.
