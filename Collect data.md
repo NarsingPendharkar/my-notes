@@ -519,7 +519,7 @@ Useful for your large XML processing scenarios.
 
 
 ---
-## Java 17 Features (LTS) with Examples
+## Java 17 Features (LTS) 
 
 **Java 17** was released in **September 2021** and is a **Long-Term Support (LTS)** release. It became the preferred upgrade path for many organizations moving from Java 8 and Java 11. 
 
@@ -563,7 +563,7 @@ System.out.println(emp.name());
 System.out.println(emp.age());
 ```
 
-The compiler automatically generates constructor, getters, `equals()`, `hashCode()`, and `toString()`. [\[besthub.dev\]](https://www.besthub.dev/articles/unlock-java-17-records-sealed-classes-pattern-matching-more-ce3f947d95a9), [\[codebegun.com\]](https://www.codebegun.com/learn/java/modern-java/java-17-features)
+The compiler automatically generates constructor, getters, `equals()`, `hashCode()`, and `toString()`. 
 
 ***
 
@@ -589,7 +589,7 @@ Now no other class can extend `Vehicle`.
 
 * Better domain modeling
 * More secure inheritance
-* Works well with pattern matching [\[oome.org\]](https://oome.org/java/java-17-lts/), [\[arika.dev\]](https://www.arika.dev/blog/java-releases/java-17-features/)
+* Works well with pattern matching
 
 ***
 
@@ -614,7 +614,7 @@ if (obj instanceof String str) {
 }
 ```
 
-Cleaner and less error-prone. [\[codebegun.com\]](https://www.codebegun.com/learn/java/modern-java/java-17-features), [\[codezup.com\]](https://codezup.com/java17-pattern-matching-records-guide/)
+Cleaner and less error-prone. 
 
 ***
 
@@ -642,7 +642,7 @@ String json = """
         """;
 ```
 
-Useful for SQL queries and REST payloads. [\[abstractal...shnode.dev\]](https://abstractalgorithms.hashnode.dev/java-14-to-17-records-sealed-pattern-matching), [\[besthub.dev\]](https://www.besthub.dev/articles/unlock-java-17-records-sealed-classes-pattern-matching-more-ce3f947d95a9)
+Useful for SQL queries and REST payloads.
 
 ***
 
@@ -674,7 +674,7 @@ String dayType = switch(day) {
 };
 ```
 
-Less code and no accidental fall-through. [\[abstractal...shnode.dev\]](https://abstractalgorithms.hashnode.dev/java-14-to-17-records-sealed-pattern-matching), [\[codebegun.com\]](https://www.codebegun.com/learn/java/modern-java/java-17-features)
+Less code and no accidental fall-through. 
 
 ***
 
@@ -699,7 +699,7 @@ Cannot invoke "Address.getCity()"
 because "employee.getAddress()" is null
 ```
 
-Much easier debugging. [\[besthub.dev\]](https://www.besthub.dev/articles/unlock-java-17-records-sealed-classes-pattern-matching-more-ce3f947d95a9)
+Much easier debugging.
 
 ***
 
@@ -776,7 +776,7 @@ switch (obj) {
 }
 ```
 
-More readable and type-safe. [\[baeldung.com\]](https://www.baeldung.com/java-lts-21-new-features), [\[versionlog.com\]](https://versionlog.com/java/21/)
+More readable and type-safe.
 
 ***
 
@@ -808,7 +808,7 @@ emp.name();
 emp.age();
 ```
 
-repeatedly. [\[baeldung.com\]](https://www.baeldung.com/java-lts-21-new-features), [\[geeksforgeeks.org\]](https://www.geeksforgeeks.org/java/java-jdk-21-new-features-of-java-21/)
+repeatedly. 
 
 ***
 
@@ -827,7 +827,7 @@ System.out.println(names.getFirst());
 System.out.println(names.getLast());
 ```
 
-Useful when working with ordered collections. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[versionlog.com\]](https://versionlog.com/java/21/)
+Useful when working with ordered collections.
 
 ***
 
@@ -853,7 +853,7 @@ void main() {
 }
 ```
 
-Much less boilerplate. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/)
+Much less boilerplate. 
 
 ***
 
@@ -873,7 +873,7 @@ Output:
 Hello Narsing
 ```
 
-Similar to JavaScript template literals. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[geeksforgeeks.org\]](https://www.geeksforgeeks.org/java/java-jdk-21-new-features-of-java-21/)
+Similar to JavaScript template literals. 
 
 ***
 
@@ -898,19 +898,15 @@ try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
 }
 ```
 
-Useful for microservices calling multiple downstream services concurrently. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/)
+Useful for microservices calling multiple downstream services concurrently. 
 
 ***
 
 #### 8. Generational ZGC
 
-Improves garbage collection performance and memory management for large applications. Particularly useful for low-latency systems and high-throughput enterprise applications. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[versionlog.com\]](https://versionlog.com/java/21/)
+Improves garbage collection performance and memory management for large applications. Particularly useful for low-latency systems and high-throughput enterprise applications.
 
 ***
-
-
-
-
 
 
 
@@ -2268,9 +2264,9 @@ public void processExpiredPreferences() {
 
     List<Preference> expired = preferenceRepository
             .findByPauseUntilBefore(LocalDate.now());
-
+    
     historyRepository.saveAll(expired);
-
+    
     preferenceRepository.deleteAll(expired);
 }
 
@@ -2764,19 +2760,19 @@ class Course {
   /* Data about a particular course. */
   public String title;  // The name of the obstacle course
   public int obstacleCount;  // The number of obstacles in the course
- 
+
  public Course(String courseTitle, int obstacles) {
     title = courseTitle;
     obstacleCount = obstacles;
   }
- 
+
  @Override
   public boolean equals(Object o) {
     if(!(o instanceof Course)) { return false; }
     Course c = (Course) o;
     return c.title == this.title && c.obstacleCount == this.obstacleCount;
   }
- 
+
  @Override
   public int hashCode() {
     return (title == null ? 0 : title.hashCode()) * obstacleCount; 
@@ -2789,13 +2785,13 @@ class Run {
   public boolean complete; // true if the run is a full run of the course
                             // false if the run is in progress or was aborted
   public List<Integer> obstacleTimes; // The times it took to complete each obstacle
- 
+
  public Run(Course runCourse) {
     course = runCourse;
     complete = false;
     obstacleTimes = new ArrayList<>();
   }
- 
+
  public void addObstacleTime(int obstacleTime) {
     // When an obstacle is completed, add the time to the current run.
     // Params:
@@ -2808,7 +2804,7 @@ class Run {
       complete = true;
     }
   }
- 
+
  public int getRunTime() {
     // Returns the total time this run has taken.
     // If the run is not complete, it returns the time taken so far.
@@ -2819,7 +2815,7 @@ class Run {
 class RunCollection {
   public Course course; // the Course this RunCollection is for
   public List<Run> runs;  // the Run objects for this particular course
- 
+
  public RunCollection(Course collectionCourse) {
     course = collectionCourse;
     runs = new ArrayList<>();
@@ -2842,15 +2838,15 @@ class RunCollection {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 }
- 
+
 public class Solution {
   public static void main(String[] argv) {
     testRun();
     testRunCollection();
   }
- 
+
  // This is not a complete test suite, but tests some basic functionality of the above code, and
   // shows some examples of using the code.
   public static void testRun() {
@@ -2871,7 +2867,7 @@ public class Solution {
       // expected
     }
   }
- 
+
  public static RunCollection makeRunCollection(Course course, int[][] obstacleData) {
     // Create a new RunCollection for test purposes.
     // Params:
@@ -2888,10 +2884,10 @@ public class Solution {
     }
     return runCollection;
   }
- 
+
  public static void testRunCollection() {
     // Tests basic RunCollection functionality
- 
+
    //    Obstacles: O1  O2  O3  O4
     //    Run 1:      3   4   5   6    (total: 18 seconds)
     //    Run 2:      4   4   4   5    (total: 17 seconds)
@@ -2909,34 +2905,35 @@ public class Solution {
     assert runCollection.getNumRuns() == numRuns : "number of runs should be " + numRuns + ", was " + runCollection.getNumRuns();
     assert runCollection.personalBest() == 17 : 
       "personalBest should be 17, was " + runCollection.personalBest();
+
  
- 
+
  }
 }
- 
+
 The RunCollection test expects personalBest() to return 17, which is the best completed run time. But the current implementation returns 13, because it’s incorrectly including an incomplete run
- 
+
 The fix is to consider only completed runs when computing personalBest().”
- 
+
 So we filter by run.complete == true:
- 
+
 Filter: runs.stream().filter(r -> r.complete)
 Then min of getRunTime() among completed runs only
- 
+
 If no completed runs exist, return something safe like Integer.MAX_VALUE (or 0 / Optional depending on design).
- 
+
 The test fails because personalBest() computes the minimum time across all runs, including incomplete ones. In our data, run 4 is incomplete with a partial time of 13 seconds, which is less than any completed run, so personalBest() returns 13. But personal best should only be based on completed runs, and the best completed run is 17. The fix is to filter the stream to only complete runs before taking the min.”
- 
- 
+
+
 Answer : update
   public int personalBest() {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 to
- 
- 
+
+
 public int personalBest() {
     // Returns the best *completed* finish time achieved in this RunCollection
     return runs.stream()
@@ -2945,56 +2942,56 @@ public int personalBest() {
                .min()
                .orElse(Integer.MAX_VALUE);
   }
- 
- 
+
+
 Task 2 : 
 bestOfBests represents the fastest possible full run if everything went perfectly. To compute it, I take the minimum time for each obstacle index across all runs, including incomplete runs, and then sum those minima.”
- 
+
 The course has N = course.obstacleCount obstacles.
 For each obstacle index i from 0 to N-1:
- 
+
 Look across all runs.
 Consider only runs that actually have a recorded time for obstacle i (i.e., run.obstacleTimes.size() > i).
 Find the minimum time for that obstacle.
- 
- 
+
+
 Add those minimum times together to get the final “perfect run” time.
- 
+
 “Incomplete runs might still contain a fast time for obstacle 1, 2, or 3, so they should be included when taking the minimum per obstacle.”
- 
+
 If no run has a recorded time for some obstacle i, then we can’t compute a complete ‘best possible full run’. In that case, I’ll return Integer.MAX_VALUE (similar to how personalBest returns MAX_VALUE when nothing is found).”
- 
+
 If R is number of runs and N is obstacle count:
- 
+
 Time: O(R × N)
 Space: O(1) extra (besides input)
- 
- 
+
+
 public int bestOfBests() {
     // For each obstacle index, take the fastest recorded time across all runs (even incomplete),
     // then sum those fastest times.
     int total = 0;
- 
+
    for (int i = 0; i < course.obstacleCount; i++) {
       int bestForObstacle = Integer.MAX_VALUE;
- 
+
      for (Run r : runs) {
         if (r.obstacleTimes.size() > i) {
           bestForObstacle = Math.min(bestForObstacle, r.obstacleTimes.get(i));
         }
       }
- 
+     
      // If no run had this obstacle time recorded, we can't compute a full best-of-bests.
       if (bestForObstacle == Integer.MAX_VALUE) {
         return Integer.MAX_VALUE;
       }
- 
+     
      total += bestForObstacle;
     }
- 
+
    return total;
   }
- 
+
 Obstacle Problem:
 Question   : /*
 We are writing software to collect and manage data on how fast racers can complete obstacle courses. An obstacle course is a series of difficult physical challenges (like walls, hurdles, and ponds) that a racer must go through.
@@ -3025,29 +3022,29 @@ To begin with, we present you with two tasks:
 
 Implement this function, and add a test to verify that it works.
 */
+
  
- 
- 
-             
+
+
 import java.util.*;
 
 class Course {
   /* Data about a particular course. */
   public String title;  // The name of the obstacle course
   public int obstacleCount;  // The number of obstacles in the course
- 
+
  public Course(String courseTitle, int obstacles) {
     title = courseTitle;
     obstacleCount = obstacles;
   }
- 
+
  @Override
   public boolean equals(Object o) {
     if(!(o instanceof Course)) { return false; }
     Course c = (Course) o;
     return c.title == this.title && c.obstacleCount == this.obstacleCount;
   }
- 
+
  @Override
   public int hashCode() {
     return (title == null ? 0 : title.hashCode()) * obstacleCount; 
@@ -3060,13 +3057,13 @@ class Run {
   public boolean complete; // true if the run is a full run of the course
                             // false if the run is in progress or was aborted
   public List<Integer> obstacleTimes; // The times it took to complete each obstacle
- 
+
  public Run(Course runCourse) {
     course = runCourse;
     complete = false;
     obstacleTimes = new ArrayList<>();
   }
- 
+
  public void addObstacleTime(int obstacleTime) {
     // When an obstacle is completed, add the time to the current run.
     // Params:
@@ -3079,7 +3076,7 @@ class Run {
       complete = true;
     }
   }
- 
+
  public int getRunTime() {
     // Returns the total time this run has taken.
     // If the run is not complete, it returns the time taken so far.
@@ -3090,7 +3087,7 @@ class Run {
 class RunCollection {
   public Course course; // the Course this RunCollection is for
   public List<Run> runs;  // the Run objects for this particular course
- 
+
  public RunCollection(Course collectionCourse) {
     course = collectionCourse;
     runs = new ArrayList<>();
@@ -3119,7 +3116,7 @@ class RunCollection {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().filter(v->v.complete).mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 //New Functionality implemented code for the 2nd Question
 public int bestOfBest() {
     int total = 0;
@@ -3142,17 +3139,17 @@ public int bestOfBest() {
     return total;
 
 }
- 
+
  
 
 }
- 
+
 public class Solution {
   public static void main(String[] argv) {
     testRun();
     testRunCollection();
   }
- 
+
  // This is not a complete test suite, but tests some basic functionality of the above code, and
   // shows some examples of using the code.
   public static void testRun() {
@@ -3173,7 +3170,7 @@ public class Solution {
       // expected
     }
   }
- 
+
  public static RunCollection makeRunCollection(Course course, int[][] obstacleData) {
     // Create a new RunCollection for test purposes.
     // Params:
@@ -3190,10 +3187,10 @@ public class Solution {
     }
     return runCollection;
   }
- 
+
  public static void testRunCollection() {
     // Tests basic RunCollection functionality
- 
+
    //    Obstacles: O1  O2  O3  O4
     //    Run 1:      3   4   5   6    (total: 18 seconds)
     //    Run 2:      4   4   4   5    (total: 17 seconds)
@@ -3211,34 +3208,35 @@ public class Solution {
     assert runCollection.getNumRuns() == numRuns : "number of runs should be " + numRuns + ", was " + runCollection.getNumRuns();
     assert runCollection.personalBest() == 17 : 
       "personalBest should be 17, was " + runCollection.personalBest();
+
  
- 
+
  }
 }
- 
+
 The RunCollection test expects personalBest() to return 17, which is the best completed run time. But the current implementation returns 13, because it’s incorrectly including an incomplete run
- 
+
 The fix is to consider only completed runs when computing personalBest().”
- 
+
 So we filter by run.complete == true:
- 
+
 Filter: runs.stream().filter(r -> r.complete)
 Then min of getRunTime() among completed runs only
- 
+
 If no completed runs exist, return something safe like Integer.MAX_VALUE (or 0 / Optional depending on design).
- 
+
 The test fails because personalBest() computes the minimum time across all runs, including incomplete ones. In our data, run 4 is incomplete with a partial time of 13 seconds, which is less than any completed run, so personalBest() returns 13. But personal best should only be based on completed runs, and the best completed run is 17. The fix is to filter the stream to only complete runs before taking the min.”
- 
- 
+
+
 Answer : update
   public int personalBest() {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 to
- 
- 
+
+
 public int personalBest() {
     // Returns the best *completed* finish time achieved in this RunCollection
     return runs.stream()
@@ -3247,60 +3245,60 @@ public int personalBest() {
                .min()
                .orElse(Integer.MAX_VALUE);
   }
- 
- 
+
+
 Task 2 : 
 bestOfBests represents the fastest possible full run if everything went perfectly. To compute it, I take the minimum time for each obstacle index across all runs, including incomplete runs, and then sum those minima.”
- 
+
 The course has N = course.obstacleCount obstacles.
 For each obstacle index i from 0 to N-1:
- 
+
 Look across all runs.
 Consider only runs that actually have a recorded time for obstacle i (i.e., run.obstacleTimes.size() > i).
 Find the minimum time for that obstacle.
- 
- 
+
+
 Add those minimum times together to get the final “perfect run” time.
- 
+
 “Incomplete runs might still contain a fast time for obstacle 1, 2, or 3, so they should be included when taking the minimum per obstacle.”
- 
+
 If no run has a recorded time for some obstacle i, then we can’t compute a complete ‘best possible full run’. In that case, I’ll return Integer.MAX_VALUE (similar to how personalBest returns MAX_VALUE when nothing is found).”
- 
+
 If R is number of runs and N is obstacle count:
- 
+
 Time: O(R × N)
 Space: O(1) extra (besides input)
- 
- 
+
+
 public int bestOfBests() {
     // For each obstacle index, take the fastest recorded time across all runs (even incomplete),
     // then sum those fastest times.
     int total = 0;
- 
+
    for (int i = 0; i < course.obstacleCount; i++) {
       int bestForObstacle = Integer.MAX_VALUE;
- 
+
      for (Run r : runs) {
         if (r.obstacleTimes.size() > i) {
           bestForObstacle = Math.min(bestForObstacle, r.obstacleTimes.get(i));
         }
       }
- 
+     
      // If no run had this obstacle time recorded, we can't compute a full best-of-bests.
       if (bestForObstacle == Integer.MAX_VALUE) {
         return Integer.MAX_VALUE;
       }
- 
+     
      total += bestForObstacle;
     }
- 
+
    return total;
   }
- 
+
 Test case: 2nd Question
 //bestOfBests: 3+4+3+5 = 15
 assert runCollection.bestOfBest() == 15 : "bestOfBests should be 15, was "+runCollection.bestOfBest();
- 
+
 
 
 We are writing software to analyze logs for toll booths on a highway. This highway is a divided highway with limited access; the only way on to or off of the highway is through a toll booth.
@@ -3308,7 +3306,7 @@ There are three types of toll booths:
 * ENTRY (E in the diagram) toll booths, where a car goes through a booth as it enters the highway.
 * EXIT (X in the diagram) toll booths, where a car goes through a booth as it exits the highway.
 * MAINROAD (M in the diagram), which have sensors that record a license plate as a car drives through at full speed.
- 
+
         Exit Booth                         Entry Booth
             |                                   |
             X                                   E
@@ -3395,168 +3393,168 @@ class LogFile {
    * Represents a file containing a number of log lines, converted to LogEntry
    * objects.
    */
-  List<LogEntry> logEntries;
-  public LogFile(BufferedReader reader) throws IOException {
-    this.logEntries = new ArrayList<>();
-    String line = reader.readLine();
-    while (line != null) {
+   List<LogEntry> logEntries;
+   public LogFile(BufferedReader reader) throws IOException {
+     this.logEntries = new ArrayList<>();
+     String line = reader.readLine();
+     while (line != null) {
       LogEntry logEntry = new LogEntry(line.strip());
       this.logEntries.add(logEntry);
       line = reader.readLine();
-    }
-  }
-  public LogEntry get(int index) {
-    return this.logEntries.get(index);
-  }
-  public int size() {
-    return this.logEntries.size();
-  }
-}
-public class Solution {
-  public static void main(String[] argv) throws IOException {
-    testLogFile();
-    testLogEntry();
-  }
-  public static void testLogFile() throws IOException {
-    System.out.println("Running testLogFile");
-    try (
+     }
+   }
+   public LogEntry get(int index) {
+     return this.logEntries.get(index);
+   }
+   public int size() {
+     return this.logEntries.size();
+   }
+ }
+ public class Solution {
+   public static void main(String[] argv) throws IOException {
+     testLogFile();
+     testLogEntry();
+   }
+   public static void testLogFile() throws IOException {
+     System.out.println("Running testLogFile");
+     try (
       BufferedReader reader = new BufferedReader(
         new FileReader("/content/test/tollbooth_small.log")
       );
-    ) {
+     ) {
       LogFile logFile = new LogFile(reader);
       assertEquals(13, logFile.size());
       for (LogEntry entry : logFile.logEntries) {
         assert (entry instanceof LogEntry);
       }
-    }
-  }
-  public static void testLogEntry() {
-    System.out.println("Running testLogEntry");
-    String logLine = "44776.619 KTB918 310E MAINROAD";
-    LogEntry logEntry = new LogEntry(logLine);
-    assertEquals(44776.619f, logEntry.getTimestamp(), 0.0001);
-    assertEquals("KTB918", logEntry.getLicensePlate());
-    assertEquals(310, logEntry.getLocation());
-    assertEquals("EAST", logEntry.getDirection());
-    assertEquals("MAINROAD", logEntry.getBoothType());
-    logLine = "52160.132 ABC123 400W ENTRY";
-    logEntry = new LogEntry(logLine);
-    assertEquals(52160.132f, logEntry.getTimestamp(), 0.0001);
-    assertEquals("ABC123", logEntry.getLicensePlate());
-    assertEquals(400, logEntry.getLocation());
-    assertEquals("WEST", logEntry.getDirection());
-    assertEquals("ENTRY", logEntry.getBoothType());
-  }
-}
- 
+     }
+   }
+   public static void testLogEntry() {
+     System.out.println("Running testLogEntry");
+     String logLine = "44776.619 KTB918 310E MAINROAD";
+     LogEntry logEntry = new LogEntry(logLine);
+     assertEquals(44776.619f, logEntry.getTimestamp(), 0.0001);
+     assertEquals("KTB918", logEntry.getLicensePlate());
+     assertEquals(310, logEntry.getLocation());
+     assertEquals("EAST", logEntry.getDirection());
+     assertEquals("MAINROAD", logEntry.getBoothType());
+     logLine = "52160.132 ABC123 400W ENTRY";
+     logEntry = new LogEntry(logLine);
+     assertEquals(52160.132f, logEntry.getTimestamp(), 0.0001);
+     assertEquals("ABC123", logEntry.getLicensePlate());
+     assertEquals(400, logEntry.getLocation());
+     assertEquals("WEST", logEntry.getDirection());
+     assertEquals("ENTRY", logEntry.getBoothType());
+   }
+ }
+
 1-2) The tests are not passing due to a bug in the code. Make the necessary changes to LogEntry to fix the bug.
- 
+
 The bug is that timestamp is stored as a String, but the tests treat it as a float (assertEquals(44776.619f, logEntry.getTimestamp(), ...)).
 So the test fails either due to type mismatch (won’t compile in real JUnit) or because the toString() uses %f which expects a numeric type, not a String.
- 
+
 Walkthrough
- 
+
 “The unit test expects getTimestamp() to return a numeric value because it compares it using floating point assert with a delta.”
 assertEquals(44776.619f, logEntry.getTimestamp(), 0.0001);
- 
- 
+
+
 In LogEntry, timestamp is declared as private final String timestamp; and assigned using tokens[0] directly. So we never parse it to a numeric type.”
 String.format("<LogEntry timestamp: %f ...>", timestamp, ...)
 %f expects a float/double → this is inconsistent with storing a String.
- 
- 
+
+
 Because timestamp isn’t numeric, the getter doesn’t match how the rest of the program and tests use it. It breaks comparisons, sorting, and formatted output.”
- 
+
 Fix is to store timestamp as double (or float) and parse it in the constructor. Then getTimestamp() should return the numeric type, and toString() will work correctly with %f.”
- 
+
 String[] tokens = logLine.split(" "); ----> String[] tokens = logLine.split("\\s+");
- 
+
 convert private final String timestamp; ---> private final float timestamp;
 convert this.timestamp = tokens[0]; -> this.timestamp = Double.parseDouble(tokens[0]);
 convert public String getTimestamp() { ---> public float getTimestamp() {
- 
- 
+
+
 “The tests are failing because timestamp is stored as a String in LogEntry, but the tests treat it as a numeric value and compare it using floating-point assert with a delta. Also toString() formats timestamp using %f, which expects a numeric type. The fix is to change timestamp to a double or float, parse it in the constructor using Double.parseDouble(tokens[0]), and return that numeric value from getTimestamp(). This aligns implementation with how hash-based comparisons and formatting are intended, and the tests pass.”
- 
- 
+
+
 2-1)  Write a function to count number of journeys.   
- 
+
 Logs are processed in timestamp order (or the file already is).
 A journey starts at ENTRY and ends at EXIT.
 MAINROAD entries don’t affect journey count.
 If an EXIT appears with no prior ENTRY for that plate+direction, we ignore it (incomplete journey).
 A car cannot be on two journeys at once on the same direction; we track “active” journeys.
- 
- 
+
+
 “I need to track which vehicles are currently on the highway—meaning they’ve entered but not yet exited. That’s a membership problem: is this vehicle currently active or not?”
- 
+
 When I see an ENTRY, I mark the vehicle as active.
 When I see an EXIT, I check if it was active.
- 
+
 If yes → I count one completed journey and remove it from active.
 If no → it’s an unmatched exit, so ignore or log it.
- 
+
 Why Set is perfect:
- 
+
 add, remove, contains are average O(1).
 We don’t need ordering or counts per vehicle — just “active or not”.
- 
+
 A vehicle is identified by license plate, and I also include direction because the same plate could appear on both sides or direction matters in logs.”
 "ABC123|EAST"
 “I’ll keep an integer journeys = 0 to count completed journeys, and a Set<String> active to store currently active vehicles.”
- 
- 
+
+
 journeys tracks the output.
 active tracks cars that are currently inside the highway.
- 
+
 “I scan logs one by one in time order. Each entry is either ENTRY, EXIT, or MAINROA
 For every entry:
- 
+
 Extract type = getBoothType()
 Build key = plate + "|" + direction
- 
+
 If it’s an ENTRY
- 
+
 “ENTRY means the car has started a journey. I add it to the active set.”
- 
- 
+
+
 active.add(key)
- 
+
 If entry duplicates happen, Set naturally avoids duplicates.
- 
+
 “Even if the same ENTRY appears twice, Set prevents duplicate state, and we still count only when it exits.”
- 
+
 “EXIT means the car is leaving the highway. I only count a journey if we had a matching active entry.”
- 
+
 So:
- 
+
 If active contains the key → remove it and increment journeys.
 If not found → ignore it as invalid/incomplete logs.
- 
+
 In code, I use:
- 
+
 if (active.remove(key)) journeys++;
- 
+
 Explain why this is nice:
- 
+
 “remove() returns true only if the key existed, so I can combine the check and removal in one operation.”
- 
+
 “Time is O(n) because I scan the log once. Space is O(a) where a is the number of cars currently active on the highway.”
- 
- 
+
+
 public int countJourneys() {
     Set<String> activeJourneys = new HashSet<>();
     int journeys = 0;
- 
+
     for (LogEntry entry : logEntries) {
       String key = entry.getLicensePlate() + "|" + entry.getDirection();
       String type = entry.getBoothType();
- 
+     
       if ("ENTRY".equals(type)) {
         // Start journey (or keep it active if already active)
         activeJourneys.add(key);
- 
+     
       } else if ("EXIT".equals(type)) {
         // Count only if there was a previous unmatched ENTRY
         if (activeJourneys.remove(key)) {
@@ -3565,83 +3563,83 @@ public int countJourneys() {
       }
       // MAINROAD does not affect journey boundaries
     }
- 
+     
     return journeys;
   }
- 
+
 3-1) We would like to catch people who are driving at unsafe speeds on the highway. To help us do that, we would like to identify journeys where a driver does either of the following:
 * Drive 130 km/h or greater in any individual 10km segment of tollway.
 * Drive 120 km/h or greater in any two 10km segments of tollway.
- 
+
 For example, consider the following journey:
 1000.000 TST002 270W ENTRY
 1275.000 TST002 260W EXIT
- 
+
 In this case, the driver of TST002 drove 10 km in 275 seconds. We can calculate
 that this driver drove an average speed of ~130.91km/hr over this segment:
- 
+
 10 km * 3600 sec/hr
 ------------------- = 130.91 km/hr
       275 sec
- 
+
 Note that:
 * A license plate may have multiple journeys in one file, and if they drive at unsafe speeds in both journeys, both should be counted.
 * We do not mark speeding if they are not on the highway (i.e. for any driving between an EXIT and ENTRY event).
 * Speeding is only marked once per journey. For example, if there are 4 segments 120km/h or greater, or multiple segments 130km/h or greater, the journey is only counted once.
- 
+
 q. Write a function catchSpeeders in LogFile that returns a collection of license plates that drove at unsafe speeds during a journey in the LogFile.
      If the same license plate drives at unsafe speeds during two different journeys, the license plate should appear twice (once for each journey they drove at unsafe speeds).
- 
+
 Maintain journey state :
- 
- 
+
+
 private static class JourneyState {
     LogEntry last;           // last log entry seen on-highway
     int segments120OrMore;   // count of 10km segments >= 120 km/h
     boolean flagged;         // whether speeding already detected for this journey
- 
+
     JourneyState(LogEntry start) {
       this.last = start;
       this.segments120OrMore = 0;
       this.flagged = false;
     }
   }
- 
- 
+
+
 public List<String> catchSpeeders() {
     Map<String, JourneyState> active = new HashMap<>();
     List<String> speeders = new ArrayList<>();
- 
+
     for (LogEntry e : logEntries) {
       String type = e.getBoothType();
       String key = e.getLicensePlate() + "|" + e.getDirection();
- 
+     
       if ("ENTRY".equals(type)) {
         // Start or restart a journey for this plate+direction
         active.put(key, new JourneyState(e));
         continue;
       }
- 
+     
       JourneyState state = active.get(key);
       if (state == null) {
         // Not on the highway (or missing ENTRY); ignore this record.
         continue;
       }
- 
+     
       // We are on-highway: compute segment stats from state.last -> e
       float dt = e.getTimestamp() - state.last.getTimestamp(); // seconds
       int distanceKm = Math.abs(e.getLocation() - state.last.getLocation());
- 
+     
       // Update last regardless; but only compute speeds if we have a valid segment
       state.last = e;
- 
+     
       if (dt <= 0 || distanceKm <= 0) {
         // Non-increasing time or no movement: ignore segment
       } else {
         int segments = distanceKm / 10; // number of 10km segments
         if (segments > 0) {
           float speedKmh = (distanceKm * 3600.0f) / dt;
- 
+     
           if (speedKmh >= 130.0f) {
             state.flagged = true;
           }
@@ -3653,7 +3651,7 @@ public List<String> catchSpeeders() {
           }
         }
       }
- 
+     
       if ("EXIT".equals(type)) {
         // Journey ends here; count at most once for this journey
         if (state.flagged) {
@@ -3662,37 +3660,37 @@ public List<String> catchSpeeders() {
         active.remove(key);
       }
     }
- 
+     
     return speeders;
   }
  ---------------------------------------------------------------------------
 
 hi
- 
+
 What is the purpose of the equals() and hashCode() method of object class in Java?
- 
+
 equals() and hashCode(), explain role of equals() and hashCode() for hashmap & hashset?
- 
+
 2) What is Dependency Injection (DI) in Java?
- 
+
 3) How we are designing a class?
- 
+
 4) what is the advantage and disadvantage of checked exception?
- 
+
 5) what is the advantage of upper bound and lower bound (<? extends Animal>, <? super Animal>)?
- 
+
 6) Can a map key mutable or not? why?
- 
+
 7) What is effectively final variable and how is it used?
- 
+
 8) When the variables are moved from one to another heap generation
- 
+
 9) How we are designing a class?
- 
+
 10) What is the purpose of  final keyword?
- 
+
 11) What is the purpose of bounded wildcards in Generics?
- 
+
 12) Given below code what is the problem with it :
 public Boolean isCondition(Boolean value){
    if(!value.equals(Boolean.false)){
@@ -3701,13 +3699,13 @@ public Boolean isCondition(Boolean value){
              return false;
   }
 }
- 
+
 13)
- 
+
 14) How Design patterns that can apply to make a class more testable
 15) What is the best way to implement code following design principles?
 16) How to create mutable class.
- 
+
 We are writing software to collect and manage data on how fast racers can complete obstacle courses. An obstacle course is a series of difficult physical challenges (like walls, hurdles, and ponds) that a racer must go through.
 
 Each course consists of multiple obstacles. The software stores how long it takes for racers to finish each obstacle, and provides useful statistics based on those times.
@@ -3735,19 +3733,19 @@ class Course {
   /* Data about a particular course. */
   public String title;  // The name of the obstacle course
   public int obstacleCount;  // The number of obstacles in the course
- 
+
  public Course(String courseTitle, int obstacles) {
     title = courseTitle;
     obstacleCount = obstacles;
   }
- 
+
  @Override
   public boolean equals(Object o) {
     if(!(o instanceof Course)) { return false; }
     Course c = (Course) o;
     return c.title == this.title && c.obstacleCount == this.obstacleCount;
   }
- 
+
  @Override
   public int hashCode() {
     return (title == null ? 0 : title.hashCode()) * obstacleCount; 
@@ -3760,13 +3758,13 @@ class Run {
   public boolean complete; // true if the run is a full run of the course
                             // false if the run is in progress or was aborted
   public List<Integer> obstacleTimes; // The times it took to complete each obstacle
- 
+
  public Run(Course runCourse) {
     course = runCourse;
     complete = false;
     obstacleTimes = new ArrayList<>();
   }
- 
+
  public void addObstacleTime(int obstacleTime) {
     // When an obstacle is completed, add the time to the current run.
     // Params:
@@ -3779,7 +3777,7 @@ class Run {
       complete = true;
     }
   }
- 
+
  public int getRunTime() {
     // Returns the total time this run has taken.
     // If the run is not complete, it returns the time taken so far.
@@ -3790,7 +3788,7 @@ class Run {
 class RunCollection {
   public Course course; // the Course this RunCollection is for
   public List<Run> runs;  // the Run objects for this particular course
- 
+
  public RunCollection(Course collectionCourse) {
     course = collectionCourse;
     runs = new ArrayList<>();
@@ -3813,15 +3811,15 @@ class RunCollection {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 }
- 
+
 public class Solution {
   public static void main(String[] argv) {
     testRun();
     testRunCollection();
   }
- 
+
  // This is not a complete test suite, but tests some basic functionality of the above code, and
   // shows some examples of using the code.
   public static void testRun() {
@@ -3842,7 +3840,7 @@ public class Solution {
       // expected
     }
   }
- 
+
  public static RunCollection makeRunCollection(Course course, int[][] obstacleData) {
     // Create a new RunCollection for test purposes.
     // Params:
@@ -3859,10 +3857,10 @@ public class Solution {
     }
     return runCollection;
   }
- 
+
  public static void testRunCollection() {
     // Tests basic RunCollection functionality
- 
+
    //    Obstacles: O1  O2  O3  O4
     //    Run 1:      3   4   5   6    (total: 18 seconds)
     //    Run 2:      4   4   4   5    (total: 17 seconds)
@@ -3880,34 +3878,35 @@ public class Solution {
     assert runCollection.getNumRuns() == numRuns : "number of runs should be " + numRuns + ", was " + runCollection.getNumRuns();
     assert runCollection.personalBest() == 17 : 
       "personalBest should be 17, was " + runCollection.personalBest();
+
  
- 
+
  }
 }
- 
+
 The RunCollection test expects personalBest() to return 17, which is the best completed run time. But the current implementation returns 13, because it’s incorrectly including an incomplete run
- 
+
 The fix is to consider only completed runs when computing personalBest().”
- 
+
 So we filter by run.complete == true:
- 
+
 Filter: runs.stream().filter(r -> r.complete)
 Then min of getRunTime() among completed runs only
- 
+
 If no completed runs exist, return something safe like Integer.MAX_VALUE (or 0 / Optional depending on design).
- 
+
 The test fails because personalBest() computes the minimum time across all runs, including incomplete ones. In our data, run 4 is incomplete with a partial time of 13 seconds, which is less than any completed run, so personalBest() returns 13. But personal best should only be based on completed runs, and the best completed run is 17. The fix is to filter the stream to only complete runs before taking the min.”
- 
- 
+
+
 Answer : update
   public int personalBest() {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 to
- 
- 
+
+
 public int personalBest() {
     // Returns the best *completed* finish time achieved in this RunCollection
     return runs.stream()
@@ -3916,56 +3915,56 @@ public int personalBest() {
                .min()
                .orElse(Integer.MAX_VALUE);
   }
- 
- 
+
+
 Task 2 : 
 bestOfBests represents the fastest possible full run if everything went perfectly. To compute it, I take the minimum time for each obstacle index across all runs, including incomplete runs, and then sum those minima.”
- 
+
 The course has N = course.obstacleCount obstacles.
 For each obstacle index i from 0 to N-1:
- 
+
 Look across all runs.
 Consider only runs that actually have a recorded time for obstacle i (i.e., run.obstacleTimes.size() > i).
 Find the minimum time for that obstacle.
- 
- 
+
+
 Add those minimum times together to get the final “perfect run” time.
- 
+
 “Incomplete runs might still contain a fast time for obstacle 1, 2, or 3, so they should be included when taking the minimum per obstacle.”
- 
+
 If no run has a recorded time for some obstacle i, then we can’t compute a complete ‘best possible full run’. In that case, I’ll return Integer.MAX_VALUE (similar to how personalBest returns MAX_VALUE when nothing is found).”
- 
+
 If R is number of runs and N is obstacle count:
- 
+
 Time: O(R × N)
 Space: O(1) extra (besides input)
- 
- 
+
+
 public int bestOfBests() {
     // For each obstacle index, take the fastest recorded time across all runs (even incomplete),
     // then sum those fastest times.
     int total = 0;
- 
+
    for (int i = 0; i < course.obstacleCount; i++) {
       int bestForObstacle = Integer.MAX_VALUE;
- 
+
      for (Run r : runs) {
         if (r.obstacleTimes.size() > i) {
           bestForObstacle = Math.min(bestForObstacle, r.obstacleTimes.get(i));
         }
       }
- 
+     
      // If no run had this obstacle time recorded, we can't compute a full best-of-bests.
       if (bestForObstacle == Integer.MAX_VALUE) {
         return Integer.MAX_VALUE;
       }
- 
+     
      total += bestForObstacle;
     }
- 
+
    return total;
   }
- 
+
 Obstacle Problem:
 Question   : /*
 We are writing software to collect and manage data on how fast racers can complete obstacle courses. An obstacle course is a series of difficult physical challenges (like walls, hurdles, and ponds) that a racer must go through.
@@ -3996,29 +3995,29 @@ To begin with, we present you with two tasks:
 
 Implement this function, and add a test to verify that it works.
 */
+
  
- 
- 
-             
+
+
 import java.util.*;
 
 class Course {
   /* Data about a particular course. */
   public String title;  // The name of the obstacle course
   public int obstacleCount;  // The number of obstacles in the course
- 
+
  public Course(String courseTitle, int obstacles) {
     title = courseTitle;
     obstacleCount = obstacles;
   }
- 
+
  @Override
   public boolean equals(Object o) {
     if(!(o instanceof Course)) { return false; }
     Course c = (Course) o;
     return c.title == this.title && c.obstacleCount == this.obstacleCount;
   }
- 
+
  @Override
   public int hashCode() {
     return (title == null ? 0 : title.hashCode()) * obstacleCount; 
@@ -4031,13 +4030,13 @@ class Run {
   public boolean complete; // true if the run is a full run of the course
                             // false if the run is in progress or was aborted
   public List<Integer> obstacleTimes; // The times it took to complete each obstacle
- 
+
  public Run(Course runCourse) {
     course = runCourse;
     complete = false;
     obstacleTimes = new ArrayList<>();
   }
- 
+
  public void addObstacleTime(int obstacleTime) {
     // When an obstacle is completed, add the time to the current run.
     // Params:
@@ -4050,7 +4049,7 @@ class Run {
       complete = true;
     }
   }
- 
+
  public int getRunTime() {
     // Returns the total time this run has taken.
     // If the run is not complete, it returns the time taken so far.
@@ -4061,7 +4060,7 @@ class Run {
 class RunCollection {
   public Course course; // the Course this RunCollection is for
   public List<Run> runs;  // the Run objects for this particular course
- 
+
  public RunCollection(Course collectionCourse) {
     course = collectionCourse;
     runs = new ArrayList<>();
@@ -4090,7 +4089,7 @@ class RunCollection {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().filter(v->v.complete).mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 //New Functionality implemented code for the 2nd Question
 public int bestOfBest() {
     int total = 0;
@@ -4113,17 +4112,17 @@ public int bestOfBest() {
     return total;
 
 }
- 
+
  
 
 }
- 
+
 public class Solution {
   public static void main(String[] argv) {
     testRun();
     testRunCollection();
   }
- 
+
  // This is not a complete test suite, but tests some basic functionality of the above code, and
   // shows some examples of using the code.
   public static void testRun() {
@@ -4144,7 +4143,7 @@ public class Solution {
       // expected
     }
   }
- 
+
  public static RunCollection makeRunCollection(Course course, int[][] obstacleData) {
     // Create a new RunCollection for test purposes.
     // Params:
@@ -4161,10 +4160,10 @@ public class Solution {
     }
     return runCollection;
   }
- 
+
  public static void testRunCollection() {
     // Tests basic RunCollection functionality
- 
+
    //    Obstacles: O1  O2  O3  O4
     //    Run 1:      3   4   5   6    (total: 18 seconds)
     //    Run 2:      4   4   4   5    (total: 17 seconds)
@@ -4182,34 +4181,35 @@ public class Solution {
     assert runCollection.getNumRuns() == numRuns : "number of runs should be " + numRuns + ", was " + runCollection.getNumRuns();
     assert runCollection.personalBest() == 17 : 
       "personalBest should be 17, was " + runCollection.personalBest();
+
  
- 
+
  }
 }
- 
+
 The RunCollection test expects personalBest() to return 17, which is the best completed run time. But the current implementation returns 13, because it’s incorrectly including an incomplete run
- 
+
 The fix is to consider only completed runs when computing personalBest().”
- 
+
 So we filter by run.complete == true:
- 
+
 Filter: runs.stream().filter(r -> r.complete)
 Then min of getRunTime() among completed runs only
- 
+
 If no completed runs exist, return something safe like Integer.MAX_VALUE (or 0 / Optional depending on design).
- 
+
 The test fails because personalBest() computes the minimum time across all runs, including incomplete ones. In our data, run 4 is incomplete with a partial time of 13 seconds, which is less than any completed run, so personalBest() returns 13. But personal best should only be based on completed runs, and the best completed run is 17. The fix is to filter the stream to only complete runs before taking the min.”
- 
- 
+
+
 Answer : update
   public int personalBest() {
     // Returns the best finish time achieved in this RunCollection
     return runs.stream().mapToInt(v -> v.getRunTime()).min().orElse(Integer.MAX_VALUE);
   }
- 
+
 to
- 
- 
+
+
 public int personalBest() {
     // Returns the best *completed* finish time achieved in this RunCollection
     return runs.stream()
@@ -4218,67 +4218,67 @@ public int personalBest() {
                .min()
                .orElse(Integer.MAX_VALUE);
   }
- 
- 
+
+
 Task 2 : 
 bestOfBests represents the fastest possible full run if everything went perfectly. To compute it, I take the minimum time for each obstacle index across all runs, including incomplete runs, and then sum those minima.”
- 
+
 The course has N = course.obstacleCount obstacles.
 For each obstacle index i from 0 to N-1:
- 
+
 Look across all runs.
 Consider only runs that actually have a recorded time for obstacle i (i.e., run.obstacleTimes.size() > i).
 Find the minimum time for that obstacle.
- 
- 
+
+
 Add those minimum times together to get the final “perfect run” time.
- 
+
 “Incomplete runs might still contain a fast time for obstacle 1, 2, or 3, so they should be included when taking the minimum per obstacle.”
- 
+
 If no run has a recorded time for some obstacle i, then we can’t compute a complete ‘best possible full run’. In that case, I’ll return Integer.MAX_VALUE (similar to how personalBest returns MAX_VALUE when nothing is found).”
- 
+
 If R is number of runs and N is obstacle count:
- 
+
 Time: O(R × N)
 Space: O(1) extra (besides input)
- 
- 
+
+
 public int bestOfBests() {
     // For each obstacle index, take the fastest recorded time across all runs (even incomplete),
     // then sum those fastest times.
     int total = 0;
- 
+
    for (int i = 0; i < course.obstacleCount; i++) {
       int bestForObstacle = Integer.MAX_VALUE;
- 
+
      for (Run r : runs) {
         if (r.obstacleTimes.size() > i) {
           bestForObstacle = Math.min(bestForObstacle, r.obstacleTimes.get(i));
         }
       }
- 
+     
      // If no run had this obstacle time recorded, we can't compute a full best-of-bests.
       if (bestForObstacle == Integer.MAX_VALUE) {
         return Integer.MAX_VALUE;
       }
- 
+     
      total += bestForObstacle;
     }
- 
+
    return total;
   }
- 
+
 Test case: 2nd Question
 //bestOfBests: 3+4+3+5 = 15
 assert runCollection.bestOfBest() == 15 : "bestOfBests should be 15, was "+runCollection.bestOfBest();
- 
- 
+
+
 We are writing software to analyze logs for toll booths on a highway. This highway is a divided highway with limited access; the only way on to or off of the highway is through a toll booth.
 There are three types of toll booths:
 * ENTRY (E in the diagram) toll booths, where a car goes through a booth as it enters the highway.
 * EXIT (X in the diagram) toll booths, where a car goes through a booth as it exits the highway.
 * MAINROAD (M in the diagram), which have sensors that record a license plate as a car drives through at full speed.
- 
+
         Exit Booth                         Entry Booth
             |                                   |
             X                                   E
@@ -4365,168 +4365,168 @@ class LogFile {
    * Represents a file containing a number of log lines, converted to LogEntry
    * objects.
    */
-  List<LogEntry> logEntries;
-  public LogFile(BufferedReader reader) throws IOException {
-    this.logEntries = new ArrayList<>();
-    String line = reader.readLine();
-    while (line != null) {
+   List<LogEntry> logEntries;
+   public LogFile(BufferedReader reader) throws IOException {
+     this.logEntries = new ArrayList<>();
+     String line = reader.readLine();
+     while (line != null) {
       LogEntry logEntry = new LogEntry(line.strip());
       this.logEntries.add(logEntry);
       line = reader.readLine();
-    }
-  }
-  public LogEntry get(int index) {
-    return this.logEntries.get(index);
-  }
-  public int size() {
-    return this.logEntries.size();
-  }
-}
-public class Solution {
-  public static void main(String[] argv) throws IOException {
-    testLogFile();
-    testLogEntry();
-  }
-  public static void testLogFile() throws IOException {
-    System.out.println("Running testLogFile");
-    try (
+     }
+   }
+   public LogEntry get(int index) {
+     return this.logEntries.get(index);
+   }
+   public int size() {
+     return this.logEntries.size();
+   }
+ }
+ public class Solution {
+   public static void main(String[] argv) throws IOException {
+     testLogFile();
+     testLogEntry();
+   }
+   public static void testLogFile() throws IOException {
+     System.out.println("Running testLogFile");
+     try (
       BufferedReader reader = new BufferedReader(
         new FileReader("/content/test/tollbooth_small.log")
       );
-    ) {
+     ) {
       LogFile logFile = new LogFile(reader);
       assertEquals(13, logFile.size());
       for (LogEntry entry : logFile.logEntries) {
         assert (entry instanceof LogEntry);
       }
-    }
-  }
-  public static void testLogEntry() {
-    System.out.println("Running testLogEntry");
-    String logLine = "44776.619 KTB918 310E MAINROAD";
-    LogEntry logEntry = new LogEntry(logLine);
-    assertEquals(44776.619f, logEntry.getTimestamp(), 0.0001);
-    assertEquals("KTB918", logEntry.getLicensePlate());
-    assertEquals(310, logEntry.getLocation());
-    assertEquals("EAST", logEntry.getDirection());
-    assertEquals("MAINROAD", logEntry.getBoothType());
-    logLine = "52160.132 ABC123 400W ENTRY";
-    logEntry = new LogEntry(logLine);
-    assertEquals(52160.132f, logEntry.getTimestamp(), 0.0001);
-    assertEquals("ABC123", logEntry.getLicensePlate());
-    assertEquals(400, logEntry.getLocation());
-    assertEquals("WEST", logEntry.getDirection());
-    assertEquals("ENTRY", logEntry.getBoothType());
-  }
-}
- 
+     }
+   }
+   public static void testLogEntry() {
+     System.out.println("Running testLogEntry");
+     String logLine = "44776.619 KTB918 310E MAINROAD";
+     LogEntry logEntry = new LogEntry(logLine);
+     assertEquals(44776.619f, logEntry.getTimestamp(), 0.0001);
+     assertEquals("KTB918", logEntry.getLicensePlate());
+     assertEquals(310, logEntry.getLocation());
+     assertEquals("EAST", logEntry.getDirection());
+     assertEquals("MAINROAD", logEntry.getBoothType());
+     logLine = "52160.132 ABC123 400W ENTRY";
+     logEntry = new LogEntry(logLine);
+     assertEquals(52160.132f, logEntry.getTimestamp(), 0.0001);
+     assertEquals("ABC123", logEntry.getLicensePlate());
+     assertEquals(400, logEntry.getLocation());
+     assertEquals("WEST", logEntry.getDirection());
+     assertEquals("ENTRY", logEntry.getBoothType());
+   }
+ }
+
 1-2) The tests are not passing due to a bug in the code. Make the necessary changes to LogEntry to fix the bug.
- 
+
 The bug is that timestamp is stored as a String, but the tests treat it as a float (assertEquals(44776.619f, logEntry.getTimestamp(), ...)).
 So the test fails either due to type mismatch (won’t compile in real JUnit) or because the toString() uses %f which expects a numeric type, not a String.
- 
+
 Walkthrough
- 
+
 “The unit test expects getTimestamp() to return a numeric value because it compares it using floating point assert with a delta.”
 assertEquals(44776.619f, logEntry.getTimestamp(), 0.0001);
- 
- 
+
+
 In LogEntry, timestamp is declared as private final String timestamp; and assigned using tokens[0] directly. So we never parse it to a numeric type.”
 String.format("<LogEntry timestamp: %f ...>", timestamp, ...)
 %f expects a float/double → this is inconsistent with storing a String.
- 
- 
+
+
 Because timestamp isn’t numeric, the getter doesn’t match how the rest of the program and tests use it. It breaks comparisons, sorting, and formatted output.”
- 
+
 Fix is to store timestamp as double (or float) and parse it in the constructor. Then getTimestamp() should return the numeric type, and toString() will work correctly with %f.”
- 
+
 String[] tokens = logLine.split(" "); ----> String[] tokens = logLine.split("\\s+");
- 
+
 convert private final String timestamp; ---> private final float timestamp;
 convert this.timestamp = tokens[0]; -> this.timestamp = Double.parseDouble(tokens[0]);
 convert public String getTimestamp() { ---> public float getTimestamp() {
- 
- 
+
+
 “The tests are failing because timestamp is stored as a String in LogEntry, but the tests treat it as a numeric value and compare it using floating-point assert with a delta. Also toString() formats timestamp using %f, which expects a numeric type. The fix is to change timestamp to a double or float, parse it in the constructor using Double.parseDouble(tokens[0]), and return that numeric value from getTimestamp(). This aligns implementation with how hash-based comparisons and formatting are intended, and the tests pass.”
- 
- 
+
+
 2-1)  Write a function to count number of journeys.   
- 
+
 Logs are processed in timestamp order (or the file already is).
 A journey starts at ENTRY and ends at EXIT.
 MAINROAD entries don’t affect journey count.
 If an EXIT appears with no prior ENTRY for that plate+direction, we ignore it (incomplete journey).
 A car cannot be on two journeys at once on the same direction; we track “active” journeys.
- 
- 
+
+
 “I need to track which vehicles are currently on the highway—meaning they’ve entered but not yet exited. That’s a membership problem: is this vehicle currently active or not?”
- 
+
 When I see an ENTRY, I mark the vehicle as active.
 When I see an EXIT, I check if it was active.
- 
+
 If yes → I count one completed journey and remove it from active.
 If no → it’s an unmatched exit, so ignore or log it.
- 
+
 Why Set is perfect:
- 
+
 add, remove, contains are average O(1).
 We don’t need ordering or counts per vehicle — just “active or not”.
- 
+
 A vehicle is identified by license plate, and I also include direction because the same plate could appear on both sides or direction matters in logs.”
 "ABC123|EAST"
 “I’ll keep an integer journeys = 0 to count completed journeys, and a Set<String> active to store currently active vehicles.”
- 
- 
+
+
 journeys tracks the output.
 active tracks cars that are currently inside the highway.
- 
+
 “I scan logs one by one in time order. Each entry is either ENTRY, EXIT, or MAINROA
 For every entry:
- 
+
 Extract type = getBoothType()
 Build key = plate + "|" + direction
- 
+
 If it’s an ENTRY
- 
+
 “ENTRY means the car has started a journey. I add it to the active set.”
- 
- 
+
+
 active.add(key)
- 
+
 If entry duplicates happen, Set naturally avoids duplicates.
- 
+
 “Even if the same ENTRY appears twice, Set prevents duplicate state, and we still count only when it exits.”
- 
+
 “EXIT means the car is leaving the highway. I only count a journey if we had a matching active entry.”
- 
+
 So:
- 
+
 If active contains the key → remove it and increment journeys.
 If not found → ignore it as invalid/incomplete logs.
- 
+
 In code, I use:
- 
+
 if (active.remove(key)) journeys++;
- 
+
 Explain why this is nice:
- 
+
 “remove() returns true only if the key existed, so I can combine the check and removal in one operation.”
- 
+
 “Time is O(n) because I scan the log once. Space is O(a) where a is the number of cars currently active on the highway.”
- 
- 
+
+
 public int countJourneys() {
     Set<String> activeJourneys = new HashSet<>();
     int journeys = 0;
- 
+
     for (LogEntry entry : logEntries) {
       String key = entry.getLicensePlate() + "|" + entry.getDirection();
       String type = entry.getBoothType();
- 
+     
       if ("ENTRY".equals(type)) {
         // Start journey (or keep it active if already active)
         activeJourneys.add(key);
- 
+     
       } else if ("EXIT".equals(type)) {
         // Count only if there was a previous unmatched ENTRY
         if (activeJourneys.remove(key)) {
@@ -4535,83 +4535,83 @@ public int countJourneys() {
       }
       // MAINROAD does not affect journey boundaries
     }
- 
+     
     return journeys;
   }
- 
+
 3-1) We would like to catch people who are driving at unsafe speeds on the highway. To help us do that, we would like to identify journeys where a driver does either of the following:
 * Drive 130 km/h or greater in any individual 10km segment of tollway.
 * Drive 120 km/h or greater in any two 10km segments of tollway.
- 
+
 For example, consider the following journey:
 1000.000 TST002 270W ENTRY
 1275.000 TST002 260W EXIT
- 
+
 In this case, the driver of TST002 drove 10 km in 275 seconds. We can calculate
 that this driver drove an average speed of ~130.91km/hr over this segment:
- 
+
 10 km * 3600 sec/hr
 ------------------- = 130.91 km/hr
       275 sec
- 
+
 Note that:
 * A license plate may have multiple journeys in one file, and if they drive at unsafe speeds in both journeys, both should be counted.
 * We do not mark speeding if they are not on the highway (i.e. for any driving between an EXIT and ENTRY event).
 * Speeding is only marked once per journey. For example, if there are 4 segments 120km/h or greater, or multiple segments 130km/h or greater, the journey is only counted once.
- 
+
 q. Write a function catchSpeeders in LogFile that returns a collection of license plates that drove at unsafe speeds during a journey in the LogFile.
      If the same license plate drives at unsafe speeds during two different journeys, the license plate should appear twice (once for each journey they drove at unsafe speeds).
- 
+
 Maintain journey state :
- 
- 
+
+
 private static class JourneyState {
     LogEntry last;           // last log entry seen on-highway
     int segments120OrMore;   // count of 10km segments >= 120 km/h
     boolean flagged;         // whether speeding already detected for this journey
- 
+
     JourneyState(LogEntry start) {
       this.last = start;
       this.segments120OrMore = 0;
       this.flagged = false;
     }
   }
- 
- 
+
+
 public List<String> catchSpeeders() {
     Map<String, JourneyState> active = new HashMap<>();
     List<String> speeders = new ArrayList<>();
- 
+
     for (LogEntry e : logEntries) {
       String type = e.getBoothType();
       String key = e.getLicensePlate() + "|" + e.getDirection();
- 
+     
       if ("ENTRY".equals(type)) {
         // Start or restart a journey for this plate+direction
         active.put(key, new JourneyState(e));
         continue;
       }
- 
+     
       JourneyState state = active.get(key);
       if (state == null) {
         // Not on the highway (or missing ENTRY); ignore this record.
         continue;
       }
- 
+     
       // We are on-highway: compute segment stats from state.last -> e
       float dt = e.getTimestamp() - state.last.getTimestamp(); // seconds
       int distanceKm = Math.abs(e.getLocation() - state.last.getLocation());
- 
+     
       // Update last regardless; but only compute speeds if we have a valid segment
       state.last = e;
- 
+     
       if (dt <= 0 || distanceKm <= 0) {
         // Non-increasing time or no movement: ignore segment
       } else {
         int segments = distanceKm / 10; // number of 10km segments
         if (segments > 0) {
           float speedKmh = (distanceKm * 3600.0f) / dt;
- 
+     
           if (speedKmh >= 130.0f) {
             state.flagged = true;
           }
@@ -4623,7 +4623,7 @@ public List<String> catchSpeeders() {
           }
         }
       }
- 
+     
       if ("EXIT".equals(type)) {
         // Journey ends here; count at most once for this journey
         if (state.flagged) {
@@ -4632,10 +4632,10 @@ public List<String> catchSpeeders() {
         active.remove(key);
       }
     }
- 
+     
     return speeders;
   }
- 
+
 We are building a program to manage a gym's membership. The gym has multiple members, each with a unique ID, name, and membership status. The program allows gym staff to add new members, update members status, and get membership statistics.
 
 Definitions:
@@ -4676,25 +4676,25 @@ class Workout {
     private int id;
     private int startTime;
     private int endTime;
-
+    
     public Workout(int id, int startTime, int endTime) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
+    
     public int getId() {
         return id;
     }
-
+    
     public int getStartTime() {
         return startTime;
     }
-
+    
     public int getEndTime() {
         return endTime;
     }
-
+    
     public int getDuration() {
         return endTime - startTime;
     }
@@ -4725,7 +4725,7 @@ class Member {
         this.membershipStatus = membershipStatus;
         this.workout = workout;
     }
-
+    
     @Override
     public String toString() {
         return "Member ID: " + memberId + ", Name: " + name + ", Membership Status: " + membershipStatus;
@@ -4742,11 +4742,11 @@ class Membership {
     public Membership() {
         members = new ArrayList<>();
     }
-
+    
     public void addMember(Member member) {
         members.add(member);
     }
-
+    
     public void updateMembership(int memberId, MembershipStatus membershipStatus) {
         for (Member member : members) {
             if (member.memberId == memberId) {
@@ -4791,7 +4791,7 @@ class MembershipStatistics {
         this.conversionRate = conversionRate;
     }
 }
- 
+
 public class Solution {
     /*
         This is not a complete test suite, but tests some basic functionality of
@@ -4813,7 +4813,7 @@ public class Solution {
         assert testMember.membershipStatus == MembershipStatus.BRONZE : 
             "membership status should be BRONZE, was " + testMember.membershipStatus;
     }
-
+    
     public static void testMembership() {
         System.out.println("Running testMembership");
         Membership testMembership = new Membership();
@@ -4823,23 +4823,23 @@ public class Solution {
             "members size should be 1, was " + testMembership.members.size();
         assert testMembership.members.get(0).equals(testMember) : 
             "first member should equal testMember";
-
+    
         testMembership.updateMembership(1, MembershipStatus.SILVER);
         assert testMembership.members.get(0).membershipStatus == MembershipStatus.SILVER : 
             "membership status should be SILVER, was " + testMembership.members.get(0).membershipStatus;
-
+    
         Member testMember2 = new Member(2, "Alex C", MembershipStatus.BRONZE);
         testMembership.addMember(testMember2);
-
+    
         Member testMember3 = new Member(3, "Marie C", MembershipStatus.GOLD);
         testMembership.addMember(testMember3);
-
+    
         Member testMember4 = new Member(4, "Joe D", MembershipStatus.SILVER);
         testMembership.addMember(testMember4);
-
+    
         Member testMember5 = new Member(5, "June R", MembershipStatus.BRONZE);
         testMembership.addMember(testMember5);
-
+    
         MembershipStatistics attendanceStats = testMembership.getMembershipStatistics();
         assert attendanceStats.totalMembers == 5 : 
             "total members should be 5, was " + attendanceStats.totalMembers;
@@ -4853,16 +4853,16 @@ public class Solution {
         Membership testMembership = new Membership();
         Member testMember1 = new Member(12, "John Doe", MembershipStatus.SILVER);
         testMembership.addMember(testMember1);
-
+    
         Member testMember2 = new Member(22, "Alex Cleeve", MembershipStatus.BRONZE);
         testMembership.addMember(testMember2);
-
+    
         Member testMember3 = new Member(31, "Marie Cardiff", MembershipStatus.GOLD);
         testMembership.addMember(testMember3);
-
+    
         Member testMember4 = new Member(37, "George Costanza", MembershipStatus.SILVER);
         testMembership.addMember(testMember4);
-
+    
         Workout testWorkout1 = new Workout(11, 10, 20);
         Workout testWorkout2 = new Workout(24, 15, 35);
         Workout testWorkout3 = new Workout(32, 45, 90);
@@ -4871,7 +4871,7 @@ public class Solution {
         Workout testWorkout6 = new Workout(62, 300, 400);
         Workout testWorkout7 = new Workout(78, 1000, 1010);
         Workout testWorkout8 = new Workout(80, 1010, 1045);
-
+    
         testMembership.addWorkout(12, testWorkout1);
         testMembership.addWorkout(22, testWorkout2);
         testMembership.addWorkout(31, testWorkout3);
@@ -4880,7 +4880,7 @@ public class Solution {
         testMembership.addWorkout(31, testWorkout6);
         testMembership.addWorkout(12, testWorkout7);
         testMembership.addWorkout(4, testWorkout8);
-
+    
         Map<Integer, Double> averageDurations = testMembership.getAverageWorkoutDurations();
         assert Math.abs(averageDurations.get(12) - 25.0) < 0.1 : 
             "average duration for member 12 should be 25.0, was " + averageDurations.get(12);
@@ -4891,7 +4891,7 @@ public class Solution {
         assertFalse(averageDurations.containsKey(4));
     }
 }
- 
+
 Answer : update 
 public void updateMembership(int memberId, MembershipStatus membershipStatus) {
         for (Member member : members) {
@@ -4901,7 +4901,7 @@ public void updateMembership(int memberId, MembershipStatus membershipStatus) {
             }
         }
 to
- 
+
 public void updateMembership(int memberId, MembershipStatus membershipStatus) {
         for (Member member : members) {
             if (member.memberId == memberId) {
@@ -4909,8 +4909,8 @@ public void updateMembership(int memberId, MembershipStatus membershipStatus) {
                 return;
             }
         }
- 
- 
+
+
 /**
      * 2.1) Add a workout for a member. If member doesn't exist, ignore.
      */
@@ -4923,25 +4923,25 @@ public void updateMembership(int memberId, MembershipStatus membershipStatus) {
         }
         // ✅ ignore if member not found
     }
- 
+
     /**
      * 2.2) Return average workout durations (minutes) per member.
      * Only members with at least 1 workout are included (common interpretation).
      */
     public Map<Integer, Double> getAverageWorkoutDurations() {
         Map<Integer, Double> avg = new HashMap<>();
- 
+     
         for (Member member : members) {
             if (member.workouts.isEmpty()) continue; // choose to omit members with no workouts
- 
+     
             int total = 0;
             for (Workout w : member.workouts) total += w.getDuration();
- 
+     
             avg.put(member.memberId, total / (double) member.workouts.size());
         }
         return avg;
     }
- 
+
  An LRU Cache (Least Recently Used Cache) is a data structure that stores a limited number of items and automatically removes the item that has not been used for the longest time when the cache is full.
 
 It’s commonly used to improve performance by keeping frequently accessed data quickly available.
@@ -5072,13 +5072,13 @@ class LRUCache:
         
         self.cache.move_to_end(key)
         return self.cache[key]
-
+    
     def put(self, key, value):
         if key in self.cache:
             self.cache.move_to_end(key)
-
+    
         self.cache[key] = value
-
+    
         if len(self.cache) > self.capacity:
             self.cache.popitem(last=False)
 

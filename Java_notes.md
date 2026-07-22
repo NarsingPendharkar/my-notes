@@ -6537,27 +6537,13 @@ public class ComparatorLambdaExample {
 ```
 ---
 
-##### 📌 When would you use a Queue data structure in Java, and what are its advantages over other data structures?
 
-A Queue data structure is used to store elements in a FIFO (First In, First Out) order. It is useful when you need to process elements in the order in which they were added, such as in a message queue.
-
-##### 📌 What is a Stack data structure, and how is it implemented in Java?
-
-A Stack data structure is used to store elements in a LIFO (Last In, First Out) order. It is useful when you need to keep track of the order in which elements were added, such as in a history list.
-
-##### 📌 How do you create Custom Exceptions in Java, and when would you use them in your code?
-
-In Java, you can create custom exceptions by extending the Exception class or one of its subclasses. When creating a custom exception, you should provide a descriptive name and an appropriate constructor that takes a message describing the exception. You can also add additional fields and methods as needed to provide more context about the exception. Custom exceptions are typically used when there is a specific error condition that occurs frequently in your application and that cannot be adequately described by the built-in exception classes. By creating a custom exception, you can provide more detailed information about the error condition and make it easier for developers to understand and handle the exception.
-
-
-
----
 
 ### 📌**Core Concepts & Design Principles**
 
 ---
 
-##### 📌 **1. Object Equality: `equals()` and `hashCode()`**
+#### 📌 **1. Object Equality: `equals()` and `hashCode()`**
 
 #####  🔹 **A. The `equals()` Method**
 
@@ -6596,7 +6582,7 @@ To locate an object, Java follows a two-step process:
 
 ------
 
-##### 📌 **2. Java Language Features: Effectively Final**
+#### 📌 **2. Java Language Features: Effectively Final**
 
 **Definition**
 
@@ -6838,7 +6824,7 @@ class Notification {
 
 ---
 
-##### 📌 LRU Cache Implementation in Java
+### 📌 LRU Cache Implementation in Java
 
 **LRU (Least Recently Used) Cache** is a caching mechanism that removes the **least recently accessed item** when the cache reaches its capacity.
 
@@ -6957,7 +6943,7 @@ class LRUCache<K, V> extends LinkedHashMap<K, V> {
 
 ------
 
-🔍 How LinkedHashMap Helps
+**🔍 How LinkedHashMap Helps**
 
 - Maintains **insertion/access order**
 
@@ -6971,7 +6957,7 @@ class LRUCache<K, V> extends LinkedHashMap<K, V> {
 
 ------
 
-🆚 Custom vs LinkedHashMap
+**🆚 Custom vs LinkedHashMap**
 
 | Feature       | Custom (HashMap + DLL) | LinkedHashMap |
 | ------------- | ---------------------- | ------------- |
@@ -6980,86 +6966,9 @@ class LRUCache<K, V> extends LinkedHashMap<K, V> {
 | Interview Use | Preferred              | Good shortcut |
 | Code Length   | Large                  | Small ✅       |
 
-
-
-------
-
-##### 📊 Java Versions vs Features 
-
-| ☕ Java Version         | 📅 Release Year | 🚀 Key Features                                               |
-| ---------------------- | -------------- | ------------------------------------------------------------ |
-| **Java 5**             | 2004           | Generics, Enhanced for-loop, Autoboxing/Unboxing, Enums, Varargs |
-| **Java 6**             | 2006           | Performance improvements, JDBC 4.0, Scripting support        |
-| **Java 7**             | 2011           | Try-with-resources, Diamond operator (`<>`), Multi-catch, NIO.2 (File API) |
-| **Java 8** ⭐           | 2014           | Lambda Expressions, Functional Interfaces, Streams API, Default & Static methods, Date-Time API |
-| **Java 9**             | 2017           | Module System (JPMS), JShell, Private methods in interfaces  |
-| **Java 10**            | 2018           | `var` (Local variable type inference)                        |
-| **Java 11 (LTS)** ⭐    | 2018           | HTTP Client API, String methods (`isBlank()`, `lines()`), `var` in lambda |
-| **Java 12**            | 2019           | Switch expressions (Preview), JVM improvements               |
-| **Java 13**            | 2019           | Text Blocks (Preview), Switch improvements                   |
-| **Java 14**            | 2020           | Switch expressions (Standard), Records (Preview), Helpful NullPointerExceptions |
-| **Java 15**            | 2020           | Text Blocks (Standard), Sealed Classes (Preview)             |
-| **Java 16**            | 2021           | Records (Standard), Pattern Matching for `instanceof`        |
-| **Java 17 (LTS)** ⭐    | 2021           | Sealed Classes, Pattern Matching improvements, Strong encapsulation |
-| **Java 18**            | 2022           | Simple Web Server, UTF-8 by default                          |
-| **Java 19**            | 2022           | Virtual Threads (Preview), Structured Concurrency (Incubator) |
-| **Java 20**            | 2023           | Virtual Threads (2nd Preview), Pattern Matching enhancements |
-| **Java 21 (LTS)** ⭐    | 2023           | Virtual Threads (Stable), Record Patterns, Pattern Matching for switch |
-| **Java 22**            | 2024           | Foreign Function & Memory API (Preview), Unnamed variables   |
-| **Java 23**            | 2024           | String Templates (Preview), Scoped values                    |
-| **Java 24** *(Latest)* | 2025           | Performance improvements, ongoing preview feature stabilization |
-
-**🚀 Java Evolution Timeline **
-
-```mermaid
-timeline
-    title ☕ Java Version Evolution (Quick Revision)
-
-    2004 : Java 5
-         : Generics, Autoboxing, Enums
-
-    2006 : Java 6
-         : Performance Improvements, JDBC 4.0
-
-    2011 : Java 7
-         : Try-with-resources, Diamond Operator, NIO.2
-
-    2014 : Java 8 ⭐
-         : Lambda, Streams API, Functional Programming
-
-    2017 : Java 9
-         : Module System (JPMS), JShell
-
-    2018 : Java 10
-         : var (Type Inference)
-
-    2018 : Java 11 ⭐ (LTS)
-         : HTTP Client, String APIs
-
-    2019 : Java 12–13
-         : Switch Expressions, Text Blocks (Preview)
-
-    2020 : Java 14–15
-         : Records (Preview), Text Blocks
-
-    2021 : Java 16–17 ⭐ (LTS)
-         : Records, Sealed Classes
-
-    2022 : Java 18–19
-         : Simple Web Server, Virtual Threads (Preview)
-
-    2023 : Java 20–21 ⭐ (LTS)
-         : Virtual Threads (Stable), Pattern Matching
-
-    2024+ : Java 22–24
-          : Foreign Memory API, String Templates, Performance
-```
-
-----
+---
 
 ## Features of Java 11
-
-**Major Features of Java 11**
 
 | **Feature**              | **Category** | **Primary Benefit**                             |
 | ------------------------ | ------------ | ----------------------------------------------- |
@@ -7327,18 +7236,6 @@ These enhancements reflect Java's ongoing commitment to improving developer expe
   - **Performance tuning**
   - **Production debugging**
 
-----
-
-These notes encapsulate the key features and enhancements introduced in Java 11, emphasizing improvements in APIs, language functionalities, and performance optimizations.
-
-| Java 8                  | Java 11                 |
-| ----------------------- | ----------------------- |
-| Basic String methods    | Advanced String methods |
-| No built-in HTTP client | Built-in HTTP client    |
-| Manual compile/run      | Direct execution        |
-| Older file handling     | readString/writeString  |
-| No `Optional.isEmpty()` | Available               |
-
 ---
 
 ## Features of Java 17
@@ -7601,15 +7498,15 @@ System.out.println(e.name());
 
 - **Objective**: Blocks unauthorized access to internal APIs.
 
-Before Java 17
+**Before Java 17**
 
 - Developers could access internal APIs without restrictions.
 
-Java 17 Restriction
+**Java 17 Restriction**
 
 - Enforces limitations on internal API usage.
 
-Benefits
+**Benefits**
 
 - **Better security**: Protects against unauthorized access.
 - **Cleaner architecture**: Improves overall system integrity.
@@ -7620,7 +7517,7 @@ Benefits
 
 - **Purpose**: Allows Java to interact with native code without the complexity of **JNI** (Java Native Interface).
 
-Use Cases
+**Use Cases**
 
 - **Native libraries**: Facilitates the use of libraries written in other languages.
 - **Performance-heavy applications**: Improves performance by leveraging native capabilities.
@@ -7742,232 +7639,176 @@ public class VirtualThreadExample {
 }
 ```
 
-------
+**Use Case:** Microservices, APIs, database calls, I/O-intensive applications. 
 
-**Benefits**
+**Q: Why are Virtual Threads important?**
 
-- Handles millions of tasks
-- Low memory usage
-- Better for I/O tasks
-- Simplifies concurrency
+**Answer:**  
+Traditional threads are mapped 1:1 to OS threads and are expensive. Virtual threads are JVM-managed lightweight threads, allowing millions of concurrent tasks with minimal memory consumption. They simplify scalable I/O-bound applications without requiring reactive programming frameworks. 
 
-------
-
-### Flow
-
-```mermaid
-flowchart LR
-Task --> VirtualThread --> CarrierThread --> CPU
-```
-
-------
+***
 
 #### 2. Pattern Matching for Switch (Final)
 
-Java 17 → Preview
-Java 21 → Final
+No need for multiple `instanceof` checks.
+
+##### Before
 
 ```java
-Object obj = "Java";
+if (obj instanceof String) {
+    System.out.println(((String) obj).toUpperCase());
+} else if (obj instanceof Integer) {
+    System.out.println(obj);
+}
+```
+
+##### Java 21
+
+```java
+Object obj = "Hello";
 
 switch (obj) {
-    case String s -> System.out.println("String: " + s);
-    case Integer i -> System.out.println("Integer: " + i);
+    case String s -> System.out.println(s.toUpperCase());
+    case Integer i -> System.out.println(i * 2);
     default -> System.out.println("Unknown");
 }
 ```
 
-------
+More readable and type-safe. [\[baeldung.com\]](https://www.baeldung.com/java-lts-21-new-features), [\[versionlog.com\]](https://versionlog.com/java/21/)
 
-#### 3. Record Patterns
+***
 
-Extract values from records easily.
+#### 3. Record Patterns (Final)
+
+Allows extracting values from records directly.
+
+##### Record
 
 ```java
-record Person(String name, int age) {}
+record Employee(String name, int age) {}
+```
 
-Person p = new Person("John", 25);
+##### Java 21
 
-if (p instanceof Person(String name, int age)) {
+```java
+Employee emp = new Employee("Narsing", 35);
+
+if (emp instanceof Employee(String name, int age)) {
     System.out.println(name);
+    System.out.println(age);
 }
 ```
 
-------
+No need to write:
 
-**Benefit**
+```java
+emp.name();
+emp.age();
+```
 
-Cleaner destructuring.
+repeatedly. [\[baeldung.com\]](https://www.baeldung.com/java-lts-21-new-features), [\[geeksforgeeks.org\]](https://www.geeksforgeeks.org/java/java-jdk-21-new-features-of-java-21/)
 
-------
+***
 
 #### 4. Sequenced Collections
 
-New interfaces for ordered collections.
-
-- `SequencedCollection`
-- `SequencedSet`
-- `SequencedMap`
-
-Example:
+Adds support for accessing first and last elements consistently.
 
 ```java
-LinkedHashSet<String> set = new LinkedHashSet<>();
+SequencedCollection<String> names = new LinkedList<>();
 
-set.add("A");
-set.add("B");
+names.add("A");
+names.add("B");
+names.add("C");
 
-System.out.println(set.getFirst());
-System.out.println(set.getLast());
+System.out.println(names.getFirst());
+System.out.println(names.getLast());
 ```
 
-------
+Useful when working with ordered collections. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[versionlog.com\]](https://versionlog.com/java/21/)
 
-#### 5. String Templates (Preview)
+***
 
-Easier string formatting.
+#### 5. Unnamed Classes and Instance Main Method (Preview)
 
-Before:
+Good for beginners and simple programs.
 
-```java
-String name = "Java";
-String s = "Hello " + name;
-```
-
-Java 21:
+##### Before
 
 ```java
-String name = "Java";
-
-String s = STR."Hello \{name}";
-```
-
-------
-
-#### 6. Scoped Values (Preview)
-
-Safer alternative to ThreadLocal.
-
-Before:
-
-```java
-ThreadLocal<String> user = new ThreadLocal<>();
-```
-
-Java 21:
-
-```java
-ScopedValue<String> user = ScopedValue.newInstance();
-```
-
-------
-
-**Benefits**
-
-- Better readability
-- Better performance
-- Safer with virtual threads
-
-------
-
-#### 7. Structured Concurrency (Preview)
-
-Manage multiple concurrent tasks as one unit.
-
-```java
-try(var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello Java");
+    }
 }
 ```
 
-### Benefit
-
-Improves concurrent task management.
-
-------
-
-### Flow
-
-```mermaid
-flowchart TD
-ParentTask --> ChildTask1
-ParentTask --> ChildTask2
-ParentTask --> ChildTask3
-```
-
-------
-
-#### 8. Foreign Function & Memory API (Final)
-
-Interact with native code without JNI complexity.
-
-Used for:
-
-- C libraries
-- Native memory access
-
-------
-
-#### 9. Unnamed Variables and Patterns (Preview)
-
-Use `_` when variable is not needed.
+##### Java 21
 
 ```java
-if(obj instanceof String _) {
-    System.out.println("String found");
+void main() {
+    System.out.println("Hello Java 21");
 }
 ```
 
-------
+Much less boilerplate. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/)
 
-| Java 17                  | Java 21                |
-| ------------------------ | ---------------------- |
-| Records                  | Record patterns        |
-| Sealed classes           | Virtual threads        |
-| Text blocks              | Structured concurrency |
-| Pattern matching preview | Finalized              |
-| Basic collections        | Sequenced collections  |
+***
 
-### Using `instanceof` before Type Casting
+#### 6. String Templates (Preview)
 
-#### Problem without `instanceof`
+Safer and cleaner string interpolation.
 
 ```java
-Object obj = "Java";
+String name = "Narsing";
 
-Integer num = (Integer) obj;
+String message = STR."Hello \{name}";
 ```
 
 Output:
 
-```java
-ClassCastException
+```text
+Hello Narsing
 ```
 
-------
+Similar to JavaScript template literals. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/), [\[geeksforgeeks.org\]](https://www.geeksforgeeks.org/java/java-jdk-21-new-features-of-java-21/)
 
-#### Safe way
+***
+
+#### 7. Structured Concurrency (Preview)
+
+Helps manage multiple related tasks as a single unit.
 
 ```java
-Object obj = "Java";
+try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
 
-if(obj instanceof String){
-    String s = (String) obj;
-    System.out.println(s);
+    Future<String> user =
+            scope.fork(() -> getUser());
+
+    Future<String> orders =
+            scope.fork(() -> getOrders());
+
+    scope.join();
+    scope.throwIfFailed();
+
+    System.out.println(user.resultNow());
+    System.out.println(orders.resultNow());
 }
 ```
 
-### Flow
+Useful for microservices calling multiple downstream services concurrently. [\[howtodoinjava.com\]](https://howtodoinjava.com/java/java-21-new-features/)
 
-```mermaid
-flowchart LR
-A[Object] --> B{instanceof check}
-B -->|true| C[Type Casting]
-B -->|false| D[Avoid Exception]
-```
+***
 
+#### 8. Generational ZGC
 
+Improves garbage collection performance and memory management for large applications. Particularly useful for low-latency systems and high-throughput enterprise applications.
 
-### Generics
+***
+
+---
+
+# Generics
 
 ------
 
