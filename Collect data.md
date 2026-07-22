@@ -1,5 +1,5 @@
-# Java 11 Features 
 
+<<<<<<< HEAD
 **Java 11** was released in **September 2018** and is an **LTS (Long-Term Support)** version. Many enterprise applications still run on Java 11 because of its stability, long support cycle, and important productivity enhancements. Java 11 introduced features that simplify coding, improve HTTP communication, enhance string handling, and improve JVM performance.
 
 ### 1. Local Variable Syntax for Lambda Parameters
@@ -907,6 +907,8 @@ Useful for microservices calling multiple downstream services concurrently.
 Improves garbage collection performance and memory management for large applications. Particularly useful for low-latency systems and high-throughput enterprise applications.
 
 ***
+=======
+>>>>>>> 85f7f2df062c1da896c87be0d668988aad33a809
 
 
 
