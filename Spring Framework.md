@@ -6,7 +6,7 @@
 
 # Spring
 
-### **What are the key features of the Spring Framework?**
+### 📌 What are the key features of the Spring Framework?
 
 **Defination:** Spring framework is a light weight, loosely coupled, integrated, open-source framework for development of enterprise application in java.
 
@@ -18,7 +18,7 @@
 
 ---
 
-### **What is IOC container?** 
+### 📌 **What is IOC container?** 
 
 * Inversion of Control (IOC) is the design principle where the control of object creation, configuration and management is transferred from programmer to spring framework.
 * IOC container is a core part of spring framework which is used to manage the application beans
@@ -27,7 +27,7 @@
 
 ---
 
-### **How IoC Works in Spring**
+### 📌 **How IoC Works in Spring**
 
 1. The developer defines application components (beans) using annotations or configuration.
 
@@ -43,7 +43,7 @@
 
 ---
 
-### Types of IOC container
+### 📌 Types of IOC container
 
 1.  **Bean Factory**: is a basic container. Its depreciated now.
 
@@ -64,7 +64,7 @@ ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
 
 ---
 
-### **Explain Dependency Injection (DI) in Spring.**
+### 📌 **Explain Dependency Injection (DI) in Spring.**
 
 Dependency Injection is a design pattern where the dependencies of a class are injected by the Spring container rather than being instantiated manually.
 
@@ -72,9 +72,7 @@ Dependency Injection is a design pattern where the dependencies of a class are i
 
 **Without DI :**
 
-> [!NOTE]
->
-> without DI Here is dependency between employee and address because employee forced to use same add object
+without DI Here is dependency between employee and address because employee forced to use same add object
 
 ```java
 public  class  Employee {
@@ -87,10 +85,7 @@ public  class  Employee {
 
 **With DI :**
 
-> [!NOTE]
->
-> there is no dependency between employee and address because employee is not forced to use same address
->
+there is no dependency between employee and address because employee is not forced to use same address
 
 ```java
 public class Employee {
@@ -108,7 +103,7 @@ public class Employee {
 
 ---
 
-### **Ways of DI:**
+### 📌 **Ways of Dependency Injection:**
 
 1. **DI by using Constructor:** we can inject value by constructor <constructor-args> sub element of bean.
 2. **DI by using Setter Method :** we can use setter method for DI by using <property> sub element of bean.
@@ -134,7 +129,7 @@ public class Employee {
 </bean>
 ```
 
-##### 1️⃣ Constructor Injection (Recommended ✅) using constructor
+#### 📌 1️⃣ Constructor Injection (Recommended ✅) using constructor
 
 **Example**
 
@@ -160,7 +155,7 @@ public class OrderService {
 
 ------
 
-##### 2️⃣ Setter Injection using setter method
+#### 📌 2️⃣ Setter Injection using setter method
 
 **Example**
 
@@ -193,7 +188,7 @@ public class OrderService {
 
 ------
 
-##### 3️⃣ Field Injection (Not Recommended ❌) using  @Autowired annotation
+#### 📌3️⃣ Field Injection (Not Recommended ❌) using  @Autowired annotation
 
 **Example**
 
@@ -217,13 +212,13 @@ public class OrderService {
 
 ---
 
-#### What is @Autowired?
+### 📌# What is @Autowired?
 
 `@Autowired` is used to inject dependency automatically by Spring IoC container.
 
 ------
 
-#### Which is better and why?
+### 📌# Which is better and why?
 
 **Constructor Injection** is better.
 
@@ -238,7 +233,7 @@ public class OrderService {
 
 ---
 
-#### Spring DI Annotations 
+### 📌# Spring DI Annotations 
 
 | Annotation   | Definition / Introduction                                    | Injection Type      | When to Use                                                  | Example Usage                                      | Interview Important Points                                   |
 | ------------ | ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------ |
@@ -253,7 +248,7 @@ public class OrderService {
 
 A **Spring Bean** is an object created, managed, and destroyed by the Spring Container (IoC Container).
 
-##### **Bean Life Cycle**
+### 📌## **Bean Life Cycle**
 
 1. Bean is created
 2. Dependency is injected
@@ -261,7 +256,7 @@ A **Spring Bean** is an object created, managed, and destroyed by the Spring Con
 4. Bean used
 5. Bean destroyed
 
-##### Main Phases of Bean Life Cycle
+### 📌## Main Phases of Bean Life Cycle
 
 ```mermaid
 flowchart LR
@@ -273,7 +268,7 @@ flowchart LR
 
 ---
 
-#### 1️⃣ Bean Creation
+### 📌# 1️⃣ Bean Creation
 
 Spring creates the bean object using the constructor.
 
@@ -291,7 +286,7 @@ public class Student {
 
 ---
 
-#### 2️⃣ Dependency Injection
+### 📌# 2️⃣ Dependency Injection
 
 Spring injects required dependencies.
 
@@ -311,7 +306,7 @@ public class StudentService {
 
 ---
 
-#### 3️⃣ Initialization
+### 📌# 3️⃣ Initialization
 
 Spring performs initialization tasks.
 
@@ -326,7 +321,7 @@ public void init() {
 
 ---
 
-#### 4️⃣ Bean Ready For Use
+### 📌# 4️⃣ Bean Ready For Use
 
 Application starts using the bean.
 
@@ -338,7 +333,7 @@ studentService.saveStudent();
 
 ---
 
-#### 5️⃣ Bean Destruction
+### 📌# 5️⃣ Bean Destruction
 
 When application shuts down, Spring destroys the bean.
 
@@ -377,13 +372,13 @@ public class Student {
 
 ---
 
-### 📌 Spring - Bean Scopes🌱
+### 📌 📌 Spring - Bean Scopes🌱
 
 **Bean Scope** defines how many bean objects Spring creates and how long they live.
 
 ---
 
-##### Bean Scopes Overview
+### 📌## Bean Scopes Overview
 
 | Scope       | Objects Created               | Lifecycle              |
 | ----------- | ----------------------------- | ---------------------- |
@@ -395,7 +390,7 @@ public class Student {
 
 ---
 
-#### 1️⃣ Singleton Scope (Default)
+### 📌# 1️⃣ Singleton Scope (Default)
 
 Only **one bean object** is created.
 
@@ -425,7 +420,7 @@ true
 
 ---
 
-#### 2️⃣ Prototype Scope
+### 📌# 2️⃣ Prototype Scope
 
 Spring creates a **new object every time** the bean is requested.
 
@@ -455,7 +450,7 @@ false
 
 ---
 
-#### 3️⃣ Request Scope
+### 📌# 3️⃣ Request Scope
 
 One bean instance per HTTP request.
 
@@ -479,7 +474,7 @@ public class UserRequestBean {
 
 ---
 
-#### 4️⃣ Session Scope
+### 📌# 4️⃣ Session Scope
 
 One bean instance per user session.
 
@@ -494,7 +489,7 @@ public class UserSessionBean {
 
 ---
 
-#### 5️⃣ Application Scope
+### 📌# 5️⃣ Application Scope
 
 One bean shared across the entire web application.
 
@@ -509,7 +504,7 @@ public class AppConfigBean {
 
 ---
 
-##### Visual Representation
+### 📌## Visual Representation
 
 ```mermaid
 flowchart TD
@@ -522,13 +517,13 @@ flowchart TD
     A --> F[Application Scope<br>Per Application]
 ```
 
-### 📌 Which Bean Scope is Default?
+### 📌 📌 Which Bean Scope is Default?
 
 By default @Scope("singleton") is applied automatically.
 
 ---
 
-### 📌 **What are different ways to configure a Spring Bean?**
+### 📌 📌 **What are different ways to configure a Spring Bean?**
 
 1. **XML Configuration (beans.xml)**
 
@@ -674,7 +669,7 @@ public class PersonAnnotationBasedConfig {
 
 ---
 
-### **Steps to Create a Spring Core Application**
+### 📌 **Steps to Create a Spring Core Application**
 
 1. Create a Maven Application
 
@@ -762,7 +757,7 @@ public class MainApplicationToRun
 }
 ```
 
-### 📌 **What is the difference between @Component, @Service, and @Repository?**
+### 📌 📌 **What is the difference between @Component, @Service, and @Repository?**
 
 | **Annotation** | **Purpose** |
 | --- | --- |
@@ -770,7 +765,7 @@ public class MainApplicationToRun
 | @Service       | Specifically for business logic/service layer              |
 | @Repository    | Used in the DAO layer and integrates exception translation |
 
-###  📌**What is the difference between `@Bean` and `@Component`?**
+### 📌  📌**What is the difference between `@Bean` and `@Component`?**
 
 |  |  |  |
 | --- | --- | --- |
@@ -800,7 +795,7 @@ class AppConfig {
 
 
 
-### 📌**What is Spring MVC and its features.**
+### 📌 📌**What is Spring MVC and its features.**
 
 * Spring MVC is the sub framework of spring which is used for the development of web applications.
 * Spring MVC follows the MVC pattern which separates the application in three parts i.e Model , View and Controller
@@ -854,7 +849,7 @@ flowchart LR
 
 ```
 
-### 📌**Explain the flow of a Spring MVC application.**
+### 📌 📌**Explain the flow of a Spring MVC application.**
 
 1. **Client Request** → client Sent request to the Dispatcher Servlet
 2. **DispatcherServlet** → receive request from client and request to the appropriate Controller
@@ -866,7 +861,7 @@ flowchart LR
 
 ---
 
-### 📌**Explain Dispatcher Servlet in Spring MVC.**
+### 📌 📌**Explain Dispatcher Servlet in Spring MVC.**
 
 * Dispatcher servlet serve as Front Controller who manage all the request and sent it to respective controller.
 * Dispatcher Servlet is a class which receive all incoming request from client and maps it to appropriate controller, model, and view.
@@ -898,7 +893,7 @@ flowchart LR
 
 ---
 
-### 📌**Explain InternalViewResolver in Spring MVC.**
+### 📌 📌**Explain InternalViewResolver in Spring MVC.**
 
 * It is a class which is used to resolve the internal view in Spring MVC.
 * We can define the properties like prefix and suffix where prefix contains location of view and suffix contains extension of view page.
@@ -918,7 +913,7 @@ flowchart LR
 </bean>
 ```
 
-### 📌Explain Model, ModelMap and ModelAndView in Spring MVC.
+### 📌 📌Explain Model, ModelMap and ModelAndView in Spring MVC.
 
 1. **Model** : it is used to pass information from controller to view using model object.
 
@@ -956,7 +951,7 @@ public ModelAndView showWelcomePage() {
 
 ---
 
-### 📌What are @RequestMapping and its variants?
+### 📌 📌What are @RequestMapping and its variants?
 
 * `@RequestMapping("/path")` → General mapping
 * `@GetMapping("/path")` → Maps HTTP GET request
@@ -966,7 +961,7 @@ public ModelAndView showWelcomePage() {
 
 ---
 
-### 📌What is @ModelAttribute in Spring MVC?
+### 📌 📌What is @ModelAttribute in Spring MVC?
 
 It binds form data to a model object.
 
@@ -1008,7 +1003,7 @@ public String saveTask(@ModelAttribute Tasks tasks, BindingResult bindingResult,
 
 These annotations are primarily used for dependency injection (DI) and component scanning in Spring.
 
-### **@Component** 
+### 📌 **@Component** 
 
 **Definition** : is a generic stereotype annotation that marks a class as a Spring-managed component.
 **Example**:
@@ -1029,7 +1024,7 @@ public class MyComponent {
 
 ---
 
-### **@Service**
+### 📌 **@Service**
 
 **Definition** :  Specialized version of **@Component**, used to mark a service layer class which contains business.
 
@@ -1046,7 +1041,7 @@ public class UserService {
 
 ---
 
-### **@Repository**
+### 📌 **@Repository**
 
 Used to indicate that a class is responsible for data access logic (DAO layer) and interaction with database.
 
@@ -1072,7 +1067,7 @@ public class UserRepository {
 
 ---
 
-### **@Autowired**
+### 📌 **@Autowired**
 
 **Defination :**  Automatically injects dependencies where required.
 
@@ -1086,7 +1081,7 @@ private TaskRepository taskRepository;
 
 ---
 
-### **@Qualifier**
+### 📌 **@Qualifier**
 
 **Definition:** Used along with **@Autowired** to resolve ambiguity when multiple beans of the same type exist. It tells Spring exactly which bean to inject.
 
@@ -1114,7 +1109,7 @@ public class MyService {
 ```
 ---
 
-### **@Value**
+### 📌 **@Value**
 
 **Defination** :  Injects values from properties files into Spring beans or assign default value to methods.
 
@@ -1127,7 +1122,7 @@ private String appName;
 
 ---
 
-### **@Scope**
+### 📌 **@Scope**
 
 **Defination** :  Defines the scope of a Spring bean (singleton, prototype, request, etc.).
 
@@ -1139,7 +1134,7 @@ public class PrototypeBean {}
 
 ---
 
-###  **@Lazy**
+### 📌  **@Lazy**
 
 By default, Spring creates all singleton beans at startup (Eager initialization means loaded when application starts) .
 
@@ -1149,7 +1144,7 @@ By default, Spring creates all singleton beans at startup (Eager initialization 
 
 ---
 
-#### 🔹 Example 1 – Lazy Bean
+### 📌# 🔹 Example 1 – Lazy Bean
 
 ```java
 @Component
@@ -1166,7 +1161,7 @@ Now this bean will be created only when required.
 
 ------
 
-#### 🔹 Example 2 – Lazy Injection
+### 📌# 🔹 Example 2 – Lazy Injection
 
 ```java
 @Service
@@ -1184,7 +1179,7 @@ Here, `PaymentService` will be created only when used.
 
 ------
 
-#### ✅ Why Use `@Lazy`?
+### 📌# ✅ Why Use `@Lazy`?
 
 1. Improves startup time
 2. Avoids unnecessary bean creation
@@ -1192,7 +1187,7 @@ Here, `PaymentService` will be created only when used.
 
 ---
 
-#### 🎯 Difference Between `@Primary` and `@Qualifier`
+### 📌# 🎯 Difference Between `@Primary` and `@Qualifier`
 
 | Feature     | @Primary       | @Qualifier              |
 | ----------- | -------------- | ----------------------- |
@@ -1203,7 +1198,7 @@ Here, `PaymentService` will be created only when used.
 
 ---
 
-### **@Controller**
+### 📌 **@Controller**
 
 * **Defination :**  Marks a class as a Spring MVC controller to handle HTTP requests.
 
@@ -1215,7 +1210,7 @@ Example :
 public class TaskController {}
 ```
 
-### **@RestController**
+### 📌 **@RestController**
 
 * **Defination :**  A combination of **@Controller** and **@ResponseBody**, used for RESTful APIs.
 
@@ -1237,7 +1232,7 @@ public class ApiController {
 }
 ```
 
-### **@RequestMapping**
+### 📌 **@RequestMapping**
 
 * **Defination** :  Maps HTTP requests to controller methods.
 
@@ -1260,7 +1255,7 @@ public class UserController {
 }
 ```
 
-### **@GetMapping, @PostMapping, @PutMapping, @DeleteMapping**
+### 📌 **@GetMapping, @PostMapping, @PutMapping, @DeleteMapping**
 
 * **Defination :**  Shortcut annotations for specific HTTP methods.
 
@@ -1275,7 +1270,7 @@ return "Dashboard";
 }
 ```
 
-### **@PathVariable**
+### 📌 **@PathVariable**
 
 * **Defination** :  Extracts values from the URL path.
 * `URL : localhost,8080/deleteTask/2`
@@ -1297,7 +1292,7 @@ public String deleteTask(@PathVariable("id") int taskId, Model model) throws SQL
 
 ---
 
-### **@RequestParam**
+### 📌 **@RequestParam**
 
 * Defination :  Extracts query parameters from the URL*.*
 * *URL* : `localhost,8080/search?keyword=”google”`
@@ -1315,7 +1310,7 @@ return "Searching for, "  keyword;
 
 ```
 
-### **@ModelAttribute**
+### 📌 **@ModelAttribute**
 
 * **Defination** :  Binds from data into java object.
 
@@ -1333,7 +1328,7 @@ return "success";
 }
 ```
 
-### **@ExceptionHandler : @ControllerAdvice**
+### 📌 **@ExceptionHandler : @ControllerAdvice**
 
 * **Defination :**  This annotation used to handle the specific exceptions and sending custom message and controller advice annotation is used to handle exceptions globally
 
@@ -1358,7 +1353,7 @@ return "Login";
 
 ---
 
-### **@PostConstruct **
+### 📌 **@PostConstruct **
 
 - Used in **Spring Boot** for method execution after dependency injection.
 - Method annotated with **@PostConstruct** runs once the bean properties have been set.
@@ -1389,7 +1384,7 @@ public class DbInit {
 
 ----
 
-### **@*PreDestroy* **
+### 📌 **@*PreDestroy* **
 
 - Used to define cleanup operations before a bean is removed from the context.
 - Method annotated with **@PreDestroy** is called just before the bean is destroyed.
@@ -1422,7 +1417,7 @@ The purpose of this method should be to release resources or perform other clean
 
 ---
 
-### 🧠 What is Circular Dependency?
+### 📌 🧠 What is Circular Dependency?
 
 A circular dependency occurs when two beans depend on each other.
 
@@ -1442,7 +1437,7 @@ public class BService {
 }
 ```
 
-##### Problem
+### 📌## Problem
 
 ```text
 AService → BService → AService
@@ -1452,7 +1447,7 @@ Spring cannot decide which bean to create first.
 
 ---
 
-##### ⚠️ Error
+### 📌## ⚠️ Error
 
 ```text
 BeanCurrentlyInCreationException
@@ -1460,9 +1455,9 @@ BeanCurrentlyInCreationException
 
 ---
 
-#### ✅ How to Solve?
+### 📌# ✅ How to Solve?
 
-##### 1. Use Constructor Injection + Redesign (Recommended)
+### 📌## 1. Use Constructor Injection + Redesign (Recommended)
 
 Move common logic to another service.
 
@@ -1475,7 +1470,7 @@ BService → CommonService
 
 ---
 
-##### 2. Use `@Lazy`
+### 📌## 2. Use `@Lazy`
 
 ```java
 @Service
@@ -1491,7 +1486,7 @@ public class AService {
 
 ---
 
-##### 3. Use Setter Injection
+### 📌## 3. Use Setter Injection
 
 ```java
 @Autowired
@@ -1504,7 +1499,7 @@ public void setBService(BService bService) {
 
 ---
 
-### Spring Framework vs Spring Boot 
+### 📌 Spring Framework vs Spring Boot 
 
 | Feature / Aspect              | Spring Framework                                             | Spring Boot                                                  |
 | ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1519,7 +1514,7 @@ public void setBService(BService bService) {
 | **CLI Support**               | Not available                                                | Available via Spring Boot CLI                                |
 | **Microservices Development** | Requires manual setup                                        | Designed for microservices architecture                      |
 
-### 📌What is the difference between Spring MVC and Spring Boot?
+### 📌 📌What is the difference between Spring MVC and Spring Boot?
 
 | Feature         | Spring MVC        | Spring Boot         |
 | --------------- | ----------------- | ------------------- |
@@ -1529,7 +1524,7 @@ public void setBService(BService bService) {
 
 ---
 
-###  📌What is Spring Boot and why is it used?
+### 📌  📌What is Spring Boot and why is it used?
 
 **Answer:**
 
@@ -1541,7 +1536,7 @@ It eliminates:
 - Manual dependency setup
 - Server deployment complexity
 
-##### 📌Why we use it?
+### 📌## 📌Why we use it?
 
 - Faster development
 - Embedded server (Tomcat/Jetty)
@@ -1562,7 +1557,7 @@ public class MyApplication {
 
 ---
 
-### 📌 What are the main features of Spring Boot?
+### 📌 📌 What are the main features of Spring Boot?
 
 **Answer:**
 
@@ -1572,18 +1567,18 @@ public class MyApplication {
 4. **Production Ready Features **Monitoring using Actuator.
 5. **Minimal Configuration **Mostly annotation-based configuration.
 
-### 📌 What are Spring Boot Starters?
+### 📌 📌 What are Spring Boot Starters?
 
 Starters are **predefined dependency packages** that simplify build configuration. Instead of adding multiple dependencies manually, we add one starter.
 
-##### Common Starters:
+### 📌## Common Starters:
 
 - `spring-boot-starter-web`
 - `spring-boot-starter-data-jpa`
 - `spring-boot-starter-security`
 - `spring-boot-starter-test`
 
-##### Example (Maven):
+### 📌## Example (Maven):
 
 ```xml
 <dependency>
@@ -1601,7 +1596,7 @@ Starters are **predefined dependency packages** that simplify build configuratio
 
 ------
 
-#### 4️⃣ Explain @SpringBootApplication
+### 📌# 4️⃣ Explain @SpringBootApplication
 
 **Answer:**
 
@@ -1613,7 +1608,7 @@ The **@SpringBootApplication** annotation is the primary entry point of any Spri
 2. `@EnableAutoConfiguration` : Enables Spring Boot auto configuration.
 3. `@ComponentScan`: Scans components in current package and sub-packages.
 
-##### Equivalent Code:
+### 📌## Equivalent Code:
 
 ```java
 @Configuration
@@ -1628,11 +1623,11 @@ public class MyApplication {
 
 ---
 
-### Spring Boot Configuration
+### 📌 Spring Boot Configuration
 
 ---
 
-#### 1️⃣ How to configure Spring Boot using application.properties?
+### 📌# 1️⃣ How to configure Spring Boot using application.properties?
 
 **Answer:**
 
@@ -1645,7 +1640,7 @@ public class MyApplication {
 
 It is located inside: `src/main/resources/application.properties`
 
-##### Example:
+### 📌## Example:
 
 ~~~properties
 
@@ -1665,7 +1660,7 @@ logging.level.org.springframework=INFO
 app.name=Banking Application
 ~~~
 
-##### Access custom property:
+### 📌## Access custom property:
 
 ```java
 @Value("${app.name}")
@@ -1674,7 +1669,7 @@ private String appName;
 
 ------
 
-#### 2️⃣ Difference between application.properties and application.yml
+### 📌# 2️⃣ Difference between application.properties and application.yml
 
 | application.properties | application.yml            |
 | ---------------------- | -------------------------- |
@@ -1685,14 +1680,14 @@ private String appName;
 
 ------
 
-##### Example (Properties)
+### 📌## Example (Properties)
 
 ```properties
 server.port=8081
 spring.datasource.url=jdbc:mysql://localhost:3306/test
 ```
 
-### Example (YAML)
+### 📌 Example (YAML)
 
 ```yaml
 server:
@@ -1709,13 +1704,13 @@ spring:
 
 ------
 
-#### 3️⃣ How to externalize configuration in Spring Boot?
+### 📌# 3️⃣ How to externalize configuration in Spring Boot?
 
 Externalizing configuration means keeping configuration **outside the application code**, especially for different environments.
 
-##### Methods:
+### 📌## Methods:
 
-##### 1️⃣ Using application-{profile}.properties
+### 📌## 1️⃣ Using application-{profile}.properties
 
 ```
 application-dev.properties
@@ -1724,7 +1719,7 @@ application-prod.properties
 
 ------
 
-##### 2️⃣ Using Environment Variables
+### 📌## 2️⃣ Using Environment Variables
 
 ```bash
 export SERVER_PORT=9090
@@ -1734,7 +1729,7 @@ Spring Boot automatically maps it.
 
 ------
 
-##### 3️⃣ Using Command Line Arguments
+### 📌## 3️⃣ Using Command Line Arguments
 
 ```bash
 java -jar app.jar --server.port=8085
@@ -1742,7 +1737,7 @@ java -jar app.jar --server.port=8085
 
 ------
 
-##### 4️⃣ Using External File
+### 📌## 4️⃣ Using External File
 
 ```bash
 java -jar app.jar --spring.config.location=/path/application.properties
@@ -1750,7 +1745,7 @@ java -jar app.jar --spring.config.location=/path/application.properties
 
 ------
 
-##### Priority Order (High to Low)
+### 📌## Priority Order (High to Low)
 
 1. Command line arguments
 2. Environment variables
@@ -1759,13 +1754,13 @@ java -jar app.jar --spring.config.location=/path/application.properties
 
 ------
 
-##### 4️⃣ What is @Value used for?
+### 📌## 4️⃣ What is @Value used for?
 
 **Answer:**
 
 `@Value` is used to inject property values into variables.
 
-##### Example:
+### 📌## Example:
 
 ```properties
 app.version=1.0
@@ -1791,7 +1786,7 @@ private String appName;
 
 ------
 
-#### 5️⃣ What are Spring Profiles and how do they work?
+### 📌# 5️⃣ What are Spring Profiles and how do they work?
 
 **Answer:**
 
@@ -1805,7 +1800,7 @@ Example environments:
 
 ------
 
-##### Step 1: Create profile-specific file
+### 📌## Step 1: Create profile-specific file
 
 ```
 application-dev.properties
@@ -1814,7 +1809,7 @@ application-prod.properties
 
 ------
 
-##### Step 2: Activate Profile
+### 📌## Step 2: Activate Profile
 
 In properties:
 
@@ -1832,7 +1827,7 @@ java -jar app.jar --spring.profiles.active=prod
 
 ------
 
-##### Step 3: Use @Profile Annotation
+### 📌## Step 3: Use @Profile Annotation
 
 ```java
 @Bean
@@ -1852,7 +1847,7 @@ Only active profile bean will load.
 
 ---
 
-### ResponseEntity and Status Codes
+### 📌 ResponseEntity and Status Codes
 
 ResponseEntity allows customizing the response body, headers, and HTTP status.
 
@@ -1873,7 +1868,7 @@ public ResponseEntity<User> getUser(@PathVariable Long id)
 
 
 
-#### 1️⃣ What is @RestController in Spring Boot?
+### 📌# 1️⃣ What is @RestController in Spring Boot?
 
 **Answer:**
 
@@ -1884,7 +1879,7 @@ public ResponseEntity<User> getUser(@PathVariable Long id)
 
 It is used to create REST APIs that return **JSON or XML response directly**, not JSP pages.
 
-##### Example:
+### 📌## Example:
 
 ```java
 @RestController
@@ -1899,9 +1894,9 @@ public class HelloController {
 
 
 
-### 2️⃣ How to create a simple RESTful API using Spring Boot?
+### 📌 2️⃣ How to create a simple RESTful API using Spring Boot?
 
-##### Step 1: Add Dependency
+### 📌## Step 1: Add Dependency
 
 ```xml
 <dependency>
@@ -1912,7 +1907,7 @@ public class HelloController {
 
 ------
 
-##### Step 2: Create Model
+### 📌## Step 2: Create Model
 
 ```java
 public class User {
@@ -1925,7 +1920,7 @@ public class User {
 
 ------
 
-##### Step 3: Create Controller
+### 📌## Step 3: Create Controller
 
 ```java
 @RestController
@@ -1939,7 +1934,7 @@ public class UserController {
 }
 ```
 
-### Access:
+### 📌 Access:
 
 ```url
 http://localhost:8080/users
@@ -1947,7 +1942,7 @@ http://localhost:8080/users
 
 ------
 
-### 3️⃣ How to handle HTTP methods (GET, POST, PUT, DELETE)?
+### 📌 3️⃣ How to handle HTTP methods (GET, POST, PUT, DELETE)?
 
 Spring Boot provides specific annotations:
 
@@ -1960,7 +1955,7 @@ Spring Boot provides specific annotations:
 
 ------
 
-##### Example:
+### 📌## Example:
 
 ```java
 @RestController
@@ -1992,9 +1987,9 @@ public class UserController {
 
 ------
 
-#### 4️⃣ What is @RequestBody and @ResponseBody?
+### 📌# 4️⃣ What is @RequestBody and @ResponseBody?
 
-##### @RequestBody
+### 📌## @RequestBody
 
 Used to convert JSON request body into Java object.
 
@@ -2013,7 +2008,7 @@ public User save(@RequestBody User user) {
 
 ------
 
-##### @ResponseBody
+### 📌## @ResponseBody
 
 Converts Java object into JSON response.
 
@@ -2031,11 +2026,11 @@ public User getUser() {
 
 ------
 
-#### 5️⃣ How to handle query parameters in Spring Boot?
+### 📌# 5️⃣ How to handle query parameters in Spring Boot?
 
 We use `@RequestParam`.
 
-##### Example:
+### 📌## Example:
 
 URL:
 
@@ -2054,7 +2049,7 @@ public String search(@RequestParam String name) {
 
 ------
 
-##### Optional Query Parameter:
+### 📌## Optional Query Parameter:
 
 ```java
 @GetMapping("/search")
@@ -2065,7 +2060,7 @@ public String search(@RequestParam(required = false) String name) {
 
 ------
 
-##### With Default Value:
+### 📌## With Default Value:
 
 ```java
 @GetMapping("/search")
@@ -2076,7 +2071,7 @@ public String search(@RequestParam(defaultValue = "Guest") String name) {
 
 ------
 
-#### Difference between @PathVariable and @RequestParam?
+### 📌# Difference between @PathVariable and @RequestParam?
 
 - `@PathVariable` → Value from URL path
    Example: `/users/10`
@@ -2087,7 +2082,7 @@ public String search(@RequestParam(defaultValue = "Guest") String name) {
 
 ---
 
-#### How do you Package a Spring Boot Application as a WAR?
+### 📌# How do you Package a Spring Boot Application as a WAR?
 
 **Answer:**
 
@@ -2097,7 +2092,7 @@ To create a WAR file (for deployment in external Tomcat):
 
 ------
 
-##### Step 1: Change Packaging
+### 📌## Step 1: Change Packaging
 
 In `pom.xml`:
 
@@ -2107,7 +2102,7 @@ In `pom.xml`:
 
 ------
 
-##### Step 2: Exclude Embedded Tomcat
+### 📌## Step 2: Exclude Embedded Tomcat
 
 ```xml
 <dependency>
@@ -2119,7 +2114,7 @@ In `pom.xml`:
 
 ------
 
-##### Step 3: Extend SpringBootServletInitializer
+### 📌## Step 3: Extend SpringBootServletInitializer
 
 ```java
 @SpringBootApplication
@@ -2134,7 +2129,7 @@ public class MyApplication extends SpringBootServletInitializer {
 
 ------
 
-##### Build WAR
+### 📌## Build WAR
 
 ```cmd
 mvn clean package
@@ -2150,7 +2145,7 @@ Deploy generated WAR file to external Tomcat.
 
 ---
 
-### @JsonIgoner & @JsonIgnoreProperties
+### 📌 @JsonIgoner & @JsonIgnoreProperties
 
 **Defination** :  used to filter out the fields data form response. These fields are not sent in response.
 
@@ -2181,7 +2176,7 @@ public class User {
     private String password;
 ```
 
-### @**Configuration**
+### 📌 @**Configuration**
 
 * **Defination** :  Marks a class as a Spring configuration class and it is a source of beans.
 
@@ -2202,7 +2197,7 @@ public class AppConfig {
 }
  ```
 
-### @**EnableScheduling**
+### 📌 @**EnableScheduling**
 
 * **Defination** :  Enables scheduling tasks. When @**EnableScheduling** Annotation added in Configuration class then spring looks for @Scheduled annotated method and runs that method automatically in fixed period of time.
 
@@ -2225,7 +2220,7 @@ System.out.println("Running every 5 seconds");
 
 Used for database interaction.
 
-### **@Entity**
+### 📌 **@Entity**
 
 **Defination** :  Marks a class as a JPA entity (database table representation).
 
@@ -2273,7 +2268,7 @@ public class Tasks {
 
 ## **🚀 Caching in Spring Boot**
 
-#### 1️⃣ What is Caching?
+### 📌# 1️⃣ What is Caching?
 
 Caching is a technique of storing frequently accessed data in memory to improve application performance.
 
@@ -2292,7 +2287,7 @@ Caching is a technique of storing frequently accessed data in memory to improve 
 
 ---
 
-#### 2️⃣ Spring Boot Caching Overview
+### 📌# 2️⃣ Spring Boot Caching Overview
 
 Spring Boot provides caching abstraction using:
 
@@ -2301,9 +2296,9 @@ Spring Boot provides caching abstraction using:
 
 ---
 
-#### 3️⃣ Cache Annotations (Very Important)
+### 📌# 3️⃣ Cache Annotations (Very Important)
 
-##### ✅ 1. @Cacheable
+### 📌## ✅ 1. @Cacheable
 
 Stores method result in cache
 
@@ -2322,7 +2317,7 @@ public User getUserById(Long id) {
 
 ---
 
-##### ✅ 2. @CacheEvict
+### 📌## ✅ 2. @CacheEvict
 
 Removes data from cache
 
@@ -2339,7 +2334,7 @@ public void deleteUser(Long id) {
 
 ---
 
-##### ✅ 3. @CachePut
+### 📌## ✅ 3. @CachePut
 
 Always executes method
 
@@ -2358,7 +2353,7 @@ public User updateUser(User user) {
 
 ---
 
-#### 4️⃣ Cache Providers (Interview Important)
+### 📌# 4️⃣ Cache Providers (Interview Important)
 
 Spring provides abstraction only. We configure provider.
 
@@ -2374,9 +2369,9 @@ Spring provides abstraction only. We configure provider.
 
 ---
 
-#### 5️⃣ Redis Caching (Most Asked)
+### 📌# 5️⃣ Redis Caching (Most Asked)
 
-##### Why Redis?
+### 📌## Why Redis?
 
 - Distributed cache
 
@@ -2401,7 +2396,7 @@ spring.redis.port=6379
 
 ---
 
-#### 6️⃣ TTL (Time To Live)
+### 📌# 6️⃣ TTL (Time To Live)
 
 Automatically expires cache after some time.
 
@@ -2414,7 +2409,7 @@ spring.cache.redis.time-to-live=60000
 
 ---
 
-#### 7️⃣ Internal Working 
+### 📌# 7️⃣ Internal Working 
 
 When method with @Cacheable is called:
 
@@ -2436,7 +2431,7 @@ Uses proxy-based AOP mechanism.
 
 ---
 
-### 📌Difference between @Cacheable and @CachePut?
+### 📌 📌Difference between @Cacheable and @CachePut?
 
 | @Cacheable                      | @CachePut       |
 | ------------------------------- | --------------- |
@@ -2445,7 +2440,7 @@ Uses proxy-based AOP mechanism.
 
 ---
 
-### 📌What is stale data problem?
+### 📌 📌What is stale data problem?
 
 When DB is updated but cache still has old data.
 
@@ -2462,7 +2457,7 @@ When DB is updated but cache still has old data.
 
 ---
 
-### 📌Why Redis preferred in Microservices?
+### 📌 📌Why Redis preferred in Microservices?
 
 - Local cache works per instance.
 
@@ -2471,7 +2466,7 @@ When DB is updated but cache still has old data.
 
 ---
 
-### 📌What is self-invocation problem?
+### 📌 📌What is self-invocation problem?
 
 If a method inside same class calls @Cacheable method → caching will NOT work.
 
@@ -2494,7 +2489,7 @@ Improves performance for repeated account lookup.
 
 ## Spring Data JPA & Transactions
 
-### 📌How to Connect Spring Boot with a Database?
+### 📌 📌How to Connect Spring Boot with a Database?
 
 Spring Boot connects to a database using:
 
@@ -2505,7 +2500,7 @@ Spring Boot connects to a database using:
 
 It automatically configures `DataSource`, `EntityManager`, and `TransactionManager`.
 
-##### Example:
+### 📌## Example:
 
 **Step 1: Add Dependencies**
 
@@ -2533,7 +2528,7 @@ spring.jpa.show-sql=true
 
 ------
 
-###  📌What is Spring Data JPA?
+### 📌  📌What is Spring Data JPA?
 
 **Answer:**
 
@@ -2541,7 +2536,7 @@ Spring Data JPA is part of the larger Spring Data family, providing a repository
 
 Spring Data JPA internally uses JPA, the Java standard for Object-Relational Mapping (ORM). With ORM, Java objects are automatically mapped to database tables, making it easier to interact with the database in an object-oriented way.
 
-##### Example:
+### 📌## Example:
 
 ```java
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -2552,7 +2547,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 ---
 
-#### Benefits of Using Spring Data JPA
+### 📌# Benefits of Using Spring Data JPA
 
 Here are some of the key benefits of using Spring Data JPA:
 
@@ -2566,7 +2561,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ## 📘 JPA Annotations 
 
-##### 1️⃣ Entity & Table Level Annotations
+### 📌## 1️⃣ Entity & Table Level Annotations
 
 | Annotation            | Used On | Purpose                          | Example                                               |
 | --------------------- | ------- | -------------------------------- | ----------------------------------------------------- |
@@ -2582,7 +2577,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-##### 2️⃣ Primary Key Strategies
+### 📌## 2️⃣ Primary Key Strategies
 
 | Strategy   | Meaning                | Example                                             |
 | ---------- | ---------------------- | --------------------------------------------------- |
@@ -2593,9 +2588,9 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-##### 3️⃣ Relationship Annotations
+### 📌## 3️⃣ Relationship Annotations
 
-##### 🔹 One-to-One
+### 📌## 🔹 One-to-One
 
 | Annotation    | Example                              |
 | ------------- | ------------------------------------ |
@@ -2604,7 +2599,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-##### 🔹 One-to-Many
+### 📌## 🔹 One-to-Many
 
 | Annotation   | Example                       |
 | ------------ | ----------------------------- |
@@ -2613,7 +2608,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-##### 🔹 Many-to-One
+### 📌## 🔹 Many-to-One
 
 | Annotation    | Example                              |
 | ------------- | ------------------------------------ |
@@ -2624,7 +2619,7 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-##### 🔹 Many-to-Many
+### 📌## 🔹 Many-to-Many
 
 | Annotation           | Example                        |
 | -------------------- | ------------------------------ |
@@ -2635,9 +2630,9 @@ Here are some of the key benefits of using Spring Data JPA:
 
 ------
 
-##### 4️⃣ Fetch & Cascade Options
+### 📌## 4️⃣ Fetch & Cascade Options
 
-##### Fetch Types
+### 📌## Fetch Types
 
 | Fetch Type | Meaning            |
 | ---------- | ------------------ |
@@ -2648,7 +2643,7 @@ Best Practice: Use LAZY.
 
 ------
 
-##### Cascade Types
+### 📌## Cascade Types
 
 | Cascade   | Meaning                  |
 | --------- | ------------------------ |
@@ -2661,7 +2656,7 @@ Best Practice: Use LAZY.
 
 ------
 
-##### 5️⃣ Inheritance Mapping
+### 📌## 5️⃣ Inheritance Mapping
 
 | Annotation             | Purpose                | Example                                           |
 | ---------------------- | ---------------------- | ------------------------------------------------- |
@@ -2673,7 +2668,7 @@ Best Practice: Use LAZY.
 
 ------
 
-##### 6️⃣ Embedded Objects
+### 📌## 6️⃣ Embedded Objects
 
 | Annotation           | Purpose                  | Example                                                      |
 | -------------------- | ------------------------ | ------------------------------------------------------------ |
@@ -2683,7 +2678,7 @@ Best Practice: Use LAZY.
 
 ------
 
-##### 7️⃣ Lifecycle Callbacks
+### 📌## 7️⃣ Lifecycle Callbacks
 
 | Annotation     | Trigger Time      |
 | -------------- | ----------------- |
@@ -2705,7 +2700,7 @@ public void beforeInsert() {
 
 ------
 
-##### 8️⃣ Locking & Versioning
+### 📌## 8️⃣ Locking & Versioning
 
 | Annotation | Purpose                           |
 | ---------- | --------------------------------- |
@@ -2723,7 +2718,7 @@ Prevents lost updates.
 
 ------
 
-##### 9️⃣ Index & Constraints
+### 📌## 9️⃣ Index & Constraints
 
 | Annotation                                                   | Example                                                      |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -2734,13 +2729,13 @@ Prevents lost updates.
 
 
 
-### 📌What is `@Entity` Annotation?
+### 📌 📌What is `@Entity` Annotation?
 
 **Answer:**
 
 `@Entity` marks a class as a JPA entity and maps it to a database table.
 
-### Example:
+### 📌 Example:
 
 ```java
 import jakarta.persistence.*;
@@ -2766,7 +2761,7 @@ public class User {
 
 ------
 
-###  📌What is `@Repository` Annotation?
+### 📌  📌What is `@Repository` Annotation?
 
 **Answer:**
 
@@ -2798,7 +2793,7 @@ public class UserDAO {
 
 ------
 
-###  📌Explain `@Transactional` Annotation in Spring Boot
+### 📌  📌Explain `@Transactional` Annotation in Spring Boot
 
 @**Transactional**
 
@@ -2846,15 +2841,15 @@ If any runtime exception occurs → transaction rolls back.
 
 ---
 
-### 👉 What is Propagation?
+### 📌 👉 What is Propagation?
 
 It defines **how a method behaves when it is called inside another transaction**.
 
 ------
 
-### ✅ Common Propagation Types (Interview Focus)
+### 📌 ✅ Common Propagation Types (Interview Focus)
 
-##### 1. REQUIRED (Default)
+### 📌## 1. REQUIRED (Default)
 
 👉 If transaction exists → Join it
 👉 If not → Create new transaction
@@ -2864,7 +2859,7 @@ It defines **how a method behaves when it is called inside another transaction**
 public void placeOrder() { }
 ```
 
-##### 🔎 Use Case
+### 📌## 🔎 Use Case
 
 Service A calls Service B → both run in **same transaction**
 
@@ -2874,7 +2869,7 @@ If B fails → entire transaction rolls back.
 
 ------
 
-#### 2. REQUIRES_NEW
+### 📌# 2. REQUIRES_NEW
 
 👉 Always create new transaction
 👉 Suspend existing transaction (if any)
@@ -2884,7 +2879,7 @@ If B fails → entire transaction rolls back.
 public void saveAuditLog() { }
 ```
 
-##### 🔎 Use Case
+### 📌## 🔎 Use Case
 
 Order service fails but you still want to save audit logs.
 
@@ -2892,7 +2887,7 @@ Order service fails but you still want to save audit logs.
 
 ------
 
-#### 3. SUPPORTS
+### 📌# 3. SUPPORTS
 
 👉 If transaction exists → join
 👉 If not → execute without transaction
@@ -2901,7 +2896,7 @@ Used for read operations.
 
 ------
 
-#### 4. NOT_SUPPORTED
+### 📌# 4. NOT_SUPPORTED
 
 👉 Suspend current transaction
 👉 Run without transaction
@@ -2910,14 +2905,14 @@ Used when you don’t want transaction overhead.
 
 ------
 
-#### 5. MANDATORY
+### 📌# 5. MANDATORY
 
 👉 Must have existing transaction
 👉 If not → Exception
 
 ------
 
-#### 6. NEVER
+### 📌# 6. NEVER
 
 👉 Should NOT have transaction
 👉 If exists → Exception
@@ -2929,9 +2924,9 @@ If payment fails:
 
 ------
 
-### 🔹 2️⃣ Transaction Isolation Levels
+### 📌 🔹 2️⃣ Transaction Isolation Levels
 
-#### 👉 What is Isolation?
+### 📌# 👉 What is Isolation?
 
 It defines **how one transaction sees data of another transaction**.
 
@@ -2939,7 +2934,7 @@ Prevents concurrency problems.
 
 ------
 
-#### 🔥 Common Concurrency Problems
+### 📌# 🔥 Common Concurrency Problems
 
 | Problem             | Meaning                              |
 | ------------------- | ------------------------------------ |
@@ -2949,11 +2944,11 @@ Prevents concurrency problems.
 
 ------
 
-#### ✅ Isolation Levels (Low → High)
+### 📌# ✅ Isolation Levels (Low → High)
 
 ------
 
-#### 1️⃣ READ_UNCOMMITTED
+### 📌# 1️⃣ READ_UNCOMMITTED
 
 - Dirty read possible
 - Lowest isolation
@@ -2961,7 +2956,7 @@ Prevents concurrency problems.
 
 ------
 
-#### 2️⃣ READ_COMMITTED (Most Common)
+### 📌# 2️⃣ READ_COMMITTED (Most Common)
 
 - Cannot read uncommitted data
 - Prevents dirty read
@@ -2975,7 +2970,7 @@ Prevents concurrency problems.
 
 ------
 
-#### 3️⃣ REPEATABLE_READ(Default)
+### 📌# 3️⃣ REPEATABLE_READ(Default)
 
 - Prevents dirty read
 - Prevents non-repeatable read
@@ -2985,7 +2980,7 @@ Prevents concurrency problems.
 
 ------
 
-#### 4️⃣ SERIALIZABLE (Highest)
+### 📌# 4️⃣ SERIALIZABLE (Highest)
 
 - Fully isolated
 - No dirty, non-repeatable, phantom
@@ -3004,7 +2999,7 @@ Prevents concurrency problems.
 
 Imagine your banking system:
 
-#### Scenario: Checking Account Balance
+### 📌# Scenario: Checking Account Balance
 
 If isolation is too low:
 Two users may see inconsistent balance.
@@ -3014,23 +3009,23 @@ Best choice:
 
 ---
 
-#### Q1: What is default propagation in Spring?
+### 📌# Q1: What is default propagation in Spring?
 
 👉 REQUIRED
 
-#### Q2: Default isolation in MySQL?
+### 📌# Q2: Default isolation in MySQL?
 
 👉 REPEATABLE_READ
 
-#### Q3: When to use REQUIRES_NEW?
+### 📌# Q3: When to use REQUIRES_NEW?
 
 👉 Logging, audit, notifications
 
-#### Q4: Can isolation be changed at method level?
+### 📌# Q4: Can isolation be changed at method level?
 
 👉 Yes using `@Transactional(isolation = Isolation.X)`
 
-#### Q5:  If outer method is NOT transactional and inner is REQUIRED, what happens?
+### 📌# Q5:  If outer method is NOT transactional and inner is REQUIRED, what happens?
 
 👉 Inner method creates new transaction.
 
@@ -3043,7 +3038,7 @@ Best choice:
 
 ---
 
-#### 🔥 Transaction Propagation Types
+### 📌# 🔥 Transaction Propagation Types
 
 | Propagation Type   | Meaning (Short)                                  | When to Use                      | Example                                                   |
 | ------------------ | ------------------------------------------------ | -------------------------------- | --------------------------------------------------------- |
@@ -3057,7 +3052,7 @@ Best choice:
 
 ------
 
-#### 🔥 Transaction Isolation Levels
+### 📌# 🔥 Transaction Isolation Levels
 
 | Isolation Level  | Prevents                         | Problem Still Possible         | Example                                                  |
 | ---------------- | -------------------------------- | ------------------------------ | -------------------------------------------------------- |
@@ -3077,7 +3072,7 @@ Best choice:
 
 ---
 
-### Connection Pooling (HikariCP)
+### 📌 Connection Pooling (HikariCP)
 
 - **Connection pooling** means reusing database connections to save time.
 - Spring Boot uses libraries like **HikariCP** for default connection pool for better performance.
@@ -3101,7 +3096,7 @@ spring.datasource.hikari.pool-name=SpringBootHikariCP
 
 ## 📌Spring Security in Spring Boot
 
-### What is Spring Security?
+### 📌 What is Spring Security?
 
 * Spring Security is a powerful authentication and authorization framework for Java applications, primarily used in Spring-based projects.
 * It provides built-in security features like,
@@ -3116,9 +3111,9 @@ If a user tries to access /admin, Spring Security will check whether they have t
 
 ---
 
-### Spring Security architecture
+### 📌 Spring Security architecture
 
-#### Security filter chain :
+### 📌# Security filter chain :
 
 * Acts as the entry point for all incoming HTTP requests in Spring Security
 * This is used to filter the requests and it also authenticate and authorize the user
@@ -3126,7 +3121,7 @@ If a user tries to access /admin, Spring Security will check whether they have t
 * Filter run the first in processing order
 * We can add custom filters in applications
 
-#### Authentication :
+### 📌# Authentication :
 
 * Core component responsible for handling user authentication
 * When user submit login form
@@ -3135,7 +3130,7 @@ If a user tries to access /admin, Spring Security will check whether they have t
 * And also, user password encoder to compare password
 * If authentication is successful, it returns authentication manager object
 
-#### Authorisation :
+### 📌# Authorisation :
 
 * Once authentication is successful , system will check the roles of user and according to that resource access is granted
 * If not, then system give exception.
@@ -3172,7 +3167,7 @@ J --> K[Response]
 
 # 🔐 Spring Security Annotations
 
-### 📌 What are Spring Security Annotations?
+### 📌 📌 What are Spring Security Annotations?
 
 Spring Security annotations are used to **restrict access** to classes or methods based on:
 - User Roles
@@ -3184,7 +3179,7 @@ Instead of writing security rules in configuration, you can secure individual me
 
 ---
 
-##### 🏗 Enable Method Security
+### 📌## 🏗 Enable Method Security
 
 Before using method-level security annotations, enable it.
 
@@ -3199,9 +3194,9 @@ public class SecurityConfig {
 
 ---
 
-##### 1️⃣ @EnableWebSecurity
+### 📌## 1️⃣ @EnableWebSecurity
 
-##### 
+### 📌## 
 
 Enables Spring Security configuration.
 
@@ -3219,7 +3214,7 @@ public class SecurityConfig {
 
 ---
 
-##### 2️⃣ @EnableMethodSecurity
+### 📌## 2️⃣ @EnableMethodSecurity
 
 Enables security annotations on methods.
 
@@ -3370,7 +3365,7 @@ public void deleteProduct() {
 }
 ```
 
-### Multiple Roles
+### 📌 Multiple Roles
 
 ```java
 @Secured({
@@ -3512,7 +3507,7 @@ public String user(
 
 ---
 
-##### Difference Between Annotations
+### 📌## Difference Between Annotations
 
 | Annotation       | Checks            | When?  | Supports SpEL? |
 | ---------------- | ----------------- | ------ | -------------- |
@@ -3554,7 +3549,7 @@ public class UserController {
 
 ---
 
-### Q8. Difference between `@Secured` and `@PreAuthorize`?
+### 📌 Q8. Difference between `@Secured` and `@PreAuthorize`?
 
 | `@Secured` | `@PreAuthorize`                                              |
 | ---------- | ------------------------------------------------------------ |
@@ -3576,7 +3571,7 @@ public class UserController {
 
 ---
 
-#### What is Spring AOP?
+### 📌# What is Spring AOP?
 
 Aspect-Oriented Programming (AOP) is used to separate cross-cutting concerns (logging, security, transactions).
 
@@ -3602,7 +3597,7 @@ public class LoggingAspect {
 
 ---
 
-### What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
+### 📌 What is the difference JDBC, JDBC template, JPA, Spring Data JPA?
 
 |  |  |  |  |
 | --- | --- | --- | --- |
@@ -3612,14 +3607,14 @@ public class LoggingAspect {
 
 ---
 
-### Why use Spring Security?
+### 📌 Why use Spring Security?
 
 *  Provides authentication and authorization
 *  Prevents common security threats (CSRF, XSS, SQL Injection, etc.)
 *  Supports integration with OAuth2, JWT, LDAP, etc.
 *  Highly customizable
 
-##### Adding Spring Security to a Spring Boot Project
+### 📌## Adding Spring Security to a Spring Boot Project
 
 1. Dependencies (Maven) for spring boot,
 
@@ -3707,7 +3702,7 @@ public class LoggingAspect {
 
 
 
-### Configuring Spring Security (Basic Authentication)
+### 📌 Configuring Spring Security (Basic Authentication)
 
 **Custom Security Configuration (IN Memory Authentication)**
 
@@ -3815,7 +3810,7 @@ public class SecurityConfig {
 }
 ```
 
-#### **User Authentication (Database)**
+### 📌# **User Authentication (Database)**
 
 Replace in-memory authentication with database authentication using UserDetailsService.
 
@@ -3915,7 +3910,7 @@ public class Usersservice implements UserDetailsService {
 
 # 📘 JWT Authentication & Authorization (Spring Boot 3)
 
-#### 1.What is JWT?
+### 📌# 1.What is JWT?
 
 JWT (JSON Web Token) is a compact, URL-safe token used for authentication and authorization. It consists of three parts,
 
@@ -3925,7 +3920,7 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 
 🔹 Signature – Ensures integrity and authenticity of the token.
 
-##### How JWT Works in Spring Security
+### 📌## How JWT Works in Spring Security
 
 1. User logs in → Sends username & password to the authentication endpoint.
 2. Spring Security validates credentials using AuthenticationManager.
@@ -3933,13 +3928,13 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 4. Client stores JWT (localStorage/sessionStorage) and includes it in the Authorization header for further requests.
 5. Spring Security filters validate the JWT on every request.
 
-##### Flow to Implement JWT Authentication in Spring Boot
+### 📌## Flow to Implement JWT Authentication in Spring Boot
 
 Here is a step-by-step guide to creating your JWT Authentication project based on the code you've provided.
 
 ------
 
-#### 🚀 2. Why JWT?
+### 📌# 🚀 2. Why JWT?
 
 - Stateless (no session)
 - Scalable
@@ -3948,7 +3943,7 @@ Here is a step-by-step guide to creating your JWT Authentication project based o
 
 ------
 
-#### 🏗️ 3. Project Architecture
+### 📌# 🏗️ 3. Project Architecture
 
 | Layer      | Class                |
 | ---------- | -------------------- |
@@ -3960,7 +3955,7 @@ Here is a step-by-step guide to creating your JWT Authentication project based o
 
 ------
 
-#### ⚙️ 4. Security Configuration
+### 📌# ⚙️ 4. Security Configuration
 
 ```java
 @Configuration
@@ -4014,7 +4009,7 @@ public class SecurityConfig {
 
 ------
 
-#### 🔁 5. JWT Filter (Core Logic)
+### 📌# 🔁 5. JWT Filter (Core Logic)
 
 ```java
 @Component
@@ -4074,7 +4069,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 ------
 
-#### 🎟 6. JWT Service
+### 📌# 🎟 6. JWT Service
 
 ```java
 @Service
@@ -4111,7 +4106,7 @@ public class JwtService {
 
 ------
 
-#### 👤 7. UserDetailsService
+### 📌# 👤 7. UserDetailsService
 
 ```java
 @Service
@@ -4137,7 +4132,7 @@ public class CustomerService implements UserDetailsService {
 
 ------
 
-#### 🎮 8. Controller (Login + Register)
+### 📌# 🎮 8. Controller (Login + Register)
 
 ```java
 @RestController
@@ -4192,7 +4187,7 @@ public class CustomerController {
 
 ------
 
-#### 🔁 9. Complete Flow
+### 📌# 🔁 9. Complete Flow
 
 ------
 
@@ -4219,7 +4214,7 @@ public class CustomerController {
 
 ---
 
-#### Common Spring Security Annotations
+### 📌# Common Spring Security Annotations
 
 | Annotation | Purpose |
 | --- | --- |
@@ -4256,7 +4251,7 @@ public class UserService {
 
 ---
 
-### How does authentication and authorization work in Spring Security?
+### 📌 How does authentication and authorization work in Spring Security?
 
 **Answer:**
 Spring Security uses filters and interceptors to handle authentication and authorization.
@@ -4335,7 +4330,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 }
 ```
 
-#### What is the difference between @PreAuthorize, @Secured, and @RolesAllowed?
+### 📌# What is the difference between @PreAuthorize, @Secured, and @RolesAllowed?
 
 **Answer:**
 These annotations are used for method-level security in Spring Security.
@@ -4366,7 +4361,7 @@ public class UserService {
 
 ---
 
-### How to disable CSRF in Spring Security?
+### 📌 How to disable CSRF in Spring Security?
 
 **Answer:**
 **CSRF (Cross-Site Request Forgery)** protection is enabled by default in Spring Security. However, for REST APIs, CSRF can be disabled as they don’t use cookies for authentication.
@@ -4444,7 +4439,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 
 ---
 
-### Spring Security Flow for the Given Configuration
+### 📌 Spring Security Flow for the Given Configuration
 
 1. **User Requests a Page**
 
@@ -4484,7 +4479,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
 * File handling in Spring allows us to upload, store, retrieve, and download files using Spring Boot, MultipartFile, and FileSystem or Database.
 * Spring provides the MultipartFile interface to handle file uploads.
 
-##### File Handling Approaches in Spring:
+### 📌## File Handling Approaches in Spring:
 
 There are two common ways to handle files in a Spring application,
 
@@ -4493,7 +4488,7 @@ There are two common ways to handle files in a Spring application,
 
 ---
 
-### File Upload in Spring Boot
+### 📌 File Upload in Spring Boot
 
 Spring Boot provides a simple way to upload files using MultipartFile.
 
@@ -4806,7 +4801,7 @@ public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) {
 
 
 
-### File View in Browser
+### 📌 File View in Browser
 
 To allow files (like images, PDFs) to open in a browser instead of downloading,
 
@@ -4914,13 +4909,13 @@ public boolean deleteFile(Long id) {
 
 ## Two Database Configuration in Spring Boot
 
-##### **1. Why Multiple Databases in Spring Boot?**
+### 📌## **1. Why Multiple Databases in Spring Boot?**
 
 In real-world applications (banking, audit, reporting): One database for core business data Another database for audit / logs / reports Sometimes read & write databases are separated Spring Boot supports multiple DataSources, but we must configure them manually.
 
 ------------
 
-##### **2. Application Properties Configuration**
+### 📌## **2. Application Properties Configuration**
 
 Define connection details for each database Each database is identified using a custom prefix
 
@@ -4958,7 +4953,7 @@ spring.jpa.show-sql=true
 
 ------------
 
-##### **3. DataSource Configuration**
+### 📌## **3. DataSource Configuration**
 
 **What is DataSource?**
 Represents database connection pool Holds URL, username, password, driver Why `@ConfigurationProperties`? Automatically maps properties using prefix Avoids hardcoding credentials Primary DataSource
@@ -4980,7 +4975,7 @@ Important Annotations Annotation
 
 ------------
 
-##### **4. EntityManagerFactory Configuration**
+### 📌## **4. EntityManagerFactory Configuration**
 
 **What is EntityManagerFactory?**
 
@@ -5015,7 +5010,7 @@ packages() → tells where entity classes are persistenceUnit() → logical name
 
 ------------
 
-##### **5. TransactionManager Configuration**
+### 📌## **5. TransactionManager Configuration**
 
 **Why TransactionManager?**
 Handles:
@@ -5041,7 +5036,7 @@ Multiple EntityManagerFactory beans exist Spring needs to know which one to inje
 
 ------------
 
-##### **6. @EnableJpaRepositories Configuration Why Required?**
+### 📌## **6. @EnableJpaRepositories Configuration Why Required?**
 
 When multiple databases exist: Spring cannot auto-detect repositories We must explicitly define: Repository package EntityManagerFactory TransactionManager Configuration
 
@@ -5060,7 +5055,7 @@ What happens if this is not configured? 👉 Spring throws No qualifying bean or
 
 ------------
 
-##### **7. Complete Primary DB Configuration Class**
+### 📌## **7. Complete Primary DB Configuration Class**
 
 
 ```java
@@ -5105,7 +5100,7 @@ public class UserDbConfig {
 
 ------------
 
-##### **8. Secondary Database Configuration**
+### 📌## **8. Secondary Database Configuration**
 
 Key Differences No @Primary Different: Property prefix Entity package Repository package Persistence unit
 
@@ -5148,7 +5143,7 @@ public class AddressDbConfig {
 
 ------------
 
-##### **9. Package Structure (Best Practice)**
+### 📌## **9. Package Structure (Best Practice)**
 
 com.example.twodb
  ├── primary
@@ -5168,7 +5163,7 @@ com.example.twodb
 
 ------
 
-### 🔁 a. What is Reactive Programming in Spring Boot?
+### 📌 🔁 a. What is Reactive Programming in Spring Boot?
 
 Reactive Programming is an **asynchronous, non-blocking** programming model used to build scalable applications.
 
@@ -5186,7 +5181,7 @@ It is supported in Spring Boot using WebFlux.
 
 ------
 
-#### 🏦 Real-Life Example:
+### 📌# 🏦 Real-Life Example:
 
 In a **banking system**, 10,000 users checking balance simultaneously:
 
@@ -5195,7 +5190,7 @@ In a **banking system**, 10,000 users checking balance simultaneously:
 
 ------
 
-#### 🌊 b. What is Spring WebFlux?
+### 📌# 🌊 b. What is Spring WebFlux?
 
 **Spring WebFlux** is the reactive web framework introduced in Spring 5.
 
@@ -5221,7 +5216,7 @@ Dependency:
 
 ------
 
-##### 🎯 When to Use WebFlux?
+### 📌## 🎯 When to Use WebFlux?
 
 ✅ Microservices
 ✅ Streaming data
@@ -5230,11 +5225,11 @@ Dependency:
 
 ------
 
-### 🔄 c. What are Mono and Flux in Spring WebFlux?
+### 📌 🔄 c. What are Mono and Flux in Spring WebFlux?
 
 They are reactive types from Project Reactor.
 
-### 🧩 Mono
+### 📌 🧩 Mono
 
 - Returns 0 or 1 result
 - Similar to Optional / Single object
@@ -5248,7 +5243,7 @@ Get account details → One response
 
 ------
 
-### 🌊 Flux
+### 📌 🌊 Flux
 
 - Returns 0 to N results
 - Like List / Stream
@@ -5271,7 +5266,7 @@ Get transaction history → Multiple records
 
 ------
 
-### 🌐 d. How to use @GetMapping in Spring WebFlux?
+### 📌 🌐 d. How to use @GetMapping in Spring WebFlux?
 
 Same annotation as MVC, but return type is Mono or Flux.
 
@@ -5299,9 +5294,9 @@ public class AccountController {
 
 ------
 
-### 🚨 e. How do you handle exceptions in WebFlux?
+### 📌 🚨 e. How do you handle exceptions in WebFlux?
 
-##### ✅ 1️⃣ Using @ExceptionHandler
+### 📌## ✅ 1️⃣ Using @ExceptionHandler
 
 ```java
 @RestControllerAdvice
@@ -5318,7 +5313,7 @@ public class GlobalExceptionHandler {
 
 ------
 
-##### ✅ 2️⃣ Using onErrorResume()
+### 📌## ✅ 2️⃣ Using onErrorResume()
 
 ```java
 public Mono<Account> getAccount(String id) {
@@ -5339,7 +5334,7 @@ If account not found:
 
 ------
 
-##### 🎯 MVC vs WebFlux 
+### 📌## 🎯 MVC vs WebFlux 
 
 | Feature           | Spring MVC             | WebFlux              |
 | ----------------- | ---------------------- | -------------------- |
@@ -5348,19 +5343,19 @@ If account not found:
 | Scalability       | Moderate               | High                 |
 | Best For          | CRUD apps              | High traffic systems |
 
-### ⚡ Reactive (WebFlux) vs CompletableFuture
+### 📌 ⚡ Reactive (WebFlux) vs CompletableFuture
 
 This is a **very common 3–5 year experience interview question**.
 
 ------
 
-##### 🔹 1️⃣ What is CompletableFuture?
+### 📌## 🔹 1️⃣ What is CompletableFuture?
 
 `CompletableFuture` is a class introduced in Java 8 (from Oracle Corporation Java platform) to perform **asynchronous, non-blocking tasks**.
 
 It runs tasks in a separate thread (usually ForkJoinPool).
 
-#### ✅ Example
+### 📌# ✅ Example
 
 ```java
 CompletableFuture<String> future =
@@ -5375,7 +5370,7 @@ future.thenAccept(result -> System.out.println(result));
 
 ------
 
-##### 🔹 2️⃣ What is Reactive (WebFlux)?
+### 📌## 🔹 2️⃣ What is Reactive (WebFlux)?
 
 Reactive uses **Mono and Flux** from Project Reactor inside Spring WebFlux.
 
@@ -5414,7 +5409,7 @@ User dashboard loads:
 
 ------
 
-##### 🔹 Using CompletableFuture
+### 📌## 🔹 Using CompletableFuture
 
 ```
 CompletableFuture<Account> account = getAccount();
@@ -5431,7 +5426,7 @@ CompletableFuture.allOf(account, txns).join();
 
 ------
 
-##### 🔹 Using Reactive (WebFlux)
+### 📌## 🔹 Using Reactive (WebFlux)
 
 ```
 Mono<Account> account = accountService.getAccount();
@@ -5446,7 +5441,7 @@ return Mono.zip(account, txns.collectList());
 
 ---
 
-#### What is Backpressure?
+### 📌# What is Backpressure?
 
 It controls data flow when:
  Producer → Faster Consumer → Slower Reactive supports this. CompletableFuture does NOT.
@@ -5459,15 +5454,15 @@ Reactive manages this automatically.
 
 ------
 
-### 🎯 When to Use What?
+### 📌 🎯 When to Use What?
 
-##### ✅ Use CompletableFuture When:
+### 📌## ✅ Use CompletableFuture When:
 
 - Calling 2–3 external APIs
 - Simple parallel execution
 - Not building reactive system
 
-##### ✅ Use Reactive When:
+### 📌## ✅ Use Reactive When:
 
 - High traffic system
 - Streaming data
@@ -5476,7 +5471,7 @@ Reactive manages this automatically.
 
 ------
 
-### What is Idempotency?
+### 📌 What is Idempotency?
 
 In computer science and web development, **idempotency** means that an operation can be performed multiple times, but the resulting state of the system will be exactly the same as if it had been performed only once.
 
@@ -5488,7 +5483,7 @@ Think of a crosswalk button or an elevator button. You can press the button to c
 
 ------
 
-### Which HTTP Methods are NOT Idempotent?
+### 📌 Which HTTP Methods are NOT Idempotent?
 
 In REST APIs, methods that are not idempotent will change the server's state every single time you execute them.
 
@@ -5497,7 +5492,7 @@ In REST APIs, methods that are not idempotent will change the server's state eve
 
 ------
 
-### Which HTTP Methods ARE Idempotent?
+### 📌 Which HTTP Methods ARE Idempotent?
 
 If a client sends these requests 1 time or 1,000 times, the final state of the database remains exactly the same.
 
@@ -5505,11 +5500,11 @@ If a client sends these requests 1 time or 1,000 times, the final state of the d
 - **`PUT`:** Used to completely replace a resource. If you send a `PUT` request with a payload saying `{"name": "Alice", "age": 30}`, the first request updates the record. The next 99 identical requests just overwrite the record with the exact same data. The final state is still just Alice, age 30.
 - **`DELETE`:** If you send a request to `DELETE /users/123`, the first request deletes the user. If you send it again, the user is already gone. The system's state (User 123 does not exist) remains identical, even if the server replies with a `404 Not Found` instead of a `200 OK` on subsequent attempts.
 
-### Why does this matter?
+### 📌 Why does this matter?
 
 Networks are unreliable. Mobile phones drop signals, routers restart, and browsers time out. Because of this, clients (like web browsers or mobile apps) will often automatically retry requests that fail to get a response. If you use a non-idempotent method (like `POST`) for something that should be idempotent, those automatic retries will cause duplicate data, double-charged credit cards, and buggy applications.
 
-### 2. HTTP Methods & Idempotency
+### 📌 2. HTTP Methods & Idempotency
 
 When building REST APIs in Java (Spring Boot, Micronaut, Jakarta EE), you must respect the idempotency of standard HTTP methods.
 
@@ -5526,9 +5521,9 @@ When building REST APIs in Java (Spring Boot, Micronaut, Jakarta EE), you must r
 
 ------
 
-### Handling Idempotency
+### 📌 Handling Idempotency
 
-### 1. Idempotency Keys (The API Shield)
+### 📌 1. Idempotency Keys (The API Shield)
 
 This is the best approach for sensitive `POST` requests, like payments. The client and server agree to track a unique ID to prevent double-processing.
 
@@ -5541,7 +5536,7 @@ This is the best approach for sensitive `POST` requests, like payments. The clie
 
 ------
 
-### 2. Database Constraints (The Ultimate Safety Net)
+### 📌 2. Database Constraints (The Ultimate Safety Net)
 
 Your database is the final source of truth. You can force it to reject duplicates at the foundational level.
 
@@ -5558,7 +5553,7 @@ ON CONFLICT (order_id) DO NOTHING;
 
 ------
 
-### 3. Optimistic Locking (The Traffic Cop)
+### 📌 3. Optimistic Locking (The Traffic Cop)
 
 This prevents data corruption when two users try to update the exact same record at the exact same time.
 
@@ -5568,7 +5563,7 @@ This prevents data corruption when two users try to update the exact same record
 
 ------
 
-### 4. The Idempotent Consumer (The Message Filter)
+### 📌 4. The Idempotent Consumer (The Message Filter)
 
 Message brokers like Kafka or RabbitMQ often accidentally deliver the same message twice ("at-least-once" delivery). You handle this using the **Inbox Pattern**.
 
