@@ -2847,9 +2847,9 @@ It defines **how a method behaves when it is called inside another transaction**
 
 ------
 
-### 📌 ✅ Common Propagation Types (Interview Focus)
+##### 📌 ✅ Common Propagation Types (Interview Focus)
 
-#### 📌  1. REQUIRED (Default)
+##### 📌  1. REQUIRED (Default)
 
 👉 If transaction exists → Join it
 👉 If not → Create new transaction
@@ -2859,7 +2859,7 @@ It defines **how a method behaves when it is called inside another transaction**
 public void placeOrder() { }
 ```
 
-#### 📌  🔎 Use Case
+###### 📌  🔎 Use Case
 
 Service A calls Service B → both run in **same transaction**
 
@@ -2869,7 +2869,7 @@ If B fails → entire transaction rolls back.
 
 ------
 
-### 📌# 2. REQUIRES_NEW
+##### 📌2. REQUIRES_NEW
 
 👉 Always create new transaction
 👉 Suspend existing transaction (if any)
@@ -2879,7 +2879,7 @@ If B fails → entire transaction rolls back.
 public void saveAuditLog() { }
 ```
 
-#### 📌  🔎 Use Case
+###### 📌  🔎 Use Case
 
 Order service fails but you still want to save audit logs.
 
@@ -2887,7 +2887,7 @@ Order service fails but you still want to save audit logs.
 
 ------
 
-### 📌# 3. SUPPORTS
+##### 📌 3. SUPPORTS
 
 👉 If transaction exists → join
 👉 If not → execute without transaction
@@ -2896,7 +2896,7 @@ Used for read operations.
 
 ------
 
-### 📌# 4. NOT_SUPPORTED
+##### 📌 4. NOT_SUPPORTED
 
 👉 Suspend current transaction
 👉 Run without transaction
@@ -2905,14 +2905,14 @@ Used when you don’t want transaction overhead.
 
 ------
 
-### 📌# 5. MANDATORY
+##### 📌 5. MANDATORY
 
 👉 Must have existing transaction
 👉 If not → Exception
 
 ------
 
-### 📌# 6. NEVER
+##### 📌 6. NEVER
 
 👉 Should NOT have transaction
 👉 If exists → Exception
@@ -2926,7 +2926,7 @@ If payment fails:
 
 ### 📌 🔹 2️⃣ Transaction Isolation Levels
 
-### 📌# 👉 What is Isolation?
+### 📌What is Isolation?
 
 It defines **how one transaction sees data of another transaction**.
 
@@ -2934,7 +2934,7 @@ Prevents concurrency problems.
 
 ------
 
-### 📌# 🔥 Common Concurrency Problems
+##### 📌Common Concurrency Problems
 
 | Problem             | Meaning                              |
 | ------------------- | ------------------------------------ |
@@ -2944,11 +2944,11 @@ Prevents concurrency problems.
 
 ------
 
-### 📌# ✅ Isolation Levels (Low → High)
+### 📌✅ Isolation Levels (Low → High)
 
 ------
 
-### 📌# 1️⃣ READ_UNCOMMITTED
+##### 📌1️⃣ READ_UNCOMMITTED
 
 - Dirty read possible
 - Lowest isolation
@@ -2956,7 +2956,7 @@ Prevents concurrency problems.
 
 ------
 
-### 📌# 2️⃣ READ_COMMITTED (Most Common)
+##### 📌2️⃣ READ_COMMITTED (Most Common)
 
 - Cannot read uncommitted data
 - Prevents dirty read
@@ -2970,7 +2970,7 @@ Prevents concurrency problems.
 
 ------
 
-### 📌# 3️⃣ REPEATABLE_READ(Default)
+##### 📌3️⃣ REPEATABLE_READ(Default)
 
 - Prevents dirty read
 - Prevents non-repeatable read
@@ -2980,7 +2980,7 @@ Prevents concurrency problems.
 
 ------
 
-### 📌# 4️⃣ SERIALIZABLE (Highest)
+##### 📌4️⃣ SERIALIZABLE (Highest)
 
 - Fully isolated
 - No dirty, non-repeatable, phantom
@@ -3009,23 +3009,23 @@ Best choice:
 
 ---
 
-### 📌# Q1: What is default propagation in Spring?
+### 📌What is default propagation in Spring?
 
 👉 REQUIRED
 
-### 📌# Q2: Default isolation in MySQL?
+### 📌Default isolation in MySQL?
 
 👉 REPEATABLE_READ
 
-### 📌# Q3: When to use REQUIRES_NEW?
+### 📌When to use REQUIRES_NEW?
 
 👉 Logging, audit, notifications
 
-### 📌# Q4: Can isolation be changed at method level?
+### 📌Can isolation be changed at method level?
 
 👉 Yes using `@Transactional(isolation = Isolation.X)`
 
-### 📌# Q5:  If outer method is NOT transactional and inner is REQUIRED, what happens?
+### 📌If outer method is NOT transactional and inner is REQUIRED, what happens?
 
 👉 Inner method creates new transaction.
 
@@ -3038,7 +3038,7 @@ Best choice:
 
 ---
 
-### 📌# 🔥 Transaction Propagation Types
+#####  Transaction Propagation Types
 
 | Propagation Type   | Meaning (Short)                                  | When to Use                      | Example                                                   |
 | ------------------ | ------------------------------------------------ | -------------------------------- | --------------------------------------------------------- |
@@ -3052,7 +3052,7 @@ Best choice:
 
 ------
 
-### 📌# 🔥 Transaction Isolation Levels
+##### Transaction Isolation Levels
 
 | Isolation Level  | Prevents                         | Problem Still Possible         | Example                                                  |
 | ---------------- | -------------------------------- | ------------------------------ | -------------------------------------------------------- |
@@ -3113,7 +3113,7 @@ If a user tries to access /admin, Spring Security will check whether they have t
 
 ### 📌 Spring Security architecture
 
-### 📌# Security filter chain :
+##### Security filter chain :
 
 * Acts as the entry point for all incoming HTTP requests in Spring Security
 * This is used to filter the requests and it also authenticate and authorize the user
@@ -3121,7 +3121,7 @@ If a user tries to access /admin, Spring Security will check whether they have t
 * Filter run the first in processing order
 * We can add custom filters in applications
 
-### 📌# Authentication :
+##### Authentication :
 
 * Core component responsible for handling user authentication
 * When user submit login form
@@ -3130,7 +3130,7 @@ If a user tries to access /admin, Spring Security will check whether they have t
 * And also, user password encoder to compare password
 * If authentication is successful, it returns authentication manager object
 
-### 📌# Authorisation :
+##### Authorisation :
 
 * Once authentication is successful , system will check the roles of user and according to that resource access is granted
 * If not, then system give exception.
@@ -3179,7 +3179,7 @@ Instead of writing security rules in configuration, you can secure individual me
 
 ---
 
-#### 📌  🏗 Enable Method Security
+##### 📌Enable Method Security
 
 Before using method-level security annotations, enable it.
 
@@ -3194,7 +3194,7 @@ public class SecurityConfig {
 
 ---
 
-#### 📌  1️⃣ @EnableWebSecurity
+##### 📌  1️⃣ @EnableWebSecurity
 
 #### 📌  
 
@@ -3214,7 +3214,7 @@ public class SecurityConfig {
 
 ---
 
-#### 📌  2️⃣ @EnableMethodSecurity
+##### 📌  2️⃣ @EnableMethodSecurity
 
 Enables security annotations on methods.
 
@@ -3236,7 +3236,7 @@ Enables:
 
 ---
 
-# 3️⃣ @PreAuthorize ⭐ (Most Asked)
+##### 3️⃣ @PreAuthorize ⭐ (Most Asked)
 
 ## 
 
@@ -3269,7 +3269,7 @@ Execute Method
 
 ---
 
-## Multiple Roles
+##### Multiple Roles
 
 ```java
 @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
@@ -3280,7 +3280,7 @@ public void updateEmployee() {
 
 ---
 
-## Authority Example
+##### Authority Example
 
 ```java
 @PreAuthorize("hasAuthority('READ')")
@@ -3291,7 +3291,7 @@ public List<User> getUsers() {
 
 ---
 
-## Authenticated User
+##### Authenticated User
 
 ```java
 @PreAuthorize("isAuthenticated()")
@@ -3301,7 +3301,7 @@ Only logged-in users can access.
 
 ---
 
-## Permit Everyone
+##### Permit Everyone
 
 ```java
 @PreAuthorize("permitAll()")
@@ -3309,7 +3309,7 @@ Only logged-in users can access.
 
 ---
 
-## Deny Everyone
+##### Deny Everyone
 
 ```java
 @PreAuthorize("denyAll()")
@@ -3317,7 +3317,7 @@ Only logged-in users can access.
 
 ---
 
-# 4️⃣ @PostAuthorize
+#### 4️⃣ @PostAuthorize
 
 ## 
 
@@ -3352,7 +3352,7 @@ Return Response
 
 ---
 
-# 5️⃣ @Secured
+#### 5️⃣ @Secured
 
 ## 
 
@@ -3365,7 +3365,7 @@ public void deleteProduct() {
 }
 ```
 
-### 📌 Multiple Roles
+#### 📌 Multiple Roles
 
 ```java
 @Secured({
@@ -3378,7 +3378,7 @@ public void deleteProduct() {
 
 ---
 
-# 6️⃣ @RolesAllowed
+#### 6️⃣ @RolesAllowed
 
 ## 
 
@@ -3402,7 +3402,7 @@ Multiple roles:
 
 ---
 
-# 7️⃣ @PreFilter
+#### 7️⃣ @PreFilter
 
 ## 
 
@@ -3437,7 +3437,7 @@ Only Rahul's document remains.
 
 ---
 
-# 8️⃣ @PostFilter
+#### 8️⃣ @PostFilter
 
 ## 
 
@@ -3470,7 +3470,7 @@ User Receives Filtered Data
 
 ---
 
-# 9️⃣ @AuthenticationPrincipal
+#### 9️⃣ @AuthenticationPrincipal
 
 ## 
 
@@ -3488,7 +3488,7 @@ public String profile(
 
 ---
 
-# 🔟 @CurrentSecurityContext
+#### 🔟 @CurrentSecurityContext
 
 ## 
 
@@ -3549,7 +3549,7 @@ public class UserController {
 
 ---
 
-### 📌 Q8. Difference between `@Secured` and `@PreAuthorize`?
+### 📌Difference between `@Secured` and `@PreAuthorize`?
 
 | `@Secured` | `@PreAuthorize`                                              |
 | ---------- | ------------------------------------------------------------ |
@@ -3571,7 +3571,7 @@ public class UserController {
 
 ---
 
-### 📌# What is Spring AOP?
+### 📌What is Spring AOP?
 
 Aspect-Oriented Programming (AOP) is used to separate cross-cutting concerns (logging, security, transactions).
 
@@ -3607,14 +3607,14 @@ public class LoggingAspect {
 
 ---
 
-### 📌 Why use Spring Security?
+### Why use Spring Security?
 
 *  Provides authentication and authorization
 *  Prevents common security threats (CSRF, XSS, SQL Injection, etc.)
 *  Supports integration with OAuth2, JWT, LDAP, etc.
 *  Highly customizable
 
-#### 📌  Adding Spring Security to a Spring Boot Project
+##### Adding Spring Security to a Spring Boot Project
 
 1. Dependencies (Maven) for spring boot,
 
@@ -3699,8 +3699,6 @@ public class LoggingAspect {
 * By default, Spring Security provides a login form with a generated username (user) and password (logged in the console).
 
 ---
-
-
 
 ### 📌 Configuring Spring Security (Basic Authentication)
 
@@ -3810,7 +3808,7 @@ public class SecurityConfig {
 }
 ```
 
-### 📌# **User Authentication (Database)**
+#### User Authentication (Database)**
 
 Replace in-memory authentication with database authentication using UserDetailsService.
 
@@ -3836,7 +3834,7 @@ public class Users {
     private String role;
 ```
 
-Step 2: Create UserRepository
+**Step 2: Create UserRepository**
 
 ```java
 @Repository
@@ -3848,7 +3846,7 @@ Optional<Users> findByUsername(String username);
 }
 ```
 
-Step 3: Implement UserDetailsService
+**Step 3: Implement UserDetailsService**
 
 ```java
 @Service
@@ -3908,9 +3906,9 @@ public class Usersservice implements UserDetailsService {
 
 ---
 
-# 📘 JWT Authentication & Authorization (Spring Boot 3)
+## 📘 JWT Authentication & Authorization (Spring Boot 3)
 
-### 📌# 1.What is JWT?
+### 📌 1.What is JWT?
 
 JWT (JSON Web Token) is a compact, URL-safe token used for authentication and authorization. It consists of three parts,
 
@@ -3920,7 +3918,7 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 
 🔹 Signature – Ensures integrity and authenticity of the token.
 
-#### 📌  How JWT Works in Spring Security
+### 📌  How JWT Works in Spring Security
 
 1. User logs in → Sends username & password to the authentication endpoint.
 2. Spring Security validates credentials using AuthenticationManager.
@@ -3928,13 +3926,13 @@ JWT (JSON Web Token) is a compact, URL-safe token used for authentication and au
 4. Client stores JWT (localStorage/sessionStorage) and includes it in the Authorization header for further requests.
 5. Spring Security filters validate the JWT on every request.
 
-#### 📌  Flow to Implement JWT Authentication in Spring Boot
+### 📌  Flow to Implement JWT Authentication in Spring Boot
 
 Here is a step-by-step guide to creating your JWT Authentication project based on the code you've provided.
 
 ------
 
-### 📌# 🚀 2. Why JWT?
+#####  2. Why JWT?
 
 - Stateless (no session)
 - Scalable
@@ -3943,7 +3941,7 @@ Here is a step-by-step guide to creating your JWT Authentication project based o
 
 ------
 
-### 📌# 🏗️ 3. Project Architecture
+#####  3. Project Architecture
 
 | Layer      | Class                |
 | ---------- | -------------------- |
@@ -3955,7 +3953,7 @@ Here is a step-by-step guide to creating your JWT Authentication project based o
 
 ------
 
-### 📌# ⚙️ 4. Security Configuration
+#####  4. Security Configuration
 
 ```java
 @Configuration
@@ -4009,7 +4007,7 @@ public class SecurityConfig {
 
 ------
 
-### 📌# 🔁 5. JWT Filter (Core Logic)
+##### 5. JWT Filter (Core Logic)
 
 ```java
 @Component
@@ -4069,7 +4067,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 ------
 
-### 📌# 🎟 6. JWT Service
+##### 6. JWT Service
 
 ```java
 @Service
@@ -4106,7 +4104,7 @@ public class JwtService {
 
 ------
 
-### 📌# 👤 7. UserDetailsService
+##### 👤 7. UserDetailsService
 
 ```java
 @Service
@@ -4132,7 +4130,7 @@ public class CustomerService implements UserDetailsService {
 
 ------
 
-### 📌# 🎮 8. Controller (Login + Register)
+#####  8. Controller (Login + Register)
 
 ```java
 @RestController
@@ -4187,11 +4185,11 @@ public class CustomerController {
 
 ------
 
-### 📌# 🔁 9. Complete Flow
+#####  9. Complete Flow
 
 ------
 
-## 🔐 Login Flow
+##### 🔐 Login Flow
 
 1. User sends username & password
 2. `AuthenticationManager` validates
@@ -4201,7 +4199,7 @@ public class CustomerController {
 
 ------
 
-## 🔁 Request Flow
+##### 🔁 Request Flow
 
 1. Client sends token in header
 2. `JwtFilter` intercepts request
