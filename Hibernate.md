@@ -435,6 +435,8 @@ save()           |Inserts new record                  |Generated primary key
 persist()        |Inserts new record, but doesn't return ID     |void
 saveOrUpdate()   |Inserts if new, updates if existing |void
 
+---
+
 ### 📌What are @OneToOne, @OneToMany, and @ManyToMany relationships in Hibernate?
 
 -  One-to-One:  A person has one passport.
