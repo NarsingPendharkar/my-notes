@@ -413,17 +413,18 @@ List<Student> students = query.list();
 
 ### 📌What are Fetch Types in Hibernate?
 
--  Lazy Loading (FetchType.LAZY)  -- Data is loaded only when   requested.
+-  Lazy Loading (`FetchType.LAZY`)  -- Data is loaded only when   requested.
 
--  Eager Loading (FetchType.EAGER)  -- Data is loaded immediately.
+-  Eager Loading (`FetchType.EAGER`)  -- Data is loaded immediately.
 
 Example:
 
 ```java
 @OneToMany(fetch = FetchType.LAZY)
+private  List<Course> courses;
 ```
 
-private  List<Course> courses;
+---
 
 ###  📌What is the difference between save(), persist(), and saveOrUpdate()?
 
