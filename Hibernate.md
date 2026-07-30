@@ -242,7 +242,7 @@ public   static   void  main(String args) {
 }
 ```
 
-
+----
 
 ### 📌 Steps to Create a SessionFactory Object in Hibernate and Perform an Operation
 
@@ -365,39 +365,317 @@ sessionFactory.close();
 | 7️    | Commit Transaction          | `txn.commit()`                            |
 | 8️    | Close Resources             | `session.close();sessionFactory.close();` |
 
-### 📌Explain Hibernate Architecture.
+---
 
-Hibernate consists of several components:
+### 📌 Hibernate Architecture
 
-1.   Configuration (`hibernate.cfg.xml`)  -- Stores database and Hibernate configurations.
+Hibernate consists of several core components:
 
-2.   SessionFactory  -- A factory for Session objects (one per database).
+1. **Configuration (`hibernate.cfg.xml`)**
+   - Stores database connection details.
+   - Contains Hibernate properties and entity mappings.
 
-3.   Session  -- Provides methods for performing CRUD operations.
+2. **SessionFactory**
+   - Created once per application/database.
+   - Heavy-weight, thread-safe object.
+   - Creates `Session` objects.
 
-4.   Transaction  -- Manages database transactions.
+3. **Session**
+   - Represents a single unit of work.
+   - Provides CRUD operations.
+   - Maintains the **First-Level Cache**.
 
-5.   Query API  -- HQL (Hibernate Query Language) and Criteria API.
+4. **Transaction**
+   - Ensures database operations are committed or rolled back atomically.
+
+5. **Query API**
+   - Used to retrieve and manipulate data.
+   - Supports HQL, Criteria API, and Native SQL.
+
+**Hibernate Architecture Flow**
+
+```mermaid
+flowchart TD
+
+    A["Configuration<br/>(hibernate.cfg.xml)"]
+
+    B["SessionFactory<br/>(Thread Safe)"]
+
+    C["Session<br/>(First-Level Cache)"]
+
+    D["Transaction"]
+
+    E["Query API<br/>HQL / Criteria / Native SQL"]
+
+    F[("Database")]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+
+    C -. CRUD Operations .-> F
+```
+
+---
+
+## 📌States of Objects in Hibernate
+
+In Hibernate, an object (entity) goes through different **lifecycle states** from creation to deletion. Hibernate tracks these states to decide when to insert, update, or delete data in the database.
+
+There are mainly **four states**:
+
+1. **Transient State**
+2. **Persistent State**
+3. **Detached State**
+4. **Removed State**
+
+**Example Entity**
+
+```java
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "employees")
+public class Employee {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    private double salary;
+
+    public Employee() {}
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    // Getters and Setters
+}
+```
+
+------
+
+**Object Lifecycle in Hibernate**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Transient
+
+    Transient --> Persistent : session.persist()/save()
+
+    Persistent --> Detached : session.close()/clear()/evict()
+
+    Detached --> Persistent : session.merge()/update()
+
+    Persistent --> Removed : session.remove()/delete()
+
+    Removed --> [*]
+```
+
+------
+
+##### 1. Transient State
+
+A newly created Java object is called **Transient**.
+
+- Object is created using the `new` keyword.
+- Hibernate does not know about this object.
+- No database record exists.
+- It is not associated with any Hibernate session.
+
+```java
+Employee emp = new Employee("John", 50000);
+
+System.out.println(emp.getId()); // null
+new Employee()
+      |
+      v
++----------------+
+|  Transient     |
++----------------+
+```
+
+------
+
+##### 2. Persistent State
+
+When an object is connected with a Hibernate **Session**, it becomes Persistent.
+
+- Hibernate starts tracking the object.
+- Any changes are automatically reflected in the database.
+- Object has a corresponding database row.
+
+```java
+Session session = sessionFactory.openSession();
+Transaction tx = session.beginTransaction();
+
+Employee emp = new Employee("John", 50000);
+
+session.persist(emp);   // Persistent
+
+tx.commit();
+session.close();
+```
+
+Now Hibernate:
+
+- Tracks changes automatically.
+- Synchronizes changes with the database during flush/commit.
+
+```
+Session
+   |
+   +------ Employee
+              |
+           Database
+```
+
+------
+
+##### 3. Detached State
+
+When an object was persistent but the Hibernate session is closed, it becomes **Detached**.
+
+- Object still exists in Java memory.
+- Database record exists.
+- Hibernate no longer tracks changes.
+
+```java
+Session session = sessionFactory.openSession();
+
+Employee emp = session.get(Employee.class, 1L);
+
+session.close();      // emp becomes Detached
+
+emp.setSalary(80000); // Hibernate won't save this change automatically
+Database
+    ^
+    |
+ Detached Object
+```
+
+To manage it again:
+
+```java
+Session session2 = sessionFactory.openSession();
+Transaction tx = session2.beginTransaction();
+
+session2.merge(emp);
+
+tx.commit();
+session2.close();
+```
+
+------
+
+##### 4. Removed (Deleted) State
+
+When an object is marked for deletion, it enters the Removed state.
+
+- Object is still associated with the session.
+- Hibernate deletes the database record after transaction commit.
+
+```java
+Session session = sessionFactory.openSession();
+Transaction tx = session.beginTransaction();
+
+Employee emp = session.get(Employee.class, 1L);
+
+session.remove(emp);
+
+tx.commit();
+session.close();
+```
+
+**Hibernate executes:**
+
+```sql
+DELETE FROM employees WHERE id = 1;
+Persistent
+     |
+ remove()
+     |
+     v
+ Removed
+     |
+ Commit
+     |
+ Database Row Deleted
+```
+
+------
+
+**Complete Example**
+
+```java
+Session session = sessionFactory.openSession();
+Transaction tx = session.beginTransaction();
+
+// Transient
+Employee emp = new Employee("Alice", 60000);
+
+// Persistent
+session.persist(emp);
+
+emp.setSalary(70000);   // Automatically tracked
+
+tx.commit();
+session.close();
+
+// Detached
+emp.setSalary(80000);
+
+// Reattach
+Session session2 = sessionFactory.openSession();
+Transaction tx2 = session2.beginTransaction();
+
+session2.merge(emp);
+
+tx2.commit();
+session2.close();
+```
+
+------
+
+**Summary**
+
+| State          | Managed by Hibernate? | Exists in Database?        | Typical Operations                       |
+| -------------- | --------------------- | -------------------------- | ---------------------------------------- |
+| **Transient**  | ❌ No                  | ❌ No                       | `new Employee()`                         |
+| **Persistent** | ✅ Yes                 | ✅ Yes (after flush/commit) | `persist()`, `save()`, `get()`, `find()` |
+| **Detached**   | ❌ No                  | ✅ Yes                      | `close()`, `clear()`, `evict()`          |
+| **Removed**    | ✅ Until commit        | ❌ After commit             | `remove()`, `delete()`                   |
+
+---
+
+### 📌JDBC vs Hibernate vs JPA vs Spring Data JPA Comparison
+
+| Technology          | One-Line Explanation                                         |
+| ------------------- | ------------------------------------------------------------ |
+| **JDBC**            | Direct way to communicate with a database using SQL.         |
+| **Hibernate**       | ORM framework that maps Java objects to database tables automatically. |
+| **JPA**             | Java specification that defines how ORM should work.         |
+| **Spring Data JPA** | Spring abstraction that reduces JPA boilerplate using repositories. |
 
 ---
 
 ### 📌What is SessionFactory in Hibernate?
 
-**Answer:**  SessionFactory is a heavyweight object that creates and manages Session objects. It is created  once per database  and is thread-safe.
+SessionFactory is a heavyweight object that creates and manages Session objects. It is created  once per database  and is thread-safe.
+
+---
 
 ### 📌What is Session in Hibernate?
 
-**Answer:**  A Session is a lightweight, non-thread-safe object that acts as a bridge between Java code and the database. It is used to perform CRUD operations.
+A Session is a lightweight, non-thread-safe object that acts as a bridge between Java code and the database. It is used to perform CRUD operations.
 
-### 📌What are the different states of an entity in Hibernate?
-
--  Transient:  The object is created but not associated with a   Hibernate session.
-
--  Persistent:  The object is associated with a session and mapped to   a database.
-
--  Detached:  The object was persistent but is now out of the session scope.
-
--  Removed:  The object is marked for deletion.
+---
 
 ###  📌What is HQL (Hibernate Query Language)? How is it different from SQL?
 
@@ -410,6 +688,8 @@ Query query = session.createQuery(hql);
 query.setParameter("name", "Nirav");
 List<Student> students = query.list();
 ```
+
+---
 
 ### 📌What are Fetch Types in Hibernate?
 
@@ -435,22 +715,7 @@ save()           |Inserts new record                  |Generated primary key
 persist()        |Inserts new record, but doesn't return ID     |void
 saveOrUpdate()   |Inserts if new, updates if existing |void
 
----
 
-### 📌What are @OneToOne, @OneToMany, and @ManyToMany relationships in Hibernate?
-
--  One-to-One:  A person has one passport.
-
--  One-to-Many:  A department has many employees.
-
--  Many-to-Many:  A student can enrol in multiple courses.
-
-**Example:**
-
-```java
-@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-private  List<Employee> employees;
-```
 
 ----
 
@@ -521,27 +786,36 @@ Student s2 = session2.get(Student.class, 1);
 - First session → Reads from the database and stores the object in L2 cache.
 - Second session → Reads the object from the second-level cache (no database query).
 
-```text
-               First-Level Cache
+```mermaid
+flowchart TB
 
-       Session 1
-      +------------------+
-      |   L1 Cache       |
-      +------------------+
-              |
-          Database
+    subgraph L1["First-Level Cache (Session Cache)"]
+        S1["Session 1"]
+        C1["L1 Cache"]
+        DB1[("Database")]
 
+        S1 --> C1
+        C1 --> DB1
+    end
 
-             Second-Level Cache
+    style L1 fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
 
-     Session 1      Session 2      Session 3
-          \             |             /
-           \            |            /
-          +--------------------------+
-          |   Second-Level Cache     |
-          +--------------------------+
-                     |
-                 Database
+    subgraph L2["Second-Level Cache (Shared Cache)"]
+        S2["Session 1"]
+        S3["Session 2"]
+        S4["Session 3"]
+
+        C2["Second-Level Cache"]
+        DB2[("Database")]
+
+        S2 --> C2
+        S3 --> C2
+        S4 --> C2
+
+        C2 --> DB2
+    end
+
+    style L2 fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
 ```
 
 ------
@@ -601,6 +875,8 @@ List<Student> students = query.getResultList();
 
 4.   Transactional:  Works with JTA transactions.
 
+---
+
 ### 📌How does Hibernate handle transactions?
 
 Transactions in Hibernate are managed using `beginTransaction()` and `commit()`.
@@ -641,19 +917,29 @@ try  {
 }
 ```
 
+---
+
 ### 📌How would you optimize performance in Hibernate?
 
-- Use  lazy loading  (FetchType.LAZY).
+**Hibernate performance can be optimized by:**
 
-- Enable  second-level caching  (EhCache, Infinispan).
+1. Using first-level and second-level caching.
+2. Using lazy loading instead of unnecessary eager fetching.
+3. Avoiding N+1 query problems using fetch joins.
+4. Enabling JDBC batch processing.
+5. Using pagination for large data.
+6. Selecting only required columns.
+7. Proper transaction management.
+8. Adding database indexes.
+9. Optimizing entity relationships and fetch strategies.
 
-- Optimize  batch processing  using batch_size.
-
-- Use  pagination  in queries.
+---
 
 ### 📌What will happen if you don't close a Hibernate Session?
 
-Answer:  Memory leaks can occur because the session holds database connections and cached objects.
+ Memory leaks can occur because the session holds database connections and cached objects.
+
+---
 
 ### 📌How do you integrate Hibernate with Spring Boot?
 
@@ -665,11 +951,15 @@ spring.datasource.url=jdbc:mysql://localhost:3306/hibernate_db
 spring.jpa.hibernate.ddl-auto=update
 ```
 
+### 📌What is Dialect?
 
+A **Hibernate Dialect** is a class that tells Hibernate how to generate SQL statements according to a specific database.
+
+Different databases have different SQL syntax and features. Hibernate uses Dialect to generate database-specific SQL.
 
 ---
 
-# Entity Mapping 
+## Entity Mapping 
 
 ### 1. One-to-One (1:1)
 
