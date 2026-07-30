@@ -1,8 +1,6 @@
+# Hibernate
 
-
-
-
-###  What is Hibernate? Why is it used?
+###  📌What is Hibernate? Why is it used?
 
 **Answer:**  Hibernate is a object relational mapping framework which maps the java classes to the database tables and java data types to SQL data types automatically and generates the queries automatically.
 
@@ -34,13 +32,25 @@
 
 1.   XML Mapping: Define mappings in .hbm.xml files.
 
-3.   Annotations: Use Java annotations for mapping.
+2.   Annotations: Use Java annotations for mapping.
 
-## #What is ORM?
+---
 
-**Answer:**  ORM stands for object relational mapping and it is a technic for converting object-oriented programming data to relational database.It is a programming technique that maps the object to the data stored in the database.
+### 📌 What is ORM?
 
-### What are the advantages of Hibernate over JDBC?
+**ORM (Object-Relational Mapping)** is a technique that maps **Java objects (classes)** to **database tables**. It allows developers to interact with the database using Java objects instead of writing SQL for every operation.
+
+In simple terms:
+
+- **Java Class** ⟶ **Database Table**
+- **Java Object** ⟶ **Row (Record)**
+- **Object Fields** ⟶ **Table Columns**
+
+Hibernate is one of the most popular ORM frameworks for Java.
+
+---
+
+### 📌 What are the advantages of Hibernate over JDBC?
 
 -------------------------------------------------------------------------
 Feature          |   JDBC              |  Hibernate
@@ -51,11 +61,11 @@ Caching        |      No built-in caching |  Supports first-level and second-lev
 Database       |      Database-specific  |  Works with multiple databases
 -------------------------------------------------------------------------
 
-Hibernate Example :
+**Hibernate Example :**
 
-1.   ##### First create new maven project and use quick-start arch type.
+1.   **First create new maven project and use quick-start arch type.**
 
-2.   ##### Then Add required dependencies in pom.xml
+2.   **Then Add required dependencies in pom.xml**
 
 ```xml
 <!-- MS SQL -->
@@ -95,7 +105,7 @@ Hibernate Example :
 </dependency>
 ```
 
-3. ##### Create the hibernate configuration file in resource folder i.e hibernate.cfg.xml
+3. **Create the hibernate configuration file in resource folder i.e `hibernate.cfg.xml`**
 
 ```xml
 <?xml version='1.0' encoding='UTF-8'?>
@@ -108,42 +118,42 @@ Hibernate Example :
 
 <hibernate-configuration>
 
-<session-factory>
+    <session-factory>
 
-<!-- Hibernate DDL Auto (Update DB Schema) -->
+        <!-- Hibernate DDL Auto (Update DB Schema) -->
 
-<property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
-<!-- SQL Server Dialect -->
+        <!-- SQL Server Dialect -->
 
-<property
-name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
+        <property
+                  name="hibernate.dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
 
-<!-- Database Connection Settings -->
+        <!-- Database Connection Settings -->
 
-<property
-name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+        <property
+                  name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
 
-<property
-name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-G774017:1433;databaseName=testdb;encrypt=false</property>
+        <property
+                  name="hibernate.connection.url">jdbc:sqlserver://DESKTOP-G774017:1433;databaseName=testdb;encrypt=false</property>
 
-<property
-name="hibernate.connection.username">user</property>
+        <property
+                  name="hibernate.connection.username">user</property>
 
-<property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.password">root</property>
 
-<!-- Show SQL Queries in Console -->
+        <!-- Show SQL Queries in Console -->
 
-<property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">true</property>
 
-<property name="hibernate.format_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
 
-</session-factory>
+    </session-factory>
 
 </hibernate-configuration>
 ```
 
-4.   ##### Create class for table mapping
+4.   **Create class for table mapping**
 
 ```java
 @Entity
@@ -152,87 +162,89 @@ name="hibernate.connection.username">user</property>
 
 public   class  Employee {
 
-@Id
+    @Id
 
-@GeneratedValue(strategy =
-GenerationType.IDENTITY)
+    @GeneratedValue(strategy =
+                    GenerationType.IDENTITY)
 
-private   int  id;
+    private   int  id;
 
-private  String name;
+    private  String name;
 
-private   int  age;
+    private   int  age;
 
-private  String address;
+    private  String address;
 
 }
 ```
 
-5.   ##### Now write a code to connect database and perform operation
+5.   **Now write a code to connect database and perform operation**
 
 ```java
 public   static   void  main(String args) {
 
-try  {
+    try  {
 
-// 1. Load Hibernate Configuration
+        // 1. Load Hibernate Configuration
 
-Configuration cfg =  new  Configuration();
+        Configuration cfg =  new  Configuration();
 
-cfg.configure("hibernate.cfg.xml");
+        cfg.configure("hibernate.cfg.xml");
 
-cfg.addAnnotatedClass(Employee. class );
+        cfg.addAnnotatedClass(Employee. class );
 
-System. *out *.println("Loaded Hibernate configuration");
+        System.out.println("Loaded Hibernate configuration");
 
-// 2. Build SessionFactory
+        // 2. Build SessionFactory
 
-SessionFactory sessionFactory = cfg.buildSessionFactory();
+        SessionFactory sessionFactory = cfg.buildSessionFactory();
 
-// 3. Open Session
+        // 3. Open Session
 
-Session session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
 
-// 4. Start Transaction
+        // 4. Start Transaction
 
-Transaction txn = session.beginTransaction();
+        Transaction txn = session.beginTransaction();
 
-// 5. Create Employee Object
+        // 5. Create Employee Object
 
-Employee emp =  new  Employee();
+        Employee emp =  new  Employee();
 
-emp.setName("nikita");
+        emp.setName("nikita");
 
-emp.setAddress("kolnoor");
+        emp.setAddress("kolnoor");
 
-emp.setAge(24);
+        emp.setAge(24);
 
-// 6. Save Employee Object
+        // 6. Save Employee Object
 
-session.save(emp);
+        session.save(emp);
 
-// 7. Commit Transaction
+        // 7. Commit Transaction
 
-txn.commit();
+        txn.commit();
 
-System.  out .println("Employee created successfully: " + emp);
+        System.  out .println("Employee created successfully: " + emp);
 
-// 8. Close Session & SessionFactory
+        // 8. Close Session & SessionFactory
 
-session.close();
+        session.close();
 
-sessionFactory.close();
+        sessionFactory.close();
 
-}  catch  (Exception e) {
+    }  catch  (Exception e) {
 
-e.printStackTrace(); // Print the actual error
+        e.printStackTrace(); // Print the actual error
 
-}
+    }
 
 }
 ```
 
-###   Steps to Create a SessionFactory Object in Hibernate and Perform an Operation
+
+
+### 📌 Steps to Create a SessionFactory Object in Hibernate and Perform an Operation
 
 ##### Step 1: Load Hibernate Configuration
 
@@ -339,27 +351,25 @@ sessionFactory.close();
 
 - sessionFactory.close(); shuts down Hibernate completely.
 
-##### ✅ Summary of Steps
+**✅ Summary of Steps**
 
 ----------------------------------------------------------------------
-Step  |    Operation   |     Method Used
-----------| -------------------| ---------------------------------------
-1️     |    Load Hibernate Config    |  cfg.configure("hibernate.cfg.xml")
-2️      |   Add Entity Class (Optional) |  cfg.addAnnotatedClass(Employee.class)
-3️      |   BuildSessionFactory        |       cfg.buildSessionFactory()
-4️      |   Open a Session      |sessionFactory.openSession()
-5️      |   Begin Transaction   |session.beginTransaction()
-6️      |   Perform Operation   |session.saveOrUpdate(emp)
-7️      |   Commit Transaction  |txn.commit()
-8️      |   Close Resources     |session.close();sessionFactory.close();
+| Step | Operation                   | Method Used                               |
+| ---- | --------------------------- | ----------------------------------------- |
+| 1️    | Load Hibernate Config       | `cfg.configure("hibernate.cfg.xml")`      |
+| 2️    | Add Entity Class (Optional) | `cfg.addAnnotatedClass(Employee.class)`   |
+| 3️    | BuildSessionFactory         | `cfg.buildSessionFactory()`               |
+| 4️    | Open a Session              | `sessionFactory.openSession()`            |
+| 5️    | Begin Transaction           | `session.beginTransaction()`              |
+| 6️    | Perform Operation           | `session.saveOrUpdate(emp)`               |
+| 7️    | Commit Transaction          | `txn.commit()`                            |
+| 8️    | Close Resources             | `session.close();sessionFactory.close();` |
 
-## Explain Hibernate Architecture.
-
-**Answer:**  
+### 📌Explain Hibernate Architecture.
 
 Hibernate consists of several components:
 
-1.   Configuration (hibernate.cfg.xml)  -- Stores database and Hibernate configurations.
+1.   Configuration (`hibernate.cfg.xml`)  -- Stores database and Hibernate configurations.
 
 2.   SessionFactory  -- A factory for Session objects (one per database).
 
@@ -371,17 +381,15 @@ Hibernate consists of several components:
 
 ---
 
-
-
-### What is SessionFactory in Hibernate?
+### 📌What is SessionFactory in Hibernate?
 
 **Answer:**  SessionFactory is a heavyweight object that creates and manages Session objects. It is created  once per database  and is thread-safe.
 
-### What is Session in Hibernate?
+### 📌What is Session in Hibernate?
 
 **Answer:**  A Session is a lightweight, non-thread-safe object that acts as a bridge between Java code and the database. It is used to perform CRUD operations.
 
-### What are the different states of an entity in Hibernate?
+### 📌What are the different states of an entity in Hibernate?
 
 -  Transient:  The object is created but not associated with a   Hibernate session.
 
@@ -391,10 +399,10 @@ Hibernate consists of several components:
 
 -  Removed:  The object is marked for deletion.
 
-###  What is HQL (Hibernate Query Language)? How is it different from SQL?
+###  📌What is HQL (Hibernate Query Language)? How is it different from SQL?
 
-Answer:  HQL is an object-oriented query language that uses entity names instead of table names. It is database-independent.
-Example:
+**Answer:**  HQL is an object-oriented query language that uses entity names instead of table names. It is database-independent.
+**Example:**
 
 ```java
 String hql = "FROM Student WHERE name = :name";
@@ -403,7 +411,7 @@ query.setParameter("name", "Nirav");
 List<Student> students = query.list();
 ```
 
-### What are Fetch Types in Hibernate?
+### 📌What are Fetch Types in Hibernate?
 
 -  Lazy Loading (FetchType.LAZY)  -- Data is loaded only when   requested.
 
@@ -417,7 +425,7 @@ Example:
 
 private  List<Course> courses;
 
-###  What is the difference between save(), persist(), and saveOrUpdate()?
+###  📌What is the difference between save(), persist(), and saveOrUpdate()?
 
 -------------------------------------------------------------------------
 Method           |When to Use                         |Returns
@@ -426,9 +434,7 @@ save()           |Inserts new record                  |Generated primary key
 persist()        |Inserts new record, but doesn't return ID     |void
 saveOrUpdate()   |Inserts if new, updates if existing |void
 
-### What are @OneToOne, @OneToMany, and @ManyToMany relationships in Hibernate?
-
-Answer:
+### 📌What are @OneToOne, @OneToMany, and @ManyToMany relationships in Hibernate?
 
 -  One-to-One:  A person has one passport.
 
@@ -436,41 +442,153 @@ Answer:
 
 -  Many-to-Many:  A student can enrol in multiple courses.
 
-Example:
+**Example:**
 
-`@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)`
-
+```java
+@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
 private  List<Employee> employees;
+```
 
-### What is the difference between First-Level and Second-Level Cache?
+----
 
------------------------------------------------------------------------
+## 📌First-Level Cache and Second-Level Cache
+
+Caching in **Hibernate** improves application performance by reducing database access. Hibernate provides two types of cache:
+
+- **First-Level Cache (L1 Cache)** – Enabled by default.
+- **Second-Level Cache (L2 Cache)** – Optional and shared across sessions.
+
+------
+
+#### 1. First-Level Cache (L1 Cache)
+
+The **First-Level Cache** is associated with a **Session** object. Every Hibernate session has its own cache.
+
+**Features**
+
+- Enabled **by default**.
+- Stores objects within the current session.
+- Cannot be disabled.
+- Cache is cleared when the session is closed.
+- Not shared with other sessions.
+
+**Example**
+
+```java
+Session session = sessionFactory.openSession();
+
+Student s1 = session.get(Student.class, 1);
+Student s2 = session.get(Student.class, 1);
+```
+
+**Result:**
+
+- First query → Fetches data from the database.
+- Second query → Retrieves data from the first-level cache (no SQL query).
+
+------
+
+#### 2. Second-Level Cache (L2 Cache)
+
+**Definition**
+
+The **Second-Level Cache** is associated with the **SessionFactory** and is shared among multiple sessions.
+
+**Features**
+
+- **Disabled by default.**
+- Must be configured manually.
+- Shared across all sessions.
+- Data remains available until it expires or is evicted.
+- Uses cache providers such as **Ehcache, Infinispan, Hazelcast, or Caffeine (through supported integrations)**.
+
+**Example**
+
+```java
+Session session1 = sessionFactory.openSession();
+Student s1 = session1.get(Student.class, 1);
+session1.close();
+
+Session session2 = sessionFactory.openSession();
+Student s2 = session2.get(Student.class, 1);
+```
+
+**Result (if L2 cache is enabled):**
+
+- First session → Reads from the database and stores the object in L2 cache.
+- Second session → Reads the object from the second-level cache (no database query).
+
+```text
+               First-Level Cache
+
+       Session 1
+      +------------------+
+      |   L1 Cache       |
+      +------------------+
+              |
+          Database
+
+
+             Second-Level Cache
+
+     Session 1      Session 2      Session 3
+          \             |             /
+           \            |            /
+          +--------------------------+
+          |   Second-Level Cache     |
+          +--------------------------+
+                     |
+                 Database
+```
+
+------
+
+**Key Differences**
+
+| First-Level Cache                             | Second-Level Cache                                   |
+| --------------------------------------------- | ---------------------------------------------------- |
+| Session-specific                              | Shared across sessions                               |
+| Enabled automatically                         | Must be enabled manually                             |
+| Faster for repeated access within one session | Faster for repeated access across different sessions |
+| Cleared when session ends                     | Remains until expiration or eviction                 |
+| No extra configuration                        | Requires cache provider and configuration            |
+
+------
+
+### 📌What is the difference between First-Level and Second-Level Cache?
+
 Cache Type            |          Scope              |      Default?
 ----------------------|--------- -------------------|----- --------------
 First-Level Cache     |          Per Session        |      Yes
 Second-Level Cache    |          Across Sessions    |      No
 
-### What is the difference between HQL and Criteria API?
+---
 
-------------------------------------------------------------------------
-Feature       | HQL                                 |  Criteria API
---------------| ------------------------------------|- -------------------
-Query Type    | String-based                        |  Object-oriented
-Readability   | Hard to read for complex queries    |  Easy to read
+### 📌What is the difference between HQL and Criteria API?
 
-Example of Criteria API:
+| Feature         | HQL                           | Criteria API                 |
+| --------------- | ----------------------------- | ---------------------------- |
+| Query Type      | String-based                  | Java object-based            |
+| Syntax          | Similar to SQL                | Java API                     |
+| Type Safety     | Limited                       | Better (with metamodel)      |
+| Dynamic Queries | Less convenient               | Excellent                    |
+| Readability     | Easier for simple queries     | More verbose                 |
+| Runtime Errors  | Possible due to string syntax | Fewer syntax-related issues  |
+| Best For        | Simple, fixed queries         | Dynamic, user-driven queries |
+
+**Example of Criteria API:**
+
 ```java
 CriteriaBuilder cb = session.getCriteriaBuilder();
-CriteriaQuery<Student> cq =
-cb.createQuery(Student. class );
-Root<Student> root =
-cq.from(Student. class );
+CriteriaQuery<Student> cq =cb.createQuery(Student. class );
+Root<Student> root = cq.from(Student.class );
 cq.select(root).where(cb.equal(root.get("name"), "Nirav"));
-Query<Student> query =
-session.createQuery(cq);
+Query<Student> query =session.createQuery(cq);
 List<Student> students = query.getResultList();
 ```
-### What are the different caching strategies in Hibernate?
+---
+
+### 📌What are the different caching strategies in Hibernate?
 
 1.   Read-Only:  Best for static data.
 
@@ -480,12 +598,11 @@ List<Student> students = query.getResultList();
 
 4.   Transactional:  Works with JTA transactions.
 
-### How does Hibernate handle transactions?
+### 📌How does Hibernate handle transactions?
 
-Answer:  Transactions in Hibernate are managed using
-beginTransaction() and commit().
+Transactions in Hibernate are managed using `beginTransaction()` and `commit()`.
 
-Example:
+**Example:**
 
 ```java
 SessionFactory sf= HibernateUtil.getSessionFactory() ;
@@ -500,7 +617,7 @@ try  {
 
     Question q=session.~~load~~(Question. class , 2);
 
-    System. *out *.println(q.toString());
+    System.out.println(q.toString());
 
     txn.commit();
 
@@ -521,7 +638,7 @@ try  {
 }
 ```
 
-### How would you optimize performance in Hibernate?
+### 📌How would you optimize performance in Hibernate?
 
 - Use  lazy loading  (FetchType.LAZY).
 
@@ -531,11 +648,11 @@ try  {
 
 - Use  pagination  in queries.
 
-### What will happen if you don't close a Hibernate Session?
+### 📌What will happen if you don't close a Hibernate Session?
 
 Answer:  Memory leaks can occur because the session holds database connections and cached objects.
 
-### How do you integrate Hibernate with Spring Boot?
+### 📌How do you integrate Hibernate with Spring Boot?
 
 By using spring-boot-starter-data-jpa:
 
@@ -549,11 +666,9 @@ spring.jpa.hibernate.ddl-auto=update
 
 ---
 
-## Entity Mapping 
+# Entity Mapping 
 
 ### 1. One-to-One (1:1)
-
-##### **Definition**
 
 One record in Table A relates to exactly one record in Table B.
 
@@ -664,11 +779,9 @@ public class UserProfile {
 
 ### 2. One-to-Many (1:N)
 
-##### Definition
-
 One record in Table A relates to many records in Table B.
 
-Example:
+**Example:**
 
 - One customer has many orders.
 - One author writes many books.
@@ -783,11 +896,9 @@ Foreign key always goes on the **many side**.
 
 ### 3. Many-to-Many (M:N)
 
-##### Definition
-
 Many records in Table A relate to many records in Table B.
 
-Example:
+**Example:**
 
 - Students enroll in many courses.
 - Courses have many students.
@@ -955,7 +1066,7 @@ This is the preferred real-world approach.
 
 ------
 
-### 5. Quick Comparison
+##### 5. Quick Comparison
 
 | Relationship | Annotation  | Foreign Key Location | Extra Table |
 | ------------ | ----------- | -------------------- | ----------- |
@@ -965,7 +1076,7 @@ This is the preferred real-world approach.
 
 ------
 
-### 6. Short Revision Summary
+##### 6. Short Revision Summary
 
 - 1:1 → `@OneToOne`
 - 1:N → `@ManyToOne` on many side
@@ -1001,15 +1112,15 @@ This is the preferred real-world approach.
 ---------------------------------------------------------------------------------
 Annotation                |    Description   |  Example Usage
 -------------------------|------ -----------|------ -------------------------------
-@Entity                 |       Marks a class as   a JPA entity (mapped to a  table) |  @Entity public class Student
-@Table(name = "table_name") | Specifies the  table name in the  database  |      @Table(name = "students")
-@Id                        |    Marks a field as  the primary key  |  @Id private Long id;
-@GeneratedValue(strategy =  GenerationType.IDENTITY)    |     Specifies how the primary key is  generated| @GeneratedValue(strategy=GenerationType.IDENTITY)
-@Column(name ="column_name") | Maps a field to a specific database column |  @Column(name = "student_name") private String name;
-@Transient                   |  Excludes a field from persistence (not stored in the database) |  @Transient private int age; 
-@Basic(fetch = FetchType.LAZY) |Marks a field for lazy loading       |@Basic(fetch = FetchType.LAZY) private String description;
-@Temporal(TemporalType.DATE)  | Specifies how Date/Time fields should be stored |    @Temporal(TemporalType.DATE)   private Date dob;
-@Lob                           |Maps a field to  a large object (BLOB or CLOB)| @Lob private byte] image;
+`@Entity`                 |       Marks a class as   a JPA entity (mapped to a  table) | `@Entity public class Student` 
+`@Table(name = "table_name")` | Specifies the  table name in the  database  | `@Table(name = "students")` 
+`@Id`                        |    Marks a field as  the primary key  | `@Id private Long id;` 
+`@GeneratedValue(strategy =  GenerationType.IDENTITY)`    |     Specifies how the primary key is  generated| `@GeneratedValue(strategy=GenerationType.IDENTITY)` 
+`@Column(name ="column_name")` | Maps a field to a specific database column | `@Column(name = "student_name") private String name;` 
+`@Transient`                   |  Excludes a field from persistence (not stored in the database) | `@Transient private int age;` 
+`@Basic(fetch = FetchType.LAZY)` |Marks a field for lazy loading       |`@Basic(fetch = FetchType.LAZY) private String description;`
+`@Temporal(TemporalType.DATE)`  | Specifies how Date/Time fields should be stored | `@Temporal(TemporalType.DATE)   private Date dob;` 
+`@Lob`                           |Maps a field to  a large object (BLOB or CLOB)| `@Lob private byte[] image;` 
 
 ##### Primary Key and ID Generation
 
@@ -1383,7 +1494,7 @@ session.clear();
 
 ------
 
-### What Is Dirty Checking?
+### 📌What Is Dirty Checking?
 
 **Answer:**
  Dirty checking is a Hibernate mechanism where changes made to a **persistent entity** are automatically detected and synchronized with the database at transaction commit—**without calling the `update()` method**.
@@ -1398,7 +1509,7 @@ student.setName("New Name"); // automatically updated
 @Immutable
 ```
 
-### What is process for Automatic ID generation from any random number?
+### 📌What is process for Automatic ID generation from any random number?
 
 ```java
 @SequenceGenerator(name = "mySeqGen", sequenceName = "mySeq",
