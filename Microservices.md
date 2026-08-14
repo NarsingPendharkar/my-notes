@@ -1,12 +1,14 @@
 
 
-<div align="center"><h4 >◆◆◆ Microservices ◆◆◆</h4></div>
+<div align="center"><h1 >◆◆◆ Microservices ◆◆◆</h1></div>
 
-##### 📌 What is Monolithic Architecture?
+
+
+### 📌 What is Monolithic Architecture?
 
 If we develop all the functionalities in single application, then it is called **Monolithic** Application. Monolithic Architecture is a software design pattern where the entire application is built as a single, unified unit. All components (UI, business logic, database access) are tightly coupled and deployed together.
 
-##### Advantages and Disadvantages of Monolithic Architecture
+#### Advantages and Disadvantages of Monolithic Architecture
 
 ##### ➤Advantages:
 - **Simplicity**: Easier to develop and manage since all components are in a single codebase.
@@ -28,9 +30,8 @@ To overcome problems of Monolith Architecture, we will use Microservices Archite
 
 ---
 
-##### 📌 What are Microservices?
+#### 📌 What are Microservices?
 
-**Definition:**
 Microservices is an architectural style where an application is divided into small, independent services that communicate via APIs (usually REST). Each service focuses on a specific business capability and can be developed, deployed, and scaled independently.
 
 
@@ -52,7 +53,7 @@ flowchart TD
 
 ---
 
-##### 📌 Advantages and Disadvantages of Microservices 
+#### 📌 Advantages and Disadvantages of Microservices 
 
 ##### ➤ Advantages:
 - **Scalability**: Microservices can be scaled independently, allowing specific components to handle increased loads without affecting the entire system.
@@ -86,7 +87,7 @@ flowchart TD
 
 ---
 
-##### ⚖️Monolith vs Microservices
+### ⚖️Monolith vs Microservices
 
 | Aspect        | Monolithic Architecture          | Microservices Architecture                   |
 | ------------- | -------------------------------- | -------------------------------------------- |
@@ -98,7 +99,7 @@ flowchart TD
 
 ---
 
-##### 📌 What are the challenges of microservices?
+### 📌 What are the challenges of microservices?
 
 - **Bounded Context** : Bounded context means identifying how many micro services we need to develop for one application and deciding which functionality we need to add in which micro service.
 - **Repeated configurations** :In Several micro services we need to write same configurations like data source, smtp, kafka, redis etc.
