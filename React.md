@@ -390,3 +390,353 @@ npm start
 
 ---
 
+### Run React Locally (No Build Tools)
+
+- React can be tried directly inside a **plain HTML file** — no installation, no npm, no build tools required.
+- This is the **easiest and quickest** way to get started and understand how React works under the hood.
+- You simply include React via **CDN links** (`<script>` tags) and write your component code inline.
+- Great for **learning**, **quick demos**, or adding a **small dynamic widget** to an otherwise static website.
+- You can later **gradually expand** this into a full build-tooled setup (Vite/CRA) as your app grows.
+
+##### Standalone HTML File Example
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <title>React useState Example</title>
+</head>
+
+<body>
+
+  <!-- React will render the application here -->
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    // Get useState from React
+        const { useState } = React;
+
+
+        // Header Component
+        function Header() {
+            return (
+                <h1>SKILLZAM</h1>
+            );
+        }
+
+
+        // Counter Component
+        function Counter() {
+
+            // State
+            const [count, setCount] = useState(0);
+
+            return (
+                <div>
+
+                    <h2>Count: {count}</h2>
+
+                    <button onClick={() => setCount(count + 1)}>
+                        Increment
+                    </button>
+
+                    <button onClick={() => setCount(count - 1)}>
+                        Decrement
+                    </button>
+
+                </div>
+            );
+        }
+
+
+        // Footer Component
+        function Footer() {
+            return (
+                <footer>
+                    Copyright 2026
+                </footer>
+            );
+        }
+
+
+        // Main Component
+        function MyApp() {
+            return (
+                <>
+                    <Header />
+
+                    <Counter />
+
+                    <Footer />
+                </>
+            );
+        }
+
+
+        // Find root element
+        const container = document.getElementById('root');
+
+        // Create React root
+        const root = ReactDOM.createRoot(container);
+
+        // Render MyApp
+        root.render(<MyApp />);
+
+    </script>
+
+</body>
+
+</html>
+```
+
+##### Key Points About This Setup
+
+- **`react.development.js`** — the core React library (handles components, state, hooks).
+- **`react-dom.development.js`** — connects React to the actual browser DOM.
+- **`@babel/standalone`** — converts **JSX** into plain JavaScript **in the browser**, since browsers can't understand JSX directly.
+- **`type="text/babel"`** — tells the browser this script block needs to be processed by Babel before running.
+- **`ReactDOM.createRoot()`** — creates a **root** where React will render your component.
+- **`root.render(<Counter />)`** — renders the component into the `#root` div.
+
+##### Why This Isn't Used for Production
+
+- **Babel runs in the browser** — this means JSX is compiled **on every page load**, which is **slow**.
+- No **bundling, optimization, minification**, or **code splitting**.
+- No **module system** — hard to organize code as the app grows.
+- Best suited for **learning, prototyping, or tiny embedded widgets** — not for real-world applications.
+
+##### When to Use This Approach
+
+- Quickly **testing a React concept** without setting up a project.
+- Adding a **small interactive widget** to an existing static HTML website.
+- **Teaching/demo purposes** where simplicity matters more than performance.
+
+**In short:** This method proves React can run with **just a browser and 3 script tags** — no Node.js, no npm, no bundler — perfect for learning the core idea before moving to a proper build setup like **Vite**.
+
+---
+
+### React Application — Folder Structure & File Usage
+
+| File / Folder                    | Simple Meaning                                               |
+| -------------------------------- | ------------------------------------------------------------ |
+| **node_modules/**                | Stores all **installed packages** (React, libraries) — auto-generated, never edit manually |
+| **public/**                      | Holds **static files** (images, icons, favicon) that don't need processing by React |
+| **public/index.html**            | The **single HTML page** of the app — React injects everything into this file |
+| **src/**                         | Main folder where **all your React code** lives              |
+| **src/main.jsx** (or `index.js`) | The **entry point** — this file renders the `App` component into the HTML page |
+| **src/App.jsx**                  | The **root component** — the starting point of your UI, other components go inside this |
+| **src/App.css**                  | **Styling** file for the `App` component                     |
+| **src/index.css**                | **Global styles** applied to the whole application           |
+| **src/components/**              | Folder to keep **reusable components** (Header, Footer, Button, etc.) |
+| **src/assets/**                  | Stores **images, fonts, icons** used inside components       |
+| **src/pages/**                   | Holds different **page-level components** (Home, About, Contact) — common in multi-page apps |
+| **.gitignore**                   | Tells Git which files/folders to **ignore** (e.g., `node_modules`) while pushing to GitHub |
+| **package.json**                 | Contains **project info**, dependencies, and scripts (`npm run dev`, `npm run build`) |
+| **package-lock.json**            | Locks the **exact versions** of installed packages for consistency across systems |
+| **vite.config.js**               | Configuration file for **Vite** — build tool settings        |
+| **.eslintrc.cjs**                | Configuration for **ESLint** — helps catch code errors and enforce coding rules |
+| **README.md**                    | **Documentation** file explaining the project (usually auto-created) |
+
+##### Quick Notes
+
+- Everything you **build and write** lives inside **`src/`**.
+- **`public/`** is for files that should be served **as-is**, without any processing.
+- **`package.json`** is the **heart of the project** — it defines dependencies and run scripts.
+- **`node_modules/`** should **never be edited manually** — it's managed by npm/yarn.
+
+---
+
+### Introduction to JSX
+
+**JSX (JavaScript XML)** is a **syntax extension** for JavaScript that lets you write **HTML-like code inside JavaScript**.
+
+- It is **not HTML** and **not a string** — it's a special syntax that gets **converted into JavaScript** behind the scenes.
+- JSX makes it easy to describe **what the UI should look like**, right alongside the logic that controls it.
+- Browsers **cannot understand JSX directly** — tools like **Babel** convert it into regular JavaScript (`React.createElement()` calls) before running.
+
+##### Simple Example
+
+```jsx
+const element = <h1>Hello, World!</h1>;
+```
+
+This JSX line is converted by Babel into:
+
+```javascript
+const element = React.createElement('h1', null, 'Hello, World!');
+```
+
+Both do the **same thing** — JSX is just a **shortcut** so we don't have to write `React.createElement()` manually every time.
+
+---
+
+### Why JSX is Used
+
+- **Easier to read and write** — UI structure looks like HTML, familiar to most developers.
+- **Combines logic and markup** — you can use JavaScript expressions directly inside the UI code.
+- **Catches errors early** — mistakes in JSX show up at compile time, not at runtime.
+- **More expressive** — makes complex UI structures easier to visualize compared to plain JS function calls.
+
+---
+
+### Features of JSX
+
+**1. Write HTML on multiple lines**
+
+- Wrap the HTML inside **parentheses** `()` when writing across multiple lines in a return statement.
+
+```jsx
+const Menu = () => {
+  return (
+    <div>
+      <p>Services</p>
+      <p>Industry</p>
+    </div>
+  );
+}
+```
+
+**2. Must have one top-level element**
+
+- All JSX code must be wrapped in a **single parent element**, otherwise JSX throws an error.
+- In the example above, `<div>` acts as that single top-level wrapper.
+
+**3. Use Fragments to avoid extra wrapper elements**
+
+- A **Fragment** (`<> </>`) lets you group multiple elements **without adding an extra DOM node**.
+
+```jsx
+function App() {
+  return (
+    <>
+      <ul>Shopping List:
+        <li>Tea</li>
+        <li>Coffee</li>
+      </ul>
+    </>
+  );
+}
+```
+
+**4. Curly braces `{}` for JavaScript expressions**
+
+- Used to embed dynamic values inside JSX. Valid inside `{}`:
+  - A **string** (e.g. `"skillzam"`)
+  - A **number** (e.g. `99`)
+  - An **array**
+  - An **object property**
+  - A **function call** returning a value
+  - The **`map()`** method
+  - **JSX itself**
+
+```jsx
+let radius = 12;
+const circleArea = <h1>Area = {3.142 * radius * radius} sq units</h1>;
+```
+
+**5. Elements must be properly closed**
+
+- JSX throws an error if HTML tags aren't closed properly.
+- Use either `<App>...</App>` or the self-closing `<App/>`.
+
+**6. Use `className` instead of `class`**
+
+- Since **`class`** is a reserved keyword in JavaScript, JSX uses **`className`**.
+
+```jsx
+function App() {
+  return (
+    <div className="App">
+      <h1>Hello World!</h1>
+    </div>
+  );
+}
+```
+
+**7. No `if` statements directly inside JSX**
+
+- React supports conditionals, but **not `if` statements inside JSX**.
+- Options:
+  - Write the `if` logic **outside** JSX.
+  - Use a **ternary expression** inside JSX.
+
+*Outside JSX:*
+
+```jsx
+let age = 24, message;
+if (age < 19) {
+  message = "NOT eligible to vote!";
+} else {
+  message = "Eligible to vote!";
+}
+const heading = <h1>{message}</h1>;
+```
+
+*Ternary inside JSX:*
+
+```jsx
+let age = 24;
+const heading = (
+  <h1>{age < 19 ? "NOT eligible to vote!" : "Eligible to vote!"}</h1>
+);
+```
+
+**8. JSX prevents injection attacks**
+
+- React DOM **escapes** any values embedded in JSX **before rendering**.
+- Everything is converted to a **string** before rendering, preventing **XSS (cross-site scripting)** attacks.
+
+```jsx
+const title = response.potentiallyMaliciousInput;
+const element = <h1>{title}</h1>; // Safe
+```
+
+**9. JSX represents Objects**
+
+- **Babel** compiles JSX into `React.createElement()` calls.
+- **Babel** is a JavaScript compiler/transpiler that converts modern or non-standard syntax (like JSX) into browser-compatible plain JavaScript.
+- **Transpiling** = converting source code from one language/syntax into another with similar abstraction level.
+
+*JSX:*
+
+```jsx
+const element = (
+  <h1 className="greeting">Hello, world!</h1>
+);
+```
+
+*Compiles to:*
+
+```javascript
+const element = React.createElement(
+  'h1',
+  { className: 'greeting' },
+  'Hello, world!'
+);
+```
+
+*Which internally creates a React element object:*
+
+```javascript
+const element = {
+  type: 'h1',
+  props: {
+    className: 'greeting',
+    children: 'Hello, world!'
+  }
+};
+```
+
+##### Key Takeaways
+
+- **React elements** are simplified **descriptions** of what should appear on screen.
+- React reads these element objects to **construct and update the DOM**.
+- JSX is a **developer convenience** — the browser only ever sees plain JavaScript after Babel compiles it.
+
+---
